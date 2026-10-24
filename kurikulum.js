@@ -91,8 +91,24 @@ function nextLevel(level) {
   return i >= 0 && i < LEVELS.length - 1 ? LEVELS[i + 1] : null;
 }
 
+function kelasUntukTingkat(db, tenantId, level) {
+  return db.classes.find(c => c.tenant_id === tenantId && String(c.tingkat || '').toUpperCase() === level)
+    || db.classes.find(c => c.tenant_id === tenantId && new RegExp(`^${level}(\\b|-)`, 'i').test(c.nama || ''))
+    || null;
+}
+
+function babKonten(bab) {
+  const tujuan = (bab.tujuan || []).map(t => `<li>${t}</li>`).join('');
+  const materi = (bab.materi || []).map((m, i) => `<h3>${i + 1}. ${m.judul}</h3>${m.html}`).join('');
+  const glosarium = (bab.glosarium || []).map(g => `<li><strong>${g.istilah}</strong>: ${g.arti}</li>`).join('');
+  return `<p>${bab.ringkasan}</p>`
+    + `<h3>Tujuan Pembelajaran</h3><ul>${tujuan}</ul>`
+    + materi
+    + `<h3>Glosarium</h3><ul>${glosarium}</ul>`;
+}
+
 function registerKurikulum(app, deps) {
-  const { loadDB, saveDB, requireAuth, requireTenant, requireAdmin } = deps;
+  const { loadDB, saveDB, requireAuth, requireTenant, requireAdmin, cacheDel } = deps;
 
   app.get('/api/kurikulum', requireAuth, requireTenant, async (req, res) => {
     const db = req.db;
@@ -311,6 +327,54 @@ function registerKurikulum(app, deps) {
       };
     });
     res.json({ kkm: KKM, max_attempts: MAX_ATTEMPTS, students: rows });
+  });
+
+  // Menyalin bab kurikulum menjadi materi biasa (bisa diedit/dihapus seperti materi lain).
+  app.post('/api/admin/kurikulum/seed-materials', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const db = req.db;
+    const subject = db.subjects.find(s => s.tenant_id === req.tenantId && /geografi/i.test(s.nama || ''))
+      || db.subjects.find(s => s.tenant_id === req.tenantId);
+    if (!subject) return res.status(400).json({ error: 'Belum ada mapel pada tenant ini' });
+
+    const hasil = { created: 0, updated: 0, tanpa_kelas: [], mapel: subject.nama };
+    const now = new Date().toISOString();
+
+    LEVELS.forEach(level => {
+      const babs = loadLevel(level);
+      if (!babs.length) return;
+      const kelas = kelasUntukTingkat(db, req.tenantId, level);
+      if (!kelas) {
+        hasil.tanpa_kelas.push(level);
+        return;
+      }
+      babs.forEach(bab => {
+        const data = {
+          tenant_id: req.tenantId,
+          subject_id: subject.id,
+          class_id: kelas.id,
+          judul: `Bab ${bab.urutan}. ${bab.judul}`,
+          konten: babKonten(bab),
+          modul: `${bab.id.toUpperCase()} · Fase ${bab.fase} · ${bab.estimasi}`,
+          youtube_id: '',
+          image: '',
+          tipe: 'materi',
+          sumber: 'kurikulum',
+          bab_id: bab.id
+        };
+        const ada = db.materials.find(m => m.tenant_id === req.tenantId && m.sumber === 'kurikulum' && m.bab_id === bab.id);
+        if (ada) {
+          Object.assign(ada, data, { updated_at: now });
+          hasil.updated++;
+        } else {
+          db.materials.push({ id: uuidv4(), ...data, created_by: req.user.id, created_at: now, updated_at: now });
+          hasil.created++;
+        }
+      });
+    });
+
+    await saveDB(db);
+    if (cacheDel) await cacheDel(`dashboard:${req.tenantId}`);
+    res.json({ success: true, ...hasil, total: hasil.created + hasil.updated });
   });
 }
 

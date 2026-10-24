@@ -1367,7 +1367,8 @@ require('./kurikulum').registerKurikulum(app, {
   saveDB,
   requireAuth,
   requireTenant,
-  requireAdmin
+  requireAdmin,
+  cacheDel
 });
 
 const PORT = process.env.PORT || 3000;

@@ -139,6 +139,8 @@ const LMS = (() => {
   async function updateSchedule(id, data) { return api(`/schedules/${id}`, { method: 'PUT', body: JSON.stringify(data) }); }
   async function deleteSchedule(id) { return api(`/schedules/${id}`, { method: 'DELETE' }); }
 
+  async function seedKurikulumMaterials() { return api('/admin/kurikulum/seed-materials', { method: 'POST' }); }
+
   return {
     currentUser: () => currentUser,
     setCurrentUser: (u) => { currentUser = u; },
@@ -150,6 +152,7 @@ const LMS = (() => {
     getClasses, createClass, updateClass, deleteClass,
     getStudents, createStudent, updateStudent, importStudents, deleteStudent,
     getMaterials, createMaterial, updateMaterial, deleteMaterial,
+    seedKurikulumMaterials,
     getQuestions, createQuestion, updateQuestion, deleteQuestion,
     getExams, createExam, deleteExam,
     getGrades, createGrade, updateGrade, deleteGrade,

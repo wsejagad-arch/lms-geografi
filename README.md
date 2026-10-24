@@ -121,6 +121,9 @@ Nomor WA dinormalkan ke format `62…` saat disimpan (untuk notifikasi).
 - `POST /api/materials` - Create material
 - `PUT /api/materials/:id` - Update material
 - `DELETE /api/materials/:id` - Delete material
+- `POST /api/admin/kurikulum/seed-materials` - Impor semua bab kurikulum menjadi materi biasa
+
+Menu **Materi** di panel admin punya tombol **Impor Kurikulum**: menyalin setiap bab Kelas X/XI/XII menjadi satu materi (judul `Bab n. …`, kolom modul `X-01 · Fase E · 4 JP`, konten gabungan ringkasan + tujuan + sub-materi + glosarium). Bab dipetakan ke kelas berdasarkan `tingkat` kelas (`X` → kelas X-A, `XI` → XI-B); kelas yang belum ada dilewati dan dilaporkan. Impor ulang memperbarui bab yang sama (ditandai `sumber: "kurikulum"` + `bab_id`) tanpa membuat duplikat. Setelah diimpor, materi dapat diedit/dihapus seperti materi biasa.
 
 ### Questions
 - `GET /api/questions` - List questions
@@ -272,6 +275,7 @@ Struktur tiap bab sama dengan Kelas X (tujuan, 4 sub-materi, glosarium, 5 soal l
 | POST | `/api/kurikulum/:babId/evaluasi` | nilai otomatis, simpan percobaan (maks 3) |
 | POST | `/api/kurikulum/naik-kelas` | naik jenjang bila semua bab tuntas |
 | GET | `/api/admin/kurikulum/progress` | rekap progres seluruh siswa |
+| POST | `/api/admin/kurikulum/seed-materials` | impor bab menjadi materi biasa (idempoten) |
 
 Aturan penilaian: PG/PGM dinilai 1 atau 0; PG kompleks harus sama persis dengan kunci; benar–salah dan menjodohkan diberi poin proporsional. Nilai akhir = (total poin ÷ jumlah soal) × 100.
 

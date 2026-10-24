@@ -646,6 +646,19 @@ async function renderMaterials() {
   }
 }
 
+async function seedKurikulumMateri() {
+  if (!confirm('Impor seluruh bab kurikulum (Kelas X, XI, XII) sebagai materi? Bab yang pernah diimpor akan diperbarui.')) return;
+  try {
+    const r = await LMS.seedKurikulumMaterials();
+    renderMaterials();
+    renderDashboard();
+    const lewat = r.tanpa_kelas.length ? ` Kelas ${r.tanpa_kelas.join(', ')} belum ada sehingga dilewati.` : '';
+    alert(`Impor selesai: ${r.created} materi baru, ${r.updated} diperbarui dari mapel ${r.mapel}.${lewat}`);
+  } catch (err) {
+    alert('Gagal impor: ' + err.message);
+  }
+}
+
 async function openMaterialModal(material = null) {
   const modal = document.getElementById('material-modal');
   document.getElementById('material-form').reset();
@@ -1403,6 +1416,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Materials
   document.getElementById('btn-add-material')?.addEventListener('click', () => openMaterialModal());
+  document.getElementById('btn-seed-kurikulum')?.addEventListener('click', seedKurikulumMateri);
   document.getElementById('btn-save-material')?.addEventListener('click', saveMaterial);
   
   // Questions
