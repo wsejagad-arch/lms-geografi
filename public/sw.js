@@ -1,4 +1,4 @@
-const CACHE = 'geo-edulabs-v1';
+const CACHE = 'geo-edulabs-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -7,6 +7,7 @@ const ASSETS = [
   '/manifest.json',
   '/assets/css/style.css',
   '/assets/css/login.css',
+  '/assets/css/admin.css',
   '/assets/js/api.js',
   '/assets/js/admin.js',
   '/assets/js/student.js'

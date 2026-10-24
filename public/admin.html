@@ -6,105 +6,128 @@
   <title>Admin - LMS Geografi Multi</title>
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <meta name="theme-color" content="#0969da">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <meta name="theme-color" content="#0d9488">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
 </head>
 <body>
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.8"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+    <symbol id="i-school" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9.5 21v-6h5v6"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-teacher" viewBox="0 0 24 24"><circle cx="10" cy="7.5" r="3.8"/><path d="M3 21v-1.5A3.5 3.5 0 0 1 6.5 16h7A3.5 3.5 0 0 1 17 19.5V21"/><path d="m15.5 8.5 2 2 4-4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2a2.9 2.9 0 1 1 4.9 2.1c-.9.8-2.1 1.4-2.1 3"/><path d="M12 17.2h.01"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><path d="M22 9 12 4 2 9l10 5 10-5z"/><path d="M6 11.5V17c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 14 3-4 3 3 4-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M9 11.5 12 15l9-11"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1.2"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4"/><path d="M8 2.5v4"/><path d="M3 10.5h18"/></symbol>
+    <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 21v-8"/><path d="M12 13C12 9 9.2 6.5 4.5 6.5 4.5 11 7.3 13 12 13z"/><path d="M12 14c0-3.2 2.6-5.5 7-5.5 0 3.8-2.6 5.5-7 5.5z"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9z"/></symbol>
+  </svg>
+
   <div class="app-layout">
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h2>LMS Geografi Multi</h2>
-        <small>Panel Admin</small>
+        <div class="brand-mark">G</div>
+        <div class="brand-text">
+          <span class="brand-name">Geografi</span>
+          <span class="brand-role">Admin</span>
+        </div>
       </div>
       <nav class="sidebar-nav">
-        <div class="nav-item active" data-menu="dashboard"><span class="icon">📊</span> Dashboard</div>
-        <div class="nav-item" data-menu="subjects"><span class="icon">📚</span> Mapel</div>
-        <div class="nav-item" data-menu="classes"><span class="icon">🏫</span> Kelas</div>
-        <div class="nav-item" data-menu="students"><span class="icon">👥</span> Siswa</div>
-        <div class="nav-item" data-menu="materials"><span class="icon">📝</span> Materi</div>
-        <div class="nav-item" data-menu="questions"><span class="icon">❓</span> Bank Soal</div>
-        <div class="nav-item" data-menu="exams"><span class="icon">🎓</span> Exam TKA</div>
-        <div class="nav-item" data-menu="grades"><span class="icon">📈</span> Input Nilai</div>
-        <div class="nav-item" data-menu="attendance"><span class="icon">✅</span> Presensi</div>
-        <div class="nav-item" data-menu="assignments"><span class="icon">📋</span> Tugas</div>
-        <div class="nav-item" data-menu="schedules"><span class="icon">📅</span> Jadwal</div>
-        <div class="nav-item" id="btn-seed"><span class="icon">🌱</span> Seed Data</div>
-        <div class="nav-item" id="btn-logout"><span class="icon">🚪</span> Keluar</div>
+        <div class="nav-item active" data-menu="dashboard"><svg class="ic"><use href="#i-dash"/></svg><span>Dashboard</span></div>
+        <p class="nav-label">Akademik</p>
+        <div class="nav-item" data-menu="subjects"><svg class="ic"><use href="#i-book"/></svg><span>Mapel</span></div>
+        <div class="nav-item" data-menu="classes"><svg class="ic"><use href="#i-school"/></svg><span>Kelas</span></div>
+        <div class="nav-item" data-menu="students"><svg class="ic"><use href="#i-users"/></svg><span>Siswa</span></div>
+        <p class="nav-label">Konten</p>
+        <div class="nav-item" data-menu="materials"><svg class="ic"><use href="#i-file"/></svg><span>Materi</span></div>
+        <div class="nav-item" data-menu="questions"><svg class="ic"><use href="#i-help"/></svg><span>Bank Soal</span></div>
+        <p class="nav-label">Penilaian</p>
+        <div class="nav-item" data-menu="exams"><svg class="ic"><use href="#i-award"/></svg><span>Exam TKA</span></div>
+        <div class="nav-item" data-menu="grades"><svg class="ic"><use href="#i-chart"/></svg><span>Input Nilai</span></div>
+        <div class="nav-item" data-menu="attendance"><svg class="ic"><use href="#i-check"/></svg><span>Presensi</span></div>
+        <div class="nav-item" data-menu="assignments"><svg class="ic"><use href="#i-clipboard"/></svg><span>Tugas</span></div>
+        <div class="nav-item" data-menu="schedules"><svg class="ic"><use href="#i-calendar"/></svg><span>Jadwal</span></div>
       </nav>
+      <div class="sidebar-foot">
+        <div class="nav-item" id="btn-seed"><svg class="ic"><use href="#i-sprout"/></svg><span>Seed Data</span></div>
+        <div class="nav-item" id="btn-logout"><svg class="ic"><use href="#i-logout"/></svg><span>Keluar</span></div>
+      </div>
     </aside>
     
     <main class="main-content">
-      <div class="mobile-header">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
-        <h1 id="page-title">Dashboard</h1>
-      </div>
-      <div class="top-bar">
+      <header class="top-bar">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Menu"><svg class="ic"><use href="#i-menu"/></svg></button>
         <h1 id="page-title">Dashboard</h1>
         <div class="user-info">
           <span id="user-name">Admin</span>
           <div class="user-avatar">A</div>
         </div>
-      </div>
+      </header>
 
+      <div class="content">
       <!-- Dashboard -->
       <section id="menu-dashboard" class="menu-section">
         <div class="grid-3">
           <div class="stat-card">
-            <div class="stat-icon">👥</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-users"/></svg></span>
             <div><div class="stat-value" id="stat-siswa">0</div><div class="stat-label">Siswa</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">👨‍🏫</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-teacher"/></svg></span>
             <div><div class="stat-value" id="stat-guru">0</div><div class="stat-label">Guru</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">📚</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-book"/></svg></span>
             <div><div class="stat-value" id="stat-mapel">0</div><div class="stat-label">Mapel</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">🏫</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-school"/></svg></span>
             <div><div class="stat-value" id="stat-kelas">0</div><div class="stat-label">Kelas</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">📝</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-file"/></svg></span>
             <div><div class="stat-value" id="stat-materi">0</div><div class="stat-label">Materi</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">❓</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-help"/></svg></span>
             <div><div class="stat-value" id="stat-soal">0</div><div class="stat-label">Soal</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">📋</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-clipboard"/></svg></span>
             <div><div class="stat-value" id="stat-assignments">0</div><div class="stat-label">Tugas</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">📈</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-chart"/></svg></span>
             <div><div class="stat-value" id="stat-nilai">0</div><div class="stat-label">Nilai</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">✅</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-check"/></svg></span>
             <div><div class="stat-value" id="stat-attendance">0</div><div class="stat-label">Presensi</div></div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">🎓</div>
+            <span class="stat-icon"><svg class="ic"><use href="#i-award"/></svg></span>
             <div><div class="stat-value" id="stat-exam">0</div><div class="stat-label">Exam</div></div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon">⭐</div>
+          <div class="stat-card accent">
+            <span class="stat-icon"><svg class="ic"><use href="#i-star"/></svg></span>
             <div><div class="stat-value" id="stat-rata">0</div><div class="stat-label">Rata-rata</div></div>
           </div>
         </div>
         <div class="grid-2">
           <div class="card">
-            <h3>Informasi Sekolah</h3>
-            <p style="color:var(--text-2);font-size:13px;margin-bottom:8px" id="dashboard-tenant-nama">Memuat...</p>
-            <div class="mt-2">
-              <span class="badge badge-success">Redis Cache: <span id="dashboard-cache-status">In-Memory</span></span>
-            </div>
+            <h3>Sekolah</h3>
+            <div class="value-lg" id="dashboard-tenant-nama">-</div>
+            <div class="mt-2"><span class="badge badge-success">Cache <span id="dashboard-cache-status">In-Memory</span></span></div>
           </div>
           <div class="card">
             <h3>Performa per Kelas</h3>
@@ -134,10 +157,7 @@
       <!-- Mapel -->
       <section id="menu-subjects" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Daftar Mapel</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-subject">+ Tambah Mapel</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-subject">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Kode</th><th>Nama</th><th>Deskripsi</th><th>Aksi</th></tr></thead>
@@ -150,10 +170,7 @@
       <!-- Kelas -->
       <section id="menu-classes" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Daftar Kelas</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-class">+ Tambah Kelas</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-class">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Tingkat</th><th>Nama</th><th>Jurusan</th><th>Wali Kelas</th><th>Aksi</th></tr></thead>
@@ -166,10 +183,7 @@
       <!-- Siswa -->
       <section id="menu-students" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Data Siswa</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah Siswa</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>NIS</th><th>Nama</th><th>Email</th><th>Kelas</th><th>Aksi</th></tr></thead>
@@ -182,10 +196,7 @@
       <!-- Materi -->
       <section id="menu-materials" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Daftar Materi</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-material">+ Tambah Materi</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-material">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Kelas</th><th>Mapel</th><th>Judul</th><th>Modul</th><th>Video</th><th>Aksi</th></tr></thead>
@@ -198,10 +209,7 @@
       <!-- Soal -->
       <section id="menu-questions" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Bank Soal</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-question">+ Tambah Soal</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-question">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Kelas</th><th>Jenis</th><th>Pertanyaan</th><th>Poin</th><th>Aksi</th></tr></thead>
@@ -214,10 +222,7 @@
       <!-- Exams -->
       <section id="menu-exams" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Exam TKA</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-exam">+ Buat Exam</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-exam">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Judul</th><th>Mapel</th><th>Kelas</th><th>Durasi</th><th>Aksi</th></tr></thead>
@@ -230,10 +235,7 @@
       <!-- Nilai -->
       <section id="menu-grades" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Input Nilai</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-grade">+ Tambah Nilai</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-grade">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Siswa</th><th>Mapel</th><th>Kelas</th><th>Jenis</th><th>Nilai</th><th>Aksi</th></tr></thead>
@@ -246,10 +248,7 @@
       <!-- Attendance -->
       <section id="menu-attendance" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Presensi Siswa</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-attendance">+ Tambah Presensi</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-attendance">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Tanggal</th><th>Siswa</th><th>Kelas</th><th>Status</th><th>Catatan</th><th>Aksi</th></tr></thead>
@@ -262,10 +261,7 @@
       <!-- Assignments -->
       <section id="menu-assignments" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Daftar Tugas</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-assignment">+ Buat Tugas</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-assignment">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Judul</th><th>Mapel</th><th>Kelas</th><th>Deadline</th><th>Poin</th><th>Aksi</th></tr></thead>
@@ -278,10 +274,7 @@
       <!-- Schedules -->
       <section id="menu-schedules" class="menu-section hidden">
         <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h3>Jadwal Pelajaran</h3>
-            <button class="btn btn-primary btn-sm" id="btn-add-schedule">+ Tambah Jadwal</button>
-          </div>
+          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-schedule">+ Tambah</button></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Hari</th><th>Jam</th><th>Mapel</th><th>Kelas</th><th>Ruangan</th><th>Guru</th><th>Aksi</th></tr></thead>
@@ -290,8 +283,17 @@
           </div>
         </div>
       </section>
+      </div>
     </main>
   </div>
+
+  <nav class="bottom-nav">
+    <button class="bottom-nav-item active" data-nav="dashboard"><svg class="ic"><use href="#i-dash"/></svg><span>Dashboard</span></button>
+    <button class="bottom-nav-item" data-nav="students"><svg class="ic"><use href="#i-users"/></svg><span>Siswa</span></button>
+    <button class="bottom-nav-item" data-nav="materials"><svg class="ic"><use href="#i-file"/></svg><span>Materi</span></button>
+    <button class="bottom-nav-item" data-nav="questions"><svg class="ic"><use href="#i-help"/></svg><span>Soal</span></button>
+    <button class="bottom-nav-item" data-nav="grades"><svg class="ic"><use href="#i-chart"/></svg><span>Nilai</span></button>
+  </nav>
 
   <!-- Subject Modal -->
   <div class="modal-overlay" id="subject-modal">
@@ -354,7 +356,7 @@
           <div class="form-group"><label>Kelas</label><select id="material-class"></select></div>
           <div class="form-group"><label>Judul</label><input id="material-judul" required></div>
           <div class="form-group"><label>Modul</label><input id="material-modul"></div>
-          <div class="form-group"><label>Konten (HTML)</label><textarea id="material-konten" rows="6" required></textarea></div>
+          <div class="form-group"><label>Konten</label><textarea id="material-konten" rows="6" required></textarea></div>
           <div class="form-group"><label>YouTube ID</label><input id="material-youtube"></div>
           <div class="form-group"><label>Gambar URL</label><input id="material-image"></div>
           <div class="form-group"><label>Tipe</label><select id="material-tipe"><option value="materi">Materi</option><option value="tugas">Tugas</option></select></div>
@@ -379,7 +381,7 @@
           <div class="form-group"><label>Opsi B</label><input id="question-opsi-b" required></div>
           <div class="form-group"><label>Opsi C</label><input id="question-opsi-c" required></div>
           <div class="form-group"><label>Opsi D</label><input id="question-opsi-d" required></div>
-          <div class="form-group"><label>Kunci (0-3)</label><input type="number" id="question-jawaban" min="0" max="3" required></div>
+          <div class="form-group"><label>Kunci</label><input type="number" id="question-jawaban" min="0" max="3" required></div>
           <div class="form-group"><label>Poin</label><input type="number" id="question-poin" value="10" required></div>
         </form>
       </div>
@@ -397,7 +399,7 @@
           <div class="form-group"><label>Mapel</label><select id="exam-subject"></select></div>
           <div class="form-group"><label>Kelas</label><select id="exam-class"></select></div>
           <div class="form-group"><label>Durasi (menit)</label><input type="number" id="exam-durasi" value="60" required></div>
-          <div class="form-group"><label>Soal (Ctrl+Click untuk pilih banyak)</label><select id="exam-questions" multiple size="8"></select></div>
+          <div class="form-group"><label>Soal</label><select id="exam-questions" multiple size="8"></select></div>
         </form>
       </div>
       <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-exam">Simpan</button></div>
@@ -414,7 +416,7 @@
           <div class="form-group"><label>Mapel</label><select id="grade-subject"></select></div>
           <div class="form-group"><label>Kelas</label><select id="grade-class"></select></div>
           <div class="form-group"><label>Tipe</label><select id="grade-tipe"><option value="tugas">Tugas</option><option value="evaluasi">Evaluasi</option><option value="sumatif">Sumatif</option><option value="exam">Exam</option></select></div>
-          <div class="form-group"><label>Nilai (0-100)</label><input type="number" id="grade-nilai" min="0" max="100" required></div>
+          <div class="form-group"><label>Nilai</label><input type="number" id="grade-nilai" min="0" max="100" required></div>
           <div class="form-group"><label>Catatan</label><textarea id="grade-catatan" rows="2"></textarea></div>
         </form>
       </div>
@@ -476,15 +478,6 @@
       <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-schedule">Simpan</button></div>
     </div>
   </div>
-
-  <!-- Bottom Nav Mobile -->
-  <nav class="bottom-nav" id="bottom-nav">
-    <button class="bottom-nav-item active" data-nav="dashboard"><span class="icon">📊</span><span>Dashboard</span></button>
-    <button class="bottom-nav-item" data-nav="materials"><span class="icon">📝</span><span>Materi</span></button>
-    <button class="bottom-nav-item" data-nav="grades"><span class="icon">📈</span><span>Nilai</span></button>
-    <button class="bottom-nav-item" data-nav="exams"><span class="icon">🎓</span><span>Exam</span></button>
-    <button class="bottom-nav-item" data-nav="attendance"><span class="icon">✅</span><span>Presensi</span></button>
-  </nav>
 
   <script src="assets/js/api.js"></script>
   <script>

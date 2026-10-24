@@ -12,6 +12,11 @@ async function init() {
   
   currentTenant = LMS.getCurrentTenant();
   
+  const nameEl = document.getElementById('user-name');
+  if (nameEl) nameEl.textContent = currentUser.nama || currentUser.email || 'Admin';
+  const avatarEl = document.querySelector('.user-avatar');
+  if (avatarEl) avatarEl.textContent = (currentUser.nama || currentUser.email || 'A').trim().charAt(0).toUpperCase();
+  
   // If no tenant, show tenant selection
   if (!currentTenant && currentUser.role !== 'super_admin') {
     await showTenantSelection();
@@ -70,6 +75,38 @@ function setupMenu(menu) {
   document.querySelectorAll('.menu-section').forEach(el => {
     el.classList.toggle('hidden', el.id !== `menu-${menu}`);
   });
+}
+
+const MENU_META = {
+  dashboard: { title: 'Dashboard', render: () => renderDashboard() },
+  subjects: { title: 'Mapel', render: () => renderSubjects() },
+  classes: { title: 'Kelas', render: () => renderClasses() },
+  students: { title: 'Siswa', render: () => renderStudents() },
+  materials: { title: 'Materi', render: () => renderMaterials() },
+  questions: { title: 'Bank Soal', render: () => renderQuestions() },
+  exams: { title: 'Exam TKA', render: () => renderExams() },
+  grades: { title: 'Input Nilai', render: () => renderGrades() },
+  attendance: { title: 'Presensi', render: () => renderAttendance() },
+  assignments: { title: 'Tugas', render: () => renderAssignments() },
+  schedules: { title: 'Jadwal', render: () => renderSchedules() }
+};
+
+function closeSidebar() {
+  document.getElementById('sidebar')?.classList.remove('open');
+  document.getElementById('sidebar-overlay')?.classList.remove('show');
+}
+
+function switchMenu(menu) {
+  const meta = MENU_META[menu];
+  if (!meta) return;
+  setupMenu(menu);
+  const title = document.getElementById('page-title');
+  if (title) title.textContent = meta.title;
+  document.querySelectorAll('.bottom-nav-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.nav === menu);
+  });
+  closeSidebar();
+  meta.render();
 }
 
 // ===== DASHBOARD =====
@@ -1241,17 +1278,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   // Menu
-  document.getElementById('menu-dashboard')?.addEventListener('click', () => { renderDashboard(); setupMenu('dashboard'); });
-  document.getElementById('menu-subjects')?.addEventListener('click', () => { renderSubjects(); setupMenu('subjects'); });
-  document.getElementById('menu-classes')?.addEventListener('click', () => { renderClasses(); setupMenu('classes'); });
-  document.getElementById('menu-students')?.addEventListener('click', () => { renderStudents(); setupMenu('students'); });
-  document.getElementById('menu-materials')?.addEventListener('click', () => { renderMaterials(); setupMenu('materials'); });
-  document.getElementById('menu-questions')?.addEventListener('click', () => { renderQuestions(); setupMenu('questions'); });
-  document.getElementById('menu-exams')?.addEventListener('click', () => { renderExams(); setupMenu('exams'); });
-  document.getElementById('menu-grades')?.addEventListener('click', () => { renderGrades(); setupMenu('grades'); });
-  document.getElementById('menu-attendance')?.addEventListener('click', () => { renderAttendance(); setupMenu('attendance'); });
-  document.getElementById('menu-assignments')?.addEventListener('click', () => { renderAssignments(); setupMenu('assignments'); });
-  document.getElementById('menu-schedules')?.addEventListener('click', () => { renderSchedules(); setupMenu('schedules'); });
+  document.querySelectorAll('.nav-item[data-menu]').forEach(el => {
+    el.addEventListener('click', () => switchMenu(el.dataset.menu));
+  });
   
   // Mobile menu
   const menuToggle = document.getElementById('menu-toggle');
@@ -1270,24 +1299,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Bottom nav
   document.querySelectorAll('.bottom-nav-item').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      const nav = btn.dataset.nav;
-      if (nav === 'dashboard') renderDashboard();
-      if (nav === 'subjects') renderSubjects();
-      if (nav === 'classes') renderClasses();
-      if (nav === 'students') renderStudents();
-      if (nav === 'materials') renderMaterials();
-      if (nav === 'questions') renderQuestions();
-      if (nav === 'exams') renderExams();
-      if (nav === 'grades') renderGrades();
-      if (nav === 'attendance') renderAttendance();
-      if (nav === 'assignments') renderAssignments();
-      if (nav === 'schedules') renderSchedules();
-      
-      setupMenu(nav);
-    });
+    btn.addEventListener('click', () => switchMenu(btn.dataset.nav));
   });
 });

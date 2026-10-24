@@ -60,7 +60,9 @@ lms-geografi-multi/
     ├── student.html   # Panel siswa
     ├── assets/
     │   ├── css/
-    │   │   └── style.css
+    │   │   ├── style.css    # Panel siswa & login
+    │   │   ├── login.css
+    │   │   └── admin.css    # Panel admin (flat, responsif)
     │   └── js/
     │       ├── api.js
     │       ├── admin.js
