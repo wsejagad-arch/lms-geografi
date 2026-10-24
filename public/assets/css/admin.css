@@ -205,7 +205,7 @@ input, select, textarea, button { font-family: inherit; }
 .content { width: 100%; max-width: 1440px; padding: 20px 22px 40px; }
 
 /* Grid */
-.grid-3 { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
+.grid-3 { display: grid; gap: 12px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .grid-2 { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
 /* Cards */
@@ -222,6 +222,7 @@ input, select, textarea, button { font-family: inherit; }
 .list-toolbar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 10px; }
 
 .stat-card {
+  container-type: inline-size;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -247,10 +248,17 @@ input, select, textarea, button { font-family: inherit; }
   color: var(--accent-ink);
 }
 .stat-icon .ic { width: 17px; height: 17px; }
-.stat-value { font-size: 20px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; }
+.stat-value {
+  font-size: 20px;
+  font-size: clamp(16px, 13cqw, 22px);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
 .stat-label {
   margin-top: 1px;
   font-size: 11px;
+  font-size: clamp(9.5px, 7cqw, 11px);
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -355,6 +363,12 @@ tbody td button + button { margin-left: 6px; }
   box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.14);
 }
 .form-group textarea { resize: vertical; }
+.form-group input[readonly] {
+  background: var(--surface-2);
+  color: var(--text-2);
+  border-style: dashed;
+  cursor: not-allowed;
+}
 .form-group select[multiple] { padding: 4px; }
 .form-group ::placeholder { color: var(--text-3); }
 
@@ -456,6 +470,7 @@ tbody td button + button { margin-left: 6px; }
   .menu-toggle { display: inline-flex; }
   .top-bar { height: 56px; padding: 0 14px; }
   .content { padding: 16px 14px 88px; }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
   .bottom-nav {
     display: flex;
@@ -490,7 +505,8 @@ tbody td button + button { margin-left: 6px; }
 
 @media (max-width: 560px) {
   #user-name { display: none; }
-  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .stat-card.accent { grid-column: 1 / -1; }
   .stat-card { padding: 12px; gap: 10px; }
   .stat-value { font-size: 18px; }
   .stat-label { font-size: 10.5px; }

@@ -203,6 +203,13 @@ async function renderSubjects() {
   }
 }
 
+function lockSubjectIdentity(locked) {
+  ['subject-kode', 'subject-nama'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.readOnly = locked;
+  });
+}
+
 function openSubjectModal(s = null) {
   const modal = document.getElementById('subject-modal');
   document.getElementById('subject-form').reset();
@@ -211,8 +218,12 @@ function openSubjectModal(s = null) {
     document.getElementById('subject-kode').value = s.kode;
     document.getElementById('subject-nama').value = s.nama;
     document.getElementById('subject-deskripsi').value = s.deskripsi || '';
+    lockSubjectIdentity(false);
   } else {
     document.getElementById('subject-id').value = '';
+    document.getElementById('subject-kode').value = 'GEO';
+    document.getElementById('subject-nama').value = 'Geografi';
+    lockSubjectIdentity(true);
   }
   modal.classList.add('show');
 }
@@ -225,12 +236,24 @@ async function saveSubject() {
     deskripsi: document.getElementById('subject-deskripsi').value.trim()
   };
   
+  if (!id) {
+    data.kode = 'GEO';
+    data.nama = 'Geografi';
+  }
+  
   if (!data.kode || !data.nama) {
     alert('Kode dan nama mapel wajib diisi');
     return;
   }
   
   try {
+    if (!id) {
+      const subjects = await LMS.getSubjects();
+      if (subjects.some(s => s.nama.trim().toLowerCase() === 'geografi')) {
+        alert('Mapel Geografi sudah ada');
+        return;
+      }
+    }
     if (id) {
       await LMS.updateSubject(id, data);
     } else {
