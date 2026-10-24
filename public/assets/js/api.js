@@ -75,6 +75,7 @@ const LMS = (() => {
   async function getStudents() { return api('/students'); }
   async function createStudent(data) { return api('/students', { method: 'POST', body: JSON.stringify(data) }); }
   async function updateStudent(id, data) { return api(`/students/${id}`, { method: 'PUT', body: JSON.stringify(data) }); }
+  async function importStudents(students) { return api('/students/import', { method: 'POST', body: JSON.stringify({ students }) }); }
   async function deleteStudent(id) { return api(`/students/${id}`, { method: 'DELETE' }); }
 
   // Materials
@@ -147,7 +148,7 @@ const LMS = (() => {
     getTenants, createTenant,
     getSubjects, createSubject, updateSubject, deleteSubject,
     getClasses, createClass, updateClass, deleteClass,
-    getStudents, createStudent, updateStudent, deleteStudent,
+    getStudents, createStudent, updateStudent, importStudents, deleteStudent,
     getMaterials, createMaterial, updateMaterial, deleteMaterial,
     getQuestions, createQuestion, updateQuestion, deleteQuestion,
     getExams, createExam, deleteExam,

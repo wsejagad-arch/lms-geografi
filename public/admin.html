@@ -183,10 +183,15 @@
       <!-- Siswa -->
       <section id="menu-students" class="menu-section hidden">
         <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah</button></div>
+          <div class="list-toolbar">
+            <button class="btn btn-sm" id="btn-student-template">Template</button>
+            <button class="btn btn-sm" id="btn-student-import">Impor</button>
+            <button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah</button>
+          </div>
+          <input type="file" id="student-import-file" accept=".csv,text/csv" hidden>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>NIS</th><th>Nama</th><th>Email</th><th>Kelas</th><th>Aksi</th></tr></thead>
+              <thead><tr><th>NIS</th><th>Nama</th><th>Email</th><th>WA</th><th>Kelas</th><th>Aksi</th></tr></thead>
               <tbody id="students-tbody"></tbody>
             </table>
           </div>
@@ -338,6 +343,7 @@
           <div class="form-group"><label>NIS</label><input id="student-nis" required></div>
           <div class="form-group"><label>Nama</label><input id="student-nama" required></div>
           <div class="form-group"><label>Email</label><input id="student-email" type="email"></div>
+          <div class="form-group"><label>Nomor WA</label><input id="student-wa" type="tel" inputmode="tel" placeholder="0812..."></div>
           <div class="form-group"><label>Kelas</label><select id="student-kelas"></select></div>
         </form>
       </div>

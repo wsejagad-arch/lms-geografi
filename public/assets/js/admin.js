@@ -382,6 +382,13 @@ async function deleteClass(id) {
 }
 
 // ===== STUDENTS =====
+function waLink(no_wa) {
+  const digits = String(no_wa || '').replace(/\D/g, '');
+  if (!digits) return '';
+  const intl = digits.startsWith('62') ? digits : (digits.startsWith('0') ? `62${digits.slice(1)}` : `62${digits}`);
+  return `https://wa.me/${intl}`;
+}
+
 async function renderStudents() {
   const tbody = document.getElementById('students-tbody');
   if (!tbody) return;
@@ -389,7 +396,7 @@ async function renderStudents() {
   try {
     const students = await LMS.getStudents();
     if (!students.length) {
-      tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada siswa</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada siswa</td></tr>';
       return;
     }
     
@@ -398,6 +405,7 @@ async function renderStudents() {
         <td>${s.nis}</td>
         <td>${s.nama}</td>
         <td>${s.email || '-'}</td>
+        <td>${s.no_wa ? `<a class="wa-link" href="${waLink(s.no_wa)}" target="_blank" rel="noopener">${s.no_wa}</a>` : '-'}</td>
         <td><span class="badge badge-primary">${s.kelas_nama}</span></td>
         <td>
           <button class="btn btn-sm" onclick="editStudent('${s.id}')">Edit</button>
@@ -406,7 +414,100 @@ async function renderStudents() {
       </tr>
     `).join('');
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+  }
+}
+
+const STUDENT_TEMPLATE_HEADER = ['nis', 'nama', 'email', 'no_wa', 'kelas'];
+
+function downloadStudentTemplate() {
+  const rows = [
+    STUDENT_TEMPLATE_HEADER.join(','),
+    '2024001,Ani Lestari,ani@sekolah.id,081234567890,X-1',
+    '2024002,Budi Hartono,budi@sekolah.id,6281234567891,X-1'
+  ];
+  const blob = new Blob([rows.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'template-siswa.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function parseCsvLine(line) {
+  const out = [];
+  let cur = '';
+  let quoted = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (quoted) {
+      if (ch === '"' && line[i + 1] === '"') { cur += '"'; i++; }
+      else if (ch === '"') quoted = false;
+      else cur += ch;
+    } else if (ch === '"') {
+      quoted = true;
+    } else if (ch === ',' || ch === ';') {
+      out.push(cur);
+      cur = '';
+    } else {
+      cur += ch;
+    }
+  }
+  out.push(cur);
+  return out;
+}
+
+function parseStudentCsv(text) {
+  const lines = text.replace(/^\uFEFF/, '').split(/\r?\n/).filter(l => l.trim());
+  if (!lines.length) return [];
+  
+  const header = parseCsvLine(lines[0]).map(h => h.trim().toLowerCase());
+  const idx = {
+    nis: header.indexOf('nis'),
+    nama: header.indexOf('nama'),
+    email: header.indexOf('email'),
+    no_wa: header.findIndex(h => h === 'no_wa' || h === 'wa' || h === 'no wa' || h === 'nomor wa' || h === 'whatsapp'),
+    kelas: header.indexOf('kelas')
+  };
+  if (idx.nis < 0 || idx.nama < 0 || idx.kelas < 0) {
+    throw new Error('Header wajib: nis, nama, kelas (opsional: email, no_wa)');
+  }
+  
+  return lines.slice(1).map(line => {
+    const cols = parseCsvLine(line);
+    const pick = i => (i >= 0 ? (cols[i] || '').trim() : '');
+    return {
+      nis: pick(idx.nis),
+      nama: pick(idx.nama),
+      email: pick(idx.email),
+      no_wa: pick(idx.no_wa),
+      kelas: pick(idx.kelas)
+    };
+  });
+}
+
+async function importStudentFile(file) {
+  try {
+    const text = await file.text();
+    const rows = parseStudentCsv(text);
+    if (!rows.length) {
+      alert('File CSV tidak berisi data');
+      return;
+    }
+    
+    const result = await LMS.importStudents(rows);
+    const lines = [`Ditambahkan: ${result.created}`, `Dilewati (NIS sudah ada): ${result.skipped}`];
+    if (result.errors.length) {
+      lines.push('Gagal:');
+      result.errors.slice(0, 10).forEach(e => lines.push(`- baris ${e.baris} (${e.nis || '-'}): ${e.error}`));
+      if (result.errors.length > 10) lines.push(`- dan ${result.errors.length - 10} baris lain`);
+    }
+    alert(lines.join('\n'));
+    renderStudents();
+    renderDashboard();
+  } catch (err) {
+    alert('Gagal impor: ' + err.message);
   }
 }
 
@@ -425,6 +526,7 @@ async function openStudentModal(student = null) {
       document.getElementById('student-nama').value = student.nama;
       document.getElementById('student-nis').value = student.nis;
       document.getElementById('student-email').value = student.email || '';
+      document.getElementById('student-wa').value = student.no_wa || '';
       sel.value = student.kelas_id;
     } else {
       document.getElementById('student-id').value = '';
@@ -442,6 +544,7 @@ async function saveStudent() {
     nama: document.getElementById('student-nama').value.trim(),
     nis: document.getElementById('student-nis').value.trim(),
     email: document.getElementById('student-email').value.trim(),
+    no_wa: document.getElementById('student-wa').value.trim(),
     class_id: document.getElementById('student-kelas').value
   };
   
@@ -1260,6 +1363,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Students
   document.getElementById('btn-add-student')?.addEventListener('click', () => openStudentModal());
   document.getElementById('btn-save-student')?.addEventListener('click', saveStudent);
+  document.getElementById('btn-student-template')?.addEventListener('click', downloadStudentTemplate);
+  document.getElementById('btn-student-import')?.addEventListener('click', () => {
+    document.getElementById('student-import-file').click();
+  });
+  document.getElementById('student-import-file')?.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) importStudentFile(file);
+    e.target.value = '';
+  });
   
   // Materials
   document.getElementById('btn-add-material')?.addEventListener('click', () => openMaterialModal());

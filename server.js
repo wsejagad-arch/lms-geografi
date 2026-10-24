@@ -343,6 +343,15 @@ app.delete('/api/classes/:id', requireAuth, requireTenant, async (req, res) => {
 });
 
 // ===== STUDENTS =====
+function normalizeWa(input) {
+  const digits = String(input || '').replace(/\D/g, '');
+  if (!digits) return '';
+  if (digits.startsWith('62')) return digits;
+  if (digits.startsWith('0')) return `62${digits.slice(1)}`;
+  if (digits.startsWith('8')) return `62${digits}`;
+  return digits;
+}
+
 app.get('/api/students', requireAuth, requireTenant, async (req, res) => {
   const db = await loadDB();
   const students = db.students
@@ -354,6 +363,7 @@ app.get('/api/students', requireAuth, requireTenant, async (req, res) => {
         nama: s.nama,
         nis: s.nis,
         email: s.email,
+        no_wa: s.no_wa || '',
         kelas_id: s.class_id,
         kelas_nama: classItem ? classItem.nama : '-',
         created_at: s.created_at
@@ -363,7 +373,7 @@ app.get('/api/students', requireAuth, requireTenant, async (req, res) => {
 });
 
 app.post('/api/students', requireAuth, requireTenant, async (req, res) => {
-  const { nama, nis, email, class_id } = req.body;
+  const { nama, nis, email, class_id, no_wa } = req.body;
   const db = await loadDB();
   
   // Verify class belongs to tenant
@@ -376,6 +386,7 @@ app.post('/api/students', requireAuth, requireTenant, async (req, res) => {
     nama,
     nis,
     email,
+    no_wa: normalizeWa(no_wa),
     class_id,
     username: req.body.username || email,
     password: bcrypt.hashSync(req.body.password || email, 10),
@@ -395,7 +406,7 @@ app.put('/api/students/:id', requireAuth, requireTenant, async (req, res) => {
   
   if (!student) return res.status(404).json({ error: 'Student not found' });
   
-  const { nama, nis, email, class_id } = req.body;
+  const { nama, nis, email, class_id, no_wa } = req.body;
   
   // Verify class belongs to tenant
   if (class_id) {
@@ -407,6 +418,7 @@ app.put('/api/students/:id', requireAuth, requireTenant, async (req, res) => {
   student.nama = nama;
   student.nis = nis;
   student.email = email;
+  if (no_wa !== undefined) student.no_wa = normalizeWa(no_wa);
   
   await saveDB(db);
   res.json(student);
@@ -422,6 +434,66 @@ app.delete('/api/students/:id', requireAuth, requireTenant, async (req, res) => 
   }
   
   res.json({ success: true });
+});
+
+app.post('/api/students/import', requireAuth, requireTenant, async (req, res) => {
+  const rows = Array.isArray(req.body.students) ? req.body.students : [];
+  if (!rows.length) return res.status(400).json({ error: 'Tidak ada baris untuk diimpor' });
+  
+  const db = await loadDB();
+  const classes = db.classes.filter(c => c.tenant_id === req.tenantId);
+  const seen = new Set(
+    db.students
+      .filter(s => s.tenant_id === req.tenantId)
+      .map(s => String(s.nis || '').trim().toLowerCase())
+  );
+  
+  const result = { created: 0, skipped: 0, errors: [] };
+  
+  rows.forEach((row, i) => {
+    const baris = i + 2;
+    const nis = String(row.nis || '').trim();
+    const nama = String(row.nama || '').trim();
+    const email = String(row.email || '').trim();
+    const no_wa = normalizeWa(row.no_wa);
+    const kelasNama = String(row.kelas || '').trim();
+    
+    if (!nis || !nama) {
+      result.errors.push({ baris, nis, error: 'NIS dan nama wajib diisi' });
+      return;
+    }
+    if (seen.has(nis.toLowerCase())) {
+      result.skipped++;
+      return;
+    }
+    
+    const classItem = classes.find(c => String(c.nama).trim().toLowerCase() === kelasNama.toLowerCase());
+    if (!classItem) {
+      result.errors.push({ baris, nis, error: `Kelas "${kelasNama || '-'}" tidak ditemukan` });
+      return;
+    }
+    
+    const username = email || nis;
+    db.students.push({
+      id: uuidv4(),
+      tenant_id: req.tenantId,
+      nama,
+      nis,
+      email,
+      no_wa,
+      class_id: classItem.id,
+      username,
+      password: bcrypt.hashSync(username, 10),
+      created_by: req.user.id,
+      created_at: new Date().toISOString()
+    });
+    
+    seen.add(nis.toLowerCase());
+    result.created++;
+  });
+  
+  if (result.created) await saveDB(db);
+  res.json(result);
 });
 
 // ===== MATERIALS =====

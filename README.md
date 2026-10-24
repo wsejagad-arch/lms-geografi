@@ -98,6 +98,12 @@ lms-geografi-multi/
 - `POST /api/students` - Create student
 - `PUT /api/students/:id` - Update student
 - `DELETE /api/students/:id` - Delete student
+- `POST /api/students/import` - Impor massal (`{ students: [{ nis, nama, email, no_wa, kelas }] }`)
+
+### Impor Siswa (CSV)
+Menu **Siswa** → **Template** untuk mengunduh `template-siswa.csv`, isi lalu **Impor**.
+Kolom: `nis,nama,email,no_wa,kelas` (`email` & `no_wa` opsional; `kelas` harus sama dengan nama kelas yang ada).
+Nomor WA dinormalkan ke format `62…` saat disimpan (untuk notifikasi).
 
 ### Materials
 - `GET /api/materials` - List materials

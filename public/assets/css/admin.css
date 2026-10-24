@@ -287,6 +287,8 @@ tbody tr { transition: background 0.12s var(--ease); }
 tbody tr:hover { background: var(--surface-2); }
 tbody tr:last-child td { border-bottom: 0; }
 tbody td button + button { margin-left: 6px; }
+.wa-link { color: var(--accent-ink); font-weight: 600; text-decoration: none; }
+.wa-link:hover { text-decoration: underline; }
 
 /* Badge */
 .badge {
