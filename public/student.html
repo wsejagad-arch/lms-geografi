@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0969da">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
+  <title>Siswa - LMS Geografi Multi</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+</head>
+<body>
+  <div class="app-layout">
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>LMS Geografi Multi</h2>
+        <small id="siswa-sidebar-nama">Siswa</small>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-item active" data-nav="dashboard"><span class="icon">🏠</span> Beranda</div>
+        <div class="nav-item" data-nav="materi-saya"><span class="icon">📚</span> Materi Saya</div>
+        <div class="nav-item" data-nav="presensi-saya"><span class="icon">✅</span> Presensi</div>
+        <div class="nav-item" data-nav="tugas-saya"><span class="icon">📋</span> Tugas</div>
+        <div class="nav-item" data-nav="nilai-saya"><span class="icon">📈</span> Nilai Saya</div>
+        <div class="nav-item" data-nav="exam-saya"><span class="icon">🎓</span> Exam</div>
+        <div class="nav-item" id="btn-logout-siswa"><span class="icon">🚪</span> Keluar</div>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <div class="mobile-header">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+        <h1 id="page-title">Beranda</h1>
+      </div>
+      <div class="top-bar">
+        <h1 id="page-title">Beranda</h1>
+        <div class="user-info">
+          <span id="siswa-nama-display">Siswa</span>
+          <div class="user-avatar">S</div>
+        </div>
+      </div>
+
+      <section id="sec-dashboard" class="section">
+        <div class="grid-3">
+          <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div><div class="stat-value" id="s-stat-materi">0</div><div class="stat-label">Materi</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div><div class="stat-value" id="s-stat-nilai">0</div><div class="stat-label">Nilai</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div><div class="stat-value" id="s-stat-rata">0</div><div class="stat-label">Rata-rata</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div><div class="stat-value" id="s-stat-presensi">0</div><div class="stat-label">Presensi</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📋</div>
+            <div><div class="stat-value" id="s-stat-tugas">0</div><div class="stat-label">Tugas</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎓</div>
+            <div><div class="stat-value" id="s-stat-exam">0</div><div class="stat-label">Exam</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Profil Saya</h3>
+          <p style="color:var(--text-2);font-size:13px;margin-bottom:8px" id="s-profile-info">Memuat...</p>
+        </div>
+      </section>
+
+      <section id="sec-materi-saya" class="section hidden">
+        <div class="material-grid" id="materi-grid"></div>
+        <div class="empty-state hidden" id="materi-empty">
+          <div class="icon">📚</div>
+          <p>Belum ada materi untuk Anda.</p>
+        </div>
+      </section>
+
+      <section id="sec-presensi-saya" class="section hidden">
+        <div class="card">
+          <h3>Riwayat Presensi</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Tanggal</th><th>Status</th><th>Kelas</th><th>Catatan</th></tr></thead>
+              <tbody id="presensi-saya-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-tugas-saya" class="section hidden">
+        <div id="tugas-saya-grid"></div>
+        <div class="empty-state hidden" id="tugas-empty">
+          <div class="icon">📋</div>
+          <p>Belum ada tugas.</p>
+        </div>
+      </section>
+
+      <section id="sec-nilai-saya" class="section hidden">
+        <div class="card">
+          <h3>Riwayat Nilai</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Mapel</th><th>Jenis</th><th>Nilai</th><th>Catatan</th></tr></thead>
+              <tbody id="nilai-saya-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-exam-saya" class="section hidden">
+        <div id="exam-list"></div>
+        <div class="empty-state hidden" id="exam-empty">
+          <div class="icon">🎓</div>
+          <p>Belum ada exam tersedia.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Exam Detail -->
+  <div class="modal-overlay" id="exam-detail-modal">
+    <div class="modal" style="max-width:720px">
+      <div class="modal-header">
+        <h3 id="exam-detail-title">Exam</h3>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body" id="exam-detail-body"></div>
+      <div class="modal-footer">
+        <span id="exam-timer" style="margin-right:auto;font-weight:600;color:var(--text-2)"></span>
+        <button class="btn" data-close>Batal</button>
+        <button class="btn btn-primary" id="btn-submit-exam">Kumpulkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav Mobile -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="bottom-nav-item active" data-nav="dashboard"><span class="icon">🏠</span><span>Beranda</span></button>
+    <button class="bottom-nav-item" data-nav="materi-saya"><span class="icon">📚</span><span>Materi</span></button>
+    <button class="bottom-nav-item" data-nav="tugas-saya"><span class="icon">📋</span><span>Tugas</span></button>
+    <button class="bottom-nav-item" data-nav="presensi-saya"><span class="icon">✅</span><span>Presensi</span></button>
+    <button class="bottom-nav-item" data-nav="nilai-saya"><span class="icon">📈</span><span>Nilai</span></button>
+  </nav>
+
+  <script src="assets/js/api.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+  <script src="assets/js/student.js"></script>
+</body>
+</html>

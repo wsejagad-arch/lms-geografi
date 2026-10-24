@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - LMS Geografi Multi</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="theme-color" content="#0969da">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
+</head>
+<body>
+  <div class="app-layout">
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>LMS Geografi Multi</h2>
+        <small>Panel Admin</small>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-item active" data-menu="dashboard"><span class="icon">📊</span> Dashboard</div>
+        <div class="nav-item" data-menu="subjects"><span class="icon">📚</span> Mapel</div>
+        <div class="nav-item" data-menu="classes"><span class="icon">🏫</span> Kelas</div>
+        <div class="nav-item" data-menu="students"><span class="icon">👥</span> Siswa</div>
+        <div class="nav-item" data-menu="materials"><span class="icon">📝</span> Materi</div>
+        <div class="nav-item" data-menu="questions"><span class="icon">❓</span> Bank Soal</div>
+        <div class="nav-item" data-menu="exams"><span class="icon">🎓</span> Exam TKA</div>
+        <div class="nav-item" data-menu="grades"><span class="icon">📈</span> Input Nilai</div>
+        <div class="nav-item" data-menu="attendance"><span class="icon">✅</span> Presensi</div>
+        <div class="nav-item" data-menu="assignments"><span class="icon">📋</span> Tugas</div>
+        <div class="nav-item" data-menu="schedules"><span class="icon">📅</span> Jadwal</div>
+        <div class="nav-item" id="btn-seed"><span class="icon">🌱</span> Seed Data</div>
+        <div class="nav-item" id="btn-logout"><span class="icon">🚪</span> Keluar</div>
+      </nav>
+    </aside>
+    
+    <main class="main-content">
+      <div class="mobile-header">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+        <h1 id="page-title">Dashboard</h1>
+      </div>
+      <div class="top-bar">
+        <h1 id="page-title">Dashboard</h1>
+        <div class="user-info">
+          <span id="user-name">Admin</span>
+          <div class="user-avatar">A</div>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <section id="menu-dashboard" class="menu-section">
+        <div class="grid-3">
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div><div class="stat-value" id="stat-siswa">0</div><div class="stat-label">Siswa</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👨‍🏫</div>
+            <div><div class="stat-value" id="stat-guru">0</div><div class="stat-label">Guru</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div><div class="stat-value" id="stat-mapel">0</div><div class="stat-label">Mapel</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🏫</div>
+            <div><div class="stat-value" id="stat-kelas">0</div><div class="stat-label">Kelas</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div><div class="stat-value" id="stat-materi">0</div><div class="stat-label">Materi</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">❓</div>
+            <div><div class="stat-value" id="stat-soal">0</div><div class="stat-label">Soal</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📋</div>
+            <div><div class="stat-value" id="stat-assignments">0</div><div class="stat-label">Tugas</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div><div class="stat-value" id="stat-nilai">0</div><div class="stat-label">Nilai</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div><div class="stat-value" id="stat-attendance">0</div><div class="stat-label">Presensi</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎓</div>
+            <div><div class="stat-value" id="stat-exam">0</div><div class="stat-label">Exam</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div><div class="stat-value" id="stat-rata">0</div><div class="stat-label">Rata-rata</div></div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Informasi Sekolah</h3>
+            <p style="color:var(--text-2);font-size:13px;margin-bottom:8px" id="dashboard-tenant-nama">Memuat...</p>
+            <div class="mt-2">
+              <span class="badge badge-success">Redis Cache: <span id="dashboard-cache-status">In-Memory</span></span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Performa per Kelas</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Kelas</th><th>Siswa</th><th>Rata-rata</th></tr></thead>
+                <tbody id="kelas-performance-tbody">
+                  <tr><td colspan="3" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-2">
+          <h3>Aktivitas Terbaru</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Tanggal</th><th>Siswa</th><th>Mapel</th><th>Kelas</th><th>Nilai</th><th>Tipe</th></tr></thead>
+              <tbody id="recent-grades-tbody">
+                <tr><td colspan="6" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mapel -->
+      <section id="menu-subjects" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Daftar Mapel</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-subject">+ Tambah Mapel</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Kode</th><th>Nama</th><th>Deskripsi</th><th>Aksi</th></tr></thead>
+              <tbody id="subjects-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kelas -->
+      <section id="menu-classes" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Daftar Kelas</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-class">+ Tambah Kelas</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Tingkat</th><th>Nama</th><th>Jurusan</th><th>Wali Kelas</th><th>Aksi</th></tr></thead>
+              <tbody id="classes-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Siswa -->
+      <section id="menu-students" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Data Siswa</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah Siswa</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>NIS</th><th>Nama</th><th>Email</th><th>Kelas</th><th>Aksi</th></tr></thead>
+              <tbody id="students-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Materi -->
+      <section id="menu-materials" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Daftar Materi</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-material">+ Tambah Materi</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Kelas</th><th>Mapel</th><th>Judul</th><th>Modul</th><th>Video</th><th>Aksi</th></tr></thead>
+              <tbody id="materials-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Soal -->
+      <section id="menu-questions" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Bank Soal</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-question">+ Tambah Soal</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Kelas</th><th>Jenis</th><th>Pertanyaan</th><th>Poin</th><th>Aksi</th></tr></thead>
+              <tbody id="questions-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exams -->
+      <section id="menu-exams" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Exam TKA</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-exam">+ Buat Exam</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Judul</th><th>Mapel</th><th>Kelas</th><th>Durasi</th><th>Aksi</th></tr></thead>
+              <tbody id="exams-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Nilai -->
+      <section id="menu-grades" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Input Nilai</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-grade">+ Tambah Nilai</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Siswa</th><th>Mapel</th><th>Kelas</th><th>Jenis</th><th>Nilai</th><th>Aksi</th></tr></thead>
+              <tbody id="grades-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Attendance -->
+      <section id="menu-attendance" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Presensi Siswa</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-attendance">+ Tambah Presensi</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Tanggal</th><th>Siswa</th><th>Kelas</th><th>Status</th><th>Catatan</th><th>Aksi</th></tr></thead>
+              <tbody id="attendance-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Assignments -->
+      <section id="menu-assignments" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Daftar Tugas</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-assignment">+ Buat Tugas</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Judul</th><th>Mapel</th><th>Kelas</th><th>Deadline</th><th>Poin</th><th>Aksi</th></tr></thead>
+              <tbody id="assignments-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Schedules -->
+      <section id="menu-schedules" class="menu-section hidden">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h3>Jadwal Pelajaran</h3>
+            <button class="btn btn-primary btn-sm" id="btn-add-schedule">+ Tambah Jadwal</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Hari</th><th>Jam</th><th>Mapel</th><th>Kelas</th><th>Ruangan</th><th>Guru</th><th>Aksi</th></tr></thead>
+              <tbody id="schedules-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Subject Modal -->
+  <div class="modal-overlay" id="subject-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Mapel</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="subject-form">
+          <input type="hidden" id="subject-id">
+          <div class="form-group"><label>Kode</label><input id="subject-kode" required></div>
+          <div class="form-group"><label>Nama Mapel</label><input id="subject-nama" required></div>
+          <div class="form-group"><label>Deskripsi</label><textarea id="subject-deskripsi" rows="3"></textarea></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-subject">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Class Modal -->
+  <div class="modal-overlay" id="class-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Kelas</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="class-form">
+          <input type="hidden" id="class-id">
+          <div class="form-group"><label>Tingkat</label><select id="class-tingkat"><option>X</option><option>XI</option><option>XII</option></select></div>
+          <div class="form-group"><label>Nama Kelas</label><input id="class-nama" required></div>
+          <div class="form-group"><label>Jurusan</label><input id="class-jurusan"></div>
+          <div class="form-group"><label>Wali Kelas</label><input id="class-wali"></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-class">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Student Modal -->
+  <div class="modal-overlay" id="student-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Siswa</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="student-form">
+          <input type="hidden" id="student-id">
+          <div class="form-group"><label>NIS</label><input id="student-nis" required></div>
+          <div class="form-group"><label>Nama</label><input id="student-nama" required></div>
+          <div class="form-group"><label>Email</label><input id="student-email" type="email"></div>
+          <div class="form-group"><label>Kelas</label><select id="student-kelas"></select></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-student">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Material Modal -->
+  <div class="modal-overlay" id="material-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Materi</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="material-form">
+          <input type="hidden" id="material-id">
+          <div class="form-group"><label>Mapel</label><select id="material-subject"></select></div>
+          <div class="form-group"><label>Kelas</label><select id="material-class"></select></div>
+          <div class="form-group"><label>Judul</label><input id="material-judul" required></div>
+          <div class="form-group"><label>Modul</label><input id="material-modul"></div>
+          <div class="form-group"><label>Konten (HTML)</label><textarea id="material-konten" rows="6" required></textarea></div>
+          <div class="form-group"><label>YouTube ID</label><input id="material-youtube"></div>
+          <div class="form-group"><label>Gambar URL</label><input id="material-image"></div>
+          <div class="form-group"><label>Tipe</label><select id="material-tipe"><option value="materi">Materi</option><option value="tugas">Tugas</option></select></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-material">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Question Modal -->
+  <div class="modal-overlay" id="question-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Soal</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="question-form">
+          <input type="hidden" id="question-id">
+          <div class="form-group"><label>Mapel</label><select id="question-subject"></select></div>
+          <div class="form-group"><label>Kelas</label><input id="question-kelas"></div>
+          <div class="form-group"><label>Jenis</label><select id="question-jenis"><option value="formatif">Formatif</option><option value="sumatif">Sumatif</option><option value="tka">TKA</option></select></div>
+          <div class="form-group"><label>Pertanyaan</label><textarea id="question-pertanyaan" rows="3" required></textarea></div>
+          <div class="form-group"><label>Opsi A</label><input id="question-opsi-a" required></div>
+          <div class="form-group"><label>Opsi B</label><input id="question-opsi-b" required></div>
+          <div class="form-group"><label>Opsi C</label><input id="question-opsi-c" required></div>
+          <div class="form-group"><label>Opsi D</label><input id="question-opsi-d" required></div>
+          <div class="form-group"><label>Kunci (0-3)</label><input type="number" id="question-jawaban" min="0" max="3" required></div>
+          <div class="form-group"><label>Poin</label><input type="number" id="question-poin" value="10" required></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-question">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Exam Modal -->
+  <div class="modal-overlay" id="exam-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Exam TKA</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="exam-form">
+          <div class="form-group"><label>Judul</label><input id="exam-judul" required></div>
+          <div class="form-group"><label>Mapel</label><select id="exam-subject"></select></div>
+          <div class="form-group"><label>Kelas</label><select id="exam-class"></select></div>
+          <div class="form-group"><label>Durasi (menit)</label><input type="number" id="exam-durasi" value="60" required></div>
+          <div class="form-group"><label>Soal (Ctrl+Click untuk pilih banyak)</label><select id="exam-questions" multiple size="8"></select></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-exam">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Grade Modal -->
+  <div class="modal-overlay" id="grade-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Input Nilai</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="grade-form">
+          <div class="form-group"><label>Siswa</label><select id="grade-student"></select></div>
+          <div class="form-group"><label>Mapel</label><select id="grade-subject"></select></div>
+          <div class="form-group"><label>Kelas</label><select id="grade-class"></select></div>
+          <div class="form-group"><label>Tipe</label><select id="grade-tipe"><option value="tugas">Tugas</option><option value="evaluasi">Evaluasi</option><option value="sumatif">Sumatif</option><option value="exam">Exam</option></select></div>
+          <div class="form-group"><label>Nilai (0-100)</label><input type="number" id="grade-nilai" min="0" max="100" required></div>
+          <div class="form-group"><label>Catatan</label><textarea id="grade-catatan" rows="2"></textarea></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-grade">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Attendance Modal -->
+  <div class="modal-overlay" id="attendance-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Presensi</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="attendance-form">
+          <div class="form-group"><label>Siswa</label><select id="attendance-student"></select></div>
+          <div class="form-group"><label>Tanggal</label><input type="date" id="attendance-date" required></div>
+          <div class="form-group"><label>Kelas</label><select id="attendance-class"></select></div>
+          <div class="form-group"><label>Status</label><select id="attendance-status"><option value="hadir">Hadir</option><option value="izin">Izin</option><option value="sakit">Sakit</option><option value="alpha">Alpha</option></select></div>
+          <div class="form-group"><label>Catatan</label><textarea id="attendance-note" rows="2"></textarea></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-attendance">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Assignment Modal -->
+  <div class="modal-overlay" id="assignment-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Tugas</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="assignment-form">
+          <div class="form-group"><label>Judul</label><input id="assignment-judul" required></div>
+          <div class="form-group"><label>Deskripsi</label><textarea id="assignment-deskripsi" rows="4"></textarea></div>
+          <div class="form-group"><label>Mapel</label><select id="assignment-subject"></select></div>
+          <div class="form-group"><label>Kelas</label><select id="assignment-class"></select></div>
+          <div class="form-group"><label>Deadline</label><input type="date" id="assignment-due"></div>
+          <div class="form-group"><label>Poin</label><input type="number" id="assignment-poin" value="100"></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-assignment">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Schedule Modal -->
+  <div class="modal-overlay" id="schedule-modal">
+    <div class="modal">
+      <div class="modal-header"><h3>Jadwal Pelajaran</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="schedule-form">
+          <input type="hidden" id="schedule-id">
+          <div class="form-group"><label>Hari</label><select id="schedule-hari"><option>Senin</option><option>Selasa</option><option>Rabu</option><option>Kamis</option><option>Jumat</option><option>Sabtu</option></select></div>
+          <div class="form-group"><label>Jam Mulai</label><input type="time" id="schedule-mulai" value="07:00" required></div>
+          <div class="form-group"><label>Jam Selesai</label><input type="time" id="schedule-selesai" value="08:30" required></div>
+          <div class="form-group"><label>Mapel</label><select id="schedule-subject"></select></div>
+          <div class="form-group"><label>Kelas</label><select id="schedule-class"></select></div>
+          <div class="form-group"><label>Ruangan</label><input id="schedule-ruangan"></div>
+          <div class="form-group"><label>Guru</label><input id="schedule-guru"></div>
+        </form>
+      </div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-schedule">Simpan</button></div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav Mobile -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="bottom-nav-item active" data-nav="dashboard"><span class="icon">📊</span><span>Dashboard</span></button>
+    <button class="bottom-nav-item" data-nav="materials"><span class="icon">📝</span><span>Materi</span></button>
+    <button class="bottom-nav-item" data-nav="grades"><span class="icon">📈</span><span>Nilai</span></button>
+    <button class="bottom-nav-item" data-nav="exams"><span class="icon">🎓</span><span>Exam</span></button>
+    <button class="bottom-nav-item" data-nav="attendance"><span class="icon">✅</span><span>Presensi</span></button>
+  </nav>
+
+  <script src="assets/js/api.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>
