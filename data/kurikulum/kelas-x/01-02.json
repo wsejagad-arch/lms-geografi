@@ -1,0 +1,282 @@
+[
+  {
+    "id": "x-01",
+    "kelas": "X",
+    "urutan": 1,
+    "fase": "E",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Konsep, Prinsip, dan Pendekatan Geografi",
+    "ringkasan": "Membangun cara berpikir spasial: objek studi, 10 konsep esensial, prinsip, dan tiga pendekatan geografi.",
+    "estimasi": "4 JP",
+    "cp": "Peserta didik memahami konsep dasar geografi dan menerapkannya untuk membaca fenomena keruangan di lingkungan sekitar.",
+    "tujuan": [
+      "Membedakan objek material dan objek formal geografi.",
+      "Menerapkan 10 konsep esensial untuk menjelaskan fenomena nyata.",
+      "Memilih pendekatan keruangan, ekologi, atau kompleks wilayah secara tepat.",
+      "Menyusun pertanyaan geografis dari isu aktual."
+    ],
+    "materi": [
+      {
+        "judul": "Objek Studi dan Ruang Lingkup",
+        "html": "<p><strong>Geografi</strong> adalah ilmu yang mempelajari persamaan dan perbedaan fenomena geosfer dengan sudut pandang kewilayahan dan kelingkungan dalam konteks keruangan. Objek <em>material</em> geografi adalah geosfer: litosfer, atmosfer, hidrosfer, pedosfer, biosfer, dan antroposfer. Objek <em>formal</em>-nya adalah <strong>sudut pandang keruangan</strong>—bukan bendanya, melainkan cara memandangnya.</p><p>Karena itu, satu peristiwa bisa dibaca berbeda oleh ilmu lain. Banjir tahunan di hilir Bengawan Solo bagi ahli hidrologi adalah persoalan debit; bagi geografi, banjir adalah hasil interaksi antara bentuk lahan hulu, curah hujan, perubahan tutupan lahan, dan keputusan tata ruang masyarakat.</p><p>Aspek geografi dibagi dua: <strong>fisik</strong> (bentuk lahan, iklim, air, tanah, vegetasi) dan <strong>sosial</strong> (penduduk, ekonomi, budaya, politik). Keduanya tidak terpisah: kekeringan (fisik) menjadi krisis pangan (sosial) bila kapasitas adaptasi rendah.</p>"
+      },
+      {
+        "judul": "Sepuluh Konsep Esensial",
+        "html": "<p>Konsep esensial adalah 'kacamata' untuk melihat fenomena. Sepuluh konsep yang lazim dipakai:</p><table><thead><tr><th>Konsep</th><th>Pertanyaan kunci</th><th>Contoh isu 2025–2026</th></tr></thead><tbody><tr><td>Lokasi</td><td>Di mana? Absolut atau relatif?</td><td>Lokasi IKN Nusantara secara astronomis vs keterjangkauan dari Balikpapan</td></tr><tr><td>Jarak</td><td>Berapa jauh, dalam km atau waktu tempuh?</td><td>Jarak Pulau Jawa–Sumatra yang 'pendek' secara ekonomi karena tol Trans-Jawa</td></tr><tr><td>Keterjangkauan</td><td>Mudah dicapai atau tidak?</td><td>Harga pangan di Papua pegunungan vs Jawa karena biaya logistik</td></tr><tr><td>Pola</td><td>Bagaimana sebarannya?</td><td>Pola memanjang permukiman di sepanjang jalan dan sungai</td></tr><tr><td>Morfologi</td><td>Bagaimana bentuk muka bumi?</td><td>Bentang karst Gunungkidul dan keterbatasan air permukaan</td></tr><tr><td>Aglomerasi</td><td>Mengapa berkumpul?</td><td>Kawasan industri terpadu dan efek skala ekonomi</td></tr><tr><td>Nilai kegunaan</td><td>Berguna bagi siapa?</td><td>Satu lahan bernilai berbeda untuk sawah, perumahan, atau konservasi</td></tr><tr><td>Interaksi</td><td>Saling memengaruhi bagaimana?</td><td>Desa–kota: komuter, remitansi, alih komoditas</td></tr><tr><td>Diferensiasi area</td><td>Mengapa berbeda antarwilayah?</td><td>Ketimpangan PDRB Jawa vs luar Jawa</td></tr><tr><td>Keterkaitan ruang</td><td>Apa dampak di tempat lain?</td><td>Alih fungsi hulu menaikkan risiko banjir hilir</td></tr></tbody></table><p>Konsep-konsep ini bukan hafalan: gunakan sebagai alat analisis. Misalnya, untuk menjelaskan mahalnya logistik di wilayah kepulauan, gunakan <em>jarak</em>, <em>keterjangkauan</em>, dan <em>diferensiasi area</em> sekaligus.</p>"
+      },
+      {
+        "judul": "Prinsip dan Tiga Pendekatan",
+        "html": "<p>Empat prinsip geografi: <strong>distribusi</strong> (sebaran), <strong>interelasi</strong> (hubungan antarfenomena), <strong>deskripsi</strong> (pemaparan), dan <strong>korologi</strong> (gabungan distribusi–interelasi–deskripsi pada suatu wilayah). Prinsip korologi paling khas geografi karena menuntut analisis menyeluruh pada ruang tertentu.</p><p>Tiga pendekatan:</p><ul><li><strong>Keruangan (spatial):</strong> menekankan lokasi, jarak, pola, dan interaksi antarruang. Contoh: analisis jangkauan layanan puskesmas.</li><li><strong>Ekologi (kelingkungan):</strong> menekankan hubungan manusia–lingkungan. Contoh: dampak alih fungsi mangrove terhadap abrasi.</li><li><strong>Kompleks wilayah (regional):</strong> memadukan keduanya dalam satu wilayah. Contoh: perencanaan DAS terpadu.</li></ul><p>Dalam praktik, ketiganya sering dipakai bersama. Analisis banjir Jakarta, misalnya, memakai keruangan (pola genangan), ekologi (daya resap tanah), dan kompleks wilayah (keterkaitan Bogor–Jakarta).</p>"
+      },
+      {
+        "judul": "Berpikir Geografis untuk Isu Aktual",
+        "html": "<p>Berpikir geografis berarti mengajukan pertanyaan <em>di mana, mengapa di situ, bagaimana interaksinya, dan apa dampaknya bagi wilayah lain</em>. Latihan ini penting karena banyak kebijakan gagal akibat mengabaikan konteks ruang.</p><p>Contoh: Operasi Modifikasi Cuaca (OMC) dengan <em>dry ice</em> untuk meredam karhutla di Sumatra Selatan pada Oktober 2026. Secara atmosfer, OMC memicu hujan buatan; tetapi efektivitasnya bergantung pada kelembapan, arah angin, dan kondisi gambut. Artinya, solusi teknologi harus dibaca bersama kondisi litologi gambut (mudah terbakar bila kering) dan praktik sosial pembukaan lahan.</p><p>Kesimpulan analisis geografis jarang tunggal: yang dihasilkan adalah rekomendasi berbasis bukti dan skala ruang yang jelas.</p>"
+      }
+    ],
+    "glosarium": [
+      { "istilah": "geosfer", "arti": "lapisan bumi dan lingkungannya sebagai objek material geografi" },
+      { "istilah": "korologi", "arti": "prinsip geografi yang memadukan distribusi, interelasi, dan deskripsi pada suatu wilayah" },
+      { "istilah": "aglomerasi", "arti": "pemusatan kegiatan pada satu lokasi karena saling menguntungkan" },
+      { "istilah": "diferensiasi area", "arti": "perbedaan karakteristik antarwilayah yang menimbulkan interaksi" }
+    ],
+    "soal": [
+      {
+        "id": "x-01-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Membaca data kebijakan dan menyimpulkan implikasi keruangan",
+        "numerasi": "Menafsirkan tren luas lahan dan jumlah titik panas",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Karhutla dan Modifikasi Cuaca, Sumatra Selatan 2026",
+          "isi": "<p>BMKG menerapkan Operasi Modifikasi Cuaca (OMC) dengan <em>dry ice</em> untuk mengurangi asap karhutla. Data ringkas:</p><table><thead><tr><th>Indikator</th><th>Sep 2026</th><th>Okt 2026</th></tr></thead><tbody><tr><td>Luas terbakar (ha)</td><td>1.240</td><td>860</td></tr><tr><td>Titik panas terdeteksi</td><td>318</td><td>145</td></tr><tr><td>Hari hujan buatan</td><td>2</td><td>9</td></tr><tr><td>Kelembapan rata-rata (%)</td><td>58</td><td>71</td></tr></tbody></table>",
+          "sumber": "BMKG, 23 Oktober 2026 (ringkasan)"
+        },
+        "pertanyaan": "Berdasarkan data, pernyataan manakah yang paling tepat secara geografis? (1) Penurunan titik panas berkorelasi dengan naiknya kelembapan; (2) OMC adalah satu-satunya faktor penurunan luas terbakar; (3) Kondisi gambut kering memperbesar risiko kebakaran; (4) Analisis karhutla memerlukan keterkaitan atmosfer, litosfer, dan aktivitas manusia.",
+        "opsi": ["(1) dan (2)", "(1), (3), dan (4)", "(2) dan (4)", "(1) dan (4) saja", "Semua benar"],
+        "kunci": [1],
+        "pembahasan": "Pernyataan (1) didukung data (kelembapan naik, titik panas turun). (3) benar secara konsep: gambut kering mudah terbakar. (4) benar karena karhutla adalah fenomena multiaspek. Pernyataan (2) salah: penurunan bisa dipengaruhi hujan alami, pemadaman, dan penegakan hukum, bukan OMC saja."
+      },
+      {
+        "id": "x-01-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menghubungkan narasi kebijakan dengan konsep geografi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Logistik pangan di wilayah kepulauan",
+          "isi": "<p>Sebuah kabupaten kepulauan menerima beras dari ibu kota provinsi dengan biaya angkut dua kali lipat dibanding kabupaten di daratan. Warga pesisir memilih membeli beras lokal yang lebih mahal tetapi tersedia harian, sementara warga pedalaman menumpuk stok saat kapal datang. Pemerintah daerah mempertimbangkan subsidi angkutan laut.</p>",
+          "sumber": "ilustrasi sintetis berbasis pola umum distribusi logistik"
+        },
+        "pertanyaan": "Konsep geografi yang paling langsung menjelaskan perbedaan perilaku ekonomi warga pesisir dan pedalaman tersebut adalah ...",
+        "opsi": ["morfologi dan aglomerasi", "keterjangkauan dan interaksi keruangan", "nilai kegunaan dan pola", "diferensiasi area dan morfologi", "jarak absolut dan pola permukiman"],
+        "kunci": [1],
+        "pembahasan": "Perbedaan perilaku muncul karena tingkat keterjangkauan (akses kapal/ jalan) dan intensitas interaksi dengan pusat pasokan. Morfologi dan aglomerasi tidak menjelaskan langsung perilaku konsumsi."
+      },
+      {
+        "id": "x-01-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Mengidentifikasi ciri pendekatan ekologi dari kasus",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Abrasi setelah tambak menggantikan mangrove",
+          "isi": "<p>Dalam 15 tahun, 40% sabuk mangrove di pesisir sebuah kecamatan berubah menjadi tambak. Warga melaporkan abrasi makin cepat, tangkapan ikan menurun, dan air sumur menjadi asin. Dinas lingkungan mengusulkan rehabilitasi 30 hektare mangrove dengan melibatkan kelompok nelayan.</p>",
+          "sumber": "ilustrasi sintetis; pola sesuai laporan rehabilitasi mangrove nasional"
+        },
+        "pertanyaan": "Pilih semua pernyataan yang menunjukkan penerapan pendekatan ekologi (kelingkungan).",
+        "opsi": [
+          "Menghitung laju abrasi berdasarkan perubahan garis pantai",
+          "Menganalisis hubungan hilangnya mangrove dengan berkurangnya fungsi pelindung pantai",
+          "Menilai dampak perubahan tutupan lahan terhadap pendapatan nelayan",
+          "Memetakan lokasi tambak tanpa menghubungkannya dengan kondisi lingkungan",
+          "Merekomendasikan rehabilitasi dengan mempertimbangkan daya dukung ekosistem"
+        ],
+        "kunci": [1, 2, 4],
+        "pembahasan": "Pendekatan ekologi menekankan hubungan timbal balik manusia–lingkungan. Opsi (1) bersifat keruangan-teknis, opsi (4) murni pemetaan tanpa analisis interaksi."
+      },
+      {
+        "id": "x-01-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan konsep dengan fenomena nyata",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Lima fenomena",
+          "isi": "<p>Perhatikan lima fenomena berikut: (A) permukiman memanjang di tepi jalan nasional; (B) harga semen di pegunungan lebih mahal daripada di kota; (C) kawasan industri terkonsentrasi di satu kabupaten; (D) sawah di lereng utara lebih subur daripada lereng selatan; (E) banjir di hilir akibat penebangan hulu.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan konsep dengan fenomena yang paling tepat.",
+        "kiri": ["Pola", "Keterjangkauan", "Aglomerasi", "Diferensiasi area", "Keterkaitan ruang"],
+        "kanan": ["A", "B", "C", "D", "E"],
+        "kunci": [0, 1, 2, 3, 4],
+        "pembahasan": "Pola → (A); keterjangkauan → (B); aglomerasi → (C); diferensiasi area → (D); keterkaitan ruang → (E)."
+      },
+      {
+        "id": "x-01-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai validitas pernyataan konseptual",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pernyataan tentang objek dan pendekatan",
+          "isi": "<p>Seorang siswa menyusun empat pernyataan untuk presentasi kelas.</p>",
+          "sumber": "—"
+        },
+        "pertanyaan": "Tentukan Benar atau Salah untuk setiap pernyataan.",
+        "pernyataan": [
+          "Objek formal geografi adalah benda-benda di geosfer.",
+          "Prinsip korologi menuntut analisis menyeluruh pada wilayah tertentu.",
+          "Pendekatan keruangan selalu mengabaikan faktor lingkungan.",
+          "Satu fenomena dapat dianalisis dengan lebih dari satu pendekatan."
+        ],
+        "kunci": ["S", "B", "S", "B"],
+        "pembahasan": "Objek formal adalah sudut pandang keruangan, bukan bendanya. Pendekatan keruangan tidak selalu mengabaikan lingkungan; dalam praktik pendekatan dapat dikombinasikan."
+      }
+    ]
+  },
+  {
+    "id": "x-02",
+    "kelas": "X",
+    "urutan": 2,
+    "fase": "E",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Peta, Skala, Proyeksi, dan Membaca Ruang",
+    "ringkasan": "Menguasai bahasa peta: skala, proyeksi, simbol, generalisasi, dan interpretasi kontur untuk keputusan ruang.",
+    "estimasi": "4 JP",
+    "cp": "Peserta didik mampu membaca, menghitung, dan menafsirkan informasi peta untuk menjelaskan fenomena geografis.",
+    "tujuan": [
+      "Mengonversi skala peta dan menghitung jarak sebenarnya.",
+      "Menjelaskan distorsi pada berbagai jenis proyeksi.",
+      "Menafsirkan simbol, pola, dan generalisasi peta.",
+      "Menggunakan peta kontur untuk menilai kemiringan lereng."
+    ],
+    "materi": [
+      {
+        "judul": "Skala: Tiga Bentuk, Satu Makna",
+        "html": "<p><strong>Skala</strong> adalah perbandingan jarak di peta dengan jarak sebenarnya. Tiga bentuk: <em>numerik</em> (1:50.000), <em>verbal</em> (1 cm = 500 m), dan <em>grafis</em> (batang skala). Semua dapat dikonversi.</p><p>Rumus inti: <code>Jarak sebenarnya = jarak peta × penyebut skala</code>. Bila peta 1:50.000 dan jarak dua titik 6 cm, jarak sebenarnya 6 × 50.000 cm = 300.000 cm = 3 km.</p><p>Skala juga menentukan tingkat detail. Peta 1:10.000 menampilkan bangunan; 1:250.000 hanya menampilkan jalan utama dan kota. Mengubah skala berarti melakukan <strong>generalisasi</strong>: memilih, menyederhanakan, dan menghilangkan detail yang tidak relevan.</p>"
+      },
+      {
+        "judul": "Proyeksi dan Distorsinya",
+        "html": "<p>Bumi bulat dipindahkan ke bidang datar, sehingga selalu ada distorsi. Tidak ada proyeksi yang bebas distorsi pada semua aspek; kita memilih sesuai tujuan.</p><table><thead><tr><th>Proyeksi</th><th>Cocok untuk</th><th>Distorsi utama</th></tr></thead><tbody><tr><td>Silinder (Mercator)</td><td>Navigasi laut</td><td>Luas wilayah kutub sangat membesar</td></tr><tr><td>Kerucut</td><td>Wilayah lintang sedang memanjang timur–barat</td><td>Di luar zone standar</td></tr><tr><td>Azimutal</td><td>Kutub dan rute lingkaran besar</td><td>Semakin besar menjauhi pusat</td></tr><tr><td>Equal-area</td><td>Analisis luas (tutupan lahan)</td><td>Bentuk wilayah terdistorsi</td></tr></tbody></table><p>Kesalahan umum: membandingkan luas negara pada peta Mercator. Greenland terlihat sebesar Afrika, padahal luas Afrika ±14 kali Greenland.</p>"
+      },
+      {
+        "judul": "Simbol, Tata Letak, dan Generalisasi",
+        "html": "<p>Peta yang baik memuat judul, skala, legenda, orientasi, sumber, dan tahun. Simbol dibedakan menjadi <em>titik</em> (kota, stasiun), <em>garis</em> (jalan, sungai, batas), dan <em>area</em> (hutan, sawah, danau). Simbol kualitatif membedakan jenis; kuantitatif membedakan jumlah (misal ukuran lingkaran untuk populasi).</p><p>Generalisasi bukan sekadar 'menghilangkan'. Ada tiga proses: <strong>seleksi</strong> (memilih objek penting), <strong>simplifikasi</strong> (bentuk disederhanakan), dan <strong>penekanan/penghilangan</strong>. Peta tematik yang baik menjaga pesan utama tetap terbaca pada skala berapa pun.</p>"
+      },
+      {
+        "judul": "Membaca Kontur: Tiga Langkah",
+        "html": "<p>Peta topografi menampilkan relief melalui <strong>garis kontur</strong>—garis yang menghubungkan titik dengan ketinggian sama.</p><ol><li><strong>Interval kontur (IK):</strong> selisih ketinggian antar kontur. IK = skala × 1/2000. Untuk 1:50.000, IK = 25 m.</li><li><strong>Beda tinggi:</strong> jumlah selisih kontur × IK.</li><li><strong>Kemiringan lereng:</strong> (beda tinggi ÷ jarak datar) × 100%. Contoh: beda tinggi 100 m pada jarak datar 2 km → 100/2000 × 100% = 5% (landai).</li></ol><p>Kontur rapat = lereng terjal; kontur renggang = lereng landai. Pola kontur berbentuk huruf V yang menunjuk ke hulu menunjukkan lembah sungai.</p>"
+      }
+    ],
+    "glosarium": [
+      { "istilah": "generalisasi", "arti": "proses memilih dan menyederhanakan objek saat skala peta diperkecil" },
+      { "istilah": "interval kontur", "arti": "selisih ketinggian antar garis kontur berdekatan" },
+      { "istilah": "proyeksi peta", "arti": "sistem pemindahan permukaan bumi ke bidang datar" },
+      { "istilah": "legenda", "arti": "keterangan arti simbol pada peta" }
+    ],
+    "soal": [
+      {
+        "id": "x-02-q1",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menafsirkan kebutuhan peta sesuai tujuan",
+        "numerasi": "Menghitung skala, jarak, dan interval kontur",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Tiga pilihan peta untuk satu kajian",
+          "isi": "<p>Tim siswa akan memetakan risiko longsor di satu kecamatan seluas 64 km². Tersedia tiga peta:</p><table><thead><tr><th>Peta</th><th>Skala</th><th>Interval kontur</th><th>Keterangan</th></tr></thead><tbody><tr><td>P1</td><td>1:25.000</td><td>12,5 m</td><td>Peta topografi terbaru</td></tr><tr><td>P2</td><td>1:50.000</td><td>25 m</td><td>Topografi edisi lama</td></tr><tr><td>P3</td><td>1:250.000</td><td>125 m</td><td>Peta rupabumi regional</td></tr></tbody></table>",
+          "sumber": "ilustrasi sintetis berbasis rumus IK = skala × 1/2000"
+        },
+        "pertanyaan": "Peta mana yang paling sesuai, dan berapa interval konturnya?",
+        "opsi": ["P1, interval 12,5 m", "P2, interval 25 m", "P3, interval 125 m", "P1, interval 25 m", "P2, interval 12,5 m"],
+        "kunci": [0],
+        "pembahasan": "Kajian longsor butuh detail relief tinggi, sehingga skala besar (1:25.000) lebih tepat. IK = 25.000/2000 = 12,5 m."
+      },
+      {
+        "id": "x-02-q2",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menggabungkan pembacaan peta dan interpretasi risiko",
+        "numerasi": "Menghitung kemiringan lereng",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Dua calon lokasi sekolah",
+          "isi": "<p>Peta 1:50.000. Tim mengukur dua lokasi:</p><table><thead><tr><th>Lokasi</th><th>Jarak peta antar kontur</th><th>Beda tinggi terukur</th><th>Jarak ke sesar aktif</th></tr></thead><tbody><tr><td>A</td><td>2 cm</td><td>75 m</td><td>1,2 km</td></tr><tr><td>B</td><td>5 cm</td><td>75 m</td><td>4,5 km</td></tr></tbody></table>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pernyataan yang tepat: (1) jarak datar A = 1 km; (2) kemiringan A 7,5%; (3) kemiringan B lebih kecil daripada A; (4) lokasi B lebih aman dari aspek sesar.",
+        "opsi": ["(1) dan (2)", "(1), (3), dan (4)", "(2) dan (3)", "(1), (2), (3), dan (4)", "(3) dan (4)"],
+        "kunci": [3],
+        "pembahasan": "Jarak datar A = 2 cm × 50.000 = 100.000 cm = 1 km. Kemiringan A = 75/1.000 × 100% = 7,5%. Jarak datar B = 2,5 km → kemiringan 3% (lebih kecil). B lebih jauh dari sesar sehingga relatif lebih aman."
+      },
+      {
+        "id": "x-02-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Mengevaluasi kualitas peta tematik",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Peta 'rawan banjir' tanpa metadata",
+          "isi": "<p>Sebuah peta rawan banjir beredar di media sosial. Peta memakai gradasi warna biru, tetapi tidak mencantumkan skala, sumber data, tahun, maupun legenda kelas kerawanan. Banyak warga menganggap seluruh area biru pasti tergenang setiap tahun.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua tindakan yang tepat untuk menilai peta tersebut secara kritis.",
+        "opsi": [
+          "Memeriksa keberadaan skala dan legenda",
+          "Menelusuri sumber dan tahun data",
+          "Menganggap peta valid karena warnanya jelas",
+          "Membandingkan dengan data kejadian banjir aktual",
+          "Menanyakan metode penentuan kelas kerawanan"
+        ],
+        "kunci": [0, 1, 3, 4],
+        "pembahasan": "Peta tanpa metadata tidak dapat diverifikasi. Kejelasan warna bukan bukti validitas; verifikasi menuntut sumber, tahun, metode, dan pembandingan data lapangan."
+      },
+      {
+        "id": "x-02-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan jenis proyeksi dengan tujuan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Kebutuhan pengguna peta",
+          "isi": "<p>Lima pengguna membutuhkan peta dengan properti berbeda: (A) navigasi pelayaran lintas samudra; (B) analisis luas tutupan hutan nasional; (C) pemetaan wilayah kutub; (D) wilayah lintang sedang memanjang timur–barat; (E) peta dinding kelas yang menyeimbangkan bentuk dan luas.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan kebutuhan dengan jenis proyeksi yang paling sesuai.",
+        "kiri": ["Silinder Mercator", "Equal-area", "Azimutal", "Kerucut", "Robinson/Winkel Tripel"],
+        "kanan": ["A", "B", "C", "D", "E"],
+        "kunci": [0, 1, 2, 3, 4],
+        "pembahasan": "Mercator untuk navigasi; equal-area untuk perbandingan luas; azimutal untuk kutub; kerucut untuk lintang sedang; Robinson/Winkel untuk peta umum."
+      },
+      {
+        "id": "x-02-q5",
+        "tipe": "benar_salah",
+        "level": "C3",
+        "literasi": "Menilai pernyataan teknis peta",
+        "numerasi": "Konversi skala",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat pernyataan peta",
+          "isi": "<p>Peta 1:100.000 dengan jarak 4 cm antara dua titik.</p>",
+          "sumber": "—"
+        },
+        "pertanyaan": "Tentukan Benar atau Salah.",
+        "pernyataan": [
+          "Jarak sebenarnya kedua titik adalah 4 km.",
+          "Peta 1:100.000 lebih detail daripada peta 1:25.000.",
+          "Skala verbal 1 cm = 1 km setara dengan skala numerik 1:100.000.",
+          "Kontur yang rapat menunjukkan lereng landai."
+        ],
+        "kunci": ["B", "S", "B", "S"],
+        "pembahasan": "4 cm × 100.000 = 400.000 cm = 4 km. Skala lebih kecil (angka penyebut lebih besar) kurang detail. Kontur rapat = lereng terjal."
+      }
+    ]
+  }
+]

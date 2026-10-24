@@ -1,0 +1,294 @@
+[
+  {
+    "id": "x-05",
+    "kelas": "X",
+    "urutan": 5,
+    "fase": "E",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Litosfer: Batuan, Tektonika, dan Bahaya Geologis",
+    "ringkasan": "Struktur bumi, siklus batuan, lempeng tektonik, vulkanisme, gempa, dan cara membaca peta rawan bencana.",
+    "estimasi": "6 JP",
+    "cp": "Peserta didik memahami proses litosfer dan dampaknya bagi kehidupan serta mampu menilai risiko geologis suatu wilayah.",
+    "tujuan": [
+      "Menjelaskan siklus batuan dan membedakan jenis batuan.",
+      "Mengaitkan pergerakan lempeng dengan gempa dan gunung api.",
+      "Menghitung parameter sederhana gempa dan jarak episentrum.",
+      "Menggunakan atlas/peta rawan gempa untuk rekomendasi lokasi."
+    ],
+    "materi": [
+      {
+        "judul": "Struktur Bumi dan Siklus Batuan",
+        "html": "<p>Bumi berlapis: <strong>kerak</strong> (5–70 km), <strong>mantel</strong> (sampai ±2.900 km), <strong>inti luar</strong> (cair) dan <strong>inti dalam</strong> (padat). Kerak benua lebih tebal dan ringan; kerak samudra lebih tipis dan padat.</p><p>Siklus batuan: magma membeku menjadi <strong>batuan beku</strong> (granit, basalt); pelapukan menghasilkan sedimen yang mengeras menjadi <strong>batuan sedimen</strong> (batu pasir, batu gamping); panas dan tekanan mengubah keduanya menjadi <strong>batuan metamorf</strong> (marmer, sabak). Semua dapat melebur kembali menjadi magma.</p><p>Batuan menentukan daya dukung dan permeabilitas. Batuan gamping membentuk akuifer karst dan rentan sinkhole; batuan liat menahan air sehingga rawan longsor bila lereng terjal.</p>"
+      },
+      {
+        "judul": "Tektonika Lempeng",
+        "html": "<p>Litosfer terpecah menjadi lempeng yang bergerak 2–10 cm/tahun. Tiga jenis batas:</p><table><thead><tr><th>Batas</th><th>Gerak</th><th>Bentuk muka bumi</th><th>Contoh</th></tr></thead><tbody><tr><td>Divergen</td><td>Saling menjauh</td><td>Punggung tengah samudra, retakan</td><td>Mid-Atlantic Ridge</td></tr><tr><td>Konvergen</td><td>Saling mendekat/tumbukan</td><td>Palung, pegunungan, busur vulkanik</td><td>Zona subduksi Jawa–Sumatra</td></tr><tr><td>Transform</td><td>Bergeser</td><td>Sesar mendatar</td><td>Sesar San Andreas; Sesar Palu-Koro</td></tr></tbody></table><p>Indonesia berada pada pertemuan Indo-Australia, Eurasia, dan Pasifik. Konsekuensinya: frekuensi gempa tinggi, banyak gunung api, dan potensi tsunami di pantai yang menghadap zona subduksi.</p>"
+      },
+      {
+        "judul": "Vulkanisme dan Gempa: Angka yang Penting",
+        "html": "<p><strong>Vulkanisme</strong> meliputi erupsi efusif (lava encer, aliran jauh) dan eksplosif (gas dan piroklastik). Bahaya utamanya: awan panas, lahar, hujan abu, gas SO₂. Manfaatnya: tanah subur, geothermal, bahan galian, pariwisata.</p><p><strong>Gempa</strong> diukur dengan magnitudo (energi) dan intensitas (dampak). Hubungan energi–magnitudo bersifat logaritmik: kenaikan 1 magnitudo ≈ 32 kali energi. Gempa M6 melepaskan ±32 kali energi M5.</p><p>Jarak episentrum dapat diperkirakan dengan selisih waktu gelombang P dan S (metode <em>sasmita</em>): Δ = ((S − P) − 1) × 1.000 km, dengan S dan P dalam menit (formula praktis Laska). Contoh: S − P = 12 menit → Δ = 11.000 km (perkiraan kasar; untuk jarak dekat gunakan rumus empiris lain).</p><p>Skala intensitas MMI menggambarkan dampak: MMI III terasa lemah, MMI VI kerusakan ringan, MMI IX kerusakan berat.</p>"
+      },
+      {
+        "judul": "Membaca Risiko Geologis",
+        "html": "<p>Badan Geologi (Kementerian ESDM) menerbitkan atlas gempa bumi dan peta kondisi tanah yang makin rinci—pada 2026 dilaporkan hingga 10 kali lebih detail dibanding edisi sebelumnya. Peta ini membantu memilih lokasi aman dan merancang bangunan tahan gempa.</p><p>Faktor risiko = bahaya × keterpaparan × kerentanan ÷ kapasitas. Wilayah dengan bahaya sama bisa memiliki risiko berbeda: kota padat dengan bangunan rapuh berisiko jauh lebih besar daripada desa dengan rumah tahan gempa.</p><p>Amplifikasi guncangan dipengaruhi jenis tanah. Endapan aluvial lunak memperkuat guncangan (seperti fenomena <em>soil amplification</em>), sementara batuan keras meredamnya. Karena itu, peta kondisi tanah sama pentingnya dengan peta sesar.</p>"
+      }
+    ],
+    "glosarium": [
+      { "istilah": "subduksi", "arti": "penunjaman lempeng samudra di bawah lempeng lain" },
+      { "istilah": "magnitudo", "arti": "ukuran energi gempa berskala logaritmik" },
+      { "istilah": "amplifikasi", "arti": "penguatan guncangan akibat kondisi tanah lunak" },
+      { "istilah": "piroklastik", "arti": "material batuan dan abu yang dilemparkan saat erupsi eksplosif" }
+    ],
+    "soal": [
+      {
+        "id": "x-05-q1",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menafsirkan peta risiko untuk keputusan lokasi",
+        "numerasi": "Membandingkan skor risiko",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Empat calon lokasi sekolah baru",
+          "isi": "<table><thead><tr><th>Lokasi</th><th>Jarak sesar</th><th>Jenis tanah</th><th>Kepadatan bangunan</th><th>Koridor evakuasi</th></tr></thead><tbody><tr><td>A</td><td>0,8 km</td><td>Aluvial lunak</td><td>Tinggi</td><td>1 jalur sempit</td></tr><tr><td>B</td><td>4,2 km</td><td>Batuan keras</td><td>Sedang</td><td>2 jalur lebar</td></tr><tr><td>C</td><td>2,1 km</td><td>Aluvial lunak</td><td>Tinggi</td><td>2 jalur</td></tr><tr><td>D</td><td>5,5 km</td><td>Aluvial lunak</td><td>Rendah</td><td>1 jalur</td></tr></tbody></table>",
+          "sumber": "ilustrasi sintetis berbasis logika risiko"
+        },
+        "pertanyaan": "Lokasi paling aman, dan alasan utamanya adalah ...",
+        "opsi": [
+          "B, karena jauh dari sesar, tanah keras, dan akses evakuasi baik",
+          "A, karena dekat dengan permukiman",
+          "C, karena berada di tengah wilayah",
+          "D, karena paling jauh dari sesar",
+          "B, karena kepadatan bangunan tinggi"
+        ],
+        "kunci": [0],
+        "pembahasan": "Risiko rendah bila bahaya rendah (jauh dari sesar), amplifikasi kecil (batuan keras), dan kapasitas baik (dua jalur evakuasi)."
+      },
+      {
+        "id": "x-05-q2",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menghubungkan magnitudo dengan energi dan dampak",
+        "numerasi": "Logaritma energi gempa",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Dua gempa, satu wilayah",
+          "isi": "<p>Gempa M5,2 mengguncang wilayah berpenduduk padat dengan bangunan tidak tahan gempa. Sebulan kemudian terjadi gempa M6,2 pada kedalaman lebih besar dan berpusat di laut, terasa lemah di daratan. Warga menyimpulkan gempa kedua lebih berbahaya karena angkanya lebih besar.</p>",
+          "sumber": "ilustrasi sintetis berbasis prinsip magnitudo–intensitas"
+        },
+        "pertanyaan": "Pernyataan yang tepat: (1) gempa M6,2 melepaskan energi sekitar 32 kali gempa M5,2; (2) dampak di permukaan tidak hanya ditentukan magnitudo; (3) kedalaman dan jarak episentrum memengaruhi intensitas; (4) magnitudo besar selalu berarti kerusakan besar.",
+        "opsi": ["(1), (2), dan (3)", "(1) dan (4)", "(2), (3), dan (4)", "(1), (2), (3), dan (4)", "Hanya (2)"],
+        "kunci": [0],
+        "pembahasan": "Kenaikan 1 magnitudo ≈ 32 kali energi. Namun intensitas dipengaruhi kedalaman, jarak, kondisi tanah, dan kualitas bangunan—jadi (4) salah."
+      },
+      {
+        "id": "x-05-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis faktor risiko bencana geologis",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "poster",
+          "judul": "Poster mitigasi gempa sekolah",
+          "isi": "<div style='border:2px solid #0d9488;border-radius:12px;padding:12px'><p style='font-size:16px;font-weight:700;margin:0 0 6px'>SEKOLAH SIAGA GEMPA</p><ul style='margin:0 0 0 18px;padding:0'><li>Tempel jalur evakuasi di setiap kelas</li><li>Latihan <em>drop, cover, hold on</em> tiap semester</li><li>Kunci lemari tinggi ke dinding</li><li>Titik kumpul ≥ 1,5 kali tinggi bangunan</li><li>Simpan tas siaga di ruang guru</li></ul></div>",
+          "sumber": "ilustrasi sintetis; prinsip sesuai panduan kesiapsiagaan gempa"
+        },
+        "pertanyaan": "Pilih semua tindakan yang mengurangi risiko (bukan hanya kesiapsiagaan) di sekolah.",
+        "opsi": [
+          "Memperkuat struktur bangunan dan mengunci lemari ke dinding",
+          "Menambah jumlah poster imbauan tanpa latihan",
+          "Menetapkan titik kumpul yang aman dari reruntuhan",
+          "Melatih seluruh warga sekolah melakukan evakuasi",
+          "Memindahkan sekolah ke lokasi jauh dari sesar"
+        ],
+        "kunci": [0, 2, 3, 4],
+        "pembahasan": "Risiko turun melalui pengurangan kerentanan (struktur), kesiapsiagaan (latihan, titik kumpul), dan penghindaran bahaya (relokasi). Poster tanpa latihan tidak menurunkan risiko secara berarti."
+      },
+      {
+        "id": "x-05-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan proses dengan produk litosfer",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Lima proses geologis",
+          "isi": "<p>(A) penunjaman lempeng samudra; (B) pendinginan magma di bawah permukaan; (C) pelapukan dan pemadatan sedimen; (D) panas dan tekanan tinggi pada batuan; (E) pergeseran mendatar kerak.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan proses dengan produk atau fenomena yang dihasilkan.",
+        "kiri": ["A", "B", "C", "D", "E"],
+        "kanan": ["Batuan metamorf", "Palung laut dan busur vulkanik", "Batuan beku intrusif", "Sesar mendatar", "Batuan sedimen"],
+        "kunci": [1, 2, 4, 0, 3],
+        "pembahasan": "Subduksi → palung/busur; magma bawah permukaan → batuan beku intrusif; sedimen → batuan sedimen; panas-tekanan → metamorf; pergeseran → sesar mendatar."
+      },
+      {
+        "id": "x-05-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan teknis litosfer",
+        "numerasi": "Interpretasi angka",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat pernyataan",
+          "isi": "<p>Tentang lempeng, gempa, dan batuan.</p>",
+          "sumber": "—"
+        },
+        "pertanyaan": "Tentukan Benar atau Salah.",
+        "pernyataan": [
+          "Indonesia terletak pada pertemuan tiga lempeng besar sehingga rawan gempa.",
+          "Gempa M7 selalu menimbulkan tsunami.",
+          "Tanah aluvial lunak dapat memperkuat guncangan gempa.",
+          "Batuan gamping mudah larut sehingga membentuk bentang karst."
+        ],
+        "kunci": ["B", "S", "B", "B"],
+        "pembahasan": "Tsunami memerlukan gempa bawah laut dengan pergeseran vertikal besar; tidak semua gempa M7 memicu tsunami."
+      }
+    ]
+  },
+  {
+    "id": "x-06",
+    "kelas": "X",
+    "urutan": 6,
+    "fase": "E",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Atmosfer: Cuaca, Iklim, dan Perubahan Iklim",
+    "ringkasan": "Lapisan atmosfer, unsur cuaca, klasifikasi iklim, El Niño–La Niña, dan strategi adaptasi iklim.",
+    "estimasi": "6 JP",
+    "cp": "Peserta didik memahami proses atmosfer serta mampu menganalisis dampak perubahan iklim pada wilayah dan kehidupan.",
+    "tujuan": [
+      "Menjelaskan lapisan atmosfer dan fungsinya.",
+      "Menghitung parameter cuaca sederhana (kelembapan, lapse rate, curah hujan).",
+      "Membedakan El Niño dan La Niña serta dampaknya di Indonesia.",
+      "Menyusun rekomendasi adaptasi berbasis data iklim."
+    ],
+    "materi": [
+      {
+        "judul": "Lapisan dan Fungsi Atmosfer",
+        "html": "<table><thead><tr><th>Lapisan</th><th>Ketinggian</th><th>Ciri utama</th></tr></thead><tbody><tr><td>Troposfer</td><td>0–12 km</td><td>Tempat cuaca; suhu turun ±6,5 °C/km</td></tr><tr><td>Stratosfer</td><td>12–50 km</td><td>Lapisan ozon menyerap UV</td></tr><tr><td>Mesosfer</td><td>50–85 km</td><td>Meteor terbakar</td></tr><tr><td>Termosfer</td><td>85–600 km</td><td>Aurora, ionisasi</td></tr><tr><td>Eksosfer</td><td>>600 km</td><td>Gas sangat renggang</td></tr></tbody></table><p>Troposfer menyimpan ±80% massa udara dan hampir seluruh uap air. Karena itu, semua fenomena cuaca—awan, hujan, angin—terjadi di lapisan ini. Suhu turun seiring ketinggian (<em>lapse rate</em> lingkungan ±6,5 °C per 1.000 m).</p>"
+      },
+      {
+        "judul": "Unsur Cuaca dan Iklim",
+        "html": "<p>Unsur utama: suhu, tekanan, angin, kelembapan, awan, dan curah hujan. Iklim adalah rata-rata jangka panjang (≥30 tahun); cuaca adalah kondisi sesaat.</p><p><strong>Kelembapan relatif</strong> = (uap air aktual ÷ kapasitas jenuh) × 100%. Udara 30 °C mampu menampung ±30 g/m³ uap air; bila aktual 21 g/m³, RH = 70%.</p><p><strong>Klasifikasi iklim Koppen</strong> membagi tipe A (tropis), B (kering), C (sedang), D (dingin), E (kutub). Indonesia umumnya tipe A (Af/Am/Aw). Klasifikasi Schmidt–Ferguson memakai rasio bulan kering dan basah (Q = bulan kering ÷ bulan basah × 100%).</p><p><strong>Curah hujan orografis</strong> terjadi saat udara lembap dipaksa naik oleh pegunungan, mendingin, dan mengembun. Karena itu lereng angin (windward) basah, lereng bayangan hujan (leeward) kering.</p>"
+      },
+      {
+        "judul": "El Niño, La Niña, dan Monsun",
+        "html": "<p><strong>El Niño</strong>: suhu permukaan laut Pasifik tengah–timur menghangat, angin pasat melemah, perpindahan massa udara ke timur. Dampak Indonesia: curah hujan turun, risiko kekeringan dan karhutla naik.</p><p><strong>La Niña</strong>: kondisi sebaliknya—SST Pasifik tengah–timur mendingin, angin pasat menguat, Indonesia cenderung lebih basah dan risiko banjir meningkat.</p><p><strong>Monsun</strong> Asia membawa musim hujan (Oktober–Maret), monsun Australia membawa musim kemarau (April–September). Interaksi monsun dengan ENSO dan dipole Samudra Hindia membuat awal musim hujan tidak seragam antarwilayah.</p><p>Karena itu, kalender tanam sebaiknya mengikuti prakiraan iklim terbaru, bukan kebiasaan lama semata.</p>"
+      },
+      {
+        "judul": "Perubahan Iklim dan Adaptasi",
+        "html": "<p>Suhu global meningkat karena akumulasi gas rumah kaca (CO₂, CH₄, N₂O). Dampak di Indonesia: kenaikan muka laut, gelombang panas laut, pergeseran musim, dan cuaca ekstrem lebih sering.</p><p>Dua strategi: <strong>mitigasi</strong> (mengurangi emisi: energi terbarukan, transportasi publik, perlindungan gambut) dan <strong>adaptasi</strong> (menyesuaikan diri: varietas tahan kekeringan, panen air hujan, penataan ruang pesisir).</p><p>Data iklim harus dibaca sebagai peluang dan ketidakpastian. Prakiraan berbasis AI yang dikembangkan BMKG, misalnya, meningkatkan resolusi prediksi curah hujan, tetapi tetap memiliki batas ketelitian. Keputusan kebijakan yang baik memadukan prakiraan, data historis, dan kapasitas lokal.</p>"
+      }
+    ],
+    "glosarium": [
+      { "istilah": "lapse rate", "arti": "laju penurunan suhu terhadap ketinggian di troposfer" },
+      { "istilah": "ENSO", "arti": "osilasi El Niño–Southern Oscillation yang memengaruhi iklim global" },
+      { "istilah": "kelembapan relatif", "arti": "perbandingan uap air aktual terhadap kapasitas jenuh udara" },
+      { "istilah": "adaptasi iklim", "arti": "upaya menyesuaikan sistem untuk menghadapi dampak iklim" }
+    ],
+    "soal": [
+      {
+        "id": "x-06-q1",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menafsirkan prakiraan musim untuk keputusan pertanian",
+        "numerasi": "Menghitung defisit curah hujan",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Prakiraan dan realisasi curah hujan",
+          "isi": "<table><thead><tr><th>Bulan</th><th>Normal (mm)</th><th>Prakiraan (mm)</th><th>Realisasi 2026 (mm)</th></tr></thead><tbody><tr><td>Jul</td><td>60</td><td>40</td><td>18</td></tr><tr><td>Agu</td><td>45</td><td>25</td><td>9</td></tr><tr><td>Sep</td><td>70</td><td>35</td><td>22</td></tr><tr><td>Okt</td><td>120</td><td>150</td><td>95</td></tr></tbody></table>",
+          "sumber": "ilustrasi sintetis berbasis pola El Niño"
+        },
+        "pertanyaan": "Kesimpulan yang paling tepat untuk perencanaan tanam adalah ...",
+        "opsi": [
+          "Defisit terbesar terjadi Agustus; petani perlu menunda tanam atau memilih varietas tahan kering",
+          "Curah hujan Oktober jauh di atas normal sehingga aman menanam padi sepanjang tahun",
+          "Prakiraan selalu tepat sehingga tidak perlu rencana cadangan",
+          "Defisit hanya terjadi pada Juli sehingga Agustus aman",
+          "Realisasi lebih tinggi dari normal pada semua bulan"
+        ],
+        "kunci": [0],
+        "pembahasan": "Defisit Agustus = 45 − 9 = 36 mm (terbesar relatif). Oktober juga di bawah normal (95 < 120). Prakiraan berguna tetapi tidak pasti, sehingga rencana cadangan tetap diperlukan."
+      },
+      {
+        "id": "x-06-q2",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Membedakan dampak El Niño dan La Niña",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Dua tahun berbeda",
+          "isi": "<p>Tahun 2023 tercatat El Niño kuat: banyak daerah mengalami hari tanpa hujan panjang, harga pangan naik. Tahun 2024–2025 La Niña lemah–sedang: curah hujan di atas normal, beberapa wilayah banjir. Pemerintah daerah menyusun rencana kontingensi untuk tahun berikutnya.</p>",
+          "sumber": "ilustrasi sintetis berbasis pola ENSO"
+        },
+        "pertanyaan": "Pernyataan yang tepat: (1) El Niño menurunkan curah hujan di Indonesia; (2) La Niña meningkatkan risiko banjir; (3) rencana kontingensi sebaiknya memuat skenario kering dan basah; (4) ENSO tidak berpengaruh pada sektor pertanian.",
+        "opsi": ["(1), (2), dan (3)", "(1) dan (4)", "(2) dan (3)", "(1), (2), (3), dan (4)", "Hanya (1)"],
+        "kunci": [0],
+        "pembahasan": "ENSO memengaruhi curah hujan sehingga berdampak langsung pada pertanian. Rencana kontingensi harus mencakup dua skenario karena fase ENSO dapat berubah."
+      },
+      {
+        "id": "x-06-q3",
+        "tipe": "pg_kompleks",
+        "level": "C5",
+        "literasi": "Mengevaluasi klaim kebijakan berbasis data iklim",
+        "numerasi": "Menimbang ketidakpastian prakiraan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Klaim 'hujan buatan menyelesaikan kekeringan'",
+          "isi": "<p>Seorang pejabat menyatakan bahwa teknologi modifikasi cuaca dapat sepenuhnya mengatasi kekeringan di daerahnya, sehingga tidak perlu mengatur pola tanam. Data menunjukkan OMC hanya efektif bila ada awan potensial dan kelembapan memadai.</p>",
+          "sumber": "ilustrasi sintetis berbasis prinsip OMC"
+        },
+        "pertanyaan": "Pilih semua tanggapan kritis yang tepat.",
+        "opsi": [
+          "OMC bergantung pada keberadaan awan dan kondisi atmosfer",
+          "Pola tanam dan efisiensi irigasi tetap diperlukan",
+          "OMC dapat menjadi satu bagian dari strategi, bukan solusi tunggal",
+          "Karena teknologi maju, risiko kekeringan menjadi nol",
+          "Perlu evaluasi biaya, efektivitas, dan dampak lingkungan OMC"
+        ],
+        "kunci": [0, 1, 2, 4],
+        "pembahasan": "Teknologi tidak menghapus ketergantungan pada kondisi atmosfer. Risiko tidak pernah nol; evaluasi biaya-manfaat wajib."
+      },
+      {
+        "id": "x-06-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan fenomena atmosfer dengan penjelasan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Lima fenomena",
+          "isi": "<p>(A) hujan lebat di lereng gunung yang menghadap angin; (B) suhu turun 6,5 °C setiap 1.000 m; (C) udara 30 °C menampung 21 g/m³ dari kapasitas 30 g/m³; (D) kekeringan panjang saat Pasifik tengah menghangat; (E) musim hujan Oktober–Maret.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan fenomena dengan istilah yang tepat.",
+        "kiri": ["A", "B", "C", "D", "E"],
+        "kanan": ["Lapse rate", "Hujan orografis", "Kelembapan relatif 70%", "El Niño", "Monsun Asia"],
+        "kunci": [1, 0, 2, 3, 4],
+        "pembahasan": "A orografis; B lapse rate; C RH 70%; D El Niño; E monsun Asia."
+      },
+      {
+        "id": "x-06-q5",
+        "tipe": "benar_salah",
+        "level": "C3",
+        "literasi": "Menilai pernyataan iklim",
+        "numerasi": "Konsep dasar",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat pernyataan",
+          "isi": "<p>Tentang atmosfer dan iklim.</p>",
+          "sumber": "—"
+        },
+        "pertanyaan": "Tentukan Benar atau Salah.",
+        "pernyataan": [
+          "Sebagian besar uap air atmosfer berada di troposfer.",
+          "Iklim ditentukan oleh kondisi cuaca satu hari.",
+          "Lereng bayangan hujan cenderung lebih kering.",
+          "Mitigasi dan adaptasi perubahan iklim adalah hal yang sama."
+        ],
+        "kunci": ["B", "S", "B", "S"],
+        "pembahasan": "Iklim adalah rata-rata jangka panjang. Mitigasi menurunkan emisi; adaptasi menyesuaikan diri terhadap dampak."
+      }
+    ]
+  }
+]

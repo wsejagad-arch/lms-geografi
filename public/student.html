@@ -9,6 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
   <title>Siswa - LMS Geografi Multi</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/belajar.css">
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
 </head>
@@ -22,6 +23,7 @@
       </div>
       <nav class="sidebar-nav">
         <div class="nav-item active" data-nav="dashboard"><span class="icon">🏠</span> Beranda</div>
+        <div class="nav-item" data-nav="belajar"><span class="icon">🧭</span> Pembelajaran</div>
         <div class="nav-item" data-nav="materi-saya"><span class="icon">📚</span> Materi Saya</div>
         <div class="nav-item" data-nav="presensi-saya"><span class="icon">✅</span> Presensi</div>
         <div class="nav-item" data-nav="tugas-saya"><span class="icon">📋</span> Tugas</div>
@@ -74,6 +76,10 @@
           <h3>Profil Saya</h3>
           <p style="color:var(--text-2);font-size:13px;margin-bottom:8px" id="s-profile-info">Memuat...</p>
         </div>
+      </section>
+
+      <section id="sec-belajar" class="section hidden">
+        <div id="belajar-root"></div>
       </section>
 
       <section id="sec-materi-saya" class="section hidden">
@@ -152,6 +158,7 @@
   </nav>
 
   <script src="assets/js/api.js"></script>
+  <script src="assets/js/belajar.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});

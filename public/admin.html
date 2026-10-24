@@ -48,6 +48,7 @@
         <div class="nav-item" data-menu="subjects"><svg class="ic"><use href="#i-book"/></svg><span>Mapel</span></div>
         <div class="nav-item" data-menu="classes"><svg class="ic"><use href="#i-school"/></svg><span>Kelas</span></div>
         <div class="nav-item" data-menu="students"><svg class="ic"><use href="#i-users"/></svg><span>Siswa</span></div>
+        <div class="nav-item" data-menu="progress"><svg class="ic"><use href="#i-chart"/></svg><span>Progres Belajar</span></div>
         <p class="nav-label">Konten</p>
         <div class="nav-item" data-menu="materials"><svg class="ic"><use href="#i-file"/></svg><span>Materi</span></div>
         <div class="nav-item" data-menu="questions"><svg class="ic"><use href="#i-help"/></svg><span>Bank Soal</span></div>
@@ -193,6 +194,19 @@
             <table>
               <thead><tr><th>NIS</th><th>Nama</th><th>Email</th><th>WA</th><th>Kelas</th><th>Aksi</th></tr></thead>
               <tbody id="students-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Progres Belajar -->
+      <section id="menu-progress" class="menu-section hidden">
+        <div class="card">
+          <div class="list-toolbar"><button class="btn btn-sm" id="btn-progress-refresh">Muat ulang</button></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>NIS</th><th>Nama</th><th>Jenjang</th><th>Tuntas</th><th>Rata-rata terbaik</th><th>Detail</th></tr></thead>
+              <tbody id="progress-tbody"></tbody>
             </table>
           </div>
         </div>

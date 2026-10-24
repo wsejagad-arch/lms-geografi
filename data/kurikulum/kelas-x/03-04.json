@@ -1,0 +1,294 @@
+[
+  {
+    "id": "x-03",
+    "kelas": "X",
+    "urutan": 3,
+    "fase": "E",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Penginderaan Jauh dan Interpretasi Citra",
+    "ringkasan": "Membaca bumi dari atas: sensor, wahana, resolusi, dan unsur interpretasi citra untuk pemantauan lingkungan.",
+    "estimasi": "4 JP",
+    "cp": "Peserta didik mampu menjelaskan prinsip penginderaan jauh dan menafsirkan citra untuk mengenali fenomena geosfer.",
+    "tujuan": [
+      "Membedakan sensor aktif dan pasif beserta wahana yang sesuai.",
+      "Membandingkan empat jenis resolusi citra.",
+      "Menerapkan unsur interpretasi untuk mengidentifikasi objek.",
+      "Menggunakan citra untuk memantau karhutla, banjir, atau perubahan tutupan lahan."
+    ],
+    "materi": [
+      {
+        "judul": "Prinsip: Energi, Sensor, dan Wahana",
+        "html": "<p><strong>Penginderaan jauh</strong> adalah perolehan informasi tentang objek tanpa kontak langsung, memanfaatkan energi elektromagnetik. Komponennya: sumber energi (matahari atau pulsa buatan), objek, atmosfer, sensor, wahana, dan perangkat pengolah.</p><p><strong>Sensor pasif</strong> menerima pantulan/emisi alami—contohnya Sentinel-2 dan Landsat. Kelemahannya bergantung cuaca dan cahaya. <strong>Sensor aktif</strong> memancarkan energinya sendiri—contohnya radar Sentinel-1 dan LiDAR; dapat bekerja malam dan menembus awan.</p><p>Wahana: satelit orbit polar (resolusi spasial baik, kunjungan berkala), satelit geostasioner (pantau cuaca terus-menerus, resolusi kasar), drone/UAV (sangat detail, cakupan kecil), dan pesawat (kompromi cakupan–detail).</p>"
+      },
+      {
+        "judul": "Empat Resolusi yang Harus Dibedakan",
+        "html": "<table><thead><tr><th>Resolusi</th><th>Arti</th><th>Contoh</th></tr></thead><tbody><tr><td>Spasial</td><td>Ukuran objek terkecil yang tampak</td><td>10 m (Sentinel-2) vs 30 m (Landsat)</td></tr><tr><td>Spektral</td><td>Jumlah dan lebar kanal gelombang</td><td>Multispektral 13 kanal vs hiperspektral ratusan kanal</td></tr><tr><td>Temporal</td><td>Jarak waktu kunjungan ulang</td><td>5 hari (Sentinel-2) — penting untuk memantau banjir</td></tr><tr><td>Radiometrik</td><td>Kepekaan terhadap beda kecerahan</td><td>Citra 8-bit (256 level) vs 12-bit (4096 level)</td></tr></tbody></table><p>Resolusi spasial 10 m berarti satu piksel mewakili 10 × 10 m = 100 m². Satu hektare (±10.000 m²) hanya terdiri atas 100 piksel. Karena itu, objek lebih kecil dari resolusi tidak dapat dikenali secara andal.</p>"
+      },
+      {
+        "judul": "Sembilan Unsur Interpretasi",
+        "html": "<p>Interpretasi visual memakai unsur: <strong>rona/warna</strong>, <strong>ukuran</strong>, <strong>bentuk</strong>, <strong>tekstur</strong>, <strong>pola</strong>, <strong>bayangan</strong>, <strong>situs</strong>, <strong>asosiasi</strong>, dan <strong>konvergensi bukti</strong>. Tidak ada satu unsur yang cukup; kesimpulan diambil dari gabungan.</p><p>Contoh: hutan primer tampak bertekstur kasar, rona gelap, pola tidak teratur. Sawah tampak berpola petak teratur dengan saluran irigasi. Permukiman padat tampak abu-abu dengan pola jalan bercabang. Tubuh air tenang berona gelap dan tekstur halus.</p><p>Interpretasi digital menambahkan indeks spektral. <em>NDVI</em> = (NIR − Red)/(NIR + Red) untuk kesehatan vegetasi; <em>NDWI</em> untuk genangan air. Nilai indeks membantu membedakan objek yang warnanya mirip secara visual.</p>"
+      },
+      {
+        "judul": "Aplikasi: Kebencanaan dan Lingkungan",
+        "html": "<p>Penginderaan jauh menjadi tulang punggung pemantauan bencana karena cepat, luas, dan dapat diulang. Titik panas (hotspot) dari citra termal mendeteksi kebakaran gambut; citra radar menembus asap dan awan untuk melihat genangan; citra optik resolusi tinggi memetakan kerusakan bangunan setelah gempa.</p><p>Di Indonesia, lembaga seperti BMKG, BRIN, dan LAPAN (kini bagian BRIN) memakai data satelit untuk memantau karhutla, deforestasi, dan perubahan garis pantai. Keterbatasan tetap ada: tutupan awan tropis tinggi, dan interpretasi otomatis butuh verifikasi lapangan.</p><p>Prinsip kritisnya: <strong>citra bukan kebenaran tunggal</strong>. Hasil interpretasi adalah hipotesis yang harus diuji dengan data lapangan atau sumber lain.</p>"
+      }
+    ],
+    "glosarium": [
+      { "istilah": "resolusi spasial", "arti": "ukuran terkecil objek yang dapat dibedakan pada citra" },
+      { "istilah": "NDVI", "arti": "indeks vegetasi dari rasio kanal inframerah dekat dan merah" },
+      { "istilah": "sensor aktif", "arti": "sensor yang memancarkan energi sendiri, mis. radar" },
+      { "istilah": "konvergensi bukti", "arti": "penarikan kesimpulan dari beberapa unsur interpretasi yang saling menguatkan" }
+    ],
+    "soal": [
+      {
+        "id": "x-03-q1",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Memilih teknologi sesuai konteks bencana",
+        "numerasi": "Menghitung cakupan piksel",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Tiga citra untuk satu bencana",
+          "isi": "<p>Kabupaten terdampak banjir besar diselimuti awan tebal dan asap. Tim tanggap darurat membutuhkan peta genangan dalam 24 jam.</p><table><thead><tr><th>Citra</th><th>Sensor</th><th>Resolusi</th><th>Kunjungan ulang</th></tr></thead><tbody><tr><td>Optik A</td><td>Pasif multispektral</td><td>10 m</td><td>5 hari</td></tr><tr><td>Radar B</td><td>Aktif SAR</td><td>20 m</td><td>6 hari</td></tr><tr><td>Optik C</td><td>Pasif resolusi tinggi</td><td>0,5 m</td><td>14 hari</td></tr></tbody></table>",
+          "sumber": "ilustrasi sintetis berbasis karakteristik umum satelit"
+        },
+        "pertanyaan": "Citra mana yang paling tepat dan mengapa?",
+        "opsi": [
+          "Optik C, karena paling detail",
+          "Radar B, karena dapat menembus awan dan asap",
+          "Optik A, karena kunjungan ulang paling cepat",
+          "Optik A, karena resolusinya paling halus",
+          "Optik C, karena kunjungan ulang panjang"
+        ],
+        "kunci": [1],
+        "pembahasan": "Awan dan asap menghalangi sensor optik. Sensor aktif (SAR) memancarkan gelombang sendiri sehingga tetap merekam permukaan, meski resolusinya lebih kasar."
+      },
+      {
+        "id": "x-03-q2",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menafsirkan data resolusi untuk penarikan kesimpulan",
+        "numerasi": "Konversi resolusi ke luas piksel",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Deteksi kebakaran gambut",
+          "isi": "<p>Dua citra dipakai untuk memetakan area terbakar seluas 1.000 ha:</p><table><thead><tr><th>Citra</th><th>Resolusi spasial</th><th>Luas 1 piksel</th><th>Jumlah piksel untuk 1.000 ha</th></tr></thead><tbody><tr><td>Sentinel-2</td><td>10 m</td><td>100 m²</td><td>100.000</td></tr><tr><td>Landsat-9</td><td>30 m</td><td>900 m²</td><td>±11.111</td></tr></tbody></table>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pernyataan yang tepat: (1) citra 10 m memberi detail batas area terbakar lebih baik; (2) citra 30 m menghasilkan piksel lebih banyak; (3) piksel 30 m mewakili luas 9 kali piksel 10 m; (4) resolusi temporal tidak relevan untuk memantau kebakaran.",
+        "opsi": ["(1) dan (3)", "(1), (2), dan (3)", "(2) dan (4)", "(1), (3), dan (4)", "Hanya (1)"],
+        "kunci": [0],
+        "pembahasan": "(1) benar: makin kecil piksel makin halus batas objek. (2) salah: 1.000 ha / 100 m² = 100.000 piksel, sedangkan 900 m² hanya ±11.111. (3) benar: 30²/10² = 9. (4) salah: kebakaran dinamis sehingga resolusi temporal penting."
+      },
+      {
+        "id": "x-03-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menilai keterbatasan interpretasi citra",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Klaim dari satu citra",
+          "isi": "<p>Seorang siswa menyimpulkan bahwa 20% hutan di sebuah kabupaten hilang dalam setahun, hanya berdasarkan dua citra optik yang diambil pada musim berbeda. Citra pertama diambil Februari (musim hujan), citra kedua Agustus (musim kemarau).</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua kelemahan yang perlu dipertimbangkan.",
+        "opsi": [
+          "Perbedaan musim mengubah rona vegetasi sehingga bisa menyerupai deforestasi",
+          "Tutupan awan dapat menutupi sebagian area",
+          "Satu citra sudah cukup untuk menyimpulkan deforestasi tahunan",
+          "Perlu verifikasi lapangan atau data pendukung",
+          "Perbedaan sudut dan waktu perekaman memengaruhi perbandingan"
+        ],
+        "kunci": [0, 1, 3, 4],
+        "pembahasan": "Perbandingan citra lintas musim rawan bias fenologi. Verifikasi dan koreksi atmosfer/geometri diperlukan; satu pasang citra tidak cukup untuk klaim tahunan."
+      },
+      {
+        "id": "x-03-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan objek dengan ciri interpretasi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "poster",
+          "judul": "Poster 'Baca Citra'",
+          "isi": "<div style='display:grid;gap:6px'><div><strong>Objek A</strong> — rona gelap, tekstur halus, bentuk tidak teratur mengikuti cekungan</div><div><strong>Objek B</strong> — petak teratur, tekstur halus, berasosiasi dengan saluran irigasi</div><div><strong>Objek C</strong> — rona gelap, tekstur kasar, pola tidak teratur di lereng</div><div><strong>Objek D</strong> — titik-titik terang memanjang mengikuti garis, berasosiasi dengan jembatan</div><div><strong>Objek E</strong> — abu-abu tidak teratur, ukuran kecil rapat, berasosiasi dengan jalan bercabang</div></div>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan objek dengan jenis penutup lahan yang paling mungkin.",
+        "kiri": ["A", "B", "C", "D", "E"],
+        "kanan": ["Permukiman padat", "Tubuh air/danau", "Hutan primer", "Sawah irigasi", "Jalan/jembatan"],
+        "kunci": [1, 3, 2, 4, 0],
+        "pembahasan": "A danau (gelap, halus, mengikuti cekungan); B sawah (petak teratur, irigasi); C hutan primer (kasar, lereng); D jalan/jembatan (memanjang, asosiasi); E permukiman padat."
+      },
+      {
+        "id": "x-03-q5",
+        "tipe": "benar_salah",
+        "level": "C3",
+        "literasi": "Menilai pernyataan teknis penginderaan jauh",
+        "numerasi": "Konsep resolusi",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat pernyataan",
+          "isi": "<p>Bandingkan sensor pasif dan aktif pada kondisi tropis berawan.</p>",
+          "sumber": "—"
+        },
+        "pertanyaan": "Tentukan Benar atau Salah.",
+        "pernyataan": [
+          "Sensor radar dapat merekam pada malam hari.",
+          "Resolusi temporal 5 hari berarti citra diperbarui setiap 5 hari.",
+          "Sensor optik selalu lebih akurat daripada radar dalam segala kondisi.",
+          "NDVI tinggi umumnya menunjukkan vegetasi yang lebih sehat."
+        ],
+        "kunci": ["B", "B", "S", "B"],
+        "pembahasan": "Radar aktif tidak bergantung cahaya matahari. Akurasi bergantung tujuan: radar unggul saat berawan, optik unggul untuk diskriminasi spektral."
+      }
+    ]
+  },
+  {
+    "id": "x-04",
+    "kelas": "X",
+    "urutan": 4,
+    "fase": "E",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Sistem Informasi Geografis (SIG)",
+    "ringkasan": "Menggabungkan data spasial dan atribut untuk analisis: vektor, raster, overlay, buffer, dan WebGIS.",
+    "estimasi": "6 JP",
+    "cp": "Peserta didik mampu mengolah dan menganalisis data geospasial sederhana untuk menjawab pertanyaan keruangan.",
+    "tujuan": [
+      "Mengidentifikasi komponen dan tahapan kerja SIG.",
+      "Membedakan data vektor dan raster beserta kegunaannya.",
+      "Menerapkan overlay dan buffer untuk analisis lokasi.",
+      "Menilai kualitas hasil analisis SIG secara kritis."
+    ],
+    "materi": [
+      {
+        "judul": "Komponen dan Alur Kerja SIG",
+        "html": "<p><strong>SIG</strong> adalah sistem untuk memasukkan, menyimpan, mengelola, menganalisis, dan menyajikan data geografis. Komponennya: <em>perangkat keras</em>, <em>perangkat lunak</em>, <em>data</em>, <em>manusia</em>, <em>metode</em>, dan <em>jaringan</em>.</p><p>Alur kerja: (1) akuisisi data (survei, citra, data statistik); (2) input dan digitalisasi; (3) penyuntingan dan proyeksi; (4) penyimpanan basis data; (5) analisis; (6) penyajian (peta, dasbor, web).</p><p>Kekuatan SIG bukan pada penyimpanan, melainkan pada <strong>analisis tumpang susun</strong>: menggabungkan beberapa lapisan untuk menemukan lokasi yang memenuhi banyak kriteria sekaligus.</p>"
+      },
+      {
+        "judul": "Vektor vs Raster",
+        "html": "<table><thead><tr><th>Aspek</th><th>Vektor</th><th>Raster</th></tr></thead><tbody><tr><td>Bentuk data</td><td>Titik, garis, poligon</td><td>Grid piksel</td></tr><tr><td>Contoh</td><td>Batas administrasi, jalan, sekolah</td><td>Citra satelit, DEM, curah hujan</td></tr><tr><td>Kelebihan</td><td>Presisi batas, atribut rapi, ukuran kecil</td><td>Analisis permukaan kontinu, mudah di-overlay</td></tr><tr><td>Kelemahan</td><td>Kurang cocok untuk data kontinu</td><td>Ukuran besar, batas bergerigi</td></tr></tbody></table><p>Data atribut disimpan dalam tabel dan dihubungkan dengan <em>feature</em> melalui kunci. Satu poligon kecamatan dapat menyimpan nama, jumlah penduduk, luas, dan angka kemiskinan sekaligus.</p>"
+      },
+      {
+        "judul": "Overlay, Buffer, dan Analisis Lokasi",
+        "html": "<p>Tiga operasi dasar yang paling sering dipakai:</p><ul><li><strong>Overlay (tumpang susun):</strong> menggabungkan dua layer. <em>Intersect</em> mengambil irisan, <em>union</em> menggabungkan seluruh area, <em>clip</em> memotong sesuai batas.</li><li><strong>Buffer:</strong> membuat zona jarak tertentu dari objek. Buffer 1 km dari sekolah menghasilkan poligon jangkauan layanan.</li><li><strong>Query atribut:</strong> memilih fitur berdasarkan kriteria, mis. siswa dengan jarak > 3 km dari sekolah.</li></ul><p>Contoh aplikasi: menentukan lokasi posko bencana. Kriteria: (a) di luar zona bahaya; (b) dalam 2 km dari jalan utama; (c) tidak berada di buffer 500 m dari sungai; (d) dekat permukiman. Setiap kriteria menjadi satu layer, lalu di-overlay.</p>"
+      },
+      {
+        "judul": "WebGIS, Kualitas Data, dan Etika",
+        "html": "<p><strong>WebGIS</strong> menyajikan peta interaktif melalui peramban, sering memakai ubin peta dan API. Keunggulannya: mudah diakses, dapat diperbarui cepat, dan mendukung partisipasi warga (VGI—<em>volunteered geographic information</em>).</p><p>Namun kualitas output bergantung kualitas input: <em>garbage in, garbage out</em>. Perhatikan akurasi posisi, ketepatan atribut, kemutakhiran, kelengkapan, konsistensi, dan skala. Peta yang tampak rapi bisa menyesatkan bila datanya tidak valid.</p><p>Etika data juga penting: data lokasi siswa, rumah, atau kelompok rentan harus dilindungi. Peta publik sebaiknya digeneralisasi (mis. agregasi per desa) agar tidak membahayakan privasi.</p>"
+      }
+    ],
+    "glosarium": [
+      { "istilah": "overlay", "arti": "operasi tumpang susun dua lapisan data spasial" },
+      { "istilah": "buffer", "arti": "zona yang dibentuk pada jarak tertentu dari suatu objek" },
+      { "istilah": "DEM", "arti": "model ketinggian digital yang merepresentasikan relief permukaan" },
+      { "istilah": "VGI", "arti": "data geografis yang dikumpulkan secara sukarela oleh warga" }
+    ],
+    "soal": [
+      {
+        "id": "x-04-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menyusun kriteria lokasi berbasis beberapa layer",
+        "numerasi": "Membandingkan hasil seleksi kriteria",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Seleksi lokasi posko bencana",
+          "isi": "<p>Empat calon lokasi diuji dengan kriteria: (i) di luar zona rawan banjir; (ii) dalam 2 km dari jalan utama; (iii) di luar buffer 500 m sungai; (iv) memiliki lahan kosong ≥ 2.000 m².</p><table><thead><tr><th>Lokasi</th><th>Rawan banjir</th><th>Jarak jalan</th><th>Jarak sungai</th><th>Lahan (m²)</th></tr></thead><tbody><tr><td>P</td><td>Tidak</td><td>1,2 km</td><td>700 m</td><td>2.400</td></tr><tr><td>Q</td><td>Tidak</td><td>3,4 km</td><td>900 m</td><td>3.100</td></tr><tr><td>R</td><td>Ya</td><td>0,8 km</td><td>1.500 m</td><td>5.000</td></tr><tr><td>S</td><td>Tidak</td><td>1,9 km</td><td>420 m</td><td>2.600</td></tr></tbody></table>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pernyataan yang tepat: (1) P memenuhi semua kriteria; (2) Q gagal pada kriteria jarak jalan; (3) R gagal pada kriteria rawan banjir; (4) S gagal pada kriteria buffer sungai.",
+        "opsi": ["(1), (2), dan (3)", "(1), (3), dan (4)", "(2), (3), dan (4)", "(1), (3)", "Semua benar"],
+        "kunci": [1],
+        "pembahasan": "P: 1,2 km dari jalan, 700 m dari sungai, 2.400 m² → lolos semua. Q gagal karena 3,4 km > 2 km (opsi 2 salah). R gagal karena rawan banjir. S gagal karena 420 m < 500 m."
+      },
+      {
+        "id": "x-04-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Memilih jenis operasi SIG sesuai pertanyaan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pertanyaan dinas pendidikan",
+          "isi": "<p>Dinas pendidikan ingin mengetahui berapa banyak anak usia sekolah yang tinggal lebih dari 3 km dari sekolah terdekat, dan di kecamatan mana kekurangan itu paling besar.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Kombinasi operasi SIG yang paling tepat adalah ...",
+        "opsi": [
+          "Buffer 3 km dari sekolah, lalu overlay dengan titik permukiman dan agregasi per kecamatan",
+          "Clip batas kecamatan, lalu buffer 3 km dari jalan",
+          "Union semua layer, lalu hitung rata-rata atribut",
+          "Digitasi ulang sekolah, lalu buat peta raster",
+          "Overlay tanpa buffer, lalu urutkan berdasarkan nama kecamatan"
+        ],
+        "kunci": [0],
+        "pembahasan": "Pertanyaan menuntut jarak (buffer 3 km), posisi permukiman (overlay titik), dan agregasi wilayah (per kecamatan)."
+      },
+      {
+        "id": "x-04-q3",
+        "tipe": "pg_kompleks",
+        "level": "C5",
+        "literasi": "Mengevaluasi keandalan hasil analisis SIG",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Peta prioritas sekolah rusak",
+          "isi": "<p>Sebuah tim membuat peta prioritas perbaikan sekolah dari data 2019, tanpa memperbarui jumlah siswa, dan tanpa memeriksa ulang koordinat sekolah yang diinput manual. Hasilnya dipakai untuk mengalokasikan anggaran 2026.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua kelemahan yang harus diperbaiki sebelum peta dipakai.",
+        "opsi": [
+          "Data berumur 7 tahun, tidak mutakhir",
+          "Jumlah siswa tidak diperbarui sehingga bobot prioritas keliru",
+          "Koordinat manual berpotensi galat posisi",
+          "Peta SIG selalu salah sehingga tidak layak dipakai",
+          "Perlu validasi silang dengan data resmi terbaru"
+        ],
+        "kunci": [0, 1, 2, 4],
+        "pembahasan": "Isu utamanya kemutakhiran, kelengkapan atribut, dan akurasi posisi. Pernyataan bahwa SIG selalu salah tidak benar—yang salah adalah kualitas data dan prosesnya."
+      },
+      {
+        "id": "x-04-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan operasi SIG dengan tujuan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Lima kebutuhan analisis",
+          "isi": "<p>(A) mengetahui area yang sekaligus rawan longsor dan berpenduduk padat; (B) memotong peta provinsi sesuai batas kabupaten; (C) membuat zona 1 km di sekitar sungai; (D) memilih desa dengan kemiskinan > 20%; (E) menggabungkan dua layer menjadi satu tanpa kehilangan area.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan kebutuhan dengan operasi SIG yang tepat.",
+        "kiri": ["A", "B", "C", "D", "E"],
+        "kanan": ["Intersect", "Clip", "Buffer", "Query atribut", "Union"],
+        "kunci": [0, 1, 2, 3, 4],
+        "pembahasan": "A intersect; B clip; C buffer; D query atribut; E union."
+      },
+      {
+        "id": "x-04-q5",
+        "tipe": "benar_salah",
+        "level": "C3",
+        "literasi": "Menilai pernyataan tentang data spasial",
+        "numerasi": "Konsep raster/vektor",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat pernyataan SIG",
+          "isi": "<p>Bandingkan data vektor dan raster.</p>",
+          "sumber": "—"
+        },
+        "pertanyaan": "Tentukan Benar atau Salah.",
+        "pernyataan": [
+          "Batas administrasi paling tepat disimpan sebagai data vektor poligon.",
+          "Citra satelit adalah contoh data raster.",
+          "Data vektor selalu lebih akurat daripada data raster.",
+          "Buffer dapat digunakan untuk menganalisis jangkauan layanan."
+        ],
+        "kunci": ["B", "B", "S", "B"],
+        "pembahasan": "Akurasi bergantung sumber dan skala, bukan semata jenis data. Vektor unggul untuk batas tegas; raster unggul untuk fenomena kontinu."
+      }
+    ]
+  }
+]

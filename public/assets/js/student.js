@@ -37,7 +37,7 @@ function setupNav(active) {
 }
 
 function showSection(id) {
-  ['dashboard','materi-saya','tugas-saya','presensi-saya','nilai-saya','exam-saya'].forEach(s => {
+  ['dashboard','belajar','materi-saya','tugas-saya','presensi-saya','nilai-saya','exam-saya'].forEach(s => {
     const el = document.getElementById(`sec-${s}`);
     if (el) el.classList.toggle('hidden', s !== id);
   });
@@ -391,13 +391,14 @@ document.querySelectorAll('.bottom-nav-item').forEach(btn => {
     
     const nav = btn.dataset.nav;
     if (nav === 'dashboard') renderDashboard();
+    if (nav === 'belajar') blLoadKurikulum();
     if (nav === 'materi-saya') renderMateri();
     if (nav === 'tugas-saya') renderAssignments();
     if (nav === 'presensi-saya') renderAttendance();
     if (nav === 'nilai-saya') renderNilai();
     if (nav === 'exam-saya') renderExam();
     setupNav(nav);
-    const titles = { 'dashboard': 'Beranda', 'materi-saya': 'Materi Saya', 'tugas-saya': 'Tugas Saya', 'presensi-saya': 'Presensi', 'nilai-saya': 'Nilai Saya', 'exam-saya': 'Exam' };
+    const titles = { 'dashboard': 'Beranda', 'belajar': 'Pembelajaran', 'materi-saya': 'Materi Saya', 'tugas-saya': 'Tugas Saya', 'presensi-saya': 'Presensi', 'nilai-saya': 'Nilai Saya', 'exam-saya': 'Exam' };
     if (titles[nav]) document.getElementById('page-title').textContent = titles[nav];
     showSection(nav);
   });

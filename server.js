@@ -66,7 +66,11 @@ async function cacheDel(key) {
 async function loadDB() {
   try {
     const data = await fs.readFile(DB_PATH, 'utf-8');
-    return JSON.parse(data);
+    const db = JSON.parse(data);
+    ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams', 'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts'].forEach(k => {
+      if (!Array.isArray(db[k])) db[k] = [];
+    });
+    return db;
   } catch {
     return {
       users: [],
@@ -81,7 +85,9 @@ async function loadDB() {
       grades: [],
       assignments: [],
       attendance: [],
-      schedules: []
+      schedules: [],
+      progress: [],
+      attempts: []
     };
   }
 }
@@ -1352,6 +1358,14 @@ app.get('/api/dashboard', requireAuth, requireTenant, async (req, res) => {
 });
 
 // ===== START =====
+require('./kurikulum').registerKurikulum(app, {
+  loadDB,
+  saveDB,
+  requireAuth,
+  requireTenant,
+  requireAdmin
+});
+
 const PORT = process.env.PORT || 3000;
 (async () => {
   await initDB();
