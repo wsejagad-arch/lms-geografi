@@ -56,9 +56,9 @@ lms-geografi-multi/
 ├── data/
 │   ├── db.json        # Database (auto-generated)
 │   └── kurikulum/
-│       ├── kelas-x/   # Konten JSON per bab (01-02.json … 07-08.json)
-│       ├── kelas-xi/
-│       └── kelas-xii/
+│       ├── kelas-x/   # 8 bab Fase E (01-02.json … 07-08.json)
+│       ├── kelas-xi/  # 8 bab Fase F (01-02.json … 07-08.json)
+│       └── kelas-xii/ # belum diisi (kewilayahan Fase F)
 └── public/
     ├── index.html     # Login
     ├── admin.html     # Panel admin
@@ -169,7 +169,7 @@ REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 ```
 
-## Kurikulum Berjenjang (Geografi Kelas X)
+## Kurikulum Berjenjang (Geografi Kelas X dan XI)
 
 Materi disusun berjenjang per kelas: siswa hanya bisa membuka bab berikutnya setelah bab sebelumnya **tuntas** (nilai ≥ KKM 75). Setiap bab punya evaluasi dengan **maksimal 3 percobaan**; yang diambil adalah **nilai tertinggi**. Setelah semua bab tuntas, tombol **Naik Kelas** membuka jenjang berikutnya.
 
@@ -198,6 +198,22 @@ Catatan: pada CP 2025, Fase E (kelas X) dirumuskan dalam CP IPS; sekolah boleh m
 | 8 | Mitigasi Bencana dan Tata Ruang Berbasis Risiko | rumus risiko, levee effect, rencana aksi |
 
 Setiap bab memuat: tujuan pembelajaran, 4 sub-materi, glosarium, dan **5 soal** yang mencakup lima tipe — pilihan ganda majemuk, pilihan ganda, pilihan ganda kompleks, menjodohkan, dan benar–salah. Semua soal memakai stimulus literasi (paragraf/poster) dan/atau numerasi (tabel & perhitungan), berlevel C3–C5, dengan pembahasan.
+
+### Isi materi Kelas XI (`data/kurikulum/kelas-xi/`)
+Kelas XI memakai **Fase F** dan melanjutkan jenjang setelah seluruh bab Kelas X tuntas (nilai ≥ KKM). Fokusnya biosfer, antroposfer, interaksi manusia–lingkungan, dan sumber daya alam.
+
+| Urutan | Bab | Fokus |
+|---|---|---|
+| 1 | Biosfer: Sebaran Flora dan Fauna Indonesia dan Dunia | faktor persebaran, bioma, garis Wallace–Webber, konservasi |
+| 2 | Tanah: Pembentukan, Klasifikasi, dan Degradasi | lima faktor tanah, jenis tanah Indonesia, USLE, konservasi |
+| 3 | Antroposfer: Dinamika Penduduk dan Proyeksi | CBR/CDR, migrasi, piramida, rasio ketergantungan |
+| 4 | Kualitas Penduduk: Pendidikan, Kesehatan, Ketenagakerjaan | IPM, APK/APM, stunting, TPT dan produktivitas |
+| 5 | Keragaman Budaya dan Difusi Inovasi | unsur budaya, persebaran bahasa, difusi, glokalisasi |
+| 6 | Interaksi Manusia dan Lingkungan | daya dukung, jejak ekologis, kearifan lokal |
+| 7 | Sumber Daya Alam: Klasifikasi, Sebaran, Konsumsi | umur cadangan, sebaran komoditas, transisi energi |
+| 8 | Kajian Lingkungan Berkelanjutan: Proyek Mini | indikator, data lapangan, analisis, rekomendasi |
+
+Struktur tiap bab sama dengan Kelas X (tujuan, 4 sub-materi, glosarium, 5 soal lima tipe, level C3–C5). Kelas XII (kewilayahan: pusat pertumbuhan, tata ruang, interaksi desa–kota, globalisasi) belum diisi dan akan memakai format yang sama.
 
 ### Endpoint
 | Method | Endpoint | Fungsi |

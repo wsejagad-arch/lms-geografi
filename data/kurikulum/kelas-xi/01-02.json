@@ -1,0 +1,385 @@
+[
+  {
+    "id": "xi-01",
+    "kelas": "XI",
+    "urutan": 1,
+    "fase": "F",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Biosfer: Sebaran Flora dan Fauna Indonesia dan Dunia",
+    "ringkasan": "Membaca persebaran bioma dunia serta pola flora-fauna Indonesia menurut garis Wallace dan Webber, lalu menilai tekanan deforestasi terhadap keanekaragaman hayati.",
+    "estimasi": "8 JP",
+    "cp": "Pada akhir Fase F, peserta didik mampu menganalisis persebaran biosfer serta faktor yang memengaruhi sebaran flora dan fauna di Indonesia dan dunia.",
+    "tujuan": [
+      "Menjelaskan faktor iklim, edafik, dan fisiografik yang membentuk pola sebaran organisme.",
+      "Membandingkan ciri bioma dunia berdasarkan iklim dan bentuk vegetasi dominannya.",
+      "Membedakan tipe fauna Asiatis, Peralihan, dan Australis beserta batas garis Wallace dan Webber.",
+      "Menilai dampak deforestasi terhadap keanekaragaman hayati dan memilih strategi konservasi yang sesuai."
+    ],
+    "materi": [
+      {
+        "judul": "Biosfer dan Faktor Persebaran Organisme",
+        "html": "<p><strong>Biosfer</strong> adalah lapisan tipis permukaan bumi yang menjadi tempat berlangsungnya kehidupan, mencakup atmosfer bagian bawah, seluruh hidrosfer, dan lapisan tanah. Persebaran organisme di dalamnya tidak acak, melainkan mengikuti empat kelompok faktor.</p><ul><li><strong>Iklim</strong>: suhu, curah hujan, kelembapan, dan intensitas cahaya. Curah hujan menjadi penentu utama perbedaan hutan hujan, sabana, dan gurun.</li><li><strong>Edafik</strong>: tekstur, pH, dan kandungan hara tanah. Tanah vulkanik muda yang subur memunculkan vegetasi pegunungan yang rapat.</li><li><strong>Fisiografik</strong>: relief dan ketinggian. Setiap kenaikan 100 m suhu turun sekitar 0,6 C sehingga muncul zonasi hutan dataran rendah, hutan pegunungan, hutan lumut, dan padang rumput alpine.</li><li><strong>Biotik</strong>: kompetisi, predasi, dan simbiosis yang menyaring spesies mana yang dapat bertahan di suatu tempat.</li></ul><p>Pola sebaran dibedakan menjadi <em>kosmopolit</em> (menyebar luas, misalnya alang-alang), <em>endemik</em> (terbatas pada wilayah tertentu, misalnya komodo), dan <em>disjung</em> (terpisah pada dua wilayah yang berjauhan).</p>"
+      },
+      {
+        "judul": "Bioma Dunia dan Iklimnya",
+        "html": "<p><strong>Bioma</strong> adalah kumpulan ekosistem darat yang dicirikan oleh vegetasi dominan dan iklim yang serupa. Perbandingan bioma utama membantu membaca peta sebaran vegetasi dunia.</p><table><tr><th>Bioma</th><th>Iklim</th><th>Vegetasi dominan</th></tr><tr><td>Hutan hujan tropis</td><td>Panas, hujan &gt; 2000 mm/tahun</td><td>Pohon tinggi berdaun lebar, tajuk berlapis</td></tr><tr><td>Sabana</td><td>Kering musiman, hujan 500-1500 mm</td><td>Rumput tinggi dengan pohon menyebar</td></tr><tr><td>Gurun</td><td>Hujan &lt; 250 mm/tahun</td><td>Tanaman sukulen, akar panjang</td></tr><tr><td>Stepa</td><td>Hujan 250-500 mm</td><td>Rumput pendek</td></tr><tr><td>Taiga</td><td>Dingin, musim tumbuh pendek</td><td>Konifer berdaun jarum</td></tr><tr><td>Tundra</td><td>Sangat dingin, tanah membeku</td><td>Lumut, liken, perdu pendek</td></tr></table><p>Indonesia berada pada zona hutan hujan tropis dengan variasi lokal: hutan musim di Jawa Timur dan Nusa Tenggara, sabana di Nusa Tenggara Timur, serta hutan rawa di pesisir Sumatra dan Kalimantan.</p>"
+      },
+      {
+        "judul": "Garis Wallace, Garis Webber, dan Tipe Fauna Indonesia",
+        "html": "<p>Perbedaan fauna Indonesia bagian barat dan timur dijelaskan oleh sejarah geologi Paparan Sunda yang pernah menyatu dengan Asia dan Paparan Sahul yang pernah menyatu dengan Australia, dengan laut dalam di antaranya sebagai penghalang.</p><p><strong>Garis Wallace</strong> memisahkan fauna <em>Asiatis</em> di barat (Sumatra, Jawa, Kalimantan, Bali) dari fauna <em>Peralihan</em> di Sulawesi dan Nusa Tenggara. <strong>Garis Webber</strong> memisahkan fauna Peralihan dari fauna <em>Australis</em> di Papua dan kepulauan Aru.</p><ul><li><strong>Asiatis</strong>: mamalia besar, primata banyak, burung berkicau berwarna kurang mencolok. Contoh: gajah Sumatra, orangutan, harimau Sumatra, badak Jawa.</li><li><strong>Peralihan</strong>: campuran dengan tingkat endemisme tinggi. Contoh: anoa, babirusa, tarsius, komodo.</li><li><strong>Australis</strong>: mamalia berkantung, burung berwarna cerah. Contoh: kanguru pohon, burung cenderawasih, kasuari.</li></ul>"
+      },
+      {
+        "judul": "Tekanan terhadap Biosfer dan Strategi Konservasi",
+        "html": "<p>Tekanan utama terhadap biosfer Indonesia adalah <strong>deforestasi</strong> akibat pembukaan lahan, kebakaran gambut, dan perluasan perkebunan, ditambah perburuan serta perdagangan satwa ilegal. Konsekuensinya: fragmentasi habitat, penurunan populasi, dan hilangnya spesies endemik.</p><p>Strategi konservasi disusun berjenjang:</p><ul><li><strong>In situ</strong>: taman nasional, cagar alam, suaka margasatwa, taman wisata alam.</li><li><strong>Ex situ</strong>: kebun raya, penangkaran, bank benih.</li><li><strong>Koridor satwa</strong> untuk menyambung habitat yang terfragmentasi.</li><li><strong>Restorasi ekosistem</strong>, khususnya rewetting lahan gambut agar tidak mudah terbakar.</li><li><strong>Kebijakan pasar</strong> seperti sertifikasi ISPO/RSPO dan moratorium izin pada hutan primer.</li></ul><p>Penilaian keberhasilan tidak cukup dari luas kawasan yang dilindungi, tetapi dari tren populasi spesies kunci dan tutupan hutan di dalam kawasan.</p>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Biosfer",
+        "arti": "Lapisan kehidupan di permukaan bumi yang mencakup atmosfer bawah, hidrosfer, dan tanah."
+      },
+      {
+        "istilah": "Bioma",
+        "arti": "Kesatuan ekosistem darat dengan vegetasi dominan dan iklim serupa."
+      },
+      {
+        "istilah": "Endemik",
+        "arti": "Spesies yang hanya hidup di wilayah geografis tertentu dan tidak ditemukan di tempat lain."
+      },
+      {
+        "istilah": "Garis Wallace",
+        "arti": "Garis hipotetis pemisah fauna Asiatis dan fauna Peralihan Indonesia."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xi-01-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menafsirkan data tutupan hutan dan menyimpulkan implikasi ekologisnya",
+        "numerasi": "Membandingkan laju kehilangan hutan antarperiode",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Tutupan hutan satu kabupaten",
+          "isi": "<table><tr><th>Periode</th><th>Luas hutan (ribu ha)</th><th>Jumlah titik panas</th></tr><tr><td>2019</td><td>420</td><td>38</td></tr><tr><td>2021</td><td>398</td><td>96</td></tr><tr><td>2023</td><td>372</td><td>51</td></tr></table><p>Kebijakan kabupaten menargetkan kehilangan hutan di bawah 1% per tahun.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Simpulan yang paling tepat berdasarkan tabel tersebut adalah ...",
+        "opsi": [
+          "Kehilangan hutan 2019-2021 sekitar 5,2% per tahun sehingga target terlampaui, sementara titik panas menurun pada 2023 karena luas hutan sudah berkurang",
+          "Kehilangan hutan 2019-2021 sekitar 2,6% per tahun sehingga target tidak tercapai, dan penurunan titik panas 2023 belum cukup menjadi bukti pemulihan",
+          "Kehilangan hutan stabil di bawah 1% per tahun karena jumlah titik panas berfluktuasi",
+          "Titik panas bukan indikator yang relevan sehingga data 2023 dapat diabaikan",
+          "Target kebijakan tercapai karena luas hutan 2023 masih di atas 300 ribu ha"
+        ],
+        "kunci": [
+          1
+        ],
+        "pembahasan": "Kehilangan 2019-2021 = (420-398)/420 = 5,2% dalam dua tahun, yaitu sekitar 2,6% per tahun, jauh di atas ambang 1%. Penurunan titik panas pada 2023 tidak otomatis berarti pemulihan karena luas hutan terus menyusut; keduanya harus dibaca bersama."
+      },
+      {
+        "id": "xi-01-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menghubungkan kebijakan restorasi gambut dengan fungsi ekologis biosfer",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Restorasi gambut",
+          "isi": "<p>Pemerintah daerah menutup kanal drainase dan menanam kembali jenis lokal pada 12 ribu hektare lahan gambut yang terbakar. Sebelum restorasi, lahan tersebut menyala berulang setiap musim kering dan asapnya menutup tiga kabupaten.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Alasan utama penutupan kanal drainase menjadi langkah kunci restorasi gambut adalah ...",
+        "opsi": [
+          "menaikkan muka air tanah gambut agar bahan organik tidak cepat teroksidasi dan mudah terbakar",
+          "mempercepat aliran air keluar agar lahan cepat kering dan dapat ditanami",
+          "meningkatkan kadar hara tanah dengan menambah sedimen dari hulu",
+          "membuka akses nelayan untuk memanfaatkan air kanal",
+          "menurunkan permukaan tanah agar akar tanaman cepat mencapai air"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Gambut yang kering mengalami oksidasi dan menjadi bahan bakar kebakaran. Dengan membasahi kembali (rewetting), laju oksidasi dan risiko kebakaran menurun, sekaligus menekan emisi karbon."
+      },
+      {
+        "id": "xi-01-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Mengidentifikasi ciri fauna Asiatis dari daftar bukti",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Catatan pengamatan",
+          "isi": "<p>Sebuah tim ekspedisi mencatat temuan di satu pulau: (1) primata besar dengan kantung pipi; (2) mamalia berkantung yang mengasuh anak di kantong perut; (3) burung dengan bulu cerah dan suara nyaring; (4) badak bercula satu; (5) mamalia endemik bertubuh sedang tanpa predator besar.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua pernyataan yang sesuai dengan ciri fauna Asiatis.",
+        "opsi": [
+          "Temuan (1) sesuai fauna Asiatis",
+          "Temuan (2) sesuai fauna Asiatis",
+          "Temuan (3) sesuai fauna Asiatis",
+          "Temuan (4) sesuai fauna Asiatis",
+          "Temuan (5) sesuai fauna Asiatis"
+        ],
+        "kunci": [
+          0,
+          3
+        ],
+        "pembahasan": "Fauna Asiatis dicirikan primata banyak dan mamalia besar seperti badak. Mamalia berkantung adalah ciri Australis, burung berwarna cerah juga lebih khas Australis, sedangkan temuan (5) lebih mencerminkan fauna Peralihan yang endemik."
+      },
+      {
+        "id": "xi-01-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan bioma dengan ciri iklim dan vegetasinya",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat bioma",
+          "isi": "<p>Perhatikan empat bioma berikut: (A) tundra; (B) taiga; (C) sabana; (D) hutan hujan tropis.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan bioma dengan ciri yang paling tepat.",
+        "kiri": [
+          "Tundra",
+          "Taiga",
+          "Sabana",
+          "Hutan hujan tropis"
+        ],
+        "kanan": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "kunci": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "pembahasan": "Tundra (A) bervegetasi lumut di tanah beku; taiga (B) didominasi konifer; sabana (C) rumput tinggi dengan pohon menyebar; hutan hujan tropis (D) bertajuk berlapis dengan hujan di atas 2000 mm/tahun."
+      },
+      {
+        "id": "xi-01-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai validitas pernyataan tentang batas persebaran fauna",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pernyataan biogeografi",
+          "isi": "<p>Seorang siswa menyusun empat pernyataan tentang persebaran fauna Indonesia.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Tentukan benar atau salah setiap pernyataan.",
+        "pernyataan": [
+          "Garis Wallace memisahkan fauna Asiatis dari fauna Peralihan.",
+          "Garis Webber terletak di antara Kalimantan dan Sulawesi.",
+          "Komodo termasuk fauna Australis karena hidup di Nusa Tenggara.",
+          "Endemisme tinggi di Sulawesi berkaitan dengan isolasi laut yang lama."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "S",
+          "B"
+        ],
+        "pembahasan": "Garis Webber berada antara Maluku dan Papua, bukan antara Kalimantan dan Sulawesi. Komodo adalah fauna Peralihan. Isolasi laut yang lama membuat Sulawesi memiliki tingkat endemisme tinggi."
+      }
+    ]
+  },
+  {
+    "id": "xi-02",
+    "kelas": "XI",
+    "urutan": 2,
+    "fase": "F",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Tanah: Pembentukan, Klasifikasi, dan Degradasi",
+    "ringkasan": "Menelusuri proses pembentukan tanah, mengenali jenis tanah utama Indonesia, serta menilai degradasi lahan melalui erosi dan strategi konservasinya.",
+    "estimasi": "6 JP",
+    "cp": "Pada akhir Fase F, peserta didik mampu menganalisis proses pembentukan tanah, klasifikasi tanah Indonesia, serta degradasi dan konservasi lahan.",
+    "tujuan": [
+      "Menjelaskan lima faktor pembentuk tanah dan proses pembentukan horizon.",
+      "Mengidentifikasi jenis tanah Indonesia berdasarkan bahan induk dan iklimnya.",
+      "Menghitung dan menafsirkan laju erosi sederhana pada suatu lahan.",
+      "Memilih tindakan konservasi tanah yang sesuai dengan karakter lahan."
+    ],
+    "materi": [
+      {
+        "judul": "Faktor dan Proses Pembentukan Tanah",
+        "html": "<p><strong>Tanah</strong> adalah tubuh alam berlapis yang terbentuk dari pelapukan batuan dan bahan organik. Pembentukannya dipengaruhi lima faktor yang saling terkait.</p><ul><li><strong>Iklim</strong>: suhu dan curah hujan mengatur kecepatan pelapukan serta pencucian hara.</li><li><strong>Bahan induk</strong>: batuan vulkanik menghasilkan tanah subur, batuan kapur menghasilkan tanah basa, batuan kuarsa menghasilkan tanah miskin hara.</li><li><strong>Organisme</strong>: akar, cacing, dan mikroba mempercepat humifikasi.</li><li><strong>Topografi</strong>: lereng curam mempercepat erosi sehingga tanah muda dan tipis.</li><li><strong>Waktu</strong>: pembentukan horizon memerlukan ratusan hingga ribuan tahun.</li></ul><p>Profil tanah tersusun dari horizon <em>O</em> (serasah), <em>A</em> (topsoil kaya humus), <em>B</em> (zona penimbunan), <em>C</em> (bahan induk terlapuk), dan <em>R</em> (batuan dasar). Pelapukan, pencucian, dan penimbunan membentuk susunan tersebut.</p>"
+      },
+      {
+        "judul": "Jenis Tanah Utama di Indonesia",
+        "html": "<table><tr><th>Jenis tanah</th><th>Ciri</th><th>Pemanfaatan</th></tr><tr><td>Andosol</td><td>Dari abu vulkanik, gelap, kaya hara, pH agak masam</td><td>Hortikultura, palawija di dataran tinggi</td></tr><tr><td>Latosol</td><td>Dari batuan vulkanik tua, merah-cokelat, sudah tercuci</td><td>Padi, kelapa sawit, karet</td></tr><tr><td>Aluvial</td><td>Endapan sungai, tekstur berlapis, subur</td><td>Sawah irigasi</td></tr><tr><td>Grumusol</td><td>Lempung mengembang, retak saat kering</td><td>Padi, jagung, tebu</td></tr><tr><td>Podsolik</td><td>Masam, miskin hara, warna pucat</td><td>Perkebunan dengan pemupukan intensif</td></tr><tr><td>Regosol</td><td>Muda, berbutir kasar, dari endapan baru</td><td>Tembakau, palawija</td></tr><tr><td>Organosol</td><td>Bahan organik tebal, jenuh air</td><td>Tanaman tahunan; perlu drainase hati-hati</td></tr></table><p>Kesuburan tanah tidak hanya ditentukan jenis, tetapi juga kedalaman solum, pH, kapasitas tukar kation, dan kandungan bahan organik.</p>"
+      },
+      {
+        "judul": "Degradasi Lahan dan Erosi",
+        "html": "<p><strong>Degradasi lahan</strong> adalah penurunan kualitas tanah sehingga fungsinya berkurang. Penyebab utamanya erosi, pemadatan, salinisasi, kehilangan bahan organik, dan pencemaran.</p><p>Erosi dipercepat oleh hujan lebat, lereng curam, tutupan vegetasi minim, dan praktik pengolahan yang membalik tanah. Perkiraan erosi dapat didekati dengan <em>USLE</em>: <strong>A = R x K x LS x C x P</strong>, dengan R erosivitas hujan, K erodibilitas tanah, LS panjang-kemiringan lereng, C tutupan vegetasi, dan P tindakan konservasi.</p><p>Karena C dan P berupa pengali, menurunkan keduanya paling murah dilakukan manusia: menambah tutupan dan mengubah praktik olah tanah. Erosi di atas toleransi (umumnya 15-25 ton/ha/tahun untuk tanah dangkal) menurunkan produktivitas dan memicu sedimentasi di hilir.</p>"
+      },
+      {
+        "judul": "Konservasi Tanah dan Air",
+        "html": "<p>Konservasi tanah dibedakan menurut pendekatan:</p><ul><li><strong>Vegetatif</strong>: penanaman penutup tanah, agroforestri, strip rumput, rotasi tanaman.</li><li><strong>Mekanis</strong>: terasering, guludan, saluran pembuangan air, pembuatan check dam.</li><li><strong>Kimia</strong>: pengapuran pada tanah masam, penambahan bahan organik untuk memperbaiki struktur.</li></ul><p>Contoh penerapan: lereng 15-25% ditanami teras gulud dengan penutup tanah; lahan miring &gt; 25% sebaiknya tetap berhutan; lahan gambut dikelola dengan menjaga muka air dan tanpa pembakaran. Keberhasilan konservasi diukur dari penurunan erosi, bukan hanya dari luas lahan yang ditanami.</p>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Horizon tanah",
+        "arti": "Lapisan tanah yang sejajar permukaan dengan sifat berbeda dari lapisan di atas dan di bawahnya."
+      },
+      {
+        "istilah": "Erodibilitas",
+        "arti": "Kerawanan tanah terhadap erosi yang ditentukan tekstur dan struktur tanah."
+      },
+      {
+        "istilah": "Solum",
+        "arti": "Ketebalan tanah yang tersusun dari horizon A dan B, tempat akar berkembang."
+      },
+      {
+        "istilah": "Agroforestri",
+        "arti": "Pola tanam campuran tanaman tahunan berkayu dengan tanaman pangan pada satu lahan."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xi-02-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menafsirkan data sedimen sebagai indikator erosi hulu",
+        "numerasi": "Membandingkan nilai erosi dengan ambang toleransi",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Hasil pengukuran dua petak lahan",
+          "isi": "<table><tr><th>Petak</th><th>Kemiringan</th><th>Tutupan</th><th>Erosi (ton/ha/tahun)</th></tr><tr><td>P1</td><td>18%</td><td>Tanaman pangan tanpa mulsa</td><td>42</td></tr><tr><td>P2</td><td>18%</td><td>Agroforestri rapat</td><td>7</td></tr></table><p>Toleransi erosi tanah setempat 20 ton/ha/tahun.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Kesimpulan paling tepat dari data tersebut adalah ...",
+        "opsi": [
+          "Erosi P1 melebihi ambang toleransi sehingga perlu penambahan tutupan dan mulsa",
+          "Erosi P2 melebihi ambang sehingga agroforestri tidak efektif",
+          "Kedua petak aman karena kemiringan sama",
+          "Erosi tidak dipengaruhi tutupan karena beda lahan hanya pada praktik tanam",
+          "Penurunan erosi P2 tidak dapat dikaitkan dengan tutupan vegetasi"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Pada kemiringan yang sama, P1 menghasilkan erosi 42 ton/ha/tahun (di atas toleransi 20), sedangkan P2 hanya 7. Perbedaan ini menunjukkan pengaruh faktor C dan P, sehingga penambahan tutupan serta mulsa menjadi langkah tepat."
+      },
+      {
+        "id": "xi-02-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menghubungkan sifat tanah dengan pilihan tanaman",
+        "numerasi": "Menafsirkan nilai pH tanah",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Hasil uji tanah",
+          "isi": "<p>Hasil uji sebuah lahan: pH 4,8; bahan organik rendah; aluminium dapat ditukar tinggi; tekstur lempung liat. Petani ingin menanam jagung yang toleran pH 5,5-7,0.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Tindakan paling tepat sebelum penanaman adalah ...",
+        "opsi": [
+          "pengapuran untuk menaikkan pH dan menekan keracunan aluminium",
+          "pemupukan nitrogen dosis tinggi tanpa pengapuran",
+          "penggenangan lahan agar pH naik secara alami",
+          "penambahan gypsum untuk menurunkan pH",
+          "pembakaran sisa tanaman agar hara cepat tersedia"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Pada pH di bawah 5 dan Al tinggi, akar terhambat. Pengapuran menaikkan pH, menurunkan Al dapat ditukar, dan meningkatkan ketersediaan fosfor. Pemupukan tanpa pengapuran tidak menyelesaikan masalah keracunan aluminium."
+      },
+      {
+        "id": "xi-02-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Mengidentifikasi tindakan konservasi yang sesuai karakter lahan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Lahan miring",
+          "isi": "<p>Sebidang lahan di desa hulu memiliki kemiringan 20%, curah hujan tinggi, dan tanah dangkal di atas batuan. Penduduk menanam sayur dengan olah tanah intensif setiap musim.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua tindakan konservasi yang sesuai untuk lahan tersebut.",
+        "opsi": [
+          "Membuat teras gulud dan saluran pembuangan air",
+          "Menanam penutup tanah di antara bedengan",
+          "Membalik tanah lebih dalam setiap musim agar gembur",
+          "Mengubah pola tanam menjadi agroforestri",
+          "Membiarkan lahan terbuka saat musim hujan agar tidak tergenang"
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Teras gulud memperpendek panjang lereng, penutup tanah menurunkan faktor C, dan agroforestri menambah tutupan permanen. Olah tanah dalam memperbesar erosi, dan lahan terbuka pada musim hujan justru paling rawan."
+      },
+      {
+        "id": "xi-02-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan jenis tanah dengan pemanfaatan yang tepat",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat jenis tanah",
+          "isi": "<p>Perhatikan jenis tanah berikut: (A) aluvial; (B) andosol; (C) organosol; (D) grumusol.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan jenis tanah dengan pemanfaatan yang paling sesuai.",
+        "kiri": [
+          "Aluvial",
+          "Andosol",
+          "Organosol",
+          "Grumusol"
+        ],
+        "kanan": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "kunci": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "pembahasan": "Aluvial (A) untuk sawah irigasi; andosol (B) untuk hortikultura dataran tinggi; organosol (C) untuk tanaman tahunan dengan pengelolaan air; grumusol (D) untuk padi, jagung, dan tebu."
+      },
+      {
+        "id": "xi-02-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan tentang proses dan degradasi tanah",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pernyataan tanah",
+          "isi": "<p>Empat pernyataan tentang tanah dan degradasinya.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Tentukan benar atau salah setiap pernyataan.",
+        "pernyataan": [
+          "Horizon A merupakan lapisan paling kaya bahan organik pada profil tanah.",
+          "Semakin curam lereng, solum tanah umumnya semakin tebal.",
+          "Pengapuran bertujuan menurunkan pH tanah masam.",
+          "Salinisasi dapat terjadi akibat irigasi berlebihan pada lahan berpengatusan buruk."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "S",
+          "B"
+        ],
+        "pembahasan": "Lereng curam mempercepat erosi sehingga solum tipis. Pengapuran menaikkan pH, bukan menurunkannya. Irigasi berlebih dengan drainase buruk mengangkat garam ke lapisan atas sehingga terjadi salinisasi."
+      }
+    ]
+  }
+]

@@ -1,0 +1,386 @@
+[
+  {
+    "id": "xi-05",
+    "kelas": "XI",
+    "urutan": 5,
+    "fase": "F",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Keragaman Budaya dan Difusi Inovasi",
+    "ringkasan": "Membaca persebaran keragaman budaya Indonesia serta proses difusi, akulturasi, dan glokalisasi yang membentuk wajah budaya suatu wilayah.",
+    "estimasi": "6 JP",
+    "cp": "Pada akhir Fase F, peserta didik mampu menganalisis keragaman budaya Indonesia serta proses difusi dan perubahan budaya dalam ruang.",
+    "tujuan": [
+      "Menjelaskan tujuh unsur kebudayaan dan wujudnya dalam ruang.",
+      "Mengidentifikasi pola persebaran etnis dan bahasa di Indonesia.",
+      "Membedakan difusi relokasi, ekspansi, dan stimulus.",
+      "Menilai dampak glokalisasi terhadap budaya lokal."
+    ],
+    "materi": [
+      {
+        "judul": "Unsur dan Wujud Kebudayaan",
+        "html": "<p>Kebudayaan memiliki tujuh unsur universal: bahasa, sistem pengetahuan, organisasi sosial, sistem peralatan hidup dan teknologi, sistem mata pencaharian, sistem religi, dan kesenian. Ketiganya tampil dalam tiga wujud: <em>ideas</em> (gagasan), <em>activities</em> (aktivitas), dan <em>artifacts</em> (benda hasil karya).</p><p>Geografi budaya memusatkan perhatian pada hubungan antara budaya dan ruang: bagaimana praktik bertani, pola permukiman, dan arsitektur rumah menyesuaikan iklim serta sumber daya setempat. Rumah panggung di daerah rawan banjir atau berawa merupakan contoh adaptasi budaya terhadap lingkungan fisik.</p>"
+      },
+      {
+        "judul": "Persebaran Etnis dan Bahasa di Indonesia",
+        "html": "<p>Indonesia memiliki lebih dari 1.300 kelompok etnis dan sekitar 700 bahasa daerah. Persebarannya tidak merata dan sering mengikuti pola migrasi historis, jalur perdagangan, serta kondisi geografis.</p><ul><li>Pulau Jawa dan Sumatra memiliki jumlah penutur bahasa daerah besar, misalnya Jawa, Sunda, dan Minangkabau.</li><li>Papua memiliki keragaman bahasa tertinggi dengan banyak bahasa berpenutur sedikit.</li><li>Wilayah pesisir umumnya menjadi titik pertemuan budaya karena perdagangan, sedangkan wilayah pedalaman cenderung mempertahankan ciri lokal.</li></ul><p>Bahasa Indonesia berfungsi sebagai bahasa pemersatu; penggunaannya meningkat di ruang publik dan media, sementara bahasa daerah mengalami penurunan penutur muda. Pemetaan bahasa membantu merancang kebijakan pendidikan multibahasa.</p>"
+      },
+      {
+        "judul": "Difusi Kebudayaan dan Inovasi",
+        "html": "<p><strong>Difusi</strong> adalah penyebaran unsur budaya dari satu tempat ke tempat lain. Bentuknya:</p><ul><li><strong>Relokasi</strong>: unsur budaya dibawa oleh orang yang berpindah, misalnya makanan khas yang menyebar bersama perantau.</li><li><strong>Ekspansi</strong>: menyebar keluar dari pusat dan bertahan di sana. Bila menyebar ke segala arah disebut <em>kontagius</em>, bila turun dari kota besar ke kota kecil disebut <em>berjenjang</em>.</li><li><strong>Stimulus</strong>: gagasan menyebar tanpa benda aslinya, misalnya ide koperasi atau ide transportasi publik yang diadaptasi lokal.</li></ul><p>Ketika dua budaya bertemu muncul <strong>akulturasi</strong> (perpaduan tanpa menghilangkan ciri asal), <strong>asimilasi</strong> (peleburan menjadi budaya baru), atau <strong>sinkretisme</strong> pada praktik keagamaan. Penolakan terhadap unsur baru dapat memicu konflik sosial.</p>"
+      },
+      {
+        "judul": "Glokalisasi dan Ketahanan Budaya",
+        "html": "<p><strong>Glokalisasi</strong> adalah penyesuaian produk atau praktik global dengan konteks lokal: menu waralaba global yang memakai sambal lokal, atau aplikasi global yang menyediakan bahasa daerah.</p><p>Dampaknya ganda. Di satu sisi memperluas pilihan dan akses pasar; di sisi lain dapat menekan produk lokal yang kalah skala. Ketahanan budaya dibangun melalui dokumentasi pengetahuan lokal, kurasi festival, sertifikasi produk, serta pemanfaatan platform digital untuk pasar lokal.</p><p>Indikator sederhana yang dapat dipantau: jumlah penutur aktif bahasa daerah, jumlah usaha kerajinan yang bertahan, dan keterlibatan generasi muda dalam praktik adat.</p>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Difusi stimulus",
+        "arti": "Penyebaran gagasan tanpa membawa benda atau bentuk aslinya."
+      },
+      {
+        "istilah": "Akulturasi",
+        "arti": "Perpaduan dua budaya yang masih mempertahankan ciri budaya asalnya."
+      },
+      {
+        "istilah": "Glokalisasi",
+        "arti": "Penyesuaian unsur global dengan konteks dan selera lokal."
+      },
+      {
+        "istilah": "Sinkretisme",
+        "arti": "Percampuran unsur dari beberapa kepercayaan atau praktik budaya."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xi-05-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Membedakan bentuk difusi dari narasi perpindahan budaya",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Tiga peristiwa budaya",
+          "isi": "<p>(1) Perantau Minang membuka rumah makan padang di berbagai kota. (2) Gagasan bank sampah desa ditiru desa lain setelah kunjungan belajar. (3) Model pakaian dari kota besar menyebar ke kota kecil melalui media sosial.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Urutan bentuk difusi pada ketiga peristiwa tersebut adalah ...",
+        "opsi": [
+          "relokasi, stimulus, berjenjang",
+          "ekspansi, relokasi, kontagius",
+          "stimulus, relokasi, ekspansi",
+          "relokasi, kontagius, berjenjang",
+          "berjenjang, stimulus, relokasi"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Perantau membawa budaya secara fisik (relokasi). Gagasan bank sampah menyebar sebagai ide tanpa memindahkan benda aslinya (stimulus). Model pakaian menyebar dari kota besar ke kota kecil (difusi berjenjang)."
+      },
+      {
+        "id": "xi-05-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menafsirkan penurunan penutur bahasa daerah dan implikasinya",
+        "numerasi": "Membandingkan persentase penutur antar kelompok umur",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Survei bahasa daerah",
+          "isi": "<p>Survei di satu kabupaten: 78% penduduk usia di atas 45 tahun menggunakan bahasa daerah setiap hari, sedangkan pada kelompok usia 15-24 tahun hanya 31%. Di sekolah, bahasa pengantar sepenuhnya bahasa Indonesia.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Kesimpulan dan tindakan paling tepat adalah ...",
+        "opsi": [
+          "terjadi pergeseran bahasa antargenerasi sehingga perlu program pewarisan bahasa melalui pendidikan dan ruang budaya",
+          "bahasa daerah tetap lestari karena masih dipakai kelompok tua",
+          "penurunan ini tidak bermasalah karena bahasa Indonesia sebagai pemersatu",
+          "bahasa daerah sebaiknya dihapus dari kurikulum agar siswa fokus",
+          "data survei tidak relevan karena hanya memakai sampel"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Selisih 78% berbanding 31% menunjukkan transmisi antargenerasi terputus. Bahasa dapat hilang ketika penutur mudanya berhenti memakainya, sehingga diperlukan program pewarisan yang sengaja dirancang."
+      },
+      {
+        "id": "xi-05-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menilai dampak glokalisasi pada budaya lokal",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Waralaba dan produk lokal",
+          "isi": "<p>Sebuah kota kecil kedatangan gerai makanan global yang menyesuaikan menu dengan rasa lokal. Setelah setahun, penjualan makanan tradisional di sekitar turun 20%, tetapi beberapa usaha kecil mulai memasarkan produknya secara daring.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua pernyataan yang tepat mengenai dampak glokalisasi pada kasus tersebut.",
+        "opsi": [
+          "Penyesuaian menu menunjukkan unsur global beradaptasi dengan selera lokal",
+          "Penurunan penjualan makanan tradisional merupakan dampak persaingan yang perlu dimitigasi",
+          "Pemasaran daring membuka peluang pasar baru bagi usaha lokal",
+          "Glokalisasi menghapus seluruh unsur budaya lokal",
+          "Persaingan selalu menguntungkan usaha kecil tanpa pendampingan"
+        ],
+        "kunci": [
+          0,
+          1,
+          2
+        ],
+        "pembahasan": "Glokalisasi tampak pada adaptasi menu; dampak kompetitif berupa penurunan penjualan lokal nyata dan perlu dimitigasi; kanal digital memberi peluang baru. Glokalisasi tidak menghapus seluruh budaya lokal, dan usaha kecil umumnya memerlukan pendampingan agar mampu bersaing."
+      },
+      {
+        "id": "xi-05-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan proses budaya dengan contoh peristiwanya",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat proses budaya",
+          "isi": "<p>Perhatikan proses budaya berikut: (A) akulturasi; (B) asimilasi; (C) difusi relokasi; (D) sinkretisme.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan proses budaya dengan contohnya.",
+        "kiri": [
+          "Akulturasi",
+          "Asimilasi",
+          "Difusi relokasi",
+          "Sinkretisme"
+        ],
+        "kanan": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "kunci": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "pembahasan": "Akulturasi (A) terlihat pada arsitektur masjid dengan atap tumpang yang tetap mempertahankan ciri lokal; asimilasi (B) pada perkawinan campur yang melahirkan budaya baru; difusi relokasi (C) pada makanan khas yang dibawa perantau; sinkretisme (D) pada praktik ritual yang memadukan unsur kepercayaan."
+      },
+      {
+        "id": "xi-05-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan tentang difusi dan ketahanan budaya",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pernyataan budaya",
+          "isi": "<p>Empat pernyataan tentang keragaman dan difusi budaya.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Tentukan benar atau salah setiap pernyataan.",
+        "pernyataan": [
+          "Difusi ekspansi selalu memindahkan pusat budaya ke wilayah baru.",
+          "Wilayah pesisir umumnya lebih terbuka terhadap unsur budaya luar daripada pedalaman.",
+          "Bahasa Indonesia menggantikan seluruh fungsi bahasa daerah di sekolah.",
+          "Akulturasi masih mempertahankan ciri budaya asal."
+        ],
+        "kunci": [
+          "S",
+          "B",
+          "S",
+          "B"
+        ],
+        "pembahasan": "Difusi ekspansi menyebar tetapi pusat budaya tetap bertahan. Bahasa Indonesia berfungsi sebagai bahasa pengantar tanpa harus menghapus bahasa daerah. Akulturasi mempertahankan ciri asal, berbeda dari asimilasi yang melebur."
+      }
+    ]
+  },
+  {
+    "id": "xi-06",
+    "kelas": "XI",
+    "urutan": 6,
+    "fase": "F",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Interaksi Manusia dan Lingkungan: Daya Dukung dan Jejak Ekologis",
+    "ringkasan": "Menganalisis hubungan timbal balik manusia dengan lingkungan melalui konsep daya dukung, jejak ekologis, dan kearifan lokal.",
+    "estimasi": "6 JP",
+    "cp": "Pada akhir Fase F, peserta didik mampu menganalisis interaksi manusia dan lingkungan melalui daya dukung, jejak ekologis, serta kearifan lokal.",
+    "tujuan": [
+      "Menjelaskan hubungan timbal balik manusia dan lingkungan.",
+      "Menghitung dan menafsirkan daya dukung lahan serta jejak ekologis.",
+      "Mengidentifikasi praktik kearifan lokal sebagai bentuk adaptasi.",
+      "Menilai risiko ketika daya dukung terlampaui."
+    ],
+    "materi": [
+      {
+        "judul": "Hubungan Timbal Balik Manusia dan Lingkungan",
+        "html": "<p>Manusia bergantung pada lingkungan untuk pangan, air, dan energi, sekaligus mengubah lingkungan melalui teknologi dan kelembagaan. Hubungan ini bersifat timbal balik: kerusakan lingkungan menurunkan kesejahteraan, dan kemiskinan sering mendorong pemanfaatan sumber daya yang lebih agresif.</p><p>Determinisme lingkungan menekankan pengaruh alam atas manusia, sedangkan posibilisme menekankan kemampuan manusia memilih alternatif. Pendekatan yang lebih utuh melihat keduanya sebagai interaksi yang dipengaruhi teknologi, kebijakan, dan nilai budaya.</p>"
+      },
+      {
+        "judul": "Daya Dukung Lingkungan",
+        "html": "<p><strong>Daya dukung</strong> adalah jumlah maksimum penduduk atau aktivitas yang dapat didukung suatu wilayah secara berkelanjutan tanpa menurunkan kualitas lingkungan.</p><p>Untuk lahan pertanian, pendekatan sederhana: <strong>daya dukung = (luas lahan produktif x produktivitas) / kebutuhan per kapita</strong>. Contoh: 1.000 ha sawah dengan produktivitas 5 ton/ha menghasilkan 5.000 ton gabah; bila kebutuhan 0,25 ton per orang per tahun, daya dukung 20.000 orang.</p><p>Terlampauinya daya dukung tampak melalui tanda-tanda: penurunan hasil panen, penurunan muka air tanah, antrean air, kemacetan kronis, dan meningkatnya harga lahan.</p>"
+      },
+      {
+        "judul": "Jejak Ekologis dan Konsumsi Sumber Daya",
+        "html": "<p><strong>Jejak ekologis</strong> mengukur luas lahan dan air yang diperlukan untuk memenuhi konsumsi dan menyerap limbah seseorang atau wilayah, dinyatakan dalam <em>global hectare</em> (gha). Jejak ekologis dibandingkan dengan <strong>biokapasitas</strong>, yaitu kemampuan penyediaan lahan produktif.</p><p>Bila jejak melebihi biokapasitas, terjadi <em>defisit ekologis</em>. Komponen jejak meliputi lahan pertanian, padang rumput, hutan, perikanan, lahan terbangun, dan lahan penyerap karbon.</p><p>Jejak dapat diperkecil melalui perubahan pola konsumsi (mengurangi sisa pangan), efisiensi energi, transportasi publik, dan perbaikan pengelolaan limbah.</p>"
+      },
+      {
+        "judul": "Kearifan Lokal sebagai Adaptasi",
+        "html": "<p>Banyak masyarakat mengembangkan aturan lokal untuk menjaga daya dukung:</p><ul><li><strong>Subak</strong> di Bali mengatur pembagian air irigasi secara adil dan bergilir.</li><li><strong>Sasi</strong> di Maluku menetapkan masa larangan panen pada zona tertentu agar sumber daya pulih.</li><li><strong>Nyabuk gunung</strong> di Jawa mengatur pola tanam menurut ketinggian dan kontur.</li><li><strong>Lubuk larangan</strong> di Sumatra menetapkan zona sungai yang tidak boleh dipancing pada periode tertentu.</li></ul><p>Kearifan lokal bekerja karena berbasis pemantauan jangka panjang dan sanksi sosial. Keberhasilannya bergantung pada pengakuan kelembagaan serta integrasi dengan pengetahuan ilmiah, bukan sekadar pelestarian simbol.</p>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Daya dukung",
+        "arti": "Kemampuan lingkungan mendukung populasi atau aktivitas secara berkelanjutan."
+      },
+      {
+        "istilah": "Jejak ekologis",
+        "arti": "Luas lahan dan air yang dibutuhkan untuk memenuhi konsumsi serta menyerap limbah."
+      },
+      {
+        "istilah": "Biokapasitas",
+        "arti": "Kemampuan ekosistem menyediakan jasa dan menyerap limbah."
+      },
+      {
+        "istilah": "Subak",
+        "arti": "Sistem irigasi bersama di Bali yang diatur lembaga adat."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xi-06-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menafsirkan hubungan antara luas lahan dan jumlah penduduk",
+        "numerasi": "Menghitung daya dukung lahan pertanian",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Data satu kecamatan",
+          "isi": "<table><tr><th>Data</th><th>Nilai</th></tr><tr><td>Luas sawah produktif</td><td>1.200 ha</td></tr><tr><td>Produktivitas gabah</td><td>4,5 ton/ha/tahun</td></tr><tr><td>Jumlah penduduk</td><td>26.000 jiwa</td></tr><tr><td>Kebutuhan gabah per kapita</td><td>0,2 ton/tahun</td></tr></table>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Simpulan paling tepat mengenai daya dukung pangan kecamatan tersebut adalah ...",
+        "opsi": [
+          "daya dukung sekitar 27.000 jiwa sehingga kebutuhan pangan masih tercukupi dengan cadangan kecil",
+          "daya dukung sekitar 21.600 jiwa sehingga terjadi defisit dan kecamatan bergantung pasokan luar",
+          "daya dukung sekitar 54.000 jiwa sehingga produksi berlebih dua kali lipat",
+          "daya dukung sekitar 12.000 jiwa sehingga separuh penduduk harus pindah",
+          "daya dukung tidak dapat dihitung karena produktivitas bergantung musim"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Produksi = 1.200 x 4,5 = 5.400 ton. Daya dukung = 5.400 / 0,2 = 27.000 jiwa, sedikit di atas penduduk 26.000 jiwa. Cadangan tipis ini berarti guncangan panen atau pertambahan penduduk cepat dapat memicu defisit."
+      },
+      {
+        "id": "xi-06-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Membedakan jejak ekologis dan biokapasitas dari data",
+        "numerasi": "Menghitung selisih jejak dan biokapasitas",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Neraca ekologis",
+          "isi": "<p>Sebuah kota memiliki biokapasitas 0,9 gha per kapita, sedangkan jejak ekologis penduduknya 1,6 gha per kapita. Kota mengimpor pangan dan bahan bakar dari wilayah lain.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pernyataan paling tepat mengenai kota tersebut adalah ...",
+        "opsi": [
+          "mengalami defisit ekologis 0,7 gha per kapita sehingga bergantung pada wilayah lain",
+          "memiliki surplus ekologis 0,7 gha per kapita sehingga dapat mengekspor",
+          "berada pada keseimbangan ekologis karena selisih di bawah 1 gha",
+          "jejak ekologis lebih kecil daripada biokapasitas sehingga konsumsi aman",
+          "defisit ekologis hanya berlaku untuk kawasan pertanian"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Defisit = 1,6 - 0,9 = 0,7 gha per kapita. Kota menutup kekurangan melalui impor, sehingga ketahanannya bergantung pada wilayah pemasok dan harga pasar."
+      },
+      {
+        "id": "xi-06-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menilai praktik kearifan lokal berdasarkan prinsip keberlanjutan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Aturan komunitas pesisir",
+          "isi": "<p>Sebuah komunitas pesisir menetapkan zona larangan tangkap selama tiga bulan pada musim pemijahan, membatasi ukuran jaring, dan memberi sanksi sosial bagi pelanggar.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua alasan yang menjelaskan mengapa aturan tersebut efektif menjaga sumber daya.",
+        "opsi": [
+          "Memberi waktu populasi ikan untuk memulihkan diri",
+          "Membatasi tangkapan ikan muda sebelum berkembang biak",
+          "Menaikkan harga ikan di pasar secara permanen",
+          "Menurunkan konflik antarnelayan karena aturan disepakati bersama",
+          "Menggantikan kebutuhan penilaian stok ikan secara ilmiah"
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Penutupan musim pemijahan dan pembatasan ukuran alat tangkap melindungi proses regenerasi, sedangkan kesepakatan bersama menurunkan konflik. Harga pasar tidak dijamin naik permanen, dan aturan lokal tetap perlu didukung pemantauan ilmiah."
+      },
+      {
+        "id": "xi-06-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan kearifan lokal dengan fungsi ekologisnya",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat praktik lokal",
+          "isi": "<p>Perhatikan praktik berikut: (A) subak; (B) sasi; (C) nyabuk gunung; (D) lubuk larangan.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan praktik dengan fungsi utamanya.",
+        "kiri": [
+          "Subak",
+          "Sasi",
+          "Nyabuk gunung",
+          "Lubuk larangan"
+        ],
+        "kanan": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "kunci": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "pembahasan": "Subak (A) mengatur irigasi; sasi (B) menetapkan masa larangan panen sumber daya laut atau darat; nyabuk gunung (C) mengatur pola tanam menurut kontur lereng; lubuk larangan (D) melindungi zona sungai tertentu."
+      },
+      {
+        "id": "xi-06-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan tentang daya dukung dan konsumsi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pernyataan interaksi manusia-lingkungan",
+          "isi": "<p>Empat pernyataan tentang daya dukung dan jejak ekologis.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Tentukan benar atau salah setiap pernyataan.",
+        "pernyataan": [
+          "Daya dukung bersifat tetap dan tidak dipengaruhi teknologi.",
+          "Penurunan muka air tanah dapat menjadi indikator terlampauinya daya dukung.",
+          "Jejak ekologis wilayah perkotaan umumnya lebih besar daripada biokapasitasnya.",
+          "Kearifan lokal tidak perlu diintegrasikan dengan pengetahuan ilmiah."
+        ],
+        "kunci": [
+          "S",
+          "B",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Teknologi dan pengelolaan dapat mengubah daya dukung. Kota umumnya menjadi konsumen sumber daya wilayah lain sehingga mengalami defisit ekologis. Kearifan lokal lebih kuat bila dipadukan dengan pemantauan ilmiah."
+      }
+    ]
+  }
+]

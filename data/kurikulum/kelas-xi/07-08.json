@@ -1,0 +1,386 @@
+[
+  {
+    "id": "xi-07",
+    "kelas": "XI",
+    "urutan": 7,
+    "fase": "F",
+    "elemen": "Pemahaman Konsep",
+    "judul": "Sumber Daya Alam: Klasifikasi, Sebaran, dan Konsumsi",
+    "ringkasan": "Mengklasifikasikan sumber daya alam, membaca sebaran dan umur cadangan, serta menilai transisi energi dan efisiensi konsumsi.",
+    "estimasi": "6 JP",
+    "cp": "Pada akhir Fase F, peserta didik mampu menganalisis klasifikasi, sebaran, dan pemanfaatan sumber daya alam serta implikasinya bagi pembangunan berkelanjutan.",
+    "tujuan": [
+      "Mengklasifikasikan sumber daya alam menurut sifat, asal, dan lokasi.",
+      "Menghitung umur cadangan dan menafsirkan artinya.",
+      "Menjelaskan sebaran sumber daya energi dan mineral di Indonesia.",
+      "Menilai strategi transisi energi dan efisiensi konsumsi."
+    ],
+    "materi": [
+      {
+        "judul": "Klasifikasi Sumber Daya Alam",
+        "html": "<p>Sumber daya alam diklasifikasikan dengan beberapa cara:</p><ul><li><strong>Menurut sifat</strong>: dapat diperbarui (hayati, air, energi surya) dan tidak dapat diperbarui (mineral, batubara, minyak bumi).</li><li><strong>Menurut asal</strong>: biotik dan abiotik.</li><li><strong>Menurut lokasi</strong>: terestrial dan akuatik.</li><li><strong>Menurut pemanfaatan</strong>: sumber daya material (bahan baku) dan sumber daya energi.</li></ul><p>Sumber daya yang dapat diperbarui bukan berarti tak terbatas: air tanah dapat habis bila pengambilan melebihi imbuhan, dan hutan dapat rusak bila panen melebihi pertumbuhan. Istilah yang lebih tepat adalah <em>sumber daya yang dapat dipulihkan</em>.</p>"
+      },
+      {
+        "judul": "Sebaran Sumber Daya Alam Indonesia",
+        "html": "<p>Indonesia memiliki sebaran sumber daya yang khas karena posisinya di jalur pertemuan lempeng.</p><table><tr><th>Komoditas</th><th>Wilayah utama</th></tr><tr><td>Batubara</td><td>Sumatra Selatan, Kalimantan Timur, Kalimantan Selatan</td></tr><tr><td>Minyak dan gas bumi</td><td>Riau, Natuna, Kalimantan Timur, Papua bagian barat</td></tr><tr><td>Nikel</td><td>Sulawesi Tengah, Sulawesi Tenggara, Maluku Utara</td></tr><tr><td>Tembaga dan emas</td><td>Papua, Nusa Tenggara Barat, Sumatra</td></tr><tr><td>Panas bumi</td><td>Jalur gunung api: Jawa, Sumatra, Sulawesi, Maluku</td></tr></table><p>Sebaran ini menimbulkan pola pembangunan yang tidak merata: daerah penghasil cenderung menghadapi tekanan lingkungan, sementara nilai tambah terbesar sering dinikmati di luar daerah.</p>"
+      },
+      {
+        "judul": "Cadangan, Produksi, dan Umur Cadangan",
+        "html": "<p><strong>Cadangan terbukti</strong> adalah jumlah sumber daya yang terukur dan layak diekstraksi secara ekonomi. <strong>Umur cadangan</strong> dihitung dengan: <strong>umur = cadangan / produksi tahunan</strong>. Contoh: cadangan 9.000 ribu ton dengan produksi 1.500 ribu ton/tahun memiliki umur 6 tahun.</p><p>Umur cadangan bukan ramalan kehabisan sumber daya, karena cadangan dapat bertambah melalui eksplorasi, perubahan teknologi, atau kenaikan harga yang membuat endapan marjinal menjadi ekonomis. Namun angka ini berguna untuk menilai urgensi diversifikasi dan penerimaan negara.</p><p>Kebijakan yang relevan: peningkatan nilai tambah melalui hilirisasi, penerimaan royalti, reklamasi lahan pascatambang, dan pengembangan energi terbarukan.</p>"
+      },
+      {
+        "judul": "Transisi Energi dan Efisiensi Konsumsi",
+        "html": "<p>Konsumsi energi Indonesia masih didominasi fosil. Transisi energi diarahkan pada bauran yang lebih bersih: energi surya, air, angin, biomassa, dan panas bumi.</p><p>Kendala transisi bukan hanya biaya pembangkit, tetapi juga jaringan, penyimpanan energi, dan kesiapan tenaga kerja. Karena itu strategi realistis memadukan efisiensi (mengurangi konsumsi per unit produk) dengan penambahan kapasitas terbarukan.</p><p>Efisiensi dapat diukur dengan intensitas energi, yaitu konsumsi energi dibagi produk domestik bruto. Menurunkan intensitas energi berarti ekonomi tumbuh dengan tambahan konsumsi energi yang lebih kecil.</p>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Cadangan terbukti",
+        "arti": "Bagian sumber daya yang terukur dan layak ditambang secara ekonomi."
+      },
+      {
+        "istilah": "Umur cadangan",
+        "arti": "Perbandingan cadangan terhadap laju produksi tahunan."
+      },
+      {
+        "istilah": "Hilirisasi",
+        "arti": "Upaya meningkatkan nilai tambah komoditas melalui pengolahan di dalam negeri."
+      },
+      {
+        "istilah": "Intensitas energi",
+        "arti": "Jumlah energi yang dipakai untuk menghasilkan satu unit produk domestik bruto."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xi-07-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menafsirkan umur cadangan dan implikasi kebijakan",
+        "numerasi": "Menghitung umur cadangan mineral",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Data satu komoditas mineral",
+          "isi": "<table><tr><th>Tahun</th><th>Cadangan (juta ton)</th><th>Produksi (juta ton)</th></tr><tr><td>2023</td><td>3.000</td><td>60</td></tr><tr><td>2024</td><td>2.940</td><td>72</td></tr></table><p>Kebijakan daerah menargetkan umur cadangan minimal 40 tahun.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Simpulan paling tepat berdasarkan data tersebut adalah ...",
+        "opsi": [
+          "umur cadangan turun dari 50 tahun ke sekitar 41 tahun karena produksi naik, sehingga target masih terpenuhi tetapi perlu pengendalian laju produksi",
+          "umur cadangan naik menjadi 50 tahun pada 2024 karena cadangan bertambah",
+          "umur cadangan 2024 sekitar 24 tahun sehingga target jauh tercapai",
+          "umur cadangan tidak berubah karena cadangan dan produksi bergerak searah",
+          "target 40 tahun tidak relevan karena cadangan selalu bertambah otomatis"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Umur 2023 = 3.000/60 = 50 tahun; umur 2024 = 2.940/72 = 40,8 tahun. Produksi yang naik lebih cepat daripada penambahan cadangan memperpendek umur, sehingga laju produksi dan eksplorasi perlu dikendalikan."
+      },
+      {
+        "id": "xi-07-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Membedakan sumber daya terbarukan dari pemanfaatan berkelanjutan",
+        "numerasi": "Menafsirkan neraca air tanah",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pengambilan air tanah",
+          "isi": "<p>Sebuah kota memompa air tanah 32 juta m3 per tahun, sedangkan imbuhan alami hanya 20 juta m3 per tahun. Sejak lima tahun terakhir permukaan tanah di beberapa kelurahan turun dan sumur warga mengering.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Tindakan paling tepat untuk memperbaiki kondisi tersebut adalah ...",
+        "opsi": [
+          "membatasi pengambilan melalui izin kuota serta menambah imbuhan buatan dan pasokan air permukaan",
+          "memperdalam seluruh sumur warga agar tetap mendapat air",
+          "meningkatkan jumlah titik pompa agar pengambilan lebih efisien",
+          "mengabaikan penurunan tanah karena air tanah termasuk sumber daya terbarukan",
+          "mengalihkan seluruh kebutuhan air ke sungai tanpa pengaturan"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Pengambilan 32 juta m3 melebihi imbuhan 20 juta m3 sehingga terjadi penurunan muka air dan amblesan. Solusinya adalah pengendalian pengambilan, imbuhan buatan, dan sumber alternatif yang dikelola."
+      },
+      {
+        "id": "xi-07-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menilai strategi hilirisasi dan keberlanjutan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Rencana hilirisasi",
+          "isi": "<p>Sebuah daerah penghasil nikel merencanakan smelter, tetapi pasokan listrik masih dari pembangkit batubara dan limbah tailing dibuang ke perairan.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua pernyataan yang tepat mengenai rencana tersebut.",
+        "opsi": [
+          "Hilirisasi menaikkan nilai tambah, tetapi perlu disertai pengelolaan limbah tailing yang memadai",
+          "Sumber listrik batubara menurunkan manfaat lingkungan dari hilirisasi",
+          "Pembangunan smelter otomatis menjamin pendapatan daerah meningkat tanpa syarat",
+          "Keterlibatan tenaga kerja lokal memerlukan pelatihan dan sertifikasi",
+          "Pembuangan tailing ke perairan dapat diterima bila volume limbah kecil"
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Hilirisasi bernilai tambah sekaligus berisiko lingkungan; listrik batubara memperbesar emisi; tenaga kerja lokal perlu disiapkan. Pendapatan daerah tidak otomatis naik karena bergantung pada struktur pajak dan royalti, dan tailing tetap memerlukan pengelolaan meski volumenya kecil."
+      },
+      {
+        "id": "xi-07-q4",
+        "tipe": "menjodohkan",
+        "level": "C3",
+        "literasi": "Mencocokkan komoditas dengan wilayah sebaran utama",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat komoditas",
+          "isi": "<p>Perhatikan komoditas berikut: (A) nikel; (B) batubara; (C) panas bumi; (D) tembaga dan emas.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan komoditas dengan wilayah sebaran utama di Indonesia.",
+        "kiri": [
+          "Nikel",
+          "Batubara",
+          "Panas bumi",
+          "Tembaga dan emas"
+        ],
+        "kanan": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "kunci": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "pembahasan": "Nikel (A) terutama Sulawesi dan Maluku Utara; batubara (B) Sumatra Selatan dan Kalimantan; panas bumi (C) mengikuti jalur gunung api; tembaga dan emas (D) Papua dan Nusa Tenggara Barat."
+      },
+      {
+        "id": "xi-07-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan tentang cadangan dan konsumsi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pernyataan sumber daya alam",
+          "isi": "<p>Empat pernyataan tentang sumber daya alam.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Tentukan benar atau salah setiap pernyataan.",
+        "pernyataan": [
+          "Sumber daya yang dapat diperbarui tetap dapat habis bila laju pemanenan melebihi laju pemulihan.",
+          "Umur cadangan bersifat pasti dan tidak berubah oleh teknologi.",
+          "Hilirisasi menaikkan nilai tambah komoditas di dalam negeri.",
+          "Intensitas energi yang menurun berarti ekonomi tumbuh dengan tambahan konsumsi energi yang lebih kecil."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "B"
+        ],
+        "pembahasan": "Umur cadangan berubah ketika teknologi, harga, atau hasil eksplorasi berubah. Tiga pernyataan lainnya benar dan menjadi dasar pengelolaan sumber daya secara berkelanjutan."
+      }
+    ]
+  },
+  {
+    "id": "xi-08",
+    "kelas": "XI",
+    "urutan": 8,
+    "fase": "F",
+    "elemen": "Keterampilan Proses",
+    "judul": "Kajian Lingkungan Berkelanjutan: Proyek Mini",
+    "ringkasan": "Merancang dan melaporkan kajian lingkungan berskala sekolah atau desa: menetapkan pertanyaan, mengumpulkan data, menganalisis, dan menyusun rekomendasi.",
+    "estimasi": "8 JP",
+    "cp": "Pada akhir Fase F, peserta didik mampu merancang kajian lingkungan sederhana, mengumpulkan dan menganalisis data lapangan, serta menyusun rekomendasi berbasis bukti.",
+    "tujuan": [
+      "Merumuskan pertanyaan kajian dan indikator yang dapat diukur.",
+      "Memilih teknik pengumpulan data lapangan yang sesuai.",
+      "Menganalisis data sederhana dan menyajikannya dalam tabel atau grafik.",
+      "Menyusun rekomendasi yang dapat dijalankan dan dipantau."
+    ],
+    "materi": [
+      {
+        "judul": "Dari Pertanyaan ke Indikator",
+        "html": "<p>Kajian dimulai dari pertanyaan yang sempit dan terukur. Pertanyaan \"apakah lingkungan sekolah bersih?\" terlalu kabur; pertanyaan \"berapa kilogram sampah plastik dihasilkan kantin sekolah per hari dan berapa proporsi yang dipilah?\" dapat dijawab dengan data.</p><p>Setiap pertanyaan diturunkan menjadi indikator, variabel, dan alat ukur. Contoh indikator: berat sampah (kg/hari), jumlah titik pembakaran sampah, kadar pH air selokan, atau jumlah kendaraan bermotor per jam.</p><p>Batasi cakupan kajian agar selesai dalam waktu tersedia: satu isu, satu lokasi, satu periode pengamatan.</p>"
+      },
+      {
+        "judul": "Teknik Pengumpulan Data Lapangan",
+        "html": "<ul><li><strong>Observasi terstruktur</strong>: memakai lembar cek dengan kategori jelas, misalnya menghitung jumlah tempat sampah per zona.</li><li><strong>Pengukuran</strong>: timbangan, pH meter, termometer, atau aplikasi pengukur kebisingan.</li><li><strong>Wawancara</strong>: pertanyaan terbuka kepada petugas kantin, pengelola sampah, atau warga.</li><li><strong>Kuesioner</strong>: untuk mengukur persepsi atau kebiasaan dengan skala yang konsisten.</li><li><strong>Dokumentasi spasial</strong>: foto bertitik koordinat atau peta sketsa lokasi temuan.</li></ul><p>Etika penting: meminta izin, tidak memotret tanpa persetujuan, dan tidak mengganggu aktivitas warga. Data mentah dicatat di lembar lapangan sebelum diolah agar dapat diperiksa ulang.</p>"
+      },
+      {
+        "judul": "Analisis dan Penyajian Data",
+        "html": "<p>Data lapangan diringkas dengan statistik sederhana: rata-rata, nilai tertinggi dan terendah, serta proporsi. Data antarwaktu disajikan sebagai grafik garis, perbandingan antarlokasi sebagai diagram batang, dan proporsi sebagai diagram lingkaran atau tabel frekuensi.</p><p>Analisis perlu membandingkan hasil dengan pembanding: baku mutu, standar sekolah, atau lokasi lain. Tanpa pembanding, angka sulit ditafsirkan. Kesimpulan harus dibatasi sesuai data yang dikumpulkan, dan keterbatasan kajian wajib disebutkan.</p>"
+      },
+      {
+        "judul": "Rekomendasi dan Rencana Tindak Lanjut",
+        "html": "<p>Rekomendasi yang baik bersifat spesifik, dapat dijalankan, dan dapat dipantau. Contohnya bukan \"tingkatkan kesadaran warga\", tetapi \"menambah dua tempat sampah terpilah di kantin dan mencatat berat sampah setiap Jumat selama satu bulan\".</p><p>Setiap rekomendasi memuat pelaksana, waktu, indikator keberhasilan, dan cara pemantauan. Laporan disusun ringkas: latar belakang, pertanyaan, metode, hasil, pembahasan, kesimpulan, rekomendasi, dan lampiran data.</p><p>Presentasi hasil sebaiknya menyertakan satu grafik utama dan satu peta atau foto lokasi agar mudah dipahami pengambil keputusan di sekolah atau desa.</p>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Indikator",
+        "arti": "Ukuran yang dapat diamati dan dihitung untuk menjawab pertanyaan kajian."
+      },
+      {
+        "istilah": "Data primer",
+        "arti": "Data yang dikumpulkan sendiri langsung dari lokasi kajian."
+      },
+      {
+        "istilah": "Baku mutu",
+        "arti": "Ambang batas yang ditetapkan pemerintah untuk kualitas lingkungan."
+      },
+      {
+        "istilah": "Rencana tindak lanjut",
+        "arti": "Daftar kegiatan, pelaksana, dan jadwal untuk menjalankan rekomendasi."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xi-08-q1",
+        "tipe": "pgm",
+        "level": "C5",
+        "literasi": "Menilai rancangan kajian berdasarkan kelayakan indikator",
+        "numerasi": "Menafsirkan kecukupan data pengamatan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Usulan rancangan kajian",
+          "isi": "<p>Tiga kelompok mengusulkan rancangan: (1) mengukur berat sampah kantin selama lima hari dan menghitung proporsi plastik; (2) mewawancarai satu siswa tentang kebersihan sekolah; (3) memotret seluruh lingkungan sekolah tanpa kategori.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Rancangan yang paling layak dilanjutkan dan alasannya adalah ...",
+        "opsi": [
+          "rancangan (1) karena memakai periode pengamatan jelas dan indikator terukur",
+          "rancangan (2) karena wawancara memberi data mendalam",
+          "rancangan (3) karena foto merupakan data primer",
+          "rancangan (2) dan (3) karena tidak memerlukan alat ukur",
+          "ketiganya layak karena semuanya mengumpulkan data primer"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Rancangan (1) memiliki pertanyaan terukur, periode jelas, dan dapat dianalisis proporsinya. Satu responden tidak mewakili, dan foto tanpa kategori sulit dianalisis."
+      },
+      {
+        "id": "xi-08-q2",
+        "tipe": "pg_singkat",
+        "level": "C5",
+        "literasi": "Memilih teknik pengumpulan data sesuai tujuan pengukuran",
+        "numerasi": "Menentukan alat ukur yang sesuai indikator",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Tujuan pengukuran",
+          "isi": "<p>Kelompok kajian ingin mengetahui apakah air selokan di belakang sekolah memenuhi baku mutu untuk limbah domestik, khususnya tingkat keasaman.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Data dan alat yang paling tepat dikumpulkan adalah ...",
+        "opsi": [
+          "nilai pH air selokan diukur dengan pH meter pada tiga titik dan dua waktu berbeda",
+          "warna air selokan difoto dari satu titik pada satu waktu",
+          "jumlah sampah di selokan dihitung dengan lembar cek",
+          "persepsi siswa tentang bau selokan melalui kuesioner",
+          "suhu udara di sekitar selokan dengan termometer ruang"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Indikator keasaman diukur dengan pH meter, dan pengambilan pada beberapa titik serta waktu membuat hasil lebih mewakili. Foto, hitungan sampah, persepsi, dan suhu udara tidak mengukur pH."
+      },
+      {
+        "id": "xi-08-q3",
+        "tipe": "pg_kompleks",
+        "level": "C5",
+        "literasi": "Menilai kualitas rekomendasi berbasis bukti",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Temuan dan usulan",
+          "isi": "<p>Kajian menemukan berat sampah kantin 18 kg/hari dan hanya 22% terpilah. Usulan yang muncul: (1) menambah dua tempat sampah terpilah; (2) mengadakan lomba kelas tanpa pengukuran; (3) mencatat berat sampah tiap Jumat; (4) melarang seluruh jajanan kemasan.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Pilih semua usulan yang memenuhi syarat rekomendasi spesifik dan dapat dipantau.",
+        "opsi": [
+          "Menambah dua tempat sampah terpilah di kantin",
+          "Mengadakan lomba kelas tanpa indikator keberhasilan",
+          "Mencatat berat sampah setiap Jumat sebagai pemantauan",
+          "Melarang seluruh jajanan kemasan tanpa kajian lanjutan",
+          "Menetapkan target penurunan sampah plastik 30% dalam satu bulan"
+        ],
+        "kunci": [
+          0,
+          2,
+          4
+        ],
+        "pembahasan": "Rekomendasi yang baik menyebut tindakan, ukuran, dan waktu. Menambah tempat sampah terpilah, mencatat berat sampah berkala, dan menetapkan target terukur memenuhi syarat itu. Lomba tanpa indikator dan larangan menyeluruh tanpa kajian tidak dapat dievaluasi."
+      },
+      {
+        "id": "xi-08-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Mencocokkan komponen laporan dengan isinya",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Empat komponen laporan",
+          "isi": "<p>Perhatikan komponen berikut: (A) metode; (B) hasil; (C) pembahasan; (D) rekomendasi.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Jodohkan komponen laporan dengan isi yang seharusnya.",
+        "kiri": [
+          "Metode",
+          "Hasil",
+          "Pembahasan",
+          "Rekomendasi"
+        ],
+        "kanan": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "kunci": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "pembahasan": "Metode (A) memuat teknik dan alat; hasil (B) menyajikan data dan grafik; pembahasan (C) menafsirkan data dengan pembanding; rekomendasi (D) memuat tindakan, pelaksana, dan indikator keberhasilan."
+      },
+      {
+        "id": "xi-08-q5",
+        "tipe": "benar_salah",
+        "level": "C5",
+        "literasi": "Menilai pernyataan tentang keabsahan dan etika kajian",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Pernyataan metodologi kajian",
+          "isi": "<p>Empat pernyataan tentang pelaksanaan kajian lapangan.</p>",
+          "sumber": "ilustrasi sintetis"
+        },
+        "pertanyaan": "Tentukan benar atau salah setiap pernyataan.",
+        "pernyataan": [
+          "Satu kali pengukuran sudah cukup untuk menyimpulkan kualitas air sepanjang tahun.",
+          "Data mentah perlu dicatat sebelum diolah agar dapat diperiksa ulang.",
+          "Membandingkan hasil dengan baku mutu membuat angka lebih mudah ditafsirkan.",
+          "Kesimpulan boleh melampaui cakupan data agar laporan tampak lengkap."
+        ],
+        "kunci": [
+          "S",
+          "B",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Kualitas air berubah menurut waktu sehingga perlu pengambilan berulang. Kesimpulan harus dibatasi oleh data; melampaui cakupan data merupakan kesalahan penalaran yang melemahkan kredibilitas laporan."
+      }
+    ]
+  }
+]
