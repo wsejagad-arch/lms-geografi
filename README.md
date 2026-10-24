@@ -52,6 +52,10 @@ Buka `http://localhost:3000`
 lms-geografi-multi/
 ├── server.js          # Express server + API
 ├── kurikulum.js       # Modul pembelajaran berjenjang (evaluasi, kunci, naik kelas)
+├── ecosystem.config.js # Konfigurasi PM2 (membaca .env)
+├── deploy.sh          # Deploy otomatis: Node.js + PM2 + Nginx
+├── cek-deploy.sh      # Pemeriksaan kesehatan hasil deploy
+├── .env.example       # Contoh konfigurasi (.env tidak ikut git)
 ├── package.json       # Dependencies
 ├── data/
 │   ├── db.json        # Database (auto-generated)
@@ -141,17 +145,62 @@ Nomor WA dinormalkan ke format `62…` saat disimpan (untuk notifikasi).
 ### Seed
 - `POST /api/seed` - Initialize sample data
 
-## Deploy ke VPS
+## Deploy ke VPS (geolabs.my.id)
+
+Target: Debian 12 / Ubuntu 22.04+, Node.js 20, PM2, Nginx di belakang Cloudflare.
 
 ```bash
-# Install PM2
-npm install -g pm2
-
-# Start
-pm2 start server.js --name lms-geografi-multi
-pm2 save
-pm2 startup
+# di server, sebagai root
+git clone https://github.com/wsejagad-arch/lms-geografi.git /root/lms-geografi
+cd /root/lms-geografi
+bash deploy.sh
 ```
+
+`deploy.sh` bersifat idempoten: memasang paket & Node.js bila belum ada, menarik `main`, `npm ci --omit=dev`, membuat `.env` (dengan `SESSION_SECRET` acak) hanya bila belum ada, menjalankan PM2 + startup systemd, menulis konfigurasi Nginx (real IP Cloudflare, gzip, security header, cache `/assets`), lalu memverifikasi HTTP.
+
+Variabel yang bisa di-override:
+
+```bash
+DOMAIN=geolabs.my.id PORT=3000 ENABLE_TLS=1 EMAIL=admin@geolabs.my.id bash deploy.sh
+```
+
+| Variabel | Default | Fungsi |
+|---|---|---|
+| `DOMAIN` | `geolabs.my.id` | `server_name` Nginx |
+| `APP_DIR` | `/var/www/lms-geografi` | lokasi aplikasi |
+| `PORT` | `3000` | port aplikasi (di-proxy Nginx) |
+| `REPO` / `BRANCH` | repo GitHub / `main` | sumber kode |
+| `ENABLE_TLS` | `0` | `1` = certbot Let's Encrypt; `0` = Cloudflare Full (strict) |
+
+Setelah deploy: arahkan DNS `geolabs.my.id` ke IP server, nyalakan proxy Cloudflare, dan set SSL/TLS ke **Full (strict)** (pasang Cloudflare Origin Certificate di Nginx, atau jalankan ulang dengan `ENABLE_TLS=1`).
+
+### Konfigurasi `.env`
+
+Disalin dari `.env.example`, mode `600`, tidak ikut git.
+
+| Kunci | Wajib | Keterangan |
+|---|---|---|
+| `PORT` | ya | port aplikasi |
+| `SESSION_SECRET` | ya | kunci penandatangan cookie sesi; `openssl rand -hex 32`; beberapa kunci dipisah koma untuk rotasi |
+| `REDIS_HOST` / `REDIS_PORT` | tidak | tanpa Redis dipakai cache in-memory |
+| `NODE_ENV` | tidak | `production` |
+
+### Update & rollback
+
+```bash
+bash deploy.sh          # tarik kode terbaru + reload PM2
+pm2 logs lms-geografi   # pantau log
+```
+
+`data/db.json` di-gitignore sehingga tidak tersentuh `git reset --hard`; tetap buat backup sebelum update besar.
+
+### Pemeriksaan kesehatan
+
+```bash
+bash cek-deploy.sh geolabs.my.id
+```
+
+Memeriksa nginx, status PM2, berkas & izin `.env`, `SESSION_SECRET` bukan default, port, HTTP aplikasi (`/` 200, `/api/me` 401), respons lewat Nginx, masa berlaku sertifikat TLS, ukuran `db.json` + backup, dan pemakaian disk. Keluar dengan kode 1 bila ada temuan.
 
 ## Redis
 

@@ -116,9 +116,13 @@ async function initDB() {
 // ===== MIDDLEWARE =====
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+const SESSION_KEYS = (process.env.SESSION_SECRET || 'lms-secret-key-2024-multi-tenant')
+  .split(',')
+  .map(k => k.trim())
+  .filter(Boolean);
 app.use(cookieSession({
   name: 'lms_session',
-  keys: ['lms-secret-key-2024-multi-tenant'],
+  keys: SESSION_KEYS,
   maxAge: 7 * 24 * 60 * 60 * 1000
 }));
 
