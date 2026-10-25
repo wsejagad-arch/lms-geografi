@@ -659,6 +659,195 @@ async function seedKurikulumMateri() {
   }
 }
 
+// ===== WEB ARTICLE WYSIWYG EDITOR =====
+let artEditorMode = 'visual'; // 'visual' | 'code'
+
+function initArticleEditor() {
+  const visualEl = document.getElementById('art-editor-visual');
+  const codeEl = document.getElementById('material-konten');
+  const toggleBtn = document.getElementById('btn-toggle-editor-mode');
+  const modeLabel = document.getElementById('editor-mode-label');
+
+  if (!visualEl || !codeEl) return;
+
+  // Sync from visual to code on input
+  visualEl.addEventListener('input', () => {
+    if (artEditorMode === 'visual') {
+      codeEl.value = visualEl.innerHTML;
+    }
+  });
+
+  // Sync from code to visual on input
+  codeEl.addEventListener('input', () => {
+    if (artEditorMode === 'code') {
+      visualEl.innerHTML = codeEl.value;
+    }
+  });
+
+  // Toggle mode
+  toggleBtn?.addEventListener('click', () => {
+    if (artEditorMode === 'visual') {
+      artEditorMode = 'code';
+      codeEl.value = visualEl.innerHTML;
+      visualEl.style.display = 'none';
+      codeEl.style.display = 'block';
+      if (modeLabel) modeLabel.textContent = '👁️ Mode Visual (WYSIWYG)';
+      toggleBtn.classList.add('btn-primary');
+    } else {
+      artEditorMode = 'visual';
+      visualEl.innerHTML = codeEl.value;
+      codeEl.style.display = 'none';
+      visualEl.style.display = 'block';
+      if (modeLabel) modeLabel.textContent = '</> Mode HTML';
+      toggleBtn.classList.remove('btn-primary');
+    }
+  });
+
+  // ExecCommand buttons
+  document.querySelectorAll('.art-tool-btn[data-cmd]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cmd = btn.dataset.cmd;
+      if (artEditorMode !== 'visual') return;
+      visualEl.focus();
+      document.execCommand(cmd, false, null);
+      codeEl.value = visualEl.innerHTML;
+    });
+  });
+
+  // Font family
+  document.getElementById('art-font-name')?.addEventListener('change', (e) => {
+    if (artEditorMode !== 'visual') return;
+    visualEl.focus();
+    if (e.target.value) {
+      document.execCommand('fontName', false, e.target.value);
+    }
+    codeEl.value = visualEl.innerHTML;
+  });
+
+  // Font size
+  document.getElementById('art-font-size')?.addEventListener('change', (e) => {
+    if (artEditorMode !== 'visual') return;
+    visualEl.focus();
+    if (e.target.value) {
+      document.execCommand('fontSize', false, e.target.value);
+    }
+    codeEl.value = visualEl.innerHTML;
+  });
+
+  // Format block
+  document.getElementById('art-format-block')?.addEventListener('change', (e) => {
+    if (artEditorMode !== 'visual') return;
+    visualEl.focus();
+    if (e.target.value) {
+      document.execCommand('formatBlock', false, '<' + e.target.value + '>');
+    }
+    codeEl.value = visualEl.innerHTML;
+  });
+
+  // Fore color
+  document.getElementById('art-fore-color')?.addEventListener('input', (e) => {
+    if (artEditorMode !== 'visual') return;
+    visualEl.focus();
+    document.execCommand('foreColor', false, e.target.value);
+    codeEl.value = visualEl.innerHTML;
+  });
+
+  // Back color (highlight)
+  document.getElementById('art-back-color')?.addEventListener('input', (e) => {
+    if (artEditorMode !== 'visual') return;
+    visualEl.focus();
+    document.execCommand('hiliteColor', false, e.target.value);
+    codeEl.value = visualEl.innerHTML;
+  });
+
+  // Insert Image dialog
+  document.getElementById('btn-art-insert-image')?.addEventListener('click', () => {
+    const url = prompt('Masukkan URL Gambar (link https://... atau path gambar lokal):');
+    if (!url) return;
+    const caption = prompt('Keterangan / Caption Gambar (opsional):', '') || '';
+    const html = `<figure style="margin:16px 0;text-align:center"><img src="${url}" alt="${caption}" style="max-width:100%;border-radius:10px;border:1px solid #cbd5e1;box-shadow:0 2px 6px rgba(0,0,0,0.06)">${caption ? `<figcaption style="font-size:12px;color:#64748b;margin-top:6px;font-style:italic">${caption}</figcaption>` : ''}</figure><p><br></p>`;
+    insertHtmlToEditor(html);
+  });
+
+  // Insert YouTube Video dialog
+  document.getElementById('btn-art-insert-video')?.addEventListener('click', () => {
+    const input = prompt('Masukkan URL Video YouTube atau Video ID (contoh: 2vK8s_aX49c atau https://www.youtube.com/watch?v=...):');
+    if (!input) return;
+    let ytId = input.trim();
+    const match = ytId.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+    if (match && match[1]) ytId = match[1];
+    const title = prompt('Judul Video (opsional):', 'Video Pembelajaran Geografi') || 'Video Pembelajaran Geografi';
+    const html = `<div class="bl-media-box" style="border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0"><div style="background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px">🎥 ${title}</div><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${ytId}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div><p><br></p>`;
+    insertHtmlToEditor(html);
+  });
+
+  // Insert Table dialog
+  document.getElementById('btn-art-insert-table')?.addEventListener('click', () => {
+    const rows = parseInt(prompt('Jumlah Baris Data (contoh: 3):', '3') || '3', 10);
+    const cols = parseInt(prompt('Jumlah Kolom (contoh: 3):', '3') || '3', 10);
+    if (isNaN(rows) || isNaN(cols) || rows <= 0 || cols <= 0) return;
+
+    let tableHtml = '<table style="width:100%;border-collapse:collapse;margin:14px 0"><thead><tr>';
+    for (let c = 1; c <= cols; c++) {
+      tableHtml += `<th style="border:1px solid #cbd5e1;padding:8px 12px;background:#f1f5f9">Kolom ${c}</th>`;
+    }
+    tableHtml += '</tr></thead><tbody>';
+    for (let r = 1; r <= rows; r++) {
+      tableHtml += '<tr>';
+      for (let c = 1; c <= cols; c++) {
+        tableHtml += `<td style="border:1px solid #cbd5e1;padding:8px 12px">Baris ${r}, Data ${c}</td>`;
+      }
+      tableHtml += '</tr>';
+    }
+    tableHtml += '</tbody></table><p><br></p>';
+    insertHtmlToEditor(tableHtml);
+  });
+
+  // Insert Callout box dialog
+  document.getElementById('btn-art-insert-callout')?.addEventListener('click', () => {
+    const choice = prompt(
+      'Pilih Jenis Kotak Khusus:\n' +
+      '1 = 📌 Kotak Studi Kasus Terkini (Hijau)\n' +
+      '2 = 💡 Kotak Konsep & Hakikat (Biru)\n' +
+      '3 = 📜 Kotak Sejarah & Filsafat (Kuning/Oranye)\n' +
+      '4 = 🎨 Kotak Pembelajaran Berdiferensiasi (Ungu)\n' +
+      '5 = 👤 Kartu Profil Tokoh Ilmuwan',
+      '1'
+    );
+    if (!choice) return;
+
+    let calloutHtml = '';
+    if (choice === '1') {
+      calloutHtml = '<div class="bl-callout case" style="border-left:4px solid #0d9488;background:#f0fdfa;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#0f766e">📌 Studi Kasus Terkini: [Tuliskan Judul Kasus]</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan uraian peristiwa fenomena geosfer terkini, latar belakang masalah, dan analisis keruangan...</p></div><p><br></p>';
+    } else if (choice === '2') {
+      calloutHtml = '<div class="bl-callout concept" style="border-left:4px solid #2563eb;background:#eff6ff;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#1d4ed8">💡 Konsep Esensial Geografi: [Nama Konsep]</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan definisi esensial, indikator keruangan, dan rumus/pedoman analisis konsep ini...</p></div><p><br></p>';
+    } else if (choice === '3') {
+      calloutHtml = '<div class="bl-callout history" style="border-left:4px solid #d97706;background:#fffbeb;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#b45309">📜 Catatan Sejarah & Filsafat Geografi</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan sejarah penemuan, perdebatan epistemologi aliran determinisme vs posibilisme...</p></div><p><br></p>';
+    } else if (choice === '4') {
+      calloutHtml = '<div class="bl-callout diff" style="border-left:4px solid #7c3aed;background:#f5f3ff;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#6d28d9">🎨 Aktivitas Pembelajaran Berdiferensiasi</h4><p style="margin:0 0 6px;font-size:13px"><strong>Pilihan Produk Belajar:</strong></p><ul style="margin:0;padding-left:18px;font-size:13px"><li><strong>Visual:</strong> Buatlah infografis/peta tematik.</li><li><strong>Auditori:</strong> Rekam rekaman suara/podcast analisis 5W+1H.</li><li><strong>Kinestetik:</strong> Lakukan observasi lapangan langsung di lingkungan sekitar.</li></ul></div><p><br></p>';
+    } else if (choice === '5') {
+      const name = prompt('Nama Tokoh Ilmuwan:', 'Alexander von Humboldt') || 'Alexander von Humboldt';
+      const era = prompt('Era / Periode (contoh: Abad 18–19 M, Jerman):', 'Abad 18–19 M, Jerman') || 'Abad 18–19 M, Jerman';
+      const role = prompt('Gelar / Peran Tokoh:', 'Bapak Geografi Saintifik Modern') || 'Bapak Geografi Saintifik Modern';
+      calloutHtml = `<div class="bl-scientist-card" style="display:flex;gap:14px;align-items:center;padding:14px 16px;border:1px solid #cbd5e1;border-radius:12px;background:#ffffff;margin:16px 0;box-shadow:0 2px 6px rgba(0,0,0,0.04)"><div style="width:52px;height:52px;border-radius:50%;background:#0d9488;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none">👤</div><div><h4 style="margin:0;font-size:14px;color:#0f172a">${name} <small style="font-size:11.5px;color:#64748b;font-weight:normal">(${era})</small></h4><span style="display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:#e0f2fe;color:#0369a1;margin:4px 0">${role}</span><p style="margin:4px 0 0;font-size:12.5px;color:#475569">Tuliskan karya monumental dan sumbangsih pemikiran tokoh geografi ini...</p></div></div><p><br></p>`;
+    }
+    if (calloutHtml) insertHtmlToEditor(calloutHtml);
+  });
+}
+
+function insertHtmlToEditor(html) {
+  const visualEl = document.getElementById('art-editor-visual');
+  const codeEl = document.getElementById('material-konten');
+  if (artEditorMode === 'visual' && visualEl) {
+    visualEl.focus();
+    document.execCommand('insertHTML', false, html);
+    if (codeEl) codeEl.value = visualEl.innerHTML;
+  } else if (codeEl) {
+    codeEl.value += '\n' + html;
+    if (visualEl) visualEl.innerHTML = codeEl.value;
+  }
+}
+
 async function openMaterialModal(material = null) {
   const modal = document.getElementById('material-modal');
   document.getElementById('material-form').reset();
@@ -677,18 +866,33 @@ async function openMaterialModal(material = null) {
     classSel.innerHTML = '<option value="">Pilih Kelas</option>' +
       classes.map(c => `<option value="${c.id}">${c.nama}</option>`).join('');
     
+    const visualEl = document.getElementById('art-editor-visual');
+    const codeEl = document.getElementById('material-konten');
+    const modeLabel = document.getElementById('editor-mode-label');
+    const toggleBtn = document.getElementById('btn-toggle-editor-mode');
+
+    // Default to visual mode
+    artEditorMode = 'visual';
+    if (visualEl) visualEl.style.display = 'block';
+    if (codeEl) codeEl.style.display = 'none';
+    if (modeLabel) modeLabel.textContent = '</> Mode HTML';
+    if (toggleBtn) toggleBtn.classList.remove('btn-primary');
+
     if (material) {
       document.getElementById('material-id').value = material.id;
       subjectSel.value = material.subject_id;
       classSel.value = material.class_id;
       document.getElementById('material-judul').value = material.judul;
-      document.getElementById('material-konten').value = material.konten;
+      document.getElementById('material-konten').value = material.konten || '';
+      if (visualEl) visualEl.innerHTML = material.konten || '';
       document.getElementById('material-youtube').value = material.youtube_id || '';
       document.getElementById('material-image').value = material.image || '';
       document.getElementById('material-modul').value = material.modul || '';
       document.getElementById('material-tipe').value = material.tipe || 'materi';
     } else {
       document.getElementById('material-id').value = '';
+      if (visualEl) visualEl.innerHTML = '';
+      if (codeEl) codeEl.value = '';
     }
     
     modal.classList.add('show');
@@ -698,10 +902,16 @@ async function openMaterialModal(material = null) {
 }
 
 async function saveMaterial() {
+  const visualEl = document.getElementById('art-editor-visual');
+  const codeEl = document.getElementById('material-konten');
+  if (artEditorMode === 'visual' && visualEl) {
+    codeEl.value = visualEl.innerHTML;
+  }
+
   const id = document.getElementById('material-id').value;
   const data = {
     judul: document.getElementById('material-judul').value.trim(),
-    konten: document.getElementById('material-konten').value.trim(),
+    konten: codeEl.value.trim(),
     subject_id: document.getElementById('material-subject').value,
     class_id: document.getElementById('material-class').value,
     youtube_id: document.getElementById('material-youtube').value.trim(),
@@ -793,6 +1003,8 @@ async function openQuestionModal(question = null) {
       document.getElementById('question-id').value = question.id;
       subjectSel.value = question.subject_id;
       document.getElementById('question-pertanyaan').value = question.pertanyaan;
+      document.getElementById('question-image').value = question.image || question.gambar || '';
+      document.getElementById('question-youtube').value = question.youtube_id || '';
       document.getElementById('question-opsi-a').value = question.opsi_a;
       document.getElementById('question-opsi-b').value = question.opsi_b;
       document.getElementById('question-opsi-c').value = question.opsi_c;
@@ -803,6 +1015,8 @@ async function openQuestionModal(question = null) {
       document.getElementById('question-kelas').value = question.kelas || '';
     } else {
       document.getElementById('question-id').value = '';
+      document.getElementById('question-image').value = '';
+      document.getElementById('question-youtube').value = '';
     }
     
     modal.classList.add('show');
@@ -815,6 +1029,8 @@ async function saveQuestion() {
   const id = document.getElementById('question-id').value;
   const data = {
     pertanyaan: document.getElementById('question-pertanyaan').value.trim(),
+    image: document.getElementById('question-image').value.trim(),
+    youtube_id: document.getElementById('question-youtube').value.trim(),
     opsi_a: document.getElementById('question-opsi-a').value.trim(),
     opsi_b: document.getElementById('question-opsi-b').value.trim(),
     opsi_c: document.getElementById('question-opsi-c').value.trim(),
@@ -1392,6 +1608,7 @@ async function deleteSchedule(id) {
 // ===== EVENT LISTENERS =====
 document.addEventListener('DOMContentLoaded', () => {
   init();
+  initArticleEditor();
   
   // Subjects
   document.getElementById('btn-add-subject')?.addEventListener('click', () => openSubjectModal());

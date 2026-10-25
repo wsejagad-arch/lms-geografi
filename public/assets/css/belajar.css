@@ -325,3 +325,101 @@
   }
 }
 
+/* Stepper Gembok & Status */
+.bl-alur-step.locked {
+  opacity: 0.65;
+  background: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+.bl-alur-step.locked:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+.bl-alur-step.unlocked {
+  cursor: pointer;
+}
+
+/* Card Kuis Checkpoint Topik */
+.bl-topic-quiz-card {
+  border: 1.5px solid #0d9488;
+  background: #f0fdfa;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 22px;
+  box-shadow: 0 1px 3px rgba(13,148,136,0.06);
+}
+.bl-topic-quiz-card h4 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #0f766e;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.bl-topic-quiz-card p.q-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+.bl-topic-quiz-opts {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.bl-topic-quiz-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccfbf1;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: #1e293b;
+  transition: all 0.15s;
+}
+.bl-topic-quiz-opt:hover {
+  border-color: #0d9488;
+  background: #f2fcf9;
+}
+.bl-topic-quiz-opt input {
+  margin-top: 3px;
+  accent-color: #0d9488;
+}
+.bl-topic-quiz-feedback {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  display: none;
+}
+.bl-topic-quiz-feedback.ok {
+  display: block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.bl-topic-quiz-feedback.err {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Kartu Tokoh Ilmuwan */
+.bl-scientist-card {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.bl-scientist-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+

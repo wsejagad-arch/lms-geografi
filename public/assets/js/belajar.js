@@ -62,7 +62,10 @@ function blRenderList() {
 
   host.querySelectorAll('.bl-bab').forEach(function (el) {
     el.addEventListener('click', function () {
-      if (el.classList.contains('locked')) return;
+      if (el.classList.contains('locked')) {
+        alert('🔒 Bab materi ini masih terkunci!\n\nUntuk membuka bab ini, kamu harus menyelesaikan evaluasi pada materi bab sebelumnya dengan nilai mencapai KKM (75).');
+        return;
+      }
       blOpenBab(el.dataset.id);
     });
   });
@@ -78,10 +81,12 @@ function blBabCard(b) {
     ? '<span class="bl-chip ok">Tuntas · ' + b.best_score + '</span>'
     : (b.best_score !== null ? '<span class="bl-chip warn">Nilai terbaik ' + b.best_score + '</span>' : '<span class="bl-chip">Belum dikerjakan</span>');
   const sisa = '<span class="bl-chip">' + b.attempts_left + ' percobaan tersisa</span>';
-  const lock = b.unlocked ? '' : '<span class="bl-chip lock">Terkunci</span>';
+  const lock = b.unlocked
+    ? '<span class="bl-chip ok" style="background:#ecfdf5;color:#065f46;border-color:#a7f3d0">🔓 Terbuka</span>'
+    : '<span class="bl-chip lock" style="background:#fef2f2;color:#991b1b;border-color:#fecaca;font-weight:600">🔒 Terkunci (Selesaikan evaluasi bab sebelumnya)</span>';
   return [
     '<div class="' + cls.join(' ') + '" data-id="' + b.id + '">',
-    '  <div class="bl-num">' + b.urutan + '</div>',
+    '  <div class="bl-num">' + (b.unlocked ? b.urutan : '🔒') + '</div>',
     '  <div class="bl-bab-body">',
     '    <h3>' + b.judul + '</h3>',
     '    <p>' + b.ringkasan + '</p>',
@@ -97,6 +102,55 @@ function blShortTopicTitle(title) {
   let short = m && m[1] ? m[1].trim() : title.trim();
   if (short.length > 28) short = short.substring(0, 26) + '…';
   return short;
+}
+
+function blGetUnlockedTopics(babId, totalTopics, isBabTuntas) {
+  if (isBabTuntas) {
+    const all = [];
+    for (let i = 0; i < totalTopics; i++) all.push(i);
+    return all;
+  }
+  try {
+    const saved = localStorage.getItem('geo_unlocked_' + babId);
+    if (saved) {
+      const arr = JSON.parse(saved);
+      if (Array.isArray(arr) && arr.includes(0)) return arr;
+    }
+  } catch (e) {}
+  return [0];
+}
+
+function blUnlockNextTopic(babId, nextIdx) {
+  try {
+    const saved = localStorage.getItem('geo_unlocked_' + babId);
+    let arr = [0];
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) arr = parsed;
+    }
+    if (!arr.includes(nextIdx)) {
+      arr.push(nextIdx);
+      arr.sort(function (a, b) { return a - b; });
+      localStorage.setItem('geo_unlocked_' + babId, JSON.stringify(arr));
+    }
+    return arr;
+  } catch (e) {
+    return [0, nextIdx];
+  }
+}
+
+function blIsTopicQuizPassed(babId, topicIdx) {
+  try {
+    return localStorage.getItem('geo_quiz_passed_' + babId + '_' + topicIdx) === '1';
+  } catch (e) {
+    return false;
+  }
+}
+
+function blSetTopicQuizPassed(babId, topicIdx) {
+  try {
+    localStorage.setItem('geo_quiz_passed_' + babId + '_' + topicIdx, '1');
+  } catch (e) {}
 }
 
 async function blOpenBab(id) {
@@ -117,18 +171,36 @@ async function blOpenBab(id) {
 function blRenderBab() {
   const b = blState.bab;
   const p = b.progress;
+  const isBabTuntas = !!(p && p.tuntas);
   const host = document.getElementById('belajar-root');
   const materiList = b.materi || [];
   const hasMultiple = materiList.length > 1;
+
+  const unlockedTopics = blGetUnlockedTopics(b.id, materiList.length, isBabTuntas);
+  if (!unlockedTopics.includes(blState.activeTopicIndex)) {
+    blState.activeTopicIndex = unlockedTopics[unlockedTopics.length - 1] || 0;
+  }
 
   let topicNavHtml = '';
   let topicBodyHtml = '';
 
   if (hasMultiple) {
     const stepsHtml = materiList.map(function (m, idx) {
-      const isAct = idx === blState.activeTopicIndex && blState.topicViewMode === 'stepped';
-      return '<button class="bl-alur-step ' + (isAct ? 'active' : '') + '" data-tidx="' + idx + '">' +
-        '<span>' + (idx + 1) + '</span> ' + blEsc(blShortTopicTitle(m.judul)) +
+      const isUnlocked = unlockedTopics.includes(idx);
+      const isAct = idx === blState.activeTopicIndex;
+      const isQuizPassed = isBabTuntas || blIsTopicQuizPassed(b.id, idx);
+      let cls = 'bl-alur-step';
+      if (isAct) cls += ' active';
+      if (isUnlocked) cls += ' unlocked';
+      else cls += ' locked';
+
+      let icon = (idx + 1);
+      if (!isUnlocked) icon = '🔒 ' + (idx + 1);
+      else if (isQuizPassed && !isAct) icon = '✓ ' + (idx + 1);
+
+      return '<button class="' + cls + '" data-tidx="' + idx + '" data-locked="' + (!isUnlocked) + '">' +
+        '<span>' + icon + '</span> ' + blEsc(blShortTopicTitle(m.judul)) +
+        (!isUnlocked ? ' <small style="font-size:10px;opacity:0.8">(Terkunci)</small>' : '') +
         '</button>';
     }).join('');
 
@@ -137,39 +209,83 @@ function blRenderBab() {
       '  <div class="bl-alur-head">',
       '    <div class="bl-alur-title">',
       '      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>',
-      '      Alur Pembelajaran: ' + (blState.topicViewMode === 'stepped' ? 'Topik ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length : 'Semua Topik (' + materiList.length + ')'),
+      '      Alur Pembelajaran: Topik ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length,
       '    </div>',
-      '    <button class="bl-alur-toggle" id="bl-toggle-mode">',
-      blState.topicViewMode === 'stepped' ? 'Tampilkan Semua Sekaligus 📜' : 'Mode Alur Bertahap 📖',
-      '    </button>',
+      '    <div style="display:flex;align-items:center;gap:6px">',
+      '      <span class="bl-chip ' + (isBabTuntas ? 'ok' : 'ok') + '">Progres Topik: ' + unlockedTopics.length + '/' + materiList.length + ' Terbuka 🔓</span>',
+      '    </div>',
       '  </div>',
       '  <div class="bl-alur-steps">' + stepsHtml + '</div>',
       '</div>'
     ].join('');
 
-    if (blState.topicViewMode === 'stepped') {
-      const cur = materiList[blState.activeTopicIndex] || materiList[0];
-      const prevM = blState.activeTopicIndex > 0 ? materiList[blState.activeTopicIndex - 1] : null;
-      const nextM = blState.activeTopicIndex < materiList.length - 1 ? materiList[blState.activeTopicIndex + 1] : null;
+    const cur = materiList[blState.activeTopicIndex] || materiList[0];
+    const prevM = blState.activeTopicIndex > 0 ? materiList[blState.activeTopicIndex - 1] : null;
+    const nextM = blState.activeTopicIndex < materiList.length - 1 ? materiList[blState.activeTopicIndex + 1] : null;
+    const isNextUnlocked = unlockedTopics.includes(blState.activeTopicIndex + 1);
+    const isCurrentQuizPassed = isBabTuntas || blIsTopicQuizPassed(b.id, blState.activeTopicIndex);
 
-      topicBodyHtml = [
-        '<div class="bl-card bl-topic-card" id="bl-active-topic">',
-        '  <span class="bl-topic-badge">Bagian ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length + '</span>',
-        '  <h3>' + blEsc(cur.judul) + '</h3>',
-        '  <div class="bl-prose">' + cur.html + '</div>',
-        '  <div class="bl-topic-nav-footer">',
-        prevM ? '<button class="bl-btn" id="bl-btn-prev-topic">← Topik Sebelumnya: ' + blEsc(blShortTopicTitle(prevM.judul)) + '</button>' : '<div></div>',
-        nextM
-          ? '<button class="bl-btn primary" id="bl-btn-next-topic">Menu Berikutnya: ' + blEsc(blShortTopicTitle(nextM.judul)) + ' →</button>'
-          : '<button class="bl-btn primary" id="bl-btn-finish-topic">Lanjut ke Glosarium & Evaluasi ↓</button>',
-        '  </div>',
-        '</div>'
-      ].join('');
-    } else {
-      topicBodyHtml = materiList.map(function (m, idx) {
-        return '<div class="bl-card" id="bl-materi-' + idx + '"><span class="bl-topic-badge">Topik ' + (idx + 1) + '</span><h3>' + blEsc(m.judul) + '</h3><div class="bl-prose">' + m.html + '</div></div>';
-      }).join('');
+    let quizHtml = '';
+    if (cur.kuis_topik) {
+      if (isCurrentQuizPassed) {
+        quizHtml = [
+          '<div class="bl-topic-quiz-card" style="border-color:#10b981;background:#f0fdf4">',
+          '  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">',
+          '    <span style="font-size:18px">✅</span>',
+          '    <h4 style="margin:0;font-size:14px;color:#065f46">Kuis Evaluasi Topik ' + (blState.activeTopicIndex + 1) + ' Selesai & Terbuka</h4>',
+          '  </div>',
+          '  <p style="margin:0 0 8px;font-size:12.5px;color:#1e293b"><strong>Pertanyaan:</strong> ' + blEsc(cur.kuis_topik.pertanyaan) + '</p>',
+          '  <div class="bl-topic-quiz-feedback ok" style="display:block">',
+          '    <strong>Kunci & Pembahasan:</strong> ' + blEsc(cur.kuis_topik.pembahasan),
+          '  </div>',
+          '</div>'
+        ].join('');
+      } else {
+        const optsHtml = (cur.kuis_topik.opsi || []).map(function (opt, oi) {
+          return '<label class="bl-topic-quiz-opt" data-oi="' + oi + '">' +
+            '<input type="radio" name="topic-q-opt" value="' + oi + '"> ' +
+            '<span><strong>' + String.fromCharCode(65 + oi) + '.</strong> ' + blEsc(opt) + '</span>' +
+            '</label>';
+        }).join('');
+
+        quizHtml = [
+          '<div class="bl-topic-quiz-card" id="bl-topic-quiz-wrap">',
+          '  <h4>🎯 Evaluasi Pemahaman: Topik ' + (blState.activeTopicIndex + 1) + '</h4>',
+          '  <p class="q-text">' + blEsc(cur.kuis_topik.pertanyaan) + '</p>',
+          '  <div class="bl-topic-quiz-opts">' + optsHtml + '</div>',
+          '  <div class="bl-topic-quiz-feedback" id="bl-topic-feedback"></div>',
+          '  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">',
+          '    <button class="bl-btn primary" id="bl-btn-check-topic">Periksa Jawaban 🚀</button>',
+          '    <span style="font-size:12px;color:#64748b">Jawab dengan benar untuk membuka topik berikutnya 🔓</span>',
+          '  </div>',
+          '</div>'
+        ].join('');
+      }
     }
+
+    let nextButtonHtml = '';
+    if (nextM) {
+      if (isNextUnlocked) {
+        nextButtonHtml = '<button class="bl-btn primary" id="bl-btn-next-topic">Menu Berikutnya: ' + blEsc(blShortTopicTitle(nextM.judul)) + ' 🔓 →</button>';
+      } else {
+        nextButtonHtml = '<button class="bl-btn" id="bl-btn-next-topic" disabled style="opacity:0.65;cursor:not-allowed">Topik Berikutnya Terkunci 🔒 (Selesaikan Kuis di Atas)</button>';
+      }
+    } else {
+      nextButtonHtml = '<button class="bl-btn primary" id="bl-btn-finish-topic">🎉 Seluruh Topik Tuntas! Lanjut ke Evaluasi Bab ↓</button>';
+    }
+
+    topicBodyHtml = [
+      '<div class="bl-card bl-topic-card" id="bl-active-topic">',
+      '  <span class="bl-topic-badge">Bagian ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length + '</span>',
+      '  <h3>' + blEsc(cur.judul) + '</h3>',
+      '  <div class="bl-prose">' + cur.html + '</div>',
+      quizHtml,
+      '  <div class="bl-topic-nav-footer">',
+      prevM ? '<button class="bl-btn" id="bl-btn-prev-topic">← Topik Sebelumnya: ' + blEsc(blShortTopicTitle(prevM.judul)) + '</button>' : '<div></div>',
+      nextButtonHtml,
+      '  </div>',
+      '</div>'
+    ].join('');
   } else {
     topicBodyHtml = materiList.map(function (m) {
       return '<div class="bl-card"><h3>' + blEsc(m.judul) + '</h3><div class="bl-prose">' + m.html + '</div></div>';
@@ -194,11 +310,11 @@ function blRenderBab() {
     '<div id="bl-topic-container">' + topicBodyHtml + '</div>',
     glos ? '<div class="bl-card" id="bl-glosarium-card"><h3>Glosarium</h3><div class="bl-glos">' + glos + '</div></div>' : '',
     '  <div class="bl-card" id="bl-eval-card">',
-    '    <h3>Evaluasi</h3>',
-    '    <p style="font-size:12.5px;color:#5b6473;margin:0 0 10px">Nilai terbaik: <b>' + (p.best_score === null ? '—' : p.best_score) + '</b> · percobaan: ' + p.attempts + '/' + (p.attempts + p.attempts_left) + ' · nilai tertinggi yang diambil.</p>',
+    '    <h3>Evaluasi Akhir Bab</h3>',
+    '    <p style="font-size:12.5px;color:#5b6473;margin:0 0 10px">Nilai terbaik: <b>' + (p.best_score === null ? '—' : p.best_score) + '</b> · percobaan: ' + p.attempts + '/' + (p.attempts + p.attempts_left) + ' · KKM ' + b.kkm + ' (Menyelesaikan evaluasi membuka bab berikutnya).</p>',
     '    <div class="bl-actions" style="margin-top:0">',
-    '      <button class="bl-btn primary" id="bl-start" ' + (p.attempts_left > 0 ? '' : 'disabled') + '>' + (p.attempts > 0 ? 'Kerjakan Ulang' : 'Mulai Evaluasi') + '</button>',
-    '      <button class="bl-btn ghost" id="bl-back">Kembali</button>',
+    '      <button class="bl-btn primary" id="bl-start" ' + (p.attempts_left > 0 ? '' : 'disabled') + '>' + (p.attempts > 0 ? 'Kerjakan Ulang Evaluasi' : 'Mulai Evaluasi Akhir Bab') + '</button>',
+    '      <button class="bl-btn ghost" id="bl-back">Kembali ke Daftar Bab</button>',
     '    </div>',
     '  </div>',
     p.riwayat && p.riwayat.length ? '<div class="bl-card"><h3>Riwayat Percobaan</h3><div class="bl-glos">' + p.riwayat.map(function (r) { return '<div>Percobaan ' + r.ke + ': <b>' + r.score + '</b> (' + r.benar + '/' + r.total + ' benar)</div>'; }).join('') + '</div></div>' : '',
@@ -212,22 +328,49 @@ function blRenderBab() {
   if (hasMultiple) {
     document.querySelectorAll('.bl-alur-step').forEach(function (btn) {
       btn.addEventListener('click', function () {
+        const isLocked = btn.dataset.locked === 'true';
+        if (isLocked) {
+          alert('🔒 Topik ini masih terkunci!\n\nSilakan pelajari materi dan selesaikan kuis evaluasi pada topik sebelumnya terlebih dahulu.');
+          return;
+        }
         const tidx = Number(btn.dataset.tidx);
         blState.activeTopicIndex = tidx;
-        blState.topicViewMode = 'stepped';
         blRenderBab();
         const navEl = document.getElementById('bl-topic-nav');
         if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    const toggleBtn = document.getElementById('bl-toggle-mode');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', function () {
-        blState.topicViewMode = blState.topicViewMode === 'stepped' ? 'all' : 'stepped';
-        blRenderBab();
-        const navEl = document.getElementById('bl-topic-nav');
-        if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const checkBtn = document.getElementById('bl-btn-check-topic');
+    if (checkBtn) {
+      checkBtn.addEventListener('click', function () {
+        const selected = document.querySelector('input[name="topic-q-opt"]:checked');
+        const fb = document.getElementById('bl-topic-feedback');
+        if (!selected) {
+          if (fb) {
+            fb.className = 'bl-topic-quiz-feedback err';
+            fb.innerHTML = '⚠️ Silakan pilih salah satu opsi jawaban terlebih dahulu.';
+          }
+          return;
+        }
+        const val = Number(selected.value);
+        const curTopic = materiList[blState.activeTopicIndex];
+        if (val === curTopic.kuis_topik.kunci) {
+          fb.className = 'bl-topic-quiz-feedback ok';
+          fb.innerHTML = '🎉 <strong>Luar biasa, jawabanmu BENAR!</strong><br>' + blEsc(curTopic.kuis_topik.pembahasan);
+          blSetTopicQuizPassed(b.id, blState.activeTopicIndex);
+          if (blState.activeTopicIndex < materiList.length - 1) {
+            blUnlockNextTopic(b.id, blState.activeTopicIndex + 1);
+          }
+          setTimeout(function () {
+            blRenderBab();
+            const nextB = document.getElementById('bl-btn-next-topic') || document.getElementById('bl-btn-finish-topic');
+            if (nextB) nextB.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 800);
+        } else {
+          fb.className = 'bl-topic-quiz-feedback err';
+          fb.innerHTML = '❌ <strong>Jawaban belum tepat.</strong><br>Pelajari kembali rangkuman materi di atas, lalu coba pilih kembali jawaban yang paling tepat.';
+        }
       });
     }
 
@@ -244,7 +387,7 @@ function blRenderBab() {
     }
 
     const nextBtn = document.getElementById('bl-btn-next-topic');
-    if (nextBtn) {
+    if (nextBtn && !nextBtn.disabled) {
       nextBtn.addEventListener('click', function () {
         if (blState.activeTopicIndex < materiList.length - 1) {
           blState.activeTopicIndex++;
@@ -276,8 +419,8 @@ function blStartEval() {
   const host = document.getElementById('bl-eval');
   host.innerHTML = [
     '<div class="bl-card" style="margin-top:4px">',
-    '  <h3>Evaluasi ' + blEsc(b.judul) + '</h3>',
-    '  <p style="font-size:12px;color:#5b6473;margin:0 0 12px">Jawab semua soal. Nilai tertinggi dari maksimal 3 percobaan yang dihitung.</p>',
+    '  <h3>Evaluasi Akhir ' + blEsc(b.judul) + '</h3>',
+    '  <p style="font-size:12px;color:#5b6473;margin:0 0 12px">Jawab semua soal dengan teliti. Nilai evaluasi di atas KKM membuka akses ke bab materi berikutnya.</p>',
     (b.soal || []).map(function (s, i) { return blRenderSoal(s, i); }).join(''),
     '  <div class="bl-actions">',
     '    <button class="bl-btn primary" id="bl-submit">Kirim Jawaban</button>',
@@ -293,9 +436,18 @@ function blStartEval() {
 
 function blRenderSoal(s, i) {
   const st = s.stimulus || {};
+  const imgUrl = s.image || s.gambar || st.image || st.gambar;
+  const ytId = s.youtube_id || st.youtube_id;
+
+  const stimMedia = [
+    imgUrl ? '<div class="bl-stim-img" style="margin:12px 0;text-align:center"><img src="' + blEsc(imgUrl) + '" style="max-width:100%;max-height:360px;border-radius:10px;border:1px solid #cbd5e1;box-shadow:0 2px 6px rgba(0,0,0,0.06)" alt="Ilustrasi Soal"></div>' : '',
+    ytId ? '<div class="bl-stim-video" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:12px 0;border-radius:10px;border:1px solid #cbd5e1"><iframe src="https://www.youtube.com/embed/' + encodeURIComponent(ytId) + '?rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div>' : ''
+  ].join('');
+
   const stim = [
     '<div class="bl-stim">',
     st.judul ? '<h4>' + blEsc(st.judul) + '</h4>' : '',
+    stimMedia,
     st.isi || '',
     st.sumber ? '<span class="src">Sumber: ' + blEsc(st.sumber) + '</span>' : '',
     '</div>'

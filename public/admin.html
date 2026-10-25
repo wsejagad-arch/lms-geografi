@@ -367,45 +367,158 @@
 
   <!-- Material Modal -->
   <div class="modal-overlay" id="material-modal">
-    <div class="modal">
-      <div class="modal-header"><h3>Materi</h3><button class="modal-close" data-close>&times;</button></div>
+    <div class="modal modal-lg">
+      <div class="modal-header"><h3>Editor Materi Pembelajaran</h3><button class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="material-form">
           <input type="hidden" id="material-id">
-          <div class="form-group"><label>Mapel</label><select id="material-subject"></select></div>
-          <div class="form-group"><label>Kelas</label><select id="material-class"></select></div>
-          <div class="form-group"><label>Judul</label><input id="material-judul" required></div>
-          <div class="form-group"><label>Modul</label><input id="material-modul"></div>
-          <div class="form-group"><label>Konten</label><textarea id="material-konten" rows="6" required></textarea></div>
-          <div class="form-group"><label>YouTube ID</label><input id="material-youtube"></div>
-          <div class="form-group"><label>Gambar URL</label><input id="material-image"></div>
-          <div class="form-group"><label>Tipe</label><select id="material-tipe"><option value="materi">Materi</option><option value="tugas">Tugas</option></select></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group"><label>Mapel</label><select id="material-subject"></select></div>
+            <div class="form-group"><label>Kelas</label><select id="material-class"></select></div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px">
+            <div class="form-group"><label>Judul Materi</label><input id="material-judul" required placeholder="Contoh: Konsep Dasar dan Sejarah Geografi"></div>
+            <div class="form-group"><label>Modul / Bab</label><input id="material-modul" placeholder="Contoh: Modul 1 / x-01"></div>
+          </div>
+          <div class="form-group">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <label style="margin-bottom:0">Konten Artikel Materi (Edit Standar Web)</label>
+              <div style="display:flex;gap:6px">
+                <button type="button" class="btn btn-sm" id="btn-toggle-editor-mode" style="font-size:11.5px">
+                  <span id="editor-mode-label">&lt;/&gt; Mode HTML</span>
+                </button>
+              </div>
+            </div>
+            <div class="art-editor-wrap">
+              <!-- Editor Toolbar -->
+              <div class="art-editor-toolbar" id="art-toolbar">
+                <!-- Typography Font -->
+                <div class="art-tool-group">
+                  <select class="art-tool-select" id="art-font-name" title="Pilih Font">
+                    <option value="">Font: Standar</option>
+                    <option value="Inter, sans-serif">Inter</option>
+                    <option value="Roboto, sans-serif">Roboto</option>
+                    <option value="Outfit, sans-serif">Outfit</option>
+                    <option value="Georgia, serif">Georgia</option>
+                    <option value="'Times New Roman', serif">Times New Roman</option>
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="'Courier New', monospace">Courier Monospace</option>
+                  </select>
+                  <select class="art-tool-select" id="art-font-size" title="Ukuran Font">
+                    <option value="">Ukuran Font</option>
+                    <option value="1">10px - Sangat Kecil</option>
+                    <option value="2">12px - Kecil</option>
+                    <option value="3">14px - Standar</option>
+                    <option value="4">16px - Sedang</option>
+                    <option value="5">18px - Besar</option>
+                    <option value="6">24px - Judul H2</option>
+                    <option value="7">32px - Judul H1</option>
+                  </select>
+                  <select class="art-tool-select" id="art-format-block" title="Format Paragraf">
+                    <option value="p">Paragraf</option>
+                    <option value="h1">Heading 1</option>
+                    <option value="h2">Heading 2</option>
+                    <option value="h3">Heading 3</option>
+                    <option value="h4">Heading 4</option>
+                    <option value="blockquote">Kutipan</option>
+                    <option value="pre">Blok Kode</option>
+                  </select>
+                </div>
+
+                <div class="art-tool-sep"></div>
+
+                <!-- Format Gaya -->
+                <div class="art-tool-group">
+                  <button type="button" class="art-tool-btn" data-cmd="bold" title="Tebal (Ctrl+B)"><b>B</b></button>
+                  <button type="button" class="art-tool-btn" data-cmd="italic" title="Miring (Ctrl+I)"><i>I</i></button>
+                  <button type="button" class="art-tool-btn" data-cmd="underline" title="Garis Bawah (Ctrl+U)"><u>U</u></button>
+                  <button type="button" class="art-tool-btn" data-cmd="strikeThrough" title="Coret"><s>S</s></button>
+                </div>
+
+                <div class="art-tool-sep"></div>
+
+                <!-- Warna -->
+                <div class="art-tool-group">
+                  <span class="art-color-picker-wrap" title="Warna Teks">
+                    <button type="button" class="art-tool-btn" id="btn-text-color-show" style="color:#2563eb">A <span style="font-size:10px">▼</span></button>
+                    <input type="color" id="art-fore-color" value="#0f172a">
+                  </span>
+                  <span class="art-color-picker-wrap" title="Warna Sorotan (Highlight)">
+                    <button type="button" class="art-tool-btn" id="btn-bg-color-show" style="background:#fef08a;color:#854d0e">H <span style="font-size:10px">▼</span></button>
+                    <input type="color" id="art-back-color" value="#fef08a">
+                  </span>
+                  <button type="button" class="art-tool-btn" data-cmd="removeFormat" title="Hapus Pemformatan">🧹</button>
+                </div>
+
+                <div class="art-tool-sep"></div>
+
+                <!-- Perataan & Daftar -->
+                <div class="art-tool-group">
+                  <button type="button" class="art-tool-btn" data-cmd="justifyLeft" title="Rata Kiri">☰</button>
+                  <button type="button" class="art-tool-btn" data-cmd="justifyCenter" title="Rata Tengah">☲</button>
+                  <button type="button" class="art-tool-btn" data-cmd="justifyRight" title="Rata Kanan">☵</button>
+                  <button type="button" class="art-tool-btn" data-cmd="justifyFull" title="Rata Kiri-Kanan">☶</button>
+                  <button type="button" class="art-tool-btn" data-cmd="insertUnorderedList" title="Daftar Poin (Bullet)">•≡</button>
+                  <button type="button" class="art-tool-btn" data-cmd="insertOrderedList" title="Daftar Nomor">1.≡</button>
+                </div>
+
+                <div class="art-tool-sep"></div>
+
+                <!-- Sisipkan Media & Objek -->
+                <div class="art-tool-group">
+                  <button type="button" class="art-tool-btn" id="btn-art-insert-image" title="Sisipkan Gambar">🖼️ Gambar</button>
+                  <button type="button" class="art-tool-btn" id="btn-art-insert-video" title="Sisipkan Video YouTube">🎥 Video</button>
+                  <button type="button" class="art-tool-btn" id="btn-art-insert-table" title="Sisipkan Tabel">📊 Tabel</button>
+                  <button type="button" class="art-tool-btn" id="btn-art-insert-callout" title="Sisipkan Kotak Sorotan / Kasus / Tokoh">💡 Kotak Khusus</button>
+                  <button type="button" class="art-tool-btn" data-cmd="insertHorizontalRule" title="Garis Pembatas">—</button>
+                </div>
+              </div>
+
+              <!-- Visual Editable Canvas -->
+              <div id="art-editor-visual" class="art-editor-content" contenteditable="true" spellcheck="false" data-placeholder="Ketik atau susun artikel materi pembelajaran di sini..."></div>
+              <!-- Raw HTML Textarea (hidden by default) -->
+              <textarea id="material-konten" class="art-editor-code" style="display:none"></textarea>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+            <div class="form-group"><label>YouTube ID Video Utama</label><input id="material-youtube" placeholder="Contoh: 2vK8s_aX49c"></div>
+            <div class="form-group"><label>Gambar Banner URL</label><input id="material-image" placeholder="https://... atau /assets/img/..."></div>
+            <div class="form-group"><label>Tipe Konten</label><select id="material-tipe"><option value="materi">Materi Pelajaran</option><option value="tugas">Tugas Terstruktur</option></select></div>
+          </div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-material">Simpan</button></div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-material">Simpan Materi</button></div>
     </div>
   </div>
 
   <!-- Question Modal -->
   <div class="modal-overlay" id="question-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Soal</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Soal Evaluasi</h3><button class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="question-form">
           <input type="hidden" id="question-id">
-          <div class="form-group"><label>Mapel</label><select id="question-subject"></select></div>
-          <div class="form-group"><label>Kelas</label><input id="question-kelas"></div>
-          <div class="form-group"><label>Jenis</label><select id="question-jenis"><option value="formatif">Formatif</option><option value="sumatif">Sumatif</option><option value="tka">TKA</option></select></div>
-          <div class="form-group"><label>Pertanyaan</label><textarea id="question-pertanyaan" rows="3" required></textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+            <div class="form-group"><label>Mapel</label><select id="question-subject"></select></div>
+            <div class="form-group"><label>Kelas</label><input id="question-kelas" placeholder="Contoh: X"></div>
+            <div class="form-group"><label>Jenis</label><select id="question-jenis"><option value="formatif">Formatif</option><option value="sumatif">Sumatif</option><option value="tka">TKA</option></select></div>
+          </div>
+          <div class="form-group"><label>Pertanyaan</label><textarea id="question-pertanyaan" rows="3" required placeholder="Tuliskan pertanyaan evaluasi..."></textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-group"><label>Gambar / Ilustrasi Soal (URL)</label><input id="question-image" placeholder="https://... atau /assets/img/..."></div>
+            <div class="form-group"><label>Video Soal (YouTube ID / URL)</label><input id="question-youtube" placeholder="Contoh: 2vK8s_aX49c"></div>
+          </div>
           <div class="form-group"><label>Opsi A</label><input id="question-opsi-a" required></div>
           <div class="form-group"><label>Opsi B</label><input id="question-opsi-b" required></div>
           <div class="form-group"><label>Opsi C</label><input id="question-opsi-c" required></div>
           <div class="form-group"><label>Opsi D</label><input id="question-opsi-d" required></div>
-          <div class="form-group"><label>Kunci</label><input type="number" id="question-jawaban" min="0" max="3" required></div>
-          <div class="form-group"><label>Poin</label><input type="number" id="question-poin" value="10" required></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-group"><label>Kunci Jawaban (0=A, 1=B, 2=C, 3=D)</label><input type="number" id="question-jawaban" min="0" max="3" required></div>
+            <div class="form-group"><label>Poin Nilai</label><input type="number" id="question-poin" value="10" required></div>
+          </div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-question">Simpan</button></div>
+      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-question">Simpan Soal</button></div>
     </div>
   </div>
 
