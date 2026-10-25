@@ -7,9 +7,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
   <title>Siswa - LMS Geografi</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/belajar.css">
-  <link rel="stylesheet" href="assets/css/student.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=5">
+  <link rel="stylesheet" href="assets/css/belajar.css?v=5">
+  <link rel="stylesheet" href="assets/css/student.css?v=5">
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
 </head>
@@ -62,12 +62,12 @@
       <div class="page">
         <section id="sec-dashboard" class="section">
           <div class="stat-grid">
-            <div class="stat"><span class="stat-value" id="s-stat-materi">0</span><span class="stat-label">Materi</span></div>
-            <div class="stat"><span class="stat-value" id="s-stat-nilai">0</span><span class="stat-label">Nilai</span></div>
-            <div class="stat"><span class="stat-value" id="s-stat-rata">0</span><span class="stat-label">Rata-rata</span></div>
-            <div class="stat"><span class="stat-value" id="s-stat-presensi">0</span><span class="stat-label">Presensi</span></div>
-            <div class="stat"><span class="stat-value" id="s-stat-tugas">0</span><span class="stat-label">Tugas</span></div>
-            <div class="stat"><span class="stat-value" id="s-stat-exam">0</span><span class="stat-label">Exam</span></div>
+            <div class="stat"><div class="stat-value" id="s-stat-materi">0</div><div class="stat-label">Materi</div></div>
+            <div class="stat"><div class="stat-value" id="s-stat-nilai">0</div><div class="stat-label">Nilai</div></div>
+            <div class="stat"><div class="stat-value" id="s-stat-rata">0</div><div class="stat-label">Rata-rata</div></div>
+            <div class="stat"><div class="stat-value" id="s-stat-presensi">0</div><div class="stat-label">Presensi</div></div>
+            <div class="stat"><div class="stat-value" id="s-stat-tugas">0</div><div class="stat-label">Tugas</div></div>
+            <div class="stat"><div class="stat-value" id="s-stat-exam">0</div><div class="stat-label">Exam</div></div>
           </div>
           <div class="panel">
             <div class="panel-head"><h2>Profil Saya</h2></div>
@@ -144,13 +144,13 @@
     <button class="bottom-nav-item" data-nav="nilai-saya"><svg class="ic"><use href="#i-chart"/></svg><span>Nilai</span></button>
   </nav>
 
-  <script src="assets/js/api.js"></script>
-  <script src="assets/js/belajar.js"></script>
+  <script src="assets/js/api.js?v=5"></script>
+  <script src="assets/js/belajar.js?v=5"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
-  <script src="assets/js/student.js"></script>
+  <script src="assets/js/student.js?v=5"></script>
 </body>
 </html>

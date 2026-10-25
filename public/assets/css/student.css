@@ -155,14 +155,14 @@ body {
 /* ---------- Statistik ---------- */
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); gap: 10px; }
 .stat {
-  display: flex; flex-direction: column; gap: 2px;
+  display: flex; flex-direction: column; gap: 2px; min-width: 0;
   padding: 13px 14px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
-.stat-value { font-size: 24px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.15; }
-.stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--text-3); }
+.stat-value { display: block; font-size: 24px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.stat-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--text-3); }
 
 /* ---------- Panel & kartu ---------- */
 .panel, .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: none; overflow: hidden; }
@@ -307,6 +307,9 @@ body {
   .sidebar-overlay.show { display: block; }
   .menu-toggle { display: inline-flex; }
   .top-bar { padding: 0 14px; }
+  .top-bar h1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .user-chip span:last-child { max-width: 128px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .stat-grid { grid-template-columns: repeat(3, 1fr); }
   .page { padding: 14px 14px 76px; }
   .bottom-nav {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
@@ -329,6 +332,7 @@ body {
 
 @media (max-width: 520px) {
   .stat { padding: 11px 12px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .stat-value { font-size: 21px; }
   .material-grid { grid-template-columns: 1fr; }
 }
