@@ -12,6 +12,8 @@ async function init() {
   currentTenant = LMS.getCurrentTenant();
   document.getElementById('siswa-nama-display').textContent = currentUser.nama;
   document.getElementById('siswa-sidebar-nama').textContent = currentUser.nama;
+  const initialEl = document.getElementById('user-initial');
+  if (initialEl) initialEl.textContent = (currentUser.nama || 'S').trim().charAt(0);
   
   await renderDashboard();
   await renderMateri();
@@ -102,14 +104,12 @@ async function renderMateri() {
     
     if (empty) empty.classList.add('hidden');
     grid.innerHTML = materials.map(m => `
-      <div class="material-card" onclick="openMateriDetail('${m.id}')">
-        <div class="thumb">${m.image ? `<img src="${m.image}" alt="">` : '📖'}</div>
-        <div class="body">
-          <span class="class-badge">KELAS ${m.class_nama}</span>
-          <h3>${m.judul}</h3>
-          <p>${m.subject_nama} ${m.youtube_id ? '🎬 Video tersedia' : ''}</p>
-        </div>
-      </div>
+      <article class="material-card" onclick="openMateriDetail('${m.id}')">
+        ${m.image ? `<div class="thumb"><img src="${m.image}" alt=""></div>` : ''}
+        <span class="class-badge">Kelas ${m.class_nama}</span>
+        <h3>${m.judul}</h3>
+        <p>${m.subject_nama}${m.modul ? ' · ' + m.modul : ''}${m.youtube_id ? ' · Video' : ''}</p>
+      </article>
     `).join('');
   } catch (err) {
     console.error('Failed to load materi:', err);
@@ -157,7 +157,7 @@ async function renderNilai() {
     const params = currentUser.student_id ? { student_id: currentUser.student_id } : {};
     const grades = await LMS.getGrades(params);
     if (!grades.length) {
-      tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada nilai</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" class="table-empty">Belum ada nilai</td></tr>';
       return;
     }
     
@@ -171,7 +171,7 @@ async function renderNilai() {
       </tr>
     `).join('');
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="table-empty">Error: ${err.message}</td></tr>`;
   }
 }
 
@@ -184,21 +184,21 @@ async function renderAttendance() {
     const attendance = await LMS.getAttendance();
     const filtered = attendance.filter(a => a.student_id === currentUser.student_id);
     if (!filtered.length) {
-      tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada presensi</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="4" class="table-empty">Belum ada presensi</td></tr>';
       return;
     }
     
+    const badgeStatus = { hadir: 'success', izin: 'warning', sakit: 'primary', alpa: 'danger' };
     tbody.innerHTML = filtered.slice(0, 50).map(a => `
       <tr>
         <td>${a.date}</td>
-        <td><span class="badge badge-${a.status==='hadir'?'success':a.status==='izin'?'badge-warning':a.status==='sakit'?'badge-primary':'badge-danger'}">${a.status.toUpperCase()}</span></td>
+        <td><span class="badge badge-${badgeStatus[a.status] || 'neutral'}">${a.status.toUpperCase()}</span></td>
         <td>${a.kelas_nama}</td>
         <td>${a.note || '-'}</td>
-        <td></td>
       </tr>
     `).join('');
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" class="table-empty">Error: ${err.message}</td></tr>`;
   }
 }
 
@@ -218,18 +218,17 @@ async function renderAssignments() {
     
     if (empty) empty.classList.add('hidden');
     container.innerHTML = assignments.map(a => `
-      <div class="card">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 style="margin:0">${a.judul}</h3>
-            <p style="font-size:13px;color:var(--text-2);margin:4px 0 0">${a.subject_nama} • ${a.class_nama} • ${a.poin} poin${a.due_date ? ' • Deadline: ' + a.due_date : ''}</p>
-            ${a.deskripsi ? `<p style="font-size:13px;margin-top:8px;line-height:1.6">${a.deskripsi}</p>` : ''}
-          </div>
+      <article class="card">
+        <div class="card-row">
+          <h3>${a.judul}</h3>
+          <span class="badge badge-neutral">${a.poin} poin</span>
         </div>
-      </div>
+        <p class="meta">${a.subject_nama} · ${a.class_nama}${a.due_date ? ' · Tenggat ' + a.due_date : ''}</p>
+        ${a.deskripsi ? `<p class="desc">${a.deskripsi}</p>` : ''}
+      </article>
     `).join('');
   } catch (err) {
-    container.innerHTML = `<div class="card" style="color:var(--danger)">Error: ${err.message}</div>`;
+    container.innerHTML = `<div class="card"><p class="meta">Error: ${err.message}</p></div>`;
   }
 }
 
@@ -252,17 +251,15 @@ async function renderExam() {
     
     if (empty) empty.classList.add('hidden');
     container.innerHTML = exams.map(e => `
-      <div class="card">
-        <div class="flex justify-between items-center">
+      <article class="card">
+        <div class="card-row">
           <div>
-            <h3 style="margin:0">${e.judul}</h3>
-            <p style="font-size:13px;color:var(--text-2);margin:4px 0 0">
-              ${e.subject_nama} • ${e.class_nama} • ${e.durasi} menit • ${e.questions ? e.questions.length : 0} soal
-            </p>
+            <h3>${e.judul}</h3>
+            <p class="meta">${e.subject_nama} · ${e.class_nama} · ${e.durasi} menit · ${e.questions ? e.questions.length : 0} soal</p>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="startExam('${e.id}')">Mulai Exam</button>
+          <button class="btn btn-primary btn-sm" onclick="startExam('${e.id}')">Mulai</button>
         </div>
-      </div>
+      </article>
     `).join('');
   } catch (err) {
     console.error('Failed to load exam:', err);
@@ -352,20 +349,31 @@ async function submitExam(soalList) {
 
 // ===== EVENT LISTENERS =====
 document.addEventListener('DOMContentLoaded', init);
-document.querySelectorAll('.nav-item[data-nav]').forEach(el => {
-  el.addEventListener('click', () => {
-    const nav = el.dataset.nav;
-    if (nav === 'dashboard') renderDashboard();
-    if (nav === 'materi-saya') renderMateri();
-    if (nav === 'tugas-saya') renderAssignments();
-    if (nav === 'presensi-saya') renderAttendance();
-    if (nav === 'nilai-saya') renderNilai();
-    if (nav === 'exam-saya') renderExam();
-    setupNav(nav);
-    const titles = { 'dashboard': 'Beranda', 'materi-saya': 'Materi Saya', 'tugas-saya': 'Tugas Saya', 'presensi-saya': 'Presensi', 'nilai-saya': 'Nilai Saya', 'exam-saya': 'Exam' };
-    if (titles[nav]) document.getElementById('page-title').textContent = titles[nav];
-    showSection(nav);
+
+const NAV_TITLES = { 'dashboard': 'Beranda', 'belajar': 'Pembelajaran', 'materi-saya': 'Materi Saya', 'tugas-saya': 'Tugas', 'presensi-saya': 'Presensi', 'nilai-saya': 'Nilai Saya', 'exam-saya': 'Exam' };
+
+function navigate(nav) {
+  if (nav === 'dashboard') renderDashboard();
+  if (nav === 'belajar' && typeof blLoadKurikulum === 'function') blLoadKurikulum();
+  if (nav === 'materi-saya') renderMateri();
+  if (nav === 'tugas-saya') renderAssignments();
+  if (nav === 'presensi-saya') renderAttendance();
+  if (nav === 'nilai-saya') renderNilai();
+  if (nav === 'exam-saya') renderExam();
+  if (!NAV_TITLES[nav]) return;
+
+  setupNav(nav);
+  document.querySelectorAll('.bottom-nav-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.nav === nav);
   });
+  document.getElementById('page-title').textContent = NAV_TITLES[nav];
+  showSection(nav);
+  sidebar?.classList.remove('open');
+  sidebarOverlay?.classList.remove('show');
+}
+
+document.querySelectorAll('.nav-item[data-nav], .bottom-nav-item[data-nav]').forEach(el => {
+  el.addEventListener('click', () => navigate(el.dataset.nav));
 });
 
 // Mobile menu
@@ -381,25 +389,4 @@ menuToggle?.addEventListener('click', () => {
 sidebarOverlay?.addEventListener('click', () => {
   sidebar.classList.remove('open');
   sidebarOverlay.classList.remove('show');
-});
-
-// Bottom nav
-document.querySelectorAll('.bottom-nav-item').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    
-    const nav = btn.dataset.nav;
-    if (nav === 'dashboard') renderDashboard();
-    if (nav === 'belajar') blLoadKurikulum();
-    if (nav === 'materi-saya') renderMateri();
-    if (nav === 'tugas-saya') renderAssignments();
-    if (nav === 'presensi-saya') renderAttendance();
-    if (nav === 'nilai-saya') renderNilai();
-    if (nav === 'exam-saya') renderExam();
-    setupNav(nav);
-    const titles = { 'dashboard': 'Beranda', 'belajar': 'Pembelajaran', 'materi-saya': 'Materi Saya', 'tugas-saya': 'Tugas Saya', 'presensi-saya': 'Presensi', 'nilai-saya': 'Nilai Saya', 'exam-saya': 'Exam' };
-    if (titles[nav]) document.getElementById('page-title').textContent = titles[nav];
-    showSection(nav);
-  });
 });
