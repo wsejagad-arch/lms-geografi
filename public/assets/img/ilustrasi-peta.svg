@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Ilustrasi peta dan kontur">
+  <rect width="640" height="360" fill="#f6f7f8"/>
+  <g stroke="#d7dde2" stroke-width="1">
+    <path d="M80 40v280M180 40v280M280 40v280M380 40v280M480 40v280M580 40v280"/>
+    <path d="M60 60h540M60 140h540M60 220h540M60 300h540"/>
+  </g>
+  <g fill="none" stroke="#14614f" stroke-width="2" stroke-linejoin="round">
+    <path d="M120 250c40-70 90-40 130-90s90-20 120-70"/>
+    <path d="M150 280c40-60 80-40 120-80s80-20 110-60"/>
+    <path d="M180 305c30-45 65-35 100-65s70-20 95-50"/>
+  </g>
+  <g fill="none" stroke="#11161b" stroke-width="2.2" stroke-linecap="round">
+    <path d="M480 290V120M480 120l-26 12M480 120l26 12"/>
+    <path d="M440 290h80"/>
+  </g>
+  <g font-family="Inter, system-ui, sans-serif" font-size="12" fill="#5b6670">
+    <text x="96" y="80">0</text><text x="96" y="160">5 km</text><text x="96" y="240">10 km</text>
+  </g>
+</svg>

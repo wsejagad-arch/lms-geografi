@@ -37,6 +37,83 @@
 .bl-bar > span { display: block; height: 100%; width: 0; background: var(--bl-accent); transition: width .3s ease; }
 .bl-pct { font-size: 12px; font-weight: 700; color: var(--bl-ink); }
 
+/* Semester Filter Tabs */
+.bl-semester-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 10px 14px;
+  background: var(--bl-surface);
+  border: 1px solid var(--bl-border);
+  border-radius: 12px;
+}
+.bl-semester-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.bl-sem-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--bl-border);
+  background: #f8fafc;
+  color: var(--bl-text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.bl-sem-tab:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.bl-sem-tab.active {
+  background: var(--bl-accent);
+  color: #ffffff;
+  border-color: var(--bl-accent);
+  box-shadow: 0 2px 6px rgba(13,148,136,.25);
+}
+.bl-badge-active {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 99px;
+  background: #10b981;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+.bl-sem-tab.active .bl-badge-active {
+  background: #ffffff;
+  color: var(--bl-accent);
+}
+.bl-sem-status {
+  display: flex;
+  align-items: center;
+}
+.bl-status-tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+.bl-status-tag.active {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.bl-status-tag.locked {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
 .bl-list { display: grid; gap: 10px; }
 .bl-bab {
   display: flex; gap: 12px; align-items: flex-start;
@@ -423,3 +500,29 @@
 }
 
 
+
+/* ---------- Tambahan: gembok, gambar, status ---------- */
+.bl-lock { vertical-align: -2px; margin-right: 3px; }
+.bl-chip.open { background: #e7f1ed; color: #14614f; border-color: #cfe3db; }
+.bl-chip.lock { background: #f4f5f6; color: #6b7280; border-color: #e5e7eb; }
+.bl-bab.locked { opacity: .72; cursor: not-allowed; }
+.bl-bab.locked:hover { border-color: #d6dae0; transform: none; }
+.bl-bab[role="button"]:focus-visible { outline: 2px solid #14614f; outline-offset: 2px; }
+.bl-bab.shake { animation: blShake .35s ease; }
+@keyframes blShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+.bl-hint { margin: 0; font-size: 12.5px; color: #5b6670; }
+.bl-note { margin: 0; font-size: 12px; color: #6b7280; }
+.bl-loading { font-size: 13px; color: #5b6670; }
+.bl-error { font-size: 13px; color: #b91c1c; }
+.bl-figure { margin: 14px 0; }
+.bl-figure img {
+  display: block; width: 100%; max-height: 340px; object-fit: cover;
+  border: 1px solid #e1e5e8; border-radius: 10px;
+}
+.bl-figure figcaption { margin-top: 6px; font-size: 11.5px; color: #6b7280; line-height: 1.5; }
+.bl-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 12px 0; border: 1px solid #e1e5e8; border-radius: 10px; }
+.bl-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }

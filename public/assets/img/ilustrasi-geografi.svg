@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Ilustrasi objek kajian geografi">
+  <rect width="640" height="360" fill="#f6f7f8"/>
+  <circle cx="200" cy="180" r="104" fill="none" stroke="#14614f" stroke-width="3"/>
+  <ellipse cx="200" cy="180" rx="104" ry="42" fill="none" stroke="#14614f" stroke-width="1.6" opacity=".7"/>
+  <ellipse cx="200" cy="180" rx="46" ry="104" fill="none" stroke="#14614f" stroke-width="1.6" opacity=".7"/>
+  <path d="M96 180h208M110 132h180M110 228h180" stroke="#14614f" stroke-width="1.2" opacity=".5"/>
+  <g fill="none" stroke="#11161b" stroke-width="2.2" stroke-linecap="round">
+    <path d="M392 268V96M392 96l-34 16M392 96l34 16"/>
+    <circle cx="392" cy="80" r="13"/>
+    <path d="M340 268h104"/>
+  </g>
+  <g fill="none" stroke="#5b6670" stroke-width="1.6" stroke-linecap="round">
+    <path d="M452 150h124M452 186h96M452 222h112M452 258h76"/>
+  </g>
+  <circle cx="452" cy="150" r="4" fill="#14614f"/><circle cx="452" cy="186" r="4" fill="#14614f"/>
+  <circle cx="452" cy="222" r="4" fill="#14614f"/><circle cx="452" cy="258" r="4" fill="#14614f"/>
+</svg>

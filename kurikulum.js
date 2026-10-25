@@ -110,12 +110,42 @@ function kelasUntukTingkat(db, tenantId, level) {
 
 function babKonten(bab) {
   const tujuan = (bab.tujuan || []).map(t => `<li>${t}</li>`).join('');
-  const materi = (bab.materi || []).map((m, i) => `<h3>${i + 1}. ${m.judul}</h3>${m.html}`).join('');
+  const materi = (bab.materi || []).map((m, i) => {
+    const fig = m.gambar
+      ? `<figure><img src="${m.gambar}" alt="${m.caption || m.judul || ''}"><figcaption>${m.caption || ''}</figcaption></figure>`
+      : '';
+    return `<h3>${i + 1}. ${m.judul}</h3>${fig}${m.html}`;
+  }).join('');
   const glosarium = (bab.glosarium || []).map(g => `<li><strong>${g.istilah}</strong>: ${g.arti}</li>`).join('');
   return `<p>${bab.ringkasan}</p>`
     + `<h3>Tujuan Pembelajaran</h3><ul>${tujuan}</ul>`
     + materi
     + `<h3>Glosarium</h3><ul>${glosarium}</ul>`;
+}
+
+function findBab(babId) {
+  for (const level of LEVELS) {
+    const bab = loadLevel(level).find(b => b.id === babId);
+    if (bab) return { level, bab };
+  }
+  return null;
+}
+
+function saveBab(level, babId, patch) {
+  const dir = path.join(CONTENT_DIR, `kelas-${level.toLowerCase()}`);
+  if (!fs.existsSync(dir)) return false;
+  for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.json'))) {
+    const full = path.join(dir, file);
+    const arr = JSON.parse(fs.readFileSync(full, 'utf-8'));
+    const idx = arr.findIndex(b => b.id === babId);
+    if (idx === -1) continue;
+    const fixed = { id: arr[idx].id, kelas: arr[idx].kelas, urutan: arr[idx].urutan, fase: arr[idx].fase };
+    arr[idx] = { ...arr[idx], ...patch, ...fixed };
+    fs.writeFileSync(full, JSON.stringify(arr, null, 2) + '\n', 'utf-8');
+    contentCache.delete(level);
+    return true;
+  }
+  return false;
 }
 
 function registerKurikulum(app, deps) {
@@ -127,21 +157,42 @@ function registerKurikulum(app, deps) {
     const level = student ? studentLevel(student) : (req.query.kelas || 'X');
     const babs = loadLevel(level);
 
-    let prevDone = true;
+    const tenant = db.tenants.find(t => t.id === req.tenantId);
+    const semesterAktif = tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1;
+
+    // Track progression per semester
+    const prevDoneBySemester = { 1: true, 2: true };
+
     const items = babs.map(bab => {
+      const babSem = Number(bab.semester) || (bab.urutan <= 4 ? 1 : 2);
       const prog = student ? progressOf(db, student, bab.id) : null;
       const best = prog ? prog.best_score : null;
       const tuntas = best !== null && best >= KKM;
       const attempts = db.attempts.filter(a => student && a.student_id === student.id && a.bab_id === bab.id).length;
-      const unlocked = prevDone;
-      prevDone = prevDone && tuntas;
+
+      let unlocked = false;
+      let lock_reason = null;
+
+      if (babSem !== semesterAktif) {
+        unlocked = false;
+        lock_reason = 'semester_inactive';
+      } else {
+        unlocked = prevDoneBySemester[babSem];
+        prevDoneBySemester[babSem] = prevDoneBySemester[babSem] && tuntas;
+        if (!unlocked) lock_reason = 'evaluasi_sebelumnya';
+      }
+
       return {
         id: bab.id,
         urutan: bab.urutan,
+        semester: babSem,
+        is_active_semester: babSem === semesterAktif,
+        lock_reason,
         judul: bab.judul,
         ringkasan: bab.ringkasan,
         estimasi: bab.estimasi,
         tujuan: bab.tujuan,
+        youtube_id: bab.youtube_id || '',
         jumlah_soal: (bab.soal || []).length,
         best_score: best,
         attempts,
@@ -151,14 +202,19 @@ function registerKurikulum(app, deps) {
       };
     });
 
+    // Kriteria naik kelas dihitung dari seluruh bab atau bab semester aktif
+    const activeBabs = items.filter(i => i.is_active_semester);
     const semuaTuntas = items.length > 0 && items.every(i => i.tuntas);
     res.json({
       level,
+      semester_aktif: semesterAktif,
       kkm: KKM,
       max_attempts: MAX_ATTEMPTS,
       babs: items,
       tuntas: items.filter(i => i.tuntas).length,
       total: items.length,
+      active_tuntas: activeBabs.filter(i => i.tuntas).length,
+      active_total: activeBabs.length,
       naik_kelas: {
         eligible: semuaTuntas && !!nextLevel(level),
         level_berikut: nextLevel(level),
@@ -179,19 +235,35 @@ function registerKurikulum(app, deps) {
     const idx = babs.findIndex(b => b.id === req.params.babId);
     if (idx < 0) return res.status(404).json({ error: 'Bab tidak ditemukan' });
 
+    const bab = babs[idx];
+    const babSem = Number(bab.semester) || (bab.urutan <= 4 ? 1 : 2);
+    const tenant = db.tenants.find(t => t.id === req.tenantId);
+    const semesterAktif = tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1;
+
     if (student) {
-      const locked = babs.slice(0, idx).some(b => {
+      if (babSem !== semesterAktif) {
+        return res.status(403).json({ error: `Bab ini berada pada Semester ${babSem} yang belum aktif (Sekolah aktif di Semester ${semesterAktif})` });
+      }
+
+      // Periksa apakah bab-bab sebelumnya pada semester yang sama sudah tuntas
+      const prevBabsInSem = babs.filter(b => {
+        const s = Number(b.semester) || (b.urutan <= 4 ? 1 : 2);
+        return s === babSem && b.urutan < bab.urutan;
+      });
+
+      const locked = prevBabsInSem.some(b => {
         const p = progressOf(db, student, b.id);
         return !p || p.best_score < KKM;
       });
-      if (locked) return res.status(403).json({ error: 'Bab masih terkunci' });
+      if (locked) return res.status(403).json({ error: 'Bab masih terkunci, selesaikan evaluasi bab sebelumnya' });
     }
 
-    const bab = babs[idx];
     const prog = student ? progressOf(db, student, bab.id) : null;
     const attempts = student ? db.attempts.filter(a => a.student_id === student.id && a.bab_id === bab.id) : [];
     res.json({
       ...publicBab(bab),
+      semester: babSem,
+      is_active_semester: babSem === semesterAktif,
       progress: {
         best_score: prog ? prog.best_score : null,
         attempts: attempts.length,
@@ -340,6 +412,57 @@ function registerKurikulum(app, deps) {
     res.json({ kkm: KKM, max_attempts: MAX_ATTEMPTS, students: rows });
   });
 
+  // --- Admin: baca & sunting isi kurikulum (materi + soal) ---
+  app.get('/api/admin/kurikulum/:babId', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const found = findBab(req.params.babId);
+    if (!found) return res.status(404).json({ error: 'Bab tidak ditemukan' });
+    res.json({ ...found.bab, level: found.level });
+  });
+
+  app.put('/api/admin/kurikulum/:babId', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const found = findBab(req.params.babId);
+    if (!found) return res.status(404).json({ error: 'Bab tidak ditemukan' });
+
+    const body = req.body || {};
+    const patch = {};
+    if (typeof body.judul === 'string') patch.judul = body.judul.trim();
+    if (typeof body.ringkasan === 'string') patch.ringkasan = body.ringkasan.trim();
+    if (typeof body.cp === 'string') patch.cp = body.cp.trim();
+    if (typeof body.estimasi === 'string') patch.estimasi = body.estimasi.trim();
+    if (Array.isArray(body.tujuan)) patch.tujuan = body.tujuan.map(t => String(t).trim()).filter(Boolean);
+    if (Array.isArray(body.materi)) {
+      patch.materi = body.materi.map(m => ({
+        judul: String(m.judul || '').trim(),
+        html: String(m.html || ''),
+        gambar: String(m.gambar || '').trim(),
+        caption: String(m.caption || '').trim()
+      }));
+    }
+    if (Array.isArray(body.glosarium)) {
+      patch.glosarium = body.glosarium
+        .map(g => ({ istilah: String(g.istilah || '').trim(), arti: String(g.arti || '').trim() }))
+        .filter(g => g.istilah && g.arti);
+    }
+    if (Array.isArray(body.soal)) {
+      patch.soal = body.soal.map((s, i) => ({
+        ...s,
+        id: s.id || `${found.bab.id}-q${i + 1}`,
+        stimulus: s.stimulus ? {
+          jenis: s.stimulus.jenis || 'teks',
+          judul: String(s.stimulus.judul || '').trim(),
+          isi: String(s.stimulus.isi || ''),
+          gambar: String(s.stimulus.gambar || '').trim(),
+          sumber: String(s.stimulus.sumber || 'ilustrasi sintetis').trim()
+        } : null
+      }));
+    }
+
+    if (!saveBab(found.level, found.bab.id, patch)) {
+      return res.status(500).json({ error: 'Gagal menyimpan bab' });
+    }
+    res.json({ success: true, bab: findBab(found.bab.id)?.bab || null });
+  });
+
   // Menyalin bab kurikulum menjadi materi biasa (bisa diedit/dihapus seperti materi lain).
   app.post('/api/admin/kurikulum/seed-materials', requireAuth, requireAdmin, requireTenant, async (req, res) => {
     const db = req.db;
@@ -359,15 +482,18 @@ function registerKurikulum(app, deps) {
         return;
       }
       babs.forEach(bab => {
+        const babSem = Number(bab.semester) || (bab.urutan <= 4 ? 1 : 2);
+        const ytId = bab.youtube_id || (bab.materi && bab.materi.find(m => m.youtube_id)?.youtube_id) || '';
         const data = {
           tenant_id: req.tenantId,
           subject_id: subject.id,
           class_id: kelas.id,
+          semester: babSem,
           judul: `Bab ${bab.urutan}. ${bab.judul}`,
           konten: babKonten(bab),
-          modul: `${bab.id.toUpperCase()} · Fase ${bab.fase} · ${bab.estimasi}`,
-          youtube_id: '',
-          image: '',
+          modul: `${bab.id.toUpperCase()} · Fase ${bab.fase} · Sem ${babSem} · ${bab.estimasi}`,
+          youtube_id: ytId,
+          image: bab.image || '',
           tipe: 'materi',
           sumber: 'kurikulum',
           bab_id: bab.id

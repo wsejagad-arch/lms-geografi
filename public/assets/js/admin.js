@@ -84,6 +84,7 @@ const MENU_META = {
   students: { title: 'Siswa', render: () => renderStudents() },
   progress: { title: 'Progres Belajar', render: () => renderProgress() },
   materials: { title: 'Materi', render: () => renderMaterials() },
+  kurikulum: { title: 'Kurikulum', render: () => renderKurikulum() },
   questions: { title: 'Bank Soal', render: () => renderQuestions() },
   exams: { title: 'Exam TKA', render: () => renderExams() },
   grades: { title: 'Input Nilai', render: () => renderGrades() },
@@ -620,21 +621,26 @@ async function deleteStudent(id) {
 async function renderMaterials() {
   const tbody = document.getElementById('materials-tbody');
   if (!tbody) return;
+  loadAdminSemesterAktif();
   
   try {
-    const materials = await LMS.getMaterials();
+    const semFilter = document.getElementById('filter-material-semester')?.value;
+    const params = {};
+    if (semFilter) params.semester = semFilter;
+    const materials = await LMS.getMaterials(params);
     if (!materials.length) {
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada materi</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Belum ada materi</td></tr>';
       return;
     }
     
     tbody.innerHTML = materials.map(m => `
       <tr>
-        <td><span class="badge badge-primary">${m.class_nama}</span></td>
+        <td><span class="badge ${m.semester === 2 ? 'badge-warning' : 'badge-primary'}">Sem ${m.semester || 1}</span></td>
+        <td><span class="badge badge-neutral">${m.class_nama}</span></td>
         <td>${m.subject_nama}</td>
-        <td>${m.judul}</td>
+        <td><strong>${m.judul}</strong></td>
         <td>${m.modul || '-'}</td>
-        <td>${m.youtube_id ? '<span class="badge badge-success">Video</span>' : '-'}</td>
+        <td>${m.youtube_id ? '<span class="badge badge-success">🎥 Video</span>' : '-'}</td>
         <td>
           <button class="btn btn-sm" onclick="editMaterial('${m.id}')">Edit</button>
           <button class="btn btn-sm btn-danger" onclick="deleteMaterial('${m.id}')">Hapus</button>
@@ -642,7 +648,32 @@ async function renderMaterials() {
       </tr>
     `).join('');
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+  }
+}
+
+async function loadAdminSemesterAktif() {
+  try {
+    const res = await LMS.getSemesterAktif();
+    const sel = document.getElementById('admin-active-semester');
+    if (sel && res && res.semester_aktif) {
+      sel.value = String(res.semester_aktif);
+    }
+  } catch (e) {
+    console.error('Gagal memuat semester aktif:', e);
+  }
+}
+
+async function saveAdminSemesterAktif() {
+  const sel = document.getElementById('admin-active-semester');
+  if (!sel) return;
+  const sem = Number(sel.value) || 1;
+  try {
+    const res = await LMS.setSemesterAktif(sem);
+    alert(`Berhasil! Semester aktif sekolah kini diubah menjadi: Semester ${res.semester_aktif} (${res.semester_aktif === 1 ? 'Ganjil' : 'Genap'}).\n\nMateri kurikulum siswa otomatis disesuaikan dengan semester aktif ini.`);
+    renderMaterials();
+  } catch (err) {
+    alert('Gagal mengubah semester aktif: ' + err.message);
   }
 }
 
@@ -882,6 +913,7 @@ async function openMaterialModal(material = null) {
       document.getElementById('material-id').value = material.id;
       subjectSel.value = material.subject_id;
       classSel.value = material.class_id;
+      document.getElementById('material-semester').value = material.semester || 1;
       document.getElementById('material-judul').value = material.judul;
       document.getElementById('material-konten').value = material.konten || '';
       if (visualEl) visualEl.innerHTML = material.konten || '';
@@ -891,6 +923,7 @@ async function openMaterialModal(material = null) {
       document.getElementById('material-tipe').value = material.tipe || 'materi';
     } else {
       document.getElementById('material-id').value = '';
+      document.getElementById('material-semester').value = '1';
       if (visualEl) visualEl.innerHTML = '';
       if (codeEl) codeEl.value = '';
     }
@@ -914,6 +947,7 @@ async function saveMaterial() {
     konten: codeEl.value.trim(),
     subject_id: document.getElementById('material-subject').value,
     class_id: document.getElementById('material-class').value,
+    semester: Number(document.getElementById('material-semester').value) || 1,
     youtube_id: document.getElementById('material-youtube').value.trim(),
     image: document.getElementById('material-image').value.trim(),
     modul: document.getElementById('material-modul').value.trim(),
@@ -1635,6 +1669,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-add-material')?.addEventListener('click', () => openMaterialModal());
   document.getElementById('btn-seed-kurikulum')?.addEventListener('click', seedKurikulumMateri);
   document.getElementById('btn-save-material')?.addEventListener('click', saveMaterial);
+  document.getElementById('btn-save-semester-aktif')?.addEventListener('click', saveAdminSemesterAktif);
+  document.getElementById('filter-material-semester')?.addEventListener('change', renderMaterials);
   
   // Questions
   document.getElementById('btn-add-question')?.addEventListener('click', () => openQuestionModal());
@@ -1696,3 +1732,256 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => switchMenu(btn.dataset.nav));
   });
 });
+
+// ===== KURIKULUM (editor materi & soal pembelajaran) =====
+let kurLevel = 'X';
+
+function kurEsc(s) {
+  return String(s === undefined || s === null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+async function kurFetch(path, options = {}) {
+  const res = await fetch(path, { credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, ...options });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || 'Gagal memuat data');
+  return data;
+}
+
+async function renderKurikulum() {
+  const tbody = document.getElementById('kur-tbody');
+  if (!tbody) return;
+  const sel = document.getElementById('kur-level');
+  if (sel) kurLevel = sel.value;
+  const box = document.getElementById('kur-editor');
+  if (box) box.classList.add('hidden');
+  tbody.innerHTML = '<tr><td colspan="4" class="text-center">Memuat…</td></tr>';
+  try {
+    const data = await kurFetch('/api/kurikulum?kelas=' + encodeURIComponent(kurLevel));
+    const babs = data.babs || [];
+    tbody.innerHTML = babs.length
+      ? babs.map(b => `<tr>
+          <td>${b.urutan}</td>
+          <td>${kurEsc(b.judul)}<div class="kur-sub">${b.jumlah_soal} soal · ${b.tuntas} tuntas</div></td>
+          <td>${kurEsc(kurLevel)}</td>
+          <td><button class="btn btn-sm" data-kur-edit="${kurEsc(b.id)}">Edit</button></td>
+        </tr>`).join('')
+      : '<tr><td colspan="4" class="text-center">Belum ada materi untuk kelas ini.</td></tr>';
+    tbody.querySelectorAll('[data-kur-edit]').forEach(btn => btn.addEventListener('click', () => openKurEditor(btn.dataset.kurEdit)));
+    document.getElementById('btn-kur-muat').onclick = renderKurikulum;
+    if (sel) sel.onchange = renderKurikulum;
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="4">Error: ${kurEsc(err.message)}</td></tr>`;
+  }
+}
+
+function rtBar() {
+  return `<div class="rt-bar">
+    <button type="button" data-cmd="bold" title="Tebal"><b>B</b></button>
+    <button type="button" data-cmd="italic" title="Miring"><i>I</i></button>
+    <button type="button" data-cmd="underline" title="Garis bawah"><u>U</u></button>
+    <button type="button" data-block="H2">H2</button>
+    <button type="button" data-block="H3">H3</button>
+    <button type="button" data-block="P">¶</button>
+    <button type="button" data-cmd="insertUnorderedList">•</button>
+    <button type="button" data-cmd="insertOrderedList">1.</button>
+    <button type="button" data-cmd="justifyLeft">Kiri</button>
+    <button type="button" data-cmd="justifyCenter">Tengah</button>
+    <button type="button" data-link="1">Link</button>
+    <button type="button" data-img="1">Gambar</button>
+    <button type="button" data-cmd="removeFormat">Bersihkan</button>
+    <select data-font="1"><option value="">Font</option><option>Inter</option><option>Georgia</option><option>Merriweather</option><option>system-ui</option></select>
+    <select data-size="1"><option value="">Ukuran</option><option value="2">Kecil</option><option value="3">Normal</option><option value="5">Besar</option><option value="6">Judul</option></select>
+  </div>`;
+}
+
+function kurMateriItem(m, i) {
+  return `<div class="kur-item" data-idx="${i}">
+    <div class="kur-grid">
+      <label>Judul bagian<input class="kur-m-judul" value="${kurEsc(m.judul)}"></label>
+      <label>URL gambar<input class="kur-m-gambar" placeholder="https://…" value="${kurEsc(m.gambar || '')}"></label>
+      <label class="wide">Keterangan gambar<input class="kur-m-caption" value="${kurEsc(m.caption || '')}"></label>
+    </div>
+    ${rtBar()}
+    <div class="rt-editor" contenteditable="true" spellcheck="false">${m.html || ''}</div>
+    <button type="button" class="btn btn-sm kur-del">Hapus bagian</button>
+  </div>`;
+}
+
+function kurSoalItem(s, i) {
+  const t = s.tipe;
+  const isOpsi = t === 'pgm' || t === 'pg_singkat' || t === 'pg_kompleks' || t === 'benar_salah';
+  const isPair = t === 'menjodohkan';
+  const list = isOpsi ? (s.opsi || s.pernyataan || []).join('\n') : '';
+  return `<div class="kur-item" data-idx="${i}" data-tipe="${t}" data-id="${kurEsc(s.id)}">
+    <div class="kur-item-head"><b>Soal ${i + 1}</b><span class="kur-sub">${kurEsc(t)}</span></div>
+    <div class="kur-grid">
+      <label>Level<input class="k-s-level" value="${kurEsc(s.level || 'C4')}"></label>
+      <label>Jenis stimulus<input class="k-s-jenis" value="${kurEsc((s.stimulus && s.stimulus.jenis) || 'teks')}"></label>
+      <label>Literasi<input class="k-s-literasi" value="${kurEsc(s.literasi || '')}"></label>
+      <label>Numerasi<input class="k-s-numerasi" value="${kurEsc(s.numerasi || '')}"></label>
+      <label>Judul stimulus<input class="k-s-stimjudul" value="${kurEsc((s.stimulus && s.stimulus.judul) || '')}"></label>
+      <label>URL gambar stimulus<input class="k-s-gambar" placeholder="https://…" value="${kurEsc((s.stimulus && s.stimulus.gambar) || '')}"></label>
+      <label class="wide">Isi stimulus (HTML ringan)<textarea class="k-s-stimisi" rows="3">${kurEsc((s.stimulus && s.stimulus.isi) || '')}</textarea></label>
+      <label>Sumber<input class="k-s-sumber" value="${kurEsc((s.stimulus && s.stimulus.sumber) || '')}"></label>
+      <label class="wide">Pertanyaan<textarea class="k-s-pertanyaan" rows="2">${kurEsc(s.pertanyaan)}</textarea></label>
+      ${isOpsi ? `<label class="wide">Opsi / pernyataan (satu per baris)<textarea class="k-s-opsi" rows="5">${kurEsc(list)}</textarea></label>` : ''}
+      ${isPair ? `<label>Kiri (satu per baris)<textarea class="k-s-kiri" rows="4">${kurEsc((s.kiri || []).join('\n'))}</textarea></label>
+      <label>Kanan (satu per baris)<textarea class="k-s-kanan" rows="4">${kurEsc((s.kanan || []).join('\n'))}</textarea></label>` : ''}
+      <label>Kunci (pisah koma: 0 / B,S / 2,0,1)<input class="k-s-kunci" value="${kurEsc((s.kunci || []).join(','))}"></label>
+      <label class="wide">Pembahasan<textarea class="k-s-pembahasan" rows="2">${kurEsc(s.pembahasan || '')}</textarea></label>
+    </div>
+  </div>`;
+}
+
+function kurBindEditor(box) {
+  box.querySelectorAll('.rt-bar').forEach(bar => {
+    const editor = bar.parentElement.querySelector('.rt-editor');
+    if (!editor) return;
+    const run = fn => { editor.focus(); fn(); };
+    bar.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', ev => {
+        ev.preventDefault();
+        if (btn.dataset.cmd) run(() => document.execCommand(btn.dataset.cmd, false, null));
+        if (btn.dataset.block) run(() => document.execCommand('formatBlock', false, '<' + btn.dataset.block + '>'));
+        if (btn.dataset.link) {
+          const url = prompt('URL tautan:');
+          if (url) run(() => document.execCommand('createLink', false, url));
+        }
+        if (btn.dataset.img) {
+          const url = prompt('URL gambar:');
+          if (url) run(() => document.execCommand('insertHTML', false, '<figure><img src="' + url + '" alt=""><figcaption>Keterangan gambar</figcaption></figure>'));
+        }
+      });
+    });
+    const font = bar.querySelector('[data-font]');
+    if (font) font.addEventListener('change', () => run(() => document.execCommand('fontName', false, font.value)));
+    const size = bar.querySelector('[data-size]');
+    if (size) size.addEventListener('change', () => run(() => document.execCommand('fontSize', false, size.value)));
+  });
+
+  box.querySelectorAll('.kur-del').forEach(btn => btn.addEventListener('click', () => {
+    btn.closest('.kur-item').remove();
+  }));
+
+  const addBtn = box.querySelector('#kur-add-materi');
+  if (addBtn) addBtn.onclick = () => {
+    const list = box.querySelector('#kur-materi');
+    const idx = list.querySelectorAll('.kur-item').length;
+    list.insertAdjacentHTML('beforeend', kurMateriItem({ judul: '', html: '', gambar: '', caption: '' }, idx));
+    kurBindEditor(box);
+  };
+
+  const closeBtn = box.querySelector('#kur-tutup');
+  if (closeBtn) closeBtn.onclick = () => box.classList.add('hidden');
+  const cancelBtn = box.querySelector('#kur-batal');
+  if (cancelBtn) cancelBtn.onclick = () => box.classList.add('hidden');
+  const saveBtn = box.querySelector('#kur-simpan');
+  if (saveBtn) saveBtn.onclick = () => kurSave(box);
+}
+
+async function openKurEditor(id) {
+  const box = document.getElementById('kur-editor');
+  if (!box) return;
+  box.classList.remove('hidden');
+  box.innerHTML = '<p class="kur-sub">Memuat…</p>';
+  try {
+    const b = await kurFetch('/api/admin/kurikulum/' + encodeURIComponent(id));
+    box.dataset.id = id;
+    box.innerHTML = `
+      <div class="panel-head"><h3>Edit materi: ${kurEsc(b.judul)}</h3><button class="btn btn-sm" id="kur-tutup">Tutup</button></div>
+      <div class="kur-grid">
+        <label>Judul<input id="kur-judul" value="${kurEsc(b.judul)}"></label>
+        <label>Estimasi<input id="kur-estimasi" value="${kurEsc(b.estimasi || '')}"></label>
+        <label class="wide">Ringkasan<textarea id="kur-ringkasan" rows="2">${kurEsc(b.ringkasan)}</textarea></label>
+        <label class="wide">Capaian pembelajaran<textarea id="kur-cp" rows="2">${kurEsc(b.cp || '')}</textarea></label>
+        <label class="wide">Tujuan (satu per baris)<textarea id="kur-tujuan" rows="4">${kurEsc((b.tujuan || []).join('\n'))}</textarea></label>
+      </div>
+      <h4 class="kur-h">Bagian materi</h4>
+      <div id="kur-materi">${(b.materi || []).map(kurMateriItem).join('')}</div>
+      <button type="button" class="btn btn-sm" id="kur-add-materi">+ Tambah bagian</button>
+      <h4 class="kur-h">Glosarium (istilah|arti per baris)</h4>
+      <textarea id="kur-glos" rows="4">${kurEsc((b.glosarium || []).map(g => g.istilah + '|' + g.arti).join('\n'))}</textarea>
+      <h4 class="kur-h">Soal evaluasi</h4>
+      <div id="kur-soal">${(b.soal || []).map(kurSoalItem).join('')}</div>
+      <div class="list-toolbar" style="justify-content:flex-end;margin-top:12px">
+        <button class="btn" id="kur-batal">Batal</button>
+        <button class="btn btn-primary" id="kur-simpan">Simpan</button>
+      </div>`;
+    kurBindEditor(box);
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (err) {
+    box.innerHTML = `<p class="kur-sub">Error: ${kurEsc(err.message)}</p>`;
+  }
+}
+
+function kurCollect(box) {
+  const materi = [...box.querySelectorAll('#kur-materi .kur-item')].map(item => ({
+    judul: item.querySelector('.kur-m-judul').value.trim(),
+    gambar: item.querySelector('.kur-m-gambar').value.trim(),
+    caption: item.querySelector('.kur-m-caption').value.trim(),
+    html: item.querySelector('.rt-editor').innerHTML
+  })).filter(m => m.judul || m.html);
+
+  const glosarium = box.querySelector('#kur-glos').value.split('\n')
+    .map(line => line.split('|'))
+    .filter(parts => parts[0] && parts[1])
+    .map(parts => ({ istilah: parts[0].trim(), arti: parts[1].trim() }));
+
+  const soal = [...box.querySelectorAll('#kur-soal .kur-item')].map(item => {
+    const tipe = item.dataset.tipe;
+    const val = sel => { const el = item.querySelector(sel); return el ? el.value : ''; };
+    const lines = sel => val(sel).split('\n').map(s => s.trim()).filter(Boolean);
+    const out = {
+      id: item.dataset.id,
+      tipe: tipe,
+      level: val('.k-s-level') || 'C4',
+      literasi: val('.k-s-literasi'),
+      numerasi: val('.k-s-numerasi'),
+      stimulus: {
+        jenis: val('.k-s-jenis') || 'teks',
+        judul: val('.k-s-stimjudul'),
+        isi: val('.k-s-stimisi'),
+        gambar: val('.k-s-gambar'),
+        sumber: val('.k-s-sumber')
+      },
+      pertanyaan: val('.k-s-pertanyaan'),
+      pembahasan: val('.k-s-pembahasan')
+    };
+    if (tipe === 'pgm' || tipe === 'pg_singkat' || tipe === 'pg_kompleks') out.opsi = lines('.k-s-opsi');
+    if (tipe === 'benar_salah') out.pernyataan = lines('.k-s-opsi');
+    if (tipe === 'menjodohkan') { out.kiri = lines('.k-s-kiri'); out.kanan = lines('.k-s-kanan'); }
+    const raw = val('.k-s-kunci').split(',').map(s => s.trim()).filter(Boolean);
+    out.kunci = tipe === 'benar_salah'
+      ? raw.map(k => (k.toUpperCase() === 'B' ? 'B' : 'S'))
+      : raw.map(Number).filter(n => !Number.isNaN(n));
+    return out;
+  });
+
+  return {
+    judul: box.querySelector('#kur-judul').value.trim(),
+    ringkasan: box.querySelector('#kur-ringkasan').value.trim(),
+    cp: box.querySelector('#kur-cp').value.trim(),
+    estimasi: box.querySelector('#kur-estimasi').value.trim(),
+    tujuan: box.querySelector('#kur-tujuan').value.split('\n').map(s => s.trim()).filter(Boolean),
+    materi: materi,
+    glosarium: glosarium,
+    soal: soal
+  };
+}
+
+async function kurSave(box) {
+  const btn = box.querySelector('#kur-simpan');
+  btn.disabled = true;
+  try {
+    await kurFetch('/api/admin/kurikulum/' + encodeURIComponent(box.dataset.id), {
+      method: 'PUT',
+      body: JSON.stringify(kurCollect(box))
+    });
+    btn.disabled = false;
+    alert('Materi kurikulum tersimpan.');
+    renderKurikulum();
+  } catch (err) {
+    btn.disabled = false;
+    alert('Gagal menyimpan: ' + err.message);
+  }
+}

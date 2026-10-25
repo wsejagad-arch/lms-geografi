@@ -674,3 +674,23 @@ tbody td button + button { margin-left: 6px; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ---------- Editor kurikulum & rich text ---------- */
+.kur-sub { font-size: 11.5px; color: var(--text-2); margin-top: 2px; }
+.kur-h { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); margin: 18px 0 8px; }
+.kur-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.kur-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; color: var(--text-2); }
+.kur-grid label.wide { grid-column: 1 / -1; }
+.kur-grid input, .kur-grid textarea, #kur-glos { font: inherit; font-size: 13px; padding: 7px 9px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--text); }
+.kur-item { border: 1px solid var(--border); border-radius: 9px; padding: 12px; margin-bottom: 10px; background: var(--surface-2); }
+.kur-item-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+.rt-bar { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; padding: 6px; border: 1px solid var(--border); border-bottom: 0; border-radius: 8px 8px 0 0; background: var(--surface); }
+.rt-bar button { min-width: 26px; height: 26px; padding: 0 6px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--text); font: inherit; font-size: 12px; cursor: pointer; }
+.rt-bar button:hover { background: var(--surface-2); border-color: var(--border); }
+.rt-bar select { height: 26px; font: inherit; font-size: 11.5px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); }
+.rt-editor { min-height: 140px; padding: 12px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: var(--surface); font-size: 13.5px; line-height: 1.7; overflow-wrap: anywhere; }
+.rt-editor:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.rt-editor img { max-width: 100%; height: auto; border-radius: 8px; }
+.rt-editor figure { margin: 10px 0; }
+.rt-editor figcaption { font-size: 11.5px; color: var(--text-2); margin-top: 4px; }
+.kur-del { margin-top: 8px; }
