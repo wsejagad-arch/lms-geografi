@@ -12,6 +12,7 @@ const DB_PATH = path.join(__dirname, 'data', 'db.json');
 // ===== REDIS (with fallback) =====
 let redis = null;
 let cache = new Map();
+let redisWarned = false;
 
 try {
   redis = new Redis({
@@ -26,7 +27,10 @@ try {
   });
   
   redis.on('error', () => {
-    console.log('Redis not available, using in-memory cache');
+    if (!redisWarned) {
+      redisWarned = true;
+      console.log('Redis not available, using in-memory cache');
+    }
     redis = null;
   });
 } catch (e) {
