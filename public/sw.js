@@ -1,4 +1,4 @@
-const CACHE = 'geo-edulabs-v6';
+const CACHE = 'geo-edulabs-v7';
 const ASSETS = [
   '/',
   '/index.html',
