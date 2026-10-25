@@ -398,13 +398,14 @@ async function renderStudents() {
   try {
     const students = await LMS.getStudents();
     if (!students.length) {
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada siswa</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Belum ada siswa</td></tr>';
       return;
     }
     
     tbody.innerHTML = students.map(s => `
       <tr>
         <td>${s.nis}</td>
+        <td>${s.nisn || '-'}</td>
         <td>${s.nama}</td>
         <td>${s.email || '-'}</td>
         <td>${s.no_wa ? `<a class="wa-link" href="${waLink(s.no_wa)}" target="_blank" rel="noopener">${s.no_wa}</a>` : '-'}</td>

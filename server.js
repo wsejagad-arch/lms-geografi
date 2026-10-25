@@ -376,6 +376,7 @@ app.get('/api/students', requireAuth, requireTenant, async (req, res) => {
         id: s.id,
         nama: s.nama,
         nis: s.nis,
+        nisn: s.nisn || '',
         email: s.email,
         no_wa: s.no_wa || '',
         kelas_id: s.class_id,
