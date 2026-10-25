@@ -7,7 +7,7 @@ const TIPE_LABEL = {
   benar_salah: 'Benar–Salah'
 };
 
-let blState = { kurikulum: null, bab: null, answers: {}, lastResult: null };
+let blState = { kurikulum: null, bab: null, answers: {}, lastResult: null, activeTopicIndex: 0, topicViewMode: 'stepped' };
 
 async function blApi(path, options = {}) {
   const res = await fetch(path, {
@@ -91,6 +91,14 @@ function blBabCard(b) {
   ].join('');
 }
 
+function blShortTopicTitle(title) {
+  if (!title) return 'Topik';
+  const m = title.match(/^(?:Topik\s*\d+\s*:\s*)?([^—–:-]+)/i);
+  let short = m && m[1] ? m[1].trim() : title.trim();
+  if (short.length > 28) short = short.substring(0, 26) + '…';
+  return short;
+}
+
 async function blOpenBab(id) {
   const host = document.getElementById('belajar-root');
   host.innerHTML = '<p style="color:#5b6473;font-size:13px">Memuat bab…</p>';
@@ -98,6 +106,8 @@ async function blOpenBab(id) {
     blState.bab = await blApi('/api/kurikulum/' + encodeURIComponent(id));
     blState.answers = {};
     blState.lastResult = null;
+    blState.activeTopicIndex = 0;
+    blState.topicViewMode = 'stepped';
     blRenderBab();
   } catch (err) {
     host.innerHTML = '<p style="color:#dc2626;font-size:13px">' + err.message + '</p>';
@@ -108,26 +118,82 @@ function blRenderBab() {
   const b = blState.bab;
   const p = b.progress;
   const host = document.getElementById('belajar-root');
-  const materiHtml = (b.materi || []).map(function (m) {
-    return '<div class="bl-card"><h3>' + m.judul + '</h3><div class="bl-prose">' + m.html + '</div></div>';
-  }).join('');
+  const materiList = b.materi || [];
+  const hasMultiple = materiList.length > 1;
+
+  let topicNavHtml = '';
+  let topicBodyHtml = '';
+
+  if (hasMultiple) {
+    const stepsHtml = materiList.map(function (m, idx) {
+      const isAct = idx === blState.activeTopicIndex && blState.topicViewMode === 'stepped';
+      return '<button class="bl-alur-step ' + (isAct ? 'active' : '') + '" data-tidx="' + idx + '">' +
+        '<span>' + (idx + 1) + '</span> ' + blEsc(blShortTopicTitle(m.judul)) +
+        '</button>';
+    }).join('');
+
+    topicNavHtml = [
+      '<div class="bl-alur-bar" id="bl-topic-nav">',
+      '  <div class="bl-alur-head">',
+      '    <div class="bl-alur-title">',
+      '      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>',
+      '      Alur Pembelajaran: ' + (blState.topicViewMode === 'stepped' ? 'Topik ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length : 'Semua Topik (' + materiList.length + ')'),
+      '    </div>',
+      '    <button class="bl-alur-toggle" id="bl-toggle-mode">',
+      blState.topicViewMode === 'stepped' ? 'Tampilkan Semua Sekaligus 📜' : 'Mode Alur Bertahap 📖',
+      '    </button>',
+      '  </div>',
+      '  <div class="bl-alur-steps">' + stepsHtml + '</div>',
+      '</div>'
+    ].join('');
+
+    if (blState.topicViewMode === 'stepped') {
+      const cur = materiList[blState.activeTopicIndex] || materiList[0];
+      const prevM = blState.activeTopicIndex > 0 ? materiList[blState.activeTopicIndex - 1] : null;
+      const nextM = blState.activeTopicIndex < materiList.length - 1 ? materiList[blState.activeTopicIndex + 1] : null;
+
+      topicBodyHtml = [
+        '<div class="bl-card bl-topic-card" id="bl-active-topic">',
+        '  <span class="bl-topic-badge">Bagian ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length + '</span>',
+        '  <h3>' + blEsc(cur.judul) + '</h3>',
+        '  <div class="bl-prose">' + cur.html + '</div>',
+        '  <div class="bl-topic-nav-footer">',
+        prevM ? '<button class="bl-btn" id="bl-btn-prev-topic">← Topik Sebelumnya: ' + blEsc(blShortTopicTitle(prevM.judul)) + '</button>' : '<div></div>',
+        nextM
+          ? '<button class="bl-btn primary" id="bl-btn-next-topic">Menu Berikutnya: ' + blEsc(blShortTopicTitle(nextM.judul)) + ' →</button>'
+          : '<button class="bl-btn primary" id="bl-btn-finish-topic">Lanjut ke Glosarium & Evaluasi ↓</button>',
+        '  </div>',
+        '</div>'
+      ].join('');
+    } else {
+      topicBodyHtml = materiList.map(function (m, idx) {
+        return '<div class="bl-card" id="bl-materi-' + idx + '"><span class="bl-topic-badge">Topik ' + (idx + 1) + '</span><h3>' + blEsc(m.judul) + '</h3><div class="bl-prose">' + m.html + '</div></div>';
+      }).join('');
+    }
+  } else {
+    topicBodyHtml = materiList.map(function (m) {
+      return '<div class="bl-card"><h3>' + blEsc(m.judul) + '</h3><div class="bl-prose">' + m.html + '</div></div>';
+    }).join('');
+  }
+
   const glos = (b.glosarium || []).map(function (g) {
-    return '<div><b>' + g.istilah + '</b> — ' + g.arti + '</div>';
+    return '<div><b>' + blEsc(g.istilah) + '</b> — ' + blEsc(g.arti) + '</div>';
   }).join('');
 
   host.innerHTML = [
     '<div class="bl-wrap">',
     '  <div class="bl-detail-head">',
-    '    <h2>' + b.urutan + '. ' + b.judul + '</h2>',
-    '    <p>' + (b.cp || '') + '</p>',
+    '    <h2>' + b.urutan + '. ' + blEsc(b.judul) + '</h2>',
+    '    <p>' + blEsc(b.cp || '') + '</p>',
     '  </div>',
     '  <div class="bl-card">',
     '    <h3>Tujuan Pembelajaran</h3>',
-    '    <ul class="bl-goal">' + (b.tujuan || []).map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>',
+    '    <ul class="bl-goal">' + (b.tujuan || []).map(function (t) { return '<li>' + blEsc(t) + '</li>'; }).join('') + '</ul>',
     '  </div>',
-    materiHtml,
-    glos ? '<div class="bl-card"><h3>Glosarium</h3><div class="bl-glos">' + glos + '</div></div>' : '',
-    '  <div class="bl-card">',
+    topicNavHtml,
+    '<div id="bl-topic-container">' + topicBodyHtml + '</div>',
+    glos ? '<div class="bl-card" id="bl-glosarium-card"><h3>Glosarium</h3><div class="bl-glos">' + glos + '</div></div>' : '',
+    '  <div class="bl-card" id="bl-eval-card">',
     '    <h3>Evaluasi</h3>',
     '    <p style="font-size:12.5px;color:#5b6473;margin:0 0 10px">Nilai terbaik: <b>' + (p.best_score === null ? '—' : p.best_score) + '</b> · percobaan: ' + p.attempts + '/' + (p.attempts + p.attempts_left) + ' · nilai tertinggi yang diambil.</p>',
     '    <div class="bl-actions" style="margin-top:0">',
@@ -142,6 +208,61 @@ function blRenderBab() {
 
   document.getElementById('bl-back').addEventListener('click', blLoadKurikulum);
   document.getElementById('bl-start').addEventListener('click', blStartEval);
+
+  if (hasMultiple) {
+    document.querySelectorAll('.bl-alur-step').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const tidx = Number(btn.dataset.tidx);
+        blState.activeTopicIndex = tidx;
+        blState.topicViewMode = 'stepped';
+        blRenderBab();
+        const navEl = document.getElementById('bl-topic-nav');
+        if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    const toggleBtn = document.getElementById('bl-toggle-mode');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function () {
+        blState.topicViewMode = blState.topicViewMode === 'stepped' ? 'all' : 'stepped';
+        blRenderBab();
+        const navEl = document.getElementById('bl-topic-nav');
+        if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    const prevBtn = document.getElementById('bl-btn-prev-topic');
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        if (blState.activeTopicIndex > 0) {
+          blState.activeTopicIndex--;
+          blRenderBab();
+          const navEl = document.getElementById('bl-topic-nav');
+          if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+
+    const nextBtn = document.getElementById('bl-btn-next-topic');
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        if (blState.activeTopicIndex < materiList.length - 1) {
+          blState.activeTopicIndex++;
+          blRenderBab();
+          const navEl = document.getElementById('bl-topic-nav');
+          if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+
+    const finishBtn = document.getElementById('bl-btn-finish-topic');
+    if (finishBtn) {
+      finishBtn.addEventListener('click', function () {
+        const evalEl = document.getElementById('bl-eval-card');
+        if (evalEl) evalEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }
 }
 
 function blEsc(s) {

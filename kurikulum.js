@@ -10,22 +10,33 @@ const LEVELS = ['X', 'XI', 'XII'];
 const CONTENT_DIR = path.join(__dirname, 'data', 'kurikulum');
 
 const contentCache = new Map();
+const lastMtime = new Map();
 
 function loadLevel(level) {
-  if (contentCache.has(level)) return contentCache.get(level);
   const dir = path.join(CONTENT_DIR, `kelas-${level.toLowerCase()}`);
   let babs = [];
   if (fs.existsSync(dir)) {
-    babs = fs.readdirSync(dir)
-      .filter(f => f.endsWith('.json'))
+    const files = fs.readdirSync(dir).filter(f => f.endsWith('.json'));
+    let maxM = 0;
+    for (const f of files) {
+      try {
+        const s = fs.statSync(path.join(dir, f));
+        if (s.mtimeMs > maxM) maxM = s.mtimeMs;
+      } catch (e) {}
+    }
+    if (contentCache.has(level) && lastMtime.get(level) === maxM) {
+      return contentCache.get(level);
+    }
+    babs = files
       .map(f => {
         const raw = fs.readFileSync(path.join(dir, f), 'utf-8');
         return JSON.parse(raw);
       })
       .flat()
       .sort((a, b) => a.urutan - b.urutan);
+    contentCache.set(level, babs);
+    lastMtime.set(level, maxM);
   }
-  contentCache.set(level, babs);
   return babs;
 }
 
