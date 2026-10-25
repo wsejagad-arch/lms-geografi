@@ -140,6 +140,8 @@ const LMS = (() => {
   async function deleteSchedule(id) { return api(`/schedules/${id}`, { method: 'DELETE' }); }
 
   async function seedKurikulumMaterials() { return api('/admin/kurikulum/seed-materials', { method: 'POST' }); }
+  async function getSemesterAktif() { return api('/admin/semester-aktif'); }
+  async function setSemesterAktif(semester) { return api('/admin/semester-aktif', { method: 'POST', body: JSON.stringify({ semester }) }); }
 
   return {
     currentUser: () => currentUser,
@@ -153,6 +155,7 @@ const LMS = (() => {
     getStudents, createStudent, updateStudent, importStudents, deleteStudent,
     getMaterials, createMaterial, updateMaterial, deleteMaterial,
     seedKurikulumMaterials,
+    getSemesterAktif, setSemesterAktif,
     getQuestions, createQuestion, updateQuestion, deleteQuestion,
     getExams, createExam, deleteExam,
     getGrades, createGrade, updateGrade, deleteGrade,

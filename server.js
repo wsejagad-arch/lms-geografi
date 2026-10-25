@@ -512,19 +512,21 @@ app.post('/api/students/import', requireAuth, requireTenant, async (req, res) =>
 
 // ===== MATERIALS =====
 app.get('/api/materials', requireAuth, requireTenant, async (req, res) => {
-  const { subject_id, class_id } = req.query;
+  const { subject_id, class_id, semester } = req.query;
   const db = await loadDB();
   
   let materials = db.materials.filter(m => m.tenant_id === req.tenantId);
   
   if (subject_id) materials = materials.filter(m => m.subject_id === subject_id);
   if (class_id) materials = materials.filter(m => m.class_id === class_id);
+  if (semester) materials = materials.filter(m => Number(m.semester || 1) === Number(semester));
   
   materials = materials.map(m => {
     const subject = db.subjects.find(s => s.id === m.subject_id);
     const classItem = db.classes.find(c => c.id === m.class_id);
     return {
       ...m,
+      semester: Number(m.semester || 1),
       subject_nama: subject ? subject.nama : '-',
       class_nama: classItem ? classItem.nama : '-'
     };
@@ -534,7 +536,7 @@ app.get('/api/materials', requireAuth, requireTenant, async (req, res) => {
 });
 
 app.post('/api/materials', requireAuth, requireTenant, async (req, res) => {
-  const { judul, konten, subject_id, class_id, youtube_id, image, modul, tipe } = req.body;
+  const { judul, konten, subject_id, class_id, youtube_id, image, modul, tipe, semester } = req.body;
   const db = await loadDB();
   
   // Verify subject and class belong to tenant
@@ -552,6 +554,7 @@ app.post('/api/materials', requireAuth, requireTenant, async (req, res) => {
     konten,
     subject_id,
     class_id,
+    semester: Number(semester) === 2 ? 2 : 1,
     youtube_id: youtube_id || '',
     image: image || '',
     modul: modul || '',
@@ -573,12 +576,12 @@ app.put('/api/materials/:id', requireAuth, requireTenant, async (req, res) => {
   
   if (!material) return res.status(404).json({ error: 'Material not found' });
   
-  const { judul, konten, subject_id, class_id, youtube_id, image, modul, tipe } = req.body;
+  const { judul, konten, subject_id, class_id, youtube_id, image, modul, tipe, semester } = req.body;
   
   // Verify subject and class belong to tenant
   if (subject_id || class_id) {
     const subject = db.subjects.find(s => s.id === (subject_id || material.subject_id) && s.tenant_id === req.tenantId);
-    const classItem = db.classes.find(c => c.id === (class_id || material.class_id) && s.tenant_id === req.tenantId);
+    const classItem = db.classes.find(c => c.id === (class_id || material.class_id) && c.tenant_id === req.tenantId);
     if (!subject || !classItem) {
       return res.status(400).json({ error: 'Invalid subject or class' });
     }
@@ -588,14 +591,33 @@ app.put('/api/materials/:id', requireAuth, requireTenant, async (req, res) => {
   material.konten = konten;
   material.subject_id = subject_id || material.subject_id;
   material.class_id = class_id || material.class_id;
-  material.youtube_id = youtube_id || '';
-  material.image = image || '';
-  material.modul = modul || '';
+  if (semester !== undefined) material.semester = Number(semester) === 2 ? 2 : 1;
+  material.youtube_id = youtube_id !== undefined ? youtube_id : (material.youtube_id || '');
+  material.image = image !== undefined ? image : (material.image || '');
+  material.modul = modul !== undefined ? modul : (material.modul || '');
   material.tipe = tipe || material.tipe;
   
   await saveDB(db);
   await cacheDel(`materials:${req.tenantId}:${material.subject_id}:${material.class_id}`);
   res.json(material);
+});
+
+// ===== SEMESTER AKTIF TENANT =====
+app.get('/api/admin/semester-aktif', requireAuth, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const tenant = db.tenants.find(t => t.id === req.tenantId);
+  res.json({ semester_aktif: tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1 });
+});
+
+app.post('/api/admin/semester-aktif', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const tenant = db.tenants.find(t => t.id === req.tenantId);
+  if (!tenant) return res.status(404).json({ error: 'Tenant tidak ditemukan' });
+  const sem = Number(req.body.semester) === 2 ? 2 : 1;
+  tenant.semester_aktif = sem;
+  await saveDB(db);
+  await cacheDel(`dashboard:${req.tenantId}`);
+  res.json({ success: true, semester_aktif: sem });
 });
 
 app.delete('/api/materials/:id', requireAuth, requireTenant, async (req, res) => {

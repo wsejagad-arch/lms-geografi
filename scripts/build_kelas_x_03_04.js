@@ -1,0 +1,424 @@
+const fs = require('fs');
+const path = require('path');
+
+const KELAS_X_DIR = path.join(__dirname, '..', 'data', 'kurikulum', 'kelas-x');
+
+// ===== 03-04.json (Semester 1) =====
+const p03_04 = path.join(KELAS_X_DIR, '03-04.json');
+const babs03_04 = [
+  {
+    id: "x-03",
+    kelas: "X",
+    urutan: 3,
+    semester: 1,
+    youtube_id: "kI3dM7-w0cQ",
+    fase: "E",
+    elemen: "Pemahaman Konsep dan Keterampilan Penginderaan Jauh",
+    judul: "Penginderaan Jauh dan Interpretasi Citra Lingkungan",
+    ringkasan: "Membaca bumi dari antariksa: spektrum elektromagnetik, sensor pasif (Sentinel-2/Landsat-9) vs aktif (LiDAR/Radar SAR), 4 resolusi citra, 9 unsur interpretasi visual, pemantauan hotspot karhutla serta deteksi banjir dan deforestasi aktual 2026.",
+    estimasi: "6 JP",
+    cp: "Peserta didik mampu memahami prinsip fisika penginderaan jauh, membedakan sensor dan wahana satelit, menganalisis 4 jenis resolusi, menerapkan 9 unsur interpretasi citra untuk mengenali fenomena geosfer terkini, serta menghitung indeks vegetasi (NDVI).",
+    tujuan: [
+      "Menjelaskan konsep spektrum gelombang elektromagnetik, interaksi atmosfer (hamburan Rayleigh & Mie), serta perbedaan sensor aktif dan pasif.",
+      "Menganalisis perbedaan 4 jenis resolusi citra (spasial, spektral, temporal, radiometrik) dalam pemilihan citra satelit.",
+      "Menerapkan 9 unsur interpretasi citra visual (rona, bentuk, ukuran, pola, tekstur, bayangan, situs, asosiasi, konvergensi bukti).",
+      "Memanfaatkan indeks spektral NDVI dan NDWI untuk memantau deforestasi dan genangan banjir.",
+      "Menganalisis studi kasus nyata: deteksi hotspot kebakaran hutan gambut di Sumatra/Kalimantan dan pemantauan abrasi pesisir Pantura Jawa."
+    ],
+    materi: [
+      {
+        id: "x03-t1",
+        judul: "Topik 1: Prinsip Gelombang Elektromagnetik, Sensor Pasif vs Aktif",
+        youtube_id: "kI3dM7-w0cQ",
+        kuis_topik: {
+          pertanyaan: "Mengapa ketika wilayah pesisir Sumatra tertutup awan mendung tebal saat musim hujan, tim mitigasi bencana memilih citra satelit Radar (Sentinel-1 SAR) daripada citra optik (Sentinel-2)?",
+          opsi: [
+            "Karena citra radar menghasilkan foto berwarna warni seperti aslinya",
+            "Karena sensor radar adalah sensor aktif dengan gelombang mikro yang mampu menembus awan, asap, dan beroperasi di malam hari tanpa bantuan sinar matahari",
+            "Karena sensor radar hanya bisa dioperasikan oleh pilot pesawat terbang rendah",
+            "Karena citra optik memerlukan biaya langganan yang jauh lebih mahal"
+          ],
+          kunci: 1,
+          pembahasan: "Radar (Synthetic Aperture Radar / SAR) bekerja pada panjang gelombang mikro (sentimeter) dan membawa sumber energi pulsa sendiri (sensor aktif). Hal ini membuatnya tembus awan tebal, kabut asap karhutla, dan bebas dari ketergantungan pencahayaan matahari siang hari."
+        },
+        html: `<div class="bl-callout case">
+<h4>🛰️ Studi Kasus Terkini: Memantau Karhutla Riau & Kalimantan 2026 Tanpa Terhalang Asap</h4>
+<p>Ketika kebakaran hutan dan lahan gambut (karhutla) merebak di Riau atau Kalimantan Tengah, kabut asap tebal sering menutupi permukaan bumi hingga radius ratusan kilometer. Citra optik standar (seperti Landsat-8/9 atau Google Earth biasa) menjadi 'buta' karena gelombang cahaya tampak (visible light) terhalang partikel asap pekat.</p>
+<p>Untuk menembus rintangan ini, geograf dan analis BMKG/BRIN memanfaatkan <strong>Sensor Aktif Radar SAR (Sentinel-1)</strong> dan <strong>Kanal Termal Inframerah (MODIS / VIIRS)</strong>. Sensor termal mendeteksi anomali suhu bara gambut (hotspot), sedangkan sensor radar menembus asap pekat untuk memetakan luasan perimeter hutan yang terbakar secara akurat dalam hitungan jam.</p>
+</div>
+
+<div class="bl-media-box" style="border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0">
+  <div style="background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="red"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z"/><polygon points="9.6 15.6 15.8 12 9.6 8.4" fill="#fff"/></svg>
+    Video Pembelajaran: Penginderaan Jauh & Cara Kerja Satelit Memantau Bumi
+  </div>
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">
+    <iframe src="https://www.youtube.com/embed/kI3dM7-w0cQ?rel=0" title="Video Pembelajaran: Penginderaan Jauh" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+  </div>
+  <div style="background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0">
+    Eksplorasi sensor satelit: bagaimana spektrum gelombang elektromagnetik dipantulkan oleh vegetasi, air, dan batuan bumi.
+  </div>
+</div>
+
+<h3>Komponen Dasar Penginderaan Jauh</h3>
+<ol>
+  <li><strong>Sumber Energi:</strong> Sumber alami (sinar matahari untuk sistem pasif) atau buatan (gelombang radar/pulsa laser LiDAR untuk sistem aktif).</li>
+  <li><strong>Atmosfer:</strong> Lapisan gas yang menyerap, memantulkan, dan menghamburkan radiasi. Hamburan Rayleigh (oleh molekul gas) menyebabkan langit biru, sedangkan hamburan Mie (oleh debu/asap) menghalangi cahaya tampak.</li>
+  <li><strong>Interaksi Objek di Permukaan Bumi:</strong> Klorofil daun menyerap kuat sinar merah dan memantulkan sangat kuat gelombang inframerah dekat (NIR). Air jernih menyerap hampir seluruh gelombang inframerah sehingga tampak gelap/hitam.</li>
+  <li><strong>Sensor & Wahana:</strong> Alat perekam sinyal (kamera, multispektral scanner, radar) yang dipasang pada wahana satelit orbit polar, pesawat udara, atau drone UAV.</li>
+</ol>`
+      },
+      {
+        id: "x03-t2",
+        judul: "Topik 2: Empat Resolusi Citra yang Wajib Dikuasai",
+        kuis_topik: {
+          pertanyaan: "Citra satelit Sentinel-2 memiliki resolusi spasial 10 meter. Apa makna matematis dari resolusi spasial 10 meter tersebut?",
+          opsi: [
+            "Setiap gambar satelit hanya dapat memotret area seluas 10 meter persegi",
+            "Satu piksel citra mewakili bidang seluas 10 × 10 meter (100 m²) di permukaan bumi, sehingga objek yang lebih kecil dari 10 meter tidak dapat diidentifikasi secara mandiri",
+            "Satelit hanya melintas di atas Indonesia setiap 10 menit sekali",
+            "Citra satelit memiliki 10 kanal warna inframerah"
+          ],
+          kunci: 1,
+          pembahasan: "Resolusi spasial menunjukkan ukuran objek terkecil di muka bumi yang dapat disajikan oleh satu piksel citra. Resolusi 10 meter berarti 1 piksel = 10 m × 10 m = 100 m² di permukaan tanah."
+        },
+        html: `<h3>Empat Dimensi Resolusi Citra Penginderaan Jauh</h3>
+<table>
+  <thead>
+    <tr><th>Resolusi</th><th>Definisi Konseptual</th><th>Contoh dan Aplikasi Nyata</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Resolusi Spasial</strong></td>
+      <td>Ukuran terkecil suatu objek di bumi yang dapat dideteksi dan diwakili oleh satu sel piksel citra.</td>
+      <td>
+        • <em>Sangat Halus (&lt; 1 m):</em> WorldView-4 (0,3 m), Pleiades Neo (0,3 m), Drone UAV (3 cm) — detail atap rumah dan mobil.<br>
+        • <em>Menengah (10–30 m):</em> Sentinel-2 (10 m), Landsat-9 (30 m) — pola petak sawah dan deforestasi.<br>
+        • <em>Kasar (&gt; 250 m):</em> MODIS (250–1.000 m), Himawari-9 (1 km) — sirkulasi badai siklon tropis dan cuaca nasional.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>2. Resolusi Spektral</strong></td>
+      <td>Banyaknya saluran/pita panjang gelombang (band) yang dapat direkam oleh sensor.</td>
+      <td>
+        • <em>Pankromatik:</em> 1 kanal hitam putih resolusi tinggi.<br>
+        • <em>Multispektral:</em> 4 s.d. 13 kanal (Merah, Hijau, Biru, Inframerah Dekat/NIR, SWIR, Termal).<br>
+        • <em>Hiperspektral:</em> Ratusan kanal sangat rapat untuk mendeteksi jenis mineral tambang langka (rare earth) dan pigmen daun.
+      </td>
+    </tr>
+    <tr>
+      <td><strong>3. Resolusi Temporal</strong></td>
+      <td>Frekuensi atau interval waktu kunjungan ulang satelit untuk memotret lokasi bumi yang persis sama.</td>
+      <td>
+        • Sentinel-2: kunjungan ulang 5 hari (bagus untuk pemantauan banjir).<br>
+        • Landsat-9: kunjungan ulang 16 hari.<br>
+        • Satelit Geostasioner Himawari: memotret setiap 10 menit dari ketinggian 36.000 km (pemantauan awan badai BMKG).
+      </td>
+    </tr>
+    <tr>
+      <td><strong>4. Resolusi Radiometrik</strong></td>
+      <td>Kemampuan kepekaan sensor dalam membedakan gradasi nilai pantulan (bit depth kuantisasi).</td>
+      <td>
+        • 8-bit = 256 gradasi level keabuan (citra lama).<br>
+        • 12-bit / 14-bit = 4.096 s.d. 16.384 gradasi level (Landsat-9 / Sentinel-2) — mampu membedakan bayangan di dasar jurang terjal secara jernih.
+      </td>
+    </tr>
+  </tbody>
+</table>`
+      },
+      {
+        id: "x03-t3",
+        judul: "Topik 3: Sembilan Unsur Interpretasi Citra Visual & Indeks Spektral NDVI",
+        kuis_topik: {
+          pertanyaan: "Seorang geograf mengenali objek di citra satelit berupa hamparan teratur berbentuk persegi empat dengan pematang lurus, berona gelap saat tergenang dan berona hijau cerah saat vegetatif, serta terhubung saluran irigasi. Unsur interpretasi yang paling dominan digunakan adalah ...",
+          opsi: [
+            "Bayangan dan ukuran",
+            "Bentuk, pola, rona, dan asosiasi",
+            "Situs dan tekstur kasar",
+            "Derajat lintang astronomis"
+          ],
+          kunci: 1,
+          pembahasan: "Bentuk persegi empat teratur (bentuk), berjejer rapi berulang (pola), warna gelap saat diairi dan hijau saat padi tumbuh (rona), dan terhubung saluran irigasi (asosiasi saluran air dengan sawah) adalah kunci identifikasi lahan persawahan."
+        },
+        html: `<h3>Sembilan Kunci Unsur Interpretasi Citra Visual</h3>
+<div class="bl-diagram-box" style="border:1px solid #cbd5e1;background:#f8fafc;border-radius:12px;padding:16px;margin:16px 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>1. Rona & Warna</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Tingkat kecerahan/kegelapan objek. Air jernih berona gelap/hitam; atap seng berona sangat cerah/putih.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>2. Bentuk (Shape)</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Konfigurasi visual objek. Lapangan bola berbentuk elips/persegi panjang; gedung sekolah huruf U/L/I.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>3. Ukuran</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Panjang, luas, volume. Rumah tinggal berukuran kecil 60–100 m²; pabrik gudang berukuran ribuan m².</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>4. Pola (Pattern)</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Susunan keruangan. Perkebunan kelapa sawit berpola baris teratur; hutan alam berpola acak tidak teratur.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>5. Tekstur</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Frekuensi perubahan rona visual. Hutan primer tekstur kasar berbintik; lapangan rumput bertekstur halus.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>6. Bayangan (Shadow)</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Mempertegas ketinggian objek. Menara pemancar, Monas, gedung bertingkat dan tebing curam.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>7. Situs</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Letak objek terhadap bentang lingkungan sekitar. Hutan bakau (mangrove) bertempat di kawasan pasang surut pantai.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>8. Asosiasi</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Keterikatan antara satu objek dengan objek lain. Stasiun kereta api berasosiasi dengan rel kereta.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px">
+      <strong>9. Konvergensi Bukti</strong>
+      <p style="margin:2px 0 0;font-size:12px;color:#475569">Penggabungan semua unsur interpretasi secara komprehensif untuk menarik kesimpulan tak terbantahkan.</p>
+    </div>
+  </div>
+</div>
+
+<h3>Indeks Spektral Digital: NDVI (Normalized Difference Vegetation Index)</h3>
+<p>Dalam analisis citra modern, komputer menghitung kerapatan dan kesehatan kanopi hutan menggunakan rumus matematis:</p>
+<div class="bl-callout concept">
+  <p style="font-size:14px;font-weight:700;color:#0f766e;margin:0"><code>NDVI = (NIR − RED) / (NIR + RED)</code></p>
+  <p style="font-size:12.5px;margin:6px 0 0;color:#334155">
+    • <strong>Nilai NDVI -1 s.d. 0:</strong> Tubuh air, laut, awan mendung, atau salju.<br>
+    • <strong>Nilai NDVI 0 s.d. 0,2:</strong> Tanah terbuka, pasir, atau batuan tandus.<br>
+    • <strong>Nilai NDVI 0,2 s.d. 0,5:</strong> Semak belukar, padang rumput, atau tanaman muda.<br>
+    • <strong>Nilai NDVI 0,6 s.d. 0,9:</strong> Hutan hujan tropis lebat yang sangat sehat dan berfotosintesis aktif.
+  </p>
+</div>`
+      }
+    ],
+    glosarium: [
+      { istilah: "Penginderaan Jauh", arti: "Ilmu dan seni memperoleh informasi objek geosfer dari kejauhan tanpa kontak fisik langsung." },
+      { istilah: "Sensor Aktif", arti: "Sensor perekam yang memancarkan energi sendiri, misal radar SAR dan LiDAR." },
+      { istilah: "Sensor Pasif", arti: "Sensor perekam yang hanya memanfaatkan pantulan alami matahari, misal satelit optik Sentinel-2." },
+      { istilah: "Resolusi Spasial", arti: "Ukuran terkecil di permukaan bumi yang dapat direpresentasikan oleh satu piksel citra." },
+      { istilah: "NDVI", arti: "Indeks selisih ternormalisasi kanal inframerah dekat dan merah untuk mengukur kerapatan vegetasi." },
+      { istilah: "Konvergensi Bukti", arti: "Teknik memadukan berbagai unsur interpretasi untuk memastikan kebenaran jenis objek." }
+    ],
+    soal: [
+      {
+        id: "x-03-q1",
+        tipe: "pg_singkat",
+        level: "C4",
+        literasi: "Memilih teknologi sensor citra satelit sesuai kondisi kedaruratan",
+        numerasi: "Analisis resolusi temporal dan spasial",
+        stimulus: {
+          jenis: "tabel",
+          judul: "Spesifikasi Tiga Citra Satelit untuk Bencana Banjir Bandang dan Longsor",
+          isi: "<p>Kawasan pegunungan diterjang banjir bandang pada malam hari dalam kondisi cuaca badai hujan lebat dan kabut awan tebal. Tim reaksi cepat BNPB memerlukan peta kerusakan jembatan dan genangan air dalam waktu 12 jam.</p><table><thead><tr><th>Citra Satelit</th><th>Tipe Sensor</th><th>Resolusi Spasial</th><th>Kemampuan Tembus Awan & Malam</th></tr></thead><tbody><tr><td>Citra Optik A</td><td>Pasif Multispektral</td><td>0,5 meter</td><td>Tidak mampu (terhalang awan dan malam gelap)</td></tr><tr><td>Citra Radar SAR B</td><td>Aktif Gelombang Mikro</td><td>10 meter</td><td>Mampu menembus awan tebal, badai hujan, dan bekerja malam hari</td></tr><tr><td>Citra Termal C</td><td>Pasif Inframerah Jauh</td><td>1000 meter</td><td>Mampu mendeteksi anomali suhu namun resolusi sangat kasar</td></tr></tbody></table>",
+          sumber: "Panduan Geospasial BNPB"
+        },
+        pertanyaan: "Citra mana yang paling tepat dipilih oleh tim tanggap darurat BNPB beserta alasan ilmiahnya?",
+        opsi: [
+          "Citra Optik A, karena resolusinya paling tajam 0,5 meter sehingga mobil tampak jelas",
+          "Citra Radar SAR B, karena sebagai sensor aktif dengan gelombang mikro mampu menembus tutupan awan mendung badai dan beroperasi di malam hari",
+          "Citra Termal C, karena dapat melihat suhu air banjir yang dingin di perbukitan",
+          "Citra Optik A, karena citra optik memiliki warna asli yang disukai masyarakat"
+        ],
+        kunci: [1],
+        pembahasan: "Meskipun Citra Optik A memiliki resolusi spasial halus (0,5 m), sensor pasif tidak dapat merekam di malam hari dan terhalang 100% oleh tutupan awan badai. Radar SAR B adalah sensor aktif gelombang mikro yang mampu menembus awan dan merekam di kegelapan malam, sehingga menjadi satu-satunya pilihan andal saat bencana badai."
+      },
+      {
+        id: "x-03-q2",
+        tipe: "pg_kompleks",
+        level: "C4",
+        literasi: "Menganalisis indeks spektral vegetasi NDVI",
+        numerasi: "Interpretasi rentang nilai -1 hingga +1",
+        stimulus: {
+          jenis: "teks",
+          judul: "Hasil Analisis Perubahan NDVI Kawasan Penyangga IKN Nusantara (2022–2026)",
+          isi: "<p>Sebuah penelitian geografi lingkungan menganalisis citra Sentinel-2 pada petak kawasan penyangga seluas 5.000 hektare. Data menunjukkan:</p><ul><li>Tahun 2022: Rata-rata nilai NDVI = 0,82 (hutan tanaman industri eukaliptus rapat).</li><li>Tahun 2024: Area tertentu seluas 800 hektare mengalami penurunan nilai NDVI menjadi 0,12.</li><li>Tahun 2026: Nilai NDVI pada area tersebut naik kembali menjadi 0,68 setelah program restorasi smart forest city.</li></ul>",
+          sumber: "Kajian Spasial BRIN 2026"
+        },
+        pertanyaan: "Pilihlah semua interpretasi geografis yang benar berdasarkan data NDVI di atas.",
+        opsi: [
+          "Nilai NDVI 0,82 pada tahun 2022 menunjukkan tutupan kanopi vegetasi yang sangat lebat dan sehat.",
+          "Penurunan NDVI menjadi 0,12 pada tahun 2024 mencerminkan pembukaan lahan (land clearing) menjadi tanah terbuka untuk konstruksi.",
+          "Kenaikan NDVI menjadi 0,68 pada tahun 2026 membuktikan keberhasilan pertumbuhan tajuk vegetasi revegetasi hutan kembali.",
+          "Nilai NDVI di bawah nol (< 0) menunjukkan keberadaan hutan primer yang sangat rapat.",
+          "Indeks NDVI dihitung dari selisih kanal cahaya tampak hijau dan biru."
+        ],
+        kunci: [0, 1, 2],
+        pembahasan: "Pernyataan 1, 2, dan 3 benar. Nilai >0,8 adalah vegetasi lebat; nilai 0,1–0,2 adalah tanah terbuka gundul; kenaikan ke 0,68 menandakan penghijauan kembali. Pernyataan 4 salah (nilai <0 adalah air/awan); pernyataan 5 salah (NDVI menggunakan inframerah dekat/NIR dan merah/Red)."
+      }
+    ]
+  },
+  {
+    id: "x-04",
+    kelas: "X",
+    urutan: 4,
+    semester: 1,
+    youtube_id: "uK36ngUq-1I",
+    fase: "E",
+    elemen: "Pemahaman Konsep dan Keterampilan Sistem Informasi Geografis (SIG)",
+    judul: "Sistem Informasi Geografis dan Pemodelan Keruangan",
+    ringkasan: "Mengolah basis data geospasial: subsistem SIG, perbandingan model data vektor vs raster, operasi spasial buffering & overlay multi-kriteria, serta aplikasi WebGIS InaRISK BNPB dan penentuan zonasi Rencana Tata Ruang IKN Nusantara 2026.",
+    estimasi: "6 JP",
+    cp: "Peserta didik mampu memahami subsistem dan struktur data SIG, membedakan data vektor dan raster, melakukan analisis spasial buffering dan tumpang susun (overlay), serta memodelkan kesesuaian lahan untuk mitigasi bencana dan perencanaan wilayah.",
+    tujuan: [
+      "Menjelaskan 5 komponen pokok SIG (hardware, software, data geospasial, manusia/brainware, metode).",
+      "Membandingkan kelebihan dan kelemahan model data spasial vektor (titik, garis, poligon) versus raster (matriks piksel).",
+      "Menganalisis prinsip operasi spasial buffering, intersect, union, dan network analysis.",
+      "Menerapkan teknik overlay multi-kriteria berbobot (weighted overlay) untuk menentukan zonasi rawan longsor dan lokasi permukiman aman.",
+      "Mengeksplorasi platform WebGIS modern di Indonesia (InaRISK BNPB, Geoportal Kebijakan Satu Peta, WebGIS RDTR ATR/BPN)."
+    ],
+    materi: [
+      {
+        id: "x04-t1",
+        judul: "Topik 1: Konsep Dasar SIG dan Subsistem Terpadu",
+        youtube_id: "uK36ngUq-1I",
+        kuis_topik: {
+          pertanyaan: "Apa keunggulan terbesar Sistem Informasi Geografis (SIG) dibanding peta manual kertas biasa?",
+          opsi: [
+            "Peta manual kertas dapat memuat jutaan data tanpa batas ruang",
+            "SIG mengintegrasikan data spasial (koordinat ruang) dengan data atribut (tabel informasi deskriptif) sehingga dapat dilakukan analisis tumpang susun (overlay) dan kueri otomatis secara cepat",
+            "SIG tidak memerlukan komputer maupun operator manusia",
+            "Peta kertas lebih akurat dalam menghitung luas wilayah provinsi"
+          ],
+          kunci: 1,
+          pembahasan: "Kekuatan utama SIG terletak pada penggabungan 'Where' (data spasial posisi lintang-bujur) dengan 'What' (data atribut nama pemilik, kepadatan penduduk, jenis tanah) ke dalam basis data relasional yang dapat dianalisis tumpang-susun (overlay) secara instan."
+        },
+        html: `<div class="bl-callout case">
+<h4>🌐 Konteks Aktual 2026: Mengapa Pemindahan Ibu Kota Membutuhkan SIG?</h4>
+<p>Dalam merancang tata ruang <strong>Ibu Kota Nusantara (IKN)</strong> di Kalimantan Timur, tim perencana dari Bappenas dan Otorita IKN tidak bisa hanya mengandalkan intuisi. Ribuan kilometer persegi wilayah harus dianalisis secara akurat: di mana letak tanah dengan lereng &lt; 15% yang aman dari longsor? Di mana kawasan sempadan sungai yang wajib steril dari gedung beton? Di mana koridor jelajah orangutan dan bekantan yang tidak boleh terputus jalan raya?</p>
+<p>Pertanyaan kompleks ini dijawab melalui <strong>Sistem Informasi Geografis (SIG)</strong> dengan menumpangsusunkan (overlay) belasan layer peta digital (layer geologi, layer kemiringan lereng, layer hidrologi DAS, layer tutupan hutan, dan layer izin konsesi) untuk menghasilkan <em>Peta Zonasi Kesesuaian Lahan Kawasan Inti Pusat Pemerintahan (KIPP)</em>.</p>
+</div>
+
+<div class="bl-media-box" style="border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0">
+  <div style="background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="red"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z"/><polygon points="9.6 15.6 15.8 12 9.6 8.4" fill="#fff"/></svg>
+    Video Pembelajaran: Pengenalan Sistem Informasi Geografis (GIS) dan Analisis Spasial
+  </div>
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">
+    <iframe src="https://www.youtube.com/embed/uK36ngUq-1I?rel=0" title="Video Pembelajaran: Pengenalan SIG" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe>
+  </div>
+  <div style="background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0">
+    Pelajari konsep dasar SIG: data spasial, data tabular atribut, layer tumpang susun, dan analisis spasial masa kini.
+  </div>
+</div>
+
+<h3>Tiga Subsistem Utama SIG</h3>
+<ol>
+  <li><strong>Subsistem Masukan Data (Input):</strong> Mengumpulkan, mengonversi, dan memvalidasi data geospasial dari berbagai sumber: koordinat GPS/GNSS, citra satelit, peta analog hasil digitasi, data sensus statistik BPS.</li>
+  <li><strong>Subsistem Penyimpanan dan Pengelolaan (Data Management):</strong> Mengorganisasikan data spasial dan tabel atribut ke dalam basis data relasional (RDBMS) seperti PostgreSQL/PostGIS.</li>
+  <li><strong>Subsistem Manipulasi dan Analisis (Analysis):</strong> Menjalankan fungsi analitis seperti buffering, overlay, kueri spasial, dan pemodelan elevasi 3D.</li>
+  <li><strong>Subsistem Keluaran (Output):</strong> Menghasilkan visualisasi peta cetak, dashboard interaktif, grafik statistik keruangan, dan layanan WebGIS.</li>
+</ol>`
+      },
+      {
+        id: "x04-t2",
+        judul: "Topik 2: Struktur Data: Model Vektor vs Model Raster",
+        kuis_topik: {
+          pertanyaan: "Karakteristik data spasial yang tersusun atas kisi-kisi sel grid (piksel) teratur, di mana setiap sel menyimpan nilai tertentu (seperti nilai ketinggian elevasi DEM atau nilai suhu) disebut data ...",
+          opsi: [
+            "Data Vektor Poligon",
+            "Data Raster",
+            "Data Vektor Garis",
+            "Data Atribut Kualitatif"
+          ],
+          kunci: 1,
+          pembahasan: "Data raster menyimpan informasi ruang dalam struktur kisi piksel baris dan kolom. Contoh klasiknya adalah Digital Elevation Model (DEM) untuk topografi dan citra satelit penginderaan jauh."
+        },
+        html: `<h3>Perbandingan Model Data Vektor dan Raster</h3>
+<table>
+  <thead>
+    <tr><th>Karakteristik</th><th>Model Data Vektor</th><th>Model Data Raster</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Struktur Data</strong></td>
+      <td>Koordinat titik absolut (x, y) yang membentuk: <br>• <strong>Titik (Point):</strong> Lokasi sumur, stasiun, halte.<br>• <strong>Garis (Polyline):</strong> Rel Whoosh, sungai, jaringan pipa.<br>• <strong>Poligon:</strong> Batas kecamatan, danau, zonasi persil tanah.</td>
+      <td>Susunan sel grid (matriks piksel) baris dan kolom. Setiap piksel memiliki koordinat relatif dan satu nilai atribut tunggal.</td>
+    </tr>
+    <tr>
+      <td><strong>Keunggulan</strong></td>
+      <td>• Batas objek sangat presisi dan tajam.<br>• Ukuran file relatif hemat.<br>• Hubungan topologi jaringan (network) sangat baik.</td>
+      <td>• Sangat ideal memodelkan fenomena kontinu permukaan (ketinggian lereng, suhu udara, curah hujan).<br>• Analisis matematis overlay antar-grid sangat cepat.</td>
+    </tr>
+    <tr>
+      <td><strong>Kelemahan</strong></td>
+      <td>• Sulit menyajikan fenomena gradasi kontinu yang menyebar tanpa batas tegas.<br>• Struktur data kompleks.</td>
+      <td>• Batas objek tampak bergerigi (pixelated) jika resolusi sel kasar.<br>• Ukuran file penyimpanan data sangat besar.</td>
+    </tr>
+    <tr>
+      <td><strong>Format Berkas Populer</strong></td>
+      <td>Shapefile (.shp), GeoJSON (.geojson), Geopackage (.gpkg)</td>
+      <td>GeoTIFF (.tif), NetCDF (.nc), ASCII Grid (.asc)</td>
+    </tr>
+  </tbody>
+</table>`
+      },
+      {
+        id: "x04-t3",
+        judul: "Topik 3: Operasi Analisis Spasial: Buffering & Overlay Multi-Kriteria",
+        kuis_topik: {
+          pertanyaan: "Berdasarkan peraturan Kementerian PUPR, kawasan sempadan sungai selebar 50 meter di kiri-kanan badan sungai dilarang didirikan bangunan permanen. Operasi analisis spasial SIG yang paling tepat untuk memetakan zona sempadan sungai tersebut adalah ...",
+          opsi: [
+            "Network Analysis",
+            "Buffering (Penyanggaan)",
+            "3D Fly-through",
+            "Interpolasi Kriging"
+          ],
+          kunci: 1,
+          pembahasan: "Buffering adalah operasi spasial SIG yang menciptakan zona penyangga dengan jarak tertentu di sekitar objek titik, garis, atau poligon. Buffer 50 meter pada layer garis sungai secara otomatis menghasilkan poligon zona sempadan sungai."
+        },
+        html: `<h3>Metode Analisis Spasial Utama dalam SIG</h3>
+<ul>
+  <li><strong>1. Buffering (Penyanggaan):</strong> Membuat zona dengan radius jarak tertentu di sekitar objek geografis. Contoh: zona bahaya erupsi 5 km dari kawah Merapi, buffer sempadan pipa gas 25 meter.</li>
+  <li><strong>2. Overlay (Tumpang Susun):</strong> Menggabungkan dua atau lebih layer peta tematik untuk menghasilkan informasi sintesis baru:
+    <ul>
+      <li><em>Intersect:</em> Mengambil wilayah irisan yang memenuhi syarat kedua layer sekaligus.</li>
+      <li><em>Union:</em> Menggabungkan seluruh area kedua layer secara utuh.</li>
+      <li><em>Erase:</em> Menghapus bagian layer yang bersinggungan dengan layer pembatas.</li>
+    </ul>
+  </li>
+  <li><strong>3. Weighted Overlay (Tumpang Susun Berbobot):</strong> Memberikan bobot persentase pada setiap kriteria layer (misal: Lereng 40%, Curah Hujan 30%, Jenis Tanah 20%, Tutupan Lahan 10%) untuk menghitung indeks kerentanan bencana.</li>
+  <li><strong>4. Network Analysis (Analisis Jaringan):</strong> Menentukan rute transportasi terpendek (shortest path), waktu tempuh ambulans ke rumah sakit, dan jangkauan layanan halte bus (service area).</li>
+</ul>`
+      }
+    ],
+    glosarium: [
+      { istilah: "SIG (GIS)", arti: "Sistem komputer berbasis geospasial untuk memasukkan, menyimpan, menganalisis, dan menyajikan data bumi." },
+      { istilah: "Data Vektor", arti: "Format data spasial berbasis titik koordinat (x, y), garis, dan poligon berbatas tegas." },
+      { istilah: "Data Raster", arti: "Format data spasial berbasis kisi-kisi sel piksel berbaris dan berkolom." },
+      { istilah: "Buffering", arti: "Operasi spasial membuat zona radius penyangga dengan jarak tertentu di sekitar objek." },
+      { istilah: "Overlay", arti: "Teknik tumpang susun beberapa layer peta tematik untuk menghasilkan analisis keruangan baru." },
+      { istilah: "InaRISK", arti: "Portal WebGIS resmi BNPB untuk memantau indeks risiko multi-ancaman bencana di Indonesia." }
+    ],
+    soal: [
+      {
+        id: "x-04-q1",
+        tipe: "pgm",
+        level: "C4",
+        literasi: "Menyusun alur kerja analisis SIG untuk zonasi permukiman aman",
+        numerasi: "Analisis bobot multi-kriteria",
+        stimulus: {
+          jenis: "teks",
+          judul: "Perencanaan Zonasi Relokasi Korban Bencana Gempa Cianjur",
+          isi: "<p>Pemerintah daerah merencanakan kawasan relokasi perumahan baru bagi warga terdampak gempa sesar Cugenang. Kriteria yang ditetapkan:</p><ol><li>Jarak dari jalur sesar aktif > 250 meter (Buffer patahan).</li><li>Kemiringan lereng medan < 15% (Medan landai/datar bebas longsor).</li><li>Jenis tanah bukan lempung ekspansif.</li><li>Jarak ke jalan arteri utama < 1 km untuk aksesibilitas warga.</li></ol>",
+          sumber: "Pusat Studi Gempa Nasional (PuSGeN) & ATR/BPN"
+        },
+        pertanyaan: "Bagaimanakah urutan alur kerja analisis spasial SIG yang paling tepat untuk menentukan lokasi relokasi tersebut?",
+        opsi: [
+          "Buffer sesar 250 m → Buffer jalan 1 km → Klasifikasi kelerengan DEM → Overlay Intersect seluruh layer yang memenuhi syarat",
+          "Langsung mencetak peta jalan lalu menunjuk lokasi di lapangan secara acak",
+          "Mengubah semua data ke format raster tanpa mempertimbangkan kelerengan",
+          "Hanya menganalisis kepadatan penduduk tanpa memperhatikan jalur patahan gempa"
+        ],
+        kunci: [0],
+        pembahasan: "Alur kerja standar analisis kesesuaian lahan SIG multi-kriteria adalah: (1) membuat layer zona penyangga buffer jarak bahaya dan aksesibilitas, (2) mengklasifikasikan lereng dari data DEM raster, (3) menumpangsusunkan (overlay intersect) seluruh parameter untuk menemukan poligon irisan yang memenuhi seluruh syarat aman."
+      }
+    ]
+  }
+];
+
+fs.writeFileSync(p03_04, JSON.stringify(babs03_04, null, 2), 'utf-8');
+console.log('Successfully updated kelas-x/03-04.json (Semester 1)!');

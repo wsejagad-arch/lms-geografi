@@ -3,145 +3,102 @@
     "id": "x-07",
     "kelas": "X",
     "urutan": 7,
+    "semester": 2,
+    "youtube_id": "8pU4H64o6d8",
     "fase": "E",
-    "elemen": "Pemahaman Konsep",
-    "judul": "Hidrosfer: Siklus Air, DAS, dan Dinamika Laut",
-    "ringkasan": "Siklus hidrologi, neraca air DAS, air tanah, arus dan gelombang laut, serta krisis air di kawasan karst dan pesisir.",
-    "estimasi": "6 JP",
-    "cp": "Peserta didik memahami proses hidrosfer dan mampu menganalisis persoalan air pada skala wilayah.",
+    "elemen": "Pemahaman Konsep Hidrosfer dan Konservasi Perairan",
+    "judul": "Dinamika Hidrosfer dan Konservasi Sumber Daya Air",
+    "ringkasan": "Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau & lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia.",
     "tujuan": [
-      "Menggambarkan siklus hidrologi dan komponennya.",
-      "Menghitung neraca air sederhana suatu DAS.",
-      "Menjelaskan proses intrusi air laut dan penurunan muka tanah.",
-      "Menilai opsi pengelolaan air berdasarkan data."
+      "Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS).",
+      "Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander.",
+      "Menganalisis jenis-jenis danau (tektonik, vulkanik, karst, bendungan) dan fungsi ekologis lahan gambut.",
+      "Mengevaluasi krisis penipisan air tanah dalam dan penurunan muka tanah (land subsidence) di Pantai Utara Jawa.",
+      "Menganalisis relief dasar laut, salinitas, Arus Lintas Indonesia (ARLINDO), serta batas wilayah laut menurut UNCLOS 1982."
     ],
     "materi": [
       {
-        "judul": "Siklus Hidrologi dan Neraca Air",
-        "html": "<p>Siklus hidrologi: evaporasi → transpirasi → kondensasi → presipitasi → intersepsi → infiltrasi/perkolasi → limpasan (runoff) → kembali ke laut. Air tawar yang tersedia bagi manusia hanya sebagian kecil dari total air bumi.</p><p><strong>Neraca air</strong>: <code>P = ET + Q + ΔS</code>, yaitu presipitasi (P) terbagi menjadi evapotranspirasi (ET), limpasan (Q), dan perubahan simpanan (ΔS: air tanah, danau, waduk).</p><p>Contoh: DAS menerima 2.200 mm/tahun; ET 1.100 mm; limpasan 900 mm; maka ΔS = 200 mm (simpanan bertambah). Bila limpasan melonjak menjadi 1.400 mm karena tutupan lahan berkurang, ΔS menjadi −300 mm: cadangan air tanah terkuras.</p>"
+        "id": "x07-t1",
+        "judul": "Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu",
+        "youtube_id": "8pU4H64o6d8",
+        "kuis_topik": {
+          "pertanyaan": "Pembangunan kawasan vila dan perumahan di daerah hulu DAS yang mengubah hutan resapan menjadi lantai semen kedap air akan menyebabkan perubahan hidrologis berupa ...",
+          "opsi": [
+            "Infiltrasi air tanah meningkat drastis dan debit sungai mengecil",
+            "Koefisien limpasan permukaan (runoff) melonjak tajam sehingga memicu banjir bandang kilat di kawasan hilir saat hujan deras",
+            "Penguapan air laut terhenti secara permanen",
+            "Mata air di hulu sungai mengalir lebih deras sepanjang tahun"
+          ],
+          "kunci": 1,
+          "pembahasan": "Hilangnya tutupan vegetasi hutan di kawasan hulu menurunkan kapasitas infiltrasi air ke tanah secara signifikan. Akibatnya, air hujan langsung mengalir di permukaan sebagai limpasan (runoff) tinggi yang membebani kapasitas tampung sungai di hilir dan memicu banjir."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>💧 Studi Kasus Pantura Jawa 2026: Krisis Amblesan Tanah dan Intrusi Air Laut</h4>\n<p>Kawasan pesisir Pantai Utara Jawa (Pantura)—khususnya Kota Semarang, Demak, dan Pekalongan—mengalami musibah ekologis berupa penurunan muka tanah (<em>land subsidence</em>) mencapai 10–15 cm per tahun. Akibatnya, jalan raya Pantura, pabrik, dan ribuan rumah warga terendam banjir rob pasang air laut setiap hari.</p>\n<p>Kajian hidrologi membuktikan bahwa penyebab utama bukanlah murni pemanasan global, melainkan penyedotan air tanah dalam (deep groundwater extraction) secara tak terkendali oleh kawasan industri akibat belum tersedianya pasokan air bersih perpipaan dari pemerintah daerah. Solusi geografis mendesak: menghentikan penyedotan air tanah, merevitalisasi kawasan mangrove, dan membangun waduk penampung air permukaan.</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Dinamika Hidrosfer, Air Tanah, Sungai, dan Samudra\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/8pU4H64o6d8?rel=0\" title=\"Video Pembelajaran: Dinamika Hidrosfer\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Eksplorasi siklus air, neraca hidrologi DAS, dinamika air tanah freatik dan artesis, serta oseanografi Indonesia.\n  </div>\n</div>"
       },
       {
-        "judul": "DAS dan Perilaku Limpasan",
-        "html": "<p><strong>Daerah Aliran Sungai (DAS)</strong> adalah wilayah yang airnya mengalir ke satu sungai utama, dibatasi punggungan (watershed). Karakteristik yang memengaruhi limpasan: luas, bentuk, kemiringan, jenis tanah, tutupan lahan, dan kepadatan drainase.</p><p>Alih fungsi hutan menjadi lahan terbuka meningkatkan koefisien limpasan. Hutan dapat meresapkan 50–80% air hujan, sedangkan lahan kedap air hanya ±10%. Karena itu, banjir di hilir sering merupakan gejala perubahan di hulu—bukan semata curah hujan ekstrem.</p><p>Konsep penting: <em>time of concentration</em>. Urbanisasi mempercepat waktu tiba limpasan ke hilir, sehingga puncak banjir lebih tinggi dan cepat.</p>"
-      },
-      {
-        "judul": "Air Tanah dan Intrusi Air Laut",
-        "html": "<p><strong>Akuifer</strong> adalah lapisan pembawa air. Akuifer bebas dekat permukaan; akuifer tertekan diapit lapisan kedap. Pengambilan berlebihan menyebabkan penurunan muka air tanah, subsidensi (penurunan muka tanah), dan di wilayah pesisir memicu <strong>intrusi air laut</strong>.</p><p>Kesetimbangan air tawar–asin dijaga oleh tekanan hidrostatik (prinsip Ghyben–Herzberg: setiap 1 m muka air tanah tawar di atas laut menahan ±40 m batas air asin di bawahnya). Bila muka air tawar turun 1 m, batas intrusi naik ±40 m.</p><p>Gejalanya: sumur menjadi asin, tanaman pesisir mati, dan pipa berkarat. Solusinya bukan hanya mencari sumber baru, tetapi menurunkan pengambilan, menambah resapan, dan mengatur tata guna lahan.</p>"
-      },
-      {
-        "judul": "Laut: Arus, Gelombang, dan Pesisir",
-        "html": "<p>Arus laut digerakkan angin (arus permukaan), perbedaan suhu-salinitas (termohalin), dan pasang surut. Di Indonesia, Arus Lintas Indonesia (Arlindo) memindahkan massa air dari Pasifik ke Hindia dan berperan dalam iklim global.</p><p>Gelombang terbentuk oleh angin; tinggi gelombang dipengaruhi kecepatan angin, durasi, dan <em>fetch</em>. Energi gelombang menyebabkan abrasi. Bangunan pelindung alami seperti mangrove dan terumbu karang meredam energi jauh lebih murah dibanding bangunan beton.</p><p>Kenaikan muka laut memperparah abrasi dan banjir rob. Adaptasi dapat berupa mundur terencana (<em>managed retreat</em>), rehabilitasi mangrove, atau infrastruktur pesisir—dengan konsekuensi biaya dan sosial yang berbeda.</p>"
+        "id": "x07-t2",
+        "judul": "Topik 2: Oseanografi Kelautan & Zona Batas Maritim UNCLOS 1982",
+        "kuis_topik": {
+          "pertanyaan": "Berdasarkan Konvensi Hukum Laut Internasional (UNCLOS 1982), batas Zona Ekonomi Eksklusif (ZEE) diukur sejauh ...",
+          "opsi": [
+            "12 mil laut dari garis pangkal",
+            "200 mil laut dari garis pangkal",
+            "350 mil laut dari dasar samudra",
+            "1.000 mil laut dari ibu kota negara"
+          ],
+          "kunci": 1,
+          "pembahasan": "ZEE diukur sejauh 200 mil laut (±370,4 km) dari garis pangkal kepulauan. Pada zona ini, negara pantai memiliki hak berdaulat eksklusif untuk mengeksplorasi, mengeksploitasi, mengelola, dan mengonservasi sumber daya alam hayati dan non-hayati di kolom air dan dasar laut."
+        },
+        "html": "<h3>Zona Batas Maritim Indonesia Berdasarkan UNCLOS 1982</h3>\n<table>\n  <thead>\n    <tr><th>Zona Laut</th><th>Batas Jarak</th><th>Kedaulatan & Hak Berdaulat Negara Indonesia</th></tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><strong>Laut Teritorial</strong></td>\n      <td>12 mil laut dari garis pangkal</td>\n      <td>Kedaulatan penuh negara atas air, ruang udara di atasnya, dasar laut, dan tanah di bawahnya (berlaku hak lintas damai kapal asing).</td>\n    </tr>\n    <tr>\n      <td><strong>Zona Tambahan</strong></td>\n      <td>24 mil laut dari garis pangkal</td>\n      <td>Yurisdiksi khusus mencegah dan menindak pelanggaran bea cukai, fiskal, imigrasi, dan sanitasi kesehatan karantina.</td>\n    </tr>\n    <tr>\n      <td><strong>Zona Ekonomi Eksklusif (ZEE)</strong></td>\n      <td>200 mil laut dari garis pangkal</td>\n      <td>Hak berdaulat eksklusif atas pemanfaatan sumber daya alam perikanan dan energi laut; kapal asing bebas berlayar melintas (freedom of navigation).</td>\n    </tr>\n    <tr>\n      <td><strong>Landas Kontinen</strong></td>\n      <td>Dasar laut kelanjutan benua hingga 200–350 mil laut</td>\n      <td>Hak berdaulat atas sumber daya mineral minyak bumi, gas alam, dan mineral tambang di dasar laut dan tanah di bawahnya.</td>\n    </tr>\n  </tbody>\n</table>"
       }
     ],
     "glosarium": [
-      { "istilah": "neraca air", "arti": "keseimbangan antara masukan presipitasi dan keluaran ET, limpasan, serta perubahan simpanan" },
-      { "istilah": "akuifer", "arti": "lapisan tanah/batuan yang mampu menyimpan dan mengalirkan air" },
-      { "istilah": "intrusi air laut", "arti": "masuknya air laut ke akuifer darat akibat turunnya muka air tawar" },
-      { "istilah": "limpasan", "arti": "air hujan yang mengalir di permukaan menuju sungai" }
+      {
+        "istilah": "Hidrosfer",
+        "arti": "Lapisan perairan di permukaan bumi, meliputi sungai, danau, rawa, air tanah, gletser, dan samudra."
+      },
+      {
+        "istilah": "Infiltrasi",
+        "arti": "Proses peresapan air permukaan ke dalam pori-pori tanah secara gravitasi."
+      },
+      {
+        "istilah": "Runoff",
+        "arti": "Aliran air permukaan yang mengalir di atas tanah menuju ke saluran sungai dan danau."
+      },
+      {
+        "istilah": "Land Subsidence",
+        "arti": "Penurunan elevasi muka tanah secara perlahan akibat pemadatan alami atau penyedotan air tanah dalam."
+      },
+      {
+        "istilah": "ZEE",
+        "arti": "Zona Ekonomi Eksklusif selebar 200 mil laut di mana negara pantai memiliki hak berdaulat atas sumber daya alam."
+      }
     ],
     "soal": [
       {
         "id": "x-07-q1",
         "tipe": "pgm",
         "level": "C4",
-        "literasi": "Menganalisis data neraca air DAS",
-        "numerasi": "Menghitung ΔS dan interpretasinya",
-        "stimulus": {
-          "jenis": "tabel",
-          "judul": "Neraca air dua DAS",
-          "isi": "<table><thead><tr><th>DAS</th><th>Presipitasi (mm)</th><th>ET (mm)</th><th>Limpasan (mm)</th><th>Tutupan lahan</th></tr></thead><tbody><tr><td>Hulu Lestari</td><td>2.400</td><td>1.100</td><td>800</td><td>Hutan 78%</td></tr><tr><td>Hulu Terbuka</td><td>2.400</td><td>900</td><td>1.450</td><td>Lahan terbuka 62%</td></tr></tbody></table>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Pernyataan yang tepat: (1) ΔS Hulu Lestari = +500 mm; (2) ΔS Hulu Terbuka = +50 mm; (3) limpasan Hulu Terbuka lebih tinggi karena tutupan lahan; (4) kedua DAS memiliki risiko banjir yang sama.",
-        "opsi": ["(1) dan (3)", "(2) dan (3)", "(1), (2), dan (3)", "(3) dan (4)", "Hanya (3)"],
-        "kunci": [1],
-        "pembahasan": "Hulu Lestari: 2.400 − 1.100 − 800 = +500 mm. Hulu Terbuka: 2.400 − 900 − 1.450 = +50 mm. Limpasan lebih tinggi pada tutupan terbuka sehingga risiko banjir berbeda."
-      },
-      {
-        "id": "x-07-q2",
-        "tipe": "pg_singkat",
-        "level": "C4",
-        "literasi": "Menghubungkan gejala lapangan dengan proses hidrologi",
-        "numerasi": "Menafsirkan laju penurunan muka air tanah",
+        "literasi": "Menganalisis korelasi air tanah dan penurunan tanah di Pantura",
+        "numerasi": "Interpretasi laju penurunan tanah",
         "stimulus": {
           "jenis": "teks",
-          "judul": "Sumur asin di kota pesisir",
-          "isi": "<p>Dalam 10 tahun, muka air tanah di sebuah kota pesisir turun 2,5 m karena pengambilan sumur bor meningkat. Warga melaporkan air sumur menjadi asin, dan beberapa titik jalan mengalami penurunan permukaan.</p>",
-          "sumber": "ilustrasi sintetis berbasis prinsip hidrostatik pesisir"
+          "judul": "Studi Deformasi Pesisir Semarang-Demak",
+          "isi": "<p>Pengukuran satelit radar InSAR dan GPS geodetik menunjukkan penurunan tanah di pesisir Kota Semarang bagian timur dan Demak mencapai 8–12 cm/tahun. Pada saat yang sama, pemantauan sumur pantau Kementerian ESDM mencatat muka air tanah dalam (akuifer tertekan pada kedalaman 100–150 meter) turun hingga 25 meter di bawah permukaan laut.</p>",
+          "sumber": "Badan Geologi & Pusat Air Tanah Kementerian ESDM"
         },
-        "pertanyaan": "Penjelasan paling tepat adalah ...",
+        "pertanyaan": "Analisis manakah yang paling tepat menjelaskan keterkaitan fisik antara kedua fenomena di atas?",
         "opsi": [
-          "Intrusi air laut meningkat karena tekanan air tawar menurun, disertai subsidensi akibat pengambilan berlebihan",
-          "Air laut naik karena pasang surut harian yang lebih tinggi",
-          "Air sumur menjadi asin karena curah hujan menurun",
-          "Penurunan jalan disebabkan gempa tektonik, bukan pengambilan air",
-          "Intrusi terjadi karena kenaikan muka laut semata tanpa peran pengambilan air tanah"
+          "Penyedotan air tanah dalam yang berlebihan menyebabkan tekanan hidrolik pori batuan lempung aluvial menurun drastis, sehingga butiran tanah memadat dan permukaan tanah ambles",
+          "Penurunan tanah semata-mata diakibatkan oleh gempa tektonik berkekuatan kecil",
+          "Air tanah turun karena mengalir ke kawah gunung api aktif di pegunungan",
+          "Penurunan tanah terjadi karena berat kapal nelayan yang bersandar di pelabuhan"
         ],
-        "kunci": [0],
-        "pembahasan": "Turunnya muka air tawar menggeser batas air asin ke darat, sementara pengambilan berlebihan memampatkan lapisan tanah sehingga terjadi penurunan muka tanah."
-      },
-      {
-        "id": "x-07-q3",
-        "tipe": "pg_kompleks",
-        "level": "C5",
-        "literasi": "Mengevaluasi pilihan kebijakan air",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Krisis air di kawasan karst",
-          "isi": "<p>Kawasan karst memiliki banyak celah larutan sehingga air hujan cepat masuk ke bawah tanah, tetapi sulit ditahan di permukaan. Warga mengalami kekeringan setiap kemarau, sementara perusahaan air minum memanfaatkan mata air karst.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Pilih semua solusi yang layak dan berkelanjutan.",
-        "opsi": [
-          "Membangun embung/penampung air hujan di permukaan",
-          "Melarang total pemanfaatan mata air tanpa kajian",
-          "Membuat sumur resapan dan menjaga tutupan vegetasi di zona resapan",
-          "Mengandalkan pasokan tanki air selamanya tanpa perbaikan sumber",
-          "Mengatur kuota pengambilan mata air berbasis daya dukung"
+        "kunci": [
+          0
         ],
-        "kunci": [0, 2, 4],
-        "pembahasan": "Karst menyimpan air di bawah tanah, sehingga penampungan permukaan, resapan, dan kuota berbasis daya dukung relevan. Larangan total dan ketergantungan permanen pada tanki bukan solusi struktural."
-      },
-      {
-        "id": "x-07-q4",
-        "tipe": "menjodohkan",
-        "level": "C3",
-        "literasi": "Mencocokkan istilah hidrologi dengan definisi/kasus",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Lima istilah",
-          "isi": "<p>(A) air hujan yang mengalir di permukaan; (B) wilayah yang dibatasi punggungan dan mengalir ke satu sungai; (C) lapisan pembawa air; (D) masuknya air laut ke akuifer; (E) pengurangan simpanan air tanah karena pengambilan melebihi imbuhan.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Jodohkan istilah dengan pengertiannya.",
-        "kiri": ["A", "B", "C", "D", "E"],
-        "kanan": ["Akuifer", "Limpasan", "DAS", "Over-abstraction", "Intrusi air laut"],
-        "kunci": [1, 2, 0, 4, 3],
-        "pembahasan": "A limpasan; B DAS; C akuifer; D intrusi; E over-abstraction."
-      },
-      {
-        "id": "x-07-q5",
-        "tipe": "benar_salah",
-        "level": "C3",
-        "literasi": "Menilai pernyataan hidrologi",
-        "numerasi": "Konsep neraca air",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Empat pernyataan",
-          "isi": "<p>Tentang air dan DAS.</p>",
-          "sumber": "—"
-        },
-        "pertanyaan": "Tentukan Benar atau Salah.",
-        "pernyataan": [
-          "Hutan umumnya memiliki koefisien limpasan lebih rendah daripada lahan terbuka.",
-          "Mangrove dapat mengurangi energi gelombang di pesisir.",
-          "Neraca air hanya memperhitungkan curah hujan dan limpasan.",
-          "Penurunan muka air tanah dapat memicu intrusi air laut."
-        ],
-        "kunci": ["B", "B", "S", "B"],
-        "pembahasan": "Neraca air juga memuat evapotranspirasi dan perubahan simpanan (ΔS)."
+        "pembahasan": "Penurunan muka air tanah dalam akibat ekstraksi industri menghilangkan tekanan air pori (pore water pressure) yang sebelumnya menopang lapisan tanah endapan aluvial lunak. Butiran lempung kemudian mengalami pemadatan (kompaksi) permanen yang memicu amblesan tanah."
       }
     ]
   },
@@ -149,145 +106,98 @@
     "id": "x-08",
     "kelas": "X",
     "urutan": 8,
+    "semester": 2,
+    "youtube_id": "mUvS48n9v3U",
     "fase": "E",
-    "elemen": "Keterampilan Proses",
-    "judul": "Mitigasi Bencana dan Tata Ruang Berbasis Risiko",
-    "ringkasan": "Dari peta bahaya ke rencana aksi: analisis risiko, mitigasi struktural–nonstruktural, dan penataan ruang.",
-    "estimasi": "6 JP",
-    "cp": "Peserta didik mampu menganalisis risiko bencana di lingkungannya dan menyusun rekomendasi mitigasi berbasis data geospasial.",
+    "elemen": "Pemahaman Konsep dan Mitigasi Kebencanaan",
+    "judul": "Mitigasi dan Adaptasi Bencana Kebumian Indonesia",
+    "ringkasan": "Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana.",
     "tujuan": [
-      "Menghitung dan membandingkan tingkat risiko bencana.",
-      "Membedakan mitigasi struktural dan nonstruktural.",
-      "Mengaitkan tata ruang dengan pengurangan risiko.",
-      "Menyusun rencana aksi mitigasi sekolah/desa."
+      "Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas.",
+      "Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana.",
+      "Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah.",
+      "Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi).",
+      "Menganalisis kearifan lokal mitigasi bencana di Nusantara (Smong di Simeulue, Subak di Bali, rumah panggung tradisional)."
     ],
     "materi": [
       {
-        "judul": "Rumus Risiko dan Komponennya",
-        "html": "<p>Risiko bencana dipahami sebagai fungsi dari <strong>bahaya</strong> (hazard), <strong>keterpaparan</strong> (exposure), <strong>kerentanan</strong> (vulnerability), dan <strong>kapasitas</strong> (capacity):</p><p><code>Risiko = (Bahaya × Keterpaparan × Kerentanan) ÷ Kapasitas</code></p><p>Bahaya adalah peluang kejadian (mis. intensitas hujan, magnitudo gempa). Keterpaparan adalah jumlah orang/aset di area terdampak. Kerentanan adalah kondisi yang membuat mudah rusak (bangunan rapuh, kelompok rentan). Kapasitas adalah kemampuan mengurangi dampak (peringatan dini, evakuasi, asuransi).</p><p>Implikasi kebijakan: menaikkan kapasitas adalah cara paling cepat menurunkan risiko tanpa harus memindahkan seluruh permukiman.</p>"
+        "id": "x08-t1",
+        "judul": "Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan",
+        "youtube_id": "mUvS48n9v3U",
+        "kuis_topik": {
+          "pertanyaan": "Berdasarkan rumus baku risiko bencana R = (H × V) / C, cara yang paling efektif untuk menurunkan tingkat risiko bencana di suatu wilayah adalah ...",
+          "opsi": [
+            "Meningkatkan kerentanan sosial dan ekonomi masyarakat",
+            "Memperbesar kapasitas masyarakat melalui kesiapsiagaan, tata ruang aman, dan infrastruktur tangguh sembari mereduksi kerentanan",
+            "Menunggu hingga bencana terjadi baru merencanakan mitigasi",
+            "Menghapus seluruh lembaga penanggulangan bencana"
+          ],
+          "kunci": 1,
+          "pembahasan": "Risiko (R) berbanding lurus dengan Bahaya/Hazard (H) dan Kerentanan/Vulnerability (V), serta berbanding terbalik dengan Kapasitas/Capacity (C). Karena ancaman alamiah (gempa) sulit dihilangkan, kunci penurunan risiko adalah menekan kerentanan (V) dan mendongkrak kapasitas (C) setinggi-tingginya."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>🛡️ Filosofi Penanggulangan Bencana Modern: Dari Responsif Menuju Preventif</h4>\n<p>Dahulu, penanganan bencana di Indonesia bersifat <em>responsif</em>: pemerintah dan masyarakat baru bertindak setelah bencana terjadi (membagikan mie instan dan mendirikan tenda pengungsian). Namun dalam paradigma geografi kebencanaan modern, fokus utama telah bergeser menjadi <strong>Preventif dan Pengurangan Risiko Bencana (PRB)</strong>.</p>\n<p>Setiap $1 yang diinvestasikan untuk mitigasi pra-bencana (seperti sistem peringatan dini, zonasi tata ruang bebas sesar, dan edukasi sekolah siaga bencana) terbukti mampu menghemat hingga $7 biaya pemulihan pasca-bencana dan menyelamatkan ribuan nyawa manusia.</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Mitigasi Bencana Kebumian dan InaRISK BNPB\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/mUvS48n9v3U?rel=0\" title=\"Video Pembelajaran: Mitigasi Bencana\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Pelajari siklus penanggulangan bencana, peta bahaya InaRISK, dan aksi kesiapsiagaan mandiri.\n  </div>\n</div>"
       },
       {
-        "judul": "Mitigasi Struktural dan Nonstruktural",
-        "html": "<table><thead><tr><th>Jenis</th><th>Contoh</th><th>Kelebihan</th><th>Keterbatasan</th></tr></thead><tbody><tr><td>Struktural</td><td>Tanggul, dam, bangunan tahan gempa, sabuk mangrove</td><td>Menahan bahaya langsung</td><td>Biaya tinggi; bisa memicu rasa aman berlebihan</td></tr><tr><td>Nonstruktural</td><td>Tata ruang, peringatan dini, edukasi, asuransi</td><td>Murah, cepat, luas</td><td>Butuh kepatuhan dan koordinasi</td></tr></tbody></table><p>Kombinasi terbaik biasanya keduanya. Tanggul tanpa tata ruang dapat mendorong pembangunan di area yang seharusnya dikosongkan (<em>levee effect</em>).</p>"
-      },
-      {
-        "judul": "Tata Ruang Berbasis Risiko",
-        "html": "<p>Tata ruang menetapkan pola ruang (kawasan lindung/budidaya) dan struktur ruang (pusat pertumbuhan, jaringan jalan). Dalam kerangka risiko, tiga prinsip dipakai: <strong>menghindari</strong> (tidak membangun di zona bahaya tinggi), <strong>menyesuaikan</strong> (desain bangunan dan penggunaan lahan terbatas), dan <strong>memulihkan</strong> (rehabilitasi ekosistem pelindung).</p><p>Contoh nyata: kota-kota pesisir yang memasukkan kenaikan muka laut ke dalam rencana detail tata ruang; kabupaten yang menjadikan peta kerawanan sebagai dasar izin lokasi. Diperkuat dengan peraturan lingkungan (mis. larangan membuka lahan dengan membakar—Surat Edaran Kementerian Lingkungan Hidup No. 16 Tahun 2026).</p>"
-      },
-      {
-        "judul": "Menyusun Rencana Aksi Mitigasi",
-        "html": "<p>Langkah kerja: (1) identifikasi bahaya dan riwayat kejadian; (2) petakan keterpaparan dan kerentanan; (3) inventarisasi kapasitas; (4) hitung prioritas risiko; (5) susun aksi dengan penanggung jawab, jadwal, dan indikator; (6) uji melalui simulasi; (7) evaluasi berkala.</p><p>Contoh indikator: persentase kelas memiliki jalur evakuasi, waktu evakuasi ke titik kumpul, rasio anggaran mitigasi, jumlah warga terlatih. Indikator membuat mitigasi terukur, bukan sekadar kegiatan seremonial.</p>"
+        "id": "x08-t2",
+        "judul": "Topik 2: Kearifan Lokal Nusantara & Peringatan Dini Geospasial",
+        "kuis_topik": {
+          "pertanyaan": "Kearifan lokal masyarakat Pulau Simeulue di Aceh yang berhasil menyelamatkan hampir seluruh warganya saat Tsunami Samudra Hindia 2004 karena menghafal syair lisan turun-temurun tentang air laut surut tiba-tiba setelah gempa kuat dikenal dengan istilah ...",
+          "opsi": [
+            "Subak",
+            "Smong",
+            "Pranata Mangsa",
+            "Nyabuk Gunung"
+          ],
+          "kunci": 1,
+          "pembahasan": "Kearifan lokal Smong di Simeulue berpesan: jika terjadi gempa bumi kuat dan air laut surut tiba-tiba, jangan mencari ikan yang terdampar di pantai, melainkan segera lari ke bukit yang lebih tinggi. Nilai kearifan ini terbukti sangat efektif sebagai sistem peringatan dini berbasis komunitas."
+        },
+        "html": "<h3>Kearifan Lokal Mitigasi Bencana di Berbagai Daerah</h3>\n<ul>\n  <li><strong>Smong (Simeulue, Aceh):</strong> Tradisi tutur lisan yang mengajarkan evakuasi mandiri ke bukit ketika melihat air laut surut pasca-gempa kuat.</li>\n  <li><strong>Rumah Adat Vernakular Tahan Gempa:</strong> Rumah Gadang Minangkabau (sambungan pasak kayu tanpa paku kaku), Omo Hada di Nias, dan Rumah Panggung Sasak yang elastis menyerap getaran seismik.</li>\n  <li><strong>Nyabuk Gunung / Sengkedan (Jawa):</strong> Penanaman searah garis kontur untuk mencegah erosi dan longsor di lahan perbukitan.</li>\n</ul>"
       }
     ],
     "glosarium": [
-      { "istilah": "kerentanan", "arti": "kondisi yang membuat individu/aset mudah terkena dampak bencana" },
-      { "istilah": "kapasitas", "arti": "sumber daya dan kemampuan untuk mengurangi dan menghadapi risiko" },
-      { "istilah": "levee effect", "arti": "peningkatan pembangunan di area berbahaya setelah dibangunnya pelindung" },
-      { "istilah": "mitigasi nonstruktural", "arti": "upaya pengurangan risiko melalui kebijakan, edukasi, dan informasi" }
+      {
+        "istilah": "Mitigasi",
+        "arti": "Rangkaian upaya untuk mengurangi risiko bencana, baik melalui pembangunan fisik maupun penyadaran kemampuan menghadapi bencana."
+      },
+      {
+        "istilah": "Kesiapsiagaan",
+        "arti": "Rangkaian kegiatan yang dilakukan untuk mengantisipasi bencana melalui pengorganisasian langkah yang tepat guna."
+      },
+      {
+        "istilah": "Tanggap Darurat",
+        "arti": "Serangkaian kegiatan yang dilakukan segera pada saat kejadian bencana untuk menangani dampak buruk."
+      },
+      {
+        "istilah": "Smong",
+        "arti": "Kearifan lokal masyarakat Simeulue berupa peringatan dini tsunami berbasis cerita tutur turun temurun."
+      }
     ],
     "soal": [
       {
         "id": "x-08-q1",
-        "tipe": "pg_singkat",
-        "level": "C5",
-        "literasi": "Menghitung prioritas berdasarkan komponen risiko",
-        "numerasi": "Perbandingan rasio risiko",
-        "stimulus": {
-          "jenis": "tabel",
-          "judul": "Tiga wilayah, tiga prioritas",
-          "isi": "<p>Skor bahaya 1–10, keterpaparan dan kerentanan 1–10 (semakin tinggi semakin buruk), kapasitas 1–10 (semakin tinggi semakin baik).</p><table><thead><tr><th>Wilayah</th><th>Bahaya</th><th>Keterpaparan</th><th>Kerentanan</th><th>Kapasitas</th></tr></thead><tbody><tr><td>P</td><td>9</td><td>4</td><td>5</td><td>8</td></tr><tr><td>Q</td><td>7</td><td>8</td><td>7</td><td>3</td></tr><tr><td>R</td><td>5</td><td>9</td><td>8</td><td>6</td></tr></tbody></table>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Wilayah dengan prioritas risiko tertinggi, dan alasan utamanya adalah ...",
-        "opsi": [
-          "Q, karena keterpaparan dan kerentanan tinggi dengan kapasitas rendah",
-          "P, karena bahayanya paling tinggi",
-          "R, karena keterpaparan paling tinggi",
-          "Q, karena bahaya paling tinggi",
-          "P, karena kapasitasnya paling tinggi"
-        ],
-        "kunci": [0],
-        "pembahasan": "Rasio Q = (7×8×7)/3 ≈ 131; P = (9×4×5)/8 = 22,5; R = (5×9×8)/6 = 60. Q tertinggi karena kapasitas rendah."
-      },
-      {
-        "id": "x-08-q2",
         "tipe": "pgm",
         "level": "C4",
-        "literasi": "Menganalisis dampak pilihan mitigasi",
+        "literasi": "Mengklasifikasikan tindakan mitigasi struktural dan non-struktural",
         "numerasi": "Tidak dominan",
         "stimulus": {
           "jenis": "teks",
-          "judul": "Tanggul baru, pembangunan meluas",
-          "isi": "<p>Setelah tanggul dibangun, harga lahan di belakang tanggul naik dan pembangunan permukiman meluas ke area bekas genangan. Lima tahun kemudian, saat hujan ekstrem, kerugian tercatat lebih besar daripada sebelum tanggul ada.</p>",
-          "sumber": "ilustrasi sintetis (fenomena levee effect)"
+          "judul": "Program Pengurangan Risiko Bencana di Kabupaten Pesisir",
+          "isi": "<p>Pemerintah kabupaten menjalankan 4 program: (1) Penanaman sabuk hijau mangrove selebar 100 meter di sepanjang garis pantai; (2) Pembangunan shelter evakuasi vertikal bertingkat 4 dari beton bertulang; (3) Pelatihan simulasi evakuasi mandiri siswa sekolah setiap tanggal 26; (4) Penerbitan Perda Zonasi RTRW yang melarang pendirian hotel di sempadan pantai rawan tsunami.</p>",
+          "sumber": "BPBD Kabupaten Pesisir"
         },
-        "pertanyaan": "Pernyataan yang tepat: (1) fenomena ini disebut levee effect; (2) tanggul menurunkan bahaya tetapi meningkatkan keterpaparan; (3) kerugian meningkat karena jumlah aset bertambah; (4) tanggul terbukti tidak pernah bermanfaat.",
-        "opsi": ["(1), (2), dan (3)", "(1) dan (4)", "(2) dan (3)", "(1), (2), (3), dan (4)", "Hanya (1)"],
-        "kunci": [0],
-        "pembahasan": "Tanggul tetap bermanfaat menahan banjir kecil, tetapi tanpa pengendalian tata ruang keterpaparan naik sehingga kerugian total bisa lebih besar."
-      },
-      {
-        "id": "x-08-q3",
-        "tipe": "pg_kompleks",
-        "level": "C5",
-        "literasi": "Menyusun paket mitigasi sekolah",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "poster",
-          "judul": "Poster 'Sekolah Tangguh'",
-          "isi": "<div style='border:2px dashed #0d9488;border-radius:12px;padding:12px'><p style='font-weight:700;margin:0 0 6px'>TARGET: 30 MENIT SIAP</p><ol style='margin:0 0 0 18px;padding:0'><li>Peta evakuasi per lantai</li><li>Simulasi 2× per semester</li><li>Tim siaga siswa</li><li>Kotak P3K dan alat pemadam</li><li>Nomor darurat terpasang</li></ol></div>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Pilih semua ukuran keberhasilan yang tepat untuk program tersebut.",
+        "pertanyaan": "Manakah pasangan klasifikasi mitigasi yang tepat?",
         "opsi": [
-          "Waktu evakuasi rata-rata seluruh kelas",
-          "Persentase siswa yang mengetahui dua jalur keluar",
-          "Jumlah poster yang dicetak",
-          "Ketersediaan dan kelayakan alat darurat",
-          "Hasil evaluasi simulasi per semester"
+          "(1) dan (2) adalah mitigasi struktural; (3) dan (4) adalah mitigasi non-struktural",
+          "(1) dan (3) adalah mitigasi struktural; (2) dan (4) adalah mitigasi non-struktural",
+          "Seluruh program merupakan mitigasi darurat pasca bencana",
+          "(4) adalah satu-satunya mitigasi struktural"
         ],
-        "kunci": [0, 1, 3, 4],
-        "pembahasan": "Jumlah poster adalah keluaran administratif, bukan indikator kesiapsiagaan. Indikator harus mengukur perilaku, waktu, dan kesiapan alat."
-      },
-      {
-        "id": "x-08-q4",
-        "tipe": "menjodohkan",
-        "level": "C3",
-        "literasi": "Membedakan jenis tindakan mitigasi",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Lima tindakan",
-          "isi": "<p>(A) membangun tanggul laut; (B) menetapkan zona larangan membangun di bantaran; (C) memasang sirene peringatan dini; (D) menanam mangrove; (E) mengadakan simulasi evakuasi rutin.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Jodohkan tindakan dengan jenisnya.",
-        "kiri": ["A", "B", "C", "D", "E"],
-        "kanan": ["Nonstruktural (informasi)", "Struktural (bangunan)", "Nonstruktural (regulasi)", "Struktural (ekosistem)", "Nonstruktural (pendidikan)"],
-        "kunci": [1, 2, 0, 3, 4],
-        "pembahasan": "Tanggul struktural; zonasi regulasi; sirene informasi; mangrove struktural-ekosistem; simulasi pendidikan."
-      },
-      {
-        "id": "x-08-q5",
-        "tipe": "benar_salah",
-        "level": "C4",
-        "literasi": "Menilai pernyataan risiko",
-        "numerasi": "Konsep rasio",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Empat pernyataan",
-          "isi": "<p>Tentang risiko dan tata ruang.</p>",
-          "sumber": "—"
-        },
-        "pertanyaan": "Tentukan Benar atau Salah.",
-        "pernyataan": [
-          "Meningkatkan kapasitas akan menurunkan risiko bila bahaya tetap.",
-          "Zona bahaya tinggi sebaiknya dijadikan kawasan budidaya intensif.",
-          "Mitigasi struktural selalu lebih baik daripada nonstruktural.",
-          "Peta kerawanan dapat menjadi dasar pertimbangan izin lokasi."
+        "kunci": [
+          0
         ],
-        "kunci": ["B", "S", "S", "B"],
-        "pembahasan": "Zona bahaya tinggi sebaiknya dibatasi untuk permukiman intensif. Efektivitas mitigasi bergantung konteks dan biasanya memerlukan kombinasi."
+        "pembahasan": "Mitigasi struktural melibatkan rekayasa fisik/teknik/vegetatif (hutan mangrove dan bangunan shelter). Mitigasi non-struktural melibatkan regulasi hukum, kebijakan tata ruang, edukasi, dan simulasi kesiapsiagaan manusia."
       }
     ]
   }

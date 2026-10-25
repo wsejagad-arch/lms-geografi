@@ -1,0 +1,247 @@
+[
+  {
+    "id": "xii-04",
+    "kelas": "XII",
+    "urutan": 4,
+    "semester": 2,
+    "youtube_id": "aN7wK2mP_9Y",
+    "fase": "F",
+    "elemen": "Pemahaman Konsep Negara Maju dan Negara Berkembang",
+    "judul": "Karakteristik Wilayah Negara Maju dan Negara Berkembang",
+    "ringkasan": "Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi.",
+    "tujuan": [
+      "Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi).",
+      "Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan).",
+      "Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi).",
+      "Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang.",
+      "Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju."
+    ],
+    "materi": [
+      {
+        "id": "xii04-t1",
+        "judul": "Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026",
+        "youtube_id": "aN7wK2mP_9Y",
+        "kuis_topik": {
+          "pertanyaan": "Human Development Index (HDI) yang dirilis UNDP mengukur keberhasilan pembangunan manusia suatu negara tidak hanya dari pendapatan ekonomi riil, melainkan dari tiga dimensi dasar yaitu ...",
+          "opsi": [
+            "Kesehatan (umur panjang dan sehat), Pendidikan (lama sekolah), dan Standar Hidup Layak (pengeluaran per kapita)",
+            "Jumlah pesawat tempur, luas wilayah laut, dan panjang jalan tol",
+            "Banyaknya tambang emas dan gedung bertingkat",
+            "Kecepatan jaringan internet dan jumlah pengguna media sosial"
+          ],
+          "kunci": 0,
+          "pembahasan": "Indeks Pembangunan Manusia (IPM / HDI) dibangun dari 3 pilar esensial peradaban: (1) Umur panjang dan hidup sehat yang diukur dari Angka Harapan Hidup saat lahir, (2) Pengetahuan yang diukur dari Harapan Lama Sekolah dan Rata-rata Lama Sekolah, serta (3) Standar hidup layak yang diukur dari Pendapatan Nasional Bruto (GNI) per kapita disesuaikan paritas daya beli (PPP)."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>🌏 Analisis Global 2026: Strategi Indonesia Lepas dari Jebakan Pendapatan Menengah</h4>\n<p>Banyak negara di dunia terjebak dalam <strong>Middle Income Trap</strong>: berhasil keluar dari status negara miskin berkat upah buruh murah dan ekspor komoditas mentah, namun gagal bertransformasi menjadi negara maju berpenghasilan tinggi karena produktivitas stagnan dan riset teknologi rendah.</p>\n<p>Untuk melompat menjadi negara maju pada peringatan satu abad kemerdekaan (Indonesia Emas 2045), Indonesia menggenjot 3 pilar spasial: hilirisasi SDA nikel dan bauksit di luar Jawa, pemerataan infrastruktur logistik antarpulau, dan peningkatan belanja riset sains inovasi teknologi digital.</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Karakteristik Negara Maju dan Negara Berkembang di Dunia\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/aN7wK2mP_9Y?rel=0\" title=\"Video Pembelajaran: Negara Maju vs Berkembang\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Pelajari indikator IPM (HDI), Global North vs South, teori Rostow, dan transformasi ekonomi.\n  </div>\n</div>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "HDI / IPM",
+        "arti": "Indeks komposit yang mengukur pencapaian rata-rata suatu negara dalam kesehatan, pendidikan, dan standar hidup."
+      },
+      {
+        "istilah": "Global North-South",
+        "arti": "Pembagian sosio-ekonomi dan politik dunia antara negara-negara maju (mayoritas di belahan bumi utara) dan berkembang."
+      },
+      {
+        "istilah": "Middle Income Trap",
+        "arti": "Keadaan ketika suatu negara mencapai tingkat pendapatan menengah namun terhambat untuk naik menjadi negara maju."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xii-04-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menganalisis pergeseran struktur ketenagakerjaan dari agraris ke industri jasa",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Struktur Tenaga Kerja Berdasarkan Sektor Ekonomi di Dua Negara",
+          "isi": "<table><thead><tr><th>Negara</th><th>Sektor Primer (Pertanian/Tambang)</th><th>Sektor Sekunder (Manufaktur)</th><th>Sektor Tersier (Jasa, Riset, Finansial)</th></tr></thead><tbody><tr><td>Negara X</td><td>3%</td><td>22%</td><td>75%</td></tr><tr><td>Negara Y</td><td>48%</td><td>18%</td><td>34%</td></tr></tbody></table>",
+          "sumber": "Organisasi Buruh Internasional (ILO)"
+        },
+        "pertanyaan": "Berdasarkan data struktur ketenagakerjaan di atas, kesimpulan geografis yang paling valid adalah ...",
+        "opsi": [
+          "Negara X adalah negara maju dengan perekonomian berbasis teknologi tinggi dan jasa bernilai tambah, sedangkan Negara Y adalah negara berkembang yang masih bergantung pada sektor agraris",
+          "Negara Y lebih maju karena memproduksi lebih banyak padi",
+          "Kedua negara berada pada tahap masyarakat tradisional",
+          "Negara X terancam kelaparan karena kekurangan petani"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Ciri khas negara maju (Negara X) adalah dominasi sektor tersier (jasa, inovasi, keuangan > 70%) dan modernisasi sektor primer melalui mekanisasi otomatis sehingga hanya butuh sedikit tenaga kerja namun sangat efisien. Sebaliknya, negara berkembang (Negara Y) masih menyerap hampir separuh tenaga kerjanya di sektor pertanian manual berupah rendah."
+      }
+    ]
+  },
+  {
+    "id": "xii-05",
+    "kelas": "XII",
+    "urutan": 5,
+    "semester": 2,
+    "youtube_id": "qL5pJ8xM_3E",
+    "fase": "F",
+    "elemen": "Pemahaman Geopolitik dan Kerja Sama Antarwilayah",
+    "judul": "Kerja Sama Keruangan Antarwilayah dan Geopolitik Global",
+    "ringkasan": "Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis.",
+    "tujuan": [
+      "Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi.",
+      "Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS).",
+      "Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia.",
+      "Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga.",
+      "Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global."
+    ],
+    "materi": [
+      {
+        "id": "xii05-t1",
+        "judul": "Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026",
+        "youtube_id": "qL5pJ8xM_3E",
+        "kuis_topik": {
+          "pertanyaan": "Persetujuan Kemitraan Ekonomi Komprehensif Regional (Regional Comprehensive Economic Partnership / RCEP) yang melibatkan 10 negara ASEAN ditambah 5 mitra (Tiongkok, Jepang, Korea Selatan, Australia, Selandia Baru) merupakan blok perdagangan bebas terbesar di dunia karena ...",
+          "opsi": [
+            "Hanya memperdagangkan satu jenis komoditas gandum",
+            "Mencakup hampir 30% dari total populasi dunia dan sekitar 30% dari Produk Domestik Bruto (PDB) global, menciptakan kawasan perdagangan bebas terpadu tanpa tarif yang luas",
+            "Mewajibkan semua negara anggota menggunakan mata uang yang sama",
+            "Menghapus seluruh batas kedaulatan negara anggota"
+          ],
+          "kunci": 1,
+          "pembahasan": "RCEP adalah blok perdagangan bebas raksasa yang mencakup 2,3 miliar penduduk dunia dan sepertiga perekonomian global. Keikutsertaan Indonesia memperluas akses pasar ekspor manufaktur, produk kelautan, dan komoditas olahan nikel tanpa hambatan tarif tinggi."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>🌐 Diplomasi Strategis 2026: Menguatnya Posisi Tawar Mineral Kritis Indonesia</h4>\n<p>Dalam transisi energi hijau global dari bahan bakar fosil menuju kendaraan listrik dan energi terbarukan, dunia sangat bergantung pada <em>Critical Raw Materials (CRM)</em> seperti nikel, litium, kobalt, tembaga, dan bauksit.</p>\n<p>Sebagai produsen nikel nomor satu di dunia, posisi geopolitik Indonesia di forum internasional (G20, ASEAN, dan kemitraan bilateral) meningkat pesat. Indonesia mempraktikkan <strong>Diplomasi Non-Blok Aktif</strong>: bermitra secara seimbang dengan negara-negara Barat, Asia Timur, dan negara-negara Selatan Global (Global South) demi kepentingan nasional dan kedaulatan ekonomi rakyat.</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Kerja Sama Keruangan Global dan Geopolitik Dunia\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/qL5pJ8xM_3E?rel=0\" title=\"Video Pembelajaran: Geopolitik Global\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Pelajari teori interaksi spasial Ullman, blok perdagangan RCEP, dan diplomasi batas negara.\n  </div>\n</div>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Geopolitik",
+        "arti": "Kebijakan politik suatu negara yang dipengaruhi oleh letak geografis, bentang alam, dan sumber daya alam wilayahnya."
+      },
+      {
+        "istilah": "Rantai Pasok Global",
+        "arti": "Jaringan internasional terpadu yang memproduksi dan mendistribusikan barang dari bahan mentah hingga ke konsumen akhir."
+      },
+      {
+        "istilah": "Mineral Kritis",
+        "arti": "Mineral yang memiliki peran sangat vital bagi industri strategis dan pertahanan namun rentan terhadap gangguan pasokan."
+      },
+      {
+        "istilah": "RCEP",
+        "arti": "Persetujuan Kemitraan Ekonomi Komprehensif Regional antara negara ASEAN dan lima negara mitra dagang utama."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xii-05-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menganalisis teori komplementaritas regional Edward Ullman",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Perdagangan Antarwilayah: Indonesia dan Jepang",
+          "isi": "<p>Indonesia kaya akan bijih nikel dan bauksit olahan namun membutuhkan teknologi presisi tinggi dan mesin industri otomotif. Jepang memiliki keunggulan riset manufaktur canggih namun sama sekali tidak memiliki cadangan tambang nikel alami.</p>",
+          "sumber": "Analisis Perdagangan Internasional Kementerian Perdagangan"
+        },
+        "pertanyaan": "Berdasarkan teori interaksi spasial Edward Ullman, faktor pendorong utama terjadinya arus perdagangan intensif antara Indonesia dan Jepang adalah ...",
+        "opsi": [
+          "Regional Complementarity (Komplementaritas Regional / Saling Melengkapi Kebutuhan)",
+          "Intervening Opportunity (Kesempatan Intervensi Pihak Ketiga)",
+          "Spatial Transferability Barrier",
+          "Homogenitas Geologis"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Regional complementarity (komplementaritas regional) timbul ketika ada perbedaan ketersediaan sumber daya alam dan kebutuhan antardaerah: Wilayah A memiliki surplus barang yang dibutuhkan Wilayah B, dan sebaliknya, sehingga tercipta hubungan saling melengkapi."
+      }
+    ]
+  },
+  {
+    "id": "xii-06",
+    "kelas": "XII",
+    "urutan": 6,
+    "semester": 2,
+    "youtube_id": "wH4pL9bZ-2s",
+    "fase": "F",
+    "elemen": "Pemahaman Isu Keruangan Global dan Masa Depan Bumi",
+    "judul": "Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi",
+    "ringkasan": "Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi.",
+    "tujuan": [
+      "Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra).",
+      "Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia.",
+      "Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya.",
+      "Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global.",
+      "Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab."
+    ],
+    "materi": [
+      {
+        "id": "xii06-t1",
+        "judul": "Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030",
+        "youtube_id": "wH4pL9bZ-2s",
+        "kuis_topik": {
+          "pertanyaan": "Era geologis baru di mana aktivitas manusia telah menjadi kekuatan pendorong paling dominan dalam mengubah iklim, atmosfer, biosfer, dan lanskap permukaan bumi secara global dikenal sebagai era ...",
+          "opsi": [
+            "Antroposen (Anthropocene)",
+            "Pleistosen",
+            "Kambrium",
+            "Mesozoikum"
+          ],
+          "kunci": 0,
+          "pembahasan": "Antroposen adalah istilah ilmiah untuk mendeskripsikan kurun waktu geologis bumi masa kini, di mana jejak aktivitas manusia (pembakaran bahan bakar fosil, deforestasi masif, plastik, uji nuklir) telah mengubah susunan kimiawi atmosfer dan sistem bumi melebihi kekuatan alamiah."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>🌍 Agenda Bumi 2026: Menuju Tenggat SDGs 2030 dan Keadilan Antargenerasi</h4>\n<p>Dunia hanya memiliki sisa waktu kurang dari 5 tahun menjelang batas waktu pencapaian <strong>Sustainable Development Goals (SDGs 2030)</strong>. Dari 17 tujuan pembangunan berkelanjutan—mulai dari Tanpa Kemiskinan (SDG 1), Penanganan Perubahan Iklim (SDG 13), hingga Ekosistem Daratan (SDG 15)—banyak target yang memerlukan akselerasi radikal.</p>\n<p>Bagi generasi muda Indonesia yang akan memegang tampuk kepemimpinan pada <em>Indonesia Emas 2045</em>, literasi geografi bukan sekadar menghafal nama gunung atau teluk. Literasi geografi adalah <strong>kompas etika keruangan</strong> untuk memastikan bahwa setiap gedung yang dibangun, setiap tambang yang digali, dan setiap kebijakan yang diambil tidak mengorbankan hak anak-cucu kita untuk menghirup udara bersih dan hidup damai di planet bumi yang lestari.</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Isu Keruangan Global, Agenda SDGs 2030, dan Masa Depan Planet Bumi\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/wH4pL9bZ-2s?rel=0\" title=\"Video Pembelajaran: Isu Keruangan Global & SDGs\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Pelajari krisis iklim global, keadilan iklim antargenerasi, dan aksi nyata pencapaian SDGs 2030.\n  </div>\n</div>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Antroposen",
+        "arti": "Zaman geologis modern di mana aktivitas manusia menjadi pemicu utama perubahan iklim dan ekosistem global."
+      },
+      {
+        "istilah": "Climate Refugees",
+        "arti": "Orang atau kelompok yang terpaksa meninggalkan tempat tinggal asalnya akibat dampak perubahan iklim ekstrem."
+      },
+      {
+        "istilah": "Keadilan Iklim",
+        "arti": "Konsep yang memandang krisis iklim sebagai masalah etika, hak asasi manusia, dan keadilan sosial antargenerasi."
+      },
+      {
+        "istilah": "Biokapasitas",
+        "arti": "Kapasitas ekosistem bumi untuk menghasilkan sumber daya hayati yang berguna dan menyerap limbah buangan manusia."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xii-06-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menganalisis prinsip keadilan iklim antargenerasi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Gugatan Hukum Iklim Kaum Muda Internasional",
+          "isi": "<p>Kelompok generasi muda di berbagai negara mengajukan gugatan perdata lingkungan ke pengadilan terhadap pemerintah mereka karena lambatnya dekarbonisasi energi. Mereka menuntut hak konstitusional atas lingkungan hidup yang bersih dan sehat untuk generasi masa depan.</p>",
+          "sumber": "Laporan Keadilan Iklim PBB"
+        },
+        "pertanyaan": "Konsep etika keruangan apa yang menjadi fondasi gugatan hukum iklim tersebut?",
+        "opsi": [
+          "Intergenerational Climate Justice (Keadilan Iklim Antargenerasi), bahwa generasi saat ini berkewajiban moral menjaga kelayakan huni bumi bagi generasi mendatang",
+          "Eksploitasi sumber daya alam tanpa batas",
+          "Penyerahan seluruh tanggung jawab iklim kepada alam",
+          "Pembangunan industri tanpa izin lingkungan"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Keadilan iklim antargenerasi (intergenerational justice) menegaskan bahwa generasi saat ini bertindak sebagai wali bumi (steward of the earth) yang tidak berhak menghabiskan sumber daya dan mewariskan kehancuran ekologis kepada generasi penerus."
+      }
+    ]
+  }
+]

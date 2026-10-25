@@ -1,0 +1,247 @@
+[
+  {
+    "id": "xii-01",
+    "kelas": "XII",
+    "urutan": 1,
+    "semester": 1,
+    "youtube_id": "tK2pW8yZ_1o",
+    "fase": "F",
+    "elemen": "Pemahaman Konsep Tata Ruang dan Pengembangan Wilayah",
+    "judul": "Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional",
+    "ringkasan": "Mengkonstruksi ruang masa depan: konsep wilayah formal & fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN).",
+    "tujuan": [
+      "Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya.",
+      "Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal).",
+      "Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital.",
+      "Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris.",
+      "Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi."
+    ],
+    "materi": [
+      {
+        "id": "xii01-t1",
+        "judul": "Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026",
+        "youtube_id": "tK2pW8yZ_1o",
+        "kuis_topik": {
+          "pertanyaan": "Teori Kutub Pertumbuhan (Growth Poles Theory) dari François Perroux menyatakan bahwa pembangunan tidak terjadi di sembarang tempat secara serentak, melainkan muncul di titik-titik kutub tertentu dengan intensitas berbeda. Dampak penjalaran positif dari kutub pertumbuhan ke wilayah hinterland sekitarnya disebut ...",
+          "opsi": [
+            "Backwash Effect (Efek Polarisasi Menghisap)",
+            "Spread Effect / Trickle-Down Effect (Efek Penjalaran Menyebar)",
+            "Slum Area Effect",
+            "Centrifugal Barrier"
+          ],
+          "kunci": 1,
+          "pembahasan": "Menurut François Perroux dan Gunnar Myrdal, kutub pertumbuhan memicu dua efek: Spread Effect / Trickle Down Effect (dampak positif penjalaran kemajuan dan permintaan bahan baku ke wilayah hinterland) dan Backwash Effect (dampak negatif tersedotnya tenaga kerja terampil dan modal dari desa ke pusat pertumbuhan)."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>🏙️ Geostrategi Wilayah 2026: Mengubah Paradigma Jawa-Sentris Menjadi Indonesia-Sentris</h4>\n<p>Selama puluhan tahun, struktur keruangan ekonomi Indonesia mengalami ketimpangan spasial yang sangat tajam: <strong>Pulau Jawa yang luasnya hanya ±7% dari total wilayah Indonesia menyumbang sekitar 57% Produk Domestik Bruto (PDB) nasional</strong> dan dihuni lebih dari 56% penduduk.</p>\n<p>Pemindahan pusat pemerintahan ke <strong>IKN Nusantara di Kalimantan Timur</strong> dirancang sebagai pembentukan <em>Superhub Ekonomi Baru</em> di tengah kepulauan Nusantara. IKN bersama mitra kota Balikpapan dan Samarinda berperan sebagai kutub pertumbuhan pemicu penjalaran ekonomi (spread effect) ke seluruh Kawasan Timur Indonesia (KTI).</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Tata Ruang Wilayah, Teori Keruangan, dan Pembangunan IKN Nusantara\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/tK2pW8yZ_1o?rel=0\" title=\"Video Pembelajaran: Tata Ruang Wilayah\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Pelajari konsep RTRW, hierarki tempat sentral Christaller, kutub pertumbuhan Perroux, dan perencanaan IKN.\n  </div>\n</div>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Wilayah Formal",
+        "arti": "Wilayah yang dicirikan oleh keseragaman atau homogenitas kriteria fisik atau sosial tertentu (misal kawasan karst, suku Badui)."
+      },
+      {
+        "istilah": "Wilayah Fungsional",
+        "arti": "Wilayah yang dicirikan oleh adanya interelasi dan interaksi heterogen antara titik pusat (node) dengan kawasan sekitarnya (misal Jabodetabek)."
+      },
+      {
+        "istilah": "Kutub Pertumbuhan",
+        "arti": "Pusat konsentrasi kegiatan ekonomi yang mampu menyebarkan pengaruh pembangunan ke wilayah sekitarnya."
+      },
+      {
+        "istilah": "RTRW",
+        "arti": "Rencana Tata Ruang Wilayah, pedoman pembangunan keruangan jangka panjang (20 tahun) di Indonesia."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xii-01-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menganalisis dampak polarisasi spasial Backwash Effect Myrdal",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Ketimpangan Ekonomi Kota Metropolitan dan Desa Hinterland",
+          "isi": "<p>Pesatnya pertumbuhan industri di Kota Metropolitan menarik ribuan pemuda lulusan terbaik dari desa-desa sekitar, disertai modal tabungan masyarakat desa yang dialihkan ke bank-bank di ibu kota. Akibatnya, desa tertinggal dan kekurangan tenaga produktif.</p>",
+          "sumber": "Kajian Ekonomi Spasial Bappenas"
+        },
+        "pertanyaan": "Fenomena tersedotnya sumber daya manusia dan modal dari kawasan penyangga ke pusat kota ini dalam teori Gunnar Myrdal disebut ...",
+        "opsi": [
+          "Backwash Effect",
+          "Spread Effect",
+          "Trickle-Down Effect",
+          "Homogenitas Wilayah"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Backwash effect adalah kekuatan polarisasi yang merugikan wilayah tertinggal/desa di mana faktor-faktor produksi (tenaga kerja muda potensial dan modal finansial) mengalir tersedot ke pusat pertumbuhan metropolitan yang lebih menguntungkan."
+      }
+    ]
+  },
+  {
+    "id": "xii-02",
+    "kelas": "XII",
+    "urutan": 2,
+    "semester": 1,
+    "youtube_id": "eM9xJ4pL-5A",
+    "fase": "F",
+    "elemen": "Pemahaman Konsep Interaksi Spasial Desa dan Kota",
+    "judul": "Pola Keruangan dan Interaksi Spasial Desa-Kota",
+    "ringkasan": "Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris & sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota.",
+    "tujuan": [
+      "Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis.",
+      "Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman).",
+      "Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly.",
+      "Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory).",
+      "Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026."
+    ],
+    "materi": [
+      {
+        "id": "xii02-t1",
+        "judul": "Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026",
+        "youtube_id": "eM9xJ4pL-5A",
+        "kuis_topik": {
+          "pertanyaan": "Jumlah penduduk Kota A adalah 20.000 jiwa dan Kota B adalah 5.000 jiwa. Jarak antara kedua kota adalah 30 km. Menurut rumus Titik Henti Carrothers D_AB = Jarak / (1 + sqrt(P_A / P_B)), di manakah lokasi ideal pembangunan fasilitas rumah sakit bersama?",
+          "opsi": [
+            "10 km dari Kota B (kota yang penduduknya lebih sedikit)",
+            "10 km dari Kota A (kota yang penduduknya lebih banyak)",
+            "15 km tepat di tengah-tengah kedua kota",
+            "30 km di luar kedua kota"
+          ],
+          "kunci": 0,
+          "pembahasan": "D_AB = 30 / (1 + sqrt(20.000 / 5.000)) = 30 / (1 + sqrt(4)) = 30 / (1 + 2) = 30 / 3 = 10 km. Jarak titik henti selalu diukur dari kota dengan populasi lebih kecil (Kota B), sehingga lokasi ideal adalah 10 km dari Kota B."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>🏙️ Dinamika Megapolitan 2026: Konurbasi Jabodetabekpunjur dan Aglomerasi Bodetabek</h4>\n<p>Kawasan Megapolitan <strong>Jabodetabekpunjur</strong> (Jakarta, Bogor, Depok, Tangerang, Bekasi, Puncak, Cianjur) dengan populasi lebih dari 35 juta jiwa menjadi salah satu kawasan aglomerasi perkotaan terbesar di dunia. Setiap hari, jutaan komuter melakukan mobilitas ulang-alik (commuter mobility) melintasi batas administratif wilayah.</p>\n<p>Kajian interaksi keruangan membuktikan bahwa persoalan kemacetan lalu lintas, banjir kiriman DAS Ciliwung, dan penyediaan perumahan terjangkau tidak dapat diselesaikan oleh Jakarta sendirian. Dibutuhkan perencanaan <em>Transit-Oriented Development (TOD)</em> terintegrasi berbasis MRT, LRT, dan KRL Commuter Line lintas wilayah.</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Interaksi Spasial Desa dan Kota serta Teori Struktur Keruangan\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/eM9xJ4pL-5A?rel=0\" title=\"Video Pembelajaran: Interaksi Desa-Kota\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Pelajari teori gravitasi keruangan Reilly, rumus titik henti, dan struktur morfologi kota.\n  </div>\n</div>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "Interaksi Spasial",
+        "arti": "Hubungan timbal balik yang saling memengaruhi antara dua wilayah atau lebih yang menghasilkan fenomena baru."
+      },
+      {
+        "istilah": "Hukum Gravitasi Reilly",
+        "arti": "Model matematis yang menyatakan kekuatan interaksi dua wilayah berbanding lurus dengan perkalian populasi dan berbanding terbalik dengan kuadrat jarak."
+      },
+      {
+        "istilah": "Titik Henti",
+        "arti": "Jarak batas matematis dari wilayah berpopulasi lebih kecil untuk penempatan lokasi pelayanan strategis."
+      },
+      {
+        "istilah": "Urban Sprawl",
+        "arti": "Pemekaran fisik kenampakan perkotaan ke arah wilayah pinggiran pedesaan secara acak dan tidak terencana."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xii-02-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menghitung kekuatan interaksi gravitasi wilayah",
+        "numerasi": "Perhitungan matematis kuadrat jarak",
+        "stimulus": {
+          "jenis": "tabel",
+          "judul": "Data Tiga Kota yang Saling Berinteraksi",
+          "isi": "<p>Penduduk Kota A = 10.000 jiwa; Kota B = 20.000 jiwa; Kota C = 30.000 jiwa. Jarak A-B = 20 km; Jarak B-C = 10 km.</p>",
+          "sumber": "Kajian Transportasi Spasial"
+        },
+        "pertanyaan": "Berdasarkan Hukum Gravitasi I_AB = (P_A × P_B) / (d_AB)^2, bandingkan kekuatan interaksi antara pasangan Kota A-B dan Kota B-C!",
+        "opsi": [
+          "Interaksi B-C (6.000.000) jauh lebih kuat dibanding A-B (500.000) karena jaraknya lebih dekat dan populasinya lebih besar",
+          "Interaksi A-B lebih kuat daripada B-C",
+          "Kedua pasangan kota memiliki interaksi yang identik sama",
+          "Tidak dapat dihitung karena tidak ada data jalan tol"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "I_AB = (10.000 × 20.000) / 20^2 = 200.000.000 / 400 = 500.000. I_BC = (20.000 × 30.000) / 10^2 = 600.000.000 / 100 = 6.000.000. Kekuatan interaksi B-C adalah 12 kali lebih besar dibanding A-B."
+      }
+    ]
+  },
+  {
+    "id": "xii-03",
+    "kelas": "XII",
+    "urutan": 3,
+    "semester": 1,
+    "youtube_id": "uK36ngUq-1I",
+    "fase": "F",
+    "elemen": "Penerapan Geoteknologi dan Transportasi Cerdas",
+    "judul": "Penginderaan Jauh dan SIG untuk Tata Ruang & Transportasi",
+    "ringkasan": "Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh & MRT, serta integrasi Smart City perkotaan 2026.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City).",
+    "tujuan": [
+      "Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000.",
+      "Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol.",
+      "Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum.",
+      "Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area).",
+      "Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026."
+    ],
+    "materi": [
+      {
+        "id": "xii03-t1",
+        "judul": "Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026",
+        "youtube_id": "uK36ngUq-1I",
+        "kuis_topik": {
+          "pertanyaan": "Konsep Transit-Oriented Development (TOD) yang diterapkan pada stasiun Kereta Cepat Whoosh Halim dan Tegalluar bertujuan untuk ...",
+          "opsi": [
+            "Memaksa semua orang membeli mobil pribadi baru",
+            "Mengintegrasikan stasiun transportasi massal cepat dengan kawasan hunian padat, area perkantoran, dan fasilitas komersial dalam radius jalan kaki 400–800 meter untuk mengurangi kemacetan dan emisi karbon",
+            "Membangun lapangan golf di dalam stasiun kereta",
+            "Menghapus seluruh jaringan bus angkutan umum"
+          ],
+          "kunci": 1,
+          "pembahasan": "TOD adalah pola tata ruang ramah lingkungan yang memusatkan permukiman, perkantoran, dan perdagangan di sekitar simpul transportasi massal (stasiun), sehingga masyarakat dapat bepergian cukup dengan berjalan kaki atau bersepeda tanpa perlu mengemudikan kendaraan bermotor pribadi."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>🚅 Geoteknologi Transportasi 2026: Analisis Spasial Jaringan Kereta Cepat Whoosh</h4>\n<p>Dalam pengoperasian <strong>Kereta Cepat Jakarta-Bandung (Whoosh)</strong> dengan kelajuan 350 km/jam, analisis geospasial SIG berperan penting tidak hanya pada tahap konstruksi terowongan, tetapi juga pada tahap integrasi multimoda di stasiun (Halim, Karawang, Padalarang, dan Tegalluar).</p>\n<p>Melalui analisis <em>Pedestrian Service Area</em> SIG (buffer radius 500 meter dan 1.000 meter), perencana kota merancang integrasi halte feeder bus Transjakarta, stasiun LRT Jabodebek, dan KA Feeder Bandung. Penumpang dari pusat Kota Jakarta dapat mencapai pusat Kota Bandung dalam waktu kurang dari 1 jam secara mulus tanpa bergantung pada mobil pribadi di jalan tol yang macet.</p>\n</div>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "CSRT",
+        "arti": "Citra Satelit Resolusi Sangat Tinggi (< 1 meter) yang wajib digunakan untuk penyusunan peta RDTR skala 1:5.000."
+      },
+      {
+        "istilah": "TOD",
+        "arti": "Transit-Oriented Development, kawasan berorientasi transit yang memaksimalkan akses transportasi publik."
+      },
+      {
+        "istilah": "Smart City",
+        "arti": "Kota cerdas yang mengintegrasikan teknologi informasi dan data geospasial untuk meningkatkan efisiensi layanan kota."
+      }
+    ],
+    "soal": [
+      {
+        "id": "xii-03-q1",
+        "tipe": "pgm",
+        "level": "C4",
+        "literasi": "Menganalisis radius pelayanan pedestrian walkability TOD stasiun",
+        "numerasi": "Perhitungan radius buffer",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Analisis Jangkauan Pejalan Kaki Stasiun LRT/Kereta Cepat",
+          "isi": "<p>Kajian standar TOD menetapkan bahwa batas kenyamanan jalan kaki warga menuju stasiun adalah 5 menit (radius 400 meter) dan maksimal 10 menit (radius 800 meter). Di luar radius 800 meter, masyarakat membutuhkan feeder angkutan lingkungan sepeda atau mikrotrans.</p>",
+          "sumber": "Pedoman Pengembangan Kawasan Berorientasi Transit Kementerian ATR/BPN"
+        },
+        "pertanyaan": "Analisis SIG apa yang paling tepat dijalankan untuk mengevaluasi apakah perumahan warga terlayani akses jalan kaki menuju stasiun?",
+        "opsi": [
+          "Network Service Area Analysis sepanjang jaringan trotoar pejalan kaki dengan cut-off 400 meter dan 800 meter dari pintu masuk stasiun",
+          "Analisis indeks vegetasi NDVI",
+          "Analisis gempa tektonik",
+          "Pengukuran salinitas air laut"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Network service area analysis adalah analisis jaringan berbasis topologi jalan/trotoar yang mengukur jarak tempuh nyata (bukan garis lurus udara), sehingga dapat memetakan persil perumahan mana saja yang benar-benar berada dalam jangkauan jalan kaki 400–800 meter ke stasiun."
+      }
+    ]
+  }
+]

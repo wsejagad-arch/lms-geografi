@@ -3,52 +3,56 @@
     "id": "xi-03",
     "kelas": "XI",
     "urutan": 3,
+    "semester": 1,
+    "youtube_id": "9L9s3J-4L-A",
     "fase": "F",
-    "elemen": "Pemahaman Konsep",
-    "judul": "Antroposfer: Dinamika Penduduk dan Proyeksi",
-    "ringkasan": "Membaca sumber data kependudukan, menghitung indikator fertilitas, mortalitas, dan rasio ketergantungan, serta menafsirkan piramida penduduk dan proyeksi.",
+    "elemen": "Pemahaman Konsep Pengelolaan Sumber Daya Alam",
+    "judul": "Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan",
+    "ringkasan": "Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali & Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026.",
     "estimasi": "8 JP",
-    "cp": "Pada akhir Fase F, peserta didik mampu menganalisis dinamika penduduk melalui indikator demografi serta menafsirkan piramida dan proyeksi penduduk.",
+    "cp": "Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL.",
     "tujuan": [
-      "Membedakan sumber data kependudukan: sensus, survei, dan registrasi.",
-      "Menghitung CBR, CDR, dan rasio ketergantungan dari data yang tersedia.",
-      "Menafsirkan bentuk piramida penduduk dan implikasinya.",
-      "Menilai dampak migrasi dan bonus demografi terhadap pembangunan wilayah."
+      "Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan).",
+      "Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas).",
+      "Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi.",
+      "Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan.",
+      "Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG)."
     ],
     "materi": [
       {
-        "judul": "Sumber Data Kependudukan",
-        "html": "<p>Data penduduk dikumpulkan melalui tiga cara. <strong>Sensus</strong> mencacah seluruh penduduk pada waktu tertentu (Indonesia setiap 10 tahun, tahun berakhiran nol). <strong>Survei</strong> mengambil sampel, misalnya Survei Penduduk Antar Sensus dan Survei Sosial Ekonomi Nasional, sehingga lebih cepat dan murah tetapi mengandung galat sampling. <strong>Registrasi</strong> mencatat peristiwa vital seperti kelahiran, kematian, dan perpindahan secara berkelanjutan.</p><p>Kualitas data bergantung pada definisi yang dipakai: siapa yang dihitung sebagai penduduk, apakah berdasarkan tempat tinggal de facto atau de jure, serta kelengkapan pencatatan di daerah terpencil.</p>"
-      },
-      {
-        "judul": "Fertilitas, Mortalitas, dan Migrasi",
-        "html": "<p>Tiga komponen perubahan penduduk adalah kelahiran, kematian, dan migrasi.</p><ul><li><strong>CBR</strong> = (jumlah kelahiran / penduduk pertengahan tahun) x 1000.</li><li><strong>CDR</strong> = (jumlah kematian / penduduk pertengahan tahun) x 1000.</li><li><strong>TFR</strong> menggambarkan rata-rata anak per perempuan; TFR sekitar 2,1 disebut replacement level.</li><li><strong>IMR</strong> mengukur kematian bayi per 1000 kelahiran hidup dan sangat peka terhadap layanan kesehatan.</li></ul><p>Pertumbuhan penduduk alami = CBR - CDR (per 1000). Pertumbuhan total memasukkan migrasi neto. Migrasi internal mencakup urbanisasi dan transmigrasi, sedangkan migrasi internasional mencakup tenaga kerja dan pengungsi.</p>"
-      },
-      {
-        "judul": "Piramida Penduduk dan Rasio Ketergantungan",
-        "html": "<p>Piramida penduduk menyusun jumlah penduduk menurut umur dan jenis kelamin.</p><ul><li><strong>Ekspansif</strong>: dasar lebar, banyak penduduk muda, pertumbuhan cepat.</li><li><strong>Stasioner</strong>: bentuk lonceng, kelahiran dan kematian relatif seimbang.</li><li><strong>Konstruktif</strong>: dasar sempit, penduduk menua, kelahiran rendah.</li></ul><p><strong>Rasio ketergantungan</strong> = ((0-14 tahun + 65 tahun ke atas) / (15-64 tahun)) x 100. Nilai ini menunjukkan beban kelompok produktif. Rasio di bawah 50 tergolong rendah, 50-70 sedang, dan di atas 70 tinggi. <strong>Bonus demografi</strong> terjadi ketika proporsi usia produktif besar, tetapi hanya menjadi keuntungan bila lapangan kerja dan keterampilan memadai.</p>"
-      },
-      {
-        "judul": "Proyeksi dan Kebijakan Kependudukan",
-        "html": "<p>Proyeksi penduduk memakai asumsi fertilitas, mortalitas, dan migrasi. Metode geometrik sederhana: <strong>Pn = P0 (1 + r)^n</strong>. Semakin panjang horizon proyeksi, semakin besar ketidakpastian karena asumsi dapat meleset.</p><p>Kebijakan kependudukan diarahkan pada keseimbangan, bukan sekadar penurunan angka: pengaturan kelahiran, penurunan kematian ibu dan bayi, pemerataan persebaran melalui pembangunan wilayah, serta penyiapan keterampilan angkatan kerja. Di sisi lain, daerah dengan rasio ketergantungan tinggi membutuhkan penguatan layanan dasar dan perlindungan sosial.</p>"
+        "id": "xi03-t1",
+        "judul": "Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026",
+        "youtube_id": "9L9s3J-4L-A",
+        "kuis_topik": {
+          "pertanyaan": "Kebijakan pemerintah melarang ekspor bijih nikel mentah (raw ore) dan mewajibkan pembangunan fasilitas pemurnian (smelter) di dalam negeri bertujuan utama untuk ...",
+          "opsi": [
+            "Menghabiskan seluruh cadangan nikel dalam waktu 1 tahun",
+            "Meningkatkan nilai tambah ekonomi komoditas nasional berkali-kali lipat, menyerap tenaga kerja lokal, dan menguasai rantai pasok baterai kendaraan listrik global",
+            "Menghentikan seluruh aktivitas pertambangan di Indonesia",
+            "Mengganti seluruh mineral nikel dengan batu bara"
+          ],
+          "kunci": 1,
+          "pembahasan": "Hilirisasi (downstreaming) mentransformasikan ekspor komoditas mentah bernilai murah menjadi produk bernilai tambah tinggi (seperti Ferronickel, Mixed Hydroxide Precipitate / MHP, hingga prekursor katoda baterai EV), sehingga penerimaan negara melonjak tajam dan membuka lapangan kerja industri manufaktur modern."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>⚡ Dilema Geografis 2026: Hilirisasi Nikel Antara Lonjakan Devisa dan Beban Ekologis</h4>\n<p>Indonesia merupakan pemegang cadangan nikel terbesar di dunia (sekitar 21 juta metrik ton atau ±22% cadangan global). Kawasan industri pengolahan nikel raksasa seperti di Morowali (Sulawesi Tengah), Konawe (Sulawesi Tenggara), dan Weda Bay (Maluku Utara) berhasil mengubah Indonesia menjadi raksasa pemasok material baterai kendaraan listrik (EV) dunia.</p>\n<p>Namun, geografi menuntut kita berpikir holistik: smelter HPAL (High Pressure Acid Leach) membutuhkan pasokan energi listrik masif dari PLTU batubara mandiri, menghasilkan limbah tailing asam, dan mengancam ekosistem perairan terumbu karang pesisir jika tidak dikelola ketat. Solusi masa kini menuntut transisi ke <strong>Nikel Hijau (Green Nickel)</strong> yang ditenagai pembangkit energi baru terbarukan (PLTS dan PLTA).</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Pengelolaan Sumber Daya Alam dan Hilirisasi Mineral Berkelanjutan\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/9L9s3J-4L-A?rel=0\" title=\"Video Pembelajaran: Hilirisasi SDA\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Pelajari peta sebaran mineral, rantai pasok nikel, dan pemulihan lingkungan pascatambang.\n  </div>\n</div>"
       }
     ],
     "glosarium": [
       {
-        "istilah": "CBR",
-        "arti": "Angka kelahiran kasar, jumlah kelahiran per 1000 penduduk pertengahan tahun."
+        "istilah": "Hilirisasi",
+        "arti": "Strategi peningkatan nilai tambah komoditas dengan mengolah bahan mentah menjadi barang setengah jadi atau jadi di dalam negeri."
       },
       {
-        "istilah": "Rasio ketergantungan",
-        "arti": "Perbandingan penduduk usia tidak produktif terhadap usia produktif."
+        "istilah": "AMDAL",
+        "arti": "Kajian mengenai dampak penting suatu usaha dan/atau kegiatan yang direncanakan pada lingkungan hidup."
       },
       {
-        "istilah": "Bonus demografi",
-        "arti": "Periode ketika proporsi penduduk usia produktif sangat besar dibandingkan usia tidak produktif."
+        "istilah": "Reklamasi",
+        "arti": "Kegiatan yang dilakukan sepanjang tahapan usaha pertambangan untuk menata, memulihkan, dan memperbaiki kualitas lingkungan."
       },
       {
-        "istilah": "Migrasi neto",
-        "arti": "Selisih antara jumlah penduduk yang masuk dan yang keluar dari suatu wilayah."
+        "istilah": "Ekonomi Sirkular",
+        "arti": "Model ekonomi yang memaksimalkan umur pakai material dan meminimalkan timbulan limbah buangan."
       }
     ],
     "soal": [
@@ -56,138 +60,25 @@
         "id": "xi-03-q1",
         "tipe": "pgm",
         "level": "C4",
-        "literasi": "Menafsirkan struktur umur dan implikasi kebijakannya",
-        "numerasi": "Menghitung rasio ketergantungan",
-        "stimulus": {
-          "jenis": "tabel",
-          "judul": "Struktur umur satu kabupaten",
-          "isi": "<table><tr><th>Kelompok umur</th><th>Jumlah (ribu jiwa)</th></tr><tr><td>0-14 tahun</td><td>380</td></tr><tr><td>15-64 tahun</td><td>640</td></tr><tr><td>65 tahun ke atas</td><td>80</td></tr></table>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Rasio ketergantungan kabupaten tersebut dan implikasi paling tepat adalah ...",
-        "opsi": [
-          "sekitar 28 sehingga beban kelompok produktif rendah dan anggaran dapat diarahkan ke investasi",
-          "sekitar 72 sehingga beban kelompok produktif tinggi dan prioritas pada layanan dasar serta lapangan kerja",
-          "sekitar 60 sehingga tergolong sedang dan tidak memerlukan kebijakan khusus",
-          "sekitar 113 sehingga seluruh penduduk bergantung pada kelompok usia muda",
-          "sekitar 85 sehingga bonus demografi dipastikan tercapai"
-        ],
-        "kunci": [
-          1
-        ],
-        "pembahasan": "Rasio = ((380 + 80) / 640) x 100 = 71,9, dibulatkan 72. Rasio ini tergolong tinggi sehingga kelompok produktif menanggung beban besar; kebijakan perlu menyeimbangkan penyediaan lapangan kerja dan layanan dasar."
-      },
-      {
-        "id": "xi-03-q2",
-        "tipe": "pg_singkat",
-        "level": "C4",
-        "literasi": "Menghubungkan definisi de facto dan de jure dengan hasil pencacahan",
+        "literasi": "Mengevaluasi trade-off ekonomi dan lingkungan pada hilirisasi tambang",
         "numerasi": "Tidak dominan",
         "stimulus": {
           "jenis": "teks",
-          "judul": "Dua cara pencacahan",
-          "isi": "<p>Sensus mencatat 25.400 jiwa yang bermalam di wilayah A, sedangkan 26.900 jiwa tercatat memiliki kartu keluarga di wilayah A. Banyak pendatang bekerja di A tetapi keluarganya tinggal di wilayah lain.</p>",
-          "sumber": "ilustrasi sintetis"
+          "judul": "Laporan Dampak Lingkungan Kawasan Smelter Nikel",
+          "isi": "<p>Kawasan industri smelter nikel mencatat ekspor 50 triliun rupiah per tahun. Namun, nelayan setempat mengeluhkan kekeruhan air laut akibat pembuangan air bahang pendingin dan sedimentasi tanah laterit.</p>",
+          "sumber": "Laporan Evaluasi Lingkungan Hidup Daerah"
         },
-        "pertanyaan": "Pernyataan yang paling tepat mengenai kedua angka tersebut adalah ...",
+        "pertanyaan": "Kebijakan integratif apa yang paling tepat diterapkan agar pertumbuhan industri smelter tidak mematikan mata pencaharian nelayan pesisir?",
         "opsi": [
-          "25.400 adalah jumlah penduduk de jure dan 26.900 adalah de facto",
-          "25.400 adalah jumlah penduduk de facto dan 26.900 adalah de jure",
-          "keduanya sama karena sensus selalu memakai definisi de facto",
-          "selisih 1.500 jiwa menunjukkan kesalahan pencacahan yang fatal",
-          "angka de jure selalu lebih kecil daripada de facto"
+          "Mewajibkan industri membangun instalasi pendingin tertutup (closed-loop system), kolam pengendap sedimen bertingkat, serta memberlakukan baku mutu air limbah yang diawasi sensor IoT online",
+          "Menggusur seluruh perkampungan nelayan ke pulau terluar tanpa kompensasi",
+          "Menutup seluruh smelter nikel dan kembali mengekspor bijih mentah",
+          "Mengizinkan nelayan beralih profesi tanpa pelatihan keahlian kerja"
         ],
         "kunci": [
-          1
+          0
         ],
-        "pembahasan": "De facto menghitung siapa yang berada di wilayah saat pencacahan (25.400), de jure menghitung penduduk berdasarkan tempat tinggal resmi (26.900). Selisih muncul karena adanya pendatang yang bekerja tanpa memindahkan kartu keluarga."
-      },
-      {
-        "id": "xi-03-q3",
-        "tipe": "pg_kompleks",
-        "level": "C4",
-        "literasi": "Menilai syarat agar bonus demografi menjadi keuntungan",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Bonus demografi",
-          "isi": "<p>Satu provinsi memiliki 68% penduduk usia 15-64 tahun. Namun angka pengangguran terbuka lulusan SMK mencapai 11% dan sebagian besar bekerja di sektor informal dengan produktivitas rendah.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Pilih semua kondisi yang perlu dibenahi agar bonus demografi menjadi keuntungan.",
-        "opsi": [
-          "Kesesuaian keterampilan lulusan dengan kebutuhan industri",
-          "Penambahan jumlah penduduk usia muda tanpa perencanaan",
-          "Perluasan akses pelatihan kerja dan sertifikasi kompetensi",
-          "Peningkatan proporsi pekerja informal berproduktivitas rendah",
-          "Penguatan layanan kesehatan dan gizi anak"
-        ],
-        "kunci": [
-          0,
-          2,
-          4
-        ],
-        "pembahasan": "Bonus demografi hanya menjadi keuntungan bila angkatan kerja sehat, terampil, dan terserap di pekerjaan produktif. Menambah penduduk muda tanpa perencanaan atau memperbesar pekerjaan informal berproduktivitas rendah justru memperburuk beban."
-      },
-      {
-        "id": "xi-03-q4",
-        "tipe": "menjodohkan",
-        "level": "C3",
-        "literasi": "Mencocokkan indikator demografi dengan rumus atau maknanya",
-        "numerasi": "Menghubungkan indikator dengan cara perhitungannya",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Empat indikator",
-          "isi": "<p>Perhatikan indikator berikut: (A) angka kelahiran kasar; (B) angka kematian bayi; (C) rasio ketergantungan; (D) pertumbuhan penduduk alami.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Jodohkan indikator dengan maknanya.",
-        "kiri": [
-          "Angka kelahiran kasar",
-          "Angka kematian bayi",
-          "Rasio ketergantungan",
-          "Pertumbuhan penduduk alami"
-        ],
-        "kanan": [
-          "A",
-          "B",
-          "C",
-          "D"
-        ],
-        "kunci": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "pembahasan": "CBR (A) mengukur kelahiran per 1000 penduduk; IMR (B) mengukur kematian bayi per 1000 kelahiran hidup; rasio ketergantungan (C) membandingkan usia nonproduktif dan produktif; pertumbuhan alami (D) adalah selisih CBR dan CDR."
-      },
-      {
-        "id": "xi-03-q5",
-        "tipe": "benar_salah",
-        "level": "C4",
-        "literasi": "Menilai pernyataan tentang migrasi dan proyeksi",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Pernyataan kependudukan",
-          "isi": "<p>Empat pernyataan tentang dinamika penduduk.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Tentukan benar atau salah setiap pernyataan.",
-        "pernyataan": [
-          "Urbanisasi tanpa penyediaan lapangan kerja formal mendorong pertumbuhan permukiman kumuh.",
-          "Pertumbuhan penduduk alami sudah memperhitungkan migrasi masuk dan keluar.",
-          "Piramida ekspansif menunjukkan proporsi penduduk muda yang besar.",
-          "Proyeksi penduduk jangka panjang bersifat pasti karena hanya memakai data historis."
-        ],
-        "kunci": [
-          "B",
-          "S",
-          "B",
-          "S"
-        ],
-        "pembahasan": "Pertumbuhan alami hanya memakai kelahiran dan kematian; migrasi masuk dalam pertumbuhan total. Proyeksi selalu mengandung ketidakpastian karena bergantung pada asumsi yang dapat berubah."
+        "pembahasan": "Pembangunan berkelanjutan mensyaratkan kepatuhan teknologi lingkungan (closed-loop water cooling dan settling pond sedimen terpadu) serta pemantauan telemetri real-time agar ekosistem laut tetap lestari berdampingan dengan industri hilir."
       }
     ]
   },
@@ -195,52 +86,56 @@
     "id": "xi-04",
     "kelas": "XI",
     "urutan": 4,
+    "semester": 1,
+    "youtube_id": "Z7G2F6-zQ8c",
     "fase": "F",
-    "elemen": "Pemahaman Konsep",
-    "judul": "Kualitas Penduduk: Pendidikan, Kesehatan, dan Ketenagakerjaan",
-    "ringkasan": "Mengukur kualitas penduduk melalui indeks pembangunan manusia dan indikator sektoral, lalu menilai kesenjangan antarwilayah.",
-    "estimasi": "6 JP",
-    "cp": "Pada akhir Fase F, peserta didik mampu menilai kualitas penduduk melalui indikator pendidikan, kesehatan, dan ketenagakerjaan serta kesenjangan antarwilayah.",
+    "elemen": "Pemahaman Konsep Ketahanan Pangan, Industri, dan EBT",
+    "judul": "Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT)",
+    "ringkasan": "Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata & Geothermal Kamojang/Dieng) 2026.",
+    "estimasi": "8 JP",
+    "cp": "Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim.",
     "tujuan": [
-      "Menjelaskan komponen indeks pembangunan manusia dan cara menafsirkannya.",
-      "Membandingkan indikator pendidikan dan kesehatan antarwilayah.",
-      "Menganalisis persoalan ketenagakerjaan berdasarkan data TPT dan sektor informal.",
-      "Merumuskan prioritas kebijakan peningkatan kualitas penduduk."
+      "Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan.",
+      "Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor.",
+      "Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali).",
+      "Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa.",
+      "Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP)."
     ],
     "materi": [
       {
-        "judul": "Indeks Pembangunan Manusia",
-        "html": "<p><strong>IPM</strong> mengukur capaian pembangunan manusia melalui tiga dimensi: <em>kesehatan</em> (angka harapan hidup saat lahir), <em>pendidikan</em> (harapan lama sekolah dan rata-rata lama sekolah), serta <em>standar hidup layak</em> (pengeluaran per kapita yang disesuaikan).</p><p>Ketiga dimensi digabung secara geometrik sehingga kelemahan pada satu dimensi tidak dapat ditutupi oleh keunggulan dimensi lain. Karena itu IPM lebih baik dibaca bersama indikator lain seperti kemiskinan, gini rasio, dan pengangguran.</p><p>Status IPM: rendah (&lt; 60), sedang (60-69,9), tinggi (70-79,9), sangat tinggi (80 ke atas). Kenaikan IPM yang tidak diikuti penurunan kesenjangan menandakan pembangunan belum inklusif.</p>"
-      },
-      {
-        "judul": "Indikator Pendidikan",
-        "html": "<ul><li><strong>Angka melek huruf</strong> dan <strong>rata-rata lama sekolah</strong> menunjukkan capaian stok pendidikan.</li><li><strong>Angka partisipasi kasar</strong> menghitung seluruh siswa pada jenjang dibagi penduduk usia jenjang, sehingga dapat melebihi 100%.</li><li><strong>Angka partisipasi murni</strong> hanya menghitung siswa pada usia yang sesuai.</li><li><strong>Angka putus sekolah</strong> menggambarkan anak yang berhenti sebelum tamat.</li></ul><p>Kesenjangan pendidikan biasanya tajam antara wilayah perkotaan dan kepulauan terpencil, serta antara keluarga mampu dan tidak mampu. Faktor penyebabnya bukan hanya biaya, tetapi juga jarak ke sekolah, kualitas guru, dan kebutuhan bekerja.</p>"
-      },
-      {
-        "judul": "Indikator Kesehatan",
-        "html": "<p>Kualitas kesehatan diukur dengan angka harapan hidup, angka kematian ibu (per 100.000 kelahiran hidup), angka kematian bayi, prevalensi stunting, dan akses sanitasi layak.</p><p>Kematian ibu sangat ditentukan oleh pertolongan persalinan oleh tenaga kesehatan, ketersediaan fasilitas rujukan, dan keterlambatan pengambilan keputusan keluarga. Stunting mencerminkan kekurangan gizi kronis dan berdampak pada kemampuan kognitif, sehingga menjadi persoalan lintas sektor: gizi, sanitasi, air bersih, dan pengasuhan.</p>"
-      },
-      {
-        "judul": "Ketenagakerjaan dan Produktivitas",
-        "html": "<p><strong>TPT</strong> (tingkat pengangguran terbuka) mengukur proporsi angkatan kerja yang mencari pekerjaan, sedangkan <strong>TPAK</strong> mengukur proporsi penduduk usia kerja yang aktif secara ekonomi. Setengah pengangguran menggambarkan pekerja dengan jam kerja di bawah standar.</p><p>Masalah struktural Indonesia adalah besarnya pekerja informal dan rendahnya produktivitas. Indikator yang perlu dibaca bersama: kontribusi sektor terhadap PDB dibanding penyerapan tenaga kerja, upah minimum, serta kesesuaian bidang kerja dengan pendidikan. Kebijakan yang relevan mencakup pelatihan berbasis kompetensi, perluasan jaminan sosial, dan pengembangan industri pengolahan di daerah.</p>"
+        "id": "xi04-t1",
+        "judul": "Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026",
+        "youtube_id": "Z7G2F6-zQ8c",
+        "kuis_topik": {
+          "pertanyaan": "PLTS Terapung Cirata di Jawa Barat (kapasitas 192 MWp) merupakan salah satu PLTS terapung terbesar di Asia Tenggara. Keunggulan teknis dan geografis memasang panel surya di atas permukaan waduk air adalah ...",
+          "opsi": [
+            "Panel surya dapat berenang mengikuti arah angin",
+            "Menghemat penggunaan lahan daratan yang berharga, mengurangi penguapan air waduk (evaporasi), dan efek pendinginan air waduk meningkatkan efisiensi daya listrik panel surya",
+            "Menaikkan suhu air waduk hingga mendidih untuk menggerakkan turbin uap",
+            "Hanya bisa bekerja saat musim hujan lebat"
+          ],
+          "kunci": 1,
+          "pembahasan": "Floating Solar PV memanfaatkan ruang permukaan air bendungan sehingga tidak memakan lahan pertanian/hutan produktif di darat. Efek pendinginan alami oleh air waduk di bawah panel surya mampu menaikkan efisiensi sel photovoltaic hingga 5–10% dibanding pemasangan di atas atap panas."
+        },
+        "html": "<div class=\"bl-callout case\">\n<h4>⚡ Terobosan Energi Bersih 2026: PLTS Terapung Cirata & Panas Bumi Kamojang</h4>\n<p>Dalam komitmen mencapai <em>Net Zero Emissions (NZE)</em> tahun 2060 atau lebih cepat, Indonesia memiliki potensi energi terbarukan raksasa mencapai lebih dari 3.600 GigaWatt (GW) yang bersumber dari sinar matahari, panas bumi (geothermal), tenaga angin, dan air.</p>\n<p>Proyek monumental <strong>PLTS Terapung Cirata (192 MWp)</strong> di waduk Kabupaten Purwakarta dan Cianjur membuktikan sinergi cerdas pemanfaatan ruang waduk air. Dipadukan dengan potensi 24 GW panas bumi di sepanjang jalur gunung api (seperti PLTP Kamojang, Salak, dan Dieng), Indonesia siap memimpin transisi energi bersih di Asia Tenggara.</p>\n</div>\n\n<div class=\"bl-media-box\" style=\"border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0\">\n  <div style=\"background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px\">\n    <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"red\"><path d=\"M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8 0-2-.2-3.9-.5-5.8z\"/><polygon points=\"9.6 15.6 15.8 12 9.6 8.4\" fill=\"#fff\"/></svg>\n    Video Pembelajaran: Ketahanan Pangan Nasional dan Energi Baru Terbarukan (EBT)\n  </div>\n  <div style=\"position:relative;padding-bottom:56.25%;height:0;overflow:hidden\">\n    <iframe src=\"https://www.youtube.com/embed/Z7G2F6-zQ8c?rel=0\" title=\"Video Pembelajaran: Ketahanan Pangan & EBT\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%\"></iframe>\n  </div>\n  <div style=\"background:#f8fafc;padding:8px 12px;font-size:11.5px;color:#64748b;border-top:1px solid #e2e8f0\">\n    Eksplorasi pilar kedaulatan pangan, kawasan industri, dan teknologi pembangkit energi hijau.\n  </div>\n</div>"
       }
     ],
     "glosarium": [
       {
-        "istilah": "IPM",
-        "arti": "Indeks gabungan kesehatan, pendidikan, dan standar hidup layak suatu wilayah."
+        "istilah": "Ketahanan Pangan",
+        "arti": "Kondisi terpenuhinya pangan bagi negara sampai perseorangan yang tercermin dari tersedianya pangan yang cukup, aman, bergizi, dan merata."
       },
       {
-        "istilah": "TPT",
-        "arti": "Tingkat pengangguran terbuka, proporsi angkatan kerja yang mencari pekerjaan."
+        "istilah": "EBT",
+        "arti": "Energi Baru Terbarukan yang bersumber dari alam dan dapat pulih secara berkelanjutan (surya, angin, air, panas bumi)."
       },
       {
-        "istilah": "Stunting",
-        "arti": "Kondisi gagal tumbuh anak akibat kekurangan gizi kronis dan infeksi berulang."
+        "istilah": "Geothermal",
+        "arti": "Energi panas bumi yang dihasilkan dari uap panas batuan kerak bumi di kawasan vulkanik aktif."
       },
       {
-        "istilah": "Angka partisipasi murni",
-        "arti": "Proporsi siswa berusia sesuai jenjang terhadap penduduk usia jenjang tersebut."
+        "istilah": "Food Estate",
+        "arti": "Program terintegrasi pengembangan pangan skala luas yang mencakup pertanian, perkebunan, dan peternakan."
       }
     ],
     "soal": [
@@ -248,138 +143,25 @@
         "id": "xi-04-q1",
         "tipe": "pgm",
         "level": "C4",
-        "literasi": "Membandingkan capaian dua wilayah dan memilih prioritas kebijakan",
-        "numerasi": "Menafsirkan indikator angka dan harapan lama sekolah",
+        "literasi": "Menganalisis diversifikasi pangan lokal mengurangi kerentanan impor",
+        "numerasi": "Tidak dominan",
         "stimulus": {
-          "jenis": "tabel",
-          "judul": "Indikator dua kabupaten",
-          "isi": "<table><tr><th>Indikator</th><th>Kabupaten A</th><th>Kabupaten B</th></tr><tr><td>Angka harapan hidup (tahun)</td><td>71,2</td><td>65,4</td></tr><tr><td>Harapan lama sekolah (tahun)</td><td>13,1</td><td>10,2</td></tr><tr><td>Pengeluaran per kapita (juta/tahun)</td><td>14,8</td><td>9,1</td></tr></table>",
-          "sumber": "ilustrasi sintetis"
+          "jenis": "teks",
+          "judul": "Kerentanan Rantai Pasok Pangan Global",
+          "isi": "<p>Krisis geopolitik dan perubahan iklim menyebabkan harga gandum dan beras dunia berfluktuasi tajam. Daerah semi-kering di Nusa Tenggara Timur mulai membudidayakan sorgum yang tahan kering dan minim air sebagai pengganti beras dan gandum impor.</p>",
+          "sumber": "Badan Pangan Nasional (Bapanas)"
         },
-        "pertanyaan": "Prioritas kebijakan yang paling tepat untuk kabupaten B adalah ...",
+        "pertanyaan": "Mengapa diversifikasi tanaman pangan lokal seperti sorgum dan sagu sangat strategis dalam memperkuat ketahanan pangan nasional?",
         "opsi": [
-          "peningkatan akses dan mutu layanan kesehatan dasar serta penuntasan wajib belajar",
-          "pembangunan pusat perbelanjaan untuk menaikkan pengeluaran masyarakat",
-          "penambahan jumlah sekolah tanpa memperhatikan angka putus sekolah",
-          "penurunan angka harapan hidup agar sesuai standar nasional",
-          "pemindahan seluruh penduduk ke kabupaten A"
+          "Karena sorgum dan sagu memiliki ketahanan tinggi terhadap iklim kering lokal, kaya serat gizi, serta melepaskan ketergantungan konsumsi dari komoditas impor gandum",
+          "Karena tanaman sorgum tidak membutuhkan tanah untuk tumbuh",
+          "Karena harga sorgum di pasar dunia selalu nol rupiah",
+          "Karena masyarakat Indonesia dilarang mengonsumsi nasi"
         ],
         "kunci": [
           0
         ],
-        "pembahasan": "Kabupaten B tertinggal pada ketiga dimensi IPM, dengan kesenjangan terbesar pada harapan lama sekolah dan angka harapan hidup. Intervensi paling berdampak adalah perbaikan layanan kesehatan dasar dan penuntasan pendidikan, bukan proyek konsumsi."
-      },
-      {
-        "id": "xi-04-q2",
-        "tipe": "pg_singkat",
-        "level": "C4",
-        "literasi": "Membedakan APK dan APM dari data partisipasi",
-        "numerasi": "Menafsirkan nilai APK di atas 100%",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Partisipasi sekolah",
-          "isi": "<p>Di suatu kabupaten, APK jenjang SMA sebesar 104% sedangkan APM sebesar 78%. Banyak siswa berusia di atas 18 tahun masih duduk di kelas X dan XI.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Tafsiran paling tepat atas data tersebut adalah ...",
-        "opsi": [
-          "APK di atas 100% menunjukkan banyak siswa di luar usia jenjang, sementara APM 78% menandakan masih ada anak usia SMA yang belum bersekolah",
-          "APK di atas 100% berarti jumlah sekolah berlebih sehingga harus dikurangi",
-          "APM 78% berarti 22% siswa putus sekolah pada tahun tersebut",
-          "APK dan APM seharusnya sama sehingga salah satu data pasti keliru",
-          "APM 78% menunjukkan mutu lulusan rendah"
-        ],
-        "kunci": [
-          0
-        ],
-        "pembahasan": "APK menghitung semua siswa tanpa melihat usia sehingga dapat melebihi 100% ketika ada siswa terlambat masuk. APM hanya menghitung usia sesuai jenjang; nilai 78% berarti 22% penduduk usia SMA belum terlayani, bukan angka putus sekolah."
-      },
-      {
-        "id": "xi-04-q3",
-        "tipe": "pg_kompleks",
-        "level": "C4",
-        "literasi": "Mengaitkan penyebab stunting dengan sektor intervensi",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Kasus gizi",
-          "isi": "<p>Di satu desa, prevalensi stunting 32%. Sebagian rumah tangga belum memiliki jamban sehat dan air minum bersumber dari sungai. Petugas menemukan banyak anak sakit diare berulang.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Pilih semua intervensi yang relevan untuk menurunkan stunting di desa tersebut.",
-        "opsi": [
-          "Perbaikan akses air bersih dan sanitasi layak",
-          "Pemberian makanan tambahan bergizi bagi ibu hamil dan balita",
-          "Penambahan jam pelajaran geografi di sekolah",
-          "Edukasi pola asuh dan pencegahan diare berulang",
-          "Pembangunan jalan tol antarkabupaten"
-        ],
-        "kunci": [
-          0,
-          1,
-          3
-        ],
-        "pembahasan": "Stunting bersifat lintas sektor: gizi, sanitasi, air bersih, dan pola asuh. Infeksi berulang akibat lingkungan buruk menghambat penyerapan gizi, sehingga intervensi gizi harus berjalan bersama perbaikan sanitasi dan edukasi."
-      },
-      {
-        "id": "xi-04-q4",
-        "tipe": "menjodohkan",
-        "level": "C3",
-        "literasi": "Mencocokkan indikator dengan dimensi yang diukur",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Empat indikator",
-          "isi": "<p>Perhatikan indikator berikut: (A) angka kematian ibu; (B) rata-rata lama sekolah; (C) TPT; (D) pengeluaran per kapita.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Jodohkan indikator dengan dimensi yang diukur.",
-        "kiri": [
-          "Angka kematian ibu",
-          "Rata-rata lama sekolah",
-          "Tingkat pengangguran terbuka",
-          "Pengeluaran per kapita"
-        ],
-        "kanan": [
-          "A",
-          "B",
-          "C",
-          "D"
-        ],
-        "kunci": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "pembahasan": "Angka kematian ibu (A) mengukur dimensi kesehatan; rata-rata lama sekolah (B) mengukur pendidikan; TPT (C) mengukur ketenagakerjaan; pengeluaran per kapita (D) mengukur standar hidup layak."
-      },
-      {
-        "id": "xi-04-q5",
-        "tipe": "benar_salah",
-        "level": "C4",
-        "literasi": "Menilai pernyataan tentang IPM dan ketenagakerjaan",
-        "numerasi": "Tidak dominan",
-        "stimulus": {
-          "jenis": "teks",
-          "judul": "Pernyataan kualitas penduduk",
-          "isi": "<p>Empat pernyataan tentang kualitas penduduk.</p>",
-          "sumber": "ilustrasi sintetis"
-        },
-        "pertanyaan": "Tentukan benar atau salah setiap pernyataan.",
-        "pernyataan": [
-          "IPM dihitung sebagai rata-rata aritmetika sederhana dari tiga dimensi.",
-          "APM tidak dapat melebihi 100% karena hanya menghitung usia sesuai jenjang.",
-          "Pekerja informal selalu termasuk pengangguran terbuka.",
-          "Produktivitas rendah dapat terjadi meskipun angka pengangguran rendah."
-        ],
-        "kunci": [
-          "S",
-          "B",
-          "S",
-          "B"
-        ],
-        "pembahasan": "IPM memakai rata-rata geometrik, bukan aritmetika. Pekerja informal tetap bekerja sehingga bukan pengangguran, tetapi produktivitasnya bisa rendah; inilah sebabnya TPT rendah tidak otomatis berarti pasar kerja sehat."
+        "pembahasan": "Diversifikasi pangan berbasis potensi biofisik daerah memperkuat ketahanan pangan: sorgum berakar dalam dan tahan kekeringan di NTT, sagu tumbuh melimpah di lahan basah Maluku dan Papua. Ini menciptakan kedaulatan pangan tangguh tanpa rentan gejolak impor."
       }
     ]
   }
