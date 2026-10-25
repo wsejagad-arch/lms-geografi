@@ -1,4 +1,4 @@
-const CACHE = 'geo-edulabs-v2';
+const CACHE = 'geo-edulabs-v3';
 const ASSETS = [
   '/',
   '/index.html',
@@ -31,6 +31,8 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  // Respons API tidak di-cache agar perubahan data langsung terlihat.
+  if (new URL(e.request.url).pathname.startsWith('/api/')) return;
   e.respondWith(
     caches.match(e.request).then((cached) => {
       const fetchPromise = fetch(e.request).then((networkResponse) => {
