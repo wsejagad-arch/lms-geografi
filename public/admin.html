@@ -185,10 +185,19 @@
       <!-- Siswa -->
       <section id="menu-students" class="menu-section hidden">
         <div class="card">
-          <div class="list-toolbar">
-            <button class="btn btn-sm" id="btn-student-template">Template</button>
-            <button class="btn btn-sm" id="btn-student-import">Impor</button>
-            <button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah</button>
+          <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <button class="btn btn-sm" id="btn-student-template">Template</button>
+              <button class="btn btn-sm" id="btn-student-import">Impor</button>
+              <button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah</button>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <select id="student-filter-kelas" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:130px">
+                <option value="">Semua Kelas</option>
+              </select>
+              <input id="student-filter-nama" type="search" placeholder="Cari nama / NIS / NISN..." style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:210px">
+              <button class="btn btn-sm" id="btn-student-filter-reset" type="button">Reset</button>
+            </div>
           </div>
           <input type="file" id="student-import-file" accept=".csv,text/csv" hidden>
           <div class="table-wrap">
@@ -297,7 +306,16 @@
       <!-- Nilai -->
       <section id="menu-grades" class="menu-section hidden">
         <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-grade">+ Tambah</button></div>
+          <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+            <button class="btn btn-primary btn-sm" id="btn-add-grade">+ Tambah</button>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <select id="grade-filter-kelas" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:130px">
+                <option value="">Semua Kelas</option>
+              </select>
+              <input id="grade-filter-nama" type="search" placeholder="Cari nama / NIS / NISN..." style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:210px">
+              <button class="btn btn-sm" id="btn-grade-filter-reset" type="button">Reset</button>
+            </div>
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Siswa</th><th>Mapel</th><th>Kelas</th><th>Jenis</th><th>Nilai</th><th>Aksi</th></tr></thead>

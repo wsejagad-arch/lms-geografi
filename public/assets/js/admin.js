@@ -391,34 +391,77 @@ function waLink(no_wa) {
   return `https://wa.me/${intl}`;
 }
 
+let studentsCache = [];
+
 async function renderStudents() {
   const tbody = document.getElementById('students-tbody');
   if (!tbody) return;
   
   try {
-    const students = await LMS.getStudents();
-    if (!students.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Belum ada siswa</td></tr>';
-      return;
-    }
-    
-    tbody.innerHTML = students.map(s => `
-      <tr>
-        <td>${s.nis}</td>
-        <td>${s.nisn || '-'}</td>
-        <td>${s.nama}</td>
-        <td>${s.email || '-'}</td>
-        <td>${s.no_wa ? `<a class="wa-link" href="${waLink(s.no_wa)}" target="_blank" rel="noopener">${s.no_wa}</a>` : '-'}</td>
-        <td><span class="badge badge-primary">${s.kelas_nama}</span></td>
-        <td>
-          <button class="btn btn-sm" onclick="editStudent('${s.id}')">Edit</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteStudent('${s.id}')">Hapus</button>
-        </td>
-      </tr>
-    `).join('');
+    studentsCache = await LMS.getStudents();
+    renderStudentClassFilter();
+    renderStudentRows();
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
   }
+}
+
+function renderStudentClassFilter() {
+  const sel = document.getElementById('student-filter-kelas');
+  if (!sel) return;
+  const current = sel.value;
+  const names = [...new Set(studentsCache.map(s => s.kelas_nama).filter(n => n && n !== '-'))]
+    .sort((a, b) => a.localeCompare(b, 'id', { numeric: true }));
+  sel.innerHTML = '<option value="">Semua Kelas</option>' +
+    names.map(n => `<option value="${n}">${n}</option>`).join('');
+  sel.value = names.includes(current) ? current : '';
+}
+
+function filterStudents() {
+  const q = (document.getElementById('student-filter-nama')?.value || '').trim().toLowerCase();
+  const kelas = document.getElementById('student-filter-kelas')?.value || '';
+  return studentsCache.filter(s => {
+    if (kelas && s.kelas_nama !== kelas) return false;
+    if (!q) return true;
+    return [s.nama, s.nis, s.nisn, s.email]
+      .some(v => String(v || '').toLowerCase().includes(q));
+  });
+}
+
+function renderStudentRows() {
+  const tbody = document.getElementById('students-tbody');
+  if (!tbody) return;
+  
+  const students = filterStudents();
+  if (!students.length) {
+    const total = studentsCache.length;
+    const msg = total ? 'Tidak ada siswa yang cocok dengan filter' : 'Belum ada siswa';
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--text-2)">${msg}</td></tr>`;
+    return;
+  }
+  
+  tbody.innerHTML = students.map(s => `
+    <tr>
+      <td>${s.nis}</td>
+      <td>${s.nisn || '-'}</td>
+      <td>${s.nama}</td>
+      <td>${s.email || '-'}</td>
+      <td>${s.no_wa ? `<a class="wa-link" href="${waLink(s.no_wa)}" target="_blank" rel="noopener">${s.no_wa}</a>` : '-'}</td>
+      <td><span class="badge badge-primary">${s.kelas_nama}</span></td>
+      <td>
+        <button class="btn btn-sm" onclick="editStudent('${s.id}')">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteStudent('${s.id}')">Hapus</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function resetStudentFilter() {
+  const nama = document.getElementById('student-filter-nama');
+  const kelas = document.getElementById('student-filter-kelas');
+  if (nama) nama.value = '';
+  if (kelas) kelas.value = '';
+  renderStudentRows();
 }
 
 const STUDENT_TEMPLATE_HEADER = ['nis', 'nama', 'email', 'no_wa', 'kelas'];
@@ -1211,30 +1254,77 @@ async function deleteExam(id) {
 }
 
 // ===== GRADES =====
+let gradesCache = [];
+
 async function renderGrades() {
   const tbody = document.getElementById('grades-tbody');
   if (!tbody) return;
   
   try {
-    const grades = await LMS.getGrades();
-    if (!grades.length) {
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada nilai</td></tr>';
-      return;
-    }
-    
-    tbody.innerHTML = grades.slice(0, 100).map(g => `
-      <tr>
-        <td>${g.student_nama}</td>
-        <td><span class="badge badge-primary">${g.subject_nama}</span></td>
-        <td><span class="badge badge-neutral">${g.class_nama}</span></td>
-        <td>${g.tipe.toUpperCase()}</td>
-        <td><strong>${g.nilai}</strong></td>
-        <td><button class="btn btn-sm btn-danger" onclick="deleteGrade('${g.id}')">Hapus</button></td>
-      </tr>
-    `).join('');
+    const [grades, students] = await Promise.all([LMS.getGrades(), LMS.getStudents()]);
+    const byId = new Map(students.map(s => [s.id, s]));
+    gradesCache = grades.map(g => {
+      const s = byId.get(g.student_id);
+      return { ...g, student_nis: s ? s.nis : '', student_nisn: s ? s.nisn : '' };
+    });
+    renderGradeClassFilter();
+    renderGradeRows();
   } catch (err) {
     tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
   }
+}
+
+function renderGradeClassFilter() {
+  const sel = document.getElementById('grade-filter-kelas');
+  if (!sel) return;
+  const current = sel.value;
+  const names = [...new Set(gradesCache.map(g => g.class_nama).filter(n => n && n !== '-'))]
+    .sort((a, b) => a.localeCompare(b, 'id', { numeric: true }));
+  sel.innerHTML = '<option value="">Semua Kelas</option>' +
+    names.map(n => `<option value="${n}">${n}</option>`).join('');
+  sel.value = names.includes(current) ? current : '';
+}
+
+function filterGrades() {
+  const q = (document.getElementById('grade-filter-nama')?.value || '').trim().toLowerCase();
+  const kelas = document.getElementById('grade-filter-kelas')?.value || '';
+  return gradesCache.filter(g => {
+    if (kelas && g.class_nama !== kelas) return false;
+    if (!q) return true;
+    return [g.student_nama, g.student_nis, g.student_nisn, g.subject_nama]
+      .some(v => String(v || '').toLowerCase().includes(q));
+  });
+}
+
+function renderGradeRows() {
+  const tbody = document.getElementById('grades-tbody');
+  if (!tbody) return;
+  
+  const grades = filterGrades();
+  if (!grades.length) {
+    const msg = gradesCache.length ? 'Tidak ada nilai yang cocok dengan filter' : 'Belum ada nilai';
+    tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--text-2)">${msg}</td></tr>`;
+    return;
+  }
+  
+  tbody.innerHTML = grades.slice(0, 100).map(g => `
+    <tr>
+      <td>${g.student_nama}</td>
+      <td><span class="badge badge-primary">${g.subject_nama}</span></td>
+      <td><span class="badge badge-neutral">${g.class_nama}</span></td>
+      <td>${g.tipe.toUpperCase()}</td>
+      <td><strong>${g.nilai}</strong></td>
+      <td><button class="btn btn-sm btn-danger" onclick="deleteGrade('${g.id}')">Hapus</button></td>
+    </tr>
+  `).join('');
+}
+
+function resetGradeFilter() {
+  const nama = document.getElementById('grade-filter-nama');
+  const kelas = document.getElementById('grade-filter-kelas');
+  if (nama) nama.value = '';
+  if (kelas) kelas.value = '';
+  renderGradeRows();
 }
 
 async function openGradeModal() {
@@ -1656,6 +1746,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Students
   document.getElementById('btn-add-student')?.addEventListener('click', () => openStudentModal());
   document.getElementById('btn-save-student')?.addEventListener('click', saveStudent);
+  document.getElementById('student-filter-nama')?.addEventListener('input', renderStudentRows);
+  document.getElementById('student-filter-kelas')?.addEventListener('change', renderStudentRows);
+  document.getElementById('btn-student-filter-reset')?.addEventListener('click', resetStudentFilter);
   document.getElementById('btn-student-template')?.addEventListener('click', downloadStudentTemplate);  document.getElementById('btn-student-import')?.addEventListener('click', () => {
     document.getElementById('student-import-file').click();
   });
@@ -1684,6 +1777,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Grades
   document.getElementById('btn-add-grade')?.addEventListener('click', openGradeModal);
   document.getElementById('btn-save-grade')?.addEventListener('click', saveGrade);
+  document.getElementById('grade-filter-nama')?.addEventListener('input', renderGradeRows);
+  document.getElementById('grade-filter-kelas')?.addEventListener('change', renderGradeRows);
+  document.getElementById('btn-grade-filter-reset')?.addEventListener('click', resetGradeFilter);
   
   // Attendance
   document.getElementById('btn-add-attendance')?.addEventListener('click', openAttendanceModal);
