@@ -536,3 +536,46 @@
 .bl-figure figcaption { margin-top: 6px; font-size: 11.5px; color: #6b7280; line-height: 1.5; }
 .bl-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 12px 0; border: 1px solid #e1e5e8; border-radius: 10px; }
 .bl-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ===== RESPONSIVE: materi & soal evaluasi (mobile) ===== */
+.bl-prose, .bl-stim, .bl-question, .bl-opt span, .bl-pair span, .bl-bs-row span, .bl-rev {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.bl-prose img, .bl-stim img, .bl-rev img {
+  max-width: 100%;
+  height: auto;
+}
+.bl-prose pre, .bl-stim pre, .bl-rev pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.bl-prose table, .bl-stim table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.bl-alur-steps { flex-wrap: wrap; overflow-x: visible; }
+.bl-alur-step { white-space: normal; text-align: left; max-width: 100%; }
+.bl-opt, .bl-bs-row, .bl-pair { min-width: 0; }
+
+@media (max-width: 640px) {
+  #sec-belajar .bl-wrap { padding-left: 12px; padding-right: 12px; }
+  .bl-card { padding: 14px 13px; }
+  .bl-prose { font-size: 13px; }
+  .bl-prose table, .bl-stim table { font-size: 11.5px; }
+  .bl-prose th, .bl-prose td { padding: 6px 7px; }
+  .bl-question { font-size: 13px; }
+  .bl-stim { padding: 10px; }
+  .bl-alur-step { width: 100%; justify-content: flex-start; }
+  .bl-actions { flex-direction: column; align-items: stretch; }
+  .bl-actions .bl-btn { width: 100%; justify-content: center; }
+  .bl-bs-row .opts { flex-wrap: wrap; }
+  .bl-pair select, .bl-bs-row .opts select { width: 100%; }
+  .bl-score { font-size: 26px; }
+  .bl-result { padding: 13px; }
+  .bl-detail-head h2 { font-size: 17px; }
+}
