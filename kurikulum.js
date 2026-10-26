@@ -84,7 +84,10 @@ function gradeSoal(soal, jawaban) {
 
 function resolveStudent(db, user) {
   if (!user || user.role !== 'student') return null;
-  return db.students.find(s => s.tenant_id === user.tenant_id && s.email === user.email) || null;
+  return db.students.find(s =>
+    s.tenant_id === user.tenant_id &&
+    (s.user_id === user.id || s.id === user.student_id || (user.email && s.email === user.email))
+  ) || null;
 }
 
 function studentLevel(student) {
