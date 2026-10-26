@@ -160,6 +160,7 @@ const LMS = (() => {
     getExams, createExam, deleteExam,
     getGrades, createGrade, updateGrade, deleteGrade,
     getDashboard, seedData,
+    getAttendance, getAssignments,
     studentLogin
   };
 })();
