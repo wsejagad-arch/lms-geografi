@@ -145,6 +145,13 @@ async function blOpenBab(id) {
   }
 }
 
+function blBindSteps(goTopic) {
+  document.querySelectorAll('.bl-alur-step').forEach(function (btn) {
+    if (btn.disabled) return;
+    btn.addEventListener('click', function () { goTopic(Number(btn.dataset.tidx)); });
+  });
+}
+
 function blRenderBab() {
   const b = blState.bab;
   const p = b.progress;
@@ -153,20 +160,19 @@ function blRenderBab() {
   const cur = materiList[blState.activeTopicIndex] || materiList[0] || { judul: '', html: '' };
   const hasNav = materiList.length > 1;
 
+  const tuntas = p.best_score !== null && p.best_score >= b.kkm;
   const steps = materiList.map(function (m, idx) {
-    return '<button class="bl-alur-step ' + (idx === blState.activeTopicIndex ? 'active' : '') + '" data-tidx="' + idx + '">' +
-      '<span>' + (idx + 1) + '</span> ' + blEsc(blShortTopicTitle(m.judul)) + '</button>';
+    const locked = !tuntas && idx > blState.activeTopicIndex;
+    return '<button class="bl-alur-step ' + (idx === blState.activeTopicIndex ? 'active' : '') + (locked ? ' locked' : '') + '" data-tidx="' + idx + '"' + (locked ? ' disabled' : '') + '>' +
+      '<span>' + (idx + 1) + '</span> ' + blEsc(blShortTopicTitle(m.judul)) + (locked ? ' ' + BL_LOCK : '') + '</button>';
   }).join('');
 
-  const navHtml = hasNav
-    ? '<div class="bl-alur-bar" id="bl-topic-nav">' +
-      '<div class="bl-alur-steps">' + steps + '</div></div>'
-    : '';
+  const navHtml = '';
 
   const prevBtn = blState.activeTopicIndex > 0
     ? '<button class="bl-btn" id="bl-btn-prev-topic">← Sebelumnya</button>' : '<div></div>';
   const nextBtn = blState.activeTopicIndex < materiList.length - 1
-    ? '<button class="bl-btn primary" id="bl-btn-next-topic">Bagian berikutnya →</button>'
+    ? '<button class="bl-btn primary" id="bl-btn-next-topic"' + (tuntas ? '' : ' disabled title="Selesaikan evaluasi dulu"') + '>Bagian berikutnya →</button>'
     : '<button class="bl-btn primary" id="bl-btn-finish-topic">Lanjut ke Evaluasi ↓</button>';
 
   const topicHtml = [
@@ -207,6 +213,12 @@ function blRenderBab() {
     '  </div>',
     p.riwayat && p.riwayat.length ? '<div class="bl-card"><h3>Riwayat Percobaan</h3><div class="bl-glos">' + p.riwayat.map(function (r) { return '<div>Percobaan ' + r.ke + ': <b>' + r.score + '</b> (' + r.benar + '/' + r.total + ' benar)</div>'; }).join('') + '</div></div>' : '',
     '  <div id="bl-eval"></div>',
+    materiList.length > 1
+      ? '<div class="bl-card" id="bl-topic-nav"><h3>Lanjutan Materi</h3>' +
+        '<div class="bl-alur-steps" id="bl-steps-bottom">' + steps + '</div>' +
+        (tuntas ? '' : '<p class="bl-note" id="bl-steps-hint" style="margin:8px 0 0">Topik berikutnya terbuka setelah evaluasi tuntas (nilai ≥ ' + b.kkm + ').</p>') +
+        '</div>'
+      : '',
     '</div>'
   ].join('');
 
@@ -217,13 +229,11 @@ function blRenderBab() {
   const goTopic = function (idx) {
     blState.activeTopicIndex = idx;
     blRenderBab();
-    const navEl = document.getElementById('bl-topic-nav') || document.getElementById('bl-active-topic');
+    const navEl = document.getElementById('bl-active-topic');
     if (navEl) navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  document.querySelectorAll('.bl-alur-step').forEach(function (btn) {
-    btn.addEventListener('click', function () { goTopic(Number(btn.dataset.tidx)); });
-  });
+  blBindSteps(goTopic);
 
   const prevEl = document.getElementById('bl-btn-prev-topic');
   if (prevEl) prevEl.addEventListener('click', function () { goTopic(Math.max(0, blState.activeTopicIndex - 1)); });
@@ -409,6 +419,20 @@ function blRenderResult(r) {
 
   const againEl = document.getElementById('bl-again');
   if (againEl) againEl.addEventListener('click', function () { blOpenBab(b.id).then(blStartEval); });
+
+  if (r.tuntas) {
+    const box = document.getElementById('bl-steps-bottom');
+    if (box) {
+      const list = (blState.bab && blState.bab.materi) || [];
+      box.innerHTML = list.map(function (m, idx) {
+        return '<button class="bl-alur-step ' + (idx === blState.activeTopicIndex ? 'active' : '') + '" data-tidx="' + idx + '">' +
+          '<span>' + (idx + 1) + '</span> ' + blEsc(blShortTopicTitle(m.judul)) + '</button>';
+      }).join('');
+      blBindSteps(function (idx) { blState.activeTopicIndex = idx; blRenderBab(); });
+    }
+    const hint = document.getElementById('bl-steps-hint');
+    if (hint) hint.remove();
+  }
 
   const nextBabEl = document.getElementById('bl-next-bab');
   if (nextBabEl) nextBabEl.addEventListener('click', async function () {
