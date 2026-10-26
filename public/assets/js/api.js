@@ -159,6 +159,7 @@ const LMS = (() => {
     getQuestions, createQuestion, updateQuestion, deleteQuestion,
     getExams, createExam, deleteExam,
     getGrades, createGrade, updateGrade, deleteGrade,
-    getDashboard, seedData
+    getDashboard, seedData,
+    studentLogin
   };
 })();
