@@ -1088,7 +1088,7 @@ app.get('/api/me', async (req, res) => {
     email: user.email,
     nama: user.nama,
     role: user.role,
-    tenant_id: user.tenant_id
+    tenant_id: req.session.tenantId || user.tenant_id
   };
   
   if (user.role === 'student') {

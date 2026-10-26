@@ -10,17 +10,23 @@ async function init() {
     return;
   }
   
-  currentTenant = LMS.getCurrentTenant();
+  currentTenant = LMS.getCurrentTenant() || currentUser.tenant_id || null;
   
   const nameEl = document.getElementById('user-name');
   if (nameEl) nameEl.textContent = currentUser.nama || currentUser.email || 'Admin';
   const avatarEl = document.querySelector('.user-avatar');
   if (avatarEl) avatarEl.textContent = (currentUser.nama || currentUser.email || 'A').trim().charAt(0).toUpperCase();
   
-  // If no tenant, show tenant selection
-  if (!currentTenant && currentUser.role !== 'super_admin') {
-    await showTenantSelection();
-    return;
+  // Belum ada tenant aktif: super_admin dengan satu sekolah dipilih otomatis, lainnya pilih manual
+  if (!currentTenant) {
+    const tenants = await LMS.getTenants();
+    if (currentUser.role === 'super_admin' && tenants.length === 1) {
+      await LMS.selectTenant(tenants[0].id);
+      currentTenant = tenants[0].id;
+    } else {
+      await showTenantSelection();
+      return;
+    }
   }
   
   await renderDashboard();
