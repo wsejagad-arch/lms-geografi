@@ -579,3 +579,7 @@
   .bl-result { padding: 13px; }
   .bl-detail-head h2 { font-size: 17px; }
 }
+.bl-stim svg, .bl-prose svg, .bl-rev svg {
+  max-width: 100%;
+  height: auto;
+}
