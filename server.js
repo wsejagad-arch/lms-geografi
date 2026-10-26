@@ -388,7 +388,7 @@ app.get('/api/students', requireAuth, requireTenant, async (req, res) => {
 });
 
 app.post('/api/students', requireAuth, requireTenant, async (req, res) => {
-  const { nama, nis, email, class_id, no_wa } = req.body;
+  const { nama, nis, nisn, email, class_id, no_wa } = req.body;
   const db = await loadDB();
   
   // Verify class belongs to tenant
@@ -400,6 +400,7 @@ app.post('/api/students', requireAuth, requireTenant, async (req, res) => {
     tenant_id: req.tenantId,
     nama,
     nis,
+    nisn: String(nisn || '').trim(),
     email,
     no_wa: normalizeWa(no_wa),
     class_id,
@@ -421,7 +422,7 @@ app.put('/api/students/:id', requireAuth, requireTenant, async (req, res) => {
   
   if (!student) return res.status(404).json({ error: 'Student not found' });
   
-  const { nama, nis, email, class_id, no_wa } = req.body;
+  const { nama, nis, nisn, email, class_id, no_wa } = req.body;
   
   // Verify class belongs to tenant
   if (class_id) {
@@ -432,6 +433,7 @@ app.put('/api/students/:id', requireAuth, requireTenant, async (req, res) => {
   
   student.nama = nama;
   student.nis = nis;
+  if (nisn !== undefined) student.nisn = String(nisn || '').trim();
   student.email = email;
   if (no_wa !== undefined) student.no_wa = normalizeWa(no_wa);
   
@@ -468,6 +470,7 @@ app.post('/api/students/import', requireAuth, requireTenant, async (req, res) =>
   rows.forEach((row, i) => {
     const baris = i + 2;
     const nis = String(row.nis || '').trim();
+    const nisn = String(row.nisn || '').trim();
     const nama = String(row.nama || '').trim();
     const email = String(row.email || '').trim();
     const no_wa = normalizeWa(row.no_wa);
@@ -494,6 +497,7 @@ app.post('/api/students/import', requireAuth, requireTenant, async (req, res) =>
       tenant_id: req.tenantId,
       nama,
       nis,
+      nisn,
       email,
       no_wa,
       class_id: classItem.id,
@@ -1026,9 +1030,28 @@ app.post('/api/student/login', async (req, res) => {
     return res.status(401).json({ error: 'Username tidak ditemukan' });
   }
   
-  // For demo, password is stored in users table with email matching
-  const user = db.users.find(u => u.email === student.email && u.role === 'student');
-  if (!user || !bcrypt.compareSync(password, user.password)) {
+  // Akun login: pakai baris users bila sudah ada, kalau belum pakai hash di data siswa
+  let user = db.users.find(u => u.role === 'student' && u.id === student.user_id)
+    || (student.email ? db.users.find(u => u.email === student.email && u.role === 'student') : null);
+
+  if (!user) {
+    if (!student.password || !bcrypt.compareSync(password, student.password)) {
+      return res.status(401).json({ error: 'Password salah' });
+    }
+    user = {
+      id: uuidv4(),
+      email: student.email || `${student.nis}@siswa.local`,
+      password: student.password,
+      nama: student.nama,
+      role: 'student',
+      tenant_id: student.tenant_id,
+      student_id: student.id,
+      created_at: new Date().toISOString()
+    };
+    db.users.push(user);
+    student.user_id = user.id;
+    await saveDB(db);
+  } else if (!bcrypt.compareSync(password, user.password)) {
     return res.status(401).json({ error: 'Password salah' });
   }
   
