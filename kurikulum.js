@@ -5,7 +5,6 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 const KKM = 75;
-const MAX_ATTEMPTS = 3;
 const LEVELS = ['X', 'XI', 'XII'];
 const CONTENT_DIR = path.join(__dirname, 'data', 'kurikulum');
 
@@ -196,7 +195,7 @@ function registerKurikulum(app, deps) {
         jumlah_soal: (bab.soal || []).length,
         best_score: best,
         attempts,
-        attempts_left: Math.max(0, MAX_ATTEMPTS - attempts),
+        attempts_left: null,
         tuntas,
         unlocked
       };
@@ -209,7 +208,6 @@ function registerKurikulum(app, deps) {
       level,
       semester_aktif: semesterAktif,
       kkm: KKM,
-      max_attempts: MAX_ATTEMPTS,
       babs: items,
       tuntas: items.filter(i => i.tuntas).length,
       total: items.length,
@@ -267,7 +265,7 @@ function registerKurikulum(app, deps) {
       progress: {
         best_score: prog ? prog.best_score : null,
         attempts: attempts.length,
-        attempts_left: Math.max(0, MAX_ATTEMPTS - attempts.length),
+        attempts_left: null,
         riwayat: attempts.map(a => ({ ke: a.ke, score: a.score, benar: a.benar, total: a.total, created_at: a.created_at }))
       }
     });
@@ -285,9 +283,6 @@ function registerKurikulum(app, deps) {
 
     const bab = babs[idx];
     const attempts = db.attempts.filter(a => a.student_id === student.id && a.bab_id === bab.id);
-    if (attempts.length >= MAX_ATTEMPTS) {
-      return res.status(429).json({ error: `Batas ${MAX_ATTEMPTS} percobaan sudah tercapai` });
-    }
 
     const answers = req.body.answers || {};
     const soalList = bab.soal || [];
@@ -351,7 +346,7 @@ function registerKurikulum(app, deps) {
       tuntas: prog.best_score >= KKM,
       best_score: prog.best_score,
       attempts: ke,
-      attempts_left: MAX_ATTEMPTS - ke,
+      attempts_left: null,
       hasil
     });
   });
@@ -392,9 +387,13 @@ function registerKurikulum(app, deps) {
     const rows = students.map(s => {
       const level = studentLevel(s);
       const babs = loadLevel(level);
+      const attemptCount = {};
+      db.attempts.forEach(a => {
+        if (a.student_id === s.id) attemptCount[a.bab_id] = (attemptCount[a.bab_id] || 0) + 1;
+      });
       const items = babs.map(b => {
         const p = progressOf(db, s, b.id);
-        return { bab_id: b.id, judul: b.judul, best_score: p ? p.best_score : null, tuntas: !!(p && p.best_score >= KKM) };
+        return { bab_id: b.id, judul: b.judul, best_score: p ? p.best_score : null, attempts: attemptCount[b.id] || 0, tuntas: !!(p && p.best_score >= KKM) };
       });
       return {
         student_id: s.id,
@@ -406,10 +405,11 @@ function registerKurikulum(app, deps) {
         rata_best: items.filter(i => i.best_score !== null).length
           ? Math.round(items.filter(i => i.best_score !== null).reduce((a, i) => a + i.best_score, 0) / items.filter(i => i.best_score !== null).length * 10) / 10
           : null,
+        total_attempts: items.reduce((a, i) => a + i.attempts, 0),
         items
       };
     });
-    res.json({ kkm: KKM, max_attempts: MAX_ATTEMPTS, students: rows });
+    res.json({ kkm: KKM, students: rows });
   });
 
   // --- Admin: baca & sunting isi kurikulum (materi + soal) ---

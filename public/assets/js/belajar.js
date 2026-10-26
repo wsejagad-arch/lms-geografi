@@ -60,7 +60,7 @@ function blRenderList() {
     '    <div class="bl-level">' + blEsc(k.level) + '</div>',
     '    <div style="flex:1;min-width:180px">',
     '      <h2>Kelas ' + blEsc(k.level) + ' — Geografi</h2>',
-    '      <p>' + k.tuntas + ' dari ' + k.total + ' materi tuntas · KKM ' + k.kkm + ' · maksimal ' + k.max_attempts + ' percobaan</p>',
+    '      <p>' + k.tuntas + ' dari ' + k.total + ' materi tuntas · KKM ' + k.kkm + ' · evaluasi bisa diulang sampai tuntas</p>',
     '    </div>',
     '    <div class="bl-bar"><span style="width:' + pct + '%"></span></div>',
     '    <div class="bl-pct">' + pct + '%</div>',
@@ -118,7 +118,7 @@ function blBabCard(b) {
     '    <div class="bl-meta">' + chip + status +
     '<span class="bl-chip">' + b.jumlah_soal + ' soal</span>' +
     '<span class="bl-chip">' + blEsc(b.estimasi || '-') + '</span>' +
-    '<span class="bl-chip">' + b.attempts_left + ' percobaan</span></div>',
+    '<span class="bl-chip">' + (b.attempts || 0) + '× dikerjakan</span></div>',
     '  </div>',
     '</article>'
   ].join('');
@@ -160,7 +160,6 @@ function blRenderBab() {
 
   const navHtml = hasNav
     ? '<div class="bl-alur-bar" id="bl-topic-nav">' +
-      '<div class="bl-alur-head"><div class="bl-alur-title">Alur belajar · Bagian ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length + '</div></div>' +
       '<div class="bl-alur-steps">' + steps + '</div></div>'
     : '';
 
@@ -172,11 +171,11 @@ function blRenderBab() {
 
   const topicHtml = [
     '<div class="bl-card bl-topic-card" id="bl-active-topic">',
-    '  <span class="bl-topic-badge">Bagian ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length + '</span>',
     '  <h3>' + blEsc(cur.judul) + '</h3>',
     blFig(cur),
     '  <div class="bl-prose">' + (cur.html || '') + '</div>',
     '  <div class="bl-topic-nav-footer">' + prevBtn + nextBtn + '</div>',
+    '  <div class="bl-topic-pos">Bagian ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length + '</div>',
     '</div>'
   ].join('');
 
@@ -200,9 +199,9 @@ function blRenderBab() {
     glos ? '<div class="bl-card" id="bl-glosarium-card"><h3>Glosarium</h3><div class="bl-glos">' + glos + '</div></div>' : '',
     '  <div class="bl-card" id="bl-eval-card">',
     '    <h3>Evaluasi Materi</h3>',
-    '    <p class="bl-note" style="margin:0 0 10px">Nilai terbaik: <b>' + (p.best_score === null ? '—' : p.best_score) + '</b> · percobaan ' + p.attempts + '/' + (p.attempts + p.attempts_left) + ' · KKM ' + b.kkm + '. Materi berikutnya terbuka setelah nilai ≥ KKM.</p>',
+    '    <p class="bl-note" style="margin:0 0 10px">Nilai terbaik: <b>' + (p.best_score === null ? '—' : p.best_score) + '</b> · dikerjakan ' + p.attempts + '× · KKM ' + b.kkm + '. Evaluasi bisa diulang bila nilai belum mencapai KKM; materi berikutnya terbuka setelah tuntas.</p>',
     '    <div class="bl-actions" style="margin-top:0">',
-    '      <button class="bl-btn primary" id="bl-start" ' + (p.attempts_left > 0 ? '' : 'disabled') + '>' + (p.attempts > 0 ? 'Kerjakan Ulang' : 'Mulai Evaluasi') + '</button>',
+    '      <button class="bl-btn primary" id="bl-start">' + (p.attempts > 0 ? 'Kerjakan Ulang' : 'Mulai Evaluasi') + '</button>',
     '      <button class="bl-btn ghost" id="bl-back-2">Daftar materi</button>',
     '    </div>',
     '  </div>',
@@ -245,7 +244,7 @@ function blStartEval() {
   host.innerHTML = [
     '<div class="bl-card" style="margin-top:4px">',
     '  <h3>Evaluasi ' + blEsc(b.judul) + '</h3>',
-    '  <p class="bl-note" style="margin:0 0 12px">Jawab semua soal. Nilai tertinggi dari maksimal ' + (b.progress.attempts + b.progress.attempts_left) + ' percobaan yang dihitung.</p>',
+    '  <p class="bl-note" style="margin:0 0 12px">Jawab semua soal. Nilai terbaik yang dihitung; evaluasi bisa diulang jika belum mencapai KKM.</p>',
     (b.soal || []).map(function (s, i) { return blRenderSoal(s, i); }).join(''),
     '  <div class="bl-actions">',
     '    <button class="bl-btn primary" id="bl-submit">Kirim Jawaban</button>',
@@ -395,18 +394,31 @@ function blRenderResult(r) {
   host.innerHTML = [
     '<div class="bl-result ' + (r.tuntas ? 'ok' : 'no') + '">',
     '  <div class="bl-score">' + r.score + '</div>',
-    '  <div style="font-size:12.5px;color:#374151">KKM ' + r.kkm + ' · ' + r.benar + '/' + r.total + ' benar · nilai terbaik ' + r.best_score + ' · sisa ' + r.attempts_left + ' percobaan</div>',
+    '  <div style="font-size:12.5px;color:#374151">KKM ' + r.kkm + ' · ' + r.benar + '/' + r.total + ' benar · nilai terbaik ' + r.best_score + ' · dikerjakan ' + r.attempts + '×</div>',
     '  <p style="margin:8px 0 0;font-size:13px;font-weight:600;color:' + (r.tuntas ? '#15803d' : '#b45309') + '">' +
-    (r.tuntas ? 'Materi tuntas. Materi berikutnya sudah terbuka.' : 'Belum tuntas. Pelajari pembahasan, lalu coba lagi.') + '</p>',
+    (r.tuntas ? 'Materi tuntas. Materi berikutnya sudah terbuka.' : 'Belum tuntas. Pelajari pembahasan, lalu kerjakan ulang sampai nilai ≥ KKM.') + '</p>',
     '  <div class="bl-actions">',
-    '    <button class="bl-btn" id="bl-again">Kembali ke Materi</button>',
-    '    <button class="bl-btn primary" id="bl-tolist">Daftar Materi</button>',
+    (r.tuntas
+      ? '    <button class="bl-btn primary" id="bl-next-bab">Materi berikutnya →</button>'
+      : '    <button class="bl-btn primary" id="bl-again">Kerjakan Ulang</button>'),
+    '    <button class="bl-btn" id="bl-tolist">Daftar Materi</button>',
     '  </div>',
     '</div>',
     '<div class="bl-card"><h3>Pembahasan</h3><div class="bl-review">' + review + '</div></div>'
   ].join('');
 
-  document.getElementById('bl-again').addEventListener('click', function () { blOpenBab(b.id); });
+  const againEl = document.getElementById('bl-again');
+  if (againEl) againEl.addEventListener('click', function () { blOpenBab(b.id).then(blStartEval); });
+
+  const nextBabEl = document.getElementById('bl-next-bab');
+  if (nextBabEl) nextBabEl.addEventListener('click', async function () {
+    await blLoadKurikulum();
+    const list = (blState.kurikulum && blState.kurikulum.babs) || [];
+    const i = list.findIndex(function (x) { return x.id === b.id; });
+    const nx = list[i + 1];
+    if (nx && nx.unlocked) await blOpenBab(nx.id);
+  });
+
   document.getElementById('bl-tolist').addEventListener('click', blLoadKurikulum);
   host.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

@@ -622,14 +622,14 @@ async function saveStudent() {
 async function renderProgress() {
   const tbody = document.getElementById('progress-tbody');
   if (!tbody) return;
-  tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>';
   try {
     const data = await fetch('/api/admin/kurikulum/progress', { credentials: 'same-origin' }).then(r => {
       if (!r.ok) throw new Error('Gagal memuat progres');
       return r.json();
     });
     if (!data.students.length) {
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada siswa</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Belum ada siswa</td></tr>';
       return;
     }
     tbody.innerHTML = data.students.map(s => `
@@ -639,11 +639,12 @@ async function renderProgress() {
         <td><span class="badge badge-primary">${s.level}</span></td>
         <td>${s.tuntas}/${s.total}</td>
         <td><strong>${s.rata_best === null ? '-' : s.rata_best}</strong></td>
-        <td>${s.items.map(i => `<span class="badge ${i.tuntas ? 'badge-success' : 'badge-neutral'}">${i.bab_id}: ${i.best_score === null ? '-' : i.best_score}</span>`).join(' ')}</td>
+        <td>${s.total_attempts || 0}×</td>
+        <td>${s.items.map(i => `<span class="badge ${i.tuntas ? 'badge-success' : 'badge-neutral'}">${i.bab_id}: ${i.best_score === null ? '-' : i.best_score}${i.attempts ? ' · ' + i.attempts + '×' : ''}</span>`).join(' ')}</td>
       </tr>
     `).join('');
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--danger)">${err.message}</td></tr>`;
   }
 }
 

@@ -337,6 +337,12 @@
 .bl-topic-nav-footer .bl-btn {
   font-size: 12.5px;
 }
+.bl-topic-pos {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--bl-muted, #6b7280);
+}
 
 /* Callout Kotak Pembelajaran */
 .bl-callout {
