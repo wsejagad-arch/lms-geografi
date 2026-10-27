@@ -90,9 +90,11 @@ function resolveStudent(db, user) {
   ) || null;
 }
 
-function studentLevel(student) {
+function studentLevel(db, student) {
   if (student.kelas_level && LEVELS.includes(student.kelas_level)) return student.kelas_level;
-  return 'X';
+  const classItem = db && db.classes ? db.classes.find(c => c.id === student.class_id) : null;
+  const tingkat = classItem ? String(classItem.tingkat || '').toUpperCase() : '';
+  return LEVELS.includes(tingkat) ? tingkat : 'X';
 }
 
 function progressOf(db, student, babId) {
@@ -156,7 +158,7 @@ function registerKurikulum(app, deps) {
   app.get('/api/kurikulum', requireAuth, requireTenant, async (req, res) => {
     const db = req.db;
     const student = resolveStudent(db, req.user);
-    const level = student ? studentLevel(student) : (req.query.kelas || 'X');
+    const level = student ? studentLevel(db, student) : (req.query.kelas || 'X');
     const babs = loadLevel(level);
 
     const tenant = db.tenants.find(t => t.id === req.tenantId);
@@ -231,7 +233,7 @@ function registerKurikulum(app, deps) {
   app.get('/api/kurikulum/:babId', requireAuth, requireTenant, async (req, res) => {
     const db = req.db;
     const student = resolveStudent(db, req.user);
-    const level = student ? studentLevel(student) : (req.query.kelas || 'X');
+    const level = student ? studentLevel(db, student) : (req.query.kelas || 'X');
     const babs = loadLevel(level);
     const idx = babs.findIndex(b => b.id === req.params.babId);
     if (idx < 0) return res.status(404).json({ error: 'Bab tidak ditemukan' });
@@ -279,7 +281,7 @@ function registerKurikulum(app, deps) {
     const student = resolveStudent(db, req.user);
     if (!student) return res.status(403).json({ error: 'Hanya siswa yang dapat mengerjakan evaluasi' });
 
-    const level = studentLevel(student);
+    const level = studentLevel(db, student);
     const babs = loadLevel(level);
     const idx = babs.findIndex(b => b.id === req.params.babId);
     if (idx < 0) return res.status(404).json({ error: 'Bab tidak ditemukan' });
@@ -359,7 +361,7 @@ function registerKurikulum(app, deps) {
     const student = resolveStudent(db, req.user);
     if (!student) return res.status(403).json({ error: 'Hanya siswa' });
 
-    const level = studentLevel(student);
+    const level = studentLevel(db, student);
     const babs = loadLevel(level);
     if (!babs.length) return res.status(400).json({ error: 'Materi jenjang belum tersedia' });
 
@@ -388,7 +390,7 @@ function registerKurikulum(app, deps) {
     const db = req.db;
     const students = db.students.filter(s => s.tenant_id === req.tenantId);
     const rows = students.map(s => {
-      const level = studentLevel(s);
+      const level = studentLevel(db, s);
       const babs = loadLevel(level);
       const attemptCount = {};
       db.attempts.forEach(a => {

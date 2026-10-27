@@ -523,7 +523,20 @@ app.get('/api/materials', requireAuth, requireTenant, async (req, res) => {
   let materials = db.materials.filter(m => m.tenant_id === req.tenantId);
   
   if (subject_id) materials = materials.filter(m => m.subject_id === subject_id);
-  if (class_id) materials = materials.filter(m => m.class_id === class_id);
+  if (class_id) {
+    const mine = materials.filter(m => m.class_id === class_id);
+    if (mine.length) {
+      materials = mine;
+    } else {
+      // Kelas belum punya materi sendiri: pakai materi kelas lain pada tingkat yang sama
+      const target = db.classes.find(c => c.id === class_id && c.tenant_id === req.tenantId);
+      const tingkat = target ? String(target.tingkat || '') : '';
+      const sameLevelIds = new Set(
+        db.classes.filter(c => c.tenant_id === req.tenantId && String(c.tingkat || '') === tingkat).map(c => c.id)
+      );
+      materials = materials.filter(m => sameLevelIds.has(m.class_id));
+    }
+  }
   if (semester) materials = materials.filter(m => Number(m.semester || 1) === Number(semester));
   
   materials = materials.map(m => {
@@ -1092,13 +1105,17 @@ app.get('/api/me', async (req, res) => {
   };
   
   if (user.role === 'student') {
-    const student = db.students.find(s => s.tenant_id === user.tenant_id && s.email === user.email);
+    const student = db.students.find(s =>
+      (!user.tenant_id || s.tenant_id === user.tenant_id) &&
+      (s.user_id === user.id || s.id === user.student_id || (user.email && s.email === user.email))
+    );
     if (student) {
       const classItem = db.classes.find(c => c.id === student.class_id);
       resp.student_id = student.id;
       resp.class_id = student.class_id;
       resp.nis = student.nis;
       resp.kelas_nama = classItem ? classItem.nama : '-';
+      resp.kelas_level = String(student.kelas_level || (classItem && classItem.tingkat) || '').toUpperCase();
     }
   }
   
