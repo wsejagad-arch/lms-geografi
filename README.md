@@ -44,7 +44,11 @@ Buka `http://localhost:3000`
 
 ## Login
 
-- Admin: `admin@lms.id` / `admin`
+- Admin: email `admin@lms.id` (atau `ADMIN_EMAIL`). Password diambil dari env `ADMIN_PASSWORD`;
+  bila tidak diset, password acak dibuat saat seed dan dicetak **sekali** ke stdout.
+- Siswa: password dibuat acak saat siswa dibuat/diimpor (dikembalikan di respons API), bukan NIS.
+- Endpoint mutasi admin (mapel, kelas, siswa, materi, soal, ujian, nilai, presensi, tugas, jadwal)
+  hanya untuk role `admin`/`super_admin`.
 
 ## Struktur Project
 
@@ -130,7 +134,7 @@ Kolom: `nis,nama,email,no_wa,kelas` (`email` & `no_wa` opsional; `kelas` harus s
 Nomor WA dinormalkan ke format `62…` saat disimpan (untuk notifikasi).
 
 ### Materials
-- `GET /api/materials` - List materials
+- `GET /api/materials` - List materials (siswa: hanya tingkat/kelasnya & semester aktif)
 - `POST /api/materials` - Create material
 - `PUT /api/materials/:id` - Update material
 - `DELETE /api/materials/:id` - Delete material
@@ -145,13 +149,14 @@ Menu **Materi** di panel admin punya tombol **Impor Kurikulum**: menyalin setiap
 - `DELETE /api/questions/:id` - Delete question
 
 ### Exams
-- `GET /api/exams` - List exams
+- `GET /api/exams` - List exams (siswa: hanya kelasnya, soal tanpa kunci jawaban)
 - `POST /api/exams` - Create exam
 - `DELETE /api/exams/:id` - Delete exam
+- `POST /api/exams/:id/submit` - Siswa kirim jawaban; nilai dihitung di server
 
 ### Grades
-- `GET /api/grades` - List grades
-- `POST /api/grades` - Create grade
+- `GET /api/grades` - List grades (siswa: hanya miliknya)
+- `POST /api/grades` - Create grade (admin/guru)
 - `PUT /api/grades/:id` - Update grade
 - `DELETE /api/grades/:id` - Delete grade
 

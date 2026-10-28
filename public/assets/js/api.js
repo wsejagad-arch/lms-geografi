@@ -100,6 +100,7 @@ const LMS = (() => {
   async function getExams() { return api('/exams'); }
   async function createExam(data) { return api('/exams', { method: 'POST', body: JSON.stringify(data) }); }
   async function deleteExam(id) { return api(`/exams/${id}`, { method: 'DELETE' }); }
+  async function submitExam(examId, answers) { return api(`/exams/${examId}/submit`, { method: 'POST', body: JSON.stringify({ answers }) }); }
 
   // Grades
   async function getGrades(params = {}) {
@@ -157,7 +158,7 @@ const LMS = (() => {
     seedKurikulumMaterials,
     getSemesterAktif, setSemesterAktif,
     getQuestions, createQuestion, updateQuestion, deleteQuestion,
-    getExams, createExam, deleteExam,
+    getExams, createExam, deleteExam, submitExam,
     getGrades, createGrade, updateGrade, deleteGrade,
     getDashboard, seedData,
     getAttendance, createAttendance, deleteAttendance,

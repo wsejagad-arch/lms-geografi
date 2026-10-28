@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const cookieSession = require('cookie-session');
+const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 const Redis = require('ioredis');
 const fs = require('fs/promises');
@@ -103,31 +104,48 @@ async function saveDB(db) {
 async function initDB() {
   const db = await loadDB();
   if (db.users.length === 0) {
-    // Seed default super admin
-    db.users.push({
-      id: uuidv4(),
-      email: 'admin@lms.id',
-      password: bcrypt.hashSync('admin', 10),
-      nama: 'Super Admin',
-      role: 'super_admin',
-      tenant_id: null
-    });
-    await saveDB(db);
+      // Seed super admin. Password dari ADMIN_PASSWORD, atau acak sekali (dicetak ke stdout).
+      const seedPassword = (process.env.ADMIN_PASSWORD || '').trim() || crypto.randomBytes(9).toString('base64url');
+      db.users.push({
+        id: uuidv4(),
+        email: process.env.ADMIN_EMAIL || 'admin@lms.id',
+        password: bcrypt.hashSync(seedPassword, 10),
+        nama: 'Super Admin',
+        role: 'super_admin',
+        tenant_id: null
+      });
+      await saveDB(db);
+      console.log(`[seed] Super admin dibuat: ${process.env.ADMIN_EMAIL || 'admin@lms.id'}`);
+      if (!process.env.ADMIN_PASSWORD) {
+        console.log(`[seed] Password awal (hanya tampil sekali): ${seedPassword}`);
+        console.log('[seed] Segera ganti password akun admin.');
+      }
+    }
+    return db;
   }
-  return db;
-}
 
 // ===== MIDDLEWARE =====
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
-const SESSION_KEYS = (process.env.SESSION_SECRET || 'lms-secret-key-2024-multi-tenant')
+app.set('trust proxy', 1);
+const IS_PROD = process.env.NODE_ENV === 'production';
+const RAW_SESSION_SECRET = (process.env.SESSION_SECRET || '').trim();
+if (IS_PROD && (!RAW_SESSION_SECRET || RAW_SESSION_SECRET === 'lms-secret-key-2024-multi-tenant')) {
+  console.error('FATAL: SESSION_SECRET wajib diisi di production. Buat dengan: openssl rand -hex 32');
+  process.exit(1);
+}
+const SESSION_KEYS = (RAW_SESSION_SECRET || 'dev-only-insecure-secret')
   .split(',')
   .map(k => k.trim())
   .filter(Boolean);
 app.use(cookieSession({
   name: 'lms_session',
   keys: SESSION_KEYS,
-  maxAge: 7 * 24 * 60 * 60 * 1000
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: IS_PROD,
+  rolling: true
 }));
 
 // Auth middleware
@@ -183,8 +201,8 @@ const STUDENT_ROUTES = [
   ['GET', /^\/api\/me$/],
   ['GET', /^\/api\/materials$/],
   ['GET', /^\/api\/exams$/],
+  ['POST', /^\/api\/exams\/[^/]+\/submit$/],
   ['GET', /^\/api\/grades$/],
-  ['POST', /^\/api\/grades$/],
   ['GET', /^\/api\/attendance$/],
   ['GET', /^\/api\/assignments$/],
   ['GET', /^\/api\/kurikulum(\/[^/]+)?$/],
@@ -196,10 +214,32 @@ function isStudentRoute(method, reqPath) {
   return STUDENT_ROUTES.some(([m, re]) => m === method && re.test(reqPath));
 }
 
+function generatePassword(len = 10) {
+  const alphabet = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const bytes = crypto.randomBytes(len);
+  let out = '';
+  for (let i = 0; i < len; i++) out += alphabet[bytes[i] % alphabet.length];
+  return out;
+}
+
 function studentIdOf(db, user) {
   if (user.student_id) return user.student_id;
   const s = db.students.find(x => x.user_id === user.id || (user.email && x.email === user.email));
   return s ? s.id : null;
+}
+
+// Buang kunci jawaban sebelum soal dikirim ke siswa.
+function publicQuestion(q) {
+  return {
+    id: q.id,
+    pertanyaan: q.pertanyaan,
+    opsi_a: q.opsi_a,
+    opsi_b: q.opsi_b,
+    opsi_c: q.opsi_c,
+    opsi_d: q.opsi_d,
+    jenis: q.jenis,
+    poin: q.poin
+  };
 }
 
 async function requireAuth(req, res, next) {
@@ -348,7 +388,7 @@ app.get('/api/subjects', requireAuth, requireTenant, async (req, res) => {
   res.json(subjects);
 });
 
-app.post('/api/subjects', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/subjects', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { nama, kode, deskripsi } = req.body;
   const db = await loadDB();
   
@@ -369,7 +409,7 @@ app.post('/api/subjects', requireAuth, requireTenant, async (req, res) => {
   res.json(subject);
 });
 
-app.put('/api/subjects/:id', requireAuth, requireTenant, async (req, res) => {
+app.put('/api/subjects/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const subject = db.subjects.find(s => s.id === req.params.id && s.tenant_id === req.tenantId);
   
@@ -385,7 +425,7 @@ app.put('/api/subjects/:id', requireAuth, requireTenant, async (req, res) => {
   res.json(subject);
 });
 
-app.delete('/api/subjects/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/subjects/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const idx = db.subjects.findIndex(s => s.id === req.params.id && s.tenant_id === req.tenantId);
   
@@ -421,7 +461,7 @@ app.get('/api/classes', requireAuth, requireTenant, async (req, res) => {
   res.json(classes);
 });
 
-app.post('/api/classes', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/classes', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { nama, tingkat, jurusan, wali_kelas } = req.body;
   const db = await loadDB();
   
@@ -443,7 +483,7 @@ app.post('/api/classes', requireAuth, requireTenant, async (req, res) => {
   res.json(classItem);
 });
 
-app.put('/api/classes/:id', requireAuth, requireTenant, async (req, res) => {
+app.put('/api/classes/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const classItem = db.classes.find(c => c.id === req.params.id && c.tenant_id === req.tenantId);
   
@@ -460,7 +500,7 @@ app.put('/api/classes/:id', requireAuth, requireTenant, async (req, res) => {
   res.json(classItem);
 });
 
-app.delete('/api/classes/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/classes/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const idx = db.classes.findIndex(c => c.id === req.params.id && c.tenant_id === req.tenantId);
   
@@ -504,14 +544,16 @@ app.get('/api/students', requireAuth, requireTenant, async (req, res) => {
   res.json(students);
 });
 
-app.post('/api/students', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/students', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { nama, nis, nisn, email, class_id, no_wa } = req.body;
   const db = await loadDB();
-  
+
   // Verify class belongs to tenant
   const classItem = db.classes.find(c => c.id === class_id && c.tenant_id === req.tenantId);
   if (!classItem) return res.status(400).json({ error: 'Invalid class' });
-  
+
+  const plainPassword = String(req.body.password || '').trim() || generatePassword();
+
   const student = {
     id: uuidv4(),
     tenant_id: req.tenantId,
@@ -522,18 +564,18 @@ app.post('/api/students', requireAuth, requireTenant, async (req, res) => {
     no_wa: normalizeWa(no_wa),
     class_id,
     username: req.body.username || email,
-    password: bcrypt.hashSync(req.body.password || email, 10),
+    password: bcrypt.hashSync(plainPassword, 10),
     created_by: req.user.id,
     created_at: new Date().toISOString()
   };
-  
+
   db.students.push(student);
   await saveDB(db);
-  
-  res.json(student);
+
+  res.json({ ...student, password: plainPassword });
 });
 
-app.put('/api/students/:id', requireAuth, requireTenant, async (req, res) => {
+app.put('/api/students/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const student = db.students.find(s => s.id === req.params.id && s.tenant_id === req.tenantId);
   
@@ -558,7 +600,7 @@ app.put('/api/students/:id', requireAuth, requireTenant, async (req, res) => {
   res.json(student);
 });
 
-app.delete('/api/students/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/students/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const idx = db.students.findIndex(s => s.id === req.params.id && s.tenant_id === req.tenantId);
   
@@ -570,7 +612,7 @@ app.delete('/api/students/:id', requireAuth, requireTenant, async (req, res) => 
   res.json({ success: true });
 });
 
-app.post('/api/students/import', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/students/import', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const rows = Array.isArray(req.body.students) ? req.body.students : [];
   if (!rows.length) return res.status(400).json({ error: 'Tidak ada baris untuk diimpor' });
   
@@ -582,7 +624,7 @@ app.post('/api/students/import', requireAuth, requireTenant, async (req, res) =>
       .map(s => String(s.nis || '').trim().toLowerCase())
   );
   
-  const result = { created: 0, skipped: 0, errors: [] };
+  const result = { created: 0, skipped: 0, errors: [], credentials: [] };
   
   rows.forEach((row, i) => {
     const baris = i + 2;
@@ -609,6 +651,7 @@ app.post('/api/students/import', requireAuth, requireTenant, async (req, res) =>
     }
     
     const username = email || nis;
+    const plainPassword = String(row.password || '').trim() || generatePassword();
     db.students.push({
       id: uuidv4(),
       tenant_id: req.tenantId,
@@ -619,12 +662,13 @@ app.post('/api/students/import', requireAuth, requireTenant, async (req, res) =>
       no_wa,
       class_id: classItem.id,
       username,
-      password: bcrypt.hashSync(username, 10),
+      password: bcrypt.hashSync(plainPassword, 10),
       created_by: req.user.id,
       created_at: new Date().toISOString()
     });
     
     seen.add(nis.toLowerCase());
+    result.credentials.push({ nis, username, password: plainPassword });
     result.created++;
   });
   
@@ -638,6 +682,21 @@ app.get('/api/materials', requireAuth, requireTenant, async (req, res) => {
   const db = await loadDB();
   
   let materials = db.materials.filter(m => m.tenant_id === req.tenantId);
+
+  if (req.user.role === 'student') {
+    const student = db.students.find(s => s.id === req.studentId);
+    const tenant = db.tenants.find(t => t.id === req.tenantId);
+    const activeSemester = tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1;
+    const myClass = student ? db.classes.find(c => c.id === student.class_id) : null;
+    const levelIds = new Set(
+      myClass
+        ? db.classes.filter(c => c.tenant_id === req.tenantId && String(c.tingkat || '') === String(myClass.tingkat || '')).map(c => c.id)
+        : [student ? student.class_id : null].filter(Boolean)
+    );
+    materials = materials.filter(m =>
+      levelIds.has(m.class_id) && Number(m.semester || 1) <= activeSemester
+    );
+  }
   
   if (subject_id) materials = materials.filter(m => m.subject_id === subject_id);
   if (class_id) {
@@ -670,7 +729,7 @@ app.get('/api/materials', requireAuth, requireTenant, async (req, res) => {
   res.json(materials.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 });
 
-app.post('/api/materials', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/materials', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { judul, konten, subject_id, class_id, youtube_id, image, modul, tipe, semester } = req.body;
   const db = await loadDB();
   
@@ -705,7 +764,7 @@ app.post('/api/materials', requireAuth, requireTenant, async (req, res) => {
   res.json(material);
 });
 
-app.put('/api/materials/:id', requireAuth, requireTenant, async (req, res) => {
+app.put('/api/materials/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const material = db.materials.find(m => m.id === req.params.id && m.tenant_id === req.tenantId);
   
@@ -755,7 +814,7 @@ app.post('/api/admin/semester-aktif', requireAuth, requireAdmin, requireTenant, 
   res.json({ success: true, semester_aktif: sem });
 });
 
-app.delete('/api/materials/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/materials/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const material = db.materials.find(m => m.id === req.params.id && m.tenant_id === req.tenantId);
   
@@ -782,7 +841,7 @@ app.get('/api/questions', requireAuth, requireTenant, async (req, res) => {
   res.json(questions);
 });
 
-app.post('/api/questions', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/questions', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { pertanyaan, opsi_a, opsi_b, opsi_c, opsi_d, jawaban, subject_id, jenis, poin, kelas } = req.body;
   const db = await loadDB();
   
@@ -810,7 +869,7 @@ app.post('/api/questions', requireAuth, requireTenant, async (req, res) => {
   res.json(question);
 });
 
-app.put('/api/questions/:id', requireAuth, requireTenant, async (req, res) => {
+app.put('/api/questions/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const question = db.questions.find(q => q.id === req.params.id && q.tenant_id === req.tenantId);
   
@@ -833,7 +892,7 @@ app.put('/api/questions/:id', requireAuth, requireTenant, async (req, res) => {
   res.json(question);
 });
 
-app.delete('/api/questions/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/questions/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const question = db.questions.find(q => q.id === req.params.id && q.tenant_id === req.tenantId);
   
@@ -864,18 +923,65 @@ app.get('/api/exams', requireAuth, requireTenant, async (req, res) => {
     const classItem = db.classes.find(c => c.id === e.class_id);
     const questions = db.exam_questions
       .filter(eq => eq.exam_id === e.id)
-      .map(eq => db.questions.find(q => q.id === eq.question_id));
+      .map(eq => db.questions.find(q => q.id === eq.question_id))
+      .filter(Boolean);
     return {
       ...e,
       subject_nama: subject ? subject.nama : '-',
       class_nama: classItem ? classItem.nama : '-',
-      questions: questions.filter(Boolean)
+      questions: req.user.role === 'student' ? questions.map(publicQuestion) : questions
     };
   });
   res.json(result);
 });
 
-app.post('/api/exams', requireAuth, requireTenant, async (req, res) => {
+// Siswa mengirim jawaban; skor dihitung di server agar `nilai` tidak bisa dipalsukan.
+app.post('/api/exams/:id/submit', requireAuth, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const exam = db.exams.find(e => e.id === req.params.id && e.tenant_id === req.tenantId);
+  if (!exam) return res.status(404).json({ error: 'Exam tidak ditemukan' });
+
+  const isStudent = req.user.role === 'student';
+  const studentId = isStudent ? req.studentId : req.body.student_id;
+  if (!studentId) return res.status(400).json({ error: 'student_id wajib diisi' });
+  const student = db.students.find(s => s.id === studentId && s.tenant_id === req.tenantId);
+  if (!student) return res.status(404).json({ error: 'Siswa tidak ditemukan' });
+
+  const questionIds = db.exam_questions.filter(eq => eq.exam_id === exam.id).map(eq => eq.question_id);
+  const questions = questionIds.map(id => db.questions.find(q => q.id === id)).filter(Boolean);
+  if (!questions.length) return res.status(400).json({ error: 'Exam tidak memiliki soal' });
+
+  const answers = Array.isArray(req.body.answers) ? req.body.answers : [];
+  const picked = new Map(answers.map(a => [String(a.question_id), Number(a.jawaban)]));
+  let benar = 0;
+  questions.forEach(q => {
+    const jawab = picked.get(String(q.id));
+    if (Number.isInteger(jawab) && jawab === Number(q.jawaban)) benar++;
+  });
+
+  const nilai = Math.round((benar / questions.length) * 100);
+  const grade = {
+    id: uuidv4(),
+    tenant_id: req.tenantId,
+    student_id: student.id,
+    subject_id: exam.subject_id,
+    class_id: exam.class_id,
+    material_id: null,
+    nilai,
+    catatan: '',
+    tipe: 'exam',
+    exam_id: exam.id,
+    created_by: req.user.id,
+    created_at: new Date().toISOString()
+  };
+  db.grades.push(grade);
+  await saveDB(db);
+  await cacheDel(`grades:${req.tenantId}:${student.id}`);
+
+  res.json({ success: true, nilai, benar, total: questions.length, grade });
+});
+
+app.post('/api/exams', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { judul, subject_id, class_id, durasi, question_ids } = req.body;
   const db = await loadDB();
   
@@ -906,7 +1012,7 @@ app.post('/api/exams', requireAuth, requireTenant, async (req, res) => {
   res.json(exam);
 });
 
-app.delete('/api/exams/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/exams/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const idx = db.exams.findIndex(e => e.id === req.params.id && e.tenant_id === req.tenantId);
   
@@ -947,7 +1053,7 @@ app.get('/api/grades', requireAuth, requireTenant, async (req, res) => {
   res.json(enriched.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 });
 
-app.post('/api/grades', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/grades', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const isStudent = req.user.role === 'student';
   const { subject_id, class_id, nilai, catatan, tipe, material_id } = req.body;
@@ -976,7 +1082,7 @@ app.post('/api/grades', requireAuth, requireTenant, async (req, res) => {
   res.json(grade);
 });
 
-app.put('/api/grades/:id', requireAuth, requireTenant, async (req, res) => {
+app.put('/api/grades/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const grade = db.grades.find(g => g.id === req.params.id && g.tenant_id === req.tenantId);
   
@@ -994,7 +1100,7 @@ app.put('/api/grades/:id', requireAuth, requireTenant, async (req, res) => {
   res.json(grade);
 });
 
-app.delete('/api/grades/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/grades/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const grade = db.grades.find(g => g.id === req.params.id && g.tenant_id === req.tenantId);
   
@@ -1107,21 +1213,26 @@ app.get('/api/dashboard', requireAuth, requireTenant, async (req, res) => {
 });
 
 // ===== AUTH =====
-app.post('/api/register', async (req, res) => {
-  const { email, password, nama, role, tenant_id } = req.body;
+app.post('/api/register', requireAuth, requireAdmin, async (req, res) => {
+  const { email, password, nama } = req.body;
+  const role = ['teacher', 'student'].includes(req.body.role) ? req.body.role : 'teacher';
   const db = await loadDB();
-  
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email dan password wajib diisi' });
+  }
+
   if (db.users.some(u => u.email === email)) {
     return res.status(400).json({ error: 'Email already exists' });
   }
-  
+
   const user = {
     id: uuidv4(),
     email,
     password: bcrypt.hashSync(password, 10),
     nama,
-    role: role || 'teacher',
-    tenant_id: tenant_id || null
+    role,
+    tenant_id: req.user.role === 'super_admin' ? (req.body.tenant_id || null) : req.session.tenantId
   };
   
   db.users.push(user);
@@ -1285,7 +1396,7 @@ app.get('/api/attendance', requireAuth, requireTenant, async (req, res) => {
   res.json(attendance);
 });
 
-app.post('/api/attendance', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/attendance', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { student_id, date, kelas_id, status, note } = req.body;
   const db = await loadDB();
   
@@ -1308,7 +1419,7 @@ app.post('/api/attendance', requireAuth, requireTenant, async (req, res) => {
   res.json(attendance);
 });
 
-app.delete('/api/attendance/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/attendance/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const idx = db.attendance.findIndex(a => a.id === req.params.id && a.tenant_id === req.tenantId);
   
@@ -1323,8 +1434,14 @@ app.delete('/api/attendance/:id', requireAuth, requireTenant, async (req, res) =
 // ===== ASSIGNMENTS =====
 app.get('/api/assignments', requireAuth, requireTenant, async (req, res) => {
   const db = await loadDB();
-  const assignments = db.assignments
-    .filter(a => a.tenant_id === req.tenantId)
+  let assignments = db.assignments.filter(a => a.tenant_id === req.tenantId);
+
+  if (req.user.role === 'student') {
+    const student = db.students.find(s => s.id === req.studentId);
+    if (student) assignments = assignments.filter(a => a.class_id === student.class_id);
+  }
+
+  const result = assignments
     .map(a => {
       const subject = db.subjects.find(s => s.id === a.subject_id);
       const classItem = db.classes.find(c => c.id === a.class_id);
@@ -1334,10 +1451,10 @@ app.get('/api/assignments', requireAuth, requireTenant, async (req, res) => {
         class_nama: classItem ? classItem.nama : '-'
       };
     });
-  res.json(assignments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+  res.json(result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 });
 
-app.post('/api/assignments', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/assignments', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { judul, deskripsi, subject_id, class_id, due_date, poin } = req.body;
   const db = await loadDB();
   
@@ -1362,7 +1479,7 @@ app.post('/api/assignments', requireAuth, requireTenant, async (req, res) => {
   res.json(assignment);
 });
 
-app.put('/api/assignments/:id', requireAuth, requireTenant, async (req, res) => {
+app.put('/api/assignments/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const assignment = db.assignments.find(a => a.id === req.params.id && a.tenant_id === req.tenantId);
   
@@ -1382,7 +1499,7 @@ app.put('/api/assignments/:id', requireAuth, requireTenant, async (req, res) => 
   res.json(assignment);
 });
 
-app.delete('/api/assignments/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/assignments/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const idx = db.assignments.findIndex(a => a.id === req.params.id && a.tenant_id === req.tenantId);
   
@@ -1412,7 +1529,7 @@ app.get('/api/schedules', requireAuth, requireTenant, async (req, res) => {
   res.json(schedules.sort((a, b) => (a.hari || '').localeCompare(b.hari || '')));
 });
 
-app.post('/api/schedules', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/schedules', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const { hari, jam_mulai, jam_selesai, subject_id, class_id, ruangan, guru } = req.body;
   const db = await loadDB();
   
@@ -1436,7 +1553,7 @@ app.post('/api/schedules', requireAuth, requireTenant, async (req, res) => {
   res.json(schedule);
 });
 
-app.put('/api/schedules/:id', requireAuth, requireTenant, async (req, res) => {
+app.put('/api/schedules/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const schedule = db.schedules.find(s => s.id === req.params.id && s.tenant_id === req.tenantId);
   
@@ -1456,7 +1573,7 @@ app.put('/api/schedules/:id', requireAuth, requireTenant, async (req, res) => {
   res.json(schedule);
 });
 
-app.delete('/api/schedules/:id', requireAuth, requireTenant, async (req, res) => {
+app.delete('/api/schedules/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const idx = db.schedules.findIndex(s => s.id === req.params.id && s.tenant_id === req.tenantId);
   
@@ -1470,7 +1587,7 @@ app.delete('/api/schedules/:id', requireAuth, requireTenant, async (req, res) =>
 });
 
 // ===== SEED =====
-app.post('/api/seed', requireAuth, requireTenant, async (req, res) => {
+app.post('/api/seed', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = req.db;
   
   if (db.subjects.length > 0) {
@@ -1587,6 +1704,5 @@ const PORT = process.env.PORT || 3000;
   await initDB();
   app.listen(PORT, () => {
     console.log(`LMS Multi-Tenant running on http://localhost:${PORT}`);
-    console.log(`Default admin: admin@lms.id / admin`);
   });
 })();

@@ -108,7 +108,7 @@ async function renderMateri() {
         ${m.image ? `<div class="thumb"><img src="${m.image}" alt=""></div>` : ''}
         <span class="class-badge">Kelas ${m.class_nama}</span>
         <h3>${m.judul}</h3>
-        <p>${m.subject_nama}${m.modul ? ' · ' + m.modul : ''}${m.youtube_id ? ' · Video' : ''}</p>
+        <p>${lmsEsc(m.subject_nama)}${m.modul ? ' · ' + lmsEsc(m.modul) : ''}${m.youtube_id ? ' · Video' : ''}</p>
       </article>
     `).join('');
   } catch (err) {
@@ -131,12 +131,12 @@ function openMateriDetail(id) {
         </div>
         <div class="modal-body">
           <div style="margin-bottom:12px">
-            <span class="badge badge-primary">${m.subject_nama}</span>
-            <span class="badge badge-neutral">${m.class_nama}</span>
-            ${m.modul ? `<span class="badge badge-neutral">${m.modul}</span>` : ''}
+            <span class="badge badge-primary">${lmsEsc(m.subject_nama)}</span>
+            <span class="badge badge-neutral">${lmsEsc(m.class_nama)}</span>
+            ${m.modul ? `<span class="badge badge-neutral">${lmsEsc(m.modul)}</span>` : ''}
           </div>
           ${m.youtube_id ? `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${m.youtube_id}" frameborder="0" allowfullscreen style="border-radius:8px;margin-bottom:14px"></iframe>` : ''}
-          <div style="line-height:1.7;font-size:14px">${m.konten}</div>
+          <div style="line-height:1.7;font-size:14px">${lmsSanitize(m.konten)}</div>
         </div>
         <div class="modal-footer"><button class="btn" data-close>Tutup</button></div>
       </div>
@@ -306,7 +306,7 @@ async function startExam(examId) {
       tick();
       if (remaining <= 0) {
         clearInterval(iv);
-        submitExam(exam.questions);
+        submitExam(exam.id, exam.questions);
         modal.classList.remove('show');
       }
     }, 1000);
@@ -314,7 +314,7 @@ async function startExam(examId) {
     
     document.getElementById('btn-submit-exam').onclick = () => {
       clearInterval(iv);
-      submitExam(exam.questions);
+      submitExam(exam.id, exam.questions);
       modal.classList.remove('show');
     };
   } catch (err) {
@@ -322,24 +322,15 @@ async function startExam(examId) {
   }
 }
 
-async function submitExam(soalList) {
-  let benar = 0;
-  soalList.forEach((s, i) => {
-    const picked = document.querySelector(`input[name="exam-${s.exam_id || ''}-${i}"]:checked`);
-    if (picked && parseInt(picked.value) === s.jawaban) benar++;
+async function submitExam(examId, soalList) {
+  const answers = soalList.map((s, i) => {
+    const picked = document.querySelector(`input[name="exam-${examId}-${i}"]:checked`);
+    return { question_id: s.id, jawaban: picked ? parseInt(picked.value) : -1 };
   });
-  
-  const nilai = Math.round((benar / soalList.length) * 100);
-  
+
   try {
-    await LMS.createGrade({
-      student_id: currentUser.student_id || currentUser.id,
-      subject_id: soalList[0]?.subject_id,
-      class_id: soalList[0]?.class_id,
-      nilai: nilai,
-      tipe: 'exam'
-    });
-    alert(`Exam selesai. Nilai: ${nilai} (${benar}/${soalList.length})`);
+    const res = await LMS.submitExam(examId, answers);
+    alert(`Exam selesai. Nilai: ${res.nilai} (${res.benar}/${res.total})`);
     renderNilai();
     renderDashboard();
   } catch (err) {

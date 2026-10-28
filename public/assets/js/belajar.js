@@ -179,7 +179,7 @@ function blRenderBab() {
     '<div class="bl-card bl-topic-card" id="bl-active-topic">',
     '  <h3>' + blEsc(cur.judul) + '</h3>',
     blFig(cur),
-    '  <div class="bl-prose">' + (cur.html || '') + '</div>',
+    '  <div class="bl-prose">' + (typeof lmsSanitize === 'function' ? lmsSanitize(cur.html || '') : '') + '</div>',
     '  <div class="bl-topic-nav-footer">' + prevBtn + nextBtn + '</div>',
     '  <div class="bl-topic-pos">Bagian ' + (blState.activeTopicIndex + 1) + ' dari ' + materiList.length + '</div>',
     '</div>'

@@ -836,15 +836,15 @@ function renderSessionRows() {
 
   tbody.innerHTML = rows.map(s => `
     <tr>
-      <td>${s.nama || '-'}${s.nis ? `<div style="font-size:11px;color:var(--text-2)">NIS ${s.nis}</div>` : ''}</td>
-      <td>${s.role || '-'}</td>
-      <td>${s.kelas_nama || '-'}</td>
+      <td>${kurEsc(s.nama) || '-'}${s.nis ? `<div style="font-size:11px;color:var(--text-2)">NIS ${kurEsc(s.nis)}</div>` : ''}</td>
+      <td>${kurEsc(s.role) || '-'}</td>
+      <td>${kurEsc(s.kelas_nama) || '-'}</td>
       <td><span class="badge ${s.online ? 'badge-success' : 'badge-neutral'}">${s.online ? 'Online' : 'Offline'}</span></td>
       <td>${sessionTime(s.login_at)}</td>
       <td>${sessionTime(s.last_seen_at)}</td>
-      <td class="col-extra">${s.ip || '-'}</td>
-      <td class="col-extra">${s.lokasi || '-'}</td>
-      <td class="col-extra">${sessionDevice(s.ua)}</td>
+      <td class="col-extra">${kurEsc(s.ip) || '-'}</td>
+      <td class="col-extra">${kurEsc(s.lokasi) || '-'}</td>
+      <td class="col-extra">${kurEsc(sessionDevice(s.ua))}</td>
     </tr>
   `).join('');
 }

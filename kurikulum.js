@@ -306,6 +306,11 @@ function registerKurikulum(app, deps) {
     });
 
     const score = soalList.length ? Math.round((totalPoin / soalList.length) * 1000) / 10 : 0;
+    const tuntas = score >= KKM;
+    // Kunci & pembahasan hanya dibuka setelah siswa tuntas, agar tidak bisa dipanen dengan percobaan kosong.
+    if (!tuntas) {
+      hasil.forEach(h => { delete h.kunci; delete h.pembahasan; });
+    }
     const ke = attempts.length + 1;
 
     db.attempts.push({
