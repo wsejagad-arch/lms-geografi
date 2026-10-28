@@ -676,7 +676,7 @@ function progressExportInfo() {
 async function progressTenantName() {
   try {
     const tenants = await LMS.getTenants();
-    const t = tenants.find(x => x.id === LMS.getCurrentTenant());
+    const t = tenants.find(x => x.id === LMS.getCurrentTenant()) || tenants[0];
     if (t) return t.nama;
   } catch (e) { /* abaikan */ }
   return 'LMS Geografi';
