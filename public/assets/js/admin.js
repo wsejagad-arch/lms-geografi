@@ -664,6 +664,125 @@ function renderProgressRows() {
   }).join('');
 }
 
+function progressExportInfo() {
+  const kelasEl = document.getElementById('progress-filter-kelas');
+  const namaEl = document.getElementById('progress-filter-nama');
+  return {
+    kelas: kelasEl && kelasEl.value ? kelasEl.value : 'Semua Kelas',
+    nama: namaEl && namaEl.value ? namaEl.value.trim() : ''
+  };
+}
+
+async function progressTenantName() {
+  try {
+    const tenants = await LMS.getTenants();
+    const t = tenants.find(x => x.id === LMS.getCurrentTenant());
+    if (t) return t.nama;
+  } catch (e) { /* abaikan */ }
+  return 'LMS Geografi';
+}
+
+async function printProgressReport() {
+  const rows = progressFilteredRows();
+  if (!rows.length) { alert('Tidak ada data untuk dicetak'); return; }
+  const info = progressExportInfo();
+  const tenantNama = await progressTenantName();
+  const head = document.getElementById('progress-print-head');
+  if (head) {
+    head.innerHTML =
+      `<h3 style="margin:0 0 4px">Laporan Progres Belajar — ${tenantNama}</h3>` +
+      `<div style="font-size:11.5px;color:#475569">Kelas: ${info.kelas}` +
+      (info.nama ? ` · Pencarian: ${info.nama}` : '') +
+      ` · Dicetak: ${new Date().toLocaleString('id-ID')} · ${rows.length} siswa</div>`;
+  }
+  document.body.classList.add('print-progress');
+  window.print();
+  setTimeout(() => document.body.classList.remove('print-progress'), 1000);
+}
+
+async function downloadProgressPng() {
+  const rows = progressFilteredRows();
+  if (!rows.length) { alert('Tidak ada data untuk diunduh'); return; }
+  const info = progressExportInfo();
+  const tenantNama = await progressTenantName();
+
+  const scale = 2;
+  const W = 1080;
+  const rowH = 34;
+  const topH = 108;
+  const H = topH + 34 + rows.length * rowH + 40;
+  const cv = document.createElement('canvas');
+  cv.width = W * scale;
+  cv.height = H * scale;
+  const ctx = cv.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.fillStyle = '#0f172a';
+  ctx.font = 'bold 20px system-ui, sans-serif';
+  ctx.fillText('Laporan Progres Belajar', 32, 42);
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.fillStyle = '#475569';
+  ctx.fillText(tenantNama, 32, 64);
+  ctx.fillText(`Kelas: ${info.kelas}${info.nama ? ' · Pencarian: ' + info.nama : ''}`, 32, 82);
+  ctx.fillText(`Dicetak: ${new Date().toLocaleString('id-ID')} · ${rows.length} siswa`, 32, 100);
+
+  const cols = [
+    { t: 'NIS', x: 32 },
+    { t: 'Nama', x: 150 },
+    { t: 'Kelas', x: 408 },
+    { t: 'Jenjang', x: 496 },
+    { t: 'Progres', x: 566 },
+    { t: 'Rata-rata', x: 812 },
+    { t: 'Ulang', x: 900 }
+  ];
+  let y = topH + 8;
+  ctx.fillStyle = '#f1f5f9';
+  ctx.fillRect(24, y - 16, W - 48, 26);
+  ctx.fillStyle = '#0f172a';
+  ctx.font = 'bold 12px system-ui, sans-serif';
+  cols.forEach(c => ctx.fillText(c.t, c.x, y + 2));
+
+  ctx.font = '12px system-ui, sans-serif';
+  rows.forEach((s, i) => {
+    const ry = y + 26 + i * rowH;
+    if (i % 2 === 0) {
+      ctx.fillStyle = '#fafafa';
+      ctx.fillRect(24, ry - 15, W - 48, rowH);
+    }
+    const pct = s.total ? Math.round((s.tuntas / s.total) * 100) : 0;
+    ctx.fillStyle = '#0f172a';
+    ctx.fillText(String(s.nis || '-'), 32, ry);
+    ctx.fillText(String(s.nama || '-').slice(0, 36), 150, ry);
+    ctx.fillText(String(s.kelas_nama || '-'), 408, ry);
+    ctx.fillText(String(s.level || '-'), 496, ry);
+
+    const bx = 566;
+    const bw = 140;
+    ctx.fillStyle = '#e5e7eb';
+    ctx.fillRect(bx, ry - 8, bw, 8);
+    ctx.fillStyle = '#10b981';
+    ctx.fillRect(bx, ry - 8, (bw * pct) / 100, 8);
+    ctx.fillStyle = '#334155';
+    ctx.fillText(`${pct}% (${s.tuntas}/${s.total})`, bx + bw + 10, ry);
+
+    ctx.fillText(s.rata_best === null ? '-' : String(s.rata_best), 812, ry);
+    ctx.fillText(`${s.total_attempts || 0}x`, 900, ry);
+  });
+
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.beginPath();
+  ctx.moveTo(24, H - 26);
+  ctx.lineTo(W - 24, H - 26);
+  ctx.stroke();
+
+  const a = document.createElement('a');
+  a.download = `progres-belajar-${new Date().toISOString().slice(0, 10)}.png`;
+  a.href = cv.toDataURL('image/png');
+  a.click();
+}
+
 async function renderProgress() {
   const tbody = document.getElementById('progress-tbody');
   if (!tbody) return;
@@ -1800,6 +1919,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('student-import-file').click();
   });
   document.getElementById('btn-progress-refresh')?.addEventListener('click', renderProgress);
+  document.getElementById('btn-progress-print')?.addEventListener('click', printProgressReport);
+  document.getElementById('btn-progress-png')?.addEventListener('click', downloadProgressPng);
   document.getElementById('progress-filter-kelas')?.addEventListener('change', renderProgressRows);
   document.getElementById('progress-filter-nama')?.addEventListener('input', renderProgressRows);
   document.getElementById('student-import-file')?.addEventListener('change', (e) => {

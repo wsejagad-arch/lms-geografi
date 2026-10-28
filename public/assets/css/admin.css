@@ -709,3 +709,21 @@ tbody td button + button { margin-left: 6px; }
   border-radius: 999px;
   background: linear-gradient(90deg, #10b981, #059669);
 }
+
+/* ===== Laporan Progres: cetak & print-only ===== */
+.print-only { display: none; }
+@media print {
+  body.print-progress .sidebar,
+  body.print-progress .sidebar-overlay,
+  body.print-progress .list-toolbar,
+  body.print-progress .menu-section:not(#menu-progress),
+  body.print-progress .page-header,
+  body.print-progress .topbar { display: none !important; }
+  body.print-progress .main-content { margin: 0 !important; padding: 0 !important; }
+  body.print-progress #menu-progress .card { box-shadow: none !important; border: 0 !important; }
+  body.print-progress .print-only { display: block !important; margin-bottom: 10px; }
+  body.print-progress table { font-size: 10.5px; width: 100%; }
+  body.print-progress th, body.print-progress td { padding: 4px 6px; }
+  body.print-progress .progress-mini { border: 1px solid #cbd5e1; }
+  body.print-progress .badge { border: 1px solid #cbd5e1; }
+}
