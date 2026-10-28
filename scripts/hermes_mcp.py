@@ -65,12 +65,13 @@ TOOLS = [
     },
     {
         "name": "hermes_run",
-        "description": "Jalankan perintah shell di workspace (untuk build/test/lint). Output dipotong 8000 char.",
+        "description": "Jalankan perintah shell apa pun. Output penuh (tanpa potong).",
         "inputSchema": {
             "type": "object",
             "properties": {
-                "command": {"type": "string", "description": "Perintah yang dijalankan di folder workspace"},
-                "timeout_ms": {"type": "number", "description": "Batas waktu (default 120000)"}
+                "command": {"type": "string", "description": "Perintah yang dijalankan"},
+                "cwd": {"type": "string", "description": "Folder kerja (default: workspace)"},
+                "timeout_ms": {"type": "number", "description": "Batas waktu ms (opsional; kosong = tanpa batas)"}
             },
             "required": ["command"],
             "additionalProperties": False,
@@ -78,11 +79,11 @@ TOOLS = [
     },
     {
         "name": "hermes_write_file",
-        "description": "Tulis/ubah satu file di workspace (path relatif).",
+        "description": "Tulis/ubah file apa pun (path relatif atau absolut). Folder dibuat otomatis.",
         "inputSchema": {
             "type": "object",
             "properties": {
-                "path": {"type": "string", "description": "Path relatif terhadap workspace"},
+                "path": {"type": "string", "description": "Path file (relatif workspace atau absolut)"},
                 "content": {"type": "string", "description": "Isi file baru (lengkap)"}
             },
             "required": ["path", "content"],
@@ -91,12 +92,13 @@ TOOLS = [
     },
     {
         "name": "hermes_apply_patch",
-        "description": "Terapkan unified diff (format git) ke workspace; dicek dulu dengan git apply --check.",
+        "description": "Terapkan unified diff (git/patch) di folder mana pun; ada fallback 3-way, recount, dan patch -p1.",
         "inputSchema": {
             "type": "object",
             "properties": {
                 "diff": {"type": "string", "description": "Isi patch unified diff"},
-                "dry_run": {"type": "boolean", "description": "Hanya cek, tidak menulis (default false)"}
+                "cwd": {"type": "string", "description": "Folder repo (default: workspace)"},
+                "dry_run": {"type": "boolean", "description": "Hanya cek, tidak menulis"}
             },
             "required": ["diff"],
             "additionalProperties": False,
@@ -116,9 +118,20 @@ TOOLS = [
             "additionalProperties": False,
         },
     },
+    {
+        "name": "hermes_read_file",
+        "description": "Baca isi file apa pun (relatif atau absolut).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "path": {"type": "string", "description": "Path file"},
+                "max_bytes": {"type": "number", "description": "Opsional: batasi jumlah byte"}
+            },
+            "required": ["path"],
+            "additionalProperties": False,
+        },
+    },
 ]
-
-MAX_INPUT = 60000
 
 
 def git_diff(mode, base):
@@ -138,13 +151,10 @@ def run(cmd):
         return "GAGAL menjalankan %s: %s" % (" ".join(cmd), exc)
 
 
-def read_workspace_file(rel_path):
-    root = os.path.abspath(os.getcwd())
-    full = os.path.abspath(os.path.join(root, rel_path))
-    if not (full == root or full.startswith(root + os.sep)):
-        raise RuntimeError("Path di luar workspace: %s" % rel_path)
-    with open(full, "r", encoding="utf-8", errors="replace") as fh:
-        return fh.read()[:20000]
+def read_workspace_file(path):
+    full = path if os.path.isabs(path) else os.path.join(os.getcwd(), path)
+    with open(os.path.abspath(full), "r", encoding="utf-8", errors="replace") as fh:
+        return fh.read()
 
 
 
@@ -188,8 +198,6 @@ def run_tool(name, args):
         diff = args.get("diff") or git_diff(args.get("mode") or "unstaged", args.get("base"))
         if not diff:
             return "Tidak ada diff untuk direview."
-        if len(diff) > MAX_INPUT:
-            diff = diff[:MAX_INPUT] + "\n... (dipotong)"
         data = call_api("/chat/completions", {
             "model": args.get("model") or MODEL,
             "stream": False,
@@ -206,10 +214,10 @@ def run_tool(name, args):
         parts = []
         if args.get("context"):
             parts.append("Konteks:\n" + str(args["context"]))
-        for rel in (args.get("files") or [])[:5]:
+        for rel in (args.get("files") or []):
             parts.append("=== %s ===\n%s" % (rel, read_workspace_file(str(rel))))
         parts.append("Tugas:\n" + str(args.get("task") or ""))
-        body = "".join(parts)[:MAX_INPUT]
+        body = "".join(parts)
         data = call_api("/chat/completions", {
             "model": args.get("model") or MODEL,
             "stream": False,
@@ -223,7 +231,8 @@ def run_tool(name, args):
         except (KeyError, IndexError, TypeError):
             return str(data)[:4000]
     if name == "hermes_run":
-        timeout = float(args.get("timeout_ms") or 120000) / 1000.0
+        timeout = args.get("timeout_ms")
+        timeout = float(timeout) / 1000.0 if timeout else None
         try:
             out = subprocess.run(
                 str(args.get("command") or ""),
@@ -231,41 +240,38 @@ def run_tool(name, args):
                 capture_output=True,
                 text=True,
                 timeout=timeout,
-                cwd=os.getcwd(),
+                cwd=str(args.get("cwd") or os.getcwd()),
             )
         except subprocess.TimeoutExpired:
             return "Timeout setelah %ss" % int(timeout)
         text = ((out.stdout or "") + (("\n[stderr]\n" + out.stderr) if out.stderr else "")).strip()
-        return ("exit=%s\n" % out.returncode) + (text[-8000:] or "(tanpa output)")
+        return ("exit=%s\n" % out.returncode) + (text or "(tanpa output)")
     if name == "hermes_write_file":
         rel = str(args.get("path") or "")
         content = str(args.get("content") or "")
-        root = os.path.abspath(os.getcwd())
-        full = os.path.abspath(os.path.join(root, rel))
-        if not full.startswith(root + os.sep):
-            raise RuntimeError("Path di luar workspace: %s" % rel)
-        os.makedirs(os.path.dirname(full), exist_ok=True)
+        full = os.path.abspath(rel if os.path.isabs(rel) else os.path.join(os.getcwd(), rel))
+        parent = os.path.dirname(full)
+        if parent:
+            os.makedirs(parent, exist_ok=True)
         with open(full, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(content)
-        return "Ditulis: %s (%d byte)" % (rel, len(content))
+        return "Ditulis: %s (%d byte)" % (full, len(content))
     if name == "hermes_apply_patch":
         diff = str(args.get("diff") or "")
         if not diff.strip():
             raise RuntimeError("Patch kosong")
         if not diff.endswith("\n"):
             diff += "\n"
-        code, err = git_apply(diff, check=True)
-        if code != 0:
-            return "Patch tidak bisa diterapkan:\n" + err[:1500]
-        if args.get("dry_run"):
-            return "Patch valid (dry-run, tidak diterapkan)."
-        code, err = git_apply(diff)
-        if code != 0:
-            return "Gagal menerapkan:\n" + err[:1500]
-        return "Patch diterapkan."
+        return apply_diff(diff, cwd=args.get("cwd"), dry_run=bool(args.get("dry_run")))
+    if name == "hermes_read_file":
+        data = read_workspace_file(str(args.get("path") or ""))
+        limit = args.get("max_bytes")
+        if limit:
+            data = data[: int(limit)]
+        return data
     if name == "hermes_autocode":
         parts = []
-        for rel in (args.get("files") or [])[:5]:
+        for rel in (args.get("files") or []):
             parts.append("=== %s ===\n%s" % (rel, read_workspace_file(str(rel))))
         parts.append("Tugas:\n" + str(args.get("task") or ""))
         data = call_api("/chat/completions", {
@@ -273,7 +279,7 @@ def run_tool(name, args):
             "stream": False,
             "messages": [
                 {"role": "system", "content": "Kamu coding agent. Balas HANYA satu blok kode berpagar ```diff berisi unified diff (format git apply, path relatif repo). Tanpa penjelasan di luar blok."},
-                {"role": "user", "content": "".join(parts)[:MAX_INPUT]},
+                {"role": "user", "content": "".join(parts)},
             ],
         })
         try:
@@ -286,25 +292,40 @@ def run_tool(name, args):
             return "Hermes tidak mengirim blok diff. Balasan:\n" + str(reply)[:3000]
         diff = reply[start + 7:end].strip() + "\n"
         if args.get("apply") is False:
-            return "Diff dari Hermes (belum diterapkan):\n" + diff[:6000]
-        return run_apply(diff)
+            return "Diff dari Hermes (belum diterapkan):\n" + diff
+        return apply_diff(diff, cwd=args.get("cwd"))
     raise RuntimeError("Tool tidak dikenal: %s" % name)
 
 
-def git_apply(diff, check=False):
-    args = ["git", "apply"] + (["--check"] if check else []) + ["-"]
-    proc = subprocess.run(args, input=diff.encode("utf-8"), capture_output=True)
+def git_apply(diff, check=False, cwd=None, extra=None):
+    args = ["git", "apply"] + (["--check"] if check else []) + (extra or []) + ["-"]
+    proc = subprocess.run(args, input=diff.encode("utf-8"), capture_output=True, cwd=cwd or os.getcwd())
     return proc.returncode, (proc.stderr or proc.stdout).decode("utf-8", "replace")
 
 
+def apply_diff(diff, cwd=None, dry_run=False):
+    workdir = str(cwd or os.getcwd())
+    if dry_run:
+        code, err = git_apply(diff, check=True, cwd=workdir)
+        return "Patch valid (dry-run)." if code == 0 else "Patch gagal cek:\n" + err[:2000]
+    code, err = git_apply(diff, cwd=workdir)
+    if code == 0:
+        return "Patch diterapkan.\n\n" + diff
+    for extra in (["-3"], ["--recount"], ["--ignore-whitespace"], ["-p0"]):
+        code, err2 = git_apply(diff, cwd=workdir, extra=extra)
+        if code == 0:
+            return "Patch diterapkan (fallback %s).\n\n%s" % (" ".join(extra), diff)
+    try:
+        proc = subprocess.run(["patch", "-p1", "--forward"], input=diff.encode("utf-8"), capture_output=True, cwd=workdir)
+        if proc.returncode == 0:
+            return "Patch diterapkan (patch -p1).\n\n" + diff
+    except FileNotFoundError:
+        pass
+    return "Gagal menerapkan:\n" + err[:2000] + "\n\nDiff:\n" + diff
+
+
 def run_apply(diff):
-    code, err = git_apply(diff, check=True)
-    if code != 0:
-        return "Diff dari Hermes tidak bisa diterapkan:\n" + err[:1500] + "\n\nDiff:\n" + diff[:4000]
-    code, err = git_apply(diff)
-    if code != 0:
-        return "Gagal menerapkan:\n" + err[:1500]
-    return "Patch dari Hermes diterapkan.\n\n" + diff[:4000]
+    return apply_diff(diff)
 
 
 def send(payload):
