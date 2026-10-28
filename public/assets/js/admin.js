@@ -619,32 +619,72 @@ async function saveStudent() {
   }
 }
 
+let progressRows = [];
+
+function progressFilteredRows() {
+  const kelasEl = document.getElementById('progress-filter-kelas');
+  const namaEl = document.getElementById('progress-filter-nama');
+  const kelas = kelasEl ? kelasEl.value : '';
+  const q = (namaEl ? namaEl.value : '').trim().toLowerCase();
+  return progressRows.filter(s => {
+    if (kelas && (s.kelas_nama || '') !== kelas) return false;
+    if (q) {
+      const hay = `${s.nama || ''} ${s.nis || ''}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function renderProgressRows() {
+  const tbody = document.getElementById('progress-tbody');
+  if (!tbody) return;
+  const rows = progressFilteredRows();
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="color:var(--text-2)">Tidak ada data</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(s => {
+    const pct = s.total ? Math.round((s.tuntas / s.total) * 100) : 0;
+    return `
+      <tr>
+        <td>${s.nis || '-'}</td>
+        <td>${s.nama}</td>
+        <td>${s.kelas_nama || '-'}</td>
+        <td><span class="badge badge-primary">${s.level}</span></td>
+        <td style="min-width:150px">
+          <div class="progress-mini"><span style="width:${pct}%"></span></div>
+          <span style="font-size:11.5px;color:var(--text-2)">${pct}% · ${s.tuntas}/${s.total} materi</span>
+        </td>
+        <td><strong>${s.rata_best === null ? '-' : s.rata_best}</strong></td>
+        <td>${s.total_attempts || 0}×</td>
+        <td>${s.items.map(i => `<span class="badge ${i.tuntas ? 'badge-success' : 'badge-neutral'}">${i.bab_id}: ${i.best_score === null ? '-' : i.best_score}${i.attempts ? ' · ' + i.attempts + '×' : ''}</span>`).join(' ')}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
 async function renderProgress() {
   const tbody = document.getElementById('progress-tbody');
   if (!tbody) return;
-  tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>';
   try {
     const data = await fetch('/api/admin/kurikulum/progress', { credentials: 'same-origin' }).then(r => {
       if (!r.ok) throw new Error('Gagal memuat progres');
       return r.json();
     });
-    if (!data.students.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Belum ada siswa</td></tr>';
-      return;
+    progressRows = data.students || [];
+    const sel = document.getElementById('progress-filter-kelas');
+    if (sel) {
+      const prev = sel.value;
+      const names = [...new Set(progressRows.map(r => r.kelas_nama).filter(n => n && n !== '-'))]
+        .sort((a, b) => String(a).localeCompare(String(b)));
+      sel.innerHTML = '<option value="">Semua Kelas</option>' + names.map(n => `<option value="${n}">${n}</option>`).join('');
+      sel.value = names.includes(prev) ? prev : '';
     }
-    tbody.innerHTML = data.students.map(s => `
-      <tr>
-        <td>${s.nis || '-'}</td>
-        <td>${s.nama}</td>
-        <td><span class="badge badge-primary">${s.level}</span></td>
-        <td>${s.tuntas}/${s.total}</td>
-        <td><strong>${s.rata_best === null ? '-' : s.rata_best}</strong></td>
-        <td>${s.total_attempts || 0}×</td>
-        <td>${s.items.map(i => `<span class="badge ${i.tuntas ? 'badge-success' : 'badge-neutral'}">${i.bab_id}: ${i.best_score === null ? '-' : i.best_score}${i.attempts ? ' · ' + i.attempts + '×' : ''}</span>`).join(' ')}</td>
-      </tr>
-    `).join('');
+    renderProgressRows();
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--danger)">${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" class="text-center" style="color:var(--danger)">${err.message}</td></tr>`;
   }
 }
 
@@ -1760,6 +1800,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('student-import-file').click();
   });
   document.getElementById('btn-progress-refresh')?.addEventListener('click', renderProgress);
+  document.getElementById('progress-filter-kelas')?.addEventListener('change', renderProgressRows);
+  document.getElementById('progress-filter-nama')?.addEventListener('input', renderProgressRows);
   document.getElementById('student-import-file')?.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) importStudentFile(file);

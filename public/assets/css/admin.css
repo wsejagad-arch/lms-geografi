@@ -694,3 +694,18 @@ tbody td button + button { margin-left: 6px; }
 .rt-editor figure { margin: 10px 0; }
 .rt-editor figcaption { font-size: 11.5px; color: var(--text-2); margin-top: 4px; }
 .kur-del { margin-top: 8px; }
+
+/* Progress bar mini (Progres Belajar) */
+.progress-mini {
+  height: 7px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+  margin-bottom: 3px;
+}
+.progress-mini span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #10b981, #059669);
+}

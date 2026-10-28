@@ -406,6 +406,8 @@ function registerKurikulum(app, deps) {
         nama: s.nama,
         nis: s.nis,
         level,
+        kelas_id: s.class_id || '',
+        kelas_nama: (db.classes.find(c => c.id === s.class_id) || {}).nama || '-',
         tuntas: items.filter(i => i.tuntas).length,
         total: items.length,
         rata_best: items.filter(i => i.best_score !== null).length
