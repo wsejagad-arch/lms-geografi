@@ -727,3 +727,19 @@ tbody td button + button { margin-left: 6px; }
   body.print-progress .progress-mini { border: 1px solid #cbd5e1; }
   body.print-progress .badge { border: 1px solid #cbd5e1; }
 }
+
+@media print {
+  body.print-sessions .sidebar,
+  body.print-sessions .sidebar-overlay,
+  body.print-sessions .list-toolbar,
+  body.print-sessions .menu-section:not(#menu-sessions),
+  body.print-sessions .page-header,
+  body.print-sessions .topbar { display: none !important; }
+  body.print-sessions .main-content { margin: 0 !important; padding: 0 !important; }
+  body.print-sessions #menu-sessions .card { box-shadow: none !important; border: 0 !important; }
+  body.print-sessions #session-print-head { display: block !important; margin-bottom: 10px; }
+  body.print-sessions #menu-sessions .col-extra { display: none !important; }
+  body.print-sessions table { font-size: 11px; width: 100%; }
+  body.print-sessions th, body.print-sessions td { padding: 4px 6px; }
+  body.print-sessions .badge { border: 1px solid #cbd5e1; }
+}

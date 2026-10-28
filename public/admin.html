@@ -6,7 +6,7 @@
   <title>Admin - LMS Geografi Multi</title>
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
-  <link rel="stylesheet" href="assets/css/admin.css?v=3">
+  <link rel="stylesheet" href="assets/css/admin.css?v=4">
   <meta name="theme-color" content="#0d9488">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -239,6 +239,7 @@
           <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
             <button class="btn btn-sm" id="btn-sessions-refresh">Muat ulang</button>
             <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <button class="btn btn-sm" id="btn-sessions-print">Cetak / PDF</button>
               <select id="session-filter-kelas" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:130px">
                 <option value="">Semua Kelas</option>
               </select>
@@ -250,9 +251,10 @@
               <input id="session-filter-nama" type="search" placeholder="Cari nama / NIS..." style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:190px">
             </div>
           </div>
+          <div id="session-print-head" class="print-only"></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Nama</th><th>Peran</th><th>Kelas</th><th>Status</th><th>Login</th><th>Terakhir aktif</th><th>IP</th><th>Lokasi</th><th>Perangkat</th></tr></thead>
+              <thead><tr><th>Nama</th><th>Peran</th><th>Kelas</th><th>Status</th><th>Login</th><th>Terakhir aktif</th><th class="col-extra">IP</th><th class="col-extra">Lokasi</th><th class="col-extra">Perangkat</th></tr></thead>
               <tbody id="sessions-tbody"></tbody>
             </table>
           </div>
@@ -724,6 +726,6 @@
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261101"></script>
+  <script src="assets/js/admin.js?v=20261102"></script>
 </body>
 </html>

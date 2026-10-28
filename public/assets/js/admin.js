@@ -842,11 +842,37 @@ function renderSessionRows() {
       <td><span class="badge ${s.online ? 'badge-success' : 'badge-neutral'}">${s.online ? 'Online' : 'Offline'}</span></td>
       <td>${sessionTime(s.login_at)}</td>
       <td>${sessionTime(s.last_seen_at)}</td>
-      <td>${s.ip || '-'}</td>
-      <td>${s.lokasi || '-'}</td>
-      <td>${sessionDevice(s.ua)}</td>
+      <td class="col-extra">${s.ip || '-'}</td>
+      <td class="col-extra">${s.lokasi || '-'}</td>
+      <td class="col-extra">${sessionDevice(s.ua)}</td>
     </tr>
   `).join('');
+}
+
+async function printSessionReport() {
+  const kelasEl = document.getElementById('session-filter-kelas');
+  const statusEl = document.getElementById('session-filter-status');
+  const namaEl = document.getElementById('session-filter-nama');
+  const kelas = kelasEl && kelasEl.value ? kelasEl.value : 'Semua Kelas';
+  const status = statusEl ? statusEl.value : 'online';
+  const nama = namaEl && namaEl.value ? namaEl.value.trim() : '';
+  const statusLabel = status === 'online' ? 'Online saja' : status === 'offline' ? 'Offline' : 'Semua status';
+
+  const visible = [...document.querySelectorAll('#sessions-tbody tr')].length;
+  if (!visible) { alert('Tidak ada data untuk dicetak'); return; }
+
+  const tenantNama = await progressTenantName();
+  const head = document.getElementById('session-print-head');
+  if (head) {
+    head.innerHTML =
+      `<h3 style="margin:0 0 4px">Laporan Login User — ${tenantNama}</h3>` +
+      `<div style="font-size:11.5px;color:#475569">Kelas: ${kelas} · Status: ${statusLabel}` +
+      (nama ? ` · Pencarian: ${nama}` : '') +
+      ` · Dicetak: ${new Date().toLocaleString('id-ID')} · ${visible} baris</div>`;
+  }
+  document.body.classList.add('print-sessions');
+  window.print();
+  setTimeout(() => document.body.classList.remove('print-sessions'), 1000);
 }
 
 async function renderSessions() {
@@ -2014,6 +2040,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('progress-filter-kelas')?.addEventListener('change', renderProgressRows);
   document.getElementById('progress-filter-nama')?.addEventListener('input', renderProgressRows);
   document.getElementById('btn-sessions-refresh')?.addEventListener('click', renderSessions);
+  document.getElementById('btn-sessions-print')?.addEventListener('click', printSessionReport);
   document.getElementById('session-filter-kelas')?.addEventListener('change', renderSessionRows);
   document.getElementById('session-filter-status')?.addEventListener('change', renderSessionRows);
   document.getElementById('session-filter-nama')?.addEventListener('input', renderSessionRows);
