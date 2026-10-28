@@ -10,7 +10,7 @@
   "servers": {
     "hermes": {
       "type": "stdio",
-      "command": "python3",
+      "command": "python",
       "args": ["${workspaceFolder}/scripts/hermes_mcp.py"],
       "env": {
         "HERMES_BASE_URL": "http://127.0.0.1:8642/v1",
