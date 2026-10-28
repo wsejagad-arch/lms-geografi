@@ -1424,8 +1424,8 @@ app.delete('/api/schedules/:id', requireAuth, requireTenant, async (req, res) =>
   res.json({ success: true });
 });
 
-// ===== DASHBOARD =====
-app.get('/api/dashboard', requireAuth, requireTenant, async (req, res) => {
+// ===== SEED =====
+app.post('/api/seed', requireAuth, requireTenant, async (req, res) => {
   const db = req.db;
   
   if (db.subjects.length > 0) {
