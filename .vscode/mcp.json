@@ -1,0 +1,21 @@
+{
+  "inputs": [
+    {
+      "id": "hermesApiKey",
+      "type": "promptString",
+      "description": "Hermes API key (mis. local-dev-2026)",
+      "password": true
+    }
+  ],
+  "servers": {
+    "hermes": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/hermes-mcp.mjs"],
+      "env": {
+        "HERMES_BASE_URL": "http://127.0.0.1:8642/v1",
+        "HERMES_API_KEY": "${input:hermesApiKey}"
+      }
+    }
+  }
+}
