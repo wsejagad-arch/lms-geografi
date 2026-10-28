@@ -743,3 +743,24 @@ tbody td button + button { margin-left: 6px; }
   body.print-sessions th, body.print-sessions td { padding: 4px 6px; }
   body.print-sessions .badge { border: 1px solid #cbd5e1; }
 }
+
+/* ===== Cetak bersih (berlaku untuk semua tombol Cetak/PDF maupun Ctrl+P) ===== */
+@media print {
+  @page { margin: 12mm; }
+  .sidebar,
+  .sidebar-overlay,
+  .top-bar,
+  .list-toolbar { display: none !important; }
+  .main-content { margin-left: 0 !important; padding: 0 !important; }
+  .content { padding: 0 !important; }
+  .menu-section.hidden { display: none !important; }
+  .print-only { display: block !important; margin-bottom: 10px; }
+  #menu-sessions .col-extra { display: none !important; }
+  #menu-sessions > .card > p { display: none !important; }
+  .card { box-shadow: none !important; border: 0 !important; }
+  .table-wrap { overflow: visible !important; }
+  table { font-size: 10.5px; width: 100%; }
+  th, td { padding: 4px 6px; }
+  .badge { border: 1px solid #cbd5e1; }
+  .progress-mini { border: 1px solid #cbd5e1; }
+}
