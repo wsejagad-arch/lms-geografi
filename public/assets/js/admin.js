@@ -89,6 +89,7 @@ const MENU_META = {
   classes: { title: 'Kelas', render: () => renderClasses() },
   students: { title: 'Siswa', render: () => renderStudents() },
   progress: { title: 'Progres Belajar', render: () => renderProgress() },
+  sessions: { title: 'User Aktif', render: () => renderSessions() },
   materials: { title: 'Materi', render: () => renderMaterials() },
   kurikulum: { title: 'Kurikulum', render: () => renderKurikulum() },
   questions: { title: 'Bank Soal', render: () => renderQuestions() },
@@ -781,6 +782,95 @@ async function downloadProgressPng() {
   a.download = `progres-belajar-${new Date().toISOString().slice(0, 10)}.png`;
   a.href = cv.toDataURL('image/png');
   a.click();
+}
+
+let sessionRows = [];
+
+function sessionDevice(ua) {
+  const s = String(ua || '');
+  const os = /Android/i.test(s) ? 'Android'
+    : /iPhone|iPad|iPod/i.test(s) ? 'iOS'
+    : /Windows/i.test(s) ? 'Windows'
+    : /Mac OS X/i.test(s) ? 'macOS'
+    : /Linux/i.test(s) ? 'Linux' : '-';
+  const br = /Edg\//i.test(s) ? 'Edge'
+    : /OPR\//i.test(s) ? 'Opera'
+    : /Chrome\//i.test(s) ? 'Chrome'
+    : /Firefox\//i.test(s) ? 'Firefox'
+    : /Safari\//i.test(s) ? 'Safari' : '-';
+  return `${br} · ${os}`;
+}
+
+function sessionTime(iso) {
+  if (!iso) return '-';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '-';
+  return d.toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+function renderSessionRows() {
+  const tbody = document.getElementById('sessions-tbody');
+  if (!tbody) return;
+  const kelasEl = document.getElementById('session-filter-kelas');
+  const statusEl = document.getElementById('session-filter-status');
+  const namaEl = document.getElementById('session-filter-nama');
+  const kelas = kelasEl ? kelasEl.value : '';
+  const status = statusEl ? statusEl.value : 'online';
+  const q = (namaEl ? namaEl.value : '').trim().toLowerCase();
+
+  const rows = sessionRows.filter(s => {
+    if (kelas && (s.kelas_nama || '') !== kelas) return false;
+    if (status === 'online' && !s.online) return false;
+    if (status === 'offline' && s.online) return false;
+    if (q) {
+      const hay = `${s.nama || ''} ${s.nis || ''}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center" style="color:var(--text-2)">Tidak ada data</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map(s => `
+    <tr>
+      <td>${s.nama || '-'}${s.nis ? `<div style="font-size:11px;color:var(--text-2)">NIS ${s.nis}</div>` : ''}</td>
+      <td>${s.role || '-'}</td>
+      <td>${s.kelas_nama || '-'}</td>
+      <td><span class="badge ${s.online ? 'badge-success' : 'badge-neutral'}">${s.online ? 'Online' : 'Offline'}</span></td>
+      <td>${sessionTime(s.login_at)}</td>
+      <td>${sessionTime(s.last_seen_at)}</td>
+      <td>${s.ip || '-'}</td>
+      <td>${s.lokasi || '-'}</td>
+      <td>${sessionDevice(s.ua)}</td>
+    </tr>
+  `).join('');
+}
+
+async function renderSessions() {
+  const tbody = document.getElementById('sessions-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="9" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>';
+  try {
+    const data = await fetch('/api/admin/sessions', { credentials: 'same-origin' }).then(r => {
+      if (!r.ok) throw new Error('Gagal memuat status login');
+      return r.json();
+    });
+    sessionRows = data.sessions || [];
+    const sel = document.getElementById('session-filter-kelas');
+    if (sel) {
+      const prev = sel.value;
+      const names = [...new Set(sessionRows.map(r => r.kelas_nama).filter(n => n && n !== '-'))]
+        .sort((a, b) => String(a).localeCompare(String(b)));
+      sel.innerHTML = '<option value="">Semua Kelas</option>' + names.map(n => `<option value="${n}">${n}</option>`).join('');
+      sel.value = names.includes(prev) ? prev : '';
+    }
+    renderSessionRows();
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="9" class="text-center" style="color:var(--danger)">${err.message}</td></tr>`;
+  }
 }
 
 async function renderProgress() {
@@ -1923,6 +2013,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-progress-png')?.addEventListener('click', downloadProgressPng);
   document.getElementById('progress-filter-kelas')?.addEventListener('change', renderProgressRows);
   document.getElementById('progress-filter-nama')?.addEventListener('input', renderProgressRows);
+  document.getElementById('btn-sessions-refresh')?.addEventListener('click', renderSessions);
+  document.getElementById('session-filter-kelas')?.addEventListener('change', renderSessionRows);
+  document.getElementById('session-filter-status')?.addEventListener('change', renderSessionRows);
+  document.getElementById('session-filter-nama')?.addEventListener('input', renderSessionRows);
   document.getElementById('student-import-file')?.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) importStudentFile(file);

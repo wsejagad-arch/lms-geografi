@@ -71,7 +71,7 @@ async function loadDB() {
   try {
     const data = await fs.readFile(DB_PATH, 'utf-8');
     const db = JSON.parse(data);
-    ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams', 'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts'].forEach(k => {
+    ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams', 'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts', 'session_logs'].forEach(k => {
       if (!Array.isArray(db[k])) db[k] = [];
     });
     return db;
@@ -131,6 +131,53 @@ app.use(cookieSession({
 }));
 
 // Auth middleware
+const SESSION_ONLINE_MS = 15 * 60 * 1000;
+
+function clientMeta(req) {
+  const h = req.headers || {};
+  const ip = String(h['cf-connecting-ip'] || (h['x-forwarded-for'] || '').split(',')[0] || req.ip || '').trim();
+  const city = h['cf-ipcity'] || '';
+  const region = h['cf-region'] || h['cf-region-code'] || '';
+  const country = h['cf-ipcountry'] || '';
+  const lokasi = [city, region, country].filter(Boolean).join(', ');
+  return { ip, lokasi, ua: String(h['user-agent'] || '').slice(0, 180) };
+}
+
+function touchSession(db, req, user) {
+  if (!Array.isArray(db.session_logs)) db.session_logs = [];
+  if (!req.session.sid) req.session.sid = uuidv4();
+  const now = new Date().toISOString();
+  const meta = clientMeta(req);
+  let rec = db.session_logs.find(s => s.id === req.session.sid);
+  if (!rec) {
+    rec = { id: req.session.sid, login_at: now };
+    db.session_logs.push(rec);
+  }
+  rec.user_id = user.id;
+  rec.nama = user.nama || user.email || '';
+  rec.email = user.email || '';
+  rec.role = user.role;
+  rec.tenant_id = req.session.tenantId || user.tenant_id || null;
+  rec.ip = meta.ip;
+  rec.lokasi = meta.lokasi;
+  rec.ua = meta.ua;
+  rec.last_seen_at = now;
+  rec.active = true;
+  if (user.role === 'student') {
+    const st = db.students.find(s =>
+      s.user_id === user.id || s.id === user.student_id || (user.email && s.email === user.email)
+    );
+    if (st) {
+      const c = db.classes.find(x => x.id === st.class_id);
+      rec.student_id = st.id;
+      rec.nis = st.nis;
+      rec.kelas_id = st.class_id || null;
+      rec.kelas_nama = c ? c.nama : '-';
+    }
+  }
+  return rec;
+}
+
 async function requireAuth(req, res, next) {
   if (!req.session.userId) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -140,6 +187,14 @@ async function requireAuth(req, res, next) {
   if (!user) return res.status(401).json({ error: 'User not found' });
   req.user = user;
   req.db = db;
+
+  const prev = req.session.sid ? (db.session_logs || []).find(s => s.id === req.session.sid) : null;
+  const stale = !prev || Date.now() - new Date(prev.last_seen_at || 0).getTime() > 60000;
+  if (stale) {
+    touchSession(db, req, user);
+    await saveDB(db);
+  }
+
   next();
 }
 
@@ -207,6 +262,34 @@ app.post('/api/tenants/select', requireAuth, async (req, res) => {
   
   req.session.tenantId = tenant_id;
   res.json({ success: true, tenant });
+});
+
+// ===== MONITOR USER AKTIF =====
+app.get('/api/admin/sessions', requireAuth, requireAdmin, async (req, res) => {
+  const db = await loadDB();
+  const now = Date.now();
+  const rows = (db.session_logs || [])
+    .filter(s => req.user.role === 'super_admin' || s.tenant_id === req.tenantId)
+    .map(s => ({
+      id: s.id,
+      user_id: s.user_id,
+      nama: s.nama || '',
+      email: s.email || '',
+      role: s.role || '',
+      nis: s.nis || '',
+      kelas_nama: s.kelas_nama || '',
+      ip: s.ip || '',
+      lokasi: s.lokasi || '',
+      ua: s.ua || '',
+      login_at: s.login_at || null,
+      last_seen_at: s.last_seen_at || null,
+      logout_at: s.logout_at || null,
+      active: !!s.active,
+      online: !!s.active && now - new Date(s.last_seen_at || 0).getTime() < SESSION_ONLINE_MS
+    }))
+    .sort((a, b) => new Date(b.last_seen_at || 0) - new Date(a.last_seen_at || 0))
+    .slice(0, 1000);
+  res.json({ online_window_minutes: SESSION_ONLINE_MS / 60000, sessions: rows });
 });
 
 // ===== SUBJECTS (Mapel) =====
@@ -1022,6 +1105,9 @@ app.post('/api/login', async (req, res) => {
   req.session.role = user.role;
   req.session.nama = user.nama;
   req.session.tenantId = user.tenant_id;
+  req.session.sid = uuidv4();
+  touchSession(db, req, user);
+  await saveDB(db);
   
   res.json({
     id: user.id,
@@ -1072,6 +1158,9 @@ app.post('/api/student/login', async (req, res) => {
   req.session.role = 'student';
   req.session.nama = student.nama;
   req.session.tenantId = student.tenant_id;
+  req.session.sid = uuidv4();
+  touchSession(db, req, user);
+  await saveDB(db);
   
   res.json({
     id: user.id,
@@ -1084,7 +1173,17 @@ app.post('/api/student/login', async (req, res) => {
   });
 });
 
-app.post('/api/logout', (req, res) => {
+app.post('/api/logout', async (req, res) => {
+  const sid = req.session && req.session.sid;
+  if (sid) {
+    const db = await loadDB();
+    const rec = (db.session_logs || []).find(s => s.id === sid);
+    if (rec) {
+      rec.active = false;
+      rec.logout_at = new Date().toISOString();
+      await saveDB(db);
+    }
+  }
   req.session = null;
   res.json({ success: true });
 });
