@@ -291,12 +291,12 @@ function blRenderSoal(s, i) {
   if (s.tipe === 'pgm' || s.tipe === 'pg_singkat') {
     input = '<div class="bl-opts">' + (s.opsi || []).map(function (o, oi) {
       return '<label class="bl-opt" data-soal="' + s.id + '" data-val="' + oi + '">' +
-        '<input type="radio" name="q-' + s.id + '" value="' + oi + '"> <span>' + String.fromCharCode(65 + oi) + '. ' + blEsc(o) + '</span></label>';
+        '<input type="radio" name="q-' + s.id + '" value="' + oi + '" data-soal="' + s.id + '"> <span>' + String.fromCharCode(65 + oi) + '. ' + blEsc(o) + '</span></label>';
     }).join('') + '</div>';
   } else if (s.tipe === 'pg_kompleks') {
     input = '<div class="bl-opts">' + (s.opsi || []).map(function (o, oi) {
       return '<label class="bl-opt" data-soal="' + s.id + '" data-val="' + oi + '">' +
-        '<input type="checkbox" name="q-' + s.id + '" value="' + oi + '"> <span>' + String.fromCharCode(65 + oi) + '. ' + blEsc(o) + '</span></label>';
+        '<input type="checkbox" name="q-' + s.id + '" value="' + oi + '" data-soal="' + s.id + '"> <span>' + String.fromCharCode(65 + oi) + '. ' + blEsc(o) + '</span></label>';
     }).join('') + '</div>';
   } else if (s.tipe === 'menjodohkan') {
     input = '<div class="bl-pairs">' + (s.kiri || []).map(function (k, ki) {
