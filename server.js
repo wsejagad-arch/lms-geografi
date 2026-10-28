@@ -7,7 +7,7 @@ const fs = require('fs/promises');
 const path = require('path');
 
 const app = express();
-const DB_PATH = path.join(__dirname, 'data', 'db.json');
+const DB_PATH = process.env.LMS_DB_PATH || path.join(__dirname, 'data', 'db.json');
 
 // ===== REDIS (with fallback) =====
 let redis = null;
@@ -178,6 +178,30 @@ function touchSession(db, req, user) {
   return rec;
 }
 
+// Siswa hanya boleh menyentuh endpoint baca miliknya sendiri + submit nilai.
+const STUDENT_ROUTES = [
+  ['GET', /^\/api\/me$/],
+  ['GET', /^\/api\/materials$/],
+  ['GET', /^\/api\/exams$/],
+  ['GET', /^\/api\/grades$/],
+  ['POST', /^\/api\/grades$/],
+  ['GET', /^\/api\/attendance$/],
+  ['GET', /^\/api\/assignments$/],
+  ['GET', /^\/api\/kurikulum(\/[^/]+)?$/],
+  ['POST', /^\/api\/kurikulum\/[^/]+\/evaluasi$/],
+  ['POST', /^\/api\/kurikulum\/naik-kelas$/]
+];
+
+function isStudentRoute(method, reqPath) {
+  return STUDENT_ROUTES.some(([m, re]) => m === method && re.test(reqPath));
+}
+
+function studentIdOf(db, user) {
+  if (user.student_id) return user.student_id;
+  const s = db.students.find(x => x.user_id === user.id || (user.email && x.email === user.email));
+  return s ? s.id : null;
+}
+
 async function requireAuth(req, res, next) {
   if (!req.session.userId) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -187,6 +211,16 @@ async function requireAuth(req, res, next) {
   if (!user) return res.status(401).json({ error: 'User not found' });
   req.user = user;
   req.db = db;
+
+  if (user.role === 'student') {
+    req.studentId = studentIdOf(db, user);
+    if (!req.studentId) {
+      return res.status(403).json({ error: 'Akun siswa belum terhubung ke data siswa' });
+    }
+    if (!isStudentRoute(req.method, req.path)) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+  }
 
   const prev = req.session.sid ? (db.session_logs || []).find(s => s.id === req.session.sid) : null;
   const stale = !prev || Date.now() - new Date(prev.last_seen_at || 0).getTime() > 60000;
@@ -883,8 +917,9 @@ app.delete('/api/exams/:id', requireAuth, requireTenant, async (req, res) => {
 app.get('/api/grades', requireAuth, requireTenant, async (req, res) => {
   const { student_id, subject_id, class_id } = req.query;
   const db = await loadDB();
+  const own = req.user.role === 'student' ? req.studentId : null;
   
-  let grades = db.grades.filter(g => g.tenant_id === req.tenantId);
+  let grades = db.grades.filter(g => g.tenant_id === req.tenantId && (!own || g.student_id === own));
   
   if (student_id) grades = grades.filter(g => g.student_id === student_id);
   if (subject_id) grades = grades.filter(g => g.subject_id === subject_id);
@@ -906,8 +941,10 @@ app.get('/api/grades', requireAuth, requireTenant, async (req, res) => {
 });
 
 app.post('/api/grades', requireAuth, requireTenant, async (req, res) => {
-  const { student_id, subject_id, class_id, nilai, catatan, tipe, material_id } = req.body;
   const db = await loadDB();
+  const isStudent = req.user.role === 'student';
+  const { subject_id, class_id, nilai, catatan, tipe, material_id } = req.body;
+  const student_id = isStudent ? req.studentId : req.body.student_id;
   
   const grade = {
     id: uuidv4(),
@@ -1224,8 +1261,9 @@ app.get('/api/me', async (req, res) => {
 // ===== ATTENDANCE =====
 app.get('/api/attendance', requireAuth, requireTenant, async (req, res) => {
   const db = await loadDB();
+  const own = req.user.role === 'student' ? req.studentId : null;
   const attendance = db.attendance
-    .filter(a => a.tenant_id === req.tenantId)
+    .filter(a => a.tenant_id === req.tenantId && (!own || a.student_id === own))
     .slice().reverse()
     .slice(0, 200)
     .map(a => {

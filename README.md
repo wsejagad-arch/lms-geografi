@@ -82,6 +82,19 @@ lms-geografi-multi/
 
 ## API Endpoints
 
+### Batasan akses siswa
+Sesi dengan `role: 'student'` hanya boleh mengakses endpoint berikut (selain itu `403 Forbidden`,
+dicek di `requireAuth`):
+
+| Method | Path |
+|---|---|
+| GET | `/api/me`, `/api/materials`, `/api/exams`, `/api/grades`, `/api/attendance`, `/api/assignments` |
+| POST | `/api/grades` (dipaksa ke `student_id` milik sendiri) |
+| GET | `/api/kurikulum`, `/api/kurikulum/:babId` |
+| POST | `/api/kurikulum/:babId/evaluasi`, `/api/kurikulum/naik-kelas` |
+
+`GET /api/grades` dan `GET /api/attendance` selalu difilter ke data siswa yang login.
+
 ### Auth
 - `POST /api/login` - Login
 - `POST /api/logout` - Logout
