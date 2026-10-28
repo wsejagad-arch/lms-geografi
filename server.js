@@ -850,22 +850,29 @@ app.delete('/api/questions/:id', requireAuth, requireTenant, async (req, res) =>
 // ===== EXAMS =====
 app.get('/api/exams', requireAuth, requireTenant, async (req, res) => {
   const db = await loadDB();
-  const exams = db.exams
-    .filter(e => e.tenant_id === req.tenantId)
-    .map(e => {
-      const subject = db.subjects.find(s => s.id === e.subject_id);
-      const classItem = db.classes.find(c => c.id === e.class_id);
-      const questions = db.exam_questions
-        .filter(eq => eq.exam_id === e.id)
-        .map(eq => db.questions.find(q => q.id === eq.question_id));
-      return {
-        ...e,
-        subject_nama: subject ? subject.nama : '-',
-        class_nama: classItem ? classItem.nama : '-',
-        questions: questions.filter(Boolean)
-      };
-    });
-  res.json(exams);
+  let exams = db.exams.filter(e => e.tenant_id === req.tenantId);
+  
+  if (req.user.role === 'student') {
+    const student = db.students.find(s => s.id === req.studentId);
+    if (student) {
+      exams = exams.filter(e => e.class_id === student.class_id);
+    }
+  }
+  
+  const result = exams.map(e => {
+    const subject = db.subjects.find(s => s.id === e.subject_id);
+    const classItem = db.classes.find(c => c.id === e.class_id);
+    const questions = db.exam_questions
+      .filter(eq => eq.exam_id === e.id)
+      .map(eq => db.questions.find(q => q.id === eq.question_id));
+    return {
+      ...e,
+      subject_nama: subject ? subject.nama : '-',
+      class_nama: classItem ? classItem.nama : '-',
+      questions: questions.filter(Boolean)
+    };
+  });
+  res.json(result);
 });
 
 app.post('/api/exams', requireAuth, requireTenant, async (req, res) => {

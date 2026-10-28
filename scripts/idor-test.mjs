@@ -46,6 +46,10 @@ db.attendance = [
   { id: 'att-a', tenant_id: tenant.id, student_id: 'siswa-a', kelas_id: klass.id, date: '2026-10-01', status: 'hadir', created_at: new Date().toISOString() },
   { id: 'att-b', tenant_id: tenant.id, student_id: 'siswa-b', kelas_id: klass.id, date: '2026-10-01', status: 'alfa', created_at: new Date().toISOString() },
 ];
+db.exams = [
+  { id: 'exam-a', tenant_id: tenant.id, judul: 'Ujian Kelas Sendiri', subject_id: subject.id, class_id: klass.id, durasi: 60, created_at: new Date().toISOString() },
+  { id: 'exam-b', tenant_id: tenant.id, judul: 'Ujian Kelas Lain', subject_id: subject.id, class_id: 'kelas-lain', durasi: 60, created_at: new Date().toISOString() },
+];
 fs.writeFileSync(tmpDb, JSON.stringify(db, null, 2));
 
 // ---------- server ----------
@@ -110,6 +114,16 @@ try {
   const st = await req('GET', '/api/students');
   check('daftar siswa: 403 untuk siswa', st.status === 403, `status=${st.status}`);
 
+  const ex = await req('GET', '/api/exams');
+  const exIds = Array.isArray(ex.json) ? ex.json.map((x) => x.id) : [];
+  check('ujian: hanya kelas sendiri', ex.status === 200 && exIds.length === 1 && exIds[0] === 'exam-a',
+    `status=${ex.status} exams=${exIds.join(',') || 'kosong'}`);
+
+  const adminLogin = await req('POST', '/api/login', { email: 'admin@lms.id', password: 'admin' }, 'admin');
+  const exAdmin = await req('GET', '/api/exams', null, 'admin');
+  const exAdminIds = Array.isArray(exAdmin.json) ? exAdmin.json.map((x) => x.id) : [];
+  check('ujian: admin tetap lihat semua', exAdminIds.length === 2, `exams=${exAdminIds.length}`);
+
   const dash = await req('GET', '/api/dashboard');
   check('dashboard admin: 403 untuk siswa', dash.status === 403, `status=${dash.status}`);
 
@@ -117,7 +131,6 @@ try {
   check('tambah siswa: 403 untuk siswa', add.status === 403, `status=${add.status}`);
 
   const del = await req('DELETE', '/api/grades/grade-b');
-  const adminLogin = await req('POST', '/api/login', { email: 'admin@lms.id', password: 'admin' }, 'admin');
   const adminView = await req('GET', '/api/grades?student_id=siswa-b', null, 'admin');
   const stillThere = Array.isArray(adminView.json) ? adminView.json : [];
   check('hapus nilai siswa lain: 403', del.status === 403, `status=${del.status}`);
