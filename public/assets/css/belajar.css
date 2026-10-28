@@ -583,3 +583,11 @@
   max-width: 100%;
   height: auto;
 }
+.bl-opt:has(input:checked) {
+  border-color: var(--bl-accent);
+  background: #ecfdf5;
+}
+.bl-bs-row label:has(input:checked) {
+  font-weight: 700;
+  color: var(--bl-accent);
+}

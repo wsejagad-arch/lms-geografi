@@ -266,6 +266,7 @@ function registerKurikulum(app, deps) {
     res.json({
       ...publicBab(bab),
       semester: babSem,
+      kkm: KKM,
       is_active_semester: babSem === semesterAktif,
       progress: {
         best_score: prog ? prog.best_score : null,
