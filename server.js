@@ -199,6 +199,7 @@ function touchSession(db, req, user) {
 // Siswa hanya boleh menyentuh endpoint baca miliknya sendiri + submit nilai.
 const STUDENT_ROUTES = [
   ['GET', /^\/api\/me$/],
+  ['POST', /^\/api\/me\/password$/],
   ['GET', /^\/api\/materials$/],
   ['GET', /^\/api\/exams$/],
   ['POST', /^\/api\/exams\/[^/]+\/submit$/],
@@ -220,6 +221,54 @@ function generatePassword(len = 10) {
   let out = '';
   for (let i = 0; i < len; i++) out += alphabet[bytes[i] % alphabet.length];
   return out;
+}
+
+// ===== RATE LIMIT LOGIN =====
+// Disimpan lewat cacheGet/cacheSet, jadi ikut Redis bila tersedia (lintas proses PM2).
+const LOGIN_MAX_FAILS = Number(process.env.LOGIN_MAX_FAILS || 5);
+const LOGIN_WINDOW_MS = Number(process.env.LOGIN_WINDOW_MS || 15 * 60 * 1000);
+const DUMMY_HASH = bcrypt.hashSync(crypto.randomBytes(16).toString('hex'), 10);
+
+function clientIp(req) {
+  const h = req.headers || {};
+  return String(h['cf-connecting-ip'] || (h['x-forwarded-for'] || '').split(',')[0] || req.ip || '').trim();
+}
+
+function loginKey(req, identifier) {
+  return `login-fail:${clientIp(req)}|${String(identifier || '').toLowerCase()}`;
+}
+
+async function loginLockMs(key) {
+  const rec = await cacheGet(key);
+  if (!rec) return 0;
+  if (rec.fails < LOGIN_MAX_FAILS) return 0;
+  const left = Number(rec.reset_at || 0) - Date.now();
+  return left > 0 ? left : 0;
+}
+
+async function loginFail(key) {
+  const now = Date.now();
+  const rec = (await cacheGet(key)) || { fails: 0, reset_at: now + LOGIN_WINDOW_MS };
+  if (now > Number(rec.reset_at || 0)) { rec.fails = 0; rec.reset_at = now + LOGIN_WINDOW_MS; }
+  rec.fails = Number(rec.fails || 0) + 1;
+  await cacheSet(key, rec, Math.ceil(LOGIN_WINDOW_MS / 1000));
+}
+
+async function loginSuccess(key) {
+  await cacheDel(key);
+}
+
+// Kembalikan key bila boleh lanjut; kirim 429 dan kembalikan null bila terkunci.
+async function guardLogin(req, res, identifier) {
+  const key = loginKey(req, identifier);
+  const left = await loginLockMs(key);
+  if (left > 0) {
+    const secs = Math.max(1, Math.ceil(left / 1000));
+    res.set('Retry-After', String(secs));
+    res.status(429).json({ error: `Terlalu banyak percobaan. Coba lagi dalam ${secs} detik.`, retry_after: secs });
+    return null;
+  }
+  return key;
 }
 
 function studentIdOf(db, user) {
@@ -1249,12 +1298,20 @@ app.post('/api/register', requireAuth, requireAdmin, async (req, res) => {
 
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
+  const lockKey = await guardLogin(req, res, email);
+  if (!lockKey) return;
+
   const db = await loadDB();
   const user = db.users.find(u => u.email === email);
-  
-  if (!user || !bcrypt.compareSync(password, user.password)) {
+
+  // Bandingkan tetap dengan hash (dummy bila user tidak ada) agar waktu respons seragam.
+  const passwordOk = bcrypt.compareSync(String(password || ''), user ? user.password : DUMMY_HASH);
+  if (!user || !passwordOk) {
+    await loginFail(lockKey);
     return res.status(401).json({ error: 'Email atau password salah' });
   }
+
+  await loginSuccess(lockKey);
   
   req.session.userId = user.id;
   req.session.role = user.role;
@@ -1276,21 +1333,27 @@ app.post('/api/login', async (req, res) => {
 // Student login with username/password
 app.post('/api/student/login', async (req, res) => {
   const { username, password } = req.body;
+  const lockKey = await guardLogin(req, res, username);
+  if (!lockKey) return;
+
   const db = await loadDB();
-  
+
   // Find student by username or email
   const student = db.students.find(s => (s.username === username || s.email === username) && s.tenant_id);
   if (!student) {
-    return res.status(401).json({ error: 'Username tidak ditemukan' });
+    bcrypt.compareSync(String(password || ''), DUMMY_HASH);
+    await loginFail(lockKey);
+    return res.status(401).json({ error: 'Username atau password salah' });
   }
-  
+
   // Akun login: pakai baris users bila sudah ada, kalau belum pakai hash di data siswa
   let user = db.users.find(u => u.role === 'student' && u.id === student.user_id)
     || (student.email ? db.users.find(u => u.email === student.email && u.role === 'student') : null);
 
   if (!user) {
-    if (!student.password || !bcrypt.compareSync(password, student.password)) {
-      return res.status(401).json({ error: 'Password salah' });
+    if (!student.password || !bcrypt.compareSync(String(password || ''), student.password)) {
+      await loginFail(lockKey);
+      return res.status(401).json({ error: 'Username atau password salah' });
     }
     user = {
       id: uuidv4(),
@@ -1305,9 +1368,12 @@ app.post('/api/student/login', async (req, res) => {
     db.users.push(user);
     student.user_id = user.id;
     await saveDB(db);
-  } else if (!bcrypt.compareSync(password, user.password)) {
-    return res.status(401).json({ error: 'Password salah' });
+  } else if (!bcrypt.compareSync(String(password || ''), user.password)) {
+    await loginFail(lockKey);
+    return res.status(401).json({ error: 'Username atau password salah' });
   }
+
+  await loginSuccess(lockKey);
   
   req.session.userId = user.id;
   req.session.role = 'student';
@@ -1326,6 +1392,66 @@ app.post('/api/student/login', async (req, res) => {
     class_id: student.class_id,
     nis: student.nis
   });
+});
+
+// Ganti password sendiri (semua role; siswa diizinkan lewat allowlist).
+app.post('/api/me/password', requireAuth, async (req, res) => {
+  const { current_password, new_password } = req.body || {};
+  if (!current_password || !new_password) {
+    return res.status(400).json({ error: 'Password lama dan baru wajib diisi' });
+  }
+  if (String(new_password).length < 8) {
+    return res.status(400).json({ error: 'Password baru minimal 8 karakter' });
+  }
+
+  const db = await loadDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user || !bcrypt.compareSync(String(current_password), user.password)) {
+    return res.status(400).json({ error: 'Password lama salah' });
+  }
+
+  user.password = bcrypt.hashSync(String(new_password), 10);
+  const student = db.students.find(s => s.user_id === user.id || (user.student_id && s.id === user.student_id));
+  if (student) student.password = user.password;
+  await saveDB(db);
+
+  res.json({ success: true });
+});
+
+// Admin: reset password satu siswa, password acak dikembalikan sekali.
+app.post('/api/students/:id/reset-password', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const student = db.students.find(s => s.id === req.params.id && s.tenant_id === req.tenantId);
+  if (!student) return res.status(404).json({ error: 'Siswa tidak ditemukan' });
+
+  const plain = generatePassword();
+  const hash = bcrypt.hashSync(plain, 10);
+  student.password = hash;
+  const linked = db.users.find(u => u.role === 'student' && (u.id === student.user_id || (student.email && u.email === student.email)));
+  if (linked) linked.password = hash;
+  await saveDB(db);
+
+  res.json({ success: true, id: student.id, nis: student.nis, username: student.username || student.email || student.nis, password: plain });
+});
+
+// Admin: reset password massal (semua siswa tenant, atau satu kelas).
+app.post('/api/students/reset-passwords', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const classId = req.body && req.body.class_id;
+  const targets = db.students.filter(s => s.tenant_id === req.tenantId && (!classId || s.class_id === classId));
+  if (!targets.length) return res.status(404).json({ error: 'Tidak ada siswa yang cocok' });
+
+  const credentials = targets.map(student => {
+    const plain = generatePassword();
+    const hash = bcrypt.hashSync(plain, 10);
+    student.password = hash;
+    const linked = db.users.find(u => u.role === 'student' && (u.id === student.user_id || (student.email && u.email === student.email)));
+    if (linked) linked.password = hash;
+    return { nis: student.nis, username: student.username || student.email || student.nis, password: plain };
+  });
+
+  await saveDB(db);
+  res.json({ success: true, total: credentials.length, credentials });
 });
 
 app.post('/api/logout', async (req, res) => {

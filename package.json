@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node scripts/smoke-test.mjs && node scripts/idor-test.mjs && node scripts/audit-test.mjs && node scripts/quiz-test.mjs && node scripts/quiz-dom-test.mjs"
+    "test": "node scripts/smoke-test.mjs && node scripts/idor-test.mjs && node scripts/audit-test.mjs && node scripts/quiz-test.mjs && node scripts/quiz-dom-test.mjs && node scripts/auth-test.mjs"
   },
   "dependencies": {
     "express": "^4.18.2",

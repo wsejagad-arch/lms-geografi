@@ -100,9 +100,10 @@ dicek di `requireAuth`):
 `GET /api/grades` dan `GET /api/attendance` selalu difilter ke data siswa yang login.
 
 ### Auth
-- `POST /api/login` - Login
+- `POST /api/login` - Login (rate limit: 5 gagal / 15 menit per IP+identifier → `429`)
 - `POST /api/logout` - Logout
 - `GET /api/me` - Current user
+- `POST /api/me/password` - Ganti password sendiri (`{ current_password, new_password }`, min 8 karakter)
 
 ### Tenants
 - `GET /api/tenants` - List tenants
@@ -127,6 +128,8 @@ dicek di `requireAuth`):
 - `PUT /api/students/:id` - Update student
 - `DELETE /api/students/:id` - Delete student
 - `POST /api/students/import` - Impor massal (`{ students: [{ nis, nama, email, no_wa, kelas }] }`)
+- `POST /api/students/:id/reset-password` - Reset password satu siswa (password acak dikembalikan sekali)
+- `POST /api/students/reset-passwords` - Reset massal (`{ class_id? }`), mengembalikan daftar kredensial
 
 ### Impor Siswa (CSV)
 Menu **Siswa** → **Template** untuk mengunduh `template-siswa.csv`, isi lalu **Impor**.
