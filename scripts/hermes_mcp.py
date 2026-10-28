@@ -11,7 +11,21 @@ import urllib.request
 import urllib.error
 
 BASE = (os.environ.get("HERMES_BASE_URL") or "http://127.0.0.1:8642/v1").rstrip("/")
-KEY = os.environ.get("HERMES_API_KEY") or ""
+
+
+def load_key():
+    key = (os.environ.get("HERMES_API_KEY") or "").strip()
+    if key:
+        return key
+    path = os.path.join(os.path.expanduser("~"), ".hermes", "api-key.txt")
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            return fh.read().strip()
+    except OSError:
+        return ""
+
+
+KEY = load_key()
 MODEL = os.environ.get("HERMES_MODEL") or "hermes-agent"
 TIMEOUT = float(os.environ.get("HERMES_TIMEOUT_MS") or 120000) / 1000.0
 
