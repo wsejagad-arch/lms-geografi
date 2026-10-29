@@ -149,7 +149,8 @@ app.use(cookieSession({
 }));
 
 // Auth middleware
-const SESSION_ONLINE_MS = 15 * 60 * 1000;
+const SESSION_ONLINE_MS = Number(process.env.SESSION_ONLINE_MS || 120000);
+const SESSION_TOUCH_MS = Number(process.env.SESSION_TOUCH_MS || 30000);
 
 function clientMeta(req) {
   const h = req.headers || {};
@@ -312,7 +313,7 @@ async function requireAuth(req, res, next) {
   }
 
   const prev = req.session.sid ? (db.session_logs || []).find(s => s.id === req.session.sid) : null;
-  const stale = !prev || Date.now() - new Date(prev.last_seen_at || 0).getTime() > 60000;
+  const stale = !prev || Date.now() - new Date(prev.last_seen_at || 0).getTime() > SESSION_TOUCH_MS;
   if (stale) {
     touchSession(db, req, user);
     await saveDB(db);
@@ -408,11 +409,17 @@ app.get('/api/admin/sessions', requireAuth, requireAdmin, async (req, res) => {
       last_seen_at: s.last_seen_at || null,
       logout_at: s.logout_at || null,
       active: !!s.active,
+      detik_lalu: s.last_seen_at ? Math.max(0, Math.round((now - new Date(s.last_seen_at).getTime()) / 1000)) : null,
       online: !!s.active && now - new Date(s.last_seen_at || 0).getTime() < SESSION_ONLINE_MS
     }))
     .sort((a, b) => new Date(b.last_seen_at || 0) - new Date(a.last_seen_at || 0))
     .slice(0, 1000);
-  res.json({ online_window_minutes: SESSION_ONLINE_MS / 60000, sessions: rows });
+  res.json({
+    online_window_minutes: SESSION_ONLINE_MS / 60000,
+    online_count: rows.filter(r => r.online).length,
+    server_time: new Date().toISOString(),
+    sessions: rows
+  });
 });
 
 // ===== SUBJECTS (Mapel) =====

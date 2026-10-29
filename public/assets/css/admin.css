@@ -764,3 +764,12 @@ tbody td button + button { margin-left: 6px; }
   .badge { border: 1px solid #cbd5e1; }
   .progress-mini { border: 1px solid #cbd5e1; }
 }
+
+/* Indikator live pada panel User Aktif */
+.sessions-live { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--text-2); }
+.sessions-live .live-dot { width:8px; height:8px; border-radius:50%; background:#16a34a; box-shadow:0 0 0 0 rgba(22,163,74,.6); animation:livePulse 1.8s infinite; }
+@keyframes livePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(22,163,74,.55); }
+  70%  { box-shadow: 0 0 0 7px rgba(22,163,74,0); }
+  100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+}

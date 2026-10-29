@@ -108,6 +108,7 @@ function closeSidebar() {
 function switchMenu(menu) {
   const meta = MENU_META[menu];
   if (!meta) return;
+  if (menu !== 'sessions' && typeof stopSessionsLive === 'function') stopSessionsLive();
   setupMenu(menu);
   const title = document.getElementById('page-title');
   if (title) title.textContent = meta.title;
@@ -808,6 +809,17 @@ function sessionTime(iso) {
   return d.toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
 }
 
+function sessionAgo(sec) {
+  const s = Number(sec) || 0;
+  if (s < 5) return 'baru saja';
+  if (s < 60) return `${s} detik lalu`;
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m} menit lalu`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h} jam lalu`;
+  return `${Math.floor(h / 24)} hari lalu`;
+}
+
 function renderSessionRows() {
   const tbody = document.getElementById('sessions-tbody');
   if (!tbody) return;
@@ -841,7 +853,7 @@ function renderSessionRows() {
       <td>${kurEsc(s.kelas_nama) || '-'}</td>
       <td><span class="badge ${s.online ? 'badge-success' : 'badge-neutral'}">${s.online ? 'Online' : 'Offline'}</span></td>
       <td>${sessionTime(s.login_at)}</td>
-      <td>${sessionTime(s.last_seen_at)}</td>
+      <td>${sessionTime(s.last_seen_at)}${s.detik_lalu !== null && s.detik_lalu !== undefined ? `<div style="font-size:11px;color:var(--text-2)">${sessionAgo(s.detik_lalu)}</div>` : ''}</td>
       <td class="col-extra">${kurEsc(s.ip) || '-'}</td>
       <td class="col-extra">${kurEsc(s.lokasi) || '-'}</td>
       <td class="col-extra">${kurEsc(sessionDevice(s.ua))}</td>
@@ -875,28 +887,69 @@ async function printSessionReport() {
   setTimeout(() => document.body.classList.remove('print-sessions'), 1000);
 }
 
-async function renderSessions() {
+let sessionsTimer = null;
+let sessionsOnlineWindow = null;
+
+function stopSessionsLive() {
+  if (sessionsTimer) {
+    clearInterval(sessionsTimer);
+    sessionsTimer = null;
+  }
+}
+
+async function fetchSessions(silent = false) {
   const tbody = document.getElementById('sessions-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = '<tr><td colspan="9" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>';
+  if (silent && !tbody) return;
+  if (!silent && tbody) {
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>';
+  }
   try {
     const data = await fetch('/api/admin/sessions', { credentials: 'same-origin' }).then(r => {
       if (!r.ok) throw new Error('Gagal memuat status login');
       return r.json();
     });
     sessionRows = data.sessions || [];
+    sessionsOnlineWindow = data.online_window_minutes;
+
     const sel = document.getElementById('session-filter-kelas');
     if (sel) {
       const prev = sel.value;
       const names = [...new Set(sessionRows.map(r => r.kelas_nama).filter(n => n && n !== '-'))]
         .sort((a, b) => String(a).localeCompare(String(b)));
-      sel.innerHTML = '<option value="">Semua Kelas</option>' + names.map(n => `<option value="${n}">${n}</option>`).join('');
+      sel.innerHTML = '<option value="">Semua Kelas</option>' + names.map(n => `<option value="${n}">${kurEsc(n)}</option>`).join('');
       sel.value = names.includes(prev) ? prev : '';
     }
+
+    const live = document.getElementById('sessions-live');
+    if (live) {
+      const n = typeof data.online_count === 'number' ? data.online_count : sessionRows.filter(r => r.online).length;
+      live.innerHTML = `<span class="live-dot"></span><strong>${n}</strong> online · diperbarui ${new Date().toLocaleTimeString('id-ID')}`;
+    }
+
+    const note = document.getElementById('sessions-note');
+    if (note && data.online_window_minutes) {
+      note.textContent = `Online = ada aktivitas dalam ${data.online_window_minutes} menit terakhir (diperbarui otomatis tiap 10 detik). Lokasi diambil dari header Cloudflare (kota, region, negara).`;
+    }
+
     renderSessionRows();
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="9" class="text-center" style="color:var(--danger)">${err.message}</td></tr>`;
+    if (!silent && tbody) {
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center" style="color:var(--danger)">${kurEsc(err.message)}</td></tr>`;
+    }
   }
+}
+
+async function renderSessions() {
+  await fetchSessions(false);
+  stopSessionsLive();
+  sessionsTimer = setInterval(async () => {
+    const section = document.getElementById('menu-sessions');
+    if (!section || section.classList.contains('hidden')) {
+      stopSessionsLive();
+      return;
+    }
+    await fetchSessions(true);
+  }, 10000);
 }
 
 async function renderProgress() {

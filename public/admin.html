@@ -6,7 +6,7 @@
   <title>Admin - LMS Geografi Multi</title>
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
-  <link rel="stylesheet" href="assets/css/admin.css?v=5">
+  <link rel="stylesheet" href="assets/css/admin.css?v=20261105a">
   <meta name="theme-color" content="#0d9488">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -237,7 +237,10 @@
       <section id="menu-sessions" class="menu-section hidden">
         <div class="card">
           <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-            <button class="btn btn-sm" id="btn-sessions-refresh">Muat ulang</button>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              <button class="btn btn-sm" id="btn-sessions-refresh">Muat ulang</button>
+              <span id="sessions-live" class="sessions-live">memuat…</span>
+            </div>
             <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
               <button class="btn btn-sm" id="btn-sessions-print">Cetak / PDF</button>
               <select id="session-filter-kelas" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:130px">
@@ -258,7 +261,7 @@
               <tbody id="sessions-tbody"></tbody>
             </table>
           </div>
-          <p style="font-size:12px;color:var(--text-2);margin-top:8px">Online = ada aktivitas dalam 15 menit terakhir. Lokasi diambil dari header Cloudflare (kota, region, negara).</p>
+          <p id="sessions-note" style="font-size:12px;color:var(--text-2);margin-top:8px">Online = ada aktivitas dalam 2 menit terakhir (diperbarui otomatis tiap 10 detik). Lokasi diambil dari header Cloudflare (kota, region, negara).</p>
         </div>
       </section>
 
@@ -727,6 +730,6 @@
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105"></script>
+  <script src="assets/js/admin.js?v=20261105a"></script>
 </body>
 </html>
