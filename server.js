@@ -608,7 +608,7 @@ app.post('/api/students', requireAuth, requireAdmin, requireTenant, async (req, 
   const classItem = db.classes.find(c => c.id === class_id && c.tenant_id === req.tenantId);
   if (!classItem) return res.status(400).json({ error: 'Invalid class' });
 
-  const plainPassword = String(req.body.password || '').trim() || generatePassword();
+  const plainPassword = String(req.body.password || '').trim() || String(nis || '').trim() || generatePassword();
 
   const student = {
     id: uuidv4(),
@@ -707,7 +707,7 @@ app.post('/api/students/import', requireAuth, requireAdmin, requireTenant, async
     }
     
     const username = email || nis;
-    const plainPassword = String(row.password || '').trim() || generatePassword();
+    const plainPassword = String(row.password || '').trim() || nis || generatePassword();
     db.students.push({
       id: uuidv4(),
       tenant_id: req.tenantId,
@@ -1345,8 +1345,8 @@ app.post('/api/student/login', async (req, res) => {
 
   const db = await loadDB();
 
-  // Find student by username or email
-  const student = db.students.find(s => (s.username === username || s.email === username) && s.tenant_id);
+  // Find student by username, email, atau NIS
+  const student = db.students.find(s => (s.username === username || s.email === username || s.nis === username) && s.tenant_id);
   if (!student) {
     bcrypt.compareSync(String(password || ''), DUMMY_HASH);
     await loginFail(lockKey);

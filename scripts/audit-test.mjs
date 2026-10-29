@@ -169,17 +169,20 @@ try {
   check('#10 tugas menyertakan nama mapel/kelas', (asgs.json?.[0]?.subject_nama || '-') !== undefined && 'class_nama' in (asgs.json?.[0] || {}),
     `subject_nama=${asgs.json?.[0]?.subject_nama}`);
 
-  // #5 password siswa tidak lagi = NIS
+  // #5 password awal siswa = NIS (kebijakan sekolah), bisa diganti admin/user
   const newStudent = await req('POST', '/api/students', { nama: 'Siswa Baru', nis: 'NIS-BARU', email: 'baru@uji.local', class_id: klass.id }, 'admin');
   const generated = newStudent.json?.password;
-  check('#5 password dibuat acak', newStudent.status === 200 && typeof generated === 'string' && generated.length >= 8 && generated !== 'NIS-BARU',
-    `status=${newStudent.status} panjang=${generated ? generated.length : 0}`);
+  check('#5 password awal = NIS', newStudent.status === 200 && generated === 'NIS-BARU',
+    `status=${newStudent.status} password=${generated}`);
 
   const loginNis = await req('POST', '/api/student/login', { username: 'baru@uji.local', password: 'NIS-BARU' }, 'anon');
-  check('#5 login pakai NIS ditolak', loginNis.status === 401, `status=${loginNis.status}`);
+  check('#5 login pakai NIS berhasil', loginNis.status === 200, `status=${loginNis.status}`);
 
-  const loginGen = await req('POST', '/api/student/login', { username: 'baru@uji.local', password: generated }, 'anon');
-  check('#5 login pakai password baru berhasil', loginGen.status === 200, `status=${loginGen.status}`);
+  const loginWrong = await req('POST', '/api/student/login', { username: 'baru@uji.local', password: 'salah-sekali' }, 'anon');
+  check('#5 password salah tetap ditolak', loginWrong.status === 401, `status=${loginWrong.status}`);
+
+  const loginByNis = await req('POST', '/api/student/login', { username: 'NIS-BARU', password: 'NIS-BARU' }, 'anon');
+  check('#5 login pakai NIS sebagai username juga bisa', loginByNis.status === 200, `status=${loginByNis.status}`);
 
   // #8 mutasi admin-only
   const disposable = await req('POST', '/api/students', { nama: 'Siswa Hapus', nis: 'NIS-HAPUS', email: 'hapus@uji.local', class_id: klass.id }, 'admin');

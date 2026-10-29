@@ -46,7 +46,10 @@ Buka `http://localhost:3000`
 
 - Admin: email `admin@lms.id` (atau `ADMIN_EMAIL`). Password diambil dari env `ADMIN_PASSWORD`;
   bila tidak diset, password acak dibuat saat seed dan dicetak **sekali** ke stdout.
-- Siswa: password dibuat acak saat siswa dibuat/diimpor (dikembalikan di respons API), bukan NIS.
+- Siswa: login memakai **username/email/NIS** (identitas) + **NIS** sebagai password awal (kebijakan sekolah).
+  Admin dapat mengganti password siswa lewat `POST /api/students/:id/reset-password`,
+  dan siswa/guru dapat mengganti sendiri lewat `POST /api/me/password`.
+  ⚠️ Password = NIS mudah ditebak; aktifkan reset berkala bila keamanan jadi prioritas.
 - Endpoint mutasi admin (mapel, kelas, siswa, materi, soal, ujian, nilai, presensi, tugas, jadwal)
   hanya untuk role `admin`/`super_admin`.
 
