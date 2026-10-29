@@ -320,3 +320,46 @@ Perancangan materi & asesmen:
 Stimulus isu aktual dirujuk dari BMKG, Badan Geologi/ESDM, Kementerian Lingkungan Hidup, dan BPS (2025â€“2026); angka pada soal bersifat ilustratif untuk latihan, bukan data resmi.
 
 Desain antarmuka mengikuti prinsip minimal: tanpa gradient, radius kecil, shadow minimal, warna netral, dan system font.
+
+## Tool Browser (MCP) — uji live tanpa buka tab manual
+
+`scripts/browser-mcp.mjs` adalah MCP server (stdio) yang mengendalikan Chrome/Edge lewat
+Chrome DevTools Protocol. **Tanpa dependensi npm** (butuh Node >= 22 dan Chrome/Edge terpasang).
+
+Terdaftar di `.vscode/mcp.json` sebagai server `browser` (restart MCP / reload window setelah mengubah config).
+
+| Tool | Fungsi |
+|---|---|
+| `browser_start` | jalankan Chrome (headless default; `headless:false` untuk lihat jendela) |
+| `browser_goto` | buka URL + tunggu DOM siap (kembalikan url/title) |
+| `browser_eval` | jalankan JS di halaman, hasil dikembalikan sebagai JSON |
+| `browser_click` | klik elemen (selector CSS, opsional `index`) |
+| `browser_fill` | isi input/select + dispatch `input`/`change`, opsional `submit` form |
+| `browser_wait` | tunggu selector / ekspresi JS truthy |
+| `browser_text` / `browser_html` | ambil innerText / outerHTML |
+| `browser_screenshot` | simpan PNG (full page / potong selector) |
+| `browser_viewport` | ubah width/height, mode `mobile` (meta viewport otomatis disisipkan) |
+| `browser_console` | log & error halaman |
+| `browser_network` | request gagal / status >= 400 |
+| `browser_status` / `browser_close` | status proses & tutup browser |
+
+Contoh alur di chat:
+
+```
+browser_start
+browser_goto  url=https://geolabs.my.id/student.html
+browser_fill  selector=#email value=6087
+browser_fill  selector=#password value=6087 submit=true
+browser_wait  selector=.nav-item
+browser_click selector=[data-nav="belajar"]
+browser_click selector="#bl-eval input[type=radio]"
+browser_click selector=#bl-submit
+browser_text  selector=#bl-eval .bl-score
+browser_screenshot path=C:/tmp/hasil.png
+```
+
+Env: `BROWSER_HEADLESS` (1/0), `BROWSER_PORT` (default 9333), `BROWSER_TIMEOUT_MS`,
+`BROWSER_EXECUTABLE` (path chrome/edge bila tidak terdeteksi).
+
+Uji mandiri: `npm run test:browser` (15 check: start/goto/fill/click/wait/eval/viewport
+mobile/screenshot/console/network/status/close). E2E aplikasi: `npm run test:e2e`.

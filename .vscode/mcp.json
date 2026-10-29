@@ -1,5 +1,15 @@
 {
   "servers": {
+    "browser": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/browser-mcp.mjs"],
+      "env": {
+        "BROWSER_HEADLESS": "1",
+        "BROWSER_PORT": "9333",
+        "BROWSER_TIMEOUT_MS": "20000"
+      }
+    },
     "hermes": {
       "type": "stdio",
       "command": "python",
