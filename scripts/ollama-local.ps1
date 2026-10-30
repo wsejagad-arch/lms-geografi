@@ -41,11 +41,39 @@ function Test-PortFree([int]$p) {
   }
 }
 
-$chosen = $null
-foreach ($p in $Port..($Port + 9)) {
-  if (Test-PortFree $p) { $chosen = $p; break }
+function Test-OllamaUp([int]$p) {
+  try {
+    $r = Invoke-RestMethod -Uri "http://127.0.0.1:$p/api/tags" -TimeoutSec 3
+    return [bool]$r
+  } catch {
+    return $false
+  }
 }
-if (-not $chosen) { throw "Tidak ada port bebas di rentang $Port-$($Port + 9)." }
+
+$alreadyUp = Test-OllamaUp $Port
+
+# Bila server Ollama lokal sudah berjalan di port utama, pakai itu — jangan pilih
+# port baru, karena klien (Continue/Cline) dikonfigurasi ke base URL tetap.
+if ($alreadyUp -and -not $CheckOnly) {
+  Write-Host "Ollama sudah berjalan di port $Port"
+  Write-Host "Base URL     : http://127.0.0.1:$Port"
+  Write-Host 'Tidak menjalankan server baru. Hentikan dulu prosesnya bila ingin restart.'
+  return
+}
+
+if ($alreadyUp) {
+  $chosen = $Port
+} else {
+  $chosen = $null
+  foreach ($p in $Port..($Port + 9)) {
+    if (Test-PortFree $p) { $chosen = $p; break }
+  }
+  if (-not $chosen) { throw "Tidak ada port bebas di rentang $Port-$($Port + 9)." }
+  if ($chosen -ne $Port) {
+    Write-Warning "Port $Port sedang dipakai proses lain (bukan Ollama); memakai $chosen."
+    Write-Warning "Klien yang menunjuk http://127.0.0.1:$Port perlu disesuaikan."
+  }
+}
 
 # Penting: arahkan klien ollama ke port kita dulu, karena 127.0.0.1:11434
 # bisa dipegang tunnel SSH dan membuat 'ollama list' menggantung.
@@ -84,6 +112,7 @@ if (-not (Test-ModelInstalled $Model)) {
   Write-Warning "Model '$Model' belum terunduh. Jalankan: ollama pull $Model"
 }
 Write-Host "Model lokal  : $((Get-InstalledModels) -join ', ')"
+Write-Host "Server       : $(if ($alreadyUp) { "hidup di port $Port" } else { 'belum berjalan' })"
 
 $needGB = if ($needs.ContainsKey($Model)) { $needs[$Model] } else { 6.0 }
 

@@ -421,6 +421,13 @@ ollama pull qwen2.5-coder:3b                                  # model paling rea
    autocomplete memakai `qwen2.5-coder:3b` ke `http://127.0.0.1:11435`. Pilih model di picker Continue.
 3. Cline/Aider: set base URL `http://127.0.0.1:11435`, model `qwen2.5-coder:3b`.
 4. Verifikasi cepat: `curl http://127.0.0.1:11435/v1/models`.
+Di VS Code tersedia task (Ctrl+Shift+P ’ `Tasks: Run Task`):
+
+- `Ollama: start (qwen2.5-coder:3b)`  menyalakan server; bila sudah hidup di 11435,
+  skrip memakai server itu dan tidak memilih port lain.
+- `Ollama: start (qwen2.5-coder:7b)`, `Ollama: status`, `Ollama: unload model`.
+
+Autocomplete di-set `debounceDelay: 500` dan `maxPromptTokens: 512` agar responsif di CPU.
 
 
 ## Lupa Password Admin / Terkunci Rate Limit

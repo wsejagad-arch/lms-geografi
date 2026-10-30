@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Ollama: start (qwen2.5-coder:3b)",
+      "type": "shell",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File ${workspaceFolder}/scripts/ollama-local.ps1 -Model qwen2.5-coder:3b",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "detail": "Menjalankan Ollama lokal di port bebas (default 11435) + flash attention + KV q8"
+    },
+    {
+      "label": "Ollama: start (qwen2.5-coder:7b)",
+      "type": "shell",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File ${workspaceFolder}/scripts/ollama-local.ps1 -Model qwen2.5-coder:7b",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "detail": "Butuh RAM bebas ~6 GB; lebih lambat dari 3b"
+    },
+    {
+      "label": "Ollama: status",
+      "type": "shell",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File ${workspaceFolder}/scripts/ollama-local.ps1 -CheckOnly",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "detail": "Laporan RAM bebas, port, model terunduh, dan status server"
+    },
+    {
+      "label": "Ollama: unload model",
+      "type": "shell",
+      "command": "powershell -NoProfile -Command \"$env:OLLAMA_HOST='127.0.0.1:11435'; ollama ps; ollama stop qwen2.5-coder:3b; ollama stop qwen2.5-coder:7b\"",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "detail": "Membebaskan RAM tanpa mematikan server"
+    }
+  ]
+}
