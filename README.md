@@ -390,7 +390,7 @@ ollama pull qwen2.5-coder:3b                                  # model paling rea
 | Model | Ukuran | RAM perlu | Catatan |
 |---|---|---|---|
 | qwen2.5-coder:3b | 1,9 GB | ~3 GB | terukur ~11 tok/s di CPU laptop ini |
-| qwen2.5-coder:7b | 4,7 GB | ~6 GB | hanya bila RAM bebas mencukupi |
+| qwen2.5-coder:7b | 4,7 GB | ~6 GB | terukur 4,4 tok/s, load 68 s saat RAM sesak (3b lebih cepat) |
 | deepseek-coder-v2:16b | 8,3 GB | ~11 GB | tidak realistis di RAM 16 GB |
 
 ## Lupa Password Admin / Terkunci Rate Limit
