@@ -103,6 +103,8 @@ if ($CheckOnly) { return }
 # Hasil ukur di laptop ini (qwen2.5-coder:7b): load 68 s -> 11 s, 4,4 -> 5,8 tok/s.
 $env:OLLAMA_FLASH_ATTENTION = '1'
 $env:OLLAMA_KV_CACHE_TYPE = 'q8_0'
+# Biarkan model tetap termuat agar autocomplete tidak menunggu cold start.
+$env:OLLAMA_KEEP_ALIVE = '30m'
 
 Write-Host 'Menjalankan ollama serve (Ctrl+C untuk berhenti)...' -ForegroundColor Cyan
 ollama serve

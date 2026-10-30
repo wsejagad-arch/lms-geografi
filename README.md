@@ -414,6 +414,14 @@ ollama pull qwen2.5-coder:3b                                  # model paling rea
 | qwen2.5-coder:3b | 1,9 GB | ~3 GB | terukur ~11 tok/s di CPU laptop ini |
 | qwen2.5-coder:7b | 4,7 GB | ~6 GB | 5,8 tok/s, load 11 s dengan tuning (flash attention + KV q8 + num_ctx 2048) |
 | deepseek-coder-v2:16b | 8,3 GB | ~11 GB | tidak realistis di RAM 16 GB |
+### Memakai Ollama untuk coding
+
+1. Nyalakan server: `.\scripts\ollama-local.ps1 -Model qwen2.5-coder:3b` (mencetak base URL).
+2. Continue (`.continue/config.yaml`) sudah terisi: chat/edit/apply memakai "Ollama 3B (lokal)",
+   autocomplete memakai `qwen2.5-coder:3b` ke `http://127.0.0.1:11435`. Pilih model di picker Continue.
+3. Cline/Aider: set base URL `http://127.0.0.1:11435`, model `qwen2.5-coder:3b`.
+4. Verifikasi cepat: `curl http://127.0.0.1:11435/v1/models`.
+
 
 ## Lupa Password Admin / Terkunci Rate Limit
 
