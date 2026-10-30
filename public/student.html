@@ -2,20 +2,29 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#14614f">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
-  <title>Siswa - LMS Geografi</title>
-  <link rel="stylesheet" href="assets/css/style.css?v=6">
-  <link rel="stylesheet" href="assets/css/belajar.css?v=12">
-  <link rel="stylesheet" href="assets/css/student.css?v=6">
+  <meta name="description" content="Portal Siswa LMS Geografi Geo Edulabs - SMA Negeri 1 Sumber">
+  <title>Siswa - LMS Geografi · Geo Edulabs</title>
+
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css?v=20261105e">
+  <link rel="stylesheet" href="assets/css/belajar.css?v=20261105e">
+  <link rel="stylesheet" href="assets/css/student.css?v=20261105e">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
 </head>
 <body>
+  <!-- Systematic SVG Symbol Library -->
   <svg width="0" height="0" aria-hidden="true" style="position:absolute">
     <defs>
       <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z"/></symbol>
@@ -27,133 +36,518 @@
       <symbol id="i-cap" viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11.5V16c0 1.6 10 1.6 10 0v-4.5"/></symbol>
       <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8M17 9l3 3-3 3M11 12h9"/></symbol>
       <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
     </defs>
   </svg>
 
   <div class="app-layout">
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-    <aside class="sidebar" id="sidebar">
+    <!-- ====================================================================
+         SIDEBAR: SYSTEMATIC NAVIGATION HIERARCHY
+         ==================================================================== -->
+    <aside class="sidebar" id="sidebar" aria-label="Navigasi Siswa">
+      <!-- Brand Header -->
       <div class="brand">
-        <span class="brand-mark">GE</span>
-        <span class="brand-text"><b>Geo Edulabs</b><span id="siswa-sidebar-nama">Siswa</span></span>
+        <span class="brand-mark" aria-hidden="true">GE</span>
+        <div class="brand-text">
+          <b>Geo Edulabs</b>
+          <span id="siswa-sidebar-nama">Siswa</span>
+        </div>
       </div>
-      <nav class="nav" aria-label="Navigasi utama">
-        <div class="nav-item active" data-nav="dashboard"><svg class="ic"><use href="#i-home"/></svg>Beranda</div>
-        <div class="nav-item" data-nav="belajar"><svg class="ic"><use href="#i-compass"/></svg>Pembelajaran</div>
-        <div class="nav-item" data-nav="materi-saya"><svg class="ic"><use href="#i-book"/></svg>Materi Saya</div>
-        <div class="nav-item" data-nav="tugas-saya"><svg class="ic"><use href="#i-clipboard"/></svg>Tugas</div>
-        <div class="nav-item" data-nav="presensi-saya"><svg class="ic"><use href="#i-check"/></svg>Presensi</div>
-        <div class="nav-item" data-nav="nilai-saya"><svg class="ic"><use href="#i-chart"/></svg>Nilai Saya</div>
-        <div class="nav-item" data-nav="exam-saya"><svg class="ic"><use href="#i-cap"/></svg>Exam</div>
-        <div class="nav-sep"></div>
-        <div class="nav-item" id="btn-logout-siswa"><svg class="ic"><use href="#i-logout"/></svg>Keluar</div>
+
+      <!-- Main Navigation Sections -->
+      <nav class="nav" aria-label="Menu Siswa">
+        <div class="nav-section-title">Menu Pembelajaran</div>
+        <div class="nav-item active" data-nav="dashboard" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>
+          <span>Beranda</span>
+        </div>
+        <div class="nav-item" data-nav="belajar" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg>
+          <span>Jalur Pembelajaran</span>
+        </div>
+        <div class="nav-item" data-nav="materi-saya" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-book"/></svg>
+          <span>Materi Saya</span>
+        </div>
+
+        <div class="nav-section-title">Aktivitas & Evaluasi</div>
+        <div class="nav-item" data-nav="tugas-saya" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg>
+          <span>Tugas & Proyek</span>
+        </div>
+        <div class="nav-item" data-nav="exam-saya" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-cap"/></svg>
+          <span>Ujian (Exam)</span>
+        </div>
+        <div class="nav-item" data-nav="nilai-saya" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>
+          <span>Riwayat Nilai</span>
+        </div>
+        <div class="nav-item" data-nav="presensi-saya" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>
+          <span>Presensi Siswa</span>
+        </div>
       </nav>
+
+      <!-- Sidebar Footer / Profile & Logout Widget -->
+      <div class="sidebar-footer">
+        <div class="student-card-widget">
+          <div class="student-avatar-badge" id="sidebar-avatar">S</div>
+          <div class="student-card-details">
+            <span class="student-card-name" id="sidebar-student-name">Siswa</span>
+            <span class="student-card-class" id="sidebar-student-class">Kelas</span>
+          </div>
+        </div>
+        <button type="button" class="nav-item" id="btn-logout-siswa" aria-label="Keluar dari sesi siswa">
+          <svg class="ic" aria-hidden="true"><use href="#i-logout"/></svg>
+          <span>Keluar Portal</span>
+        </button>
+      </div>
     </aside>
 
+    <!-- ====================================================================
+         MAIN CONTENT AREA
+         ==================================================================== -->
     <main class="main-content">
+      <!-- Sticky Modern Top Bar -->
       <header class="top-bar">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Buka menu"><svg class="ic"><use href="#i-menu"/></svg></button>
-        <h1 id="page-title">Beranda</h1>
-        <div class="user-chip">
-          <span class="user-avatar" id="user-initial">S</span>
-          <span id="siswa-nama-display">Siswa</span>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Buka menu navigasi">
+          <svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+
+        <div class="top-bar-title-wrap">
+          <div class="top-bar-breadcrumb">
+            <span>GEO EDULABS</span>
+            <span>/</span>
+            <span id="page-breadcrumb">PORTAL</span>
+          </div>
+          <h1 id="page-title">Beranda</h1>
+        </div>
+
+        <div class="academic-chip">
+          <span class="dot-active" aria-hidden="true"></span>
+          <span id="academic-semester-badge">SMAN 1 Sumber · Semester Ganjil</span>
+        </div>
+
+        <div class="top-bar-actions">
+          <!-- Refresh cache button (Token-saving instant reload on demand) -->
+          <button type="button" class="btn-refresh-cache" id="btn-refresh-cache" title="Segarkan data terbaru" aria-label="Segarkan data">
+            <svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>
+          </button>
+
+          <div class="user-chip">
+            <span class="user-avatar" id="user-initial">S</span>
+            <span id="siswa-nama-display">Siswa</span>
+          </div>
         </div>
       </header>
 
+      <!-- Page Content Views -->
       <div class="page">
+        <!-- ================================================================
+             SECTION 1: BERANDA / DASHBOARD (Rich Learning Cockpit)
+             ================================================================ -->
         <section id="sec-dashboard" class="section">
-          <div class="stat-grid">
-            <div class="stat"><div class="stat-value" id="s-stat-materi">0</div><div class="stat-label">Materi</div></div>
-            <div class="stat"><div class="stat-value" id="s-stat-nilai">0</div><div class="stat-label">Nilai</div></div>
-            <div class="stat"><div class="stat-value" id="s-stat-rata">0</div><div class="stat-label">Rata-rata</div></div>
-            <div class="stat"><div class="stat-value" id="s-stat-presensi">0</div><div class="stat-label">Presensi</div></div>
-            <div class="stat"><div class="stat-value" id="s-stat-tugas">0</div><div class="stat-label">Tugas</div></div>
-            <div class="stat"><div class="stat-value" id="s-stat-exam">0</div><div class="stat-label">Exam</div></div>
+          <!-- Student Greeting Hero Banner -->
+          <div class="student-hero-banner">
+            <div class="hero-topo-bg" aria-hidden="true">
+              <svg viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 100 Q 200 40, 400 120 T 800 80" stroke="white" stroke-width="1.2" opacity="0.3"/>
+                <path d="M0 160 Q 250 80, 500 180 T 800 130" stroke="white" stroke-width="1.2" opacity="0.4"/>
+                <path d="M0 220 Q 300 140, 600 240 T 800 190" stroke="white" stroke-width="1.5" opacity="0.5"/>
+              </svg>
+            </div>
+            
+            <div class="hero-header-row">
+              <div class="hero-greeting">
+                <h2 id="hero-student-greeting">Selamat Datang di Geo Edulabs</h2>
+                <p>Eksplorasi modul geografi terpadu, pemetaan spasial, dan evaluasi capaian kompetensi Kurikulum Merdeka secara sistematis dan terukur.</p>
+              </div>
+              <div class="hero-badge-pill">
+                <span class="dot-active" style="width:6px;height:6px;border-radius:50%;background:#34d399;" aria-hidden="true"></span>
+                <span>WGS84 · 6°45'S 108°28'E</span>
+              </div>
+            </div>
+
+            <div class="hero-cta-row">
+              <button type="button" class="btn-hero-action" onclick="navigate('belajar')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Lanjutkan Pembelajaran</span>
+              </button>
+              <button type="button" class="btn-hero-secondary" onclick="navigate('materi-saya')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Buka Materi Saya</span>
+              </button>
+            </div>
           </div>
-          <div class="panel">
-            <div class="panel-head"><h2>Profil Saya</h2></div>
-            <div class="panel-body"><p id="s-profile-info">Memuat...</p></div>
+
+          <!-- Systematic Bento Stat Grid -->
+          <div class="stat-grid">
+            <div class="stat" onclick="navigate('materi-saya')" role="button" tabindex="0">
+              <div class="stat-top">
+                <span class="stat-icon-wrap" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </span>
+                <span class="stat-chip">Modul</span>
+              </div>
+              <div>
+                <span class="stat-value" id="s-stat-materi">0</span>
+                <span class="stat-label">Materi Tersedia</span>
+              </div>
+            </div>
+
+            <div class="stat" onclick="navigate('nilai-saya')" role="button" tabindex="0">
+              <div class="stat-top">
+                <span class="stat-icon-wrap" style="background:#fef3c7;color:#b45309;" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </span>
+                <span class="stat-chip" style="color:#b45309;">KKM: 75</span>
+              </div>
+              <div>
+                <span class="stat-value" id="s-stat-rata">0</span>
+                <span class="stat-label">Rata-rata Nilai</span>
+              </div>
+            </div>
+
+            <div class="stat" onclick="navigate('nilai-saya')" role="button" tabindex="0">
+              <div class="stat-top">
+                <span class="stat-icon-wrap" style="background:#e0f2fe;color:#0369a1;" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </span>
+                <span class="stat-chip" style="color:#0369a1;">Asesmen</span>
+              </div>
+              <div>
+                <span class="stat-value" id="s-stat-nilai">0</span>
+                <span class="stat-label">Evaluasi Dinilai</span>
+              </div>
+            </div>
+
+            <div class="stat" onclick="navigate('presensi-saya')" role="button" tabindex="0">
+              <div class="stat-top">
+                <span class="stat-icon-wrap" style="background:#dcfce7;color:#15803d;" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+                </span>
+                <span class="stat-chip" style="color:#15803d;">Hadir</span>
+              </div>
+              <div>
+                <span class="stat-value" id="s-stat-presensi">0</span>
+                <span class="stat-label">Total Presensi</span>
+              </div>
+            </div>
+
+            <div class="stat" onclick="navigate('tugas-saya')" role="button" tabindex="0">
+              <div class="stat-top">
+                <span class="stat-icon-wrap" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="5" width="12" height="15" rx="2"/><path d="M9 5V4h6v1M9 11h6M9 15h4"/></svg>
+                </span>
+                <span class="stat-chip">Tugas</span>
+              </div>
+              <div>
+                <span class="stat-value" id="s-stat-tugas">0</span>
+                <span class="stat-label">Tugas Aktif</span>
+              </div>
+            </div>
+
+            <div class="stat" onclick="navigate('exam-saya')" role="button" tabindex="0">
+              <div class="stat-top">
+                <span class="stat-icon-wrap" style="background:#fae8ff;color:#86198f;" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11.5V16c0 1.6 10 1.6 10 0v-4.5"/></svg>
+                </span>
+                <span class="stat-chip" style="color:#86198f;">CBT</span>
+              </div>
+              <div>
+                <span class="stat-value" id="s-stat-exam">0</span>
+                <span class="stat-label">Ujian (Exam)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic Student Identity Card -->
+          <div class="academic-profile-card">
+            <div class="academic-profile-head">
+              <h2>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Informasi Akademik Siswa</span>
+              </h2>
+              <span class="badge badge-success">Status: Aktif</span>
+            </div>
+            
+            <div class="academic-profile-grid">
+              <div class="profile-meta-item">
+                <span class="profile-meta-label">Nama Lengkap</span>
+                <span class="profile-meta-val" id="prof-nama">-</span>
+              </div>
+              <div class="profile-meta-item">
+                <span class="profile-meta-label">Nomor Induk Siswa (NIS)</span>
+                <span class="profile-meta-val" id="prof-nis">-</span>
+              </div>
+              <div class="profile-meta-item">
+                <span class="profile-meta-label">Kelas & Tingkat</span>
+                <span class="profile-meta-val" id="prof-kelas">-</span>
+              </div>
+              <div class="profile-meta-item">
+                <span class="profile-meta-label">Wali Kelas</span>
+                <span class="profile-meta-val" id="prof-walikelas">-</span>
+              </div>
+              <div class="profile-meta-item">
+                <span class="profile-meta-label">Sekolah / Tenant</span>
+                <span class="profile-meta-val" id="prof-sekolah">SMA Negeri 1 Sumber</span>
+              </div>
+              <div class="profile-meta-item">
+                <span class="profile-meta-label">Kurikulum</span>
+                <span class="profile-meta-val">Kurikulum Merdeka Geografi</span>
+              </div>
+            </div>
+            
+            <!-- Kept for test compatibility -->
+            <p id="s-profile-info" style="display:none"></p>
           </div>
         </section>
 
+        <!-- ================================================================
+             SECTION 2: JALUR PEMBELAJARAN (Interaktif & Berjenjang)
+             ================================================================ -->
         <section id="sec-belajar" class="section hidden">
           <div id="belajar-root"></div>
         </section>
 
+        <!-- ================================================================
+             SECTION 3: MATERI SAYA (Materi, Modul & Video Geografi)
+             ================================================================ -->
         <section id="sec-materi-saya" class="section hidden">
-          <div class="material-grid" id="materi-grid"></div>
-          <div class="empty hidden" id="materi-empty">Belum ada materi untuk kelas Anda.</div>
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Materi & Modul Pelajaran</h2>
+              <!-- Token-efficient client-side search & category filtering -->
+              <div class="toolbar-wrap">
+                <div class="search-box-wrap">
+                  <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+                  <input type="text" id="materi-search-input" class="search-input" placeholder="Cari materi, konsep, atau bab...">
+                </div>
+                <div class="filter-pills-row" id="materi-filter-pills">
+                  <button type="button" class="filter-pill active" data-filter="all">Semua Materi</button>
+                  <button type="button" class="filter-pill" data-filter="video">Video</button>
+                  <button type="button" class="filter-pill" data-filter="modul">Modul</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="panel-body">
+              <div class="material-grid" id="materi-grid"></div>
+              <div class="empty hidden" id="materi-empty">
+                <div class="empty-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <b>Belum Ada Materi</b>
+                <p>Belum ada modul ajar yang ditugaskan untuk kelas Anda saat ini.</p>
+              </div>
+            </div>
+          </div>
         </section>
 
+        <!-- ================================================================
+             SECTION 4: TUGAS SAYA (Penugasan & Proyek Geografi)
+             ================================================================ -->
         <section id="sec-tugas-saya" class="section hidden">
-          <div class="stack" id="tugas-saya-grid"></div>
-          <div class="empty hidden" id="tugas-empty">Belum ada tugas.</div>
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Daftar Tugas & Penugasan Proyek</h2>
+              <div class="toolbar-wrap">
+                <div class="search-box-wrap">
+                  <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+                  <input type="text" id="tugas-search-input" class="search-input" placeholder="Cari tugas atau instruksi...">
+                </div>
+              </div>
+            </div>
+            
+            <div class="panel-body">
+              <div class="stack" id="tugas-saya-grid"></div>
+              <div class="empty hidden" id="tugas-empty">
+                <div class="empty-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="5" width="12" height="15" rx="2"/><path d="M9 5V4h6v1M9 11h6M9 15h4"/></svg>
+                </div>
+                <b>Belum Ada Tugas Aktif</b>
+                <p>Semua penugasan telah diselesaikan atau belum ada tugas baru dari guru.</p>
+              </div>
+            </div>
+          </div>
         </section>
 
+        <!-- ================================================================
+             SECTION 5: PRESENSI SAYA (Rekap Kehadiran)
+             ================================================================ -->
         <section id="sec-presensi-saya" class="section hidden">
           <div class="panel">
-            <div class="panel-head"><h2>Riwayat Presensi</h2></div>
+            <div class="panel-head">
+              <h2>Riwayat Presensi & Kehadiran</h2>
+              <span class="badge badge-primary" id="presensi-summary-badge">Kehadiran 100%</span>
+            </div>
+
+            <!-- Attendance Metric Summary -->
+            <div class="summary-banner">
+              <div class="summary-item">
+                <span class="summary-item-label">Total Rekap</span>
+                <span class="summary-item-val" id="pres-total">0</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-item-label">Hadir</span>
+                <span class="summary-item-val" style="color:var(--status-success);" id="pres-hadir">0</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-item-label">Izin</span>
+                <span class="summary-item-val" style="color:var(--status-warning);" id="pres-izin">0</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-item-label">Sakit</span>
+                <span class="summary-item-val" style="color:var(--status-info);" id="pres-sakit">0</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-item-label">Alpa</span>
+                <span class="summary-item-val" style="color:var(--status-danger);" id="pres-alpa">0</span>
+              </div>
+            </div>
+
             <div class="table-wrap">
               <table class="table">
-                <thead><tr><th>Tanggal</th><th>Status</th><th>Kelas</th><th>Catatan</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                    <th>Kelas</th>
+                    <th>Catatan Guru</th>
+                  </tr>
+                </thead>
                 <tbody id="presensi-saya-tbody"></tbody>
               </table>
             </div>
           </div>
         </section>
 
+        <!-- ================================================================
+             SECTION 6: NILAI SAYA (Transkrip & Evaluasi Akademik)
+             ================================================================ -->
         <section id="sec-nilai-saya" class="section hidden">
           <div class="panel">
-            <div class="panel-head"><h2>Riwayat Nilai</h2></div>
+            <div class="panel-head">
+              <h2>Riwayat & Capaian Nilai</h2>
+              <span class="badge badge-success" id="nilai-kkm-badge">KKM Standar: 75</span>
+            </div>
+
+            <div class="summary-banner">
+              <div class="summary-item">
+                <span class="summary-item-label">Rata-rata Keseluruhan</span>
+                <span class="summary-item-val" id="nilai-summary-rata">0</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-item-label">Status Kelulusan</span>
+                <span class="summary-item-val" id="nilai-summary-status" style="color:var(--status-success);">Tuntas</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-item-label">Total Komponen Dinilai</span>
+                <span class="summary-item-val" id="nilai-summary-count">0</span>
+              </div>
+            </div>
+
             <div class="table-wrap">
               <table class="table">
-                <thead><tr><th>Mapel</th><th>Kelas</th><th>Jenis</th><th class="num">Nilai</th><th>Catatan</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Mata Pelajaran</th>
+                    <th>Kelas</th>
+                    <th>Jenis Asesmen</th>
+                    <th class="num">Nilai</th>
+                    <th>Status KKM</th>
+                    <th>Catatan Evaluasi</th>
+                  </tr>
+                </thead>
                 <tbody id="nilai-saya-tbody"></tbody>
               </table>
             </div>
           </div>
         </section>
 
+        <!-- ================================================================
+             SECTION 7: EXAM SAYA (Ujian Berbasis Komputer / CBT)
+             ================================================================ -->
         <section id="sec-exam-saya" class="section hidden">
-          <div class="stack" id="exam-list"></div>
-          <div class="empty hidden" id="exam-empty">Belum ada exam tersedia.</div>
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Ujian & Asesmen Berbasis Komputer (CBT)</h2>
+              <span class="badge badge-neutral">Sistem Ujian Terstandar</span>
+            </div>
+            
+            <div class="panel-body">
+              <div class="stack" id="exam-list"></div>
+              <div class="empty hidden" id="exam-empty">
+                <div class="empty-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11.5V16c0 1.6 10 1.6 10 0v-4.5"/></svg>
+                </div>
+                <b>Tidak Ada Ujian Aktif</b>
+                <p>Saat ini tidak ada jadwal exam atau ujian aktif untuk kelas Anda.</p>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </main>
   </div>
 
-  <div class="modal-overlay" id="exam-detail-modal">
+  <!-- ====================================================================
+       EXAM MODAL RUNNER
+       ==================================================================== -->
+  <div class="modal-overlay" id="exam-detail-modal" role="dialog" aria-modal="true" aria-labelledby="exam-detail-title">
     <div class="modal">
       <div class="modal-header">
-        <h3 id="exam-detail-title">Exam</h3>
-        <button class="modal-close" data-close aria-label="Tutup">&times;</button>
+        <h3 id="exam-detail-title">Exam Geografi</h3>
+        <button type="button" class="modal-close" data-close aria-label="Tutup jendela ujian">&times;</button>
       </div>
       <div class="modal-body" id="exam-detail-body"></div>
       <div class="modal-footer">
-        <span id="exam-timer" class="exam-timer"></span>
-        <button class="btn" data-close>Batal</button>
-        <button class="btn btn-primary" id="btn-submit-exam">Kumpulkan</button>
+        <span id="exam-timer" class="exam-timer" aria-live="polite">Sisa: 00:00</span>
+        <button type="button" class="btn" data-close>Batal</button>
+        <button type="button" class="btn btn-primary" id="btn-submit-exam">Kumpulkan Jawaban</button>
       </div>
     </div>
   </div>
 
-  <nav class="bottom-nav" aria-label="Navigasi bawah">
-    <button class="bottom-nav-item active" data-nav="dashboard"><svg class="ic"><use href="#i-home"/></svg><span>Beranda</span></button>
-    <button class="bottom-nav-item" data-nav="belajar"><svg class="ic"><use href="#i-compass"/></svg><span>Belajar</span></button>
-    <button class="bottom-nav-item" data-nav="materi-saya"><svg class="ic"><use href="#i-book"/></svg><span>Materi</span></button>
-    <button class="bottom-nav-item" data-nav="tugas-saya"><svg class="ic"><use href="#i-clipboard"/></svg><span>Tugas</span></button>
-    <button class="bottom-nav-item" data-nav="nilai-saya"><svg class="ic"><use href="#i-chart"/></svg><span>Nilai</span></button>
+  <!-- ====================================================================
+       MOBILE BOTTOM NAVIGATION BAR
+       ==================================================================== -->
+  <nav class="bottom-nav" aria-label="Navigasi bawah seluler">
+    <button type="button" class="bottom-nav-item active" data-nav="dashboard">
+      <svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>
+      <span>Beranda</span>
+    </button>
+    <button type="button" class="bottom-nav-item" data-nav="belajar">
+      <svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg>
+      <span>Belajar</span>
+    </button>
+    <button type="button" class="bottom-nav-item" data-nav="materi-saya">
+      <svg class="ic" aria-hidden="true"><use href="#i-book"/></svg>
+      <span>Materi</span>
+    </button>
+    <button type="button" class="bottom-nav-item" data-nav="tugas-saya">
+      <svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg>
+      <span>Tugas</span>
+    </button>
+    <button type="button" class="bottom-nav-item" data-nav="nilai-saya">
+      <svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>
+      <span>Nilai</span>
+    </button>
   </nav>
 
-  <script src="assets/js/sanitize.js?v=20261105c"></script>
-  <script src="assets/js/api.js?v=20261105c"></script>
-  <script src="assets/js/belajar.js?v=20261105c"></script>
+  <!-- Scripts -->
+  <script src="assets/js/sanitize.js?v=20261105e"></script>
+  <script src="assets/js/api.js?v=20261105e"></script>
+  <script src="assets/js/belajar.js?v=20261105e"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
-  <script src="assets/js/student.js?v=20261105c"></script>
+  <script src="assets/js/student.js?v=20261105e"></script>
 </body>
 </html>
