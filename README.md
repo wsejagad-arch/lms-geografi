@@ -367,6 +367,26 @@ Env: `BROWSER_HEADLESS` (1/0), `BROWSER_PORT` (default 9333), `BROWSER_TIMEOUT_M
 Uji mandiri: `npm run test:browser` (15 check: start/goto/fill/click/wait/eval/viewport
 mobile/screenshot/console/network/status/close). E2E aplikasi: `npm run test:e2e`.
 
+## Hermes Agent (login Nous Portal, model gratis)
+
+`hermes login` sudah dihapus di versi ini. Alur yang benar:
+
+```powershell
+hermes auth add nous --type oauth --no-browser   # buka URL + masukkan user_code
+hermes auth status nous                          # harus: logged in
+hermes config set model.default reflection/beam-1.0-501b-a23b:free
+hermes config set model.provider nous
+hermes config set model.base_url https://inference-api.nousresearch.com/v1
+hermes -z "Balas satu kata: siap" --cli          # uji agent
+```
+
+- Akun gratis: pakai model bersufiks `:free` (mis. `reflection/beam-1.0-501b-a23b:free`).
+  Model berbayar menolak dengan HTTP 404 "requires available credits".
+- Tool gateway Nous (web/browser/image/Modal) butuh kredit; tanpa kredit hanya LLM yang jalan.
+- MCP `hermes` memakai endpoint yang sama. Token OAuth dibaca otomatis oleh
+  `scripts/hermes_mcp.py` dari `%LOCALAPPDATA%\hermes\auth.json` (provider lewat
+  `HERMES_AUTH_PROVIDER`, default `nous`), jadi **tidak ada token yang disimpan di repo**.
+
 ## AI Lokal (Ollama)
 
 Mesin ini: Intel i7-1255U, RAM 16 GB, iGPU Iris Xe tanpa VRAM khusus, jadi inferensi berjalan di **CPU**.

@@ -5,6 +5,7 @@ Env: HERMES_BASE_URL (default http://127.0.0.1:8642/v1), HERMES_API_KEY, HERMES_
 """
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.request
@@ -13,16 +14,49 @@ import urllib.error
 BASE = (os.environ.get("HERMES_BASE_URL") or "http://127.0.0.1:8642/v1").rstrip("/")
 
 
+def load_oauth_token():
+    """Ambil access_token Hermes CLI (mis. login Nous) agar token tidak perlu disimpan di repo."""
+    provider = (os.environ.get("HERMES_AUTH_PROVIDER") or "nous").strip()
+    candidates = [
+        os.path.join(os.environ.get("LOCALAPPDATA") or "", "hermes", "auth.json"),
+        os.path.join(os.path.expanduser("~"), "AppData", "Local", "hermes", "auth.json"),
+        os.path.join(os.path.expanduser("~"), ".hermes", "auth.json"),
+    ]
+    for path in candidates:
+        if not path or not os.path.isfile(path):
+            continue
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                data = json.load(fh)
+        except (OSError, ValueError):
+            continue
+        entry = (data.get("providers") or {}).get(provider) or {}
+        token = (entry.get("access_token") or "").strip()
+        if token:
+            return token
+        for cred in (data.get("credential_pool") or {}).get(provider) or []:
+            token = (cred.get("access_token") or "").strip()
+            if token:
+                return token
+    return ""
+
+
 def load_key():
     key = (os.environ.get("HERMES_API_KEY") or "").strip()
     if key:
         return key
+    # Endpoint remote (mis. inference-api.nousresearch.com): pakai token OAuth hasil
+    # 'hermes auth add', bukan api-key.txt lama yang bisa sudah kedaluwarsa.
+    if re.search(r"//(localhost|127\.0\.0\.1|\[::1\])", BASE) is None:
+        token = load_oauth_token()
+        if token:
+            return token
     path = os.path.join(os.path.expanduser("~"), ".hermes", "api-key.txt")
     try:
         with open(path, "r", encoding="utf-8") as fh:
             return fh.read().strip()
     except OSError:
-        return ""
+        return load_oauth_token()
 
 
 KEY = load_key()

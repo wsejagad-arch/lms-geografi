@@ -19,9 +19,10 @@
         "${workspaceFolder}/scripts/hermes_mcp.py"
       ],
       "env": {
-        "HERMES_BASE_URL": "http://127.0.0.1:11435/v1",
-        "HERMES_MODEL": "qwen2.5-coder:3b",
-        "HERMES_TIMEOUT_MS": "300000"
+        "HERMES_BASE_URL": "https://inference-api.nousresearch.com/v1",
+        "HERMES_MODEL": "reflection/beam-1.0-501b-a23b:free",
+        "HERMES_TIMEOUT_MS": "300000",
+        "HERMES_AUTH_PROVIDER": "nous"
       }
     }
   }
