@@ -46,7 +46,9 @@ Buka `http://localhost:3000`
 
 - Admin: email `admin@lms.id` (atau `ADMIN_EMAIL`). Password diambil dari env `ADMIN_PASSWORD`;
   bila tidak diset, password acak dibuat saat seed dan dicetak **sekali** ke stdout.
-- Siswa: login memakai **username/email/NIS/NISN** (identitas) + **NIS** sebagai password awal (kebijakan sekolah).
+- Halaman login hanya **satu** (`POST /api/auth/login`): identitas dicocokkan otomatis ke staf
+  (email/username) atau siswa (username/NIS/NISN/email), tanpa memilih jenis akun lebih dulu.
+- Siswa: password awal = **NIS** (kebijakan sekolah).
   Admin dapat mengganti password siswa lewat `POST /api/students/:id/reset-password`,
   dan siswa/guru dapat mengganti sendiri lewat `POST /api/me/password`.
   ⚠️ Password = NIS mudah ditebak; aktifkan reset berkala bila keamanan jadi prioritas.
@@ -104,6 +106,7 @@ dicek di `requireAuth`):
 
 ### Auth
 - `POST /api/login` - Login (rate limit: 5 gagal / 15 menit per IP+identifier → `429`)
+- `POST /api/auth/login` - Login satu pintu (auto-deteksi staf/siswa), rate limit sama dengan `/api/login`
 - `POST /api/logout` - Logout
 - `GET /api/me` - Current user
 - `POST /api/me/password` - Ganti password sendiri (`{ current_password, new_password }`, min 8 karakter)

@@ -41,6 +41,17 @@ const LMS = (() => {
     return user;
   }
 
+  // Login tunggal: backend mendeteksi staf/guru/siswa dari identitas yang diisi.
+  async function authLogin(identifier, password) {
+    const user = await api('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ identifier, password })
+    });
+    currentUser = user;
+    currentTenant = user.tenant_id;
+    return user;
+  }
+
   async function logout() {
     try {
       await api('/logout', { method: 'POST' });
@@ -153,7 +164,7 @@ const LMS = (() => {
     setCurrentUser: (u) => { currentUser = u; },
     getCurrentTenant: () => currentTenant,
     setCurrentTenant: (t) => { currentTenant = t; },
-    checkAuth, login, logout, selectTenant,
+    checkAuth, login, authLogin, logout, selectTenant,
     getTenants, createTenant,
     getSubjects, createSubject, updateSubject, deleteSubject,
     getClasses, createClass, updateClass, deleteClass,

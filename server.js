@@ -1338,6 +1338,57 @@ app.post('/api/login', async (req, res) => {
 });
 
 // Student login with username/password
+// ===== HELPER LOGIN =====
+// Siswa bisa dikenali lewat username, NIS, NISN, atau email.
+function findStudentByIdentifier(db, identifier) {
+  const ident = String(identifier || '').trim();
+  if (!ident) return null;
+  const needle = ident.toLowerCase();
+  return db.students.find(s => s.tenant_id && (
+    String(s.username || '').trim().toLowerCase() === needle
+    || String(s.nis || '').trim() === ident
+    || String(s.nisn || '').trim() === ident
+    || (s.email && String(s.email).trim().toLowerCase() === needle)
+  )) || null;
+}
+
+// Staf (super_admin/admin/teacher) dikenali lewat email atau username.
+function findStaffByIdentifier(db, identifier) {
+  const needle = String(identifier || '').trim().toLowerCase();
+  if (!needle) return null;
+  return db.users.find(u => u.role !== 'student' && (
+    (u.email && String(u.email).trim().toLowerCase() === needle)
+    || (u.username && String(u.username).trim().toLowerCase() === needle)
+  )) || null;
+}
+
+// Verifikasi password siswa; buat baris users bila belum ada. null = password salah.
+async function verifyStudentPassword(db, student, password) {
+  const plain = String(password || '');
+  let user = db.users.find(u => u.role === 'student' && u.id === student.user_id)
+    || (student.email ? db.users.find(u => u.email === student.email && u.role === 'student') : null);
+
+  if (user) {
+    return bcrypt.compareSync(plain, user.password) ? user : null;
+  }
+  if (!student.password || !bcrypt.compareSync(plain, student.password)) return null;
+
+  user = {
+    id: uuidv4(),
+    email: student.email || `${student.nis}@siswa.local`,
+    password: student.password,
+    nama: student.nama,
+    role: 'student',
+    tenant_id: student.tenant_id,
+    student_id: student.id,
+    created_at: new Date().toISOString()
+  };
+  db.users.push(user);
+  student.user_id = user.id;
+  await saveDB(db);
+  return user;
+}
+
 app.post('/api/student/login', async (req, res) => {
   const { username, password } = req.body;
   const lockKey = await guardLogin(req, res, username);
@@ -1345,44 +1396,15 @@ app.post('/api/student/login', async (req, res) => {
 
   const db = await loadDB();
 
-  // Find student by username, email, NIS, atau NISN
-  const ident = String(username || '').trim();
-  const identLower = ident.toLowerCase();
-  const student = db.students.find(s => s.tenant_id && (
-    String(s.username || '').trim() === ident
-    || String(s.nis || '').trim() === ident
-    || String(s.nisn || '').trim() === ident
-    || (s.email && String(s.email).trim().toLowerCase() === identLower)
-  ));
+  const student = findStudentByIdentifier(db, username);
   if (!student) {
     bcrypt.compareSync(String(password || ''), DUMMY_HASH);
     await loginFail(lockKey);
     return res.status(401).json({ error: 'Username atau password salah' });
   }
 
-  // Akun login: pakai baris users bila sudah ada, kalau belum pakai hash di data siswa
-  let user = db.users.find(u => u.role === 'student' && u.id === student.user_id)
-    || (student.email ? db.users.find(u => u.email === student.email && u.role === 'student') : null);
-
+  const user = await verifyStudentPassword(db, student, password);
   if (!user) {
-    if (!student.password || !bcrypt.compareSync(String(password || ''), student.password)) {
-      await loginFail(lockKey);
-      return res.status(401).json({ error: 'Username atau password salah' });
-    }
-    user = {
-      id: uuidv4(),
-      email: student.email || `${student.nis}@siswa.local`,
-      password: student.password,
-      nama: student.nama,
-      role: 'student',
-      tenant_id: student.tenant_id,
-      student_id: student.id,
-      created_at: new Date().toISOString()
-    };
-    db.users.push(user);
-    student.user_id = user.id;
-    await saveDB(db);
-  } else if (!bcrypt.compareSync(String(password || ''), user.password)) {
     await loginFail(lockKey);
     return res.status(401).json({ error: 'Username atau password salah' });
   }
@@ -1406,6 +1428,59 @@ app.post('/api/student/login', async (req, res) => {
     class_id: student.class_id,
     nis: student.nis
   });
+});
+
+// Login tunggal: satu form untuk semua peran, jenis akun dideteksi otomatis.
+app.post('/api/auth/login', async (req, res) => {
+  const body = req.body || {};
+  const identifier = String(body.identifier ?? body.email ?? body.username ?? '').trim();
+  const password = String(body.password || '');
+  const lockKey = await guardLogin(req, res, identifier);
+  if (!lockKey) return;
+
+  const db = await loadDB();
+  const staff = findStaffByIdentifier(db, identifier);
+  let student = null;
+  let user = null;
+
+  if (staff) {
+    if (!bcrypt.compareSync(password, staff.password)) {
+      await loginFail(lockKey);
+      return res.status(401).json({ error: 'Identitas atau password salah' });
+    }
+    user = staff;
+  } else {
+    student = findStudentByIdentifier(db, identifier);
+    user = student ? await verifyStudentPassword(db, student, password) : null;
+    if (!user) {
+      if (!student) bcrypt.compareSync(password, DUMMY_HASH);
+      await loginFail(lockKey);
+      return res.status(401).json({ error: 'Identitas atau password salah' });
+    }
+  }
+
+  await loginSuccess(lockKey);
+  req.session.userId = user.id;
+  req.session.role = user.role;
+  req.session.nama = student ? student.nama : user.nama;
+  req.session.tenantId = user.tenant_id;
+  req.session.sid = uuidv4();
+  touchSession(db, req, user);
+  await saveDB(db);
+
+  const payload = {
+    id: user.id,
+    nama: req.session.nama,
+    role: user.role,
+    tenant_id: user.tenant_id
+  };
+  if (user.email) payload.email = user.email;
+  if (student) {
+    payload.student_id = student.id;
+    payload.class_id = student.class_id;
+    payload.nis = student.nis;
+  }
+  res.json(payload);
 });
 
 // Ganti password sendiri (semua role; siswa diizinkan lewat allowlist).
