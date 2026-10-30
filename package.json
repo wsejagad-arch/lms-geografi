@@ -9,6 +9,7 @@
     "test:browser": "node scripts/browser-mcp-selftest.mjs",
     "browser": "node scripts/browser-mcp.mjs",
     "passwd:nis": "node scripts/set-password-nis.mjs",
+    "admin:password": "node scripts/reset-admin-password.mjs",
     "test": "node scripts/smoke-test.mjs && node scripts/idor-test.mjs && node scripts/audit-test.mjs && node scripts/quiz-test.mjs && node scripts/quiz-dom-test.mjs && node scripts/auth-test.mjs && node scripts/session-live-test.mjs"
   },
   "dependencies": {

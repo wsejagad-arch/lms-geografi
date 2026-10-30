@@ -363,3 +363,29 @@ Env: `BROWSER_HEADLESS` (1/0), `BROWSER_PORT` (default 9333), `BROWSER_TIMEOUT_M
 
 Uji mandiri: `npm run test:browser` (15 check: start/goto/fill/click/wait/eval/viewport
 mobile/screenshot/console/network/status/close). E2E aplikasi: `npm run test:e2e`.
+
+## Lupa Password Admin / Terkunci Rate Limit
+
+Hash password disimpan dengan bcrypt dan **tidak bisa dibaca balik**, jadi password lama
+tidak dapat ditampilkan. Ganti lewat skrip di server:
+
+```bash
+cd /opt/lms-geografi
+node scripts/reset-admin-password.mjs --list            # lihat akun admin
+node scripts/reset-admin-password.mjs                   # password acak, dicetak sekali
+node scripts/reset-admin-password.mjs --password 'RahasiaBaru123'
+node scripts/reset-admin-password.mjs --email admin@lms.id --promote   # buat bila belum ada
+pm2 restart lms --update-env
+```
+
+Backup `data/db.json` dibuat otomatis sebelum menulis. Setelah login, ganti password
+lewat `POST /api/me/password`.
+
+**Terkunci "Terlalu banyak percobaan…"** — limiter login menyimpan hitungan di Redis
+bila tersedia, atau di memori proses bila tidak. Tanpa Redis, cukup restart proses:
+
+```bash
+pm2 restart lms --update-env      # menghapus hitungan lockout in-memory
+```
+
+Atau tunggu sesuai `Retry-After` (default 15 menit, atur via `LOGIN_WINDOW_MS`).
