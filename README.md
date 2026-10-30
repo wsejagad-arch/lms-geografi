@@ -385,12 +385,14 @@ ollama pull qwen2.5-coder:3b                                  # model paling rea
 
 - Klien: Continue (`~/.continue/config.yaml` sudah memuat entri "Ollama 3B (lokal)" dan
   "Ollama 16B (lokal)"), Cline, atau Aider  arahkan base URL ke `http://127.0.0.1:11435`.
+- Skrip otomatis menyalakan OLLAMA_FLASH_ATTENTION=1 dan OLLAMA_KV_CACHE_TYPE=q8_0;
+  untuk model besar, pakai um_ctx kecil (mis. 2048) agar hemat RAM.
 - Aktifkan iGPU (eksperimental, Vulkan): `setx OLLAMA_IGPU_ENABLE 1` lalu restart Ollama.
 
 | Model | Ukuran | RAM perlu | Catatan |
 |---|---|---|---|
 | qwen2.5-coder:3b | 1,9 GB | ~3 GB | terukur ~11 tok/s di CPU laptop ini |
-| qwen2.5-coder:7b | 4,7 GB | ~6 GB | terukur 4,4 tok/s, load 68 s saat RAM sesak (3b lebih cepat) |
+| qwen2.5-coder:7b | 4,7 GB | ~6 GB | 5,8 tok/s, load 11 s dengan tuning (flash attention + KV q8 + num_ctx 2048) |
 | deepseek-coder-v2:16b | 8,3 GB | ~11 GB | tidak realistis di RAM 16 GB |
 
 ## Lupa Password Admin / Terkunci Rate Limit
