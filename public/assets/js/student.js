@@ -2,7 +2,21 @@
 let currentUser = null;
 let currentTenant = null;
 
+// Terpasang lebih awal agar tombol keluar tetap jalan walau render data gagal.
+function bindLogoutButton() {
+  const btn = document.getElementById('btn-logout-siswa');
+  if (!btn || btn.dataset.bound === '1') return;
+  btn.dataset.bound = '1';
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    try { await LMS.logout(); } catch { /* tetap keluar walau request gagal */ }
+    window.location.replace('/');
+  });
+}
+
 async function init() {
+  bindLogoutButton();
   currentUser = await LMS.checkAuth();
   if (!currentUser || currentUser.role !== 'student') {
     window.location.href = '/';
@@ -25,11 +39,8 @@ async function init() {
   showSection('dashboard');
   setupNav('dashboard');
   document.getElementById('page-title').textContent = 'Beranda';
-  
-  document.getElementById('btn-logout-siswa')?.addEventListener('click', async () => {
-    await LMS.logout();
-    window.location.href = '/';
-  });
+
+  bindLogoutButton();
 }
 
 function setupNav(active) {

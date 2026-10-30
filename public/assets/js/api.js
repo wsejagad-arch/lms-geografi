@@ -42,9 +42,13 @@ const LMS = (() => {
   }
 
   async function logout() {
-    await api('/logout', { method: 'POST' });
-    currentUser = null;
-    currentTenant = null;
+    try {
+      await api('/logout', { method: 'POST' });
+    } finally {
+      currentUser = null;
+      currentTenant = null;
+      try { localStorage.removeItem('lms_logged_in'); } catch { /* ignore */ }
+    }
   }
 
   async function selectTenant(tenantId) {

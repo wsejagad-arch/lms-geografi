@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const APP_PORT = Number(process.env.E2E_APP_PORT || 3987);
-const CDP_PORT = Number(process.env.E2E_CDP_PORT || 9333);
+const CDP_PORT = Number(process.env.E2E_CDP_PORT || 9334);
 const BASE = `http://127.0.0.1:${APP_PORT}`;
 const tmpDb = path.join(os.tmpdir(), `lms-e2e-${process.pid}.json`);
 const profile = path.join(os.tmpdir(), `lms-e2e-profile-${process.pid}`);
@@ -44,6 +44,13 @@ db.students.push({
 });
 db.progress = [];
 db.attempts = [];
+// Dua tenant + admin tanpa tenant aktif -> memicu alur pilih tenant yang
+// menghentikan init lebih awal (bug logout sebelumnya).
+db.tenants = db.tenants.slice(0, 1);
+db.tenants.push({ id: 'tenant-kedua', nama: 'Sekolah Kedua', slug: 'sekolah-kedua', created_at: new Date().toISOString() });
+db.students = db.students.map((s) => (s.id === 'siswa-e2e' ? { ...s, tenant_id: db.tenants[0].id } : s));
+const adminUser = db.users.find((u) => u.email === 'admin@lms.id');
+if (adminUser) adminUser.tenant_id = null;
 fs.writeFileSync(tmpDb, JSON.stringify(db, null, 2));
 
 // ---------- server aplikasi ----------
@@ -252,9 +259,73 @@ try {
     check('jawaban benar -> skor 100', String(skor).trim() === '100', `skor=${skor}`);
   }
 
-  // 5. screenshot bukti (fokus ke blok hasil)
-  await cdp.eval(`(() => { const el = document.querySelector('#bl-eval'); if (el) el.scrollIntoView({ block: 'start' }); return true; })()`);
-  await sleep(600);
+  // 5. logout siswa harus benar-benar keluar
+  const outStudent = await cdp.eval(`(() => {
+    const btn = document.getElementById('btn-logout-siswa');
+    if (!btn) return { ok: false, reason: 'tombol tidak ada' };
+    btn.click();
+    return { ok: true };
+  })()`);
+  await sleep(3000);
+  const afterLogout = await cdp.eval(`(async () => {
+    const r = await fetch('/api/me', { cache: 'no-store' });
+    return { path: location.pathname, me: r.status, hasForm: !!document.getElementById('login-form') };
+  })()`);
+  check('logout siswa mengembalikan ke halaman login', outStudent.ok && (afterLogout.path === '/' || afterLogout.hasForm), `${afterLogout.path}`);
+  check('sesi benar-benar berakhir (api/me 401)', afterLogout.me === 401, `status=${afterLogout.me}`);
+
+  // 6. logout admin tetap jalan walau render dashboard gagal
+  const adminLogin = await cdp.eval(`(async () => {
+    const r = await fetch('/api/login', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: 'admin@lms.id', password: 'admin' }),
+    });
+    return r.status;
+  })()`);
+  check('login admin (lokal) berhasil', adminLogin === 200, `status=${adminLogin}`);
+
+  await cdp.eval(`(async () => {
+    // paksa render dashboard gagal untuk membuktikan tombol keluar tetap terpasang
+    window.__origFetch = window.fetch;
+    window.fetch = (url, opts) => (String(url).includes('/api/dashboard')
+      ? Promise.resolve(new Response('{"error":"gagal uji"}', { status: 500, headers: { 'Content-Type': 'application/json' } }))
+      : window.__origFetch(url, opts));
+    return true;
+  })()`);
+
+  await goto(`${BASE}/admin.html`);
+  await sleep(2500);
+  const adminState = await cdp.eval(`(() => {
+    const btn = document.getElementById('btn-logout');
+    const sel = document.getElementById('tenant-selection');
+    return {
+      hasBtn: !!btn,
+      bound: btn ? btn.dataset.bound === '1' : false,
+      onAdmin: location.pathname.includes('admin'),
+      tenantPickerShown: !!sel && !sel.classList.contains('hidden') && sel.innerHTML.trim().length > 0,
+      readyState: document.readyState,
+      scripts: [...document.scripts].map(s => s.src.split('/').pop()).filter(Boolean),
+      hasInit: typeof init === 'function'
+    };
+  })()`);
+  check('halaman admin termuat setelah login', adminState.hasInit && adminState.readyState === 'complete', JSON.stringify(adminState.scripts));
+  check('tombol keluar admin terpasang walau init berhenti awal', adminState.hasBtn && adminState.bound, JSON.stringify(adminState));
+
+  if (adminState.hasBtn) {
+    await cdp.eval(`(() => { document.getElementById('btn-logout').click(); return true; })()`);
+    await sleep(3000);
+    const adminAfter = await cdp.eval(`(async () => {
+      const r = await fetch('/api/me', { cache: 'no-store' });
+      return { path: location.pathname, me: r.status };
+    })()`);
+    check('logout admin mengakhiri sesi', adminAfter.me === 401 && (adminAfter.path === '/' || adminAfter.path === ''), `path=${adminAfter.path} me=${adminAfter.me}`);
+  } else {
+    check('logout admin mengakhiri sesi', false, 'tombol tidak ada');
+  }
+
+  // 7. screenshot bukti
+  await goto(`${BASE}/index.html`);
+  await sleep(800);
   const shot = path.join(os.tmpdir(), 'lms-e2e.png');
   const { data } = await cdp.send('Page.captureScreenshot', { format: 'png' });
   fs.writeFileSync(shot, Buffer.from(data, 'base64'));

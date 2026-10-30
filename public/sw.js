@@ -1,17 +1,16 @@
-const CACHE = 'geo-edulabs-v12';
+const CACHE = 'geo-edulabs-v13';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/admin.html',
-  '/student.html',
   '/manifest.json',
   '/assets/css/style.css',
   '/assets/css/login.css',
   '/assets/css/admin.css',
   '/assets/css/student.css',
+  '/assets/css/belajar.css',
+  '/assets/js/sanitize.js',
   '/assets/js/api.js',
   '/assets/js/admin.js',
-  '/assets/js/student.js'
+  '/assets/js/student.js',
+  '/assets/js/belajar.js'
 ];
 
 self.addEventListener('install', (e) => {
@@ -35,7 +34,7 @@ self.addEventListener('fetch', (e) => {
   // Respons API tidak di-cache agar perubahan data langsung terlihat.
   if (new URL(e.request.url).pathname.startsWith('/api/')) return;
 
-  // Halaman HTML: network-first supaya perubahan markup langsung terpakai.
+  // Halaman HTML: network-first; bila offline pakai salinan terakhir atau pesan singkat.
   if (e.request.mode === 'navigate') {
     e.respondWith(
       fetch(e.request).then((res) => {
@@ -44,7 +43,10 @@ self.addEventListener('fetch', (e) => {
           caches.open(CACHE).then((cache) => cache.put(e.request, clone));
         }
         return res;
-      }).catch(() => caches.match(e.request).then((cached) => cached || caches.match('/student.html')))
+      }).catch(() => caches.match(e.request).then((cached) => cached || new Response(
+        '<!doctype html><meta charset="utf-8"><title>Offline</title><p style="font-family:system-ui;padding:24px">Tidak ada koneksi. Sambungkan internet lalu muat ulang halaman.</p>',
+        { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+      )))
     );
     return;
   }
