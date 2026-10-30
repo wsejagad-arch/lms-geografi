@@ -367,6 +367,32 @@ Env: `BROWSER_HEADLESS` (1/0), `BROWSER_PORT` (default 9333), `BROWSER_TIMEOUT_M
 Uji mandiri: `npm run test:browser` (15 check: start/goto/fill/click/wait/eval/viewport
 mobile/screenshot/console/network/status/close). E2E aplikasi: `npm run test:e2e`.
 
+## AI Lokal (Ollama)
+
+Mesin ini: Intel i7-1255U, RAM 16 GB, iGPU Iris Xe tanpa VRAM khusus, jadi inferensi berjalan di **CPU**.
+
+- Port `127.0.0.1:11434` dipakai tunnel SSH `hermes-vps` (Ollama VPS), sehingga Ollama lokal
+  dijalankan di port lain lewat `scripts/ollama-local.ps1` (default `11435`).
+- Model yang benar-benar ada di disk lokal: `deepseek-coder-v2:16b` (8,3 GB).
+  Entri 3b/4b/7b yang muncul di `ollama list` berasal dari VPS melalui tunnel tersebut.
+- RAM perlu: 3b ~3 GB, 7b ~6 GB, 16b ~11 GB. Cek dulu dengan `-CheckOnly`.
+
+```powershell
+ollama pull qwen2.5-coder:3b                                  # model paling realistis di CPU ini
+.\scripts\ollama-local.ps1 -CheckOnly                          # laporan port + RAM bebas
+.\scripts\ollama-local.ps1 -Model qwen2.5-coder:3b             # jalankan, cetak base URL
+```
+
+- Klien: Continue (`~/.continue/config.yaml` sudah memuat entri "Ollama 3B (lokal)" dan
+  "Ollama 16B (lokal)"), Cline, atau Aider  arahkan base URL ke `http://127.0.0.1:11435`.
+- Aktifkan iGPU (eksperimental, Vulkan): `setx OLLAMA_IGPU_ENABLE 1` lalu restart Ollama.
+
+| Model | Ukuran | RAM perlu | Catatan |
+|---|---|---|---|
+| qwen2.5-coder:3b | 1,9 GB | ~3 GB | paling realistis untuk CPU ini |
+| qwen2.5-coder:7b | 4,7 GB | ~6 GB | hanya bila RAM bebas mencukupi |
+| deepseek-coder-v2:16b | 8,3 GB | ~11 GB | tidak realistis di RAM 16 GB |
+
 ## Lupa Password Admin / Terkunci Rate Limit
 
 Hash password disimpan dengan bcrypt dan **tidak bisa dibaca balik**, jadi password lama
