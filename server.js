@@ -1345,8 +1345,15 @@ app.post('/api/student/login', async (req, res) => {
 
   const db = await loadDB();
 
-  // Find student by username, email, atau NIS
-  const student = db.students.find(s => (s.username === username || s.email === username || s.nis === username) && s.tenant_id);
+  // Find student by username, email, NIS, atau NISN
+  const ident = String(username || '').trim();
+  const identLower = ident.toLowerCase();
+  const student = db.students.find(s => s.tenant_id && (
+    String(s.username || '').trim() === ident
+    || String(s.nis || '').trim() === ident
+    || String(s.nisn || '').trim() === ident
+    || (s.email && String(s.email).trim().toLowerCase() === identLower)
+  ));
   if (!student) {
     bcrypt.compareSync(String(password || ''), DUMMY_HASH);
     await loginFail(lockKey);

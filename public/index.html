@@ -37,7 +37,7 @@
         <div class="form-group">
           <label for="email">Email</label>
           <div class="input-wrap has-icon-right">
-            <input type="text" id="email" placeholder="email atau NIS" required autocomplete="username">
+            <input type="text" id="email" placeholder="email, NIS, atau NISN" required autocomplete="username">
             <span class="input-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </span>
@@ -88,10 +88,14 @@
           const ident = document.getElementById('email').value.trim();
           const pass = document.getElementById('password').value;
           let u;
-          try {
-            u = await LMS.login(ident, pass);
-          } catch (e) {
-            // Siswa login memakai NIS/username, bukan email
+          if (ident.includes('@')) {
+            try {
+              u = await LMS.login(ident, pass);
+            } catch (e) {
+              u = await LMS.studentLogin(ident, pass);
+            }
+          } else {
+            // Siswa login memakai NIS/NISN/username, bukan email
             u = await LMS.studentLogin(ident, pass);
           }
           if (u.role === 'super_admin' || u.role === 'admin') {
