@@ -3,7 +3,9 @@
     "browser": {
       "type": "stdio",
       "command": "node",
-      "args": ["${workspaceFolder}/scripts/browser-mcp.mjs"],
+      "args": [
+        "${workspaceFolder}/scripts/browser-mcp.mjs"
+      ],
       "env": {
         "BROWSER_HEADLESS": "1",
         "BROWSER_PORT": "9333",
@@ -13,10 +15,12 @@
     "hermes": {
       "type": "stdio",
       "command": "python",
-      "args": ["${workspaceFolder}/scripts/hermes_mcp.py"],
+      "args": [
+        "${workspaceFolder}/scripts/hermes_mcp.py"
+      ],
       "env": {
-        "HERMES_BASE_URL": "http://127.0.0.1:8642/v1",
-        "HERMES_MODEL": "hermes-agent",
+        "HERMES_BASE_URL": "http://127.0.0.1:11435/v1",
+        "HERMES_MODEL": "qwen2.5-coder:3b",
         "HERMES_TIMEOUT_MS": "300000"
       }
     }
