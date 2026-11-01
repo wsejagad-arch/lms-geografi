@@ -19,6 +19,14 @@ function tenantSessionPath(tenantId) {
   return path.join(SESSION_ROOT, String(tenantId));
 }
 
+async function resetSession(tenantId) {
+  try {
+    await fs.rm(tenantSessionPath(tenantId), { recursive: true, force: true });
+  } catch (error) {
+    console.error(`WhatsApp tenant ${tenantId}: gagal menghapus sesi lama:`, error);
+  }
+}
+
 function publicStatus(tenantId) {
   const connection = connections.get(tenantId);
   return {
@@ -47,6 +55,7 @@ async function connectTenant(tenantId) {
 
   const { default: makeWASocket, useMultiFileAuthState, Browsers, DisconnectReason } = await baileys();
   const authPath = tenantSessionPath(tenantId);
+  if (existing && existing.status === 'logged_out') await resetSession(tenantId);
   await fs.mkdir(authPath, { recursive: true, mode: 0o700 });
   if (process.platform !== 'win32') await fs.chmod(authPath, 0o700);
   const { state, saveCreds } = await useMultiFileAuthState(authPath);
@@ -98,6 +107,10 @@ async function connectTenant(tenantId) {
       connection.qr = '';
       connection.status = loggedOut ? 'logged_out' : 'disconnected';
       connection.error = loggedOut ? 'Perangkat telah keluar. Hubungkan ulang dengan QR.' : 'Koneksi terputus.';
+      if (loggedOut) {
+        connection.enabled = false;
+        resetSession(tenantId).catch(() => {});
+      }
       if (connection.enabled && !loggedOut) {
         clearTimeout(connection.reconnectTimer);
         connection.reconnectTimer = setTimeout(() => {
