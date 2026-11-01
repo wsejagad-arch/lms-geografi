@@ -2196,11 +2196,17 @@ let whatsAppSignature = '';
 
 function renderWhatsAppGroupChips() {
   const groupsList = document.getElementById('wa-groups-list');
-  if (!groupsList) return;
+  const counter = document.getElementById('wa-groups-count');
   const query = (document.getElementById('wa-group-search')?.value || '').trim().toLowerCase();
   const filtered = query
     ? whatsAppGroups.filter(group => group.subject.toLowerCase().includes(query))
     : whatsAppGroups;
+  if (counter) {
+    counter.textContent = whatsAppGroups.length
+      ? ` (${filtered.length}${query ? `/${whatsAppGroups.length}` : ''})`
+      : '';
+  }
+  if (!groupsList) return;
   groupsList.innerHTML = filtered.length
     ? filtered.map(group => `<span class="wa-group-chip">${kurEsc(group.subject)}</span>`).join('')
     : (whatsAppGroups.length
