@@ -461,6 +461,9 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
     }
     const groupId = String(req.body?.group_id || '').trim();
     const digits = String(req.body?.number || '').replace(/\D/g, '');
+    const text = String(req.body?.message || '').trim();
+    if (!text) return res.status(400).json({ error: 'Isi pesan tidak boleh kosong' });
+    if (text.length > 2000) return res.status(400).json({ error: 'Pesan maksimal 2000 karakter' });
     let target = '';
     if (groupId) {
       if (!connection.groups.some(group => group.id === groupId)) {
@@ -473,13 +476,13 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
       return res.status(400).json({ error: 'Pilih grup atau masukkan nomor tujuan yang valid' });
     }
     const waktu = new Date().toLocaleString('id-ID', { timeZone: TIME_ZONE });
-    const text = [
+    const textWithFallback = text || [
       'Tes koneksi Geo Edulabs',
       `Waktu: ${waktu} WIB`,
       'Pesan ini dikirim dari panel admin LMS. Jika diterima, pengingat otomatis siap digunakan.'
     ].join('\n');
     try {
-      const result = await connection.socket.sendMessage(target, { text });
+      const result = await connection.socket.sendMessage(target, { text: textWithFallback });
       res.json({ success: true, target, message_id: result?.key?.id || '' });
     } catch (error) {
       res.status(502).json({ error: error.message || 'Gagal mengirim pesan tes' });

@@ -2295,6 +2295,19 @@ async function renderWhatsApp() {
         : `<option value="">${connection.status === 'connected' ? 'Tidak ada grup ditemukan' : 'Hubungkan nomor terlebih dahulu'}</option>`;
       if (whatsAppGroups.some(group => group.id === previous)) autoGroupSelect.value = previous;
     }
+    const sendTarget = document.getElementById('wa-send-target');
+    if (sendTarget) {
+      const previous = sendTarget.value;
+      sendTarget.innerHTML = '<option value="">Kirim ke nomor…</option>' + whatsAppGroups.map(group =>
+        `<option value="${kurEsc(group.id)}">Grup: ${kurEsc(group.subject)}</option>`).join('');
+      if (whatsAppGroups.some(group => group.id === previous)) sendTarget.value = previous;
+    }
+    const sendPhone = document.getElementById('wa-send-phone');
+    if (sendPhone) {
+      sendPhone.textContent = connection.status === 'connected'
+        ? `Nomor tertaut: ${connection.phone || '-'}`
+        : 'Nomor tertaut: belum terhubung';
+    }
     const autoClassSelect = document.getElementById('wa-auto-class');
     if (autoClassSelect) {
       const previous = autoClassSelect.value;
@@ -2472,19 +2485,58 @@ async function activateWhatsAppAuto() {
   }
 }
 
-async function testWhatsAppSend() {
-  const note = document.getElementById('wa-test-note');
-  const groupId = document.getElementById('wa-auto-group')?.value
-    || document.getElementById('wa-job-group')?.value
-    || '';
-  const number = document.getElementById('wa-number-input')?.value || '';
-  if (note) note.textContent = 'Mengirim pesan tes…';
+function whatsAppTemplates() {
+  const url = document.getElementById('wa-lms-url')?.value.trim() || '';
+  return {
+    reminder: [
+      'Pengingat Geo Edulabs',
+      '',
+      'Ayo selesaikan materi dan evaluasi di LMS.',
+      `Buka LMS: ${url}`
+    ].join('\n'),
+    rapi: [
+      '*Pengingat Geo Edulabs*',
+      '• Materi: selesaikan modul dan evaluasi',
+      '• Nilai: cek rekapan di dasbor siswa',
+      `• Tautan: ${url}`
+    ].join('\n')
+  };
+}
+
+function applyWhatsAppTemplate() {
+  const select = document.getElementById('wa-send-template');
+  const message = document.getElementById('wa-send-message');
+  if (!select || !message || select.value === 'custom') return;
+  message.value = whatsAppTemplates()[select.value] || '';
+  updateWhatsAppCount();
+}
+
+function updateWhatsAppCount() {
+  const message = document.getElementById('wa-send-message');
+  const counter = document.getElementById('wa-send-count');
+  if (message && counter) counter.textContent = `${message.value.length}/2000`;
+}
+
+async function sendWhatsAppMessage() {
+  const note = document.getElementById('wa-send-note');
+  const groupId = document.getElementById('wa-send-target')?.value || '';
+  const number = document.getElementById('wa-send-number')?.value || '';
+  const message = document.getElementById('wa-send-message')?.value.trim() || '';
+  if (!message) {
+    if (note) note.textContent = 'Isi pesan tidak boleh kosong.';
+    return;
+  }
+  if (!groupId && !number.trim()) {
+    if (note) note.textContent = 'Pilih grup atau isi nomor tujuan.';
+    return;
+  }
+  if (note) note.textContent = 'Mengirim pesan…';
   try {
     const data = await whatsAppRequest('/api/admin/whatsapp/test-send', {
       method: 'POST',
-      body: JSON.stringify(groupId ? { group_id: groupId } : { number })
+      body: JSON.stringify(groupId ? { group_id: groupId, message } : { number, message })
     });
-    if (note) note.textContent = `Pesan tes terkirim ke ${data.target}.`;
+    if (note) note.textContent = `Pesan terkirim ke ${data.target}.`;
   } catch (error) {
     if (note) note.textContent = error.message;
   }
@@ -2599,7 +2651,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('wa-job-form')?.addEventListener('submit', saveWhatsAppJob);
   document.getElementById('btn-wa-check-number')?.addEventListener('click', checkWhatsAppNumber);
   document.getElementById('btn-wa-auto-save')?.addEventListener('click', activateWhatsAppAuto);
-  document.getElementById('btn-wa-test')?.addEventListener('click', testWhatsAppSend);
+  document.getElementById('btn-wa-send')?.addEventListener('click', sendWhatsAppMessage);
+  document.getElementById('wa-send-template')?.addEventListener('change', applyWhatsAppTemplate);
+  document.getElementById('wa-send-message')?.addEventListener('input', updateWhatsAppCount);
   document.getElementById('wa-group-search')?.addEventListener('input', () => renderWhatsAppGroupChips());
   
   // Seed
