@@ -320,6 +320,17 @@ Aturan penilaian: PG/PGM dinilai 1 atau 0; PG kompleks harus sama persis dengan 
 cp data/db.json data/db.json.backup
 ```
 
+Pemulihan lewat API (khusus `super_admin`, membuat backup otomatis sebelum menulis):
+
+```bash
+curl -b cookies.txt -X POST https://<domain>/api/admin/restore \
+  -H 'Content-Type: application/json' \
+  --data-binary @restore.json   # {"confirm":"RESTORE","data":{...isi db.json...}}
+```
+
+Akun `admin`/`super_admin` yang sedang ada selalu dipertahankan agar akses tidak hilang.
+
+
 ## Referensi
 
 Perancangan materi & asesmen:

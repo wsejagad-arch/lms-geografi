@@ -2027,6 +2027,50 @@ app.delete('/api/schedules/:id', requireAuth, requireAdmin, requireTenant, async
   res.json({ success: true });
 });
 
+// ===== RESTORE (super admin) =====
+// Memulihkan isi database dari berkas cadangan. Akun admin yang sedang aktif selalu dipertahankan.
+app.post('/api/admin/restore', requireAuth, requireAdmin, async (req, res) => {
+  if (req.user.role !== 'super_admin') {
+    return res.status(403).json({ error: 'Hanya super admin yang dapat memulihkan database' });
+  }
+
+  const body = req.body || {};
+  if (body.confirm !== 'RESTORE') {
+    return res.status(400).json({ error: 'Konfirmasi "RESTORE" wajib dikirim' });
+  }
+
+  const payload = body.data;
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return res.status(400).json({ error: 'Payload data tidak valid' });
+  }
+
+  const db = await loadDB();
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const backupPath = `${DB_PATH}.backup-restore-${stamp}`;
+  await fs.copyFile(DB_PATH, backupPath);
+
+  const staff = db.users.filter(u => u.role === 'admin' || u.role === 'super_admin');
+  const staffIds = new Set(staff.map(u => u.id));
+  const staffEmails = new Set(staff.map(u => String(u.email || '').toLowerCase()));
+  const incomingUsers = Array.isArray(payload.users) ? payload.users : [];
+  db.users = staff.concat(incomingUsers.filter(u => u && !staffIds.has(u.id)
+    && !staffEmails.has(String(u.email || '').toLowerCase())));
+
+  const tables = ['tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams',
+    'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts',
+    'session_logs', 'activity_logs', 'whatsapp_jobs'];
+  const counts = {};
+  tables.forEach(k => {
+    if (!Array.isArray(payload[k])) return;
+    db[k] = payload[k];
+    counts[k] = payload[k].length;
+  });
+  counts.users = db.users.length;
+
+  await saveDB(db);
+  res.json({ success: true, backup: path.basename(backupPath), counts });
+});
+
 // ===== SEED =====
 app.post('/api/seed', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = req.db;
