@@ -309,6 +309,7 @@ function persistActivity(record) {
 const STUDENT_ROUTES = [
   ['GET', /^\/api\/me$/],
   ['POST', /^\/api\/me\/password$/],
+  ['POST', /^\/api\/me\/whatsapp$/],
   ['GET', /^\/api\/materials$/],
   ['GET', /^\/api\/exams$/],
   ['POST', /^\/api\/exams\/[^/]+\/submit$/],
