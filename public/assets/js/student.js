@@ -169,11 +169,11 @@ async function setupNotifications() {
 
     const babs = (kurikulum && (kurikulum.babs || kurikulum.materi)) || [];
     babs
-      .filter(b => !b.progress || !b.progress.tuntas)
+      .filter(b => b.unlocked !== false && !b.tuntas)
       .slice(0, 4)
       .forEach(b => items.push({
         title: `Selesaikan evaluasi: ${b.judul || b.id}`,
-        meta: b.progress ? `Nilai terbaik ${b.progress.best_score ?? 0} · belum tuntas` : 'Belum dikerjakan',
+        meta: b.attempts ? `Nilai terbaik ${b.best_score ?? 0} · belum tuntas` : 'Belum dikerjakan',
         tag: 'Evaluasi',
         section: 'belajar'
       }));
