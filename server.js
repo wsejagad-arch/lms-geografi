@@ -159,14 +159,12 @@ async function initDB() {
 
 // ===== MIDDLEWARE =====
 app.use(express.json({ limit: '10mb' }));
-// Halaman HTML tidak boleh di-cache agar pembaruan UI langsung terpakai.
-app.use((req, res, next) => {
-  if (req.method === 'GET' && (req.path === '/' || /\.html?$/.test(req.path))) {
-    res.set('Cache-Control', 'no-store');
+app.use(express.static(path.join(__dirname, 'public'), {
+  // Halaman HTML tidak di-cache agar pembaruan UI langsung terpakai.
+  setHeaders(res, filePath) {
+    if (/\.html?$/i.test(filePath)) res.setHeader('Cache-Control', 'no-store');
   }
-  next();
-});
-app.use(express.static(path.join(__dirname, 'public')));
+}));
 app.set('trust proxy', 1);
 const IS_PROD = process.env.NODE_ENV === 'production';
 const RAW_SESSION_SECRET = (process.env.SESSION_SECRET || '').trim();
