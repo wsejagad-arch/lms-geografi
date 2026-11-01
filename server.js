@@ -24,8 +24,15 @@ try {
     enableOfflineQueue: false
   });
   
-  redis.on('connect', () => {
+  redis.on('ready', async () => {
     console.log('Redis connected');
+    if (process.env.LMS_REDIS_FLUSH_ON_START === '1') {
+      try {
+        await redis.flushdb();
+        console.log('[redis] seluruh cache dibersihkan (LMS_REDIS_FLUSH_ON_START=1)');
+      } catch {}
+    }
+    await clearLoginLocks();
   });
   
   redis.on('error', () => {
@@ -66,6 +73,28 @@ async function cacheDel(key) {
     try { await redis.del(key); } catch {}
   }
   cache.delete(key);
+}
+
+// Kunci limiter login dibersihkan setiap proses start / reconnect agar pembatasan
+// percobaan lama tidak menahan pengguna setelah aplikasi dibuka kembali.
+async function clearLoginLocks() {
+  if (!redis) return 0;
+  let cursor = '0';
+  let removed = 0;
+  try {
+    do {
+      const [next, keys] = await redis.scan(cursor, 'MATCH', 'login-fail:*', 'COUNT', 200);
+      cursor = next;
+      if (keys && keys.length) {
+        await redis.del(...keys);
+        removed += keys.length;
+      }
+    } while (cursor !== '0');
+  } catch {
+    return removed;
+  }
+  if (removed) console.log(`[redis] ${removed} kunci limiter login dibersihkan saat start`);
+  return removed;
 }
 
 // ===== DATABASE =====
