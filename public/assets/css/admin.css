@@ -1199,6 +1199,38 @@ tbody td button + button {
 }
 .wa-job-form .form-group { margin: 0; min-width: 0; }
 .wa-job-form select, .wa-job-form input { width: 100%; }
+
+/* Komposer pesan WhatsApp */
+.wa-composer { display: grid; gap: 10px; }
+.wa-composer select,
+.wa-composer input[type="tel"],
+.wa-composer textarea {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--border, #d9e2dd);
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  color: inherit;
+}
+.wa-composer textarea { min-height: 132px; line-height: 1.5; resize: vertical; }
+.wa-composer-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.wa-composer-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.wa-composer-phone {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--geo-brand-light);
+  color: var(--geo-brand);
+  font-size: 12px;
+  font-weight: 600;
+}
+.wa-send-note { margin: 0; font-size: 12px; color: var(--text-2); min-height: 16px; }
+.wa-send-note[data-state="ok"] { color: var(--success, #14614f); }
+.wa-send-note[data-state="error"] { color: var(--danger, #b3261e); }
+@media (max-width: 600px) {
+  .wa-composer-row { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 900px) {
   .wa-job-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .wa-job-form button { grid-column: 1 / -1; justify-self: start; }

@@ -46,6 +46,9 @@ async function init() {
   
   await renderDashboard();
   setupMenu('dashboard');
+  let savedMenu = null;
+  try { savedMenu = localStorage.getItem('lms_admin_menu'); } catch { savedMenu = null; }
+  if (savedMenu && savedMenu !== 'dashboard' && MENU_META[savedMenu]) switchMenu(savedMenu);
 
   bindLogoutButton();
 }
@@ -124,6 +127,7 @@ function switchMenu(menu) {
   if (menu !== 'sessions' && typeof stopSessionsLive === 'function') stopSessionsLive();
   if (menu !== 'whatsapp' && typeof stopWhatsAppPolling === 'function') stopWhatsAppPolling();
   setupMenu(menu);
+  try { localStorage.setItem('lms_admin_menu', menu); } catch { /* localStorage bisa diblokir */ }
   const title = document.getElementById('page-title');
   if (title) title.textContent = meta.title;
   document.querySelectorAll('.bottom-nav-item').forEach(b => {
@@ -2188,6 +2192,7 @@ async function deleteSchedule(id) {
 let whatsAppTimer = null;
 let whatsAppLoading = false;
 let whatsAppGroups = [];
+let whatsAppSignature = '';
 
 function renderWhatsAppGroupChips() {
   const groupsList = document.getElementById('wa-groups-list');
@@ -2230,7 +2235,19 @@ function stopWhatsAppPolling() {
   }
 }
 
-async function renderWhatsApp() {
+function startWhatsAppPolling() {
+  stopWhatsAppPolling();
+  whatsAppTimer = setInterval(() => {
+    const section = document.getElementById('menu-whatsapp');
+    if (!section || section.classList.contains('hidden')) {
+      stopWhatsAppPolling();
+      return;
+    }
+    renderWhatsApp({ silent: true });
+  }, 5000);
+}
+
+async function renderWhatsApp(options = {}) {
   if (whatsAppLoading) return;
   whatsAppLoading = true;
   try {
@@ -2239,6 +2256,22 @@ async function renderWhatsApp() {
       LMS.getSchedules()
     ]);
     const connection = data.connection || {};
+
+    // Hindari render ulang saat data tidak berubah atau pengguna sedang mengisi form.
+    const signature = [
+      connection.status, connection.phone, connection.error, connection.qr ? connection.qr.length : 0,
+      (connection.groups || []).length, schedules.length,
+      (data.jobs || []).map(job => `${job.id}${job.status}${job.last_sent_date || ''}`).join(',')
+    ].join('#');
+    const active = document.activeElement;
+    const typing = active && document.getElementById('menu-whatsapp')?.contains(active)
+      && ['INPUT', 'TEXTAREA', 'SELECT'].includes(active.tagName);
+    if (!typing && signature === whatsAppSignature && !options.force) {
+      whatsAppLoading = false;
+      startWhatsAppPolling();
+      return;
+    }
+    whatsAppSignature = signature;
     const badge = document.getElementById('wa-connection-badge');
     const note = document.getElementById('wa-connection-note');
     const url = document.getElementById('wa-lms-url');
@@ -2353,15 +2386,7 @@ async function renderWhatsApp() {
   } finally {
     whatsAppLoading = false;
   }
-  stopWhatsAppPolling();
-  whatsAppTimer = setInterval(() => {
-    const section = document.getElementById('menu-whatsapp');
-    if (!section || section.classList.contains('hidden')) {
-      stopWhatsAppPolling();
-      return;
-    }
-    renderWhatsApp();
-  }, 3000);
+  startWhatsAppPolling();
 }
 
 function renderWhatsAppJobs(jobs) {
@@ -2389,7 +2414,7 @@ function renderWhatsAppJobs(jobs) {
       if (!confirm('Hapus jadwal pesan WhatsApp ini?')) return;
       try {
         await whatsAppRequest(`/api/admin/whatsapp/jobs/${encodeURIComponent(button.dataset.waDelete)}`, { method: 'DELETE' });
-        await renderWhatsApp();
+        await renderWhatsApp({ force: true });
       } catch (error) {
         alert(error.message);
       }
@@ -2408,7 +2433,7 @@ async function connectWhatsAppSender() {
       method: 'POST',
       body: JSON.stringify({ lms_url: url })
     });
-    await renderWhatsApp();
+    await renderWhatsApp({ force: true });
   } catch (error) {
     if (note) note.textContent = error.message;
   } finally {
@@ -2420,7 +2445,7 @@ async function disconnectWhatsAppSender() {
   if (!confirm('Putuskan WhatsApp tenant ini? Pengiriman terjadwal akan berhenti sampai nomor dihubungkan kembali.')) return;
   try {
     await whatsAppRequest('/api/admin/whatsapp/disconnect', { method: 'POST', body: '{}' });
-    await renderWhatsApp();
+    await renderWhatsApp({ force: true });
   } catch (error) {
     alert(error.message);
   }
@@ -2429,7 +2454,7 @@ async function disconnectWhatsAppSender() {
 async function refreshWhatsAppGroups() {
   try {
     await whatsAppRequest('/api/admin/whatsapp/groups');
-    await renderWhatsApp();
+    await renderWhatsApp({ force: true });
   } catch (error) {
     const note = document.getElementById('wa-connection-note');
     if (note) note.textContent = error.message;
@@ -2479,7 +2504,7 @@ async function activateWhatsAppAuto() {
         ? `${data.created} jadwal otomatis diaktifkan untuk kelas ini.`
         : 'Semua jadwal kelas ini sudah aktif otomatis.';
     }
-    await renderWhatsApp();
+    await renderWhatsApp({ force: true });
   } catch (error) {
     if (note) note.textContent = error.message;
   }
@@ -2530,15 +2555,15 @@ async function sendWhatsAppMessage() {
     if (note) note.textContent = 'Pilih grup atau isi nomor tujuan.';
     return;
   }
-  if (note) note.textContent = 'Mengirim pesan…';
+  if (note) { note.dataset.state = ''; note.textContent = 'Mengirim pesan…'; }
   try {
     const data = await whatsAppRequest('/api/admin/whatsapp/test-send', {
       method: 'POST',
       body: JSON.stringify(groupId ? { group_id: groupId, message } : { number, message })
     });
-    if (note) note.textContent = `Pesan terkirim ke ${data.target}.`;
+    if (note) { note.dataset.state = 'ok'; note.textContent = `Pesan terkirim ke ${data.target}.`; }
   } catch (error) {
-    if (note) note.textContent = error.message;
+    if (note) { note.dataset.state = 'error'; note.textContent = error.message; }
   }
 }
 
@@ -2559,7 +2584,7 @@ async function saveWhatsAppJob(event) {
     });
     form.reset();
     document.getElementById('wa-job-time').value = '06:30';
-    await renderWhatsApp();
+    await renderWhatsApp({ force: true });
   } catch (error) {
     alert(`Gagal menjadwalkan pesan: ${error.message}`);
   } finally {

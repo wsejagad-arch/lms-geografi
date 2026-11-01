@@ -770,22 +770,24 @@
             <div class="panel-head"><div><h2>Tes & Kirim Pesan</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Kirim ke grup terpilih atau ke nomor tertentu. Pesan bisa dari template, versi rapi, atau ditulis sendiri.</p></div></div>
             <div style="padding:0 16px 16px">
               <div class="wa-groups-box">
-                <p id="wa-send-phone" style="font-size:12px;color:var(--text-2);margin:0 0 10px">Nomor tertaut: -</p>
-                <div style="display:flex;gap:8px;flex-wrap:wrap">
-                  <select id="wa-send-target" style="flex:1;min-width:160px"><option value="">Kirim ke nomor…</option></select>
-                  <select id="wa-send-template" style="flex:1;min-width:160px">
-                    <option value="reminder">Template: pengingat LMS</option>
-                    <option value="rapi">Template: ringkas &amp; rapi</option>
-                    <option value="custom">Ketik sendiri</option>
-                  </select>
+                <p id="wa-send-phone" class="wa-composer-phone">Nomor tertaut: -</p>
+                <div class="wa-composer" style="margin-top:10px">
+                  <div class="wa-composer-row">
+                    <select id="wa-send-target"><option value="">Kirim ke nomor…</option></select>
+                    <select id="wa-send-template">
+                      <option value="reminder">Template: pengingat LMS</option>
+                      <option value="rapi">Template: ringkas &amp; rapi</option>
+                      <option value="custom">Ketik sendiri</option>
+                    </select>
+                  </div>
+                  <input id="wa-send-number" type="tel" placeholder="Nomor tujuan, contoh 628xxxxxxxxxx">
+                  <textarea id="wa-send-message" maxlength="2000" placeholder="Pesan akan tampil di sini…"></textarea>
+                  <div class="wa-composer-actions">
+                    <button class="btn btn-primary" id="btn-wa-send" type="button">Kirim pesan</button>
+                    <span id="wa-send-count" style="font-size:11px;color:var(--text-3)">0/2000</span>
+                  </div>
+                  <p id="wa-send-note" class="wa-send-note" role="status"></p>
                 </div>
-                <input id="wa-send-number" type="tel" placeholder="Nomor tujuan, contoh 628xxxxxxxxxx" style="width:100%;margin-top:8px">
-                <textarea id="wa-send-message" rows="6" maxlength="2000" placeholder="Pesan akan tampil di sini…" style="width:100%;margin-top:8px;font-family:inherit;resize:vertical"></textarea>
-                <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
-                  <button class="btn btn-primary" id="btn-wa-send" type="button">Kirim pesan</button>
-                  <span id="wa-send-count" style="font-size:11px;color:var(--text-3)">0/2000</span>
-                </div>
-                <p id="wa-send-note" role="status" style="font-size:12px;color:var(--text-2);margin-top:8px"></p>
               </div>
             </div>
           </div>
@@ -1140,6 +1142,6 @@
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105m"></script>
+  <script src="assets/js/admin.js?v=20261105n"></script>
 </body>
 </html>
