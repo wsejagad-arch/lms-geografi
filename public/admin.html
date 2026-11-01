@@ -745,7 +745,9 @@
                   <button class="btn btn-danger" id="btn-wa-disconnect" type="button">Putuskan WhatsApp</button>
                   <button class="btn" id="btn-wa-refresh" type="button">Muat ulang status</button>
                   <button class="btn" id="btn-wa-refresh-groups" type="button">Muat ulang grup</button>
+                  <button class="btn" id="btn-wa-test" type="button">Tes kirim pesan</button>
                 </div>
+                <p id="wa-test-note" role="status" style="font-size:12px;color:var(--text-2);margin-top:8px"></p>
                 <p id="wa-connection-note" role="status" style="font-size:12px;color:var(--text-2);margin-top:12px">Pindai QR menggunakan WhatsApp pada ponsel admin tenant.</p>
                 <p style="font-size:11px;color:var(--status-warning)">Koneksi grup menggunakan WhatsApp Web tidak resmi. Gunakan nomor khusus dan kirim hanya ke grup yang menyetujui pengingat.</p>
                 <div class="wa-groups-box"><strong>Grup yang tersedia</strong>
@@ -1117,6 +1119,6 @@
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105k"></script>
+  <script src="assets/js/admin.js?v=20261105l"></script>
 </body>
 </html>

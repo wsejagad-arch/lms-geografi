@@ -54,6 +54,13 @@ async function connectTenant(tenantId) {
   const existing = connections.get(tenantId);
   if (existing && ['connecting', 'connected', 'qr'].includes(existing.status)) return publicStatus(tenantId);
 
+  // Satu socket per tenant: tutup socket lama sebelum membuat yang baru agar
+  // WhatsApp tidak menganggap sesi ganda dan memaksa keluar.
+  if (existing && existing.socket) {
+    try { existing.socket.end?.(undefined); } catch {}
+    existing.socket = null;
+  }
+
   const { default: makeWASocket, useMultiFileAuthState, Browsers, DisconnectReason } = await baileys();
   const authPath = tenantSessionPath(tenantId);
   if (existing && existing.status === 'logged_out') await resetSession(tenantId);
@@ -108,10 +115,7 @@ async function connectTenant(tenantId) {
       connection.qr = '';
       connection.status = loggedOut ? 'logged_out' : 'disconnected';
       connection.error = loggedOut ? 'Perangkat telah keluar. Hubungkan ulang dengan QR.' : 'Koneksi terputus.';
-      if (loggedOut) {
-        connection.enabled = false;
-        resetSession(tenantId).catch(() => {});
-      }
+      if (loggedOut) connection.enabled = false;
       if (connection.enabled && !loggedOut) {
         clearTimeout(connection.reconnectTimer);
         connection.reconnectTimer = setTimeout(() => {
@@ -130,11 +134,14 @@ async function disconnectTenant(tenantId) {
   if (!connection) return publicStatus(tenantId);
   connection.enabled = false;
   clearTimeout(connection.reconnectTimer);
-  if (connection.socket) await connection.socket.logout();
+  if (connection.socket) await connection.socket.logout().catch(() => {});
   connection.socket = null;
   connection.qr = '';
   connection.groups = [];
+  connection.phone = '';
   connection.status = 'disconnected';
+  connection.error = '';
+  await resetSession(tenantId);
   return publicStatus(tenantId);
 }
 
@@ -444,6 +451,38 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
       res.json({ number: digits, exists: !!found, jid: found?.jid || '' });
     } catch (error) {
       res.status(502).json({ error: `Gagal memeriksa nomor: ${error.message || 'tidak diketahui'}` });
+    }
+  });
+
+  app.post('/api/admin/whatsapp/test-send', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const connection = connections.get(req.tenantId);
+    if (!connection || connection.status !== 'connected' || !connection.socket) {
+      return res.status(409).json({ error: 'WhatsApp belum terhubung. Pindai QR terlebih dahulu.' });
+    }
+    const groupId = String(req.body?.group_id || '').trim();
+    const digits = String(req.body?.number || '').replace(/\D/g, '');
+    let target = '';
+    if (groupId) {
+      if (!connection.groups.some(group => group.id === groupId)) {
+        return res.status(400).json({ error: 'Grup tujuan tidak ada di daftar grup terhubung' });
+      }
+      target = groupId;
+    } else if (digits.length >= 8 && digits.length <= 15) {
+      target = `${digits}@s.whatsapp.net`;
+    } else {
+      return res.status(400).json({ error: 'Pilih grup atau masukkan nomor tujuan yang valid' });
+    }
+    const waktu = new Date().toLocaleString('id-ID', { timeZone: TIME_ZONE });
+    const text = [
+      'Tes koneksi Geo Edulabs',
+      `Waktu: ${waktu} WIB`,
+      'Pesan ini dikirim dari panel admin LMS. Jika diterima, pengingat otomatis siap digunakan.'
+    ].join('\n');
+    try {
+      const result = await connection.socket.sendMessage(target, { text });
+      res.json({ success: true, target, message_id: result?.key?.id || '' });
+    } catch (error) {
+      res.status(502).json({ error: error.message || 'Gagal mengirim pesan tes' });
     }
   });
 

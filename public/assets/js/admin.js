@@ -2472,6 +2472,24 @@ async function activateWhatsAppAuto() {
   }
 }
 
+async function testWhatsAppSend() {
+  const note = document.getElementById('wa-test-note');
+  const groupId = document.getElementById('wa-auto-group')?.value
+    || document.getElementById('wa-job-group')?.value
+    || '';
+  const number = document.getElementById('wa-number-input')?.value || '';
+  if (note) note.textContent = 'Mengirim pesan tes…';
+  try {
+    const data = await whatsAppRequest('/api/admin/whatsapp/test-send', {
+      method: 'POST',
+      body: JSON.stringify(groupId ? { group_id: groupId } : { number })
+    });
+    if (note) note.textContent = `Pesan tes terkirim ke ${data.target}.`;
+  } catch (error) {
+    if (note) note.textContent = error.message;
+  }
+}
+
 async function saveWhatsAppJob(event) {
   event.preventDefault();
   const form = event.currentTarget;
@@ -2581,6 +2599,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('wa-job-form')?.addEventListener('submit', saveWhatsAppJob);
   document.getElementById('btn-wa-check-number')?.addEventListener('click', checkWhatsAppNumber);
   document.getElementById('btn-wa-auto-save')?.addEventListener('click', activateWhatsAppAuto);
+  document.getElementById('btn-wa-test')?.addEventListener('click', testWhatsAppSend);
   document.getElementById('wa-group-search')?.addEventListener('input', () => renderWhatsAppGroupChips());
   
   // Seed
