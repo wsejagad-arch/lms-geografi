@@ -123,7 +123,84 @@ async function init() {
   setupToolbars();
   bindLogoutButton();
   setupProfileSecurity();
+  setupNotifications();
   setupFirstRunPrompts();
+}
+
+async function setupNotifications() {
+  const bell = document.getElementById('btn-notif');
+  const panel = document.getElementById('notif-panel');
+  const list = document.getElementById('notif-list');
+  const badge = document.getElementById('notif-badge');
+  if (!bell || !panel || !list) return;
+
+  const toggle = open => {
+    panel.classList.toggle('hidden', !open);
+    bell.setAttribute('aria-expanded', String(open));
+  };
+  if (bell.dataset.bound !== '1') {
+    bell.dataset.bound = '1';
+    bell.addEventListener('click', event => {
+      event.stopPropagation();
+      toggle(panel.classList.contains('hidden'));
+    });
+    document.getElementById('notif-close')?.addEventListener('click', () => toggle(false));
+    document.addEventListener('click', event => {
+      if (!panel.contains(event.target) && !bell.contains(event.target)) toggle(false);
+    });
+  }
+
+  const items = [];
+  try {
+    const [assignments, kurikulum] = await Promise.all([
+      LMS.getAssignments().catch(() => []),
+      LMS.getKurikulum().catch(() => null)
+    ]);
+    const today = new Date().toISOString().slice(0, 10);
+    (assignments || [])
+      .filter(a => !a.due_date || String(a.due_date).slice(0, 10) >= today)
+      .slice(0, 4)
+      .forEach(a => items.push({
+        title: `Tugas: ${a.judul || 'Tanpa judul'}`,
+        meta: `${a.subject_nama || 'Mapel'}${a.due_date ? ` · tenggat ${String(a.due_date).slice(0, 10)}` : ''}`,
+        tag: 'Tugas',
+        section: 'tugas-saya'
+      }));
+
+    const babs = (kurikulum && (kurikulum.babs || kurikulum.materi)) || [];
+    babs
+      .filter(b => !b.progress || !b.progress.tuntas)
+      .slice(0, 4)
+      .forEach(b => items.push({
+        title: `Selesaikan evaluasi: ${b.judul || b.id}`,
+        meta: b.progress ? `Nilai terbaik ${b.progress.best_score ?? 0} · belum tuntas` : 'Belum dikerjakan',
+        tag: 'Evaluasi',
+        section: 'belajar'
+      }));
+  } catch { /* notifikasi bersifat opsional */ }
+
+  if (!currentUser?.whatsapp) {
+    items.push({ title: 'Lengkapi nomor WhatsApp', meta: 'Agar notifikasi tugas & nilai masuk', tag: 'Profil', section: 'profil' });
+  }
+  if (!currentUser?.password_changed_at) {
+    items.push({ title: 'Ganti password awal', meta: 'Amankan akun Anda', tag: 'Profil', section: 'profil' });
+  }
+
+  if (badge) {
+    badge.textContent = items.length > 9 ? '9+' : String(items.length);
+    badge.classList.toggle('hidden', !items.length);
+  }
+  list.innerHTML = items.length
+    ? items.map((item, index) => `<button type="button" class="notif-item" data-notif-index="${index}"><strong>${kurEsc(item.title)}<span class="notif-tag">${kurEsc(item.tag)}</span></strong><span>${kurEsc(item.meta)}</span></button>`).join('')
+    : '<p class="notif-empty">Tidak ada notifikasi. Semua tugas beres 🎉</p>';
+
+  list.querySelectorAll('[data-notif-index]').forEach(button => {
+    button.addEventListener('click', () => {
+      const item = items[Number(button.dataset.notifIndex)];
+      toggle(false);
+      if (item) showSection(item.section);
+    });
+  });
 }
 
 function updateStudentProfileCard() {

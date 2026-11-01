@@ -1725,3 +1725,73 @@ body {
 .app-credit b { color: var(--geo-brand, #14614f); font-weight: 600; }
 .app-credit a { color: var(--geo-brand, #14614f); text-decoration: none; }
 .app-credit a:hover { text-decoration: underline; }
+
+/* Lonceng notifikasi siswa */
+.notif-wrap { position: relative; }
+.notif-bell { position: relative; }
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--danger, #b3261e);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+.notif-badge.hidden { display: none; }
+.notif-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  width: min(340px, 86vw);
+  max-height: 380px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #dbe6e1;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(16, 48, 40, .16);
+  z-index: 60;
+}
+.notif-panel.hidden { display: none; }
+.notif-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid #eef4f1;
+  font-size: 13px;
+}
+.notif-close { border: 0; background: none; font-size: 20px; line-height: 1; color: #7c8b84; cursor: pointer; }
+.notif-list { padding: 6px; }
+.notif-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: inherit;
+}
+.notif-item:hover { background: #f2f8f5; }
+.notif-item strong { display: block; font-size: 12.5px; margin-bottom: 2px; }
+.notif-item span { color: var(--text-2, #6b7a73); }
+.notif-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--geo-brand-light, #e7f3ee);
+  color: var(--geo-brand, #14614f);
+  font-size: 10px;
+  font-weight: 600;
+}
+.notif-empty { padding: 18px 12px; text-align: center; color: var(--text-2, #6b7a73); font-size: 12px; }
