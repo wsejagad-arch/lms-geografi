@@ -35,6 +35,12 @@ assert.match(message, /Buka LMS: https:\/\/geo\.example\.id/);
 console.log('PASS  pengingat memuat jadwal, rata-rata kelas, dan tautan tenant');
 
 assert.equal(whatsapp.normalizeDay('Senin'), 'senin');
+assert.equal(whatsapp.normalizePhone('081234567890'), '6281234567890');
+assert.equal(whatsapp.normalizePhone('+62 812-3456-7890'), '6281234567890');
+assert.equal(whatsapp.normalizePhone('6281234567890'), '6281234567890');
+assert.equal(whatsapp.normalizePhone('81234567890'), '6281234567890');
+assert.equal(whatsapp.normalizePhone('12345'), '');
+console.log('PASS  normalisasi nomor WhatsApp 08/+62/62/8');
 assert.equal(whatsapp.normalizeDay(' jumat '), 'jumat');
 const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 assert.equal(whatsapp.weekdayName('2026-11-02'), dayNames[new Date('2026-11-02T00:00:00+07:00').getDay()]);

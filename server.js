@@ -125,7 +125,8 @@ async function loadDB() {
       attempts: [],
       session_logs: [],
       activity_logs: [],
-      whatsapp_jobs: []
+      whatsapp_jobs: [],
+      whatsapp_logs: []
     };
   }
 }
@@ -1726,6 +1727,26 @@ app.post('/api/auth/login', async (req, res) => {
   res.json(payload);
 });
 
+// Nomor WhatsApp siswa untuk notifikasi tugas & evaluasi.
+app.post('/api/me/whatsapp', requireAuth, async (req, res) => {
+  const normalized = whatsappSender.normalizePhone(req.body?.whatsapp);
+  if (!normalized) {
+    return res.status(400).json({ error: 'Nomor WhatsApp tidak valid. Gunakan format 08…, +62…, atau 62…' });
+  }
+  const db = await loadDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  user.whatsapp = normalized;
+  const student = db.students.find(s => s.user_id === user.id || (user.student_id && s.id === user.student_id));
+  if (student) {
+    student.whatsapp = normalized;
+    student.whatsapp_updated_at = new Date().toISOString();
+  }
+  db.activity_logs.push(makeActivityRecord(db, req, user, 'Simpan nomor WhatsApp', `Nomor ${normalized}`));
+  await saveDB(db);
+  res.json({ success: true, whatsapp: normalized });
+});
+
 // Ganti password sendiri (semua role; siswa diizinkan lewat allowlist).
 app.post('/api/me/password', requireAuth, async (req, res) => {
   const { current_password, new_password } = req.body || {};
@@ -1837,6 +1858,7 @@ app.get('/api/me', async (req, res) => {
     );
     if (student) {
       resp.password_changed_at = user.password_changed_at || student.password_changed_at || null;
+      resp.whatsapp = student.whatsapp || user.whatsapp || '';
       const classItem = db.classes.find(c => c.id === student.class_id);
       resp.student_id = student.id;
       resp.class_id = student.class_id;
@@ -2092,7 +2114,7 @@ app.post('/api/admin/restore', requireAuth, requireAdmin, async (req, res) => {
 
   const tables = ['tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams',
     'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts',
-    'session_logs', 'activity_logs', 'whatsapp_jobs'];
+    'session_logs', 'activity_logs', 'whatsapp_jobs', 'whatsapp_logs'];
   const counts = {};
   tables.forEach(k => {
     if (!Array.isArray(payload[k])) return;
@@ -2215,7 +2237,8 @@ require('./kurikulum').registerKurikulum(app, {
   requireAuth,
   requireTenant,
   requireAdmin,
-  cacheDel
+  cacheDel,
+  notifyStudent: (tenantId, studentId, text) => whatsappSender.notifyStudent(loadDB, saveDB, tenantId, studentId, text)
 });
 whatsappSender.registerWhatsAppRoutes(app, {
   loadDB,

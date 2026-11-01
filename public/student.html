@@ -57,6 +57,25 @@
         </div>
       </div>
 
+      <div class="modal-overlay" id="wa-number-modal" role="dialog" aria-modal="true" aria-labelledby="wa-number-title">
+        <div class="modal first-run-modal">
+          <div class="modal-header">
+            <h3 id="wa-number-title">Nomor WhatsApp aktif</h3>
+          </div>
+          <div class="modal-body">
+            <div class="first-run-icon password-icon" aria-hidden="true">💬</div>
+            <p>Masukkan nomor WhatsApp aktif agar Anda menerima notifikasi tugas dan hasil evaluasi dari guru.</p>
+            <label for="wa-number-input" style="font-size:12px;color:var(--text-2)">Nomor WhatsApp</label>
+            <input id="wa-number-input" type="tel" inputmode="tel" placeholder="08xxxxxxxxxx / +62xxxxxxxxxx" style="width:100%;padding:10px 12px;margin-top:6px;border:1px solid #cfdad4;border-radius:10px">
+            <p id="wa-number-status" class="profile-password-status" role="status" aria-live="polite"></p>
+            <p style="font-size:11px;color:var(--text-3)">Format bebas: 08…, +62…, atau 62… — nomor akan disimpan otomatis dalam format 62.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="wa-number-save">Simpan nomor</button>
+          </div>
+        </div>
+      </div>
+
       <div class="modal-overlay" id="password-recommendation-modal" role="dialog" aria-modal="true" aria-labelledby="password-recommendation-title">
         <div class="modal first-run-modal">
           <div class="modal-header">
@@ -359,6 +378,16 @@
               <button class="btn btn-primary" id="student-password-submit" type="submit">Simpan password baru</button>
             </form>
           </div>
+          <div class="panel profile-security-panel">
+            <div class="panel-head"><h2>Notifikasi WhatsApp</h2><span class="badge badge-neutral" id="prof-wa-badge">Belum diisi</span></div>
+            <form id="student-wa-form" class="profile-password-form">
+              <p>Nomor ini dipakai untuk notifikasi tugas dan hasil evaluasi. Format bebas: 08…, +62…, atau 62…</p>
+              <label for="prof-wa-input">Nomor WhatsApp aktif</label>
+              <input id="prof-wa-input" type="tel" inputmode="tel" placeholder="08xxxxxxxxxx" autocomplete="tel">
+              <p id="prof-wa-status" class="profile-password-status" role="status" aria-live="polite"></p>
+              <button class="btn btn-primary" id="prof-wa-submit" type="submit">Simpan nomor WhatsApp</button>
+            </form>
+          </div>
         </section>
 
         <!-- ================================================================
@@ -599,7 +628,7 @@
   <script src="assets/js/belajar.js?v=20261105o"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(error => console.error('Service worker gagal didaftarkan:', error));
+      navigator.serviceWorker.register('/sw.js?v=39').catch(error => console.error('Service worker gagal didaftarkan:', error));
     }
   </script>
   <script src="assets/js/student.js?v=20261105m"></script>

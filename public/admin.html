@@ -812,11 +812,20 @@
             </form>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Tanggal / Waktu</th><th>Kelas / Mapel</th><th>Grup</th><th>Status</th><th>Detail</th><th>Aksi</th></tr></thead>
-                <tbody id="wa-jobs-tbody"><tr><td colspan="6" class="text-center">Memuat jadwal pesan…</td></tr></tbody>
+                <thead><tr><th>Tanggal / Waktu</th><th>Kelas / Mapel</th><th>Grup</th><th>Pesan</th><th>Status</th><th>Detail</th><th>Aksi</th></tr></thead>
+                <tbody id="wa-jobs-tbody"><tr><td colspan="7" class="text-center">Memuat jadwal pesan…</td></tr></tbody>
               </table>
             </div>
             <p style="font-size:11px;color:var(--text-3);padding:0 16px 12px">Zona waktu server: WIB (Asia/Jakarta). Jadwal dikirim satu kali. Jika server mati saat waktu kirim, pesan diproses setelah server aktif kembali; pesan gagal perlu dijadwalkan ulang.</p>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Riwayat Pengiriman</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">200 pengiriman terakhir: manual, terjadwal, otomatis, dan notifikasi siswa.</p></div><button class="btn" id="btn-wa-refresh-logs" type="button">Muat ulang</button></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Waktu</th><th>Jenis</th><th>Tujuan</th><th>Status</th><th>Keterangan</th></tr></thead>
+                <tbody id="wa-logs-tbody"><tr><td colspan="5" class="text-center">Memuat riwayat…</td></tr></tbody>
+              </table>
+            </div>
           </div>
         </section>
       </div>
@@ -1136,12 +1145,12 @@
 
   <!-- Systematic Application Scripts -->
   <script src="assets/js/sanitize.js?v=20261105d"></script>
-  <script src="assets/js/api.js?v=20261105g"></script>
+  <script src="assets/js/api.js?v=20261105h"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js?v=38').catch(() => {});
+      navigator.serviceWorker.register('/sw.js?v=39').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105o"></script>
+  <script src="assets/js/admin.js?v=20261105p"></script>
 </body>
 </html>

@@ -160,6 +160,64 @@ function setupNav(active) {
   });
 }
 
+function setupWhatsAppNumber() {
+  const modal = document.getElementById('wa-number-modal');
+  const modalInput = document.getElementById('wa-number-input');
+  const modalStatus = document.getElementById('wa-number-status');
+  const modalSave = document.getElementById('wa-number-save');
+  const form = document.getElementById('student-wa-form');
+  const input = document.getElementById('prof-wa-input');
+  const status = document.getElementById('prof-wa-status');
+  const badge = document.getElementById('prof-wa-badge');
+
+  const syncProfile = () => {
+    if (input && currentUser?.whatsapp) input.value = currentUser.whatsapp;
+    if (badge) {
+      badge.textContent = currentUser?.whatsapp ? 'Aktif' : 'Belum diisi';
+      badge.className = `badge ${currentUser?.whatsapp ? 'badge-success' : 'badge-neutral'}`;
+    }
+  };
+
+  const save = async (value, note, closeModal) => {
+    if (!value) {
+      if (note) note.textContent = 'Masukkan nomor WhatsApp terlebih dahulu.';
+      return;
+    }
+    if (note) { note.textContent = 'Menyimpan nomor…'; note.classList.remove('error', 'success'); }
+    try {
+      const result = await LMS.saveWhatsApp(value);
+      currentUser.whatsapp = result.whatsapp;
+      if (note) { note.textContent = `Nomor tersimpan: ${result.whatsapp}`; note.classList.add('success'); }
+      if (modalInput) modalInput.value = result.whatsapp;
+      syncProfile();
+      if (closeModal) {
+        modal?.classList.remove('show');
+        if (!currentUser.password_changed_at) {
+          document.getElementById('password-recommendation-modal')?.classList.add('show');
+        }
+      }
+    } catch (error) {
+      if (note) { note.textContent = error.message || 'Nomor gagal disimpan.'; note.classList.add('error'); }
+    }
+  };
+
+  if (modalSave && modalSave.dataset.bound !== '1') {
+    modalSave.dataset.bound = '1';
+    modalSave.addEventListener('click', () => save((modalInput?.value || '').trim(), modalStatus, true));
+    modalInput?.addEventListener('keydown', event => {
+      if (event.key === 'Enter') { event.preventDefault(); save((modalInput.value || '').trim(), modalStatus, true); }
+    });
+  }
+  if (form && form.dataset.bound !== '1') {
+    form.dataset.bound = '1';
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      save((input?.value || '').trim(), status, false);
+    });
+  }
+  syncProfile();
+}
+
 function showSection(id) {
   ['dashboard','belajar','materi-saya','tugas-saya','presensi-saya','nilai-saya','exam-saya','profil'].forEach(s => {
     const el = document.getElementById(`sec-${s}`);
@@ -168,6 +226,7 @@ function showSection(id) {
 }
 
 function setupProfileSecurity() {
+  setupWhatsAppNumber();
   const form = document.getElementById('student-password-form');
   if (!form || form.dataset.bound === '1') return;
   form.dataset.bound = '1';
@@ -283,6 +342,11 @@ function setupProfileSecurity() {
 
 function setupFirstRunPrompts() {
   if (!currentUser || currentUser.role !== 'student') return;
+  if (!currentUser.whatsapp) {
+    document.getElementById('wa-number-modal')?.classList.add('show');
+    document.getElementById('wa-number-input')?.focus();
+    return;
+  }
   if (!currentUser.password_changed_at) {
     document.getElementById('password-recommendation-modal')?.classList.add('show');
     return;

@@ -69,6 +69,13 @@ const LMS = (() => {
     });
   }
 
+  async function saveWhatsApp(whatsapp) {
+    return api('/me/whatsapp', {
+      method: 'POST',
+      body: JSON.stringify({ whatsapp })
+    });
+  }
+
   async function selectTenant(tenantId) {
     await api('/tenants/select', {
       method: 'POST',
@@ -179,7 +186,7 @@ const LMS = (() => {
     setCurrentUser: (u) => { currentUser = u; },
     getCurrentTenant: () => currentTenant,
     setCurrentTenant: (t) => { currentTenant = t; },
-    checkAuth, login, authLogin, logout, changeMyPassword, selectTenant,
+    checkAuth, login, authLogin, logout, changeMyPassword, saveWhatsApp, selectTenant,
     getTenants, createTenant,
     getSubjects, createSubject, updateSubject, deleteSubject,
     getClasses, createClass, updateClass, deleteClass,

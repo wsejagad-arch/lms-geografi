@@ -2257,9 +2257,10 @@ async function renderWhatsApp(options = {}) {
   if (whatsAppLoading) return;
   whatsAppLoading = true;
   try {
-    const [data, schedules] = await Promise.all([
+    const [data, schedules, logData] = await Promise.all([
       whatsAppRequest('/api/admin/whatsapp'),
-      LMS.getSchedules()
+      LMS.getSchedules(),
+      whatsAppRequest('/api/admin/whatsapp/logs?limit=50').catch(() => ({ logs: [] }))
     ]);
     const connection = data.connection || {};
 
@@ -2370,6 +2371,7 @@ async function renderWhatsApp(options = {}) {
       if (schedules.some(schedule => schedule.id === previous)) scheduleSelect.value = previous;
     }
     renderWhatsAppJobs(data.jobs || []);
+    renderWhatsAppLogs(logData.logs || []);
     const dateInput = document.getElementById('wa-job-date');
     if (dateInput && !dateInput.value) {
       const localParts = new Intl.DateTimeFormat('en-CA', {
@@ -2395,6 +2397,25 @@ async function renderWhatsApp(options = {}) {
   startWhatsAppPolling();
 }
 
+function renderWhatsAppLogs(logs) {
+  const tbody = document.getElementById('wa-logs-tbody');
+  if (!tbody) return;
+  if (!logs.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada riwayat pengiriman.</td></tr>';
+    return;
+  }
+  const typeLabels = { manual: 'Manual', terjadwal: 'Terjadwal', otomatis: 'Otomatis', siswa: 'Notifikasi siswa' };
+  tbody.innerHTML = logs.map(log => `
+    <tr>
+      <td>${kurEsc(sessionTime(log.created_at))}</td>
+      <td>${kurEsc(typeLabels[log.type] || log.type || '-')}</td>
+      <td>${kurEsc(log.target_label || log.target || '-')}</td>
+      <td><span class="badge ${log.status === 'sent' ? 'badge-success' : 'badge-danger'}">${log.status === 'sent' ? 'Berhasil' : 'Gagal'}</span></td>
+      <td>${kurEsc(log.status === 'sent' ? (log.message_preview || '-') : (log.error || '-'))}</td>
+    </tr>
+  `).join('');
+}
+
 function renderWhatsAppJobs(jobs) {
   const tbody = document.getElementById('wa-jobs-tbody');
   if (!tbody) return;
@@ -2408,6 +2429,15 @@ function renderWhatsAppJobs(jobs) {
       <td>${job.status === 'active' ? `${kurEsc(job.hari)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.jam_mulai)} WIB</div>` : `${kurEsc(job.tanggal)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.waktu)} WIB</div>`}</td>
       <td>${kurEsc(job.kelas)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.mapel)} · ${kurEsc(job.hari)} ${kurEsc(job.jam_mulai)}</div></td>
       <td>${kurEsc(job.group_name || job.group_id)}</td>
+      <td>
+        <select data-wa-msg-template="${kurEsc(job.id)}" style="width:100%;margin-bottom:4px">
+          <option value="reminder"${job.template === 'rapi' || job.template === 'custom' ? '' : ' selected'}>Template pengingat</option>
+          <option value="rapi"${job.template === 'rapi' ? ' selected' : ''}>Template rapi</option>
+          <option value="custom"${job.template === 'custom' ? ' selected' : ''}>Ketik sendiri</option>
+        </select>
+        <textarea data-wa-msg-text="${kurEsc(job.id)}" rows="2" maxlength="2000" placeholder="Isi pesan khusus…" style="width:100%;font-size:12px">${kurEsc(job.message || '')}</textarea>
+        <button class="btn btn-sm" data-wa-msg-save="${kurEsc(job.id)}" type="button">Simpan</button>
+      </td>
       <td><span class="badge ${job.status === 'sent' ? 'badge-success' : job.status === 'failed' ? 'badge-danger' : job.status === 'active' ? 'badge-primary' : 'badge-neutral'}">${kurEsc(statusLabels[job.status] || job.status)}</span></td>
       <td>${kurEsc(job.status === 'active'
         ? (job.last_sent_date ? `Terakhir ${job.last_sent_date}${job.last_error ? ' · ' + job.last_error : ''}` : 'Menunggu jadwal')
@@ -2415,6 +2445,27 @@ function renderWhatsAppJobs(jobs) {
       <td>${['scheduled', 'failed', 'active'].includes(job.status) ? `<button class="btn btn-sm btn-danger" data-wa-delete="${kurEsc(job.id)}">Hapus</button>` : '-'}</td>
     </tr>
   `).join('');
+  tbody.querySelectorAll('[data-wa-msg-save]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const id = button.dataset.waMsgSave;
+      const template = tbody.querySelector(`[data-wa-msg-template="${id}"]`)?.value || 'reminder';
+      const message = tbody.querySelector(`[data-wa-msg-text="${id}"]`)?.value || '';
+      button.disabled = true;
+      try {
+        await whatsAppRequest(`/api/admin/whatsapp/jobs/${encodeURIComponent(id)}`, {
+          method: 'PUT',
+          body: JSON.stringify({ template, message })
+        });
+        button.textContent = 'Tersimpan';
+        setTimeout(() => { button.textContent = 'Simpan'; }, 1500);
+      } catch (error) {
+        alert(error.message);
+        button.textContent = 'Simpan';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
   tbody.querySelectorAll('[data-wa-delete]').forEach(button => {
     button.addEventListener('click', async () => {
       if (!confirm('Hapus jadwal pesan WhatsApp ini?')) return;
@@ -2683,6 +2734,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-wa-check-number')?.addEventListener('click', checkWhatsAppNumber);
   document.getElementById('btn-wa-auto-save')?.addEventListener('click', activateWhatsAppAuto);
   document.getElementById('btn-wa-send')?.addEventListener('click', sendWhatsAppMessage);
+  document.getElementById('btn-wa-refresh-logs')?.addEventListener('click', () => renderWhatsApp({ force: true }));
   document.getElementById('wa-send-template')?.addEventListener('change', applyWhatsAppTemplate);
   document.getElementById('wa-send-message')?.addEventListener('input', updateWhatsAppCount);
   document.getElementById('wa-group-search')?.addEventListener('input', () => renderWhatsAppGroupChips());

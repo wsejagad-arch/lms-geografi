@@ -260,7 +260,7 @@ function saveBab(level, babId, patch) {
 }
 
 function registerKurikulum(app, deps) {
-  const { loadDB, saveDB, requireAuth, requireTenant, requireAdmin, cacheDel } = deps;
+  const { loadDB, saveDB, requireAuth, requireTenant, requireAdmin, cacheDel, notifyStudent } = deps;
 
   app.get('/api/kurikulum', requireAuth, requireTenant, async (req, res) => {
     const db = req.db;
@@ -668,6 +668,21 @@ function registerKurikulum(app, deps) {
     prog.tuntas = summary.best_score >= KKM;
 
     await saveDB(db);
+
+    // Notifikasi WhatsApp ke siswa (bila nomornya tersimpan dan WhatsApp tenant terhubung).
+    if (typeof notifyStudent === 'function') {
+      notifyStudent(
+        student.tenant_id,
+        student.id,
+        [
+          'Geo Edulabs - Evaluasi selesai',
+          `Materi: ${bab.judul || bab.id}`,
+          `Nilai percobaan ke-${ke}: ${score}`,
+          `Nilai akhir: ${summary.best_score} (${summary.best_score >= KKM ? 'Tuntas' : 'Belum tuntas'})`,
+          summary.best_score >= KKM ? 'Materi berikutnya sudah terbuka di LMS.' : 'Silakan ulangi evaluasi untuk mencapai KKM.'
+        ].join('\n')
+      ).catch(() => {});
+    }
 
     res.json({
       score,
