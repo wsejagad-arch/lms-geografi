@@ -256,6 +256,11 @@ REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 ```
 
+Hitungan limiter login (`login-fail:*`) otomatis dibersihkan setiap proses start dan
+setiap Redis reconnect, jadi kunci "Terlalu banyak percobaan" tidak bertahan setelah
+aplikasi dibuka kembali. Set `LMS_REDIS_FLUSH_ON_START=1` bila ingin menghapus seluruh
+cache Redis saat start.
+
 ## Kurikulum Berjenjang (Geografi Kelas X dan XI)
 
 Materi disusun berjenjang per kelas: siswa hanya bisa membuka bab berikutnya setelah bab sebelumnya **tuntas** (nilai ≥ KKM 75). Setiap bab punya evaluasi dengan **maksimal 3 percobaan**; yang diambil adalah **nilai tertinggi**. Setelah semua bab tuntas, tombol **Naik Kelas** membuka jenjang berikutnya.
@@ -403,8 +408,9 @@ pm2 restart lms --update-env
 Backup `data/db.json` dibuat otomatis sebelum menulis. Setelah login, ganti password
 lewat `POST /api/me/password`.
 
-**Terkunci "Terlalu banyak percobaan�"** � limiter login menyimpan hitungan di Redis
-bila tersedia, atau di memori proses bila tidak. Tanpa Redis, cukup restart proses:
+**Terkunci "Terlalu banyak percobaan…"** – limiter login menyimpan hitungan di Redis
+bila tersedia, atau di memori proses bila tidak. Hitungan di Redis kini dibersihkan
+otomatis saat start/reconnect; tanpa Redis, cukup restart proses:
 
 ```bash
 pm2 restart lms --update-env      # menghapus hitungan lockout in-memory
