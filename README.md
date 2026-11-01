@@ -221,6 +221,8 @@ Disalin dari `.env.example`, mode `600`, tidak ikut git.
 
 Admin tenant dapat menautkan nomor khusus dengan QR, memilih grup, lalu menjadwalkan pengingat satu kali untuk jadwal pelajaran. Scheduler memakai zona waktu WIB, mencegah duplikasi jadwal/grup/tanggal, membatasi maksimal 100 pesan per tenant per hari, dan tidak mengulang pengiriman yang gagal secara otomatis.
 
+Panel admin juga menyediakan pencarian grup (filter nama), pemeriksaan nomor WhatsApp (`POST /api/admin/whatsapp/verify-number`), dan **pengingat otomatis per kelas** (`POST /api/admin/whatsapp/auto`): memilih satu kelas membuat satu job per jadwal kelas tersebut, lalu scheduler mengirim setiap pekan pada hari dan jam pelajaran terkait. Setiap job otomatis hanya dikirim sekali per tanggal; kegagalan dicatat di `last_error` tanpa mengulang di hari yang sama.
+
 Koneksi grup menggunakan protokol WhatsApp Web tidak resmi (Baileys), bukan WhatsApp Business Cloud API. Penggunaan dapat bertentangan dengan ketentuan WhatsApp atau menyebabkan nomor dibatasi; gunakan nomor yang dikelola sekolah dan hanya kirim ke grup yang menyetujui pengingat. Kredensial sesi harus tetap privat dan persisten. Jalankan satu instance aplikasi agar scheduler tidak mengirim pesan ganda.
 
 ### Update & rollback

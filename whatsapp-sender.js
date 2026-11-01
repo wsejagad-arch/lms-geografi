@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
+const crypto = require('crypto');
 const QRCode = require('qrcode');
 
 const SESSION_ROOT = process.env.WA_SESSION_DIR || path.join(__dirname, 'data', 'whatsapp-sessions');
@@ -153,6 +154,15 @@ async function sendGroupMessage(tenantId, groupId, text) {
   return connection.socket.sendMessage(groupId, { text });
 }
 
+function normalizeDay(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z]/g, '');
+}
+
+function weekdayName(date) {
+  return new Intl.DateTimeFormat('id-ID', { weekday: 'long', timeZone: TIME_ZONE })
+    .format(new Date(`${date}T00:00:00+07:00`));
+}
+
 function currentLocalDateTime(now = new Date()) {
   const parts = new Intl.DateTimeFormat('en-CA', {
     timeZone: TIME_ZONE,
@@ -252,8 +262,45 @@ async function processDueJobs(loadDB, saveDB) {
         console.error(`WhatsApp job ${job.id} gagal dikirim:`, error);
       }
     }
+
+    await processAutoJobs(loadDB, saveDB, now);
   } finally {
     schedulerBusy = false;
+  }
+}
+
+// Pengingat otomatis: satu job per jadwal kelas, dikirim pada hari & jam pelajaran.
+async function processAutoJobs(loadDB, saveDB, now) {
+  const today = normalizeDay(weekdayName(now.date));
+  const snapshot = await loadDB();
+  const autoJobs = (snapshot.whatsapp_jobs || [])
+    .filter(job => job.mode === 'auto' && job.status === 'active')
+    .map(job => job.id);
+  for (const jobId of autoJobs) {
+    const db = await loadDB();
+    const job = (db.whatsapp_jobs || []).find(item => item.id === jobId && item.status === 'active');
+    if (!job) continue;
+    const tenant = (db.tenants || []).find(item => item.id === job.tenant_id);
+    const schedule = (db.schedules || []).find(item => item.id === job.schedule_id && item.tenant_id === job.tenant_id);
+    if (!tenant?.whatsapp_sender?.enabled || !schedule) continue;
+    if (normalizeDay(schedule.hari) !== today) continue;
+    if (!schedule.jam_mulai || String(now.time) < String(schedule.jam_mulai)) continue;
+    if (job.last_sent_date === now.date) continue;
+
+    try {
+      const text = createReminderMessage(db, tenant, job, schedule);
+      const result = await sendGroupMessage(job.tenant_id, job.group_id, text);
+      job.last_sent_date = now.date;
+      job.last_sent_at = new Date().toISOString();
+      job.message_id = result?.key?.id || '';
+      job.last_error = '';
+    } catch (error) {
+      job.last_sent_date = now.date;
+      job.last_error = String(error.message || 'Pengiriman gagal').slice(0, 300);
+      console.error(`WhatsApp auto job ${job.id} gagal dikirim:`, error);
+    }
+    job.updated_at = new Date().toISOString();
+    await saveDB(db);
   }
 }
 
@@ -316,7 +363,8 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
           kelas: classItem ? classItem.nama : '-',
           mapel: subject ? subject.nama : '-',
           hari: schedule ? schedule.hari : '-',
-          jam_mulai: schedule ? schedule.jam_mulai : '-'
+          jam_mulai: schedule ? schedule.jam_mulai : '-',
+          mode: job.mode || 'manual'
         };
       });
     res.json({
@@ -366,7 +414,12 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
   app.get('/api/admin/whatsapp/groups', requireAuth, requireAdmin, requireTenant, async (req, res) => {
     res.set('Cache-Control', 'no-store');
     try {
-      res.json({ groups: await getGroups(req.tenantId), connection: publicStatus(req.tenantId) });
+      const groups = await getGroups(req.tenantId);
+      const query = String(req.query.q || '').trim().toLowerCase();
+      res.json({
+        groups: query ? groups.filter(group => group.subject.toLowerCase().includes(query)) : groups,
+        connection: publicStatus(req.tenantId)
+      });
     } catch (error) {
       console.error(`WhatsApp tenant ${req.tenantId}: gagal memuat grup:`, error);
       res.status(502).json({
@@ -374,6 +427,62 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
         connection: publicStatus(req.tenantId)
       });
     }
+  });
+
+  app.post('/api/admin/whatsapp/verify-number', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const digits = String(req.body?.number || '').replace(/\D/g, '');
+    if (digits.length < 8 || digits.length > 15) {
+      return res.status(400).json({ error: 'Nomor WhatsApp harus 8–15 digit' });
+    }
+    const connection = connections.get(req.tenantId);
+    if (!connection || connection.status !== 'connected' || !connection.socket) {
+      return res.status(409).json({ error: 'Hubungkan WhatsApp terlebih dahulu untuk mencari nomor' });
+    }
+    try {
+      const results = await connection.socket.onWhatsApp(digits);
+      const found = Array.isArray(results) ? results.find(item => item && item.exists) : null;
+      res.json({ number: digits, exists: !!found, jid: found?.jid || '' });
+    } catch (error) {
+      res.status(502).json({ error: `Gagal memeriksa nomor: ${error.message || 'tidak diketahui'}` });
+    }
+  });
+
+  app.post('/api/admin/whatsapp/auto', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const db = await loadDB();
+    const classId = String(req.body?.class_id || '');
+    const groupId = String(req.body?.group_id || '');
+    const classItem = (db.classes || []).find(item => item.id === classId && item.tenant_id === req.tenantId);
+    if (!classItem) return res.status(400).json({ error: 'Kelas tidak ditemukan' });
+    const groups = await getGroups(req.tenantId);
+    const group = groups.find(item => item.id === groupId);
+    if (!group) return res.status(400).json({ error: 'Pilih grup dari nomor WhatsApp yang telah terhubung' });
+    const schedules = (db.schedules || []).filter(item => item.tenant_id === req.tenantId && item.class_id === classId);
+    if (!schedules.length) return res.status(400).json({ error: 'Kelas ini belum memiliki jadwal pelajaran' });
+    if (!Array.isArray(db.whatsapp_jobs)) db.whatsapp_jobs = [];
+    let created = 0;
+    for (const schedule of schedules) {
+      const exists = db.whatsapp_jobs.some(job => job.tenant_id === req.tenantId && job.mode === 'auto'
+        && job.schedule_id === schedule.id && job.group_id === groupId && job.status === 'active');
+      if (exists) continue;
+      db.whatsapp_jobs.push({
+        id: crypto.randomUUID(),
+        tenant_id: req.tenantId,
+        mode: 'auto',
+        schedule_id: schedule.id,
+        group_id: groupId,
+        group_name: group.subject,
+        class_id: classId,
+        status: 'active',
+        last_sent_date: '',
+        last_error: '',
+        created_by: req.user.id,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      });
+      created++;
+    }
+    await saveDB(db);
+    res.status(created ? 201 : 200).json({ created, total: schedules.length });
   });
 
   app.post('/api/admin/whatsapp/jobs', requireAuth, requireAdmin, requireTenant, async (req, res) => {
@@ -438,7 +547,7 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
     );
     if (index < 0) return res.status(404).json({ error: 'Jadwal pesan tidak ditemukan' });
     const job = db.whatsapp_jobs[index];
-    if (!['scheduled', 'failed'].includes(job.status)) {
+    if (!['scheduled', 'failed', 'active'].includes(job.status)) {
       return res.status(409).json({ error: 'Pesan yang sedang atau sudah terkirim tidak dapat dibatalkan' });
     }
     db.whatsapp_jobs.splice(index, 1);
@@ -452,7 +561,10 @@ module.exports = {
   initializeWhatsApp,
   startScheduler,
   processDueJobs,
+  processAutoJobs,
   currentLocalDateTime,
   averageClassScore,
-  createReminderMessage
+  createReminderMessage,
+  normalizeDay,
+  weekdayName
 };

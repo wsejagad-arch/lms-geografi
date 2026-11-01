@@ -2187,6 +2187,21 @@ async function deleteSchedule(id) {
 // ===== WHATSAPP SENDER =====
 let whatsAppTimer = null;
 let whatsAppLoading = false;
+let whatsAppGroups = [];
+
+function renderWhatsAppGroupChips() {
+  const groupsList = document.getElementById('wa-groups-list');
+  if (!groupsList) return;
+  const query = (document.getElementById('wa-group-search')?.value || '').trim().toLowerCase();
+  const filtered = query
+    ? whatsAppGroups.filter(group => group.subject.toLowerCase().includes(query))
+    : whatsAppGroups;
+  groupsList.innerHTML = filtered.length
+    ? filtered.map(group => `<span class="wa-group-chip">${kurEsc(group.subject)}</span>`).join('')
+    : (whatsAppGroups.length
+      ? `Tidak ada grup yang cocok dengan "${kurEsc(query)}".`
+      : 'Belum ada grup yang dapat dipilih.');
+}
 
 async function whatsAppRequest(path, options = {}) {
   const response = await fetch(path, {
@@ -2269,10 +2284,29 @@ async function renderWhatsApp() {
       if (groups.some(group => group.id === previous)) groupSelect.value = previous;
     }
     const groupsList = document.getElementById('wa-groups-list');
-    if (groupsList) {
-      groupsList.innerHTML = connection.groups?.length
-        ? connection.groups.map(group => `<span class="wa-group-chip">${kurEsc(group.subject)}</span>`).join('')
-        : 'Belum ada grup yang dapat dipilih.';
+    whatsAppGroups = connection.groups || [];
+    if (groupsList) renderWhatsAppGroupChips();
+    const autoGroupSelect = document.getElementById('wa-auto-group');
+    if (autoGroupSelect) {
+      const previous = autoGroupSelect.value;
+      autoGroupSelect.innerHTML = whatsAppGroups.length
+        ? '<option value="">Pilih grup tujuan</option>' + whatsAppGroups.map(group =>
+          `<option value="${kurEsc(group.id)}">${kurEsc(group.subject)}</option>`).join('')
+        : `<option value="">${connection.status === 'connected' ? 'Tidak ada grup ditemukan' : 'Hubungkan nomor terlebih dahulu'}</option>`;
+      if (whatsAppGroups.some(group => group.id === previous)) autoGroupSelect.value = previous;
+    }
+    const autoClassSelect = document.getElementById('wa-auto-class');
+    if (autoClassSelect) {
+      const previous = autoClassSelect.value;
+      const classMap = new Map();
+      schedules.forEach(schedule => {
+        if (schedule.class_id) classMap.set(schedule.class_id, schedule.class_nama || schedule.class_id);
+      });
+      autoClassSelect.innerHTML = classMap.size
+        ? '<option value="">Pilih kelas</option>' + [...classMap.entries()].map(([id, nama]) =>
+          `<option value="${kurEsc(id)}">${kurEsc(nama)}</option>`).join('')
+        : '<option value="">Tambahkan jadwal pelajaran terlebih dahulu</option>';
+      if (classMap.has(previous)) autoClassSelect.value = previous;
     }
     const scheduleSelect = document.getElementById('wa-job-schedule');
     if (scheduleSelect) {
@@ -2324,15 +2358,17 @@ function renderWhatsAppJobs(jobs) {
     tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada pesan terjadwal.</td></tr>';
     return;
   }
-  const statusLabels = { scheduled: 'Terjadwal', sending: 'Mengirim', sent: 'Terkirim', failed: 'Gagal' };
+  const statusLabels = { scheduled: 'Terjadwal', sending: 'Mengirim', sent: 'Terkirim', failed: 'Gagal', active: 'Otomatis aktif' };
   tbody.innerHTML = jobs.map(job => `
     <tr>
-      <td>${kurEsc(job.tanggal)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.waktu)} WIB</div></td>
+      <td>${job.status === 'active' ? `${kurEsc(job.hari)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.jam_mulai)} WIB</div>` : `${kurEsc(job.tanggal)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.waktu)} WIB</div>`}</td>
       <td>${kurEsc(job.kelas)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.mapel)} · ${kurEsc(job.hari)} ${kurEsc(job.jam_mulai)}</div></td>
       <td>${kurEsc(job.group_name || job.group_id)}</td>
-      <td><span class="badge ${job.status === 'sent' ? 'badge-success' : job.status === 'failed' ? 'badge-danger' : 'badge-neutral'}">${kurEsc(statusLabels[job.status] || job.status)}</span></td>
-      <td>${kurEsc(job.status === 'sent' ? sessionTime(job.sent_at) : job.last_error || '-')}</td>
-      <td>${['scheduled', 'failed'].includes(job.status) ? `<button class="btn btn-sm btn-danger" data-wa-delete="${kurEsc(job.id)}">Hapus</button>` : '-'}</td>
+      <td><span class="badge ${job.status === 'sent' ? 'badge-success' : job.status === 'failed' ? 'badge-danger' : job.status === 'active' ? 'badge-primary' : 'badge-neutral'}">${kurEsc(statusLabels[job.status] || job.status)}</span></td>
+      <td>${kurEsc(job.status === 'active'
+        ? (job.last_sent_date ? `Terakhir ${job.last_sent_date}${job.last_error ? ' · ' + job.last_error : ''}` : 'Menunggu jadwal')
+        : job.status === 'sent' ? sessionTime(job.sent_at) : job.last_error || '-')}</td>
+      <td>${['scheduled', 'failed', 'active'].includes(job.status) ? `<button class="btn btn-sm btn-danger" data-wa-delete="${kurEsc(job.id)}">Hapus</button>` : '-'}</td>
     </tr>
   `).join('');
   tbody.querySelectorAll('[data-wa-delete]').forEach(button => {
@@ -2383,6 +2419,55 @@ async function refreshWhatsAppGroups() {
     await renderWhatsApp();
   } catch (error) {
     const note = document.getElementById('wa-connection-note');
+    if (note) note.textContent = error.message;
+  }
+}
+
+async function checkWhatsAppNumber() {
+  const input = document.getElementById('wa-number-input');
+  const result = document.getElementById('wa-number-result');
+  const number = (input?.value || '').trim();
+  if (!number) {
+    if (result) result.textContent = 'Masukkan nomor terlebih dahulu.';
+    return;
+  }
+  if (result) result.textContent = 'Memeriksa nomor…';
+  try {
+    const data = await whatsAppRequest('/api/admin/whatsapp/verify-number', {
+      method: 'POST',
+      body: JSON.stringify({ number })
+    });
+    if (result) {
+      result.textContent = data.exists
+        ? `Nomor ${data.number} terdaftar di WhatsApp (${data.jid}).`
+        : `Nomor ${data.number} tidak terdaftar di WhatsApp.`;
+    }
+  } catch (error) {
+    if (result) result.textContent = error.message;
+  }
+}
+
+async function activateWhatsAppAuto() {
+  const classId = document.getElementById('wa-auto-class')?.value || '';
+  const groupId = document.getElementById('wa-auto-group')?.value || '';
+  const note = document.getElementById('wa-auto-note');
+  if (!classId || !groupId) {
+    if (note) note.textContent = 'Pilih kelas dan grup tujuan terlebih dahulu.';
+    return;
+  }
+  if (note) note.textContent = 'Mengaktifkan pengingat otomatis…';
+  try {
+    const data = await whatsAppRequest('/api/admin/whatsapp/auto', {
+      method: 'POST',
+      body: JSON.stringify({ class_id: classId, group_id: groupId })
+    });
+    if (note) {
+      note.textContent = data.created
+        ? `${data.created} jadwal otomatis diaktifkan untuk kelas ini.`
+        : 'Semua jadwal kelas ini sudah aktif otomatis.';
+    }
+    await renderWhatsApp();
+  } catch (error) {
     if (note) note.textContent = error.message;
   }
 }
@@ -2494,6 +2579,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-wa-refresh')?.addEventListener('click', renderWhatsApp);
   document.getElementById('btn-wa-refresh-groups')?.addEventListener('click', refreshWhatsAppGroups);
   document.getElementById('wa-job-form')?.addEventListener('submit', saveWhatsAppJob);
+  document.getElementById('btn-wa-check-number')?.addEventListener('click', checkWhatsAppNumber);
+  document.getElementById('btn-wa-auto-save')?.addEventListener('click', activateWhatsAppAuto);
+  document.getElementById('wa-group-search')?.addEventListener('input', () => renderWhatsAppGroupChips());
   
   // Seed
   document.getElementById('btn-seed')?.addEventListener('click', runSeed);
