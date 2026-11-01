@@ -1712,3 +1712,16 @@ body {
     height: 20px;
   }
 }
+
+/* Kredit pengembang */
+.app-credit {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(20, 97, 79, .25);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-3, #7c8b84);
+}
+.app-credit b { color: var(--geo-brand, #14614f); font-weight: 600; }
+.app-credit a { color: var(--geo-brand, #14614f); text-decoration: none; }
+.app-credit a:hover { text-decoration: underline; }
