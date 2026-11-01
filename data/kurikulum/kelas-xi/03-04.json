@@ -65,7 +65,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Laporan Dampak Lingkungan Kawasan Smelter Nikel",
-          "isi": "<p>Kawasan industri smelter nikel mencatat ekspor 50 triliun rupiah per tahun. Namun, nelayan setempat mengeluhkan kekeruhan air laut akibat pembuangan air bahang pendingin dan sedimentasi tanah laterit.</p>",
+          "isi": "<p>Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan. Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026.</p><p>Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026. Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL. Topik 1: Sebaran Mineral Tambang &amp; Hilirisasi Nikel Hijau 2026. ⚡ Dilema Geografis 2026: Hilirisasi Nikel Antara Lonjakan Devisa dan Beban Ekologis Indonesia merupakan pemegang cadangan nikel terbesar di dunia (sekitar 21 juta metrik ton atau ±22% cadangan global). Kawasan industri pengolahan nikel raksasa seperti di Morowali (Sulawesi Tengah), Konawe (Sulawesi Tenggara), dan Weda Bay (Maluku Utara) berhasil mengubah Indonesia menjadi raksasa pemasok material baterai kendaraan listrik (EV) dunia. Namun, geografi menuntut kita berpikir holistik: smelter HPAL (High Pressure Acid Leach) membutuhkan pasokan energi listrik masif dari PLTU batubara mandiri, menghasilkan limbah tailing asam, dan mengancam ekosistem perairan terumbu karang pesisir jika tidak dikelola ketat. Solusi masa kini menuntut transisi ke Nikel Hijau (Green Nickel) yang ditenagai pembangkit energi baru terbarukan (PLTS dan PLTA). Video Pembelajaran: Pengelolaan Sumber Daya Alam dan Hilirisasi Mineral Berkelanjutan Pelajari peta sebaran mineral, rantai pasok nikel, dan pemulihan lingkungan pascatambang. Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p><p>Capaian pembelajaran: Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL.</p><p>Tujuan pembelajaran: Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p>",
           "sumber": "Laporan Evaluasi Lingkungan Hidup Daerah"
         },
         "pertanyaan": "Kebijakan integratif apa yang paling tepat diterapkan agar pertumbuhan industri smelter tidak mematikan mata pencaharian nelayan pesisir?",
@@ -73,12 +73,128 @@
           "Mewajibkan industri membangun instalasi pendingin tertutup (closed-loop system), kolam pengendap sedimen bertingkat, serta memberlakukan baku mutu air limbah yang diawasi sensor IoT online",
           "Menggusur seluruh perkampungan nelayan ke pulau terluar tanpa kompensasi",
           "Menutup seluruh smelter nikel dan kembali mengekspor bijih mentah",
-          "Mengizinkan nelayan beralih profesi tanpa pelatihan keahlian kerja"
+          "Mengizinkan nelayan beralih profesi tanpa pelatihan keahlian kerja",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Pembangunan berkelanjutan mensyaratkan kepatuhan teknologi lingkungan (closed-loop water cooling dan settling pond sedimen terpadu) serta pemantauan telemetri real-time agar ekosistem laut tetap lestari berdampingan dengan industri hilir."
+      },
+      {
+        "id": "xi-03-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026",
+          "isi": "<p>Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan. Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026.</p><p>Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026. Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL. Topik 1: Sebaran Mineral Tambang &amp; Hilirisasi Nikel Hijau 2026. ⚡ Dilema Geografis 2026: Hilirisasi Nikel Antara Lonjakan Devisa dan Beban Ekologis Indonesia merupakan pemegang cadangan nikel terbesar di dunia (sekitar 21 juta metrik ton atau ±22% cadangan global). Kawasan industri pengolahan nikel raksasa seperti di Morowali (Sulawesi Tengah), Konawe (Sulawesi Tenggara), dan Weda Bay (Maluku Utara) berhasil mengubah Indonesia menjadi raksasa pemasok material baterai kendaraan listrik (EV) dunia. Namun, geografi menuntut kita berpikir holistik: smelter HPAL (High Pressure Acid Leach) membutuhkan pasokan energi listrik masif dari PLTU batubara mandiri, menghasilkan limbah tailing asam, dan mengancam ekosistem perairan terumbu karang pesisir jika tidak dikelola ketat. Solusi masa kini menuntut transisi ke Nikel Hijau (Green Nickel) yang ditenagai pembangkit energi baru terbarukan (PLTS dan PLTA). Video Pembelajaran: Pengelolaan Sumber Daya Alam dan Hilirisasi Mineral Berkelanjutan Pelajari peta sebaran mineral, rantai pasok nikel, dan pemulihan lingkungan pascatambang. Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p><p>Capaian pembelajaran: Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL.</p><p>Tujuan pembelajaran: Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali & Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan).”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xi-03-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026",
+          "isi": "<p>Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan. Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026.</p><p>Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026. Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL. Topik 1: Sebaran Mineral Tambang &amp; Hilirisasi Nikel Hijau 2026. ⚡ Dilema Geografis 2026: Hilirisasi Nikel Antara Lonjakan Devisa dan Beban Ekologis Indonesia merupakan pemegang cadangan nikel terbesar di dunia (sekitar 21 juta metrik ton atau ±22% cadangan global). Kawasan industri pengolahan nikel raksasa seperti di Morowali (Sulawesi Tengah), Konawe (Sulawesi Tenggara), dan Weda Bay (Maluku Utara) berhasil mengubah Indonesia menjadi raksasa pemasok material baterai kendaraan listrik (EV) dunia. Namun, geografi menuntut kita berpikir holistik: smelter HPAL (High Pressure Acid Leach) membutuhkan pasokan energi listrik masif dari PLTU batubara mandiri, menghasilkan limbah tailing asam, dan mengancam ekosistem perairan terumbu karang pesisir jika tidak dikelola ketat. Solusi masa kini menuntut transisi ke Nikel Hijau (Green Nickel) yang ditenagai pembangkit energi baru terbarukan (PLTS dan PLTA). Video Pembelajaran: Pengelolaan Sumber Daya Alam dan Hilirisasi Mineral Berkelanjutan Pelajari peta sebaran mineral, rantai pasok nikel, dan pemulihan lingkungan pascatambang. Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p><p>Capaian pembelajaran: Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL.</p><p>Tujuan pembelajaran: Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan).”.",
+          "Membandingkan temuan dengan capaian “Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas).” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xi-03-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026",
+          "isi": "<p>Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan. Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026.</p><p>Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026. Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL. Topik 1: Sebaran Mineral Tambang &amp; Hilirisasi Nikel Hijau 2026. ⚡ Dilema Geografis 2026: Hilirisasi Nikel Antara Lonjakan Devisa dan Beban Ekologis Indonesia merupakan pemegang cadangan nikel terbesar di dunia (sekitar 21 juta metrik ton atau ±22% cadangan global). Kawasan industri pengolahan nikel raksasa seperti di Morowali (Sulawesi Tengah), Konawe (Sulawesi Tenggara), dan Weda Bay (Maluku Utara) berhasil mengubah Indonesia menjadi raksasa pemasok material baterai kendaraan listrik (EV) dunia. Namun, geografi menuntut kita berpikir holistik: smelter HPAL (High Pressure Acid Leach) membutuhkan pasokan energi listrik masif dari PLTU batubara mandiri, menghasilkan limbah tailing asam, dan mengancam ekosistem perairan terumbu karang pesisir jika tidak dikelola ketat. Solusi masa kini menuntut transisi ke Nikel Hijau (Green Nickel) yang ditenagai pembangkit energi baru terbarukan (PLTS dan PLTA). Video Pembelajaran: Pengelolaan Sumber Daya Alam dan Hilirisasi Mineral Berkelanjutan Pelajari peta sebaran mineral, rantai pasok nikel, dan pemulihan lingkungan pascatambang. Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p><p>Capaian pembelajaran: Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL.</p><p>Tujuan pembelajaran: Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan).",
+          "Mengkaji konteks materi: Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026",
+          "Menghubungkan temuan dengan: Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas).",
+          "Memahami ruang lingkup: Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali & Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan).”, tujuan kedua “Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas).”, cakupan bab “Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali & Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026.”, dan bacaan pembuka “Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026”."
+      },
+      {
+        "id": "xi-03-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Sebaran Mineral Tambang & Hilirisasi Nikel Hijau 2026",
+          "isi": "<p>Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan. Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026.</p><p>Memaksimalkan berkah alam: klasifikasi SDA, sebaran mineral tambang strategis, kebijakan hilirisasi nikel Morowali &amp; Weda Bay, AMDAL lingkungan, serta restorasi lahan pascatambang berstandar ESG 2026. Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL. Topik 1: Sebaran Mineral Tambang &amp; Hilirisasi Nikel Hijau 2026. ⚡ Dilema Geografis 2026: Hilirisasi Nikel Antara Lonjakan Devisa dan Beban Ekologis Indonesia merupakan pemegang cadangan nikel terbesar di dunia (sekitar 21 juta metrik ton atau ±22% cadangan global). Kawasan industri pengolahan nikel raksasa seperti di Morowali (Sulawesi Tengah), Konawe (Sulawesi Tenggara), dan Weda Bay (Maluku Utara) berhasil mengubah Indonesia menjadi raksasa pemasok material baterai kendaraan listrik (EV) dunia. Namun, geografi menuntut kita berpikir holistik: smelter HPAL (High Pressure Acid Leach) membutuhkan pasokan energi listrik masif dari PLTU batubara mandiri, menghasilkan limbah tailing asam, dan mengancam ekosistem perairan terumbu karang pesisir jika tidak dikelola ketat. Solusi masa kini menuntut transisi ke Nikel Hijau (Green Nickel) yang ditenagai pembangkit energi baru terbarukan (PLTS dan PLTA). Video Pembelajaran: Pengelolaan Sumber Daya Alam dan Hilirisasi Mineral Berkelanjutan Pelajari peta sebaran mineral, rantai pasok nikel, dan pemulihan lingkungan pascatambang. Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p><p>Capaian pembelajaran: Peserta didik mampu mengklasifikasikan sumber daya alam, menganalisis sebaran dan pemanfaatan SDA berkelanjutan, mengevaluasi kebijakan hilirisasi tambang mineral dan dampaknya terhadap sosio-ekologis, serta menerapkan AMDAL.</p><p>Tujuan pembelajaran: Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan). Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas). Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi. Menelaah instrumen pengelolaan lingkungan hidup: AMDAL, UKL-UPL, dan baku mutu lingkungan. Merumuskan konsep pengelolaan sumber daya berbasis ekonomi sirkular dan Environmental, Social, and Governance (ESG).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Mengklasifikasikan sumber daya alam materi, energi, ruang, dan waktu (terbarukan vs tak terbarukan).”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menganalisis sebaran potensi tambang strategis Indonesia (nikel, tembaga, bauksit, batubara, emas).”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Mengevaluasi kebijakan hilirisasi nikel di Morowali (IMIP) dan Halmahera Tengah (IWIP) dari kacamata ekonomi dan ekologi.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -148,7 +264,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Kerentanan Rantai Pasok Pangan Global",
-          "isi": "<p>Krisis geopolitik dan perubahan iklim menyebabkan harga gandum dan beras dunia berfluktuasi tajam. Daerah semi-kering di Nusa Tenggara Timur mulai membudidayakan sorgum yang tahan kering dan minim air sebagai pengganti beras dan gandum impor.</p>",
+          "isi": "<p>Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT). Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026.</p><p>Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026. Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim. Topik 1: Ketahanan Pangan &amp; Transisi EBT (PLTS Cirata) 2026. ⚡ Terobosan Energi Bersih 2026: PLTS Terapung Cirata &amp; Panas Bumi Kamojang Dalam komitmen mencapai Net Zero Emissions (NZE) tahun 2060 atau lebih cepat, Indonesia memiliki potensi energi terbarukan raksasa mencapai lebih dari 3.600 GigaWatt (GW) yang bersumber dari sinar matahari, panas bumi (geothermal), tenaga angin, dan air. Proyek monumental PLTS Terapung Cirata (192 MWp) di waduk Kabupaten Purwakarta dan Cianjur membuktikan sinergi cerdas pemanfaatan ruang waduk air. Dipadukan dengan potensi 24 GW panas bumi di sepanjang jalur gunung api (seperti PLTP Kamojang, Salak, dan Dieng), Indonesia siap memimpin transisi energi bersih di Asia Tenggara. Video Pembelajaran: Ketahanan Pangan Nasional dan Energi Baru Terbarukan (EBT) Eksplorasi pilar kedaulatan pangan, kawasan industri, dan teknologi pembangkit energi hijau. Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim.</p><p>Tujuan pembelajaran: Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p>",
           "sumber": "Badan Pangan Nasional (Bapanas)"
         },
         "pertanyaan": "Mengapa diversifikasi tanaman pangan lokal seperti sorgum dan sagu sangat strategis dalam memperkuat ketahanan pangan nasional?",
@@ -156,12 +272,128 @@
           "Karena sorgum dan sagu memiliki ketahanan tinggi terhadap iklim kering lokal, kaya serat gizi, serta melepaskan ketergantungan konsumsi dari komoditas impor gandum",
           "Karena tanaman sorgum tidak membutuhkan tanah untuk tumbuh",
           "Karena harga sorgum di pasar dunia selalu nol rupiah",
-          "Karena masyarakat Indonesia dilarang mengonsumsi nasi"
+          "Karena masyarakat Indonesia dilarang mengonsumsi nasi",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Diversifikasi pangan berbasis potensi biofisik daerah memperkuat ketahanan pangan: sorgum berakar dalam dan tahan kekeringan di NTT, sagu tumbuh melimpah di lahan basah Maluku dan Papua. Ini menciptakan kedaulatan pangan tangguh tanpa rentan gejolak impor."
+      },
+      {
+        "id": "xi-04-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT)",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026",
+          "isi": "<p>Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT). Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026.</p><p>Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026. Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim. Topik 1: Ketahanan Pangan &amp; Transisi EBT (PLTS Cirata) 2026. ⚡ Terobosan Energi Bersih 2026: PLTS Terapung Cirata &amp; Panas Bumi Kamojang Dalam komitmen mencapai Net Zero Emissions (NZE) tahun 2060 atau lebih cepat, Indonesia memiliki potensi energi terbarukan raksasa mencapai lebih dari 3.600 GigaWatt (GW) yang bersumber dari sinar matahari, panas bumi (geothermal), tenaga angin, dan air. Proyek monumental PLTS Terapung Cirata (192 MWp) di waduk Kabupaten Purwakarta dan Cianjur membuktikan sinergi cerdas pemanfaatan ruang waduk air. Dipadukan dengan potensi 24 GW panas bumi di sepanjang jalur gunung api (seperti PLTP Kamojang, Salak, dan Dieng), Indonesia siap memimpin transisi energi bersih di Asia Tenggara. Video Pembelajaran: Ketahanan Pangan Nasional dan Energi Baru Terbarukan (EBT) Eksplorasi pilar kedaulatan pangan, kawasan industri, dan teknologi pembangkit energi hijau. Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim.</p><p>Tujuan pembelajaran: Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata & Geothermal Kamojang/Dieng) 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xi-04-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT)",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026",
+          "isi": "<p>Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT). Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026.</p><p>Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026. Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim. Topik 1: Ketahanan Pangan &amp; Transisi EBT (PLTS Cirata) 2026. ⚡ Terobosan Energi Bersih 2026: PLTS Terapung Cirata &amp; Panas Bumi Kamojang Dalam komitmen mencapai Net Zero Emissions (NZE) tahun 2060 atau lebih cepat, Indonesia memiliki potensi energi terbarukan raksasa mencapai lebih dari 3.600 GigaWatt (GW) yang bersumber dari sinar matahari, panas bumi (geothermal), tenaga angin, dan air. Proyek monumental PLTS Terapung Cirata (192 MWp) di waduk Kabupaten Purwakarta dan Cianjur membuktikan sinergi cerdas pemanfaatan ruang waduk air. Dipadukan dengan potensi 24 GW panas bumi di sepanjang jalur gunung api (seperti PLTP Kamojang, Salak, dan Dieng), Indonesia siap memimpin transisi energi bersih di Asia Tenggara. Video Pembelajaran: Ketahanan Pangan Nasional dan Energi Baru Terbarukan (EBT) Eksplorasi pilar kedaulatan pangan, kawasan industri, dan teknologi pembangkit energi hijau. Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim.</p><p>Tujuan pembelajaran: Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan.”.",
+          "Membandingkan temuan dengan capaian “Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xi-04-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT)",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026",
+          "isi": "<p>Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT). Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026.</p><p>Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026. Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim. Topik 1: Ketahanan Pangan &amp; Transisi EBT (PLTS Cirata) 2026. ⚡ Terobosan Energi Bersih 2026: PLTS Terapung Cirata &amp; Panas Bumi Kamojang Dalam komitmen mencapai Net Zero Emissions (NZE) tahun 2060 atau lebih cepat, Indonesia memiliki potensi energi terbarukan raksasa mencapai lebih dari 3.600 GigaWatt (GW) yang bersumber dari sinar matahari, panas bumi (geothermal), tenaga angin, dan air. Proyek monumental PLTS Terapung Cirata (192 MWp) di waduk Kabupaten Purwakarta dan Cianjur membuktikan sinergi cerdas pemanfaatan ruang waduk air. Dipadukan dengan potensi 24 GW panas bumi di sepanjang jalur gunung api (seperti PLTP Kamojang, Salak, dan Dieng), Indonesia siap memimpin transisi energi bersih di Asia Tenggara. Video Pembelajaran: Ketahanan Pangan Nasional dan Energi Baru Terbarukan (EBT) Eksplorasi pilar kedaulatan pangan, kawasan industri, dan teknologi pembangkit energi hijau. Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim.</p><p>Tujuan pembelajaran: Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan.",
+          "Mengkaji konteks materi: Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026",
+          "Menghubungkan temuan dengan: Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor.",
+          "Memahami ruang lingkup: Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata & Geothermal Kamojang/Dieng) 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan.”, tujuan kedua “Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor.”, cakupan bab “Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata & Geothermal Kamojang/Dieng) 2026.”, dan bacaan pembuka “Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026”."
+      },
+      {
+        "id": "xi-04-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT)",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Ketahanan Pangan & Transisi EBT (PLTS Cirata) 2026",
+          "isi": "<p>Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT). Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026.</p><p>Memperkuat pilar kedaulatan bangsa: potensi pangan lokal Nusantara, program Food Estate berkelanjutan, sebaran kawasan industri nasional, serta akselerasi transisi energi hijau (PLTS Terapung Cirata &amp; Geothermal Kamojang/Dieng) 2026. Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim. Topik 1: Ketahanan Pangan &amp; Transisi EBT (PLTS Cirata) 2026. ⚡ Terobosan Energi Bersih 2026: PLTS Terapung Cirata &amp; Panas Bumi Kamojang Dalam komitmen mencapai Net Zero Emissions (NZE) tahun 2060 atau lebih cepat, Indonesia memiliki potensi energi terbarukan raksasa mencapai lebih dari 3.600 GigaWatt (GW) yang bersumber dari sinar matahari, panas bumi (geothermal), tenaga angin, dan air. Proyek monumental PLTS Terapung Cirata (192 MWp) di waduk Kabupaten Purwakarta dan Cianjur membuktikan sinergi cerdas pemanfaatan ruang waduk air. Dipadukan dengan potensi 24 GW panas bumi di sepanjang jalur gunung api (seperti PLTP Kamojang, Salak, dan Dieng), Indonesia siap memimpin transisi energi bersih di Asia Tenggara. Video Pembelajaran: Ketahanan Pangan Nasional dan Energi Baru Terbarukan (EBT) Eksplorasi pilar kedaulatan pangan, kawasan industri, dan teknologi pembangkit energi hijau. Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis potensi dan persebaran sumber daya untuk ketahanan pangan, bahan baku industri, serta energi baru dan terbarukan (EBT) guna mendukung pembangunan nasional berketahanan iklim.</p><p>Tujuan pembelajaran: Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan. Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor. Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali). Memetakan potensi energi baru terbarukan Indonesia: tenaga surya PLTS terapung, panas bumi geothermal, mikrohidro, dan biomassa. Merumuskan strategi transisi energi berkeadilan (Just Energy Transition Partnership / JETP).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis 4 pilar ketahanan pangan: ketersediaan, keterjangkauan, pemanfaatan nutrisi, dan stabilitas pasokan.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Mengevaluasi potensi keanekaragaman pangan lokal (sagu Papua, sorgum NTT, jagung Madura, umbi-umbian) mengurangi ketergantungan gandum impor.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menganalisis persebaran kawasan industri strategis nasional (Kawasan Industri Terpadu Batang, Sei Mangkei, Morowali).”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   }

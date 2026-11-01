@@ -65,7 +65,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Ketimpangan Ekonomi Kota Metropolitan dan Desa Hinterland",
-          "isi": "<p>Pesatnya pertumbuhan industri di Kota Metropolitan menarik ribuan pemuda lulusan terbaik dari desa-desa sekitar, disertai modal tabungan masyarakat desa yang dialihkan ke bank-bank di ibu kota. Akibatnya, desa tertinggal dan kekurangan tenaga produktif.</p>",
+          "isi": "<p>Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional. Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026.</p><p>Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026. Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN). Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan &amp; IKN 2026. 🏙️ Geostrategi Wilayah 2026: Mengubah Paradigma Jawa-Sentris Menjadi Indonesia-Sentris Selama puluhan tahun, struktur keruangan ekonomi Indonesia mengalami ketimpangan spasial yang sangat tajam: Pulau Jawa yang luasnya hanya ±7% dari total wilayah Indonesia menyumbang sekitar 57% Produk Domestik Bruto (PDB) nasional dan dihuni lebih dari 56% penduduk. Pemindahan pusat pemerintahan ke IKN Nusantara di Kalimantan Timur dirancang sebagai pembentukan Superhub Ekonomi Baru di tengah kepulauan Nusantara. IKN bersama mitra kota Balikpapan dan Samarinda berperan sebagai kutub pertumbuhan pemicu penjalaran ekonomi (spread effect) ke seluruh Kawasan Timur Indonesia (KTI). Video Pembelajaran: Tata Ruang Wilayah, Teori Keruangan, dan Pembangunan IKN Nusantara Pelajari konsep RTRW, hierarki tempat sentral Christaller, kutub pertumbuhan Perroux, dan perencanaan IKN. Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN).</p><p>Tujuan pembelajaran: Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p>",
           "sumber": "Kajian Ekonomi Spasial Bappenas"
         },
         "pertanyaan": "Fenomena tersedotnya sumber daya manusia dan modal dari kawasan penyangga ke pusat kota ini dalam teori Gunnar Myrdal disebut ...",
@@ -73,12 +73,128 @@
           "Backwash Effect",
           "Spread Effect",
           "Trickle-Down Effect",
-          "Homogenitas Wilayah"
+          "Homogenitas Wilayah",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Backwash effect adalah kekuatan polarisasi yang merugikan wilayah tertinggal/desa di mana faktor-faktor produksi (tenaga kerja muda potensial dan modal finansial) mengalir tersedot ke pusat pertumbuhan metropolitan yang lebih menguntungkan."
+      },
+      {
+        "id": "xii-01-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026",
+          "isi": "<p>Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional. Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026.</p><p>Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026. Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN). Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan &amp; IKN 2026. 🏙️ Geostrategi Wilayah 2026: Mengubah Paradigma Jawa-Sentris Menjadi Indonesia-Sentris Selama puluhan tahun, struktur keruangan ekonomi Indonesia mengalami ketimpangan spasial yang sangat tajam: Pulau Jawa yang luasnya hanya ±7% dari total wilayah Indonesia menyumbang sekitar 57% Produk Domestik Bruto (PDB) nasional dan dihuni lebih dari 56% penduduk. Pemindahan pusat pemerintahan ke IKN Nusantara di Kalimantan Timur dirancang sebagai pembentukan Superhub Ekonomi Baru di tengah kepulauan Nusantara. IKN bersama mitra kota Balikpapan dan Samarinda berperan sebagai kutub pertumbuhan pemicu penjalaran ekonomi (spread effect) ke seluruh Kawasan Timur Indonesia (KTI). Video Pembelajaran: Tata Ruang Wilayah, Teori Keruangan, dan Pembangunan IKN Nusantara Pelajari konsep RTRW, hierarki tempat sentral Christaller, kutub pertumbuhan Perroux, dan perencanaan IKN. Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN).</p><p>Tujuan pembelajaran: Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Mengkonstruksi ruang masa depan: konsep wilayah formal & fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xii-01-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026",
+          "isi": "<p>Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional. Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026.</p><p>Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026. Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN). Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan &amp; IKN 2026. 🏙️ Geostrategi Wilayah 2026: Mengubah Paradigma Jawa-Sentris Menjadi Indonesia-Sentris Selama puluhan tahun, struktur keruangan ekonomi Indonesia mengalami ketimpangan spasial yang sangat tajam: Pulau Jawa yang luasnya hanya ±7% dari total wilayah Indonesia menyumbang sekitar 57% Produk Domestik Bruto (PDB) nasional dan dihuni lebih dari 56% penduduk. Pemindahan pusat pemerintahan ke IKN Nusantara di Kalimantan Timur dirancang sebagai pembentukan Superhub Ekonomi Baru di tengah kepulauan Nusantara. IKN bersama mitra kota Balikpapan dan Samarinda berperan sebagai kutub pertumbuhan pemicu penjalaran ekonomi (spread effect) ke seluruh Kawasan Timur Indonesia (KTI). Video Pembelajaran: Tata Ruang Wilayah, Teori Keruangan, dan Pembangunan IKN Nusantara Pelajari konsep RTRW, hierarki tempat sentral Christaller, kutub pertumbuhan Perroux, dan perencanaan IKN. Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN).</p><p>Tujuan pembelajaran: Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya.”.",
+          "Membandingkan temuan dengan capaian “Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal).” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xii-01-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026",
+          "isi": "<p>Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional. Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026.</p><p>Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026. Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN). Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan &amp; IKN 2026. 🏙️ Geostrategi Wilayah 2026: Mengubah Paradigma Jawa-Sentris Menjadi Indonesia-Sentris Selama puluhan tahun, struktur keruangan ekonomi Indonesia mengalami ketimpangan spasial yang sangat tajam: Pulau Jawa yang luasnya hanya ±7% dari total wilayah Indonesia menyumbang sekitar 57% Produk Domestik Bruto (PDB) nasional dan dihuni lebih dari 56% penduduk. Pemindahan pusat pemerintahan ke IKN Nusantara di Kalimantan Timur dirancang sebagai pembentukan Superhub Ekonomi Baru di tengah kepulauan Nusantara. IKN bersama mitra kota Balikpapan dan Samarinda berperan sebagai kutub pertumbuhan pemicu penjalaran ekonomi (spread effect) ke seluruh Kawasan Timur Indonesia (KTI). Video Pembelajaran: Tata Ruang Wilayah, Teori Keruangan, dan Pembangunan IKN Nusantara Pelajari konsep RTRW, hierarki tempat sentral Christaller, kutub pertumbuhan Perroux, dan perencanaan IKN. Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN).</p><p>Tujuan pembelajaran: Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya.",
+          "Mengkaji konteks materi: Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026",
+          "Menghubungkan temuan dengan: Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal).",
+          "Memahami ruang lingkup: Mengkonstruksi ruang masa depan: konsep wilayah formal & fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya.”, tujuan kedua “Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal).”, cakupan bab “Mengkonstruksi ruang masa depan: konsep wilayah formal & fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026.”, dan bacaan pembuka “Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026”."
+      },
+      {
+        "id": "xii-01-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan & IKN 2026",
+          "isi": "<p>Pengembangan Wilayah, Tata Ruang, dan Kebijakan Nasional. Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026.</p><p>Mengkonstruksi ruang masa depan: konsep wilayah formal &amp; fungsional, hierarki tata ruang (RTRWN, RTRWP, RTRWK, RDTR), teori kutub pertumbuhan François Perroux, teori tempat sentral Christaller, serta dinamika perencanaan spasial IKN Nusantara 2026. Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN). Topik 1: Konsep Wilayah, Teori Pusat Pertumbuhan &amp; IKN 2026. 🏙️ Geostrategi Wilayah 2026: Mengubah Paradigma Jawa-Sentris Menjadi Indonesia-Sentris Selama puluhan tahun, struktur keruangan ekonomi Indonesia mengalami ketimpangan spasial yang sangat tajam: Pulau Jawa yang luasnya hanya ±7% dari total wilayah Indonesia menyumbang sekitar 57% Produk Domestik Bruto (PDB) nasional dan dihuni lebih dari 56% penduduk. Pemindahan pusat pemerintahan ke IKN Nusantara di Kalimantan Timur dirancang sebagai pembentukan Superhub Ekonomi Baru di tengah kepulauan Nusantara. IKN bersama mitra kota Balikpapan dan Samarinda berperan sebagai kutub pertumbuhan pemicu penjalaran ekonomi (spread effect) ke seluruh Kawasan Timur Indonesia (KTI). Video Pembelajaran: Tata Ruang Wilayah, Teori Keruangan, dan Pembangunan IKN Nusantara Pelajari konsep RTRW, hierarki tempat sentral Christaller, kutub pertumbuhan Perroux, dan perencanaan IKN. Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis konsep wilayah dan perwilayahan, teori-teori pertumbuhan keruangan, struktur hierarki rencana tata ruang wilayah di Indonesia, serta mengevaluasi pembangunan Ibu Kota Nusantara (IKN).</p><p>Tujuan pembelajaran: Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya. Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal). Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital. Mengevaluasi kebijakan relokasi ibu kota negara ke IKN Nusantara dari perspektif pemerataan ekonomi Indonesia-sentris. Mengidentifikasi konflik pemanfaatan ruang dan merumuskan solusi pengendalian tata ruang berbasis zonasi.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Membedakan konsep wilayah formal (homogen) dan wilayah fungsional (nodal/heterogen) beserta perwilayahannya.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menganalisis teori pertumbuhan wilayah: Teori Tempat Sentral (Christaller), Teori Kutub Pertumbuhan (Perroux), dan Teori Polarisasi Spasial (Myrdal).”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menelaah hierarki rencana tata ruang di Indonesia: RTRW Nasional, Provinsi, Kabupaten/Kota, dan Rencana Detail Tata Ruang (RDTR) berbasis OSS digital.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -148,7 +264,7 @@
         "stimulus": {
           "jenis": "tabel",
           "judul": "Data Tiga Kota yang Saling Berinteraksi",
-          "isi": "<p>Penduduk Kota A = 10.000 jiwa; Kota B = 20.000 jiwa; Kota C = 30.000 jiwa. Jarak A-B = 20 km; Jarak B-C = 10 km.</p>",
+          "isi": "<p>Pola Keruangan dan Interaksi Spasial Desa-Kota. Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026.</p><p>Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026. Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota. Topik 1: Model Gravitasi Reilly, Titik Henti &amp; Interaksi Desa-Kota 2026. 🏙️ Dinamika Megapolitan 2026: Konurbasi Jabodetabekpunjur dan Aglomerasi Bodetabek Kawasan Megapolitan Jabodetabekpunjur (Jakarta, Bogor, Depok, Tangerang, Bekasi, Puncak, Cianjur) dengan populasi lebih dari 35 juta jiwa menjadi salah satu kawasan aglomerasi perkotaan terbesar di dunia. Setiap hari, jutaan komuter melakukan mobilitas ulang-alik (commuter mobility) melintasi batas administratif wilayah. Kajian interaksi keruangan membuktikan bahwa persoalan kemacetan lalu lintas, banjir kiriman DAS Ciliwung, dan penyediaan perumahan terjangkau tidak dapat diselesaikan oleh Jakarta sendirian. Dibutuhkan perencanaan Transit-Oriented Development (TOD) terintegrasi berbasis MRT, LRT, dan KRL Commuter Line lintas wilayah. Video Pembelajaran: Interaksi Spasial Desa dan Kota serta Teori Struktur Keruangan Pelajari teori gravitasi keruangan Reilly, rumus titik henti, dan struktur morfologi kota. Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota.</p><p>Tujuan pembelajaran: Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p>",
           "sumber": "Kajian Transportasi Spasial"
         },
         "pertanyaan": "Berdasarkan Hukum Gravitasi I_AB = (P_A × P_B) / (d_AB)^2, bandingkan kekuatan interaksi antara pasangan Kota A-B dan Kota B-C!",
@@ -156,12 +272,128 @@
           "Interaksi B-C (6.000.000) jauh lebih kuat dibanding A-B (500.000) karena jaraknya lebih dekat dan populasinya lebih besar",
           "Interaksi A-B lebih kuat daripada B-C",
           "Kedua pasangan kota memiliki interaksi yang identik sama",
-          "Tidak dapat dihitung karena tidak ada data jalan tol"
+          "Tidak dapat dihitung karena tidak ada data jalan tol",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "I_AB = (10.000 × 20.000) / 20^2 = 200.000.000 / 400 = 500.000. I_BC = (20.000 × 30.000) / 10^2 = 600.000.000 / 100 = 6.000.000. Kekuatan interaksi B-C adalah 12 kali lebih besar dibanding A-B."
+      },
+      {
+        "id": "xii-02-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pola Keruangan dan Interaksi Spasial Desa-Kota",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026",
+          "isi": "<p>Pola Keruangan dan Interaksi Spasial Desa-Kota. Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026.</p><p>Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026. Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota. Topik 1: Model Gravitasi Reilly, Titik Henti &amp; Interaksi Desa-Kota 2026. 🏙️ Dinamika Megapolitan 2026: Konurbasi Jabodetabekpunjur dan Aglomerasi Bodetabek Kawasan Megapolitan Jabodetabekpunjur (Jakarta, Bogor, Depok, Tangerang, Bekasi, Puncak, Cianjur) dengan populasi lebih dari 35 juta jiwa menjadi salah satu kawasan aglomerasi perkotaan terbesar di dunia. Setiap hari, jutaan komuter melakukan mobilitas ulang-alik (commuter mobility) melintasi batas administratif wilayah. Kajian interaksi keruangan membuktikan bahwa persoalan kemacetan lalu lintas, banjir kiriman DAS Ciliwung, dan penyediaan perumahan terjangkau tidak dapat diselesaikan oleh Jakarta sendirian. Dibutuhkan perencanaan Transit-Oriented Development (TOD) terintegrasi berbasis MRT, LRT, dan KRL Commuter Line lintas wilayah. Video Pembelajaran: Interaksi Spasial Desa dan Kota serta Teori Struktur Keruangan Pelajari teori gravitasi keruangan Reilly, rumus titik henti, dan struktur morfologi kota. Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota.</p><p>Tujuan pembelajaran: Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris & sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xii-02-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pola Keruangan dan Interaksi Spasial Desa-Kota",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026",
+          "isi": "<p>Pola Keruangan dan Interaksi Spasial Desa-Kota. Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026.</p><p>Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026. Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota. Topik 1: Model Gravitasi Reilly, Titik Henti &amp; Interaksi Desa-Kota 2026. 🏙️ Dinamika Megapolitan 2026: Konurbasi Jabodetabekpunjur dan Aglomerasi Bodetabek Kawasan Megapolitan Jabodetabekpunjur (Jakarta, Bogor, Depok, Tangerang, Bekasi, Puncak, Cianjur) dengan populasi lebih dari 35 juta jiwa menjadi salah satu kawasan aglomerasi perkotaan terbesar di dunia. Setiap hari, jutaan komuter melakukan mobilitas ulang-alik (commuter mobility) melintasi batas administratif wilayah. Kajian interaksi keruangan membuktikan bahwa persoalan kemacetan lalu lintas, banjir kiriman DAS Ciliwung, dan penyediaan perumahan terjangkau tidak dapat diselesaikan oleh Jakarta sendirian. Dibutuhkan perencanaan Transit-Oriented Development (TOD) terintegrasi berbasis MRT, LRT, dan KRL Commuter Line lintas wilayah. Video Pembelajaran: Interaksi Spasial Desa dan Kota serta Teori Struktur Keruangan Pelajari teori gravitasi keruangan Reilly, rumus titik henti, dan struktur morfologi kota. Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota.</p><p>Tujuan pembelajaran: Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis.”.",
+          "Membandingkan temuan dengan capaian “Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman).” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xii-02-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pola Keruangan dan Interaksi Spasial Desa-Kota",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026",
+          "isi": "<p>Pola Keruangan dan Interaksi Spasial Desa-Kota. Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026.</p><p>Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026. Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota. Topik 1: Model Gravitasi Reilly, Titik Henti &amp; Interaksi Desa-Kota 2026. 🏙️ Dinamika Megapolitan 2026: Konurbasi Jabodetabekpunjur dan Aglomerasi Bodetabek Kawasan Megapolitan Jabodetabekpunjur (Jakarta, Bogor, Depok, Tangerang, Bekasi, Puncak, Cianjur) dengan populasi lebih dari 35 juta jiwa menjadi salah satu kawasan aglomerasi perkotaan terbesar di dunia. Setiap hari, jutaan komuter melakukan mobilitas ulang-alik (commuter mobility) melintasi batas administratif wilayah. Kajian interaksi keruangan membuktikan bahwa persoalan kemacetan lalu lintas, banjir kiriman DAS Ciliwung, dan penyediaan perumahan terjangkau tidak dapat diselesaikan oleh Jakarta sendirian. Dibutuhkan perencanaan Transit-Oriented Development (TOD) terintegrasi berbasis MRT, LRT, dan KRL Commuter Line lintas wilayah. Video Pembelajaran: Interaksi Spasial Desa dan Kota serta Teori Struktur Keruangan Pelajari teori gravitasi keruangan Reilly, rumus titik henti, dan struktur morfologi kota. Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota.</p><p>Tujuan pembelajaran: Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis.",
+          "Mengkaji konteks materi: Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026",
+          "Menghubungkan temuan dengan: Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman).",
+          "Memahami ruang lingkup: Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris & sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis.”, tujuan kedua “Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman).”, cakupan bab “Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris & sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026.”, dan bacaan pembuka “Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026”."
+      },
+      {
+        "id": "xii-02-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pola Keruangan dan Interaksi Spasial Desa-Kota",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Model Gravitasi Reilly, Titik Henti & Interaksi Desa-Kota 2026",
+          "isi": "<p>Pola Keruangan dan Interaksi Spasial Desa-Kota. Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026.</p><p>Memahami hubungan fungsional desa-kota: struktur ruang desa, morfologi konsentris &amp; sektoral kota, hukum gravitasi keruangan W.J. Reilly, teori titik henti Carrothers, fenomena konurbasi Megapolitan Jabodetabekpunjur, dan penataan kawasan kumuh (slum area) 2026. Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota. Topik 1: Model Gravitasi Reilly, Titik Henti &amp; Interaksi Desa-Kota 2026. 🏙️ Dinamika Megapolitan 2026: Konurbasi Jabodetabekpunjur dan Aglomerasi Bodetabek Kawasan Megapolitan Jabodetabekpunjur (Jakarta, Bogor, Depok, Tangerang, Bekasi, Puncak, Cianjur) dengan populasi lebih dari 35 juta jiwa menjadi salah satu kawasan aglomerasi perkotaan terbesar di dunia. Setiap hari, jutaan komuter melakukan mobilitas ulang-alik (commuter mobility) melintasi batas administratif wilayah. Kajian interaksi keruangan membuktikan bahwa persoalan kemacetan lalu lintas, banjir kiriman DAS Ciliwung, dan penyediaan perumahan terjangkau tidak dapat diselesaikan oleh Jakarta sendirian. Dibutuhkan perencanaan Transit-Oriented Development (TOD) terintegrasi berbasis MRT, LRT, dan KRL Commuter Line lintas wilayah. Video Pembelajaran: Interaksi Spasial Desa dan Kota serta Teori Struktur Keruangan Pelajari teori gravitasi keruangan Reilly, rumus titik henti, dan struktur morfologi kota. Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis struktur keruangan desa dan kota, menghitung kekuatan interaksi spasial menggunakan model gravitasi dan titik henti, serta mengevaluasi dampak positif dan negatif interaksi desa-kota.</p><p>Tujuan pembelajaran: Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis. Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman). Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly. Menentukan lokasi fasilitas pelayanan optimal (rumah sakit, pasar regional) menggunakan Teori Titik Henti (Breaking Point Theory). Mengevaluasi dampak urban sprawl, gentrifikasi, dan strategi peremajaan kawasan kumuh perkotaan 2026.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis pola keruangan permukiman desa (memanjang jalan/pantai, terpusat, tersebar) berdasarkan kondisi fisis.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Membandingkan teori struktur ruang kota: Teori Konsentris (Burgess), Teori Sektoral (Hoyt), dan Teori Inti Berganda (Harris-Ullman).”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menghitung kekuatan interaksi wilayah menggunakan Hukum Gravitasi W.J. Reilly.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -227,7 +459,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Analisis Jangkauan Pejalan Kaki Stasiun LRT/Kereta Cepat",
-          "isi": "<p>Kajian standar TOD menetapkan bahwa batas kenyamanan jalan kaki warga menuju stasiun adalah 5 menit (radius 400 meter) dan maksimal 10 menit (radius 800 meter). Di luar radius 800 meter, masyarakat membutuhkan feeder angkutan lingkungan sepeda atau mikrotrans.</p>",
+          "isi": "<p>Penginderaan Jauh dan SIG untuk Tata Ruang &amp; Transportasi. Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026.</p><p>Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026. Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City). Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi &amp; Smart City 2026. 🚅 Geoteknologi Transportasi 2026: Analisis Spasial Jaringan Kereta Cepat Whoosh Dalam pengoperasian Kereta Cepat Jakarta-Bandung (Whoosh) dengan kelajuan 350 km/jam, analisis geospasial SIG berperan penting tidak hanya pada tahap konstruksi terowongan, tetapi juga pada tahap integrasi multimoda di stasiun (Halim, Karawang, Padalarang, dan Tegalluar). Melalui analisis Pedestrian Service Area SIG (buffer radius 500 meter dan 1.000 meter), perencana kota merancang integrasi halte feeder bus Transjakarta, stasiun LRT Jabodebek, dan KA Feeder Bandung. Penumpang dari pusat Kota Jakarta dapat mencapai pusat Kota Bandung dalam waktu kurang dari 1 jam secara mulus tanpa bergantung pada mobil pribadi di jalan tol yang macet. Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City).</p><p>Tujuan pembelajaran: Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p>",
           "sumber": "Pedoman Pengembangan Kawasan Berorientasi Transit Kementerian ATR/BPN"
         },
         "pertanyaan": "Analisis SIG apa yang paling tepat dijalankan untuk mengevaluasi apakah perumahan warga terlayani akses jalan kaki menuju stasiun?",
@@ -235,12 +467,128 @@
           "Network Service Area Analysis sepanjang jaringan trotoar pejalan kaki dengan cut-off 400 meter dan 800 meter dari pintu masuk stasiun",
           "Analisis indeks vegetasi NDVI",
           "Analisis gempa tektonik",
-          "Pengukuran salinitas air laut"
+          "Pengukuran salinitas air laut",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Network service area analysis adalah analisis jaringan berbasis topologi jalan/trotoar yang mengukur jarak tempuh nyata (bukan garis lurus udara), sehingga dapat memetakan persil perumahan mana saja yang benar-benar berada dalam jangkauan jalan kaki 400–800 meter ke stasiun."
+      },
+      {
+        "id": "xii-03-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Penginderaan Jauh dan SIG untuk Tata Ruang & Transportasi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026",
+          "isi": "<p>Penginderaan Jauh dan SIG untuk Tata Ruang &amp; Transportasi. Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026.</p><p>Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026. Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City). Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi &amp; Smart City 2026. 🚅 Geoteknologi Transportasi 2026: Analisis Spasial Jaringan Kereta Cepat Whoosh Dalam pengoperasian Kereta Cepat Jakarta-Bandung (Whoosh) dengan kelajuan 350 km/jam, analisis geospasial SIG berperan penting tidak hanya pada tahap konstruksi terowongan, tetapi juga pada tahap integrasi multimoda di stasiun (Halim, Karawang, Padalarang, dan Tegalluar). Melalui analisis Pedestrian Service Area SIG (buffer radius 500 meter dan 1.000 meter), perencana kota merancang integrasi halte feeder bus Transjakarta, stasiun LRT Jabodebek, dan KA Feeder Bandung. Penumpang dari pusat Kota Jakarta dapat mencapai pusat Kota Bandung dalam waktu kurang dari 1 jam secara mulus tanpa bergantung pada mobil pribadi di jalan tol yang macet. Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City).</p><p>Tujuan pembelajaran: Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh & MRT, serta integrasi Smart City perkotaan 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xii-03-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Penginderaan Jauh dan SIG untuk Tata Ruang & Transportasi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026",
+          "isi": "<p>Penginderaan Jauh dan SIG untuk Tata Ruang &amp; Transportasi. Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026.</p><p>Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026. Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City). Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi &amp; Smart City 2026. 🚅 Geoteknologi Transportasi 2026: Analisis Spasial Jaringan Kereta Cepat Whoosh Dalam pengoperasian Kereta Cepat Jakarta-Bandung (Whoosh) dengan kelajuan 350 km/jam, analisis geospasial SIG berperan penting tidak hanya pada tahap konstruksi terowongan, tetapi juga pada tahap integrasi multimoda di stasiun (Halim, Karawang, Padalarang, dan Tegalluar). Melalui analisis Pedestrian Service Area SIG (buffer radius 500 meter dan 1.000 meter), perencana kota merancang integrasi halte feeder bus Transjakarta, stasiun LRT Jabodebek, dan KA Feeder Bandung. Penumpang dari pusat Kota Jakarta dapat mencapai pusat Kota Bandung dalam waktu kurang dari 1 jam secara mulus tanpa bergantung pada mobil pribadi di jalan tol yang macet. Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City).</p><p>Tujuan pembelajaran: Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000.”.",
+          "Membandingkan temuan dengan capaian “Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xii-03-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Penginderaan Jauh dan SIG untuk Tata Ruang & Transportasi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026",
+          "isi": "<p>Penginderaan Jauh dan SIG untuk Tata Ruang &amp; Transportasi. Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026.</p><p>Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026. Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City). Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi &amp; Smart City 2026. 🚅 Geoteknologi Transportasi 2026: Analisis Spasial Jaringan Kereta Cepat Whoosh Dalam pengoperasian Kereta Cepat Jakarta-Bandung (Whoosh) dengan kelajuan 350 km/jam, analisis geospasial SIG berperan penting tidak hanya pada tahap konstruksi terowongan, tetapi juga pada tahap integrasi multimoda di stasiun (Halim, Karawang, Padalarang, dan Tegalluar). Melalui analisis Pedestrian Service Area SIG (buffer radius 500 meter dan 1.000 meter), perencana kota merancang integrasi halte feeder bus Transjakarta, stasiun LRT Jabodebek, dan KA Feeder Bandung. Penumpang dari pusat Kota Jakarta dapat mencapai pusat Kota Bandung dalam waktu kurang dari 1 jam secara mulus tanpa bergantung pada mobil pribadi di jalan tol yang macet. Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City).</p><p>Tujuan pembelajaran: Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000.",
+          "Mengkaji konteks materi: Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026",
+          "Menghubungkan temuan dengan: Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol.",
+          "Memahami ruang lingkup: Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh & MRT, serta integrasi Smart City perkotaan 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000.”, tujuan kedua “Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol.”, cakupan bab “Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh & MRT, serta integrasi Smart City perkotaan 2026.”, dan bacaan pembuka “Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026”."
+      },
+      {
+        "id": "xii-03-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Penginderaan Jauh dan SIG untuk Tata Ruang & Transportasi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi & Smart City 2026",
+          "isi": "<p>Penginderaan Jauh dan SIG untuk Tata Ruang &amp; Transportasi. Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026.</p><p>Implementasi teknologi geospasial mutakhir: pemanfaatan citra resolusi sangat tinggi dan LiDAR untuk Rencana Detail Tata Ruang (RDTR), pemodelan rute transportasi cerdas Kereta Cepat Whoosh &amp; MRT, serta integrasi Smart City perkotaan 2026. Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City). Topik 1: Citra Resolusi Tinggi, SIG Rute Transportasi &amp; Smart City 2026. 🚅 Geoteknologi Transportasi 2026: Analisis Spasial Jaringan Kereta Cepat Whoosh Dalam pengoperasian Kereta Cepat Jakarta-Bandung (Whoosh) dengan kelajuan 350 km/jam, analisis geospasial SIG berperan penting tidak hanya pada tahap konstruksi terowongan, tetapi juga pada tahap integrasi multimoda di stasiun (Halim, Karawang, Padalarang, dan Tegalluar). Melalui analisis Pedestrian Service Area SIG (buffer radius 500 meter dan 1.000 meter), perencana kota merancang integrasi halte feeder bus Transjakarta, stasiun LRT Jabodebek, dan KA Feeder Bandung. Penumpang dari pusat Kota Jakarta dapat mencapai pusat Kota Bandung dalam waktu kurang dari 1 jam secara mulus tanpa bergantung pada mobil pribadi di jalan tol yang macet. Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p><p>Capaian pembelajaran: Peserta didik mampu menerapkan data penginderaan jauh dan analisis SIG untuk perencanaan tata ruang wilayah, manajemen jaringan transportasi cerdas, serta pengembangan kota pintar (Smart City).</p><p>Tujuan pembelajaran: Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000. Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol. Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum. Mengevaluasi konsep Transit-Oriented Development (TOD) berbasis analisis jangkauan jalan kaki (pedestrian catchment area). Merancang konsep Smart City berbasis integrasi dashboard geospasial IoT di era digital 2026.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis peran citra satelit resolusi sangat tinggi (CSRT) dalam penyusunan Rencana Detail Tata Ruang (RDTR) skala 1:5.000.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menggunakan data Digital Elevation Model (DEM) dan LiDAR untuk perencanaan lereng trase rel kereta cepat dan jalan tol.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menerapkan Network Analysis SIG untuk penentuan rute logistik tercepat dan penetapan lokasi halte feeder transportasi umum.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   }

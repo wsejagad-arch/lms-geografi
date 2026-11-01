@@ -85,7 +85,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Studi Deformasi Pesisir Semarang-Demak",
-          "isi": "<p>Pengukuran satelit radar InSAR dan GPS geodetik menunjukkan penurunan tanah di pesisir Kota Semarang bagian timur dan Demak mencapai 8–12 cm/tahun. Pada saat yang sama, pemantauan sumur pantau Kementerian ESDM mencatat muka air tanah dalam (akuifer tertekan pada kedalaman 100–150 meter) turun hingga 25 meter di bawah permukaan laut.</p>",
+          "isi": "<p>Dinamika Hidrosfer dan Konservasi Sumber Daya Air. Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO.</p><p>Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO. Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia. Topik 1: Siklus Hidrologi Global &amp; Pengelolaan DAS Terpadu. 💧 Studi Kasus Pantura Jawa 2026: Krisis Amblesan Tanah dan Intrusi Air Laut Kawasan pesisir Pantai Utara Jawa (Pantura)—khususnya Kota Semarang, Demak, dan Pekalongan—mengalami musibah ekologis berupa penurunan muka tanah ( land subsidence ) mencapai 10–15 cm per tahun. Akibatnya, jalan raya Pantura, pabrik, dan ribuan rumah warga terendam banjir rob pasang air laut setiap hari. Kajian hidrologi membuktikan bahwa penyebab utama bukanlah murni pemanasan global, melainkan penyedotan air tanah dalam (deep groundwater extraction) secara tak terkendali oleh kawasan industri akibat belum tersedianya pasokan air bersih perpipaan dari pemerintah daerah. Solusi geografis mendesak: menghentikan penyedotan air tanah, merevitalisasi kawasan mangrove, dan membangun waduk penampung air permukaan. Video Pembelajaran: Dinamika Hidrosfer, Air Tanah, Sungai, dan Samudra Eksplorasi siklus air, neraca hidrologi DAS, dinamika air tanah freatik dan artesis, serta oseanografi Indonesia. Topik 2: Oseanografi Kelautan &amp; Zona Batas Maritim UNCLOS 1982. Zona Batas Maritim Indonesia Berdasarkan UNCLOS 1982 Zona Laut Batas Jarak Kedaulatan &amp; Hak Berdaulat Negara Indonesia Laut Teritorial 12 mil laut dari garis pangkal Kedaulatan penuh negara atas air, ruang udara di atasnya, dasar laut, dan tanah di bawahnya (berlaku hak lintas damai kapal asing). Zona Tambahan 24 mil laut dari garis pangkal Yurisdiksi khusus mencegah dan menindak pelanggaran bea cukai, fiskal, imigrasi, dan sanitasi kesehatan karantina. Zona Ekonomi Eksklusif (ZEE) 200 mil laut dari garis pangkal Hak berdaulat eksklusif atas pemanfaatan sumber daya alam perikanan dan energi laut; kapal asing bebas berlayar melintas (freedom of navigation). Landas Kontinen Dasar laut kelanjutan benua hingga 200–350 mil laut Hak berdaulat atas sumber daya mineral minyak bumi, gas alam, dan mineral tambang di</p><p>Capaian pembelajaran: Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia.</p><p>Tujuan pembelajaran: Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS). Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander. Menganalisis jenis-jenis danau (tektonik, vulkanik, karst, bendungan) dan fungsi ekologis lahan gambut. Mengevaluasi krisis penipisan air tanah dalam dan penurunan muka tanah (land subsidence) di Pantai Utara Jawa. Menganalisis relief dasar laut, salinitas, Arus Lintas Indonesia (ARLINDO), serta batas wilayah laut menurut UNCLOS 1982.</p>",
           "sumber": "Badan Geologi & Pusat Air Tanah Kementerian ESDM"
         },
         "pertanyaan": "Analisis manakah yang paling tepat menjelaskan keterkaitan fisik antara kedua fenomena di atas?",
@@ -93,12 +93,128 @@
           "Penyedotan air tanah dalam yang berlebihan menyebabkan tekanan hidrolik pori batuan lempung aluvial menurun drastis, sehingga butiran tanah memadat dan permukaan tanah ambles",
           "Penurunan tanah semata-mata diakibatkan oleh gempa tektonik berkekuatan kecil",
           "Air tanah turun karena mengalir ke kawah gunung api aktif di pegunungan",
-          "Penurunan tanah terjadi karena berat kapal nelayan yang bersandar di pelabuhan"
+          "Penurunan tanah terjadi karena berat kapal nelayan yang bersandar di pelabuhan",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Penurunan muka air tanah dalam akibat ekstraksi industri menghilangkan tekanan air pori (pore water pressure) yang sebelumnya menopang lapisan tanah endapan aluvial lunak. Butiran lempung kemudian mengalami pemadatan (kompaksi) permanen yang memicu amblesan tanah."
+      },
+      {
+        "id": "x-07-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Hidrosfer dan Konservasi Sumber Daya Air",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu",
+          "isi": "<p>Dinamika Hidrosfer dan Konservasi Sumber Daya Air. Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO.</p><p>Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO. Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia. Topik 1: Siklus Hidrologi Global &amp; Pengelolaan DAS Terpadu. 💧 Studi Kasus Pantura Jawa 2026: Krisis Amblesan Tanah dan Intrusi Air Laut Kawasan pesisir Pantai Utara Jawa (Pantura)—khususnya Kota Semarang, Demak, dan Pekalongan—mengalami musibah ekologis berupa penurunan muka tanah ( land subsidence ) mencapai 10–15 cm per tahun. Akibatnya, jalan raya Pantura, pabrik, dan ribuan rumah warga terendam banjir rob pasang air laut setiap hari. Kajian hidrologi membuktikan bahwa penyebab utama bukanlah murni pemanasan global, melainkan penyedotan air tanah dalam (deep groundwater extraction) secara tak terkendali oleh kawasan industri akibat belum tersedianya pasokan air bersih perpipaan dari pemerintah daerah. Solusi geografis mendesak: menghentikan penyedotan air tanah, merevitalisasi kawasan mangrove, dan membangun waduk penampung air permukaan. Video Pembelajaran: Dinamika Hidrosfer, Air Tanah, Sungai, dan Samudra Eksplorasi siklus air, neraca hidrologi DAS, dinamika air tanah freatik dan artesis, serta oseanografi Indonesia. Topik 2: Oseanografi Kelautan &amp; Zona Batas Maritim UNCLOS 1982. Zona Batas Maritim Indonesia Berdasarkan UNCLOS 1982 Zona Laut Batas Jarak Kedaulatan &amp; Hak Berdaulat Negara Indonesia Laut Teritorial 12 mil laut dari garis pangkal Kedaulatan penuh negara atas air, ruang udara di atasnya, dasar laut, dan tanah di bawahnya (berlaku hak lintas damai kapal asing). Zona Tambahan 24 mil laut dari garis pangkal Yurisdiksi khusus mencegah dan menindak pelanggaran bea cukai, fiskal, imigrasi, dan sanitasi kesehatan karantina. Zona Ekonomi Eksklusif (ZEE) 200 mil laut dari garis pangkal Hak berdaulat eksklusif atas pemanfaatan sumber daya alam perikanan dan energi laut; kapal asing bebas berlayar melintas (freedom of navigation). Landas Kontinen Dasar laut kelanjutan benua hingga 200–350 mil laut Hak berdaulat atas sumber daya mineral minyak bumi, gas alam, dan mineral tambang di</p><p>Capaian pembelajaran: Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia.</p><p>Tujuan pembelajaran: Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS). Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander. Menganalisis jenis-jenis danau (tektonik, vulkanik, karst, bendungan) dan fungsi ekologis lahan gambut. Mengevaluasi krisis penipisan air tanah dalam dan penurunan muka tanah (land subsidence) di Pantai Utara Jawa. Menganalisis relief dasar laut, salinitas, Arus Lintas Indonesia (ARLINDO), serta batas wilayah laut menurut UNCLOS 1982.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS). serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS). tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau & lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS).”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "x-07-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Hidrosfer dan Konservasi Sumber Daya Air",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu",
+          "isi": "<p>Dinamika Hidrosfer dan Konservasi Sumber Daya Air. Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO.</p><p>Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO. Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia. Topik 1: Siklus Hidrologi Global &amp; Pengelolaan DAS Terpadu. 💧 Studi Kasus Pantura Jawa 2026: Krisis Amblesan Tanah dan Intrusi Air Laut Kawasan pesisir Pantai Utara Jawa (Pantura)—khususnya Kota Semarang, Demak, dan Pekalongan—mengalami musibah ekologis berupa penurunan muka tanah ( land subsidence ) mencapai 10–15 cm per tahun. Akibatnya, jalan raya Pantura, pabrik, dan ribuan rumah warga terendam banjir rob pasang air laut setiap hari. Kajian hidrologi membuktikan bahwa penyebab utama bukanlah murni pemanasan global, melainkan penyedotan air tanah dalam (deep groundwater extraction) secara tak terkendali oleh kawasan industri akibat belum tersedianya pasokan air bersih perpipaan dari pemerintah daerah. Solusi geografis mendesak: menghentikan penyedotan air tanah, merevitalisasi kawasan mangrove, dan membangun waduk penampung air permukaan. Video Pembelajaran: Dinamika Hidrosfer, Air Tanah, Sungai, dan Samudra Eksplorasi siklus air, neraca hidrologi DAS, dinamika air tanah freatik dan artesis, serta oseanografi Indonesia. Topik 2: Oseanografi Kelautan &amp; Zona Batas Maritim UNCLOS 1982. Zona Batas Maritim Indonesia Berdasarkan UNCLOS 1982 Zona Laut Batas Jarak Kedaulatan &amp; Hak Berdaulat Negara Indonesia Laut Teritorial 12 mil laut dari garis pangkal Kedaulatan penuh negara atas air, ruang udara di atasnya, dasar laut, dan tanah di bawahnya (berlaku hak lintas damai kapal asing). Zona Tambahan 24 mil laut dari garis pangkal Yurisdiksi khusus mencegah dan menindak pelanggaran bea cukai, fiskal, imigrasi, dan sanitasi kesehatan karantina. Zona Ekonomi Eksklusif (ZEE) 200 mil laut dari garis pangkal Hak berdaulat eksklusif atas pemanfaatan sumber daya alam perikanan dan energi laut; kapal asing bebas berlayar melintas (freedom of navigation). Landas Kontinen Dasar laut kelanjutan benua hingga 200–350 mil laut Hak berdaulat atas sumber daya mineral minyak bumi, gas alam, dan mineral tambang di</p><p>Capaian pembelajaran: Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia.</p><p>Tujuan pembelajaran: Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS). Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander. Menganalisis jenis-jenis danau (tektonik, vulkanik, karst, bendungan) dan fungsi ekologis lahan gambut. Mengevaluasi krisis penipisan air tanah dalam dan penurunan muka tanah (land subsidence) di Pantai Utara Jawa. Menganalisis relief dasar laut, salinitas, Arus Lintas Indonesia (ARLINDO), serta batas wilayah laut menurut UNCLOS 1982.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS).”.",
+          "Membandingkan temuan dengan capaian “Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "x-07-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Hidrosfer dan Konservasi Sumber Daya Air",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu",
+          "isi": "<p>Dinamika Hidrosfer dan Konservasi Sumber Daya Air. Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO.</p><p>Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO. Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia. Topik 1: Siklus Hidrologi Global &amp; Pengelolaan DAS Terpadu. 💧 Studi Kasus Pantura Jawa 2026: Krisis Amblesan Tanah dan Intrusi Air Laut Kawasan pesisir Pantai Utara Jawa (Pantura)—khususnya Kota Semarang, Demak, dan Pekalongan—mengalami musibah ekologis berupa penurunan muka tanah ( land subsidence ) mencapai 10–15 cm per tahun. Akibatnya, jalan raya Pantura, pabrik, dan ribuan rumah warga terendam banjir rob pasang air laut setiap hari. Kajian hidrologi membuktikan bahwa penyebab utama bukanlah murni pemanasan global, melainkan penyedotan air tanah dalam (deep groundwater extraction) secara tak terkendali oleh kawasan industri akibat belum tersedianya pasokan air bersih perpipaan dari pemerintah daerah. Solusi geografis mendesak: menghentikan penyedotan air tanah, merevitalisasi kawasan mangrove, dan membangun waduk penampung air permukaan. Video Pembelajaran: Dinamika Hidrosfer, Air Tanah, Sungai, dan Samudra Eksplorasi siklus air, neraca hidrologi DAS, dinamika air tanah freatik dan artesis, serta oseanografi Indonesia. Topik 2: Oseanografi Kelautan &amp; Zona Batas Maritim UNCLOS 1982. Zona Batas Maritim Indonesia Berdasarkan UNCLOS 1982 Zona Laut Batas Jarak Kedaulatan &amp; Hak Berdaulat Negara Indonesia Laut Teritorial 12 mil laut dari garis pangkal Kedaulatan penuh negara atas air, ruang udara di atasnya, dasar laut, dan tanah di bawahnya (berlaku hak lintas damai kapal asing). Zona Tambahan 24 mil laut dari garis pangkal Yurisdiksi khusus mencegah dan menindak pelanggaran bea cukai, fiskal, imigrasi, dan sanitasi kesehatan karantina. Zona Ekonomi Eksklusif (ZEE) 200 mil laut dari garis pangkal Hak berdaulat eksklusif atas pemanfaatan sumber daya alam perikanan dan energi laut; kapal asing bebas berlayar melintas (freedom of navigation). Landas Kontinen Dasar laut kelanjutan benua hingga 200–350 mil laut Hak berdaulat atas sumber daya mineral minyak bumi, gas alam, dan mineral tambang di</p><p>Capaian pembelajaran: Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia.</p><p>Tujuan pembelajaran: Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS). Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander. Menganalisis jenis-jenis danau (tektonik, vulkanik, karst, bendungan) dan fungsi ekologis lahan gambut. Mengevaluasi krisis penipisan air tanah dalam dan penurunan muka tanah (land subsidence) di Pantai Utara Jawa. Menganalisis relief dasar laut, salinitas, Arus Lintas Indonesia (ARLINDO), serta batas wilayah laut menurut UNCLOS 1982.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS).",
+          "Mengkaji konteks materi: Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu",
+          "Menghubungkan temuan dengan: Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander.",
+          "Memahami ruang lingkup: Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau & lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS).”, tujuan kedua “Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander.”, cakupan bab “Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau & lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO.”, dan bacaan pembuka “Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu”."
+      },
+      {
+        "id": "x-07-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Hidrosfer dan Konservasi Sumber Daya Air",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Siklus Hidrologi Global & Pengelolaan DAS Terpadu",
+          "isi": "<p>Dinamika Hidrosfer dan Konservasi Sumber Daya Air. Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO.</p><p>Menguak sirkulasi air bumi: siklus hidrologi, pengelolaan DAS terpadu (Ciliwung vs Sepaku), krisis amblesan tanah Pantura Jawa akibat ekstraksi air tanah dalam, dinamika danau &amp; lahan basah gambut, serta oseanografi kelautan UNCLOS 1982 dan ARLINDO. Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia. Topik 1: Siklus Hidrologi Global &amp; Pengelolaan DAS Terpadu. 💧 Studi Kasus Pantura Jawa 2026: Krisis Amblesan Tanah dan Intrusi Air Laut Kawasan pesisir Pantai Utara Jawa (Pantura)—khususnya Kota Semarang, Demak, dan Pekalongan—mengalami musibah ekologis berupa penurunan muka tanah ( land subsidence ) mencapai 10–15 cm per tahun. Akibatnya, jalan raya Pantura, pabrik, dan ribuan rumah warga terendam banjir rob pasang air laut setiap hari. Kajian hidrologi membuktikan bahwa penyebab utama bukanlah murni pemanasan global, melainkan penyedotan air tanah dalam (deep groundwater extraction) secara tak terkendali oleh kawasan industri akibat belum tersedianya pasokan air bersih perpipaan dari pemerintah daerah. Solusi geografis mendesak: menghentikan penyedotan air tanah, merevitalisasi kawasan mangrove, dan membangun waduk penampung air permukaan. Video Pembelajaran: Dinamika Hidrosfer, Air Tanah, Sungai, dan Samudra Eksplorasi siklus air, neraca hidrologi DAS, dinamika air tanah freatik dan artesis, serta oseanografi Indonesia. Topik 2: Oseanografi Kelautan &amp; Zona Batas Maritim UNCLOS 1982. Zona Batas Maritim Indonesia Berdasarkan UNCLOS 1982 Zona Laut Batas Jarak Kedaulatan &amp; Hak Berdaulat Negara Indonesia Laut Teritorial 12 mil laut dari garis pangkal Kedaulatan penuh negara atas air, ruang udara di atasnya, dasar laut, dan tanah di bawahnya (berlaku hak lintas damai kapal asing). Zona Tambahan 24 mil laut dari garis pangkal Yurisdiksi khusus mencegah dan menindak pelanggaran bea cukai, fiskal, imigrasi, dan sanitasi kesehatan karantina. Zona Ekonomi Eksklusif (ZEE) 200 mil laut dari garis pangkal Hak berdaulat eksklusif atas pemanfaatan sumber daya alam perikanan dan energi laut; kapal asing bebas berlayar melintas (freedom of navigation). Landas Kontinen Dasar laut kelanjutan benua hingga 200–350 mil laut Hak berdaulat atas sumber daya mineral minyak bumi, gas alam, dan mineral tambang di</p><p>Capaian pembelajaran: Peserta didik mampu memahami siklus hidrologi, menganalisis pengelolaan daerah aliran sungai (DAS) dan perairan darat, menganalisis krisis air tanah dan pesisir Pantura, serta memahami potensi oseanografi maritim Indonesia.</p><p>Tujuan pembelajaran: Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS). Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander. Menganalisis jenis-jenis danau (tektonik, vulkanik, karst, bendungan) dan fungsi ekologis lahan gambut. Mengevaluasi krisis penipisan air tanah dalam dan penurunan muka tanah (land subsidence) di Pantai Utara Jawa. Menganalisis relief dasar laut, salinitas, Arus Lintas Indonesia (ARLINDO), serta batas wilayah laut menurut UNCLOS 1982.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menguraikan siklus hidrologi (pendek, sedang, panjang) dan neraca air daerah aliran sungai (DAS).”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Membedakan pola pengaliran sungai (dendritik, trellis, rektangular, radial) dan morfologi meander.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menganalisis jenis-jenis danau (tektonik, vulkanik, karst, bendungan) dan fungsi ekologis lahan gambut.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -184,7 +300,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Program Pengurangan Risiko Bencana di Kabupaten Pesisir",
-          "isi": "<p>Pemerintah kabupaten menjalankan 4 program: (1) Penanaman sabuk hijau mangrove selebar 100 meter di sepanjang garis pantai; (2) Pembangunan shelter evakuasi vertikal bertingkat 4 dari beton bertulang; (3) Pelatihan simulasi evakuasi mandiri siswa sekolah setiap tanggal 26; (4) Penerbitan Perda Zonasi RTRW yang melarang pendirian hotel di sempadan pantai rawan tsunami.</p>",
+          "isi": "<p>Mitigasi dan Adaptasi Bencana Kebumian Indonesia. Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa.</p><p>Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa. Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana. Topik 1: Konsep Risiko Bencana &amp; Siklus Manajemen Penanggulangan. 🛡️ Filosofi Penanggulangan Bencana Modern: Dari Responsif Menuju Preventif Dahulu, penanganan bencana di Indonesia bersifat responsif : pemerintah dan masyarakat baru bertindak setelah bencana terjadi (membagikan mie instan dan mendirikan tenda pengungsian). Namun dalam paradigma geografi kebencanaan modern, fokus utama telah bergeser menjadi Preventif dan Pengurangan Risiko Bencana (PRB) . Setiap $1 yang diinvestasikan untuk mitigasi pra-bencana (seperti sistem peringatan dini, zonasi tata ruang bebas sesar, dan edukasi sekolah siaga bencana) terbukti mampu menghemat hingga $7 biaya pemulihan pasca-bencana dan menyelamatkan ribuan nyawa manusia. Video Pembelajaran: Mitigasi Bencana Kebumian dan InaRISK BNPB Pelajari siklus penanggulangan bencana, peta bahaya InaRISK, dan aksi kesiapsiagaan mandiri. Topik 2: Kearifan Lokal Nusantara &amp; Peringatan Dini Geospasial. Kearifan Lokal Mitigasi Bencana di Berbagai Daerah Smong (Simeulue, Aceh): Tradisi tutur lisan yang mengajarkan evakuasi mandiri ke bukit ketika melihat air laut surut pasca-gempa kuat. Rumah Adat Vernakular Tahan Gempa: Rumah Gadang Minangkabau (sambungan pasak kayu tanpa paku kaku), Omo Hada di Nias, dan Rumah Panggung Sasak yang elastis menyerap getaran seismik. Nyabuk Gunung / Sengkedan (Jawa): Penanaman searah garis kontur untuk mencegah erosi dan longsor di lahan perbukitan. Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi).</p><p>Capaian pembelajaran: Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana.</p><p>Tujuan pembelajaran: Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi). Menganalisis kearifan lokal mitigasi bencana di Nusantara (Smong di Simeulue, Subak di Bali, rumah panggung tradisional).</p>",
           "sumber": "BPBD Kabupaten Pesisir"
         },
         "pertanyaan": "Manakah pasangan klasifikasi mitigasi yang tepat?",
@@ -192,12 +308,128 @@
           "(1) dan (2) adalah mitigasi struktural; (3) dan (4) adalah mitigasi non-struktural",
           "(1) dan (3) adalah mitigasi struktural; (2) dan (4) adalah mitigasi non-struktural",
           "Seluruh program merupakan mitigasi darurat pasca bencana",
-          "(4) adalah satu-satunya mitigasi struktural"
+          "(4) adalah satu-satunya mitigasi struktural",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Mitigasi struktural melibatkan rekayasa fisik/teknik/vegetatif (hutan mangrove dan bangunan shelter). Mitigasi non-struktural melibatkan regulasi hukum, kebijakan tata ruang, edukasi, dan simulasi kesiapsiagaan manusia."
+      },
+      {
+        "id": "x-08-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Mitigasi dan Adaptasi Bencana Kebumian Indonesia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan",
+          "isi": "<p>Mitigasi dan Adaptasi Bencana Kebumian Indonesia. Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa.</p><p>Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa. Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana. Topik 1: Konsep Risiko Bencana &amp; Siklus Manajemen Penanggulangan. 🛡️ Filosofi Penanggulangan Bencana Modern: Dari Responsif Menuju Preventif Dahulu, penanganan bencana di Indonesia bersifat responsif : pemerintah dan masyarakat baru bertindak setelah bencana terjadi (membagikan mie instan dan mendirikan tenda pengungsian). Namun dalam paradigma geografi kebencanaan modern, fokus utama telah bergeser menjadi Preventif dan Pengurangan Risiko Bencana (PRB) . Setiap $1 yang diinvestasikan untuk mitigasi pra-bencana (seperti sistem peringatan dini, zonasi tata ruang bebas sesar, dan edukasi sekolah siaga bencana) terbukti mampu menghemat hingga $7 biaya pemulihan pasca-bencana dan menyelamatkan ribuan nyawa manusia. Video Pembelajaran: Mitigasi Bencana Kebumian dan InaRISK BNPB Pelajari siklus penanggulangan bencana, peta bahaya InaRISK, dan aksi kesiapsiagaan mandiri. Topik 2: Kearifan Lokal Nusantara &amp; Peringatan Dini Geospasial. Kearifan Lokal Mitigasi Bencana di Berbagai Daerah Smong (Simeulue, Aceh): Tradisi tutur lisan yang mengajarkan evakuasi mandiri ke bukit ketika melihat air laut surut pasca-gempa kuat. Rumah Adat Vernakular Tahan Gempa: Rumah Gadang Minangkabau (sambungan pasak kayu tanpa paku kaku), Omo Hada di Nias, dan Rumah Panggung Sasak yang elastis menyerap getaran seismik. Nyabuk Gunung / Sengkedan (Jawa): Penanaman searah garis kontur untuk mencegah erosi dan longsor di lahan perbukitan. Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi).</p><p>Capaian pembelajaran: Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana.</p><p>Tujuan pembelajaran: Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi). Menganalisis kearifan lokal mitigasi bencana di Nusantara (Smong di Simeulue, Subak di Bali, rumah panggung tradisional).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "x-08-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Mitigasi dan Adaptasi Bencana Kebumian Indonesia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan",
+          "isi": "<p>Mitigasi dan Adaptasi Bencana Kebumian Indonesia. Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa.</p><p>Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa. Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana. Topik 1: Konsep Risiko Bencana &amp; Siklus Manajemen Penanggulangan. 🛡️ Filosofi Penanggulangan Bencana Modern: Dari Responsif Menuju Preventif Dahulu, penanganan bencana di Indonesia bersifat responsif : pemerintah dan masyarakat baru bertindak setelah bencana terjadi (membagikan mie instan dan mendirikan tenda pengungsian). Namun dalam paradigma geografi kebencanaan modern, fokus utama telah bergeser menjadi Preventif dan Pengurangan Risiko Bencana (PRB) . Setiap $1 yang diinvestasikan untuk mitigasi pra-bencana (seperti sistem peringatan dini, zonasi tata ruang bebas sesar, dan edukasi sekolah siaga bencana) terbukti mampu menghemat hingga $7 biaya pemulihan pasca-bencana dan menyelamatkan ribuan nyawa manusia. Video Pembelajaran: Mitigasi Bencana Kebumian dan InaRISK BNPB Pelajari siklus penanggulangan bencana, peta bahaya InaRISK, dan aksi kesiapsiagaan mandiri. Topik 2: Kearifan Lokal Nusantara &amp; Peringatan Dini Geospasial. Kearifan Lokal Mitigasi Bencana di Berbagai Daerah Smong (Simeulue, Aceh): Tradisi tutur lisan yang mengajarkan evakuasi mandiri ke bukit ketika melihat air laut surut pasca-gempa kuat. Rumah Adat Vernakular Tahan Gempa: Rumah Gadang Minangkabau (sambungan pasak kayu tanpa paku kaku), Omo Hada di Nias, dan Rumah Panggung Sasak yang elastis menyerap getaran seismik. Nyabuk Gunung / Sengkedan (Jawa): Penanaman searah garis kontur untuk mencegah erosi dan longsor di lahan perbukitan. Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi).</p><p>Capaian pembelajaran: Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana.</p><p>Tujuan pembelajaran: Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi). Menganalisis kearifan lokal mitigasi bencana di Nusantara (Smong di Simeulue, Subak di Bali, rumah panggung tradisional).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas.”.",
+          "Membandingkan temuan dengan capaian “Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "x-08-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Mitigasi dan Adaptasi Bencana Kebumian Indonesia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan",
+          "isi": "<p>Mitigasi dan Adaptasi Bencana Kebumian Indonesia. Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa.</p><p>Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa. Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana. Topik 1: Konsep Risiko Bencana &amp; Siklus Manajemen Penanggulangan. 🛡️ Filosofi Penanggulangan Bencana Modern: Dari Responsif Menuju Preventif Dahulu, penanganan bencana di Indonesia bersifat responsif : pemerintah dan masyarakat baru bertindak setelah bencana terjadi (membagikan mie instan dan mendirikan tenda pengungsian). Namun dalam paradigma geografi kebencanaan modern, fokus utama telah bergeser menjadi Preventif dan Pengurangan Risiko Bencana (PRB) . Setiap $1 yang diinvestasikan untuk mitigasi pra-bencana (seperti sistem peringatan dini, zonasi tata ruang bebas sesar, dan edukasi sekolah siaga bencana) terbukti mampu menghemat hingga $7 biaya pemulihan pasca-bencana dan menyelamatkan ribuan nyawa manusia. Video Pembelajaran: Mitigasi Bencana Kebumian dan InaRISK BNPB Pelajari siklus penanggulangan bencana, peta bahaya InaRISK, dan aksi kesiapsiagaan mandiri. Topik 2: Kearifan Lokal Nusantara &amp; Peringatan Dini Geospasial. Kearifan Lokal Mitigasi Bencana di Berbagai Daerah Smong (Simeulue, Aceh): Tradisi tutur lisan yang mengajarkan evakuasi mandiri ke bukit ketika melihat air laut surut pasca-gempa kuat. Rumah Adat Vernakular Tahan Gempa: Rumah Gadang Minangkabau (sambungan pasak kayu tanpa paku kaku), Omo Hada di Nias, dan Rumah Panggung Sasak yang elastis menyerap getaran seismik. Nyabuk Gunung / Sengkedan (Jawa): Penanaman searah garis kontur untuk mencegah erosi dan longsor di lahan perbukitan. Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi).</p><p>Capaian pembelajaran: Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana.</p><p>Tujuan pembelajaran: Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi). Menganalisis kearifan lokal mitigasi bencana di Nusantara (Smong di Simeulue, Subak di Bali, rumah panggung tradisional).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas.",
+          "Mengkaji konteks materi: Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan",
+          "Menghubungkan temuan dengan: Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana.",
+          "Memahami ruang lingkup: Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas.”, tujuan kedua “Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana.”, cakupan bab “Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa.”, dan bacaan pembuka “Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan”."
+      },
+      {
+        "id": "x-08-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Mitigasi dan Adaptasi Bencana Kebumian Indonesia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Konsep Risiko Bencana & Siklus Manajemen Penanggulangan",
+          "isi": "<p>Mitigasi dan Adaptasi Bencana Kebumian Indonesia. Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa.</p><p>Membangun ketangguhan bangsa: profil kerentanan bencana Indonesia, siklus manajemen bencana komprehensif, platform geospasial InaRISK BNPB, sistem peringatan dini (EWS), serta kearifan lokal Smong Simeulue dan arsitektur vernakular tahan gempa. Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana. Topik 1: Konsep Risiko Bencana &amp; Siklus Manajemen Penanggulangan. 🛡️ Filosofi Penanggulangan Bencana Modern: Dari Responsif Menuju Preventif Dahulu, penanganan bencana di Indonesia bersifat responsif : pemerintah dan masyarakat baru bertindak setelah bencana terjadi (membagikan mie instan dan mendirikan tenda pengungsian). Namun dalam paradigma geografi kebencanaan modern, fokus utama telah bergeser menjadi Preventif dan Pengurangan Risiko Bencana (PRB) . Setiap $1 yang diinvestasikan untuk mitigasi pra-bencana (seperti sistem peringatan dini, zonasi tata ruang bebas sesar, dan edukasi sekolah siaga bencana) terbukti mampu menghemat hingga $7 biaya pemulihan pasca-bencana dan menyelamatkan ribuan nyawa manusia. Video Pembelajaran: Mitigasi Bencana Kebumian dan InaRISK BNPB Pelajari siklus penanggulangan bencana, peta bahaya InaRISK, dan aksi kesiapsiagaan mandiri. Topik 2: Kearifan Lokal Nusantara &amp; Peringatan Dini Geospasial. Kearifan Lokal Mitigasi Bencana di Berbagai Daerah Smong (Simeulue, Aceh): Tradisi tutur lisan yang mengajarkan evakuasi mandiri ke bukit ketika melihat air laut surut pasca-gempa kuat. Rumah Adat Vernakular Tahan Gempa: Rumah Gadang Minangkabau (sambungan pasak kayu tanpa paku kaku), Omo Hada di Nias, dan Rumah Panggung Sasak yang elastis menyerap getaran seismik. Nyabuk Gunung / Sengkedan (Jawa): Penanaman searah garis kontur untuk mencegah erosi dan longsor di lahan perbukitan. Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi).</p><p>Capaian pembelajaran: Peserta didik mampu memahami konsep ancaman, kerentanan, kapasitas, dan risiko bencana; menganalisis siklus manajemen penanggulangan bencana; memanfaatkan data geospasial mitigasi bencana; serta menerapkan kearifan lokal dan aksi kesiapsiagaan menghadapi bencana.</p><p>Tujuan pembelajaran: Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas. Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana. Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah. Membedakan mitigasi struktural (tanggul, shelter evakuasi, bangunan tahan gempa) dan mitigasi non-struktural (kebijakan zonasi, edukasi, simulasi). Menganalisis kearifan lokal mitigasi bencana di Nusantara (Smong di Simeulue, Subak di Bali, rumah panggung tradisional).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menjelaskan rumus matematis risiko bencana: Risiko = (Bahaya × Kerentanan) / Kapasitas.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menguraikan siklus manajemen penanggulangan bencana: pra-bencana, saat tanggap darurat, dan pasca-bencana.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Memanfaatkan platform digital WebGIS InaRISK BNPB untuk mengidentifikasi tingkat risiko bencana di lingkungan sekolah.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   }

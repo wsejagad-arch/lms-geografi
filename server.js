@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const Redis = require('ioredis');
 const fs = require('fs/promises');
 const path = require('path');
+const whatsappSender = require('./whatsapp-sender');
 
 const app = express();
 const DB_PATH = process.env.LMS_DB_PATH || path.join(__dirname, 'data', 'db.json');
@@ -72,7 +73,7 @@ async function loadDB() {
   try {
     const data = await fs.readFile(DB_PATH, 'utf-8');
     const db = JSON.parse(data);
-    ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams', 'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts', 'session_logs'].forEach(k => {
+    ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams', 'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts', 'session_logs', 'activity_logs', 'whatsapp_jobs'].forEach(k => {
       if (!Array.isArray(db[k])) db[k] = [];
     });
     return db;
@@ -92,7 +93,10 @@ async function loadDB() {
       attendance: [],
       schedules: [],
       progress: [],
-      attempts: []
+      attempts: [],
+      session_logs: [],
+      activity_logs: [],
+      whatsapp_jobs: []
     };
   }
 }
@@ -197,7 +201,76 @@ function touchSession(db, req, user) {
   return rec;
 }
 
-// Siswa hanya boleh menyentuh endpoint baca miliknya sendiri + submit nilai.
+function makeActivityRecord(db, req, user, aksi, detail = '') {
+  const student = user.role === 'student'
+    ? db.students.find(s => s.id === studentIdOf(db, user))
+    : null;
+  const kelas = student && db.classes.find(c => c.id === student.class_id);
+  const meta = clientMeta(req);
+  return {
+    id: uuidv4(),
+    tenant_id: req.session?.tenantId || user.tenant_id || (student && student.tenant_id) || null,
+    user_id: user.id,
+    student_id: student ? student.id : null,
+    nama: (student && student.nama) || user.nama || user.email || '',
+    role: user.role || '',
+    nis: student ? student.nis || '' : '',
+    kelas_nama: kelas ? kelas.nama : '',
+    aksi,
+    detail,
+    path: String(req.path || '').slice(0, 180),
+    ip: meta.ip,
+    ua: meta.ua,
+    created_at: new Date().toISOString()
+  };
+}
+
+function activityForMutation(req, responseBody) {
+  const pathname = String(req.path || '');
+  const bab = pathname.match(/^\/api\/kurikulum\/([^/]+)\/evaluasi$/);
+  if (pathname === '/api/me/password') return { aksi: 'Mengganti password', detail: 'Password akun diperbarui' };
+  if (bab) {
+    const score = Number(responseBody && responseBody.score);
+    return {
+      aksi: 'Mengerjakan evaluasi materi',
+      detail: `Materi ${decodeURIComponent(bab[1])}${Number.isFinite(score) ? ` · nilai ${score}` : ''}`
+    };
+  }
+  if (/^\/api\/kurikulum\/[^/]+\/progress$/.test(pathname)) {
+    return { aksi: 'Menyimpan progres belajar', detail: `Materi ${pathname.split('/')[3]}` };
+  }
+  const exam = pathname.match(/^\/api\/exams\/([^/]+)\/submit$/);
+  if (exam) {
+    const score = Number(responseBody && responseBody.nilai);
+    return {
+      aksi: 'Mengumpulkan ujian',
+      detail: `Ujian ${decodeURIComponent(exam[1])}${Number.isFinite(score) ? ` · nilai ${score}` : ''}`
+    };
+  }
+  if (/^\/api\/students\/[^/]+\/reset-password$/.test(pathname)
+    || pathname === '/api/students/reset-passwords') {
+    return { aksi: 'Mereset password siswa', detail: 'Reset password dilakukan oleh admin' };
+  }
+  const section = pathname.replace(/^\/api\//, '').split('/')[0] || 'data';
+  const verbs = { POST: 'Menambahkan data', PUT: 'Mengubah data', PATCH: 'Mengubah data', DELETE: 'Menghapus data' };
+  return { aksi: verbs[req.method] || 'Memperbarui data', detail: section };
+}
+
+let activityWriteQueue = Promise.resolve();
+function persistActivity(record) {
+  const previousWrite = activityWriteQueue.catch(error => {
+    console.error('Log aktivitas sebelumnya gagal disimpan:', error);
+  });
+  activityWriteQueue = previousWrite.then(async () => {
+    const db = await loadDB();
+    if (!Array.isArray(db.activity_logs)) db.activity_logs = [];
+    db.activity_logs.push(record);
+    await saveDB(db);
+  });
+  return activityWriteQueue;
+}
+
+// Siswa hanya boleh membaca datanya sendiri, menyimpan progres belajar, dan mengirim nilai.
 const STUDENT_ROUTES = [
   ['GET', /^\/api\/me$/],
   ['POST', /^\/api\/me\/password$/],
@@ -208,6 +281,8 @@ const STUDENT_ROUTES = [
   ['GET', /^\/api\/attendance$/],
   ['GET', /^\/api\/assignments$/],
   ['GET', /^\/api\/kurikulum(\/[^/]+)?$/],
+  ['GET', /^\/api\/kurikulum\/peringkat$/],
+  ['PUT', /^\/api\/kurikulum\/[^/]+\/progress$/],
   ['POST', /^\/api\/kurikulum\/[^/]+\/evaluasi$/],
   ['POST', /^\/api\/kurikulum\/naik-kelas$/]
 ];
@@ -336,6 +411,25 @@ async function requireTenant(req, res, next) {
   req.tenantId = req.session.tenantId;
   next();
 }
+
+app.use('/api', (req, res, next) => {
+  if (!['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) return next();
+  const sendJson = res.json.bind(res);
+  res.json = body => {
+    if (!req.user || res.statusCode >= 400) return sendJson(body);
+    const event = activityForMutation(req, body);
+    const record = makeActivityRecord(req.db || { students: [], classes: [] }, req, req.user, event.aksi, event.detail);
+    persistActivity(record).then(
+      () => sendJson(body),
+      error => {
+        console.error('Gagal menyimpan log aktivitas:', error);
+        sendJson(body);
+      }
+    );
+    return res;
+  };
+  next();
+});
 
 // ===== TENANT MANAGEMENT =====
 app.post('/api/tenants', requireAuth, requireAdmin, async (req, res) => {
@@ -853,21 +947,76 @@ app.put('/api/materials/:id', requireAuth, requireAdmin, requireTenant, async (r
 });
 
 // ===== SEMESTER AKTIF TENANT =====
+function currentAcademicYear(date = new Date()) {
+  const startYear = date.getMonth() >= 6 ? date.getFullYear() : date.getFullYear() - 1;
+  return `${startYear}/${startYear + 1}`;
+}
+
+function normalizeAcademicYear(value) {
+  const match = String(value || '').trim().match(/^(\d{4})\/(\d{4})$/);
+  if (!match || Number(match[2]) !== Number(match[1]) + 1) return null;
+  return `${match[1]}/${match[2]}`;
+}
+
 app.get('/api/admin/semester-aktif', requireAuth, requireTenant, async (req, res) => {
   const db = await loadDB();
   const tenant = db.tenants.find(t => t.id === req.tenantId);
-  res.json({ semester_aktif: tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1 });
+  if (!tenant) return res.status(404).json({ error: 'Tenant tidak ditemukan' });
+  const activeYear = normalizeAcademicYear(tenant.tahun_pelajaran_aktif) || currentAcademicYear();
+  const years = Array.isArray(tenant.tahun_pelajaran)
+    ? tenant.tahun_pelajaran.map(normalizeAcademicYear).filter(Boolean)
+    : [];
+  if (!years.includes(activeYear)) years.push(activeYear);
+  res.json({
+    semester_aktif: Number(tenant.semester_aktif) === 2 ? 2 : 1,
+    tahun_pelajaran_aktif: activeYear,
+    tahun_pelajaran_options: [...new Set(years)]
+  });
 });
 
 app.post('/api/admin/semester-aktif', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = await loadDB();
   const tenant = db.tenants.find(t => t.id === req.tenantId);
   if (!tenant) return res.status(404).json({ error: 'Tenant tidak ditemukan' });
-  const sem = Number(req.body.semester) === 2 ? 2 : 1;
-  tenant.semester_aktif = sem;
+  const body = req.body || {};
+  if (body.semester !== undefined && ![1, 2].includes(Number(body.semester))) {
+    return res.status(400).json({ error: 'Semester harus 1 atau 2' });
+  }
+  const requestedYear = body.tahun_pelajaran_aktif === undefined
+    ? null
+    : normalizeAcademicYear(body.tahun_pelajaran_aktif);
+  const addedYear = body.tambah_tahun_pelajaran === undefined
+    ? null
+    : normalizeAcademicYear(body.tambah_tahun_pelajaran);
+  if (body.tahun_pelajaran_aktif !== undefined && !requestedYear) {
+    return res.status(400).json({ error: 'Format tahun pelajaran tidak valid. Gunakan format YYYY/YYYY.' });
+  }
+  if (body.tambah_tahun_pelajaran !== undefined && !addedYear) {
+    return res.status(400).json({ error: 'Tahun baru tidak valid. Gunakan format YYYY/YYYY berurutan.' });
+  }
+
+  const years = Array.isArray(tenant.tahun_pelajaran)
+    ? tenant.tahun_pelajaran.map(normalizeAcademicYear).filter(Boolean)
+    : [];
+  const previousActiveYear = normalizeAcademicYear(tenant.tahun_pelajaran_aktif) || currentAcademicYear();
+  if (!years.includes(previousActiveYear)) years.push(previousActiveYear);
+  if (addedYear && !years.includes(addedYear)) years.push(addedYear);
+  if (requestedYear && !years.includes(requestedYear)) {
+    return res.status(400).json({ error: 'Tahun pelajaran belum terdaftar. Tambahkan terlebih dahulu.' });
+  }
+
+  if (body.semester !== undefined) tenant.semester_aktif = Number(body.semester);
+  tenant.tahun_pelajaran = [...new Set(years)];
+  if (addedYear) tenant.tahun_pelajaran_aktif = addedYear;
+  else if (requestedYear) tenant.tahun_pelajaran_aktif = requestedYear;
   await saveDB(db);
   await cacheDel(`dashboard:${req.tenantId}`);
-  res.json({ success: true, semester_aktif: sem });
+  res.json({
+    success: true,
+    semester_aktif: Number(tenant.semester_aktif) === 2 ? 2 : 1,
+    tahun_pelajaran_aktif: tenant.tahun_pelajaran_aktif || previousActiveYear,
+    tahun_pelajaran_options: tenant.tahun_pelajaran
+  });
 });
 
 app.delete('/api/materials/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
@@ -1105,8 +1254,55 @@ app.get('/api/grades', requireAuth, requireTenant, async (req, res) => {
       class_nama: classItem ? classItem.nama : '-'
     };
   });
+
+  const geografi = db.subjects.find(s => s.tenant_id === req.tenantId && /geografi/i.test(s.nama || ''));
+  const { getBabTitle, summarizeAttempts } = require('./kurikulum');
+  const attemptsByMaterial = new Map();
+  db.attempts
+    .filter(a => a.tenant_id === req.tenantId
+      && (!own || a.student_id === own)
+      && (!student_id || a.student_id === student_id)
+      && (!subject_id || (geografi && geografi.id === subject_id)))
+    .forEach(attempt => {
+      const key = `${attempt.student_id}:${attempt.level}:${attempt.bab_id}`;
+      if (!attemptsByMaterial.has(key)) attemptsByMaterial.set(key, []);
+      attemptsByMaterial.get(key).push(attempt);
+    })
+  const curriculumGrades = [...attemptsByMaterial.values()].map(attempts => {
+    const summary = summarizeAttempts(attempts);
+    const latestAttempt = attempts.reduce((latest, attempt) =>
+      new Date(attempt.created_at) > new Date(latest.created_at) ? attempt : latest
+    );
+    const student = db.students.find(s => s.id === latestAttempt.student_id);
+    const classItem = student && db.classes.find(c => c.id === student.class_id);
+    const title = getBabTitle(latestAttempt.bab_id, latestAttempt.level) || latestAttempt.bab_id;
+    const penaltyText = summary.penalty_count
+      ? `dikurangi ${summary.penalty_count} poin dari ${summary.penalty_count} pengulangan bernilai lebih rendah`
+      : 'tanpa pengurangan nilai';
+    const catatan = `${title} · nilai tertinggi ${summary.highest_score} pada pengulangan ke-${summary.highest_attempt} · ${penaltyText} · nilai akhir ${summary.best_score}`;
+    if (class_id && (!classItem || classItem.id !== class_id)) return null;
+    return {
+      id: `kurikulum-${latestAttempt.student_id}-${latestAttempt.level}-${latestAttempt.bab_id}`,
+      tenant_id: latestAttempt.tenant_id,
+      student_id: latestAttempt.student_id,
+      class_id: student ? student.class_id : null,
+      subject_id: geografi ? geografi.id : null,
+      nilai: summary.best_score,
+      nilai_tertinggi: summary.highest_score,
+      percobaan_nilai_tertinggi: summary.highest_attempt,
+      pengurangan_nilai: summary.penalty_count,
+      jumlah_percobaan: summary.attempts,
+      kkm: 75,
+      tipe: 'Materi Evaluasi',
+      catatan,
+      created_at: latestAttempt.created_at,
+      student_nama: student ? student.nama : '-',
+      subject_nama: geografi ? geografi.nama : 'Geografi',
+      class_nama: classItem ? classItem.nama : '-'
+    };
+  }).filter(Boolean);
   
-  res.json(enriched.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+  res.json([...enriched, ...curriculumGrades].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 });
 
 app.post('/api/grades', requireAuth, requireAdmin, requireTenant, async (req, res) => {
@@ -1169,6 +1365,15 @@ app.delete('/api/grades/:id', requireAuth, requireAdmin, requireTenant, async (r
   }
   
   res.json({ success: true });
+});
+
+app.get('/api/admin/activity-log', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const events = (db.activity_logs || [])
+    .filter(event => event.tenant_id === req.tenantId)
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    .slice(0, 1000);
+  res.json({ events });
 });
 
 // ===== DASHBOARD =====
@@ -1326,6 +1531,7 @@ app.post('/api/login', async (req, res) => {
   req.session.tenantId = user.tenant_id;
   req.session.sid = uuidv4();
   touchSession(db, req, user);
+  db.activity_logs.push(makeActivityRecord(db, req, user, 'Login berhasil', 'Sesi dimulai'));
   await saveDB(db);
   
   res.json({
@@ -1338,6 +1544,58 @@ app.post('/api/login', async (req, res) => {
 });
 
 // Student login with username/password
+// ===== HELPER LOGIN =====
+// Siswa bisa dikenali lewat username, NIS, NISN, atau email.
+function findStudentByIdentifier(db, identifier) {
+  const ident = String(identifier || '').trim();
+  if (!ident) return null;
+  const needle = ident.toLowerCase();
+  return db.students.find(s => s.tenant_id && (
+    String(s.username || '').trim().toLowerCase() === needle
+    || String(s.nis || '').trim() === ident
+    || String(s.nisn || '').trim() === ident
+    || (s.email && String(s.email).trim().toLowerCase() === needle)
+  )) || null;
+}
+
+// Staf (super_admin/admin/teacher) dikenali lewat email atau username.
+function findStaffByIdentifier(db, identifier) {
+  const needle = String(identifier || '').trim().toLowerCase();
+  if (!needle) return null;
+  return db.users.find(u => u.role !== 'student' && (
+    (u.email && String(u.email).trim().toLowerCase() === needle)
+    || (u.username && String(u.username).trim().toLowerCase() === needle)
+  )) || null;
+}
+
+// Verifikasi password siswa; buat baris users bila belum ada. null = password salah.
+async function verifyStudentPassword(db, student, password) {
+  const plain = String(password || '');
+  let user = db.users.find(u => u.role === 'student' && u.id === student.user_id)
+    || (student.email ? db.users.find(u => u.email === student.email && u.role === 'student') : null);
+
+  if (user) {
+    return bcrypt.compareSync(plain, user.password) ? user : null;
+  }
+  if (!student.password || !bcrypt.compareSync(plain, student.password)) return null;
+
+  user = {
+    id: uuidv4(),
+    email: student.email || `${student.nis}@siswa.local`,
+    password: student.password,
+    nama: student.nama,
+    role: 'student',
+    tenant_id: student.tenant_id,
+    student_id: student.id,
+    password_changed_at: student.password_changed_at || null,
+    created_at: new Date().toISOString()
+  };
+  db.users.push(user);
+  student.user_id = user.id;
+  await saveDB(db);
+  return user;
+}
+
 app.post('/api/student/login', async (req, res) => {
   const { username, password } = req.body;
   const lockKey = await guardLogin(req, res, username);
@@ -1345,37 +1603,15 @@ app.post('/api/student/login', async (req, res) => {
 
   const db = await loadDB();
 
-  // Find student by username, email, atau NIS
-  const student = db.students.find(s => (s.username === username || s.email === username || s.nis === username) && s.tenant_id);
+  const student = findStudentByIdentifier(db, username);
   if (!student) {
     bcrypt.compareSync(String(password || ''), DUMMY_HASH);
     await loginFail(lockKey);
     return res.status(401).json({ error: 'Username atau password salah' });
   }
 
-  // Akun login: pakai baris users bila sudah ada, kalau belum pakai hash di data siswa
-  let user = db.users.find(u => u.role === 'student' && u.id === student.user_id)
-    || (student.email ? db.users.find(u => u.email === student.email && u.role === 'student') : null);
-
+  const user = await verifyStudentPassword(db, student, password);
   if (!user) {
-    if (!student.password || !bcrypt.compareSync(String(password || ''), student.password)) {
-      await loginFail(lockKey);
-      return res.status(401).json({ error: 'Username atau password salah' });
-    }
-    user = {
-      id: uuidv4(),
-      email: student.email || `${student.nis}@siswa.local`,
-      password: student.password,
-      nama: student.nama,
-      role: 'student',
-      tenant_id: student.tenant_id,
-      student_id: student.id,
-      created_at: new Date().toISOString()
-    };
-    db.users.push(user);
-    student.user_id = user.id;
-    await saveDB(db);
-  } else if (!bcrypt.compareSync(String(password || ''), user.password)) {
     await loginFail(lockKey);
     return res.status(401).json({ error: 'Username atau password salah' });
   }
@@ -1388,6 +1624,7 @@ app.post('/api/student/login', async (req, res) => {
   req.session.tenantId = student.tenant_id;
   req.session.sid = uuidv4();
   touchSession(db, req, user);
+  db.activity_logs.push(makeActivityRecord(db, req, user, 'Login berhasil', 'Sesi siswa dimulai'));
   await saveDB(db);
   
   res.json({
@@ -1399,6 +1636,60 @@ app.post('/api/student/login', async (req, res) => {
     class_id: student.class_id,
     nis: student.nis
   });
+});
+
+// Login tunggal: satu form untuk semua peran, jenis akun dideteksi otomatis.
+app.post('/api/auth/login', async (req, res) => {
+  const body = req.body || {};
+  const identifier = String(body.identifier ?? body.email ?? body.username ?? '').trim();
+  const password = String(body.password || '');
+  const lockKey = await guardLogin(req, res, identifier);
+  if (!lockKey) return;
+
+  const db = await loadDB();
+  const staff = findStaffByIdentifier(db, identifier);
+  let student = null;
+  let user = null;
+
+  if (staff) {
+    if (!bcrypt.compareSync(password, staff.password)) {
+      await loginFail(lockKey);
+      return res.status(401).json({ error: 'Identitas atau password salah' });
+    }
+    user = staff;
+  } else {
+    student = findStudentByIdentifier(db, identifier);
+    user = student ? await verifyStudentPassword(db, student, password) : null;
+    if (!user) {
+      if (!student) bcrypt.compareSync(password, DUMMY_HASH);
+      await loginFail(lockKey);
+      return res.status(401).json({ error: 'Identitas atau password salah' });
+    }
+  }
+
+  await loginSuccess(lockKey);
+  req.session.userId = user.id;
+  req.session.role = user.role;
+  req.session.nama = student ? student.nama : user.nama;
+  req.session.tenantId = user.tenant_id;
+  req.session.sid = uuidv4();
+  touchSession(db, req, user);
+  db.activity_logs.push(makeActivityRecord(db, req, user, 'Login berhasil', 'Sesi dimulai'));
+  await saveDB(db);
+
+  const payload = {
+    id: user.id,
+    nama: req.session.nama,
+    role: user.role,
+    tenant_id: user.tenant_id
+  };
+  if (user.email) payload.email = user.email;
+  if (student) {
+    payload.student_id = student.id;
+    payload.class_id = student.class_id;
+    payload.nis = student.nis;
+  }
+  res.json(payload);
 });
 
 // Ganti password sendiri (semua role; siswa diizinkan lewat allowlist).
@@ -1418,8 +1709,12 @@ app.post('/api/me/password', requireAuth, async (req, res) => {
   }
 
   user.password = bcrypt.hashSync(String(new_password), 10);
+  user.password_changed_at = new Date().toISOString();
   const student = db.students.find(s => s.user_id === user.id || (user.student_id && s.id === user.student_id));
-  if (student) student.password = user.password;
+  if (student) {
+    student.password = user.password;
+    student.password_changed_at = user.password_changed_at;
+  }
   await saveDB(db);
 
   res.json({ success: true });
@@ -1434,8 +1729,12 @@ app.post('/api/students/:id/reset-password', requireAuth, requireAdmin, requireT
   const plain = generatePassword();
   const hash = bcrypt.hashSync(plain, 10);
   student.password = hash;
+  delete student.password_changed_at;
   const linked = db.users.find(u => u.role === 'student' && (u.id === student.user_id || (student.email && u.email === student.email)));
-  if (linked) linked.password = hash;
+  if (linked) {
+    linked.password = hash;
+    delete linked.password_changed_at;
+  }
   await saveDB(db);
 
   res.json({ success: true, id: student.id, nis: student.nis, username: student.username || student.email || student.nis, password: plain });
@@ -1452,8 +1751,12 @@ app.post('/api/students/reset-passwords', requireAuth, requireAdmin, requireTena
     const plain = generatePassword();
     const hash = bcrypt.hashSync(plain, 10);
     student.password = hash;
+    delete student.password_changed_at;
     const linked = db.users.find(u => u.role === 'student' && (u.id === student.user_id || (student.email && u.email === student.email)));
-    if (linked) linked.password = hash;
+    if (linked) {
+      linked.password = hash;
+      delete linked.password_changed_at;
+    }
     return { nis: student.nis, username: student.username || student.email || student.nis, password: plain };
   });
 
@@ -1469,6 +1772,8 @@ app.post('/api/logout', async (req, res) => {
     if (rec) {
       rec.active = false;
       rec.logout_at = new Date().toISOString();
+      const user = db.users.find(item => item.id === rec.user_id);
+      if (user) db.activity_logs.push(makeActivityRecord(db, req, user, 'Logout', 'Sesi berakhir'));
       await saveDB(db);
     }
   }
@@ -1497,6 +1802,7 @@ app.get('/api/me', async (req, res) => {
       (s.user_id === user.id || s.id === user.student_id || (user.email && s.email === user.email))
     );
     if (student) {
+      resp.password_changed_at = user.password_changed_at || student.password_changed_at || null;
       const classItem = db.classes.find(c => c.id === student.class_id);
       resp.student_id = student.id;
       resp.class_id = student.class_id;
@@ -1504,6 +1810,8 @@ app.get('/api/me', async (req, res) => {
       resp.kelas_nama = classItem ? classItem.nama : '-';
       resp.kelas_level = String(student.kelas_level || (classItem && classItem.tingkat) || '').toUpperCase();
     }
+  } else {
+    resp.password_changed_at = user.password_changed_at || null;
   }
   
   res.json(resp);
@@ -1831,11 +2139,22 @@ require('./kurikulum').registerKurikulum(app, {
   requireAdmin,
   cacheDel
 });
+whatsappSender.registerWhatsAppRoutes(app, {
+  loadDB,
+  saveDB,
+  requireAuth,
+  requireAdmin,
+  requireTenant
+});
 
 const PORT = process.env.PORT || 3000;
 (async () => {
   await initDB();
   app.listen(PORT, () => {
     console.log(`LMS Multi-Tenant running on http://localhost:${PORT}`);
+  });
+  whatsappSender.startScheduler(loadDB, saveDB);
+  whatsappSender.initializeWhatsApp(loadDB, saveDB).catch(error => {
+    console.error('WhatsApp sender gagal diinisialisasi:', error);
   });
 })();

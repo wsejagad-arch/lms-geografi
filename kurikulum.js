@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const KKM = 75;
 const LEVELS = ['X', 'XI', 'XII'];
+const QUESTION_TYPES = ['pgm', 'pg_singkat', 'pg_kompleks', 'menjodohkan', 'benar_salah'];
 const CONTENT_DIR = path.join(__dirname, 'data', 'kurikulum');
 
 const contentCache = new Map();
@@ -39,6 +40,12 @@ function loadLevel(level) {
   return babs;
 }
 
+function getBabTitle(babId, level) {
+  if (!LEVELS.includes(String(level || '').toUpperCase())) return null;
+  const bab = loadLevel(String(level).toUpperCase()).find(item => item.id === babId);
+  return bab ? bab.judul : null;
+}
+
 function publicBab(bab) {
   return {
     ...bab,
@@ -60,6 +67,7 @@ function gradeSoal(soal, jawaban) {
   switch (soal.tipe) {
     case 'pgm':
     case 'pg_singkat':
+    case 'pgm':
       return Number(jawaban) === Number(soal.kunci[0]) ? 1 : 0;
     case 'pg_kompleks':
       return sameSet(Array.isArray(jawaban) ? jawaban : [jawaban], soal.kunci) ? 1 : 0;
@@ -82,6 +90,31 @@ function gradeSoal(soal, jawaban) {
   }
 }
 
+function validQuestion(soal) {
+  if (!soal || !QUESTION_TYPES.includes(soal.tipe) || !String(soal.pertanyaan || '').trim()) return false;
+  const key = Array.isArray(soal.kunci) ? soal.kunci : [];
+  const text = value => String(value || '').replace(/<[^>]*>/g, ' ').replace(/&[a-z0-9#]+;/gi, ' ').replace(/\s+/g, ' ').trim();
+  if (text(soal.stimulus && soal.stimulus.isi).length < 800 || text(soal.pembahasan).length < 80) return false;
+  const validIndices = (values, size) => values.length > 0
+    && values.every(value => Number.isInteger(Number(value)) && Number(value) >= 0 && Number(value) < size);
+
+  if (soal.tipe === 'pg_singkat' || soal.tipe === 'pgm') {
+    return Array.isArray(soal.opsi) && soal.opsi.length === 5 && key.length === 1
+      && validIndices(key, soal.opsi.length);
+  }
+  if (soal.tipe === 'pg_kompleks') {
+    return Array.isArray(soal.opsi) && soal.opsi.length === 5 && key.length >= 2
+      && validIndices(key, soal.opsi.length);
+  }
+  if (soal.tipe === 'benar_salah') {
+    return Array.isArray(soal.pernyataan) && soal.pernyataan.length >= 2
+      && key.length === soal.pernyataan.length && key.every(value => value === 'B' || value === 'S');
+  }
+  return Array.isArray(soal.kiri) && soal.kiri.length >= 2
+    && Array.isArray(soal.kanan) && soal.kanan.length >= 2
+    && key.length === soal.kiri.length && validIndices(key, soal.kanan.length);
+}
+
 function resolveStudent(db, user) {
   if (!user || user.role !== 'student') return null;
   return db.students.find(s =>
@@ -99,6 +132,80 @@ function studentLevel(db, student) {
 
 function progressOf(db, student, babId) {
   return db.progress.find(p => p.student_id === student.id && p.bab_id === babId) || null;
+}
+
+function summarizeAttempts(attempts) {
+  if (!attempts.length) {
+    return { attempts: 0, highest_score: null, highest_attempt: null, penalty_count: 0, best_score: null };
+  }
+
+  const ordered = attempts.slice().sort((a, b) => Number(a.ke) - Number(b.ke));
+  let highestScore = -1;
+  let highestAttempt = null;
+  let penaltyCount = 0;
+  ordered.forEach(attempt => {
+    const score = Number(attempt.score) || 0;
+    if (highestAttempt !== null && score < highestScore) penaltyCount++;
+    if (score > highestScore) {
+      highestScore = score;
+      highestAttempt = Number(attempt.ke);
+    }
+  });
+
+  return {
+    attempts: ordered.length,
+    highest_score: highestScore,
+    highest_attempt: highestAttempt,
+    penalty_count: penaltyCount,
+    best_score: Math.max(0, Math.round((highestScore - penaltyCount) * 10) / 10)
+  };
+}
+
+function sanitizeDraftAnswers(soalList, answers) {
+  const clean = {};
+  if (!answers || typeof answers !== 'object' || Array.isArray(answers)) return clean;
+
+  soalList.forEach(soal => {
+    const answer = answers[soal.id];
+    if (soal.tipe === 'pg_singkat' || soal.tipe === 'pgm') {
+      if (Number.isInteger(answer) && answer >= 0 && answer < (soal.opsi || []).length) clean[soal.id] = answer;
+    } else if (soal.tipe === 'pg_kompleks') {
+      const valid = Array.isArray(answer)
+        ? [...new Set(answer.filter(value => Number.isInteger(value) && value >= 0 && value < (soal.opsi || []).length))]
+        : [];
+      if (valid.length) clean[soal.id] = valid;
+    } else if (soal.tipe === 'benar_salah') {
+      if (Array.isArray(answer)) {
+        const valid = Array.from({ length: (soal.pernyataan || []).length }, (_, index) =>
+          answer[index] === 'B' || answer[index] === 'S' ? answer[index] : null
+        );
+        if (valid.some(value => value !== null)) clean[soal.id] = valid;
+      }
+    } else if (soal.tipe === 'menjodohkan' && Array.isArray(answer)) {
+      const valid = Array.from({ length: (soal.kiri || []).length }, (_, index) =>
+        Number.isInteger(answer[index]) && answer[index] >= 0 && answer[index] < (soal.kanan || []).length ? answer[index] : null
+      );
+      if (valid.some(value => value !== null)) clean[soal.id] = valid;
+    }
+  });
+  return clean;
+}
+
+function countAnsweredQuestions(soalList, answers) {
+  return soalList.filter(soal => {
+    const answer = answers && answers[soal.id];
+    if (soal.tipe === 'pg_singkat' || soal.tipe === 'pgm') return Number.isInteger(answer);
+    if (soal.tipe === 'pg_kompleks') return Array.isArray(answer) && answer.length > 0;
+    if (soal.tipe === 'benar_salah') {
+      return Array.isArray(answer) && answer.length >= (soal.pernyataan || []).length
+        && Array.from({ length: (soal.pernyataan || []).length }, (_, index) => answer[index]).every(value => value === 'B' || value === 'S');
+    }
+    if (soal.tipe === 'menjodohkan') {
+      return Array.isArray(answer) && answer.length >= (soal.kiri || []).length
+        && Array.from({ length: (soal.kiri || []).length }, (_, index) => answer[index]).every(Number.isInteger);
+    }
+    return false;
+  }).length;
 }
 
 function nextLevel(level) {
@@ -170,9 +277,20 @@ function registerKurikulum(app, deps) {
     const items = babs.map(bab => {
       const babSem = Number(bab.semester) || (bab.urutan <= 4 ? 1 : 2);
       const prog = student ? progressOf(db, student, bab.id) : null;
-      const best = prog ? prog.best_score : null;
+      const attempts = db.attempts.filter(a => student && a.student_id === student.id && a.bab_id === bab.id);
+      const summary = summarizeAttempts(attempts);
+      const best = attempts.length ? summary.best_score : (prog ? prog.best_score : null);
       const tuntas = best !== null && best >= KKM;
-      const attempts = db.attempts.filter(a => student && a.student_id === student.id && a.bab_id === bab.id).length;
+      const materiaCount = (bab.materi || []).length;
+      const topicProgress = prog && prog.topic_progress || {};
+      const readingPercent = materiaCount
+        ? Math.round(Object.values(topicProgress).reduce((sum, value) => sum + Math.max(0, Math.min(100, Number(value) || 0)), 0) / materiaCount)
+        : 0;
+      const answeredCount = prog ? Number(prog.last_answered_count) || 0 : 0;
+      const assessmentPercent = (bab.soal || []).length
+        ? Math.round((answeredCount / bab.soal.length) * 100)
+        : 0;
+      const completionPercent = tuntas ? 100 : Math.round((readingPercent + assessmentPercent) / 2);
 
       let unlocked = false;
       let lock_reason = null;
@@ -199,7 +317,17 @@ function registerKurikulum(app, deps) {
         youtube_id: bab.youtube_id || '',
         jumlah_soal: (bab.soal || []).length,
         best_score: best,
-        attempts,
+        highest_score: attempts.length ? summary.highest_score : null,
+        highest_attempt: attempts.length ? summary.highest_attempt : null,
+        penalty_count: attempts.length ? summary.penalty_count : 0,
+        attempts: attempts.length,
+        reading_percent: readingPercent,
+        assessment_percent: assessmentPercent,
+        completion_percent: completionPercent,
+        read_topics: Object.values(topicProgress).filter(value => Number(value) >= 100).length,
+        total_topics: materiaCount,
+        answered_questions: answeredCount,
+        total_questions: (bab.soal || []).length,
         attempts_left: null,
         tuntas,
         unlocked
@@ -230,6 +358,165 @@ function registerKurikulum(app, deps) {
     });
   });
 
+  app.put('/api/kurikulum/:babId/progress', requireAuth, requireTenant, async (req, res) => {
+    const db = req.db;
+    const student = resolveStudent(db, req.user);
+    if (!student) return res.status(403).json({ error: 'Hanya siswa yang dapat menyimpan progres materi' });
+
+    const level = studentLevel(db, student);
+    const babs = loadLevel(level);
+    const babIndex = babs.findIndex(bab => bab.id === req.params.babId);
+    if (babIndex < 0) return res.status(404).json({ error: 'Bab tidak ditemukan' });
+
+    const bab = babs[babIndex];
+    const semester = Number(bab.semester) || (bab.urutan <= 4 ? 1 : 2);
+    const tenant = db.tenants.find(item => item.id === req.tenantId);
+    const activeSemester = tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1;
+    if (semester !== activeSemester) return res.status(403).json({ error: 'Semester materi belum aktif' });
+
+    const previousBab = babs.filter(item => {
+      const itemSemester = Number(item.semester) || (item.urutan <= 4 ? 1 : 2);
+      return itemSemester === semester && item.urutan < bab.urutan;
+    });
+    const locked = previousBab.some(item => {
+      const attempts = db.attempts.filter(a => a.student_id === student.id && a.bab_id === item.id);
+      const progress = progressOf(db, student, item.id);
+      const score = attempts.length ? summarizeAttempts(attempts).best_score : (progress && progress.best_score);
+      return score === null || score === undefined || score < KKM;
+    });
+    if (locked) return res.status(403).json({ error: 'Bab masih terkunci, selesaikan evaluasi bab sebelumnya' });
+
+    const body = req.body || {};
+    const topicProgress = {};
+    const current = progressOf(db, student, bab.id);
+    const previousProgress = current && current.topic_progress || {};
+    if (body.topic_progress !== undefined
+      && (!body.topic_progress || typeof body.topic_progress !== 'object' || Array.isArray(body.topic_progress))) {
+      return res.status(400).json({ error: 'Format progres baca tidak valid' });
+    }
+    if (body.answers !== undefined
+      && (!body.answers || typeof body.answers !== 'object' || Array.isArray(body.answers))) {
+      return res.status(400).json({ error: 'Format jawaban evaluasi tidak valid' });
+    }
+    if (body.topic_progress && typeof body.topic_progress === 'object' && !Array.isArray(body.topic_progress)) {
+      Object.entries(body.topic_progress).forEach(([key, value]) => {
+        const index = Number(key);
+        const percent = Number(value);
+        if (Number.isInteger(index) && index >= 0 && index < (bab.materi || []).length
+          && Number.isFinite(percent) && percent >= 0 && percent <= 100) {
+          topicProgress[index] = Math.max(Number(previousProgress[index]) || 0, percent);
+        }
+      });
+    }
+
+    const draftAnswers = sanitizeDraftAnswers(bab.soal || [], body.answers);
+    let progress = current;
+    if (!progress) {
+      progress = {
+        id: uuidv4(),
+        tenant_id: student.tenant_id,
+        student_id: student.id,
+        bab_id: bab.id,
+        level,
+        best_score: null,
+        attempts: 0,
+        created_at: new Date().toISOString()
+      };
+      db.progress.push(progress);
+    }
+    progress.topic_progress = { ...previousProgress, ...topicProgress };
+    progress.draft_answers = draftAnswers;
+    progress.last_answered_count = countAnsweredQuestions(bab.soal || [], draftAnswers);
+    progress.updated_at = new Date().toISOString();
+    await saveDB(db);
+
+    const topicCount = (bab.materi || []).length;
+    const readingPercent = topicCount
+      ? Math.round(Object.values(progress.topic_progress).reduce((sum, value) => sum + Math.max(0, Math.min(100, Number(value) || 0)), 0) / topicCount)
+      : 0;
+    const assessmentPercent = (bab.soal || []).length
+      ? Math.round((progress.last_answered_count / bab.soal.length) * 100)
+      : 0;
+    res.json({
+      reading_percent: readingPercent,
+      assessment_percent: assessmentPercent,
+      completion_percent: Math.round((readingPercent + assessmentPercent) / 2),
+      read_topics: Object.values(progress.topic_progress).filter(value => Number(value) >= 100).length,
+      total_topics: topicCount,
+      answered_questions: progress.last_answered_count,
+      total_questions: (bab.soal || []).length
+    });
+  });
+
+  app.get('/api/kurikulum/peringkat', requireAuth, requireTenant, async (req, res) => {
+    const db = req.db;
+    const student = resolveStudent(db, req.user);
+    if (!student || !student.class_id) {
+      return res.status(403).json({ error: 'Peringkat hanya tersedia untuk siswa yang terdaftar di kelas' });
+    }
+
+    const tenant = db.tenants.find(item => item.id === req.tenantId);
+    const semesterAktif = tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1;
+    const level = studentLevel(db, student);
+    const babs = loadLevel(level).filter(bab => {
+      const semester = Number(bab.semester) || (bab.urutan <= 4 ? 1 : 2);
+      return semester === semesterAktif;
+    });
+    const babIds = new Set(babs.map(bab => bab.id));
+    const classmates = db.students.filter(item =>
+      item.tenant_id === req.tenantId && item.class_id === student.class_id
+    );
+    const classmateIds = new Set(classmates.map(item => item.id));
+    const attemptsByMaterial = new Map();
+    db.attempts.filter(attempt =>
+      attempt.tenant_id === req.tenantId
+      && classmateIds.has(attempt.student_id)
+      && babIds.has(attempt.bab_id)
+      && attempt.level === level
+    ).forEach(attempt => {
+      const key = `${attempt.student_id}:${attempt.bab_id}`;
+      if (!attemptsByMaterial.has(key)) attemptsByMaterial.set(key, []);
+      attemptsByMaterial.get(key).push(attempt);
+    });
+
+    const ranked = classmates.map(classmate => {
+      const scores = [];
+      babs.forEach(bab => {
+        const key = `${classmate.id}:${bab.id}`;
+        const attempts = attemptsByMaterial.get(key) || [];
+        const progress = progressOf(db, classmate, bab.id);
+        const score = attempts.length
+          ? summarizeAttempts(attempts).best_score
+          : (progress && progress.best_score !== null && progress.best_score !== undefined
+            ? Number(progress.best_score)
+            : null);
+        if (Number.isFinite(score)) scores.push(score);
+      });
+      if (!scores.length) return null;
+
+      const photo = classmate.foto_url || classmate.photo_url || classmate.avatar_url || classmate.foto || classmate.photo || '';
+      return {
+        student_id: classmate.id,
+        nama: classmate.nama || 'Siswa',
+        foto: typeof photo === 'string' ? photo : '',
+        nilai: Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length * 10) / 10,
+        materi_dinilai: scores.length
+      };
+    }).filter(Boolean).sort((a, b) =>
+      b.nilai - a.nilai
+      || b.materi_dinilai - a.materi_dinilai
+      || a.nama.localeCompare(b.nama, 'id')
+    );
+
+    const classItem = db.classes.find(item => item.id === student.class_id && item.tenant_id === req.tenantId);
+    res.json({
+      kelas: classItem ? classItem.nama : student.class_id,
+      semester_aktif: semesterAktif,
+      total_siswa: classmates.length,
+      peringkat: ranked.slice(0, 3).map((item, index) => ({ ...item, peringkat: index + 1 }))
+    });
+  });
+
   app.get('/api/kurikulum/:babId', requireAuth, requireTenant, async (req, res) => {
     const db = req.db;
     const student = resolveStudent(db, req.user);
@@ -256,21 +543,48 @@ function registerKurikulum(app, deps) {
 
       const locked = prevBabsInSem.some(b => {
         const p = progressOf(db, student, b.id);
-        return !p || p.best_score < KKM;
+        const attempts = db.attempts.filter(a => a.student_id === student.id && a.bab_id === b.id);
+        const best = attempts.length ? summarizeAttempts(attempts).best_score : (p && p.best_score);
+        return best === null || best === undefined || best < KKM;
       });
       if (locked) return res.status(403).json({ error: 'Bab masih terkunci, selesaikan evaluasi bab sebelumnya' });
     }
 
     const prog = student ? progressOf(db, student, bab.id) : null;
     const attempts = student ? db.attempts.filter(a => a.student_id === student.id && a.bab_id === bab.id) : [];
+    const summary = summarizeAttempts(attempts);
+    const bestScore = attempts.length ? summary.best_score : (prog ? prog.best_score : null);
+    const topicProgress = prog && prog.topic_progress || {};
+    const topicCount = (bab.materi || []).length;
+    const answeredCount = prog
+      ? Number(prog.last_answered_count) || 0
+      : 0;
+    const readingPercent = topicCount
+      ? Math.round(Object.values(topicProgress).reduce((sum, value) => sum + Math.max(0, Math.min(100, Number(value) || 0)), 0) / topicCount)
+      : 0;
+    const assessmentPercent = (bab.soal || []).length
+      ? Math.round((answeredCount / bab.soal.length) * 100)
+      : 0;
     res.json({
       ...publicBab(bab),
       semester: babSem,
       kkm: KKM,
       is_active_semester: babSem === semesterAktif,
       progress: {
-        best_score: prog ? prog.best_score : null,
+        best_score: bestScore,
+        highest_score: attempts.length ? summary.highest_score : null,
+        highest_attempt: attempts.length ? summary.highest_attempt : null,
+        penalty_count: attempts.length ? summary.penalty_count : 0,
         attempts: attempts.length,
+        topic_progress: topicProgress,
+        reading_percent: readingPercent,
+        assessment_percent: assessmentPercent,
+        completion_percent: bestScore !== null && bestScore >= KKM ? 100 : Math.round((readingPercent + assessmentPercent) / 2),
+        read_topics: Object.values(topicProgress).filter(value => Number(value) >= 100).length,
+        total_topics: topicCount,
+        answered_questions: answeredCount,
+        total_questions: (bab.soal || []).length,
+        draft_answers: student && prog ? (prog.draft_answers || {}) : {},
         attempts_left: null,
         riwayat: attempts.map(a => ({ ke: a.ke, score: a.score, benar: a.benar, total: a.total, created_at: a.created_at }))
       }
@@ -306,14 +620,9 @@ function registerKurikulum(app, deps) {
     });
 
     const score = soalList.length ? Math.round((totalPoin / soalList.length) * 1000) / 10 : 0;
-    const tuntas = score >= KKM;
-    // Kunci & pembahasan hanya dibuka setelah siswa tuntas, agar tidak bisa dipanen dengan percobaan kosong.
-    if (!tuntas) {
-      hasil.forEach(h => { delete h.kunci; delete h.pembahasan; });
-    }
     const ke = attempts.length + 1;
 
-    db.attempts.push({
+    const newAttempt = {
       id: uuidv4(),
       tenant_id: student.tenant_id,
       student_id: student.id,
@@ -325,7 +634,13 @@ function registerKurikulum(app, deps) {
       benar: hasil.filter(h => h.poin === 1).length,
       total: soalList.length,
       created_at: new Date().toISOString()
-    });
+    };
+    db.attempts.push(newAttempt);
+    const summary = summarizeAttempts([...attempts, newAttempt]);
+    // Kunci dan pembahasan hanya dibuka jika nilai akhir materi mencapai KKM.
+    if (summary.best_score < KKM) {
+      hasil.forEach(h => { delete h.kunci; delete h.pembahasan; });
+    }
 
     let prog = progressOf(db, student, bab.id);
     if (!prog) {
@@ -335,17 +650,22 @@ function registerKurikulum(app, deps) {
         student_id: student.id,
         bab_id: bab.id,
         level,
-        best_score: score,
+        best_score: summary.best_score,
         attempts: ke,
         created_at: new Date().toISOString()
       };
       db.progress.push(prog);
     } else {
-      prog.best_score = Math.max(prog.best_score, score);
+      prog.best_score = summary.best_score;
       prog.attempts = ke;
     }
+    prog.highest_score = summary.highest_score;
+    prog.highest_attempt = summary.highest_attempt;
+    prog.penalty_count = summary.penalty_count;
+    prog.last_answered_count = countAnsweredQuestions(soalList, answers);
+    prog.draft_answers = {};
     prog.updated_at = new Date().toISOString();
-    prog.tuntas = prog.best_score >= KKM;
+    prog.tuntas = summary.best_score >= KKM;
 
     await saveDB(db);
 
@@ -354,8 +674,11 @@ function registerKurikulum(app, deps) {
       benar: hasil.filter(h => h.poin === 1).length,
       total: soalList.length,
       kkm: KKM,
-      tuntas: prog.best_score >= KKM,
-      best_score: prog.best_score,
+      tuntas: summary.best_score >= KKM,
+      best_score: summary.best_score,
+      highest_score: summary.highest_score,
+      highest_attempt: summary.highest_attempt,
+      penalty_count: summary.penalty_count,
       attempts: ke,
       attempts_left: null,
       hasil
@@ -373,7 +696,9 @@ function registerKurikulum(app, deps) {
 
     const belum = babs.filter(b => {
       const p = progressOf(db, student, b.id);
-      return !p || p.best_score < KKM;
+      const attempts = db.attempts.filter(a => a.student_id === student.id && a.bab_id === b.id);
+      const best = attempts.length ? summarizeAttempts(attempts).best_score : (p && p.best_score);
+      return best === null || best === undefined || best < KKM;
     });
     if (belum.length) {
       return res.status(400).json({
@@ -404,7 +729,19 @@ function registerKurikulum(app, deps) {
       });
       const items = babs.map(b => {
         const p = progressOf(db, s, b.id);
-        return { bab_id: b.id, judul: b.judul, best_score: p ? p.best_score : null, attempts: attemptCount[b.id] || 0, tuntas: !!(p && p.best_score >= KKM) };
+        const attempts = db.attempts.filter(a => a.student_id === s.id && a.bab_id === b.id);
+        const summary = summarizeAttempts(attempts);
+        const best = attempts.length ? summary.best_score : (p ? p.best_score : null);
+        return {
+          bab_id: b.id,
+          judul: b.judul,
+          best_score: best,
+          highest_score: attempts.length ? summary.highest_score : null,
+          highest_attempt: attempts.length ? summary.highest_attempt : null,
+          penalty_count: attempts.length ? summary.penalty_count : 0,
+          attempts: attemptCount[b.id] || 0,
+          tuntas: best !== null && best >= KKM
+        };
       });
       return {
         student_id: s.id,
@@ -457,6 +794,15 @@ function registerKurikulum(app, deps) {
         .filter(g => g.istilah && g.arti);
     }
     if (Array.isArray(body.soal)) {
+      if (body.soal.length < 5 || body.soal.length > 10) {
+        return res.status(400).json({ error: 'Setiap materi harus memiliki 5–10 soal evaluasi' });
+      }
+      if (QUESTION_TYPES.some(type => !body.soal.some(soal => soal && soal.tipe === type))) {
+        return res.status(400).json({ error: 'Setiap materi harus memiliki soal untuk kelima tipe yang tersedia' });
+      }
+      if (body.soal.some(soal => !validQuestion(soal))) {
+        return res.status(400).json({ error: 'Periksa tipe, kunci, bacaan minimal 800 karakter, dan pembahasan minimal 80 karakter pada setiap soal' });
+      }
       patch.soal = body.soal.map((s, i) => ({
         ...s,
         id: s.id || `${found.bab.id}-q${i + 1}`,
@@ -528,4 +874,4 @@ function registerKurikulum(app, deps) {
   });
 }
 
-module.exports = { registerKurikulum };
+module.exports = { registerKurikulum, getBabTitle, summarizeAttempts };

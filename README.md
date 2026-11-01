@@ -18,6 +18,7 @@ Aplikasi Learning Management System (LMS) multi-tenant untuk mata pelajaran Geog
 - Bank Soal (formatif, sumatif, TKA)
 - Exam TKA dengan timer
 - Input Nilai per siswa per mapel
+- WhatsApp Sender tenant untuk pengingat jadwal pelajaran
 - Data seeding otomatis
 
 ### Siswa
@@ -30,6 +31,7 @@ Aplikasi Learning Management System (LMS) multi-tenant untuk mata pelajaran Geog
 - Database: JSON file (ringan, mudah backup)
 - Cache: Redis (dengan fallback in-memory)
 - Auth: cookie-session + bcrypt
+- WhatsApp: Baileys multi-device; membutuhkan Node.js 20+ dan penyimpanan sesi persisten
 - Desain: anti-slop GitHub style
 
 ## Instalasi
@@ -172,9 +174,9 @@ Menu **Materi** di panel admin punya tombol **Impor Kurikulum**: menyalin setiap
 ### Seed
 - `POST /api/seed` - Initialize sample data
 
-## Deploy ke VPS (geolabs.my.id)
+## Deploy ke VPS
 
-Target: Debian 12 / Ubuntu 22.04+, Node.js 20, PM2, Nginx di belakang Cloudflare.
+Target skrip `deploy.sh`: Debian 12 / Ubuntu 22.04+, Node.js 20, PM2, Nginx. Skrip ini menyiapkan VPS baru/mandiri dan tidak boleh dijalankan begitu saja pada container Proxmox yang memakai konfigurasi jaringan atau reverse proxy berbeda.
 
 ```bash
 # di server, sebagai root
@@ -211,6 +213,15 @@ Disalin dari `.env.example`, mode `600`, tidak ikut git.
 | `SESSION_SECRET` | ya | kunci penandatangan cookie sesi; `openssl rand -hex 32`; beberapa kunci dipisah koma untuk rotasi |
 | `REDIS_HOST` / `REDIS_PORT` | tidak | tanpa Redis dipakai cache in-memory |
 | `NODE_ENV` | tidak | `production` |
+| `PUBLIC_APP_URL` | dianjurkan | URL publik LMS, dapat dioverride per tenant di panel WhatsApp |
+| `WA_SESSION_DIR` | tidak | direktori privat dan persisten untuk kredensial WhatsApp |
+| `WA_TIME_ZONE` | tidak | zona jadwal kirim; default `Asia/Jakarta` |
+
+### WhatsApp Sender
+
+Admin tenant dapat menautkan nomor khusus dengan QR, memilih grup, lalu menjadwalkan pengingat satu kali untuk jadwal pelajaran. Scheduler memakai zona waktu WIB, mencegah duplikasi jadwal/grup/tanggal, membatasi maksimal 100 pesan per tenant per hari, dan tidak mengulang pengiriman yang gagal secara otomatis.
+
+Koneksi grup menggunakan protokol WhatsApp Web tidak resmi (Baileys), bukan WhatsApp Business Cloud API. Penggunaan dapat bertentangan dengan ketentuan WhatsApp atau menyebabkan nomor dibatasi; gunakan nomor yang dikelola sekolah dan hanya kirim ke grup yang menyetujui pengingat. Kredensial sesi harus tetap privat dan persisten. Jalankan satu instance aplikasi agar scheduler tidak mengirim pesan ganda.
 
 ### Update & rollback
 
@@ -321,7 +332,7 @@ Stimulus isu aktual dirujuk dari BMKG, Badan Geologi/ESDM, Kementerian Lingkunga
 
 Desain antarmuka mengikuti prinsip minimal: tanpa gradient, radius kecil, shadow minimal, warna netral, dan system font.
 
-## Tool Browser (MCP) — uji live tanpa buka tab manual
+## Tool Browser (MCP) ï¿½ uji live tanpa buka tab manual
 
 `scripts/browser-mcp.mjs` adalah MCP server (stdio) yang mengendalikan Chrome/Edge lewat
 Chrome DevTools Protocol. **Tanpa dependensi npm** (butuh Node >= 22 dan Chrome/Edge terpasang).
@@ -381,7 +392,7 @@ pm2 restart lms --update-env
 Backup `data/db.json` dibuat otomatis sebelum menulis. Setelah login, ganti password
 lewat `POST /api/me/password`.
 
-**Terkunci "Terlalu banyak percobaan…"** — limiter login menyimpan hitungan di Redis
+**Terkunci "Terlalu banyak percobaanï¿½"** ï¿½ limiter login menyimpan hitungan di Redis
 bila tersedia, atau di memori proses bila tidak. Tanpa Redis, cukup restart proses:
 
 ```bash

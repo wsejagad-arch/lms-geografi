@@ -3,67 +3,305 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0969da">
+  <meta name="theme-color" content="#14614f">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
-  <title>Login - LMS Geografi Multi</title>
+  <meta name="description" content="Geo Edulabs - Platform Pembelajaran dan Laboratorium Geografi Terpadu">
+  <title>Masuk - Geo Edulabs · LMS Geografi</title>
+
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
-  <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="stylesheet" href="assets/css/login.css?v=20261105e">
 </head>
 <body>
 
-  <div class="login-page">
-    <div class="bg-shape shape-1" aria-hidden="true"></div>
-    <div class="bg-shape shape-2" aria-hidden="true"></div>
-    <div class="bg-shape shape-3" aria-hidden="true"></div>
+  <div class="portal-container">
+    <!-- ====================================================================
+         LEFT HERO SHOWCASE PANEL (Cartographic Identity & Institutional Context)
+         ==================================================================== -->
+    <aside class="hero-panel" aria-label="Informasi Platform Geografi">
+      <!-- Cartographic Ambient Background -->
+      <div class="hero-cartography" aria-hidden="true">
+        <div class="coord-grid"></div>
+        <div class="hero-glow-point"></div>
 
-    <div class="login-card">
-      <div class="login-header">
-      <div class="login-logo">🌍</div>
-      <div class="login-title"><span class="brand-prefix">SELAMAT DATANG DI</span><span class="brand-name">GEO EDULABS</span></div>
-      <div class="login-subtitle">Platform Pembelajaran Geografi interaktif dan Menyenangkan</div>
+        <!-- Precision Topographic Contour Lines SVG -->
+        <svg class="topo-svg" viewBox="0 0 1000 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <g stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.2" stroke-linecap="round">
+            <!-- Contour Elevation Ring 1 (+120m) -->
+            <path d="M-80 180 C 120 130, 260 210, 420 160 C 580 110, 720 220, 880 170 C 960 145, 1080 190, 1150 160" />
+            <!-- Contour Elevation Ring 2 (+240m) -->
+            <path d="M-60 280 C 140 220, 310 330, 490 270 C 670 210, 810 340, 990 280 C 1070 250, 1140 290, 1200 270" stroke="rgba(255, 255, 255, 0.18)" />
+            <!-- Contour Elevation Ring 3 (+360m) - Major Index Contour -->
+            <path d="M-100 400 C 110 320, 280 460, 470 380 C 660 300, 830 470, 1020 390 C 1120 350, 1220 410, 1260 380" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1.8" />
+            <!-- Contour Elevation Ring 4 (+480m) -->
+            <path d="M-40 520 C 160 430, 340 580, 530 490 C 720 400, 890 590, 1080 500 C 1160 460, 1240 520, 1300 490" stroke="rgba(255, 255, 255, 0.18)" />
+            <!-- Contour Elevation Ring 5 (+600m) -->
+            <path d="M-80 640 C 130 540, 320 700, 510 610 C 700 520, 870 710, 1060 620 C 1150 580, 1250 640, 1320 610" />
+            <!-- Subtle Ridge Crest Loop -->
+            <ellipse cx="680" cy="360" rx="140" ry="70" transform="rotate(-15 680 360)" stroke="rgba(52, 211, 153, 0.2)" stroke-dasharray="4 4" />
+          </g>
+
+          <!-- Latitude / Longitude Graticule Crosshairs -->
+          <g stroke="rgba(52, 211, 153, 0.35)" stroke-width="1.2">
+            <path d="M220 230 v20 M210 240 h20" />
+            <path d="M780 200 v20 M770 210 h20" />
+            <path d="M340 540 v20 M330 550 h20" />
+            <path d="M860 520 v20 M850 530 h20" />
+          </g>
+
+          <!-- Cartographic Elevation Annotations -->
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="rgba(255, 255, 255, 0.35)" letter-spacing="1">
+            <text x="310" y="325">+360m</text>
+            <text x="730" y="270">+240m</text>
+            <text x="540" y="480">+480m</text>
+            <text x="180" y="555">S 06°45'22"</text>
+            <text x="790" y="235">E 108°28'53"</text>
+          </g>
+        </svg>
       </div>
 
-      <div id="auth-error" class="auth-error" style="display:none"></div>
+      <!-- Hero Header (Brand Mark & School Identity) -->
+      <div class="hero-content">
+        <header class="hero-header">
+          <div class="hero-brand-mark" aria-hidden="true">
+            <!-- Bespoke Geo Astrolabe / Meridian Emblem SVG -->
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="13.5" stroke="currentColor" stroke-width="1.8" opacity="0.4"/>
+              <ellipse cx="16" cy="16" rx="6.5" ry="13.5" stroke="currentColor" stroke-width="1.6" opacity="0.75"/>
+              <line x1="2.5" y1="16" x2="29.5" y2="16" stroke="currentColor" stroke-width="1.6" opacity="0.6"/>
+              <!-- Compass Azimuth Pointer -->
+              <polygon points="16,4 19,16 16,14 13,16" fill="#fcd34d" />
+              <polygon points="16,28 19,16 16,18 13,16" fill="currentColor" opacity="0.8" />
+              <circle cx="16" cy="16" r="2.2" fill="#fcd34d" />
+            </svg>
+          </div>
+          <div class="hero-brand-info">
+            <span class="hero-brand-tag">Portal Pembelajaran Terpadu</span>
+            <span class="hero-brand-name">GEO EDULABS</span>
+          </div>
+        </header>
 
-      <form id="login-form" autocomplete="on">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <div class="input-wrap has-icon-right">
-            <input type="text" id="email" placeholder="email atau NIS" required autocomplete="username">
-            <span class="input-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </span>
+        <!-- Hero Main Narrative -->
+        <div class="hero-body">
+          <h1 class="hero-tagline">
+            Eksplorasi Ruang, Memahami Dinamika <span class="highlight-geo">Geosfer Nusantara</span>
+          </h1>
+          <p class="hero-desc">
+            Pusat studi dan laboratorium geografi interaktif yang mengintegrasikan literasi spasial, sistem informasi geografis, dan capaian pembelajaran kurikulum nasional.
+          </p>
+        </div>
+
+        <!-- 3 Pillars of Geography LMS -->
+        <div class="hero-features">
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <span class="feature-icon-badge" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <span class="feature-card-title">Peta & SIG</span>
+            </div>
+            <p class="feature-card-desc">Simulasi visual lithosfer, hidrosfer, atmosfer, dan biosfer.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <span class="feature-icon-badge" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </span>
+              <span class="feature-card-title">Fase E & F</span>
+            </div>
+            <p class="feature-card-desc">Modul ajar lengkap kelas X dan XI dengan studi kasus kontekstual.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <span class="feature-icon-badge" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </span>
+              <span class="feature-card-title">Asesmen Mandiri</span>
+            </div>
+            <p class="feature-card-desc">Evaluasi formatif, tugas berbasis proyek, dan ujian terstandar.</p>
           </div>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="input-wrap has-toggle">
-            <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
-            <button type="button" class="toggle-pw" aria-label="Tampilkan password" id="toggle-pw">
-              <svg class="icon-eye" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              <svg class="icon-eye-off" style="display:none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-            </button>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-block">Masuk</button>
-      </form>
-
-      <div class="login-footer">
-        <a href="https://github.com/nousresearch/hermes-agent" target="_blank" rel="noopener">GitHub</a>
       </div>
-    </div>
+
+      <!-- Hero Footer (Real Geodetic Coordinates & School Anchor) -->
+      <footer class="hero-footer">
+        <div class="geo-datum-pill">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span>WGS84 · UTM ZONE 49S</span>
+        </div>
+      </footer>
+    </aside>
+
+    <!-- ====================================================================
+         RIGHT FORM PANEL (Focused Authentication Chamber)
+         ==================================================================== -->
+    <main class="form-panel">
+      <!-- Mobile Bar (Visible only when hero panel is collapsed on mobile) -->
+      <div class="mobile-brand-bar">
+        <div class="mobile-brand-logo" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        </div>
+        <div class="mobile-brand-text">
+          <h1>Geo Edulabs</h1>
+          <p>LMS Geografi</p>
+        </div>
+      </div>
+
+      <!-- Main Login Card -->
+      <section class="login-card" aria-labelledby="login-heading">
+        <header class="card-header">
+          <div class="card-title-group">
+            <h2 id="login-heading" class="card-title">Masuk ke Akun</h2>
+          </div>
+          <p class="card-subtitle">Satu pintu masuk untuk siswa, guru, dan admin.</p>
+        </header>
+
+        <!-- Satu pintu masuk: jenis akun dikenali otomatis oleh server -->
+        <div class="role-hint-banner" id="role-hint" aria-live="polite">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <span id="role-hint-text">Siswa memakai <b>NIS</b> atau <b>NISN</b>; guru & admin memakai <b>email</b>. Jenis akun dikenali otomatis.</span>
+        </div>
+
+        <!-- Authentication Error Banner -->
+        <div id="auth-error" class="auth-error" role="alert" style="display:none"></div>
+
+        <!-- Login Form -->
+        <form id="login-form" autocomplete="on" novalidate>
+          <!-- Email / Identifier Field -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="email" id="email-label" class="form-label">NIS, NISN, atau Email</label>
+              <span class="form-label-hint" id="ident-hint">Identitas akun</span>
+            </div>
+            <div class="input-wrap">
+              <span class="input-icon-lead" aria-hidden="true" id="ident-icon">
+                <!-- Student Card Icon by default -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="16" rx="2"/>
+                  <line x1="7" y1="8" x2="17" y2="8"/>
+                  <line x1="7" y1="12" x2="13" y2="12"/>
+                  <circle cx="15.5" cy="14.5" r="1.5"/>
+                </svg>
+              </span>
+              <input
+                type="text"
+                id="email"
+                name="username"
+                placeholder="Contoh: 6082, NISN, atau email"
+                required
+                autocomplete="username"
+                autocapitalize="none"
+                autocorrect="off"
+                spellcheck="false">
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="password" class="form-label">Kata Sandi</label>
+            </div>
+            <div class="input-wrap has-toggle">
+              <span class="input-icon-lead" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password">
+              <button type="button" class="toggle-pw" aria-label="Tampilkan password" id="toggle-pw" title="Tampilkan kata sandi">
+                <svg class="icon-eye" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg class="icon-eye-off" style="display:none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                  <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn-submit" id="btn-submit">
+            <span class="btn-spinner" aria-hidden="true"></span>
+            <span class="btn-text">Masuk ke Pembelajaran</span>
+            <svg class="btn-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Help Drawer (Panduan Masuk Siswa & Guru) -->
+        <div class="login-help-section">
+          <button type="button" class="help-toggle-btn" id="help-toggle" aria-expanded="false" aria-controls="help-content">
+            <span>Petunjuk login & informasi akun</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <div class="help-content-box" id="help-content">
+            <div class="help-item">
+              <span class="help-item-icon" aria-hidden="true">●</span>
+              <div class="help-item-text">
+                <b>Untuk Siswa:</b> Masukkan NIS (contoh: <code>6082</code>) atau NISN. Kata sandi awal umumnya sama dengan NIS atau sesuai yang dibagikan guru geografi.
+              </div>
+            </div>
+            <div class="help-item">
+              <span class="help-item-icon" aria-hidden="true">●</span>
+              <div class="help-item-text">
+                <b>Untuk Guru / Staf:</b> Pilih tab <i>Guru & Staf</i>, lalu masukkan alamat email dinas dan kata sandi yang telah didaftarkan administrator.
+              </div>
+            </div>
+            <div class="help-item">
+              <span class="help-item-icon" aria-hidden="true">●</span>
+              <div class="help-item-text">
+                <b>Kendala Akun:</b> Jika lupa kata sandi atau akun terkunci akibat salah percobaan berkali-kali, silakan hubungi Guru Geografi atau staf operator laboratorium.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer (Status & Institutional Anchor) -->
+        <footer class="login-card-footer">
+          <div class="system-status-indicator">
+            <span class="status-dot-active" aria-hidden="true"></span>
+            <span>Sesi Terenkripsi</span>
+          </div>
+          <div class="copyright-text">
+            © 2026 Geo Edulabs
+          </div>
+        </footer>
+      </section>
+    </main>
   </div>
 
-  <script src="assets/js/sanitize.js?v=20261105c"></script>
-  <script src="assets/js/api.js?v=20261105c"></script>
+  <!-- Standard Scripts -->
+  <script src="assets/js/sanitize.js?v=20261105e"></script>
+  <script src="assets/js/api.js?v=20261105e"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
@@ -71,56 +309,112 @@
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Cek sesi yang sudah aktif
       try {
         const user = await LMS.checkAuth();
         if (user?.role === 'super_admin' || user?.role === 'admin') {
           window.location.href = '/admin.html';
+          return;
         } else if (user?.role === 'student') {
           window.location.href = '/student.html';
+          return;
         }
       } catch {}
 
-      document.getElementById('login-form').addEventListener('submit', async (e) => {
+      const loginForm = document.getElementById('login-form');
+      const errEl = document.getElementById('auth-error');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const btnSubmit = document.getElementById('btn-submit');
+      const btnText = btnSubmit.querySelector('.btn-text');
+
+      // 3. Form Submission Handling with Polished Loading State
+      loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const errEl = document.getElementById('auth-error');
         errEl.style.display = 'none';
+        errEl.textContent = '';
+
+        const ident = emailInput.value.trim();
+        const pass = passwordInput.value;
+
+        if (!ident) {
+          errEl.textContent = 'Silakan masukkan NIS, NISN, atau Email.';
+          errEl.style.display = 'block';
+          emailInput.focus();
+          return;
+        }
+        if (!pass) {
+          errEl.textContent = 'Silakan masukkan kata sandi Anda.';
+          errEl.style.display = 'block';
+          passwordInput.focus();
+          return;
+        }
+
+        // Aktifkan state loading
+        btnSubmit.classList.add('is-loading');
+        btnText.textContent = 'Memverifikasi kredensial...';
+        btnSubmit.disabled = true;
+        emailInput.disabled = true;
+        passwordInput.disabled = true;
+
         try {
-          const ident = document.getElementById('email').value.trim();
-          const pass = document.getElementById('password').value;
-          let u;
-          try {
-            u = await LMS.login(ident, pass);
-          } catch (e) {
-            // Siswa login memakai NIS/username, bukan email
-            u = await LMS.studentLogin(ident, pass);
-          }
+          // Satu form untuk semua peran: server mendeteksi siswa/guru/admin.
+          const u = await LMS.authLogin(ident, pass);
+
           if (u.role === 'super_admin' || u.role === 'admin') {
+            btnText.textContent = 'Membuka Dasbor Admin...';
             window.location.href = '/admin.html';
           } else if (u.role === 'student') {
+            btnText.textContent = 'Membuka Portal Siswa...';
             window.location.href = '/student.html';
           } else {
-            errEl.textContent = 'Role tidak dikenali';
-            errEl.style.display = 'block';
+            throw new Error('Peran akun (role) tidak dikenali.');
           }
         } catch (err) {
-          errEl.textContent = err.message || 'Login gagal';
+          // Reset loading state
+          btnSubmit.classList.remove('is-loading');
+          btnText.textContent = 'Masuk ke Pembelajaran';
+          btnSubmit.disabled = false;
+          emailInput.disabled = false;
+          passwordInput.disabled = false;
+
+          let msg = err.message || 'Login gagal. Periksa kembali NIS/Email dan kata sandi Anda.';
+          if (msg.includes('429') || /terlalu banyak/i.test(msg)) {
+            msg = 'Terlalu banyak percobaan gagal. Akun sementara dibatasi demi keamanan, coba beberapa menit lagi.';
+          }
+          errEl.textContent = msg;
           errEl.style.display = 'block';
+          passwordInput.focus();
+          passwordInput.select();
         }
       });
 
+      // 4. Password Visibility Toggle
       const toggleBtn = document.getElementById('toggle-pw');
-      const passwordInput = document.getElementById('password');
       const eyeOn = toggleBtn.querySelector('.icon-eye');
       const eyeOff = toggleBtn.querySelector('.icon-eye-off');
+
       if (toggleBtn && passwordInput) {
         toggleBtn.addEventListener('click', () => {
           const isPassword = passwordInput.getAttribute('type') === 'password';
           passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
           toggleBtn.setAttribute('aria-label', isPassword ? 'Sembunyikan password' : 'Tampilkan password');
+          toggleBtn.title = isPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi';
           if (eyeOn && eyeOff) {
             eyeOn.style.display = isPassword ? 'none' : 'block';
             eyeOff.style.display = isPassword ? 'block' : 'none';
           }
+        });
+      }
+
+      // 5. Help Drawer Toggle
+      const helpToggle = document.getElementById('help-toggle');
+      const helpContent = document.getElementById('help-content');
+      if (helpToggle && helpContent) {
+        helpToggle.addEventListener('click', () => {
+          const isOpen = helpContent.classList.contains('is-open');
+          helpContent.classList.toggle('is-open', !isOpen);
+          helpToggle.setAttribute('aria-expanded', !isOpen);
         });
       }
     });

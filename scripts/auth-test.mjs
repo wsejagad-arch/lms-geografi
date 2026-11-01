@@ -19,6 +19,8 @@ function check(name, ok, detail = '') {
 
 const db = JSON.parse(fs.readFileSync(path.join(root, 'data/db.json'), 'utf8'));
 const tenant = db.tenants[0];
+const adminFixture = db.users.find((user) => user.email === 'admin@lms.id' && user.role === 'super_admin');
+if (adminFixture) adminFixture.password = bcrypt.hashSync('admin', 8);
 const klass = db.classes[0] || { id: 'kelas-uji', tenant_id: tenant.id, nama: 'X-A', tingkat: 'X' };
 if (!db.classes[0]) db.classes.push(klass);
 db.users = db.users.filter((u) => !String(u.email || '').endsWith('@uji.local'));
@@ -105,10 +107,28 @@ try {
   // --- login normal tetap jalan (key berbeda) ---
   const adminLogin = await req('POST', '/api/login', { email: 'admin@lms.id', password: 'admin' }, 'admin');
   check('login admin tetap 200', adminLogin.status === 200, `status=${adminLogin.status}`);
+  const tenantSelect = await req('POST', '/api/tenants/select', { tenant_id: tenant.id }, 'admin');
+  check('admin memilih tenant untuk pemantauan aktivitas', tenantSelect.status === 200, `status=${tenantSelect.status}`);
+  const waSettings = await req('GET', '/api/admin/whatsapp', undefined, 'admin');
+  check('konfigurasi WhatsApp terisolasi per tenant', waSettings.status === 200
+    && waSettings.json.config.enabled === false
+    && waSettings.json.connection.status === 'disconnected'
+    && waSettings.json.timezone === 'Asia/Jakarta',
+  `status=${waSettings.status} wa=${waSettings.json?.connection?.status}`);
+  const invalidWaJob = await req('POST', '/api/admin/whatsapp/jobs', {
+    schedule_id: 'jadwal-asing', group_id: 'grup@g.us', tanggal: '2026-12-01', waktu: '07:00'
+  }, 'admin');
+  check('pesan WA wajib memakai jadwal pelajaran tenant', invalidWaJob.status === 400, `status=${invalidWaJob.status}`);
 
   // --- ganti password sendiri ---
   const pw1 = await req('POST', '/api/me/password', { current_password: 'admin', new_password: 'RahasiaBaru123' }, 'admin');
   check('ganti password sendiri', pw1.status === 200, `status=${pw1.status}`);
+  const adminProfile = await req('GET', '/api/me', undefined, 'admin');
+  check('profil menandai password telah diganti', !!adminProfile.json?.password_changed_at, `changed=${!!adminProfile.json?.password_changed_at}`);
+  const adminActivity = await req('GET', '/api/admin/activity-log', undefined, 'admin');
+  check('log aktivitas dapat dibaca admin tenant', adminActivity.status === 200
+    && adminActivity.json.events.some((event) => event.aksi === 'Mengganti password'),
+  `status=${adminActivity.status}`);
   const pw1Short = await req('POST', '/api/me/password', { current_password: 'RahasiaBaru123', new_password: 'pendek' }, 'admin');
   check('password baru < 8 karakter ditolak', pw1Short.status === 400, `status=${pw1Short.status}`);
   const pw1WrongOld = await req('POST', '/api/me/password', { current_password: 'salah', new_password: 'RahasiaBaru456' }, 'admin');
@@ -133,6 +153,20 @@ try {
   const studentCookie = loginBaru.status === 200 ? cookies.anon : '';
   const changeStudent = await req('POST', '/api/me/password', { current_password: pwBaru, new_password: 'SiswaBaru123' }, 'anon');
   check('siswa bisa ganti password sendiri', !!studentCookie && changeStudent.status === 200, `status=${changeStudent.status}`);
+  const studentProfile = await req('GET', '/api/me', undefined, 'anon');
+  check('profil siswa menandai password telah diganti', !!studentProfile.json?.password_changed_at,
+    `changed=${!!studentProfile.json?.password_changed_at}`);
+  const studentActivity = await req('GET', '/api/admin/activity-log', undefined, 'admin');
+  check('ganti password siswa tercatat di admin', studentActivity.status === 200
+    && studentActivity.json.events.some((event) => event.student_id === 'siswa-a' && event.aksi === 'Mengganti password'),
+  `status=${studentActivity.status}`);
+  const studentLogout = await req('POST', '/api/logout', {}, 'anon');
+  const logoutActivity = await req('GET', '/api/admin/activity-log', undefined, 'admin');
+  const logoutEvents = logoutActivity.json?.events || [];
+  check('login dan logout siswa tercatat di admin', studentLogout.status === 200
+    && logoutEvents.some((event) => event.student_id === 'siswa-a' && event.aksi === 'Logout')
+    && logoutEvents.some((event) => event.student_id === 'siswa-a' && event.aksi === 'Login berhasil'),
+  `logout=${studentLogout.status}`);
 
   // --- reset massal ---
   const bulk = await req('POST', '/api/students/reset-passwords', { class_id: klass.id }, 'admin');

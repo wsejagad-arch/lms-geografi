@@ -65,7 +65,7 @@
         "stimulus": {
           "jenis": "tabel",
           "judul": "Komposisi Penduduk Berdasarkan Kelompok Usia Kabupaten X",
-          "isi": "<table><thead><tr><th>Kelompok Usia</th><th>Jumlah Jiwa</th><th>Kategori</th></tr></thead><tbody><tr><td>0–14 tahun</td><td>30.000</td><td>Belum Produktif</td></tr><tr><td>15–64 tahun</td><td>100.000</td><td>Usia Produktif</td></tr><tr><td>65+ tahun</td><td>10.000</td><td>Tidak Produktif Lanjut Usia</td></tr></tbody></table>",
+          "isi": "<p>Dinamika Kependudukan dan Bonus Demografi Indonesia 2045. Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045.</p><p>Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045. Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045. Topik 1: Bonus Demografi &amp; Peluang Indonesia Emas 2045. 👥 Analisis Demografi Aktual 2026: Memanfaatkan Jendela Peluang Emas 2045 Indonesia saat ini sedang berada di puncak fase Bonus Demografi , yang diproyeksikan akan berakhir sekitar tahun 2035–2040 sebelum memasuki era penuaan populasi ( aging population ). Dengan lebih dari 70% penduduk berada pada usia produktif (15–64 tahun), Indonesia memiliki peluang emas menjadi kekuatan ekonomi 5 besar dunia pada tahun 2045. Namun, bonus demografi dapat menjadi bencana demografi jika generasi muda tidak memiliki keterampilan kerja yang relevan (skills mismatch), tingginya pengangguran terbuka, dan ancaman stunting pada balita. Oleh karena itu, pemerataan akses pendidikan teknologi, vokasi industri, dan fasilitas kesehatan menjadi prioritas keruangan mutlak. Video Pembelajaran: Dinamika Kependudukan dan Bonus Demografi Indonesia 2045 Pelajari indikator demografi, rasio beban ketergantungan, piramida penduduk, dan strategi Indonesia Emas. Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045.</p><p>Tujuan pembelajaran: Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p>",
           "sumber": "BPS Kabupaten X"
         },
         "pertanyaan": "Berapa rasio beban ketergantungan (dependency ratio) Kabupaten X dan bagaimana interpretasi ekonominya?",
@@ -73,12 +73,128 @@
           "40 per 100, artinya setiap 100 penduduk produktif hanya menanggung 40 penduduk non-produktif (kondisi bonus demografi tercapai)",
           "50 per 100, artinya beban ketergantungan seimbang",
           "70 per 100, artinya beban ketergantungan sangat berat",
-          "25 per 100, artinya daerah mengalami kekurangan tenaga kerja"
+          "25 per 100, artinya daerah mengalami kekurangan tenaga kerja",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Rasio Ketergantungan = [(Penduduk 0-14 + Penduduk 65+) / Penduduk 15-64] × 100 = [(30.000 + 10.000) / 100.000] × 100 = (40.000 / 100.000) × 100 = 40. Karena DR < 50, wilayah ini telah menikmati fase bonus demografi yang menguntungkan perekonomian."
+      },
+      {
+        "id": "xi-05-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Kependudukan dan Bonus Demografi Indonesia 2045",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Bonus Demografi & Peluang Indonesia Emas 2045",
+          "isi": "<p>Dinamika Kependudukan dan Bonus Demografi Indonesia 2045. Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045.</p><p>Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045. Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045. Topik 1: Bonus Demografi &amp; Peluang Indonesia Emas 2045. 👥 Analisis Demografi Aktual 2026: Memanfaatkan Jendela Peluang Emas 2045 Indonesia saat ini sedang berada di puncak fase Bonus Demografi , yang diproyeksikan akan berakhir sekitar tahun 2035–2040 sebelum memasuki era penuaan populasi ( aging population ). Dengan lebih dari 70% penduduk berada pada usia produktif (15–64 tahun), Indonesia memiliki peluang emas menjadi kekuatan ekonomi 5 besar dunia pada tahun 2045. Namun, bonus demografi dapat menjadi bencana demografi jika generasi muda tidak memiliki keterampilan kerja yang relevan (skills mismatch), tingginya pengangguran terbuka, dan ancaman stunting pada balita. Oleh karena itu, pemerataan akses pendidikan teknologi, vokasi industri, dan fasilitas kesehatan menjadi prioritas keruangan mutlak. Video Pembelajaran: Dinamika Kependudukan dan Bonus Demografi Indonesia 2045 Pelajari indikator demografi, rasio beban ketergantungan, piramida penduduk, dan strategi Indonesia Emas. Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045.</p><p>Tujuan pembelajaran: Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Bonus Demografi & Peluang Indonesia Emas 2045”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Membedah struktur demografi bangsa: sensus & registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio < 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil).”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xi-05-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Kependudukan dan Bonus Demografi Indonesia 2045",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Bonus Demografi & Peluang Indonesia Emas 2045",
+          "isi": "<p>Dinamika Kependudukan dan Bonus Demografi Indonesia 2045. Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045.</p><p>Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045. Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045. Topik 1: Bonus Demografi &amp; Peluang Indonesia Emas 2045. 👥 Analisis Demografi Aktual 2026: Memanfaatkan Jendela Peluang Emas 2045 Indonesia saat ini sedang berada di puncak fase Bonus Demografi , yang diproyeksikan akan berakhir sekitar tahun 2035–2040 sebelum memasuki era penuaan populasi ( aging population ). Dengan lebih dari 70% penduduk berada pada usia produktif (15–64 tahun), Indonesia memiliki peluang emas menjadi kekuatan ekonomi 5 besar dunia pada tahun 2045. Namun, bonus demografi dapat menjadi bencana demografi jika generasi muda tidak memiliki keterampilan kerja yang relevan (skills mismatch), tingginya pengangguran terbuka, dan ancaman stunting pada balita. Oleh karena itu, pemerataan akses pendidikan teknologi, vokasi industri, dan fasilitas kesehatan menjadi prioritas keruangan mutlak. Video Pembelajaran: Dinamika Kependudukan dan Bonus Demografi Indonesia 2045 Pelajari indikator demografi, rasio beban ketergantungan, piramida penduduk, dan strategi Indonesia Emas. Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045.</p><p>Tujuan pembelajaran: Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Bonus Demografi & Peluang Indonesia Emas 2045”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil).”.",
+          "Membandingkan temuan dengan capaian “Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio).” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xi-05-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Kependudukan dan Bonus Demografi Indonesia 2045",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Bonus Demografi & Peluang Indonesia Emas 2045",
+          "isi": "<p>Dinamika Kependudukan dan Bonus Demografi Indonesia 2045. Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045.</p><p>Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045. Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045. Topik 1: Bonus Demografi &amp; Peluang Indonesia Emas 2045. 👥 Analisis Demografi Aktual 2026: Memanfaatkan Jendela Peluang Emas 2045 Indonesia saat ini sedang berada di puncak fase Bonus Demografi , yang diproyeksikan akan berakhir sekitar tahun 2035–2040 sebelum memasuki era penuaan populasi ( aging population ). Dengan lebih dari 70% penduduk berada pada usia produktif (15–64 tahun), Indonesia memiliki peluang emas menjadi kekuatan ekonomi 5 besar dunia pada tahun 2045. Namun, bonus demografi dapat menjadi bencana demografi jika generasi muda tidak memiliki keterampilan kerja yang relevan (skills mismatch), tingginya pengangguran terbuka, dan ancaman stunting pada balita. Oleh karena itu, pemerataan akses pendidikan teknologi, vokasi industri, dan fasilitas kesehatan menjadi prioritas keruangan mutlak. Video Pembelajaran: Dinamika Kependudukan dan Bonus Demografi Indonesia 2045 Pelajari indikator demografi, rasio beban ketergantungan, piramida penduduk, dan strategi Indonesia Emas. Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045.</p><p>Tujuan pembelajaran: Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil).",
+          "Mengkaji konteks materi: Topik 1: Bonus Demografi & Peluang Indonesia Emas 2045",
+          "Menghubungkan temuan dengan: Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio).",
+          "Memahami ruang lingkup: Membedah struktur demografi bangsa: sensus & registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio < 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil).”, tujuan kedua “Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio).”, cakupan bab “Membedah struktur demografi bangsa: sensus & registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio < 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045.”, dan bacaan pembuka “Topik 1: Bonus Demografi & Peluang Indonesia Emas 2045”."
+      },
+      {
+        "id": "xi-05-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Kependudukan dan Bonus Demografi Indonesia 2045",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Bonus Demografi & Peluang Indonesia Emas 2045",
+          "isi": "<p>Dinamika Kependudukan dan Bonus Demografi Indonesia 2045. Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045.</p><p>Membedah struktur demografi bangsa: sensus &amp; registrasi, perhitungan angka fertilitas/mortalitas, piramida penduduk stasioner, peluang emas bonus demografi (dependency ratio &lt; 50), pengentasan stunting, dan kualitas SDM Indonesia Emas 2045. Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045. Topik 1: Bonus Demografi &amp; Peluang Indonesia Emas 2045. 👥 Analisis Demografi Aktual 2026: Memanfaatkan Jendela Peluang Emas 2045 Indonesia saat ini sedang berada di puncak fase Bonus Demografi , yang diproyeksikan akan berakhir sekitar tahun 2035–2040 sebelum memasuki era penuaan populasi ( aging population ). Dengan lebih dari 70% penduduk berada pada usia produktif (15–64 tahun), Indonesia memiliki peluang emas menjadi kekuatan ekonomi 5 besar dunia pada tahun 2045. Namun, bonus demografi dapat menjadi bencana demografi jika generasi muda tidak memiliki keterampilan kerja yang relevan (skills mismatch), tingginya pengangguran terbuka, dan ancaman stunting pada balita. Oleh karena itu, pemerataan akses pendidikan teknologi, vokasi industri, dan fasilitas kesehatan menjadi prioritas keruangan mutlak. Video Pembelajaran: Dinamika Kependudukan dan Bonus Demografi Indonesia 2045 Pelajari indikator demografi, rasio beban ketergantungan, piramida penduduk, dan strategi Indonesia Emas. Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis kuantitas dan kualitas penduduk Indonesia, menghitung indikator demografi, menafsirkan piramida penduduk, serta merumuskan strategi optimalisasi bonus demografi menuju Indonesia Emas 2045.</p><p>Tujuan pembelajaran: Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil). Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio). Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia. Mengevaluasi peluang dan ancaman jendela bonus demografi Indonesia menjelang tahun 2045. Merumuskan solusi geografis mengatasi kesenjangan kualitas SDM (stunting, pendidikan vokasi, ketenagakerjaan hijau).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis sumber data kependudukan (sensus de facto/de jure, survei SUPAS, registrasi adminduk Dukcapil).”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menghitung indikator demografi: CBR, CDR, IMR, ASFR, dan rasio ketergantungan (dependency ratio).”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menganalisis bentuk-bentuk piramida penduduk (ekspansif, stasioner, konstruktif) dan perubahannya di Indonesia.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -144,7 +260,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Tradisi Lubuk Larangan di Sumatra",
-          "isi": "<p>Masyarakat adat menetapkan zona sungai sepanjang 1 km sebagai 'Lubuk Larangan', di mana siapa pun dilarang keras memancing atau menjala ikan selama satu tahun penuh. Pelanggar dikenai sanksi adat dan denda semen. Ikan baru boleh dipanen bersama-sama dalam satu hari festival 'buka lubuk' dan hasilnya disumbangkan untuk pembangunan desa.</p>",
+          "isi": "<p>Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial. Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026.</p><p>Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026. Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah. Topik 1: Kearifan Lokal Konservasi &amp; Geopark UNESCO 2026. 🏛️ Budaya dan Ruang 2026: UNESCO Global Geopark Indonesia Menggerakkan Ekonomi Kreatif Indonesia kini memiliki 10 jaringan UNESCO Global Geoparks (UGGp) , antara lain Geopark Batur (Bali), Gunung Sewu (DIY-Jateng-Jatim), Ciletuh-Palabuhanratu (Jawa Barat), Rinjani-Lombok (NTB), Belitong (Babel), Danau Toba (Sumut), hingga Raja Ampat dan Meratus. Konsep Geopark memadukan tiga pilar secara terpadu: Geo-heritage (warisan kebumian langka), Bio-heritage (keanekaragaman hayati flora-fauna), dan Cultural-heritage (kekayaan budaya dan kearifan lokal masyarakat). Geopark membuktikan bahwa melestarikan alam dan budaya justru menjadi motor penggerak ekonomi kreatif pariwisata ramah lingkungan yang mensejahterakan warga lokal. Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah.</p><p>Tujuan pembelajaran: Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p>",
           "sumber": "Kearifan Lokal Pengelolaan Perairan Darat"
         },
         "pertanyaan": "Dampak ekologis dan sosial paling penting dari penerapan kearifan lokal Lubuk Larangan tersebut adalah ...",
@@ -152,12 +268,128 @@
           "Memberikan waktu bagi populasi ikan sungai untuk berkembang biak secara alami hingga dewasa, mencegah kepunahan ikan endemik, dan memperkuat kohesi sosial gotong royong warga",
           "Menyebabkan air sungai menjadi beracun",
           "Membuat warga desa kehilangan protein hewani selamanya",
-          "Menghalangi perlintasan kapal dagang internasional"
+          "Menghalangi perlintasan kapal dagang internasional",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Lubuk Larangan merupakan model konservasi perikanan darat berbasis kearifan lokal (community-based conservation) yang menjamin regenerasi siklus hidup ikan sungai serta memupuk modal sosial dan ekonomi kas desa secara berkelanjutan."
+      },
+      {
+        "id": "xi-06-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Kearifan Lokal Konservasi & Geopark UNESCO 2026",
+          "isi": "<p>Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial. Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026.</p><p>Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026. Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah. Topik 1: Kearifan Lokal Konservasi &amp; Geopark UNESCO 2026. 🏛️ Budaya dan Ruang 2026: UNESCO Global Geopark Indonesia Menggerakkan Ekonomi Kreatif Indonesia kini memiliki 10 jaringan UNESCO Global Geoparks (UGGp) , antara lain Geopark Batur (Bali), Gunung Sewu (DIY-Jateng-Jatim), Ciletuh-Palabuhanratu (Jawa Barat), Rinjani-Lombok (NTB), Belitong (Babel), Danau Toba (Sumut), hingga Raja Ampat dan Meratus. Konsep Geopark memadukan tiga pilar secara terpadu: Geo-heritage (warisan kebumian langka), Bio-heritage (keanekaragaman hayati flora-fauna), dan Cultural-heritage (kekayaan budaya dan kearifan lokal masyarakat). Geopark membuktikan bahwa melestarikan alam dan budaya justru menjadi motor penggerak ekonomi kreatif pariwisata ramah lingkungan yang mensejahterakan warga lokal. Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah.</p><p>Tujuan pembelajaran: Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Kearifan Lokal Konservasi & Geopark UNESCO 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xi-06-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Kearifan Lokal Konservasi & Geopark UNESCO 2026",
+          "isi": "<p>Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial. Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026.</p><p>Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026. Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah. Topik 1: Kearifan Lokal Konservasi &amp; Geopark UNESCO 2026. 🏛️ Budaya dan Ruang 2026: UNESCO Global Geopark Indonesia Menggerakkan Ekonomi Kreatif Indonesia kini memiliki 10 jaringan UNESCO Global Geoparks (UGGp) , antara lain Geopark Batur (Bali), Gunung Sewu (DIY-Jateng-Jatim), Ciletuh-Palabuhanratu (Jawa Barat), Rinjani-Lombok (NTB), Belitong (Babel), Danau Toba (Sumut), hingga Raja Ampat dan Meratus. Konsep Geopark memadukan tiga pilar secara terpadu: Geo-heritage (warisan kebumian langka), Bio-heritage (keanekaragaman hayati flora-fauna), dan Cultural-heritage (kekayaan budaya dan kearifan lokal masyarakat). Geopark membuktikan bahwa melestarikan alam dan budaya justru menjadi motor penggerak ekonomi kreatif pariwisata ramah lingkungan yang mensejahterakan warga lokal. Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah.</p><p>Tujuan pembelajaran: Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Kearifan Lokal Konservasi & Geopark UNESCO 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia.”.",
+          "Membandingkan temuan dengan capaian “Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xi-06-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Kearifan Lokal Konservasi & Geopark UNESCO 2026",
+          "isi": "<p>Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial. Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026.</p><p>Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026. Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah. Topik 1: Kearifan Lokal Konservasi &amp; Geopark UNESCO 2026. 🏛️ Budaya dan Ruang 2026: UNESCO Global Geopark Indonesia Menggerakkan Ekonomi Kreatif Indonesia kini memiliki 10 jaringan UNESCO Global Geoparks (UGGp) , antara lain Geopark Batur (Bali), Gunung Sewu (DIY-Jateng-Jatim), Ciletuh-Palabuhanratu (Jawa Barat), Rinjani-Lombok (NTB), Belitong (Babel), Danau Toba (Sumut), hingga Raja Ampat dan Meratus. Konsep Geopark memadukan tiga pilar secara terpadu: Geo-heritage (warisan kebumian langka), Bio-heritage (keanekaragaman hayati flora-fauna), dan Cultural-heritage (kekayaan budaya dan kearifan lokal masyarakat). Geopark membuktikan bahwa melestarikan alam dan budaya justru menjadi motor penggerak ekonomi kreatif pariwisata ramah lingkungan yang mensejahterakan warga lokal. Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah.</p><p>Tujuan pembelajaran: Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia.",
+          "Mengkaji konteks materi: Topik 1: Kearifan Lokal Konservasi & Geopark UNESCO 2026",
+          "Menghubungkan temuan dengan: Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra.",
+          "Memahami ruang lingkup: Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia.”, tujuan kedua “Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra.”, cakupan bab “Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026.”, dan bacaan pembuka “Topik 1: Kearifan Lokal Konservasi & Geopark UNESCO 2026”."
+      },
+      {
+        "id": "xi-06-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Kearifan Lokal Konservasi & Geopark UNESCO 2026",
+          "isi": "<p>Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial. Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026.</p><p>Menggali kekayaan peradaban Nusantara: 7 unsur kebudayaan dalam ruang, kearifan lokal konservasi (Subak Bali, Lubuk Larangan Minang), arsitektur vernakular rumah adat, serta potensi ekonomi kreatif berbasis Geopark UNESCO 2026. Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah. Topik 1: Kearifan Lokal Konservasi &amp; Geopark UNESCO 2026. 🏛️ Budaya dan Ruang 2026: UNESCO Global Geopark Indonesia Menggerakkan Ekonomi Kreatif Indonesia kini memiliki 10 jaringan UNESCO Global Geoparks (UGGp) , antara lain Geopark Batur (Bali), Gunung Sewu (DIY-Jateng-Jatim), Ciletuh-Palabuhanratu (Jawa Barat), Rinjani-Lombok (NTB), Belitong (Babel), Danau Toba (Sumut), hingga Raja Ampat dan Meratus. Konsep Geopark memadukan tiga pilar secara terpadu: Geo-heritage (warisan kebumian langka), Bio-heritage (keanekaragaman hayati flora-fauna), dan Cultural-heritage (kekayaan budaya dan kearifan lokal masyarakat). Geopark membuktikan bahwa melestarikan alam dan budaya justru menjadi motor penggerak ekonomi kreatif pariwisata ramah lingkungan yang mensejahterakan warga lokal. Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis faktor pembentuk keragaman budaya Indonesia, mengevaluasi peran kearifan lokal dalam pelestarian lingkungan hidup, serta merancang model pengembangan ekonomi kreatif berbasis keunikan geografis wilayah.</p><p>Tujuan pembelajaran: Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia. Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra. Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam. Mengevaluasi pemanfaatan warisan budaya dan keindahan lanskap bumi dalam jaringan UNESCO Global Geoparks (UGGp). Merumuskan strategi promosi ekonomi kreatif kerajinan dan pariwisata budaya berbasis kearifan lokal.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis faktor geografis yang membentuk keragaman suku, bahasa, dan adat istiadat di Indonesia.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menguraikan kearifan lokal konservasi alam: Subak di Bali, Hutan Larangan Kenegerian Rumbio, Lubuk Larangan Sumatra.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menjelaskan adaptasi arsitektur rumah adat vernakular terhadap iklim tropis lembap dan bencana alam.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   }

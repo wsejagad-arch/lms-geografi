@@ -65,7 +65,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Perbandingan Rute ALKI I, II, dan III",
-          "isi": "<p>Indonesia menetapkan 3 alur laut kepulauan: ALKI I (Selat Sunda - Selat Karimata), ALKI II (Selat Lombok - Selat Makassar), dan ALKI III (Laut Maluku/Laut Banda - Laut Sawu/Laut Timor).</p>",
+          "isi": "<p>Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia. Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026.</p><p>Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026. Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional. Topik 1: Letak Geografis, ALKI &amp; Poros Maritim Dunia 2026. 🌊 Geopolitik Maritim 2026: Dinamika Keamanan Selat Malaka &amp; Laut Natuna Utara Dengan lebih dari 17.500 pulau dan garis pantai terpanjang kedua di dunia, Indonesia mengontrol 4 dari 9 chokepoints (titik sempit maritim strategis) dunia: Selat Malaka, Selat Sunda, Selat Lombok, dan Selat Makassar. Lebih dari 40% perdagangan lintas samudra dunia melintasi perairan kepulauan Nusantara. Di kawasan Laut Natuna Utara , penegakan hak berdaulat Zona Ekonomi Eksklusif (ZEE) 200 mil laut terus diperkuat melalui patroli Badan Keamanan Laut (Bakamla) dan TNI AL guna melindungi cadangan gas alam raksasa Blok Natuna D-Alpha dan kekayaan perikanan tangkap lestari dari eksploitasi kapal nelayan asing ilegal (IUU Fishing). Video Pembelajaran: Posisi Strategis Maritim Indonesia dan Potensi Kelautan Dunia Eksplorasi ALKI, batas laut teritorial, ZEE, dan visi poros maritim dunia. Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional.</p><p>Tujuan pembelajaran: Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p>",
           "sumber": "Dishidros TNI AL"
         },
         "pertanyaan": "Kapal tanker raksasa bermuatan 300.000 ton dari Timur Tengah menuju Tiongkok lebih memilih melewati ALKI II daripada Selat Malaka karena ...",
@@ -73,12 +73,128 @@
           "Kedalaman dan lebar alur di ALKI II sangat mencukupi bagi kapal bertonase raksasa tanpa risiko kandas di dasar selat",
           "ALKI II memiliki jarak tempuh yang lebih dekat ke Benua Eropa",
           "Selat Malaka ditutup permanen untuk seluruh kapal asing",
-          "ALKI II tidak memiliki ombak sama sekali"
+          "ALKI II tidak memiliki ombak sama sekali",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Selat Malaka memiliki batas draught kapal maksimal ±20 meter (Malaccamax). Kapal supertanker (VLCC/ULCC) dengan sarat air sangat dalam memilih ALKI II (Selat Lombok-Makassar) yang berkedalaman ratusan meter sehingga aman dari risiko benturan dasar karang."
+      },
+      {
+        "id": "xi-01-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Letak Geografis, ALKI & Poros Maritim Dunia 2026",
+          "isi": "<p>Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia. Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026.</p><p>Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026. Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional. Topik 1: Letak Geografis, ALKI &amp; Poros Maritim Dunia 2026. 🌊 Geopolitik Maritim 2026: Dinamika Keamanan Selat Malaka &amp; Laut Natuna Utara Dengan lebih dari 17.500 pulau dan garis pantai terpanjang kedua di dunia, Indonesia mengontrol 4 dari 9 chokepoints (titik sempit maritim strategis) dunia: Selat Malaka, Selat Sunda, Selat Lombok, dan Selat Makassar. Lebih dari 40% perdagangan lintas samudra dunia melintasi perairan kepulauan Nusantara. Di kawasan Laut Natuna Utara , penegakan hak berdaulat Zona Ekonomi Eksklusif (ZEE) 200 mil laut terus diperkuat melalui patroli Badan Keamanan Laut (Bakamla) dan TNI AL guna melindungi cadangan gas alam raksasa Blok Natuna D-Alpha dan kekayaan perikanan tangkap lestari dari eksploitasi kapal nelayan asing ilegal (IUU Fishing). Video Pembelajaran: Posisi Strategis Maritim Indonesia dan Potensi Kelautan Dunia Eksplorasi ALKI, batas laut teritorial, ZEE, dan visi poros maritim dunia. Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional.</p><p>Tujuan pembelajaran: Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Letak Geografis, ALKI & Poros Maritim Dunia 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xi-01-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Letak Geografis, ALKI & Poros Maritim Dunia 2026",
+          "isi": "<p>Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia. Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026.</p><p>Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026. Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional. Topik 1: Letak Geografis, ALKI &amp; Poros Maritim Dunia 2026. 🌊 Geopolitik Maritim 2026: Dinamika Keamanan Selat Malaka &amp; Laut Natuna Utara Dengan lebih dari 17.500 pulau dan garis pantai terpanjang kedua di dunia, Indonesia mengontrol 4 dari 9 chokepoints (titik sempit maritim strategis) dunia: Selat Malaka, Selat Sunda, Selat Lombok, dan Selat Makassar. Lebih dari 40% perdagangan lintas samudra dunia melintasi perairan kepulauan Nusantara. Di kawasan Laut Natuna Utara , penegakan hak berdaulat Zona Ekonomi Eksklusif (ZEE) 200 mil laut terus diperkuat melalui patroli Badan Keamanan Laut (Bakamla) dan TNI AL guna melindungi cadangan gas alam raksasa Blok Natuna D-Alpha dan kekayaan perikanan tangkap lestari dari eksploitasi kapal nelayan asing ilegal (IUU Fishing). Video Pembelajaran: Posisi Strategis Maritim Indonesia dan Potensi Kelautan Dunia Eksplorasi ALKI, batas laut teritorial, ZEE, dan visi poros maritim dunia. Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional.</p><p>Tujuan pembelajaran: Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Letak Geografis, ALKI & Poros Maritim Dunia 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya.”.",
+          "Membandingkan temuan dengan capaian “Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xi-01-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Letak Geografis, ALKI & Poros Maritim Dunia 2026",
+          "isi": "<p>Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia. Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026.</p><p>Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026. Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional. Topik 1: Letak Geografis, ALKI &amp; Poros Maritim Dunia 2026. 🌊 Geopolitik Maritim 2026: Dinamika Keamanan Selat Malaka &amp; Laut Natuna Utara Dengan lebih dari 17.500 pulau dan garis pantai terpanjang kedua di dunia, Indonesia mengontrol 4 dari 9 chokepoints (titik sempit maritim strategis) dunia: Selat Malaka, Selat Sunda, Selat Lombok, dan Selat Makassar. Lebih dari 40% perdagangan lintas samudra dunia melintasi perairan kepulauan Nusantara. Di kawasan Laut Natuna Utara , penegakan hak berdaulat Zona Ekonomi Eksklusif (ZEE) 200 mil laut terus diperkuat melalui patroli Badan Keamanan Laut (Bakamla) dan TNI AL guna melindungi cadangan gas alam raksasa Blok Natuna D-Alpha dan kekayaan perikanan tangkap lestari dari eksploitasi kapal nelayan asing ilegal (IUU Fishing). Video Pembelajaran: Posisi Strategis Maritim Indonesia dan Potensi Kelautan Dunia Eksplorasi ALKI, batas laut teritorial, ZEE, dan visi poros maritim dunia. Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional.</p><p>Tujuan pembelajaran: Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya.",
+          "Mengkaji konteks materi: Topik 1: Letak Geografis, ALKI & Poros Maritim Dunia 2026",
+          "Menghubungkan temuan dengan: Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia.",
+          "Memahami ruang lingkup: Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya.”, tujuan kedua “Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia.”, cakupan bab “Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026.”, dan bacaan pembuka “Topik 1: Letak Geografis, ALKI & Poros Maritim Dunia 2026”."
+      },
+      {
+        "id": "xi-01-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Letak Geografis, ALKI & Poros Maritim Dunia 2026",
+          "isi": "<p>Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia. Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026.</p><p>Menelaah geopolitik kepulauan: letak astronomis, geografis, dan geologis Indonesia; Alur Laut Kepulauan Indonesia (ALKI I, II, III); potensi ekonomi biru kelautan; serta kedaulatan ZEE perairan Natuna Utara 2026. Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional. Topik 1: Letak Geografis, ALKI &amp; Poros Maritim Dunia 2026. 🌊 Geopolitik Maritim 2026: Dinamika Keamanan Selat Malaka &amp; Laut Natuna Utara Dengan lebih dari 17.500 pulau dan garis pantai terpanjang kedua di dunia, Indonesia mengontrol 4 dari 9 chokepoints (titik sempit maritim strategis) dunia: Selat Malaka, Selat Sunda, Selat Lombok, dan Selat Makassar. Lebih dari 40% perdagangan lintas samudra dunia melintasi perairan kepulauan Nusantara. Di kawasan Laut Natuna Utara , penegakan hak berdaulat Zona Ekonomi Eksklusif (ZEE) 200 mil laut terus diperkuat melalui patroli Badan Keamanan Laut (Bakamla) dan TNI AL guna melindungi cadangan gas alam raksasa Blok Natuna D-Alpha dan kekayaan perikanan tangkap lestari dari eksploitasi kapal nelayan asing ilegal (IUU Fishing). Video Pembelajaran: Posisi Strategis Maritim Indonesia dan Potensi Kelautan Dunia Eksplorasi ALKI, batas laut teritorial, ZEE, dan visi poros maritim dunia. Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis letak strategis wilayah Indonesia sebagai poros maritim dunia, potensi sumber daya kelautan dan batas maritim, serta peran Indonesia dalam jalur perdagangan internasional.</p><p>Tujuan pembelajaran: Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya. Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia. Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik. Menganalisis dinamika geopolitik penegakan kedaulatan di Zona Ekonomi Eksklusif (ZEE) Laut Natuna Utara terkini. Merumuskan strategi pengembangan Indonesia sebagai Poros Maritim Dunia yang berkelanjutan.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis letak astronomis, geografis di antara dua benua dan dua samudra, serta implikasi geologisnya.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menguraikan penetapan Alur Laut Kepulauan Indonesia (ALKI I, II, III) sebagai urat nadi pelayaran kapal dunia.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Mengevaluasi potensi ekonomi maritim: perikanan tangkap, energi kelautan terbarukan (arus laut/OTEC), dan tol laut logistik.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -148,7 +264,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Studi Dampak Pembangunan Jalan Tol terhadap Populasi Primata",
-          "isi": "<p>Pembangunan jalan raya selebar 60 meter membelah kawasan hutan lindung menjadi dua petak terpisah. Hasil monitoring 3 tahun menunjukkan terjadi perkawinan sedarah (inbreeding depression) pada kelompok primata karena tidak dapat menyeberang jalan.</p>",
+          "isi": "<p>Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia. Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026.</p><p>Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026. Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ. Topik 1: Bioma Dunia, Garis Wallace-Weber &amp; Konservasi IKN 2026. 🐒 Konservasi Terkini 2026: Koridor Satwa Liar Smart Forest City IKN Dalam pembangunan Ibu Kota Nusantara di Kalimantan Timur, habitat alami satwa kunci seperti Orangutan Kalimantan (Pongo pygmaeus) , Bekantan (Nasalis larvatus) , dan Macan Dahan terancam terfragmentasi oleh jaringan jalan tol Balikpapan–IKN. Untuk mencegah keterisolasian genetik satwa, pemerintah membangun Jembatan Kanopi Penyeberangan Satwa (Wildlife Overpass/Underpass) buatan di atas jalan tol yang ditanami pohon-pohon pakan alami. Ini merupakan terobosan integrasi perencanaan teknik sipil dengan kaidah biogeografi biosfer. Video Pembelajaran: Biosfer, Persebaran Bioma Dunia, dan Fauna Indonesia Pelajari pembagian bioma dunia, garis Wallace-Weber, dan upaya perlindungan satwa endemik Indonesia. Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ.</p><p>Tujuan pembelajaran: Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p>",
           "sumber": "Pusat Riset Biosistematika dan Evolusi BRIN"
         },
         "pertanyaan": "Solusi mitigasi biogeografi yang paling tepat untuk mengatasi masalah fragmentasi habitat tersebut adalah ...",
@@ -156,12 +272,128 @@
           "Membangun jembatan kanopi satwa (wildlife overpass) yang tertutup pepohonan rimbun di atas jalan tol untuk menghubungkan kembali koridor jelajah primata",
           "Memasang pagar kawat berduri setinggi 5 meter di sepanjang jalan tol",
           "Membasmi seluruh populasi primata agar tidak mengganggu lalu lintas jalan tol",
-          "Mempercepat kelajuan kendaraan agar satwa takut mendekat"
+          "Mempercepat kelajuan kendaraan agar satwa takut mendekat",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Wildlife overpass atau jembatan satwa adalah intervensi mitigasi keruangan standar internasional yang menghubungkan kembali kanopi hutan yang terputus, memungkinkan perpindahan genetik alami antarsubpopulasi satwa."
+      },
+      {
+        "id": "xi-02-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Bioma Dunia, Garis Wallace-Weber & Konservasi IKN 2026",
+          "isi": "<p>Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia. Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026.</p><p>Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026. Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ. Topik 1: Bioma Dunia, Garis Wallace-Weber &amp; Konservasi IKN 2026. 🐒 Konservasi Terkini 2026: Koridor Satwa Liar Smart Forest City IKN Dalam pembangunan Ibu Kota Nusantara di Kalimantan Timur, habitat alami satwa kunci seperti Orangutan Kalimantan (Pongo pygmaeus) , Bekantan (Nasalis larvatus) , dan Macan Dahan terancam terfragmentasi oleh jaringan jalan tol Balikpapan–IKN. Untuk mencegah keterisolasian genetik satwa, pemerintah membangun Jembatan Kanopi Penyeberangan Satwa (Wildlife Overpass/Underpass) buatan di atas jalan tol yang ditanami pohon-pohon pakan alami. Ini merupakan terobosan integrasi perencanaan teknik sipil dengan kaidah biogeografi biosfer. Video Pembelajaran: Biosfer, Persebaran Bioma Dunia, dan Fauna Indonesia Pelajari pembagian bioma dunia, garis Wallace-Weber, dan upaya perlindungan satwa endemik Indonesia. Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ.</p><p>Tujuan pembelajaran: Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Bioma Dunia, Garis Wallace-Weber & Konservasi IKN 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan & koridor overpass satwa IKN Nusantara 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xi-02-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Bioma Dunia, Garis Wallace-Weber & Konservasi IKN 2026",
+          "isi": "<p>Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia. Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026.</p><p>Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026. Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ. Topik 1: Bioma Dunia, Garis Wallace-Weber &amp; Konservasi IKN 2026. 🐒 Konservasi Terkini 2026: Koridor Satwa Liar Smart Forest City IKN Dalam pembangunan Ibu Kota Nusantara di Kalimantan Timur, habitat alami satwa kunci seperti Orangutan Kalimantan (Pongo pygmaeus) , Bekantan (Nasalis larvatus) , dan Macan Dahan terancam terfragmentasi oleh jaringan jalan tol Balikpapan–IKN. Untuk mencegah keterisolasian genetik satwa, pemerintah membangun Jembatan Kanopi Penyeberangan Satwa (Wildlife Overpass/Underpass) buatan di atas jalan tol yang ditanami pohon-pohon pakan alami. Ini merupakan terobosan integrasi perencanaan teknik sipil dengan kaidah biogeografi biosfer. Video Pembelajaran: Biosfer, Persebaran Bioma Dunia, dan Fauna Indonesia Pelajari pembagian bioma dunia, garis Wallace-Weber, dan upaya perlindungan satwa endemik Indonesia. Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ.</p><p>Tujuan pembelajaran: Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Bioma Dunia, Garis Wallace-Weber & Konservasi IKN 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup.”.",
+          "Membandingkan temuan dengan capaian “Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xi-02-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Bioma Dunia, Garis Wallace-Weber & Konservasi IKN 2026",
+          "isi": "<p>Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia. Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026.</p><p>Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026. Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ. Topik 1: Bioma Dunia, Garis Wallace-Weber &amp; Konservasi IKN 2026. 🐒 Konservasi Terkini 2026: Koridor Satwa Liar Smart Forest City IKN Dalam pembangunan Ibu Kota Nusantara di Kalimantan Timur, habitat alami satwa kunci seperti Orangutan Kalimantan (Pongo pygmaeus) , Bekantan (Nasalis larvatus) , dan Macan Dahan terancam terfragmentasi oleh jaringan jalan tol Balikpapan–IKN. Untuk mencegah keterisolasian genetik satwa, pemerintah membangun Jembatan Kanopi Penyeberangan Satwa (Wildlife Overpass/Underpass) buatan di atas jalan tol yang ditanami pohon-pohon pakan alami. Ini merupakan terobosan integrasi perencanaan teknik sipil dengan kaidah biogeografi biosfer. Video Pembelajaran: Biosfer, Persebaran Bioma Dunia, dan Fauna Indonesia Pelajari pembagian bioma dunia, garis Wallace-Weber, dan upaya perlindungan satwa endemik Indonesia. Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ.</p><p>Tujuan pembelajaran: Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup.",
+          "Mengkaji konteks materi: Topik 1: Bioma Dunia, Garis Wallace-Weber & Konservasi IKN 2026",
+          "Menghubungkan temuan dengan: Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra.",
+          "Memahami ruang lingkup: Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan & koridor overpass satwa IKN Nusantara 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup.”, tujuan kedua “Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra.”, cakupan bab “Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan & koridor overpass satwa IKN Nusantara 2026.”, dan bacaan pembuka “Topik 1: Bioma Dunia, Garis Wallace-Weber & Konservasi IKN 2026”."
+      },
+      {
+        "id": "xi-02-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Bioma Dunia, Garis Wallace-Weber & Konservasi IKN 2026",
+          "isi": "<p>Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia. Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026.</p><p>Menjelajahi keanekaragaman hayati: faktor persebaran biosfer, bioma dunia (hutan hujan, sabana, taiga, tundra), garis pembagi Wallace-Weber-Lydekker, konservasi Orangutan &amp; koridor overpass satwa IKN Nusantara 2026. Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ. Topik 1: Bioma Dunia, Garis Wallace-Weber &amp; Konservasi IKN 2026. 🐒 Konservasi Terkini 2026: Koridor Satwa Liar Smart Forest City IKN Dalam pembangunan Ibu Kota Nusantara di Kalimantan Timur, habitat alami satwa kunci seperti Orangutan Kalimantan (Pongo pygmaeus) , Bekantan (Nasalis larvatus) , dan Macan Dahan terancam terfragmentasi oleh jaringan jalan tol Balikpapan–IKN. Untuk mencegah keterisolasian genetik satwa, pemerintah membangun Jembatan Kanopi Penyeberangan Satwa (Wildlife Overpass/Underpass) buatan di atas jalan tol yang ditanami pohon-pohon pakan alami. Ini merupakan terobosan integrasi perencanaan teknik sipil dengan kaidah biogeografi biosfer. Video Pembelajaran: Biosfer, Persebaran Bioma Dunia, dan Fauna Indonesia Pelajari pembagian bioma dunia, garis Wallace-Weber, dan upaya perlindungan satwa endemik Indonesia. Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis sebaran bioma dunia dan keanekaragaman hayati flora-fauna Indonesia, mengevaluasi ancaman kepunahan spesies endemik, serta merancang solusi konservasi in-situ dan ex-situ.</p><p>Tujuan pembelajaran: Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup. Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra. Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia. Menganalisis isu kepunahan spesies endemik akibat deforestasi dan perburuan liar. Merumuskan strategi konservasi keanekaragaman hayati: cagar alam, suaka margasatwa, dan koridor satwa IKN Nusantara.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis pengaruh faktor klimatik, edafik, fisiografik, dan biotik terhadap persebaran makhluk hidup.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Membandingkan ciri adaptasi morfologis vegetasi pada bioma hutan hujan tropis, sabana, taiga, dan tundra.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menguraikan sejarah biogeografi Paparan Sunda, Paparan Sahul, dan zona Wallacea di Indonesia.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   }

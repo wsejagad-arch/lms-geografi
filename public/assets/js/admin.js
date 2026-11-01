@@ -101,6 +101,7 @@ const MENU_META = {
   students: { title: 'Siswa', render: () => renderStudents() },
   progress: { title: 'Progres Belajar', render: () => renderProgress() },
   sessions: { title: 'User Aktif', render: () => renderSessions() },
+  activity: { title: 'Log Aktivitas', render: () => renderActivityLog() },
   materials: { title: 'Materi', render: () => renderMaterials() },
   kurikulum: { title: 'Kurikulum', render: () => renderKurikulum() },
   questions: { title: 'Bank Soal', render: () => renderQuestions() },
@@ -108,7 +109,8 @@ const MENU_META = {
   grades: { title: 'Input Nilai', render: () => renderGrades() },
   attendance: { title: 'Presensi', render: () => renderAttendance() },
   assignments: { title: 'Tugas', render: () => renderAssignments() },
-  schedules: { title: 'Jadwal', render: () => renderSchedules() }
+  schedules: { title: 'Jadwal', render: () => renderSchedules() },
+  whatsapp: { title: 'WhatsApp Sender', render: () => renderWhatsApp() }
 };
 
 function closeSidebar() {
@@ -120,6 +122,7 @@ function switchMenu(menu) {
   const meta = MENU_META[menu];
   if (!meta) return;
   if (menu !== 'sessions' && typeof stopSessionsLive === 'function') stopSessionsLive();
+  if (menu !== 'whatsapp' && typeof stopWhatsAppPolling === 'function') stopWhatsAppPolling();
   setupMenu(menu);
   const title = document.getElementById('page-title');
   if (title) title.textContent = meta.title;
@@ -963,6 +966,71 @@ async function renderSessions() {
   }, 10000);
 }
 
+let activityRows = [];
+async function renderActivityLog() {
+  const tbody = document.getElementById('activity-log-tbody');
+  if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="text-center">Memuat aktivitas…</td></tr>';
+  try {
+    const response = await fetch('/api/admin/activity-log', { credentials: 'same-origin' });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || 'Gagal memuat log aktivitas');
+    activityRows = Array.isArray(data.events) ? data.events : [];
+    const classSelect = document.getElementById('activity-filter-kelas');
+    if (classSelect) {
+      const selected = classSelect.value;
+      const classes = [...new Set(activityRows.map(row => row.kelas_nama).filter(Boolean))]
+        .sort((a, b) => String(a).localeCompare(String(b), 'id'));
+      classSelect.innerHTML = '<option value="">Semua Kelas</option>' +
+        classes.map(name => `<option value="${kurEsc(name)}">${kurEsc(name)}</option>`).join('');
+      classSelect.value = classes.includes(selected) ? selected : '';
+    }
+    const typeSelect = document.getElementById('activity-filter-type');
+    if (typeSelect) {
+      const selected = typeSelect.value;
+      const types = [...new Set(activityRows.map(row => row.aksi).filter(Boolean))]
+        .sort((a, b) => String(a).localeCompare(String(b), 'id'));
+      typeSelect.innerHTML = '<option value="">Semua Aktivitas</option>' +
+        types.map(name => `<option value="${kurEsc(name)}">${kurEsc(name)}</option>`).join('');
+      typeSelect.value = types.includes(selected) ? selected : '';
+    }
+    filterActivityRows();
+  } catch (error) {
+    if (tbody) tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">${kurEsc(error.message)}</td></tr>`;
+    const count = document.getElementById('activity-log-count');
+    if (count) count.textContent = 'Log aktivitas gagal dimuat';
+  }
+}
+
+function filterActivityRows() {
+  const tbody = document.getElementById('activity-log-tbody');
+  const count = document.getElementById('activity-log-count');
+  if (!tbody) return;
+  const className = document.getElementById('activity-filter-kelas')?.value || '';
+  const action = document.getElementById('activity-filter-type')?.value || '';
+  const query = (document.getElementById('activity-filter-query')?.value || '').trim().toLowerCase();
+  const rows = activityRows.filter(row => {
+    if (className && row.kelas_nama !== className) return false;
+    if (action && row.aksi !== action) return false;
+    if (query && !`${row.nama || ''} ${row.nis || ''}`.toLowerCase().includes(query)) return false;
+    return true;
+  });
+  if (count) count.textContent = `${rows.length} aktivitas ditampilkan · ${activityRows.length} log terbaru`;
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada aktivitas yang cocok.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(row => `
+    <tr>
+      <td>${kurEsc(sessionTime(row.created_at))}</td>
+      <td>${kurEsc(row.nama || '-')}<div style="font-size:11px;color:var(--text-2)">${row.nis ? `NIS ${kurEsc(row.nis)} · ` : ''}${kurEsc(row.role || '')}</div></td>
+      <td>${kurEsc(row.kelas_nama || '-')}</td>
+      <td><span class="badge ${/Login|password/i.test(row.aksi) ? 'badge-primary' : 'badge-neutral'}">${kurEsc(row.aksi || '-')}</span></td>
+      <td>${kurEsc(row.detail || '-')}</td>
+      <td>${kurEsc(sessionDevice(row.ua))}<div style="font-size:11px;color:var(--text-2)">${kurEsc(row.ip || '-')}</div></td>
+    </tr>
+  `).join('');
+}
+
 async function renderProgress() {
   const tbody = document.getElementById('progress-tbody');
   if (!tbody) return;
@@ -1049,8 +1117,48 @@ async function loadAdminSemesterAktif() {
     if (sel && res && res.semester_aktif) {
       sel.value = String(res.semester_aktif);
     }
+    const yearSelect = document.getElementById('admin-active-school-year');
+    if (yearSelect && res) {
+      const years = res.tahun_pelajaran_options || [res.tahun_pelajaran_aktif].filter(Boolean);
+      yearSelect.innerHTML = years.map(year => `<option value="${kurEsc(year)}">${kurEsc(year)}</option>`).join('');
+      yearSelect.value = res.tahun_pelajaran_aktif || '';
+    }
   } catch (e) {
     console.error('Gagal memuat semester aktif:', e);
+  }
+}
+
+async function saveAdminTahunPelajaranAktif() {
+  const sel = document.getElementById('admin-active-school-year');
+  if (!sel || !sel.value) return;
+  try {
+    const res = await LMS.setTahunPelajaranAktif(sel.value);
+    alert(`Tahun pelajaran aktif berhasil diubah menjadi ${res.tahun_pelajaran_aktif}.`);
+  } catch (err) {
+    alert('Gagal mengubah tahun pelajaran aktif: ' + err.message);
+  }
+}
+
+async function addAdminTahunPelajaran() {
+  const input = document.getElementById('admin-new-school-year');
+  const year = input && input.value.trim();
+  if (!year) {
+    alert('Masukkan tahun pelajaran, contoh 2026/2027.');
+    return;
+  }
+  try {
+    const res = await LMS.addTahunPelajaran(year);
+    const yearSelect = document.getElementById('admin-active-school-year');
+    if (yearSelect) {
+      yearSelect.innerHTML = (res.tahun_pelajaran_options || []).map(value =>
+        `<option value="${kurEsc(value)}">${kurEsc(value)}</option>`
+      ).join('');
+      yearSelect.value = res.tahun_pelajaran_aktif;
+    }
+    input.value = '';
+    alert(`Tahun pelajaran ${res.tahun_pelajaran_aktif} berhasil ditambahkan dan diaktifkan.`);
+  } catch (err) {
+    alert('Gagal menambahkan tahun pelajaran: ' + err.message);
   }
 }
 
@@ -2076,6 +2184,234 @@ async function deleteSchedule(id) {
   }
 }
 
+// ===== WHATSAPP SENDER =====
+let whatsAppTimer = null;
+let whatsAppLoading = false;
+
+async function whatsAppRequest(path, options = {}) {
+  const response = await fetch(path, {
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    ...options
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const message = data.error || (response.status === 404
+      ? 'Endpoint WhatsApp belum tersedia di server. Perbarui dan restart backend LMS.'
+      : response.status === 401
+        ? 'Sesi login berakhir. Silakan login admin kembali.'
+        : response.status === 403
+          ? 'Akses WhatsApp Sender hanya tersedia untuk admin tenant.'
+          : `Permintaan WhatsApp gagal (HTTP ${response.status}).`);
+    throw new Error(message);
+  }
+  return data;
+}
+
+function stopWhatsAppPolling() {
+  if (whatsAppTimer) {
+    clearInterval(whatsAppTimer);
+    whatsAppTimer = null;
+  }
+}
+
+async function renderWhatsApp() {
+  if (whatsAppLoading) return;
+  whatsAppLoading = true;
+  try {
+    const [data, schedules] = await Promise.all([
+      whatsAppRequest('/api/admin/whatsapp'),
+      LMS.getSchedules()
+    ]);
+    const connection = data.connection || {};
+    const badge = document.getElementById('wa-connection-badge');
+    const note = document.getElementById('wa-connection-note');
+    const url = document.getElementById('wa-lms-url');
+    const qr = document.getElementById('wa-qr-image');
+    const qrPlaceholder = document.getElementById('wa-qr-placeholder');
+    if (url && !url.value) url.value = data.config?.lms_url || '';
+    if (badge) {
+      const stateLabel = {
+        connected: `Terhubung${connection.phone ? ` · ${connection.phone}` : ''}`,
+        qr: 'Pindai QR',
+        connecting: 'Menghubungkan…',
+        logged_out: 'Perlu hubungkan ulang',
+        error: 'Gangguan',
+        disconnected: 'Belum terhubung'
+      };
+      badge.className = `badge ${connection.status === 'connected' ? 'badge-success' : connection.status === 'qr' ? 'badge-primary' : 'badge-neutral'}`;
+      badge.textContent = stateLabel[connection.status] || connection.status || 'Belum terhubung';
+    }
+    if (note) note.textContent = connection.error || (connection.status === 'connected'
+      ? 'Nomor WhatsApp tenant sudah terhubung. Grup WhatsApp yang ditemukan dapat dipilih untuk pengiriman.'
+      : connection.status === 'qr'
+        ? 'Pindai QR melalui WhatsApp > Perangkat tertaut > Tautkan perangkat.'
+        : 'Klik Hubungkan untuk membuat QR. Gunakan hanya nomor WhatsApp yang dikelola admin tenant.');
+    if (qr) {
+      qr.hidden = !connection.qr;
+      if (connection.qr && qr.src !== connection.qr) qr.src = connection.qr;
+    }
+    if (qrPlaceholder) {
+      qrPlaceholder.hidden = !!connection.qr;
+      qrPlaceholder.textContent = connection.status === 'connected'
+        ? 'WhatsApp terhubung'
+        : connection.status === 'connecting' ? 'Menyiapkan koneksi…' : 'QR akan tampil di sini';
+    }
+
+    const groupSelect = document.getElementById('wa-job-group');
+    if (groupSelect) {
+      const previous = groupSelect.value;
+      const groups = connection.groups || [];
+      groupSelect.innerHTML = groups.length
+        ? '<option value="">Pilih grup tujuan</option>' + groups.map(group =>
+          `<option value="${kurEsc(group.id)}">${kurEsc(group.subject)}</option>`).join('')
+        : `<option value="">${connection.status === 'connected' ? 'Tidak ada grup ditemukan' : 'Hubungkan nomor terlebih dahulu'}</option>`;
+      if (groups.some(group => group.id === previous)) groupSelect.value = previous;
+    }
+    const groupsList = document.getElementById('wa-groups-list');
+    if (groupsList) {
+      groupsList.innerHTML = connection.groups?.length
+        ? connection.groups.map(group => `<span class="wa-group-chip">${kurEsc(group.subject)}</span>`).join('')
+        : 'Belum ada grup yang dapat dipilih.';
+    }
+    const scheduleSelect = document.getElementById('wa-job-schedule');
+    if (scheduleSelect) {
+      const previous = scheduleSelect.value;
+      scheduleSelect.innerHTML = schedules.length
+        ? '<option value="">Pilih jadwal pelajaran</option>' + schedules.map(schedule =>
+          `<option value="${kurEsc(schedule.id)}">${kurEsc(schedule.hari)} · ${kurEsc(schedule.jam_mulai)} · ${kurEsc(schedule.class_nama)} · ${kurEsc(schedule.subject_nama)}</option>`).join('')
+        : '<option value="">Tambahkan jadwal pelajaran terlebih dahulu</option>';
+      if (schedules.some(schedule => schedule.id === previous)) scheduleSelect.value = previous;
+    }
+    renderWhatsAppJobs(data.jobs || []);
+    const dateInput = document.getElementById('wa-job-date');
+    if (dateInput && !dateInput.value) {
+      const localParts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: data.timezone || 'Asia/Jakarta',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).formatToParts(new Date()).reduce((result, part) => {
+        if (part.type !== 'literal') result[part.type] = part.value;
+        return result;
+      }, {});
+      const nextDay = new Date(Date.UTC(Number(localParts.year), Number(localParts.month) - 1, Number(localParts.day) + 1));
+      dateInput.value = nextDay.toISOString().slice(0, 10);
+    }
+  } catch (error) {
+    const note = document.getElementById('wa-connection-note');
+    if (note) note.textContent = error.message || 'Status WhatsApp gagal dimuat.';
+    const jobs = document.getElementById('wa-jobs-tbody');
+    if (jobs) jobs.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">${kurEsc(error.message)}</td></tr>`;
+  } finally {
+    whatsAppLoading = false;
+  }
+  stopWhatsAppPolling();
+  whatsAppTimer = setInterval(() => {
+    const section = document.getElementById('menu-whatsapp');
+    if (!section || section.classList.contains('hidden')) {
+      stopWhatsAppPolling();
+      return;
+    }
+    renderWhatsApp();
+  }, 3000);
+}
+
+function renderWhatsAppJobs(jobs) {
+  const tbody = document.getElementById('wa-jobs-tbody');
+  if (!tbody) return;
+  if (!jobs.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada pesan terjadwal.</td></tr>';
+    return;
+  }
+  const statusLabels = { scheduled: 'Terjadwal', sending: 'Mengirim', sent: 'Terkirim', failed: 'Gagal' };
+  tbody.innerHTML = jobs.map(job => `
+    <tr>
+      <td>${kurEsc(job.tanggal)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.waktu)} WIB</div></td>
+      <td>${kurEsc(job.kelas)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.mapel)} · ${kurEsc(job.hari)} ${kurEsc(job.jam_mulai)}</div></td>
+      <td>${kurEsc(job.group_name || job.group_id)}</td>
+      <td><span class="badge ${job.status === 'sent' ? 'badge-success' : job.status === 'failed' ? 'badge-danger' : 'badge-neutral'}">${kurEsc(statusLabels[job.status] || job.status)}</span></td>
+      <td>${kurEsc(job.status === 'sent' ? sessionTime(job.sent_at) : job.last_error || '-')}</td>
+      <td>${['scheduled', 'failed'].includes(job.status) ? `<button class="btn btn-sm btn-danger" data-wa-delete="${kurEsc(job.id)}">Hapus</button>` : '-'}</td>
+    </tr>
+  `).join('');
+  tbody.querySelectorAll('[data-wa-delete]').forEach(button => {
+    button.addEventListener('click', async () => {
+      if (!confirm('Hapus jadwal pesan WhatsApp ini?')) return;
+      try {
+        await whatsAppRequest(`/api/admin/whatsapp/jobs/${encodeURIComponent(button.dataset.waDelete)}`, { method: 'DELETE' });
+        await renderWhatsApp();
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+  });
+}
+
+async function connectWhatsAppSender() {
+  const note = document.getElementById('wa-connection-note');
+  const url = document.getElementById('wa-lms-url')?.value.trim();
+  const button = document.getElementById('btn-wa-connect');
+  if (button) button.disabled = true;
+  if (note) note.textContent = 'Menyimpan konfigurasi dan membuat koneksi WhatsApp…';
+  try {
+    await whatsAppRequest('/api/admin/whatsapp/connect', {
+      method: 'POST',
+      body: JSON.stringify({ lms_url: url })
+    });
+    await renderWhatsApp();
+  } catch (error) {
+    if (note) note.textContent = error.message;
+  } finally {
+    if (button) button.disabled = false;
+  }
+}
+
+async function disconnectWhatsAppSender() {
+  if (!confirm('Putuskan WhatsApp tenant ini? Pengiriman terjadwal akan berhenti sampai nomor dihubungkan kembali.')) return;
+  try {
+    await whatsAppRequest('/api/admin/whatsapp/disconnect', { method: 'POST', body: '{}' });
+    await renderWhatsApp();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+async function refreshWhatsAppGroups() {
+  try {
+    await whatsAppRequest('/api/admin/whatsapp/groups');
+    await renderWhatsApp();
+  } catch (error) {
+    const note = document.getElementById('wa-connection-note');
+    if (note) note.textContent = error.message;
+  }
+}
+
+async function saveWhatsAppJob(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const button = document.getElementById('btn-wa-job-save');
+  if (button) button.disabled = true;
+  try {
+    await whatsAppRequest('/api/admin/whatsapp/jobs', {
+      method: 'POST',
+      body: JSON.stringify({
+        schedule_id: document.getElementById('wa-job-schedule').value,
+        group_id: document.getElementById('wa-job-group').value,
+        tanggal: document.getElementById('wa-job-date').value,
+        waktu: document.getElementById('wa-job-time').value
+      })
+    });
+    form.reset();
+    document.getElementById('wa-job-time').value = '06:30';
+    await renderWhatsApp();
+  } catch (error) {
+    alert(`Gagal menjadwalkan pesan: ${error.message}`);
+  } finally {
+    if (button) button.disabled = false;
+  }
+}
+
 // ===== EVENT LISTENERS =====
 document.addEventListener('DOMContentLoaded', () => {
   init();
@@ -2108,6 +2444,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('session-filter-kelas')?.addEventListener('change', renderSessionRows);
   document.getElementById('session-filter-status')?.addEventListener('change', renderSessionRows);
   document.getElementById('session-filter-nama')?.addEventListener('input', renderSessionRows);
+  document.getElementById('btn-activity-refresh')?.addEventListener('click', renderActivityLog);
+  document.getElementById('activity-filter-kelas')?.addEventListener('change', filterActivityRows);
+  document.getElementById('activity-filter-type')?.addEventListener('change', filterActivityRows);
+  document.getElementById('activity-filter-query')?.addEventListener('input', filterActivityRows);
   document.getElementById('student-import-file')?.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) importStudentFile(file);
@@ -2119,6 +2459,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-seed-kurikulum')?.addEventListener('click', seedKurikulumMateri);
   document.getElementById('btn-save-material')?.addEventListener('click', saveMaterial);
   document.getElementById('btn-save-semester-aktif')?.addEventListener('click', saveAdminSemesterAktif);
+  document.getElementById('btn-save-school-year')?.addEventListener('click', saveAdminTahunPelajaranAktif);
+  document.getElementById('btn-add-school-year')?.addEventListener('click', addAdminTahunPelajaran);
   document.getElementById('filter-material-semester')?.addEventListener('change', renderMaterials);
   
   // Questions
@@ -2147,6 +2489,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Schedules
   document.getElementById('btn-add-schedule')?.addEventListener('click', () => openScheduleModal());
   document.getElementById('btn-save-schedule')?.addEventListener('click', saveSchedule);
+  document.getElementById('btn-wa-connect')?.addEventListener('click', connectWhatsAppSender);
+  document.getElementById('btn-wa-disconnect')?.addEventListener('click', disconnectWhatsAppSender);
+  document.getElementById('btn-wa-refresh')?.addEventListener('click', renderWhatsApp);
+  document.getElementById('btn-wa-refresh-groups')?.addEventListener('click', refreshWhatsAppGroups);
+  document.getElementById('wa-job-form')?.addEventListener('submit', saveWhatsAppJob);
   
   // Seed
   document.getElementById('btn-seed')?.addEventListener('click', runSeed);
@@ -2260,12 +2607,21 @@ function kurMateriItem(m, i) {
 }
 
 function kurSoalItem(s, i) {
-  const t = s.tipe;
+  const t = s.tipe || 'pg_singkat';
   const isOpsi = t === 'pgm' || t === 'pg_singkat' || t === 'pg_kompleks' || t === 'benar_salah';
   const isPair = t === 'menjodohkan';
   const list = isOpsi ? (s.opsi || s.pernyataan || []).join('\n') : '';
   return `<div class="kur-item" data-idx="${i}" data-tipe="${t}" data-id="${kurEsc(s.id)}">
-    <div class="kur-item-head"><b>Soal ${i + 1}</b><span class="kur-sub">${kurEsc(t)}</span></div>
+    <div class="kur-item-head"><b>Soal ${i + 1}</b>
+      <label>Jenis soal<select class="k-s-tipe">
+        <option value="pg_singkat" ${t === 'pg_singkat' ? 'selected' : ''}>Pilihan ganda biasa</option>
+        <option value="pgm" ${t === 'pgm' ? 'selected' : ''}>Pilihan ganda majemuk (pilih satu kombinasi)</option>
+        <option value="pg_kompleks" ${t === 'pg_kompleks' ? 'selected' : ''}>Pilihan ganda kompleks</option>
+        <option value="menjodohkan" ${t === 'menjodohkan' ? 'selected' : ''}>Menjodohkan</option>
+        <option value="benar_salah" ${t === 'benar_salah' ? 'selected' : ''}>Benar atau salah</option>
+      </select></label>
+      <button type="button" class="btn btn-sm kur-del-soal">Hapus soal</button>
+    </div>
     <div class="kur-grid">
       <label>Level<input class="k-s-level" value="${kurEsc(s.level || 'C4')}"></label>
       <label>Jenis stimulus<input class="k-s-jenis" value="${kurEsc((s.stimulus && s.stimulus.jenis) || 'teks')}"></label>
@@ -2273,16 +2629,64 @@ function kurSoalItem(s, i) {
       <label>Numerasi<input class="k-s-numerasi" value="${kurEsc(s.numerasi || '')}"></label>
       <label>Judul stimulus<input class="k-s-stimjudul" value="${kurEsc((s.stimulus && s.stimulus.judul) || '')}"></label>
       <label>URL gambar stimulus<input class="k-s-gambar" placeholder="https://…" value="${kurEsc((s.stimulus && s.stimulus.gambar) || '')}"></label>
-      <label class="wide">Isi stimulus (HTML ringan)<textarea class="k-s-stimisi" rows="3">${kurEsc((s.stimulus && s.stimulus.isi) || '')}</textarea></label>
+      <label class="wide">Bacaan / stimulus (HTML ringan)<textarea class="k-s-stimisi" rows="6">${kurEsc((s.stimulus && s.stimulus.isi) || '')}</textarea></label>
       <label>Sumber<input class="k-s-sumber" value="${kurEsc((s.stimulus && s.stimulus.sumber) || '')}"></label>
-      <label class="wide">Pertanyaan<textarea class="k-s-pertanyaan" rows="2">${kurEsc(s.pertanyaan)}</textarea></label>
-      ${isOpsi ? `<label class="wide">Opsi / pernyataan (satu per baris)<textarea class="k-s-opsi" rows="5">${kurEsc(list)}</textarea></label>` : ''}
+      <label class="wide">Pertanyaan<textarea class="k-s-pertanyaan" rows="4">${kurEsc(s.pertanyaan)}</textarea></label>
+      ${isOpsi ? `<label class="wide">${t === 'benar_salah' ? 'Pernyataan' : 'Opsi jawaban A-E'} (satu per baris)<textarea class="k-s-opsi" rows="6">${kurEsc(list)}</textarea></label>` : `<textarea class="k-s-opsi" hidden>${kurEsc((s.opsi || []).join('\n'))}</textarea>`}
       ${isPair ? `<label>Kiri (satu per baris)<textarea class="k-s-kiri" rows="4">${kurEsc((s.kiri || []).join('\n'))}</textarea></label>
-      <label>Kanan (satu per baris)<textarea class="k-s-kanan" rows="4">${kurEsc((s.kanan || []).join('\n'))}</textarea></label>` : ''}
+      <label>Kanan (satu per baris)<textarea class="k-s-kanan" rows="4">${kurEsc((s.kanan || []).join('\n'))}</textarea></label>` : `<textarea class="k-s-kiri" hidden>${kurEsc((s.kiri || []).join('\n'))}</textarea><textarea class="k-s-kanan" hidden>${kurEsc((s.kanan || []).join('\n'))}</textarea>`}
       <label>Kunci (pisah koma: 0 / B,S / 2,0,1)<input class="k-s-kunci" value="${kurEsc((s.kunci || []).join(','))}"></label>
-      <label class="wide">Pembahasan<textarea class="k-s-pembahasan" rows="2">${kurEsc(s.pembahasan || '')}</textarea></label>
+      <label class="wide">Pembahasan / jawaban panjang<textarea class="k-s-pembahasan" rows="4">${kurEsc(s.pembahasan || '')}</textarea></label>
     </div>
   </div>`;
+}
+
+function kurReadSoalItem(item) {
+  const val = sel => { const el = item.querySelector(sel); return el ? el.value : ''; };
+  const lines = sel => val(sel).split('\n').map(s => s.trim()).filter(Boolean);
+  const tipe = val('.k-s-tipe') || item.dataset.tipe || 'pg_singkat';
+  const raw = val('.k-s-kunci').split(',').map(s => s.trim()).filter(Boolean);
+  const soal = {
+    id: item.dataset.id || '',
+    tipe,
+    level: val('.k-s-level') || 'C4',
+    literasi: val('.k-s-literasi'),
+    numerasi: val('.k-s-numerasi'),
+    stimulus: {
+      jenis: val('.k-s-jenis') || 'teks',
+      judul: val('.k-s-stimjudul'),
+      isi: val('.k-s-stimisi'),
+      gambar: val('.k-s-gambar'),
+      sumber: val('.k-s-sumber')
+    },
+    pertanyaan: val('.k-s-pertanyaan'),
+    kunci: tipe === 'benar_salah' ? raw.map(k => k.toUpperCase() === 'B' ? 'B' : 'S') : raw.map(Number).filter(n => !Number.isNaN(n)),
+    pembahasan: val('.k-s-pembahasan')
+  };
+  if (tipe === 'benar_salah') soal.pernyataan = lines('.k-s-opsi');
+  else if (tipe === 'menjodohkan') {
+    soal.kiri = lines('.k-s-kiri');
+    soal.kanan = lines('.k-s-kanan');
+  } else soal.opsi = lines('.k-s-opsi');
+  return soal;
+}
+
+function kurBindSoalItems(box) {
+  if (box.dataset.kurSoalBound) return;
+  box.dataset.kurSoalBound = 'true';
+  box.addEventListener('click', event => {
+    const btn = event.target.closest('.kur-del-soal');
+    if (btn) btn.closest('.kur-item').remove();
+  });
+  box.addEventListener('change', event => {
+    if (!event.target.matches('.k-s-tipe')) return;
+    const item = event.target.closest('.kur-item');
+    const soal = kurReadSoalItem(item);
+    soal.tipe = event.target.value;
+    const holder = document.createElement('div');
+    holder.innerHTML = kurSoalItem(soal, Number(item.dataset.idx));
+    item.replaceWith(holder.firstElementChild);
+  });
 }
 
 function kurBindEditor(box) {
@@ -2323,6 +2727,23 @@ function kurBindEditor(box) {
     kurBindEditor(box);
   };
 
+  const addSoalBtn = box.querySelector('#kur-add-soal');
+  if (addSoalBtn) addSoalBtn.onclick = () => {
+    const list = box.querySelector('#kur-soal');
+    if (list.querySelectorAll('.kur-item').length >= 10) {
+      alert('Maksimal 10 soal per materi.');
+      return;
+    }
+    const idx = list.querySelectorAll('.kur-item').length;
+    list.insertAdjacentHTML('beforeend', kurSoalItem({
+      tipe: 'pg_singkat',
+      stimulus: { jenis: 'teks', judul: '', isi: '', gambar: '', sumber: '' },
+      opsi: ['', '', '', '', ''],
+      kunci: [0]
+    }, idx));
+  };
+  kurBindSoalItems(box);
+
   const closeBtn = box.querySelector('#kur-tutup');
   if (closeBtn) closeBtn.onclick = () => box.classList.add('hidden');
   const cancelBtn = box.querySelector('#kur-batal');
@@ -2353,7 +2774,7 @@ async function openKurEditor(id) {
       <button type="button" class="btn btn-sm" id="kur-add-materi">+ Tambah bagian</button>
       <h4 class="kur-h">Glosarium (istilah|arti per baris)</h4>
       <textarea id="kur-glos" rows="4">${kurEsc((b.glosarium || []).map(g => g.istilah + '|' + g.arti).join('\n'))}</textarea>
-      <h4 class="kur-h">Soal evaluasi</h4>
+      <div class="panel-head"><h4 class="kur-h">Soal evaluasi (5–10 soal)</h4><button type="button" class="btn btn-sm" id="kur-add-soal">+ Tambah soal</button></div>
       <div id="kur-soal">${(b.soal || []).map(kurSoalItem).join('')}</div>
       <div class="list-toolbar" style="justify-content:flex-end;margin-top:12px">
         <button class="btn" id="kur-batal">Batal</button>
@@ -2379,35 +2800,7 @@ function kurCollect(box) {
     .filter(parts => parts[0] && parts[1])
     .map(parts => ({ istilah: parts[0].trim(), arti: parts[1].trim() }));
 
-  const soal = [...box.querySelectorAll('#kur-soal .kur-item')].map(item => {
-    const tipe = item.dataset.tipe;
-    const val = sel => { const el = item.querySelector(sel); return el ? el.value : ''; };
-    const lines = sel => val(sel).split('\n').map(s => s.trim()).filter(Boolean);
-    const out = {
-      id: item.dataset.id,
-      tipe: tipe,
-      level: val('.k-s-level') || 'C4',
-      literasi: val('.k-s-literasi'),
-      numerasi: val('.k-s-numerasi'),
-      stimulus: {
-        jenis: val('.k-s-jenis') || 'teks',
-        judul: val('.k-s-stimjudul'),
-        isi: val('.k-s-stimisi'),
-        gambar: val('.k-s-gambar'),
-        sumber: val('.k-s-sumber')
-      },
-      pertanyaan: val('.k-s-pertanyaan'),
-      pembahasan: val('.k-s-pembahasan')
-    };
-    if (tipe === 'pgm' || tipe === 'pg_singkat' || tipe === 'pg_kompleks') out.opsi = lines('.k-s-opsi');
-    if (tipe === 'benar_salah') out.pernyataan = lines('.k-s-opsi');
-    if (tipe === 'menjodohkan') { out.kiri = lines('.k-s-kiri'); out.kanan = lines('.k-s-kanan'); }
-    const raw = val('.k-s-kunci').split(',').map(s => s.trim()).filter(Boolean);
-    out.kunci = tipe === 'benar_salah'
-      ? raw.map(k => (k.toUpperCase() === 'B' ? 'B' : 'S'))
-      : raw.map(Number).filter(n => !Number.isNaN(n));
-    return out;
-  });
+  const soal = [...box.querySelectorAll('#kur-soal .kur-item')].map(kurReadSoalItem);
 
   return {
     judul: box.querySelector('#kur-judul').value.trim(),
@@ -2421,13 +2814,46 @@ function kurCollect(box) {
   };
 }
 
+function kurValidSoal(s) {
+  const text = value => String(value || '').replace(/<[^>]*>/g, ' ').replace(/&[a-z0-9#]+;/gi, ' ').replace(/\s+/g, ' ').trim();
+  const indeksValid = (values, size) => values.length > 0
+    && values.every(value => Number.isInteger(Number(value)) && Number(value) >= 0 && Number(value) < size);
+  if (!s.pertanyaan.trim() || text(s.stimulus.isi).length < 800 || text(s.pembahasan).length < 80) return false;
+  if (s.tipe === 'pg_singkat' || s.tipe === 'pgm') {
+    return s.opsi.length === 5 && s.kunci.length === 1 && indeksValid(s.kunci, s.opsi.length);
+  }
+  if (s.tipe === 'pg_kompleks') {
+    return s.opsi.length === 5 && s.kunci.length >= 2 && indeksValid(s.kunci, s.opsi.length);
+  }
+  if (s.tipe === 'benar_salah') {
+    return s.pernyataan.length >= 2 && s.kunci.length === s.pernyataan.length
+      && s.kunci.every(value => value === 'B' || value === 'S');
+  }
+  return s.tipe === 'menjodohkan' && s.kiri.length >= 2 && s.kanan.length >= 2
+    && s.kunci.length === s.kiri.length && indeksValid(s.kunci, s.kanan.length);
+}
+
 async function kurSave(box) {
   const btn = box.querySelector('#kur-simpan');
+  const data = kurCollect(box);
+  if (data.soal.length < 5 || data.soal.length > 10) {
+    alert('Setiap materi harus memiliki 5–10 soal evaluasi.');
+    return;
+  }
+  const tipeSoal = ['pgm', 'pg_singkat', 'pg_kompleks', 'menjodohkan', 'benar_salah'];
+  if (tipeSoal.some(type => !data.soal.some(soal => soal.tipe === type))) {
+    alert('Setiap materi harus memiliki minimal satu soal dari kelima tipe yang tersedia.');
+    return;
+  }
+  if (data.soal.some(soal => !kurValidSoal(soal))) {
+    alert('Periksa bacaan minimal 800 karakter, lima opsi A-E untuk soal pilihan ganda, pernyataan/kunci, dan pembahasan minimal 80 karakter pada setiap soal.');
+    return;
+  }
   btn.disabled = true;
   try {
     await kurFetch('/api/admin/kurikulum/' + encodeURIComponent(box.dataset.id), {
       method: 'PUT',
-      body: JSON.stringify(kurCollect(box))
+      body: JSON.stringify(data)
     });
     btn.disabled = false;
     alert('Materi kurikulum tersimpan.');
