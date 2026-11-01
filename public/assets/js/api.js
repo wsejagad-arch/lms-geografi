@@ -42,10 +42,14 @@ const LMS = (() => {
   }
 
   // Login tunggal: backend mendeteksi staf/guru/siswa dari identitas yang diisi.
-  async function authLogin(identifier, password) {
+  async function authLogin(identifier, password, geo) {
+    const body = { identifier, password };
+    if (geo && Number.isFinite(Number(geo.lat)) && Number.isFinite(Number(geo.lng))) {
+      body.geo = { lat: Number(geo.lat), lng: Number(geo.lng), accuracy: Number(geo.accuracy) || 0 };
+    }
     const user = await api('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ identifier, password })
+      body: JSON.stringify(body)
     });
     currentUser = user;
     currentTenant = user.tenant_id;

@@ -197,8 +197,31 @@ function clientMeta(req) {
   const city = h['cf-ipcity'] || '';
   const region = h['cf-region'] || h['cf-region-code'] || '';
   const country = h['cf-ipcountry'] || '';
-  const lokasi = [city, region, country].filter(Boolean).join(', ');
-  return { ip, lokasi, ua: String(h['user-agent'] || '').slice(0, 180) };
+  const ipLokasi = [city, region, country].filter(Boolean).join(', ');
+  const ipLat = Number(h['cf-iplatitude']);
+  const ipLng = Number(h['cf-iplongitude']);
+
+  // Koordinat dari perangkat (dikirim halaman login) lebih akurat daripada IP.
+  const geo = (req.body && typeof req.body.geo === 'object' && req.body.geo) || {};
+  const lat = Number(geo.lat);
+  const lng = Number(geo.lng);
+  const acc = Number(geo.accuracy);
+  const hasGeo = Number.isFinite(lat) && Number.isFinite(lng)
+    && Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
+  const deviceLokasi = hasGeo
+    ? `GPS ${lat.toFixed(5)}, ${lng.toFixed(5)}${Number.isFinite(acc) ? ` (±${Math.round(acc)} m)` : ''}`
+    : '';
+  const lokasi = [deviceLokasi, ipLokasi].filter(Boolean).join(' · ');
+
+  return {
+    ip,
+    lokasi,
+    ua: String(h['user-agent'] || '').slice(0, 180),
+    geo_lat: hasGeo ? lat : (Number.isFinite(ipLat) ? ipLat : null),
+    geo_lng: hasGeo ? lng : (Number.isFinite(ipLng) ? ipLng : null),
+    geo_accuracy: hasGeo && Number.isFinite(acc) ? Math.round(acc) : null,
+    geo_source: hasGeo ? 'device' : (Number.isFinite(ipLat) && Number.isFinite(ipLng) ? 'ip' : (ipLokasi ? 'ip-city' : ''))
+  };
 }
 
 function touchSession(db, req, user) {
@@ -219,6 +242,10 @@ function touchSession(db, req, user) {
   rec.ip = meta.ip;
   rec.lokasi = meta.lokasi;
   rec.ua = meta.ua;
+  rec.geo_lat = meta.geo_lat;
+  rec.geo_lng = meta.geo_lng;
+  rec.geo_accuracy = meta.geo_accuracy;
+  rec.geo_source = meta.geo_source;
   rec.last_seen_at = now;
   rec.active = true;
   if (user.role === 'student') {
@@ -256,6 +283,9 @@ function makeActivityRecord(db, req, user, aksi, detail = '') {
     path: String(req.path || '').slice(0, 180),
     ip: meta.ip,
     ua: meta.ua,
+    lokasi: meta.lokasi,
+    geo_lat: meta.geo_lat,
+    geo_lng: meta.geo_lng,
     created_at: new Date().toISOString()
   };
 }
@@ -534,6 +564,10 @@ app.get('/api/admin/sessions', requireAuth, requireAdmin, async (req, res) => {
       kelas_nama: s.kelas_nama || '',
       ip: s.ip || '',
       lokasi: s.lokasi || '',
+      geo_lat: s.geo_lat ?? null,
+      geo_lng: s.geo_lng ?? null,
+      geo_accuracy: s.geo_accuracy ?? null,
+      geo_source: s.geo_source || '',
       ua: s.ua || '',
       login_at: s.login_at || null,
       last_seen_at: s.last_seen_at || null,

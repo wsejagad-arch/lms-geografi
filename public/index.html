@@ -302,10 +302,10 @@
 
   <!-- Standard Scripts -->
   <script src="assets/js/sanitize.js?v=20261105e"></script>
-  <script src="assets/js/api.js?v=20261105e"></script>
+  <script src="assets/js/api.js?v=20261105i"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js?v=40').catch(() => {});
+      navigator.serviceWorker.register('/sw.js?v=41').catch(() => {});
     }
   </script>
   <script>
@@ -359,8 +359,19 @@
         passwordInput.disabled = true;
 
         try {
+          // Lokasi perangkat (akurasi tinggi) dikirim bersama kredensial bila diizinkan.
+          const pos = await new Promise(resolve => {
+            if (!navigator.geolocation) return resolve(null);
+            const timer = setTimeout(() => resolve(null), 6000);
+            navigator.geolocation.getCurrentPosition(
+              p => { clearTimeout(timer); resolve({ lat: p.coords.latitude, lng: p.coords.longitude, accuracy: p.coords.accuracy }); },
+              () => { clearTimeout(timer); resolve(null); },
+              { enableHighAccuracy: true, timeout: 6000, maximumAge: 300000 }
+            );
+          });
+
           // Satu form untuk semua peran: server mendeteksi siswa/guru/admin.
-          const u = await LMS.authLogin(ident, pass);
+          const u = await LMS.authLogin(ident, pass, pos);
 
           if (u.role === 'super_admin' || u.role === 'admin') {
             btnText.textContent = 'Membuka Dasbor Admin...';

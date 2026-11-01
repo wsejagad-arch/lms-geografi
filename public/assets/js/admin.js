@@ -873,7 +873,9 @@ function renderSessionRows() {
       <td>${sessionTime(s.login_at)}</td>
       <td>${sessionTime(s.last_seen_at)}${s.detik_lalu !== null && s.detik_lalu !== undefined ? `<div style="font-size:11px;color:var(--text-2)">${sessionAgo(s.detik_lalu)}</div>` : ''}</td>
       <td class="col-extra">${kurEsc(s.ip) || '-'}</td>
-      <td class="col-extra">${kurEsc(s.lokasi) || '-'}</td>
+      <td class="col-extra">${s.geo_lat !== null && s.geo_lat !== undefined && s.geo_lng !== null && s.geo_lng !== undefined
+        ? `<a href="https://www.google.com/maps?q=${encodeURIComponent(s.geo_lat)},${encodeURIComponent(s.geo_lng)}" target="_blank" rel="noopener">${kurEsc(s.lokasi || `${s.geo_lat}, ${s.geo_lng}`)}</a>`
+        : (kurEsc(s.lokasi) || '-')}</td>
       <td class="col-extra">${kurEsc(sessionDevice(s.ua))}</td>
     </tr>
   `).join('');
