@@ -65,7 +65,6 @@ async function connectTenant(tenantId) {
   const socket = makeWASocket({
     auth: state,
     browser: Browsers.macOS('Chrome'),
-    printQRInTerminal: false,
     markOnlineOnConnect: false,
     syncFullHistory: false
   });
@@ -331,7 +330,13 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
     }
     tenant.whatsapp_sender = { ...(tenant.whatsapp_sender || {}), enabled: true, lms_url: lmsUrl };
     await saveDB(db);
-    const connection = await connectTenant(tenant.id);
+    let connection;
+    try {
+      connection = await connectTenant(tenant.id);
+    } catch (error) {
+      console.error(`WhatsApp tenant ${tenant.id}: gagal menghubungkan:`, error);
+      return res.status(502).json({ error: error.message || 'Gagal menghubungkan WhatsApp' });
+    }
     res.json({ connection, config: tenant.whatsapp_sender });
   });
 
@@ -347,7 +352,15 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
 
   app.get('/api/admin/whatsapp/groups', requireAuth, requireAdmin, requireTenant, async (req, res) => {
     res.set('Cache-Control', 'no-store');
-    res.json({ groups: await getGroups(req.tenantId), connection: publicStatus(req.tenantId) });
+    try {
+      res.json({ groups: await getGroups(req.tenantId), connection: publicStatus(req.tenantId) });
+    } catch (error) {
+      console.error(`WhatsApp tenant ${req.tenantId}: gagal memuat grup:`, error);
+      res.status(502).json({
+        error: error.message || 'Gagal memuat grup WhatsApp',
+        connection: publicStatus(req.tenantId)
+      });
+    }
   });
 
   app.post('/api/admin/whatsapp/jobs', requireAuth, requireAdmin, requireTenant, async (req, res) => {
