@@ -369,7 +369,7 @@ function updateStudentProfileCard() {
   const profile = currentUser || {};
   const nis = profile.nis || '-';
   const kelas = profile.kelas_nama || (profile.class_id ? 'Kelas X E' : '-');
-  const walikelas = profile.wali_kelas || 'Dwi Retnoningsih, S.Pd';
+  const walikelas = profile.wali_kelas || 'Belum ditentukan';
 
   const profNama = document.getElementById('prof-nama');
   if (profNama) profNama.textContent = profile.nama || '-';

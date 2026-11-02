@@ -1989,18 +1989,60 @@ app.post('/api/register', requireAuth, requireAdmin, async (req, res) => {
     password: bcrypt.hashSync(password, 10),
     nama,
     role,
-    tenant_id: req.user.role === 'super_admin' ? (req.body.tenant_id || null) : req.session.tenantId
+    // Guru/staf baru harus menempel ke sekolah agar langsung tampil di profil & dashboard.
+    tenant_id: req.body.tenant_id
+      || req.session.tenantId
+      || ((db.tenants || []).length === 1 ? db.tenants[0].id : null)
   };
   
   db.users.push(user);
   await saveDB(db);
-  
+
   res.json({
     id: user.id,
     email: user.email,
     nama: user.nama,
     role: user.role,
     tenant_id: user.tenant_id
+  });
+});
+
+// Admin: perbarui akun guru/staf (nama, peran, sekolah, atau password).
+app.put('/api/users/:id', requireAuth, requireAdmin, async (req, res) => {
+  const db = await loadDB();
+  const user = db.users.find(u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ error: 'Akun tidak ditemukan' });
+  if (user.role === 'student' && req.user.role !== 'super_admin') {
+    return res.status(403).json({ error: 'Akun siswa hanya dapat diubah super admin' });
+  }
+
+  if (req.body.nama !== undefined) user.nama = String(req.body.nama).trim().slice(0, 120);
+  if (req.body.role !== undefined) {
+    if (!['teacher', 'admin', 'super_admin'].includes(req.body.role)) {
+      return res.status(400).json({ error: 'Peran tidak valid' });
+    }
+    if (req.body.role === 'super_admin' && req.user.role !== 'super_admin') {
+      return res.status(403).json({ error: 'Hanya super admin dapat membuat super admin' });
+    }
+    user.role = req.body.role;
+  }
+  if (req.body.tenant_id !== undefined) {
+    const target = req.body.tenant_id ? db.tenants.find(t => t.id === req.body.tenant_id) : null;
+    if (req.body.tenant_id && !target) return res.status(400).json({ error: 'Tenant tidak ditemukan' });
+    user.tenant_id = target ? target.id : null;
+  }
+  if (req.body.password) {
+    if (String(req.body.password).length < 8) {
+      return res.status(400).json({ error: 'Password minimal 8 karakter' });
+    }
+    user.password = bcrypt.hashSync(String(req.body.password), 10);
+    delete user.password_changed_at;
+  }
+  user.updated_at = new Date().toISOString();
+  await saveDB(db);
+  res.json({
+    success: true,
+    user: { id: user.id, email: user.email, nama: user.nama, role: user.role, tenant_id: user.tenant_id }
   });
 });
 
@@ -2025,8 +2067,10 @@ app.post('/api/login', async (req, res) => {
   req.session.role = user.role;
   req.session.nama = user.nama;
   req.session.tenantId = user.tenant_id;
-  // Super admin tanpa tenant: bila sekolah hanya satu, pilih otomatis agar tidak perlu memilih manual.
-  if (!req.session.tenantId && user.role === 'super_admin' && (db.tenants || []).length === 1) {
+  // Akun tanpa tenant (mis. super admin / guru yang dibuat tanpa tenant): bila sekolah
+  // hanya satu, pilih otomatis agar tidak perlu memilih manual dan data langsung tampil.
+  if (!req.session.tenantId && ['super_admin', 'admin', 'teacher'].includes(user.role)
+    && (db.tenants || []).length === 1) {
     req.session.tenantId = db.tenants[0].id;
   }
   req.session.sid = uuidv4();
@@ -2349,6 +2393,14 @@ app.get('/api/me', async (req, res) => {
       resp.nis = student.nis;
       resp.kelas_nama = classItem ? classItem.nama : '-';
       resp.kelas_level = String(student.kelas_level || (classItem && classItem.tingkat) || '').toUpperCase();
+      // Nama guru yang ditampilkan di profil: guru pengampu jadwal kelas, lalu guru tenant.
+      const jadwalGuru = (db.schedules || []).find(s => s.class_id === student.class_id && s.guru && String(s.guru).trim());
+      const guruTenant = (db.users || []).find(u => u.role === 'teacher'
+        && (!student.tenant_id || u.tenant_id === student.tenant_id) && u.nama);
+      resp.wali_kelas = (jadwalGuru && String(jadwalGuru.guru).trim())
+        || (classItem && classItem.wali_kelas)
+        || (guruTenant && guruTenant.nama)
+        || '';
     }
   } else {
     resp.password_changed_at = user.password_changed_at || null;
