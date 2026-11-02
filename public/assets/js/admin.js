@@ -339,7 +339,7 @@ async function renderClasses() {
     const classes = Array.isArray(classesRaw) ? classesRaw : [];
     const students = Array.isArray(studentsRaw) ? studentsRaw : [];
     if (!classes.length) {
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada kelas</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada kelas</td></tr>';
       return;
     }
     
@@ -351,7 +351,6 @@ async function renderClasses() {
         <td><span class="badge badge-primary">${c.tingkat}</span></td>
         <td>${c.nama}</td>
         <td>${c.jurusan || '-'}</td>
-        <td>${c.wali_kelas || '-'}</td>
         <td>
           <select data-ketua-class="${c.id}" style="min-width:150px">
             <option value="">- bukan ketua -</option>
@@ -380,23 +379,27 @@ async function renderClasses() {
       });
     });
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
   }
 }
 
 function openClassModal(c = null) {
   const modal = document.getElementById('class-modal');
-  document.getElementById('class-form').reset();
+  const form = document.getElementById('class-form');
+  if (form) form.reset();
+  const setVal = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.value = value === undefined || value === null ? '' : value;
+  };
   if (c) {
-    document.getElementById('class-id').value = c.id;
-    document.getElementById('class-nama').value = c.nama;
-    document.getElementById('class-tingkat').value = c.tingkat;
-    document.getElementById('class-jurusan').value = c.jurusan || '';
-    document.getElementById('class-wali').value = c.wali_kelas || '';
+    setVal('class-id', c.id);
+    setVal('class-nama', c.nama);
+    setVal('class-tingkat', c.tingkat);
+    setVal('class-jurusan', c.jurusan || '');
   } else {
-    document.getElementById('class-id').value = '';
+    setVal('class-id', '');
   }
-  modal.classList.add('show');
+  if (modal) modal.classList.add('show');
 }
 
 async function saveClass() {
@@ -404,8 +407,7 @@ async function saveClass() {
   const data = {
     nama: document.getElementById('class-nama').value.trim(),
     tingkat: document.getElementById('class-tingkat').value,
-    jurusan: document.getElementById('class-jurusan').value.trim(),
-    wali_kelas: document.getElementById('class-wali').value.trim()
+    jurusan: document.getElementById('class-jurusan').value.trim()
   };
   
   if (!data.nama || !data.tingkat) {

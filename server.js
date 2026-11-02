@@ -1117,7 +1117,7 @@ app.post('/api/classes', requireAuth, requireAdmin, requireTenant, async (req, r
     nama,
     tingkat,
     jurusan,
-    wali_kelas,
+    wali_kelas: wali_kelas || '',
     created_by: req.user.id,
     created_at: new Date().toISOString()
   };
@@ -1139,7 +1139,7 @@ app.put('/api/classes/:id', requireAuth, requireAdmin, requireTenant, async (req
   classItem.nama = nama;
   classItem.tingkat = tingkat;
   classItem.jurusan = jurusan;
-  classItem.wali_kelas = wali_kelas;
+  if (wali_kelas !== undefined) classItem.wali_kelas = wali_kelas;
   
   await saveDB(db);
   await cacheDel(`classes:${req.tenantId}`);
