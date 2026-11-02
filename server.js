@@ -98,90 +98,17 @@ async function clearLoginLocks() {
 }
 
 // ===== DATABASE =====
-// Baca DB dengan pengaman: coba beberapa kali, jatuh ke salinan .prev bila berkas utama
-// rusak/terpotong, dan JANGAN pernah mengembalikan DB kosong saat berkas sebenarnya ada
-// (DB kosong yang tersimpan ulang adalah penyebab utama data hilang).
-function emptyDB() {
-  return {
-    users: [], tenants: [], subjects: [], classes: [], students: [], materials: [], questions: [],
-    exams: [], exam_questions: [], grades: [], assignments: [], attendance: [], schedules: [],
-    progress: [], attempts: [], session_logs: [], activity_logs: [], whatsapp_jobs: [],
-    whatsapp_logs: [], jurnal: []
-  };
-}
-
-function normalizeDB(db) {
-  ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams',
-    'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts',
-    'session_logs', 'activity_logs', 'whatsapp_jobs', 'whatsapp_logs', 'jurnal'].forEach(k => {
-    if (!Array.isArray(db[k])) db[k] = [];
-  });
-  return db;
-}
-
-async function fileExists(target) {
-  try { await fs.access(target); return true; } catch { return false; }
-}
+// Penyimpanan nyata ada di data-store.js: SQLite (node:sqlite / better-sqlite3) sebagai
+// sumber kebenaran, dengan cermin db.json untuk skrip CLI dan pemulihan berbasis berkas.
+const dataStore = require('./data-store');
+const { emptyDB, normalizeDB, fileExists } = dataStore;
 
 async function loadDB() {
-  const sources = [DB_PATH, `${DB_PATH}.prev`];
-  let lastError = null;
-  for (let attempt = 0; attempt < 3; attempt++) {
-    for (const source of sources) {
-      try {
-        return normalizeDB(JSON.parse(await fs.readFile(source, 'utf-8')));
-      } catch (error) {
-        lastError = error;
-      }
-    }
-    await new Promise(resolve => setTimeout(resolve, 25));
-  }
-  // Benar-benar belum ada berkas (instalasi baru) → DB kosong boleh.
-  if (!(await fileExists(DB_PATH)) && !(await fileExists(`${DB_PATH}.prev`))) {
-    return emptyDB();
-  }
-  // Berkas ada tetapi tidak terbaca/rusak: jangan menimpa, biarkan request gagal.
-  console.error(`[db] Gagal membaca database (${DB_PATH}):`, lastError && lastError.message);
-  throw lastError || new Error('Database tidak dapat dibaca');
+  return dataStore.loadDB();
 }
 
-// Tulis berurutan (satu antrean) dengan berkas sementara unik agar dua request
-// yang menyimpan bersamaan tidak saling menimpa/merusak.
-let dbWriteChain = Promise.resolve();
-
 async function saveDB(db) {
-  const task = async () => {
-    const snapshot = JSON.stringify(db, null, 2);
-    // Baca berkas saat ini sekali: dipakai untuk pengaman data kosong sekaligus
-    // memastikan .prev hanya diperbarui dari berkas yang masih valid.
-    let currentValid = false;
-    try {
-      const current = JSON.parse(await fs.readFile(DB_PATH, 'utf-8'));
-      currentValid = true;
-      const looksEmpty = !Array.isArray(db.users) || (db.users.length === 0
-        && (db.students || []).length === 0 && (db.tenants || []).length === 0);
-      const currentHasData = (current.users || []).length > 0 || (current.students || []).length > 0;
-      if (looksEmpty && currentHasData) {
-        console.error('[db] Penulisan dibatalkan: data yang hendak disimpan kosong sedangkan berkas berisi data.');
-        return false;
-      }
-    } catch { currentValid = false; }
-    const tmp = `${DB_PATH}.tmp-${process.pid}-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
-    try {
-      await fs.writeFile(tmp, snapshot);
-      if (currentValid) await fs.copyFile(DB_PATH, `${DB_PATH}.prev`).catch(() => {});
-      await fs.rename(tmp, DB_PATH);
-      return true;
-    } catch (error) {
-      await fs.unlink(tmp).catch(() => {});
-      console.error('Penyimpanan atomik gagal, memakai penulisan langsung:', error.message);
-      await fs.writeFile(DB_PATH, snapshot);
-      return true;
-    }
-  };
-  const run = dbWriteChain.then(task, task);
-  dbWriteChain = run.catch(() => {});
-  return run;
+  return dataStore.saveDB(db);
 }
 
 async function initDB() {
@@ -2658,13 +2585,12 @@ const SNAPSHOT_KEEP = Number(process.env.LMS_SNAPSHOT_KEEP || 48);
 
 async function snapshotDB() {
   try {
-    if (!(await fileExists(DB_PATH))) return;
-    const data = JSON.parse(await fs.readFile(DB_PATH, 'utf-8'));
-    if (!(data.users || []).length && !(data.students || []).length) return; // jangan simpan keadaan kosong
+    const current = await loadDB();
+    if (!dataStore.hasData(current)) return; // jangan simpan keadaan kosong
     const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
     const dir = path.dirname(DB_PATH);
     const prefix = `${path.basename(DB_PATH)}.snap-`;
-    await fs.copyFile(DB_PATH, path.join(dir, `${prefix}${stamp}`));
+    await fs.writeFile(path.join(dir, `${prefix}${stamp}`), JSON.stringify(current, null, 2));
     const files = (await fs.readdir(dir)).filter(f => f.startsWith(prefix)).sort();
     for (const f of files.slice(0, Math.max(0, files.length - SNAPSHOT_KEEP))) {
       await fs.unlink(path.join(dir, f)).catch(() => {});
@@ -2712,7 +2638,8 @@ app.get('/api/admin/db-status', requireAuth, async (req, res) => {
     } catch { /* lewati berkas yang tidak terbaca */ }
   }
   files.sort((a, b) => String(b.mtime).localeCompare(String(a.mtime)));
-  res.json({ path: DB_PATH, files });
+  const live = await loadDB().then(db => dataStore.countsOf(db)).catch(() => null);
+  res.json({ path: DB_PATH, store: dataStore.status(), live, files });
 });
 
 app.post('/api/admin/restore-file', requireAuth, async (req, res) => {
@@ -2882,6 +2809,13 @@ whatsappSender.registerWhatsAppRoutes(app, {
 
 const PORT = process.env.PORT || 3000;
 (async () => {
+  try {
+    await dataStore.init({ dbPath: DB_PATH });
+    const info = dataStore.status();
+    console.log(`[db] backend=${info.backend}${info.sqlitePath ? ` (${info.sqlitePath})` : ''}`);
+  } catch (error) {
+    console.error('[db] Inisialisasi penyimpanan gagal:', error.message);
+  }
   try {
     await initDB();
   } catch (error) {

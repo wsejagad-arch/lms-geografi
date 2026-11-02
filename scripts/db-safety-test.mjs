@@ -116,11 +116,28 @@ try {
     status.status === 200 && Array.isArray(statusBody.files) && statusBody.files.length > 0
       && statusBody.files.some(f => f.counts && f.counts.users > 0),
     `files=${(statusBody.files || []).length}`);
+  check('db-status melaporkan backend penyimpanan',
+    !!statusBody.store && typeof statusBody.store.backend === 'string',
+    `backend=${statusBody.store && statusBody.store.backend}`);
+  check('data hidup di SQLite, bukan hanya berkas JSON',
+    String(statusBody.store && statusBody.store.backend).startsWith('sqlite'),
+    `backend=${statusBody.store && statusBody.store.backend}`);
+
+  // 5. Hapus cermin db.json: layanan harus tetap menyajikan data dari database.
+  fs.rmSync(dbPath, { force: true });
+  const afterMirrorDeleted = await login();
+  const status2 = await fetch(`${BASE}/api/admin/db-status`, { headers: { Cookie: first.cookie } });
+  const statusBody2 = await status2.json().catch(() => ({}));
+  check('login tetap berhasil walau berkas cermin db.json dihapus',
+    afterMirrorDeleted.status === 200, `status=${afterMirrorDeleted.status}`);
+  check('jumlah data tetap utuh dari database setelah cermin dihapus',
+    !!statusBody2.live && statusBody2.live.users >= baseline.users,
+    `live users=${statusBody2.live && statusBody2.live.users}`);
 
   const restore = await fetch(`${BASE}/api/admin/restore-file`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Cookie: first.cookie },
-    body: JSON.stringify({ confirm: 'RESTORE-FILE', file: 'db.json.prev' })
+    body: JSON.stringify({ confirm: 'RESTORE-FILE', file: (statusBody.files.find(f => f.file !== 'db.json' && f.counts && f.counts.users > 0) || {}).file })
   });
   const restoreBody = await restore.json().catch(() => ({}));
   check('restore-file memulihkan cadangan dan mempertahankan akun staf',
@@ -132,10 +149,14 @@ try {
   check('uji berjalan tanpa error tak terduga', false, error.message);
 } finally {
   child.kill();
+  await new Promise(resolve => {
+    const timer = setTimeout(resolve, 3000);
+    child.once('exit', () => { clearTimeout(timer); resolve(); });
+  });
   const failed = results.filter(r => !r.ok);
   console.log(`\n${results.length - failed.length}/${results.length} PASS`);
   if (failed.length) console.log('Gagal:\n' + failed.map(f => ' - ' + f.name).join('\n'));
   exitCode = failed.length ? 1 : 0;
-  fs.rmSync(dir, { recursive: true, force: true });
+  fs.rmSync(dir, { recursive: true, force: true, maxRetries: 8, retryDelay: 250 });
 }
 process.exit(exitCode);
