@@ -691,7 +691,10 @@ app.get('/api/jurnal', requireAuth, requireTenant, async (req, res) => {
         open: scheduleWindowOpen(s, now.time)
       };
     });
-  const active = schedules.find(s => s.open) || null;
+  const active = schedules.find(s => s.id === String(req.query.schedule_id || ''))
+    || schedules.find(s => s.open)
+    || schedules[0]
+    || null;
   const entry = active
     ? (db.jurnal || []).find(j => j.tenant_id === student.tenant_id && j.class_id === classItem.id
       && j.schedule_id === active.id && j.tanggal === now.date) || null
@@ -706,7 +709,8 @@ app.get('/api/jurnal', requireAuth, requireTenant, async (req, res) => {
     roster,
     schedules,
     active_schedule_id: active ? active.id : '',
-    can_fill: !!active,
+    can_fill: schedules.length > 0,
+    window_open: active ? active.open : false,
     entry
   });
 });
@@ -759,6 +763,7 @@ app.post('/api/jurnal', requireAuth, requireTenant, async (req, res) => {
   entry.ketua_nama = student.nama || '';
   entry.filled_at = now.time;
   entry.window_open = scheduleWindowOpen(schedule, now.time);
+  entry.outside_window = !entry.window_open;
   entry.updated_at = new Date().toISOString();
 
   db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal mengajar', `${classItem.nama} · ${schedule.jam_mulai}`));

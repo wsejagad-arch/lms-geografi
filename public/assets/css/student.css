@@ -1795,3 +1795,38 @@ body {
   font-weight: 600;
 }
 .notif-empty { padding: 18px 12px; text-align: center; color: var(--text-2, #6b7a73); font-size: 12px; }
+
+/* ===== Materi: video & gambar responsif di dalam modal ===== */
+.materi-konten { max-width: 100%; overflow-wrap: anywhere; }
+.materi-konten iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  border-radius: 10px;
+}
+.materi-konten div[style*="padding-bottom"] {
+  position: relative !important;
+  height: 0 !important;
+  padding-bottom: 56.25% !important;
+  overflow: hidden !important;
+  margin: 12px 0;
+  max-width: 100%;
+  border-radius: 10px;
+  background: #0f172a;
+}
+.materi-konten div[style*="padding-bottom"] > iframe {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+.materi-konten img, .materi-konten video, .materi-konten table, .materi-konten pre {
+  max-width: 100%;
+  height: auto;
+}
+.materi-konten table { display: block; overflow-x: auto; }

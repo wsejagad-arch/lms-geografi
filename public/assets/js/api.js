@@ -84,7 +84,9 @@ const LMS = (() => {
     return api(`/classes/${classId}/ketua`, { method: 'PUT', body: JSON.stringify({ student_id: studentId }) });
   }
 
-  async function getJurnal() { return api('/jurnal'); }
+  async function getJurnal(scheduleId) {
+  return api(`/jurnal${scheduleId ? `?schedule_id=${encodeURIComponent(scheduleId)}` : ''}`);
+}
 
   async function saveJurnal(payload) {
     return api('/jurnal', { method: 'POST', body: JSON.stringify(payload) });

@@ -166,6 +166,14 @@ if (typeof blRenderSoal === 'function') {
   check('gaya inline pemutih teks dibuang agar soal tidak samar',
     !/color:/i.test(dirtyStim) && !/font-size:/i.test(dirtyStim) && /text-align:\s*justify/i.test(dirtyStim),
     dirtyStim);
+  const wrapperDiv = sanitizer.lmsSanitize('<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/2vK8s_aX49c"></iframe></div>');
+  check('pembungkus video mempertahankan position/overflow agar tidak menutupi teks',
+    /position:\s*relative/i.test(wrapperDiv) && /overflow:\s*hidden/i.test(wrapperDiv) && /padding-bottom:\s*56\.25%/i.test(wrapperDiv)
+      && /<iframe/.test(wrapperDiv), wrapperDiv.slice(0, 120));
+  check('CSS membuat video materi selalu responsif 16:9',
+    belajarCss.includes('.bl-prose iframe, .bl-stim iframe, .bl-rev iframe')
+      && belajarCss.includes('aspect-ratio: 16 / 9')
+      && belajarCss.includes('.bl-prose div[style*="padding-bottom"]'), '');
   check('CSS menonaktifkan blok-kopi pada area ujian',
     belajarCss.includes('#bl-eval { -webkit-user-select: none; user-select: none;')
       && belajarCss.includes('.bl-stim [style]'), '');

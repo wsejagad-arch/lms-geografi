@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css?v=20261105f">
-  <link rel="stylesheet" href="assets/css/belajar.css?v=20261106a">
-  <link rel="stylesheet" href="assets/css/student.css?v=20261105i">
+  <link rel="stylesheet" href="assets/css/belajar.css?v=20261106b">
+  <link rel="stylesheet" href="assets/css/student.css?v=20261106b">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/svg+xml" href="assets/icons/globe.svg"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
@@ -410,15 +410,17 @@
         <section id="sec-jurnal" class="section hidden">
           <div class="panel">
             <div class="panel-head">
-              <div><h2>Jurnal Mengajar</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Anda bertugas sebagai ketua kelas. Isi presensi teman dan jurnal pada jam pelajaran berjalan.</p></div>
+              <div><h2>Jurnal Mengajar</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Anda bertugas sebagai ketua kelas. Presensi teman bisa diisi kapan saja (24 jam), tidak terikat jam pelajaran.</p></div>
               <span class="badge badge-primary" id="jurnal-badge">KETUA KELAS</span>
             </div>
             <div style="padding:0 16px 16px">
               <p id="jurnal-info" style="font-size:12px;color:var(--text-2)"></p>
               <div id="jurnal-form-wrap" class="hidden">
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 10px">
+                  <label for="jurnal-schedule" style="font-size:12px;font-weight:600;color:var(--text-2)">Jadwal</label>
+                  <select id="jurnal-schedule" aria-label="Pilih jadwal pelajaran" style="min-width:220px"></select>
                   <button class="btn btn-sm" id="btn-jurnal-all-hadir" type="button">Tandai semua hadir</button>
-                  <span style="font-size:11px;color:var(--text-3)">Centang siswa yang hadir. Yang tidak dicentang otomatis tidak hadir.</span>
+                  <span style="font-size:11px;color:var(--text-3)">Centang siswa yang hadir. Yang tidak dicentang dianggap tidak hadir.</span>
                 </div>
                 <div class="table-wrap">
                   <table>
@@ -666,14 +668,14 @@
   </nav>
 
   <!-- Scripts -->
-  <script src="assets/js/sanitize.js?v=20261106a"></script>
-  <script src="assets/js/api.js?v=20261105k"></script>
+  <script src="assets/js/sanitize.js?v=20261106b"></script>
+  <script src="assets/js/api.js?v=20261106b"></script>
   <script src="assets/js/belajar.js?v=20261106a"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js?v=50').catch(error => console.error('Service worker gagal didaftarkan:', error));
+      navigator.serviceWorker.register('/sw.js?v=51').catch(error => console.error('Service worker gagal didaftarkan:', error));
     }
   </script>
-  <script src="assets/js/student.js?v=20261105q"></script>
+  <script src="assets/js/student.js?v=20261106b"></script>
 </body>
 </html>

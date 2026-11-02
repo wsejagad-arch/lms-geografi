@@ -727,8 +727,37 @@
   border: 1px solid #e1e5e8; border-radius: 10px;
 }
 .bl-figure figcaption { margin-top: 6px; font-size: 11.5px; color: #6b7280; line-height: 1.5; }
-.bl-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 12px 0; border: 1px solid #e1e5e8; border-radius: 10px; }
+.bl-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 12px 0; max-width: 100%; border: 1px solid #e1e5e8; border-radius: 10px; background: #0f172a; }
 .bl-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Video dari isi materi (HTML hasil salin-tempel) tetap responsif dan tidak menutupi teks. */
+.bl-prose iframe, .bl-stim iframe, .bl-rev iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  border-radius: 10px;
+}
+.bl-prose div[style*="padding-bottom"], .bl-stim div[style*="padding-bottom"] {
+  position: relative !important;
+  height: 0 !important;
+  padding-bottom: 56.25% !important;
+  overflow: hidden !important;
+  margin: 12px 0;
+  max-width: 100%;
+  border-radius: 10px;
+}
+.bl-prose div[style*="padding-bottom"] > iframe,
+.bl-stim div[style*="padding-bottom"] > iframe {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
 
 /* ===== RESPONSIVE: materi & soal evaluasi (mobile) ===== */
 .bl-prose, .bl-stim, .bl-question, .bl-opt span, .bl-pair span, .bl-bs-row span, .bl-rev {

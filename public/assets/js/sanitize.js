@@ -52,9 +52,9 @@
     return /^(https?:\/\/|\/|#|\.\/|\.\.\/|mailto:|data:image\/(png|jpe?g|gif|webp);base64,)/i.test(v) ? v : '';
   }
 
-  // Deklarasi inline yang bisa membuat soal/materi tak terbaca (mis. warna putih hasil salin-tempel)
-  // atau merusak tata letak. Dekorasi aman seperti perataan dan penebalan dibiarkan.
-  const DROP_STYLE_PROP = /^(color|background|background-color|background-image|font-size|line-height|opacity|filter|text-shadow|visibility|position|display|z-index|mix-blend-mode)$/i;
+  // Deklarasi inline yang bisa membuat soal/materi tak terbaca (mis. warna putih hasil salin-tempel).
+  // Properti tata letak (position/overflow/display) dibiarkan agar embed video tetap di tempatnya.
+  const DROP_STYLE_PROP = /^(color|background|background-color|background-image|font-size|line-height|opacity|filter|text-shadow|visibility|mix-blend-mode)$/i;
 
   function sanitizeInlineStyle(value) {
     return String(value || '')

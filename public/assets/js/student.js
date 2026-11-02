@@ -149,26 +149,38 @@ async function setupJurnal() {
 
 let jurnalState = null;
 
-async function loadJurnal() {
+async function loadJurnal(scheduleId) {
   const info = document.getElementById('jurnal-info');
   const wrap = document.getElementById('jurnal-form-wrap');
   const roster = document.getElementById('jurnal-roster');
   const status = document.getElementById('jurnal-status');
+  const picker = document.getElementById('jurnal-schedule');
   if (!roster) return;
   try {
-    const data = await LMS.getJurnal();
+    const data = await LMS.getJurnal(scheduleId);
     jurnalState = data;
-    const active = (data.schedules || []).find(s => s.id === data.active_schedule_id) || null;
+    const schedules = data.schedules || [];
+    const active = schedules.find(s => s.id === data.active_schedule_id) || null;
+
+    // Jurnal bisa diisi 24 jam: semua jadwal hari ini bisa dipilih.
+    if (picker) {
+      picker.innerHTML = schedules.length
+        ? schedules.map(s => `<option value="${s.id}"${active && s.id === active.id ? ' selected' : ''}>${kurEsc(s.mapel)} · ${s.jam_mulai}–${s.jam_selesai}${s.open ? ' · jam berjalan' : ''}</option>`).join('')
+        : '<option value="">Tidak ada jadwal hari ini</option>';
+      if (picker.dataset.bound !== '1') {
+        picker.dataset.bound = '1';
+        picker.addEventListener('change', () => loadJurnal(picker.value));
+      }
+    }
+
     if (info) {
       info.textContent = active
-        ? `${data.class.nama} · ${data.hari}, ${data.date} · ${active.mapel} ${active.jam_mulai}–${active.jam_selesai} · presensi dibuka`
-        : `${data.class.nama} · ${data.hari}, ${data.date} · di luar jam pelajaran, pengisian tidak wajib`;
+        ? `${data.class.nama} · ${data.hari}, ${data.date} · ${active.mapel} ${active.jam_mulai}–${active.jam_selesai} · ${active.open ? 'jam pelajaran berjalan' : 'di luar jam pelajaran, jurnal tetap bisa diisi'}`
+        : `${data.class.nama} · ${data.hari}, ${data.date} · belum ada jadwal hari ini`;
     }
-    if (!active) {
+    if (!active || !data.can_fill) {
       wrap?.classList.add('hidden');
-      roster.innerHTML = '';
-      const sisa = (data.schedules || []).map(s => `${s.mapel} ${s.jam_mulai}–${s.jam_selesai}`).join(' · ');
-      if (info) info.textContent += sisa ? `. Jadwal hari ini: ${sisa}` : '';
+      roster.innerHTML = '<tr><td colspan="4" class="text-center">Belum ada jadwal pelajaran untuk hari ini.</td></tr>';
       return;
     }
     wrap?.classList.remove('hidden');
@@ -248,14 +260,15 @@ async function saveJurnalForm() {
     };
   });
   if (status) { status.textContent = 'Menyimpan...'; status.classList.remove('error', 'success'); }
+  const scheduleId = jurnalState.active_schedule_id;
   try {
     await LMS.saveJurnal({
-      schedule_id: jurnalState.active_schedule_id,
+      schedule_id: scheduleId,
       tanggal: jurnalState.date,
       attendance
     });
     if (status) { status.textContent = 'Daftar hadir tersimpan dan masuk ke jurnal guru.'; status.classList.add('success'); }
-    await loadJurnal();
+    await loadJurnal(scheduleId);
   } catch (error) {
     if (status) { status.textContent = error.message || 'Gagal menyimpan daftar hadir.'; status.classList.add('error'); }
   }
@@ -874,7 +887,7 @@ function openMateriDetail(id) {
         </div>
         ${video}
         ${videoFallback}
-        <div style="line-height:1.75;font-size:14.5px;color:var(--text);">${konten}</div>
+        <div class="materi-konten" style="line-height:1.75;font-size:14.5px;color:var(--text);">${konten}</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-close>Tutup Materi</button>
