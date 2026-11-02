@@ -2650,6 +2650,37 @@ app.post('/api/admin/restore', requireAuth, requireAdmin, async (req, res) => {
   res.json({ success: true, backup: path.basename(backupPath), counts });
 });
 
+// ===== SNAPSHOT BERKALA =====
+// Salinan otomatis tiap 15 menit (default) agar pekerjaan siswa/guru tidak pernah
+// hilang lebih dari satu interval, berapa pun penyebabnya.
+const SNAPSHOT_INTERVAL_MS = Number(process.env.LMS_SNAPSHOT_INTERVAL_MS || 15 * 60 * 1000);
+const SNAPSHOT_KEEP = Number(process.env.LMS_SNAPSHOT_KEEP || 48);
+
+async function snapshotDB() {
+  try {
+    if (!(await fileExists(DB_PATH))) return;
+    const data = JSON.parse(await fs.readFile(DB_PATH, 'utf-8'));
+    if (!(data.users || []).length && !(data.students || []).length) return; // jangan simpan keadaan kosong
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const dir = path.dirname(DB_PATH);
+    const prefix = `${path.basename(DB_PATH)}.snap-`;
+    await fs.copyFile(DB_PATH, path.join(dir, `${prefix}${stamp}`));
+    const files = (await fs.readdir(dir)).filter(f => f.startsWith(prefix)).sort();
+    for (const f of files.slice(0, Math.max(0, files.length - SNAPSHOT_KEEP))) {
+      await fs.unlink(path.join(dir, f)).catch(() => {});
+    }
+  } catch (error) {
+    console.error('[db] Snapshot berkala gagal:', error.message);
+  }
+}
+
+function startSnapshotScheduler() {
+  if (!(SNAPSHOT_INTERVAL_MS > 0)) return;
+  snapshotDB();
+  const timer = setInterval(snapshotDB, SNAPSHOT_INTERVAL_MS);
+  if (timer && typeof timer.unref === 'function') timer.unref();
+}
+
 // ===== DIAGNOSTIK & PEMULIHAN BERKAS (super admin) =====
 // Membantu memeriksa cadangan dan memulihkannya tanpa harus masuk ke console server.
 app.get('/api/admin/db-status', requireAuth, async (req, res) => {
@@ -2691,7 +2722,7 @@ app.post('/api/admin/restore-file', requireAuth, async (req, res) => {
     return res.status(400).json({ error: 'Konfirmasi "RESTORE-FILE" wajib dikirim' });
   }
   const name = String(body.file || '').trim();
-  if (!/^db\.json\.(backup|daily|prev|before)[A-Za-z0-9._-]*$/.test(name)) {
+  if (!/^db\.json\.(backup|daily|prev|before|snap)[A-Za-z0-9._-]*$/.test(name)) {
     return res.status(400).json({ error: 'Nama berkas cadangan tidak valid' });
   }
   const source = path.join(path.dirname(DB_PATH), name);
@@ -2861,6 +2892,7 @@ const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`LMS Multi-Tenant running on http://localhost:${PORT}`);
   });
+  startSnapshotScheduler();
   whatsappSender.startScheduler(loadDB, saveDB);
   whatsappSender.initializeWhatsApp(loadDB, saveDB).catch(error => {
     console.error('WhatsApp sender gagal diinisialisasi:', error);
