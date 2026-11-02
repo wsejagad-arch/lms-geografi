@@ -473,6 +473,14 @@ async function requireAdmin(req, res, next) {
   next();
 }
 
+// Guru juga boleh mengisi jurnal mengajar.
+async function requireStaff(req, res, next) {
+  if (!req.session.userId || !['admin', 'super_admin', 'teacher'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+  next();
+}
+
 async function requireTenant(req, res, next) {
   if (!req.session.tenantId) {
     return res.status(403).json({ error: 'No tenant selected' });
@@ -792,7 +800,7 @@ app.put('/api/admin/sekolah', requireAuth, requireAdmin, requireTenant, async (r
   res.json({ success: true, school: tenant.school });
 });
 
-app.get('/api/admin/jurnal', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+app.get('/api/admin/jurnal', requireAuth, requireStaff, requireTenant, async (req, res) => {
   const db = await loadDB();
   const tanggal = String(req.query.tanggal || wibNow().date);
   const rows = (db.jurnal || [])
@@ -811,6 +819,8 @@ app.get('/api/admin/jurnal', requireAuth, requireAdmin, requireTenant, async (re
         materi: j.materi || '',
         kegiatan: j.kegiatan || '',
         ketua: j.ketua_nama || '',
+        guru: j.guru_nama || '',
+        sumber: j.source || '',
         hadir: att.filter(a => a.status === 'H').length,
         sakit: att.filter(a => a.status === 'S').length,
         izin: att.filter(a => a.status === 'I').length,
@@ -826,7 +836,76 @@ app.get('/api/admin/jurnal', requireAuth, requireAdmin, requireTenant, async (re
 });
 
 // Ekspor siap-kirim ke SIMANIS (JSON). Bila SIMANIS_WEBHOOK_URL diset, data juga dikirim otomatis saat jurnal disimpan.
-app.get('/api/admin/simanis/export', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+// Guru/admin mengisi atau memperbarui jurnal kelas (termasuk presensi).
+app.post('/api/admin/jurnal', requireAuth, requireStaff, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const classItem = db.classes.find(c => c.id === req.body?.class_id && c.tenant_id === req.tenantId);
+  if (!classItem) return res.status(400).json({ error: 'Kelas tidak valid' });
+  const schedule = db.schedules.find(s => s.id === req.body?.schedule_id
+    && s.tenant_id === req.tenantId && s.class_id === classItem.id);
+  if (!schedule) return res.status(400).json({ error: 'Jadwal pelajaran tidak valid untuk kelas ini' });
+
+  const tanggal = String(req.body?.tanggal || wibNow().date);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(tanggal)) return res.status(400).json({ error: 'Tanggal tidak valid' });
+
+  const allowed = ['H', 'I', 'S', 'D', 'A'];
+  const rows = Array.isArray(req.body?.attendance) ? req.body.attendance : [];
+  const roster = db.students.filter(s => s.class_id === classItem.id);
+  const attendance = roster.map(s => {
+    const found = rows.find(r => r.student_id === s.id) || {};
+    return {
+      student_id: s.id,
+      nis: s.nis || '',
+      nama: s.nama || '',
+      status: allowed.includes(found.status) ? found.status : '',
+      keterangan: String(found.keterangan || '').slice(0, 120)
+    };
+  });
+
+  const entry = ensureJurnal(db, {
+    tenantId: req.tenantId,
+    classId: classItem.id,
+    scheduleId: schedule.id,
+    tanggal,
+    ketuaId: classItem.ketua_id || '',
+    source: 'guru'
+  });
+  entry.materi = String(req.body?.materi || '').trim().slice(0, 300) || entry.materi;
+  entry.kegiatan = String(req.body?.kegiatan || '').trim().slice(0, 1000) || entry.kegiatan;
+  entry.attendance = attendance;
+  entry.source = 'guru';
+  entry.guru_id = req.user.id;
+  entry.guru_nama = req.user.nama || req.user.email || '';
+  entry.updated_at = new Date().toISOString();
+
+  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal (guru)', `${classItem.nama} · ${schedule.jam_mulai}`));
+  await saveDB(db);
+
+  const webhook = (process.env.SIMANIS_WEBHOOK_URL || '').trim();
+  if (webhook) {
+    const subject = db.subjects.find(s => s.id === schedule.subject_id);
+    fetch(webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(process.env.SIMANIS_TOKEN ? { Authorization: `Bearer ${process.env.SIMANIS_TOKEN}` } : {}) },
+      body: JSON.stringify({
+        source: 'Geo Edulabs',
+        tenant_id: req.tenantId,
+        tanggal,
+        kelas: classItem.nama,
+        mapel: subject ? subject.nama : '',
+        jam_mulai: schedule.jam_mulai,
+        jam_selesai: schedule.jam_selesai,
+        materi: entry.materi,
+        kegiatan: entry.kegiatan,
+        attendance: entry.attendance
+      })
+    }).catch(error => console.error('Kirim jurnal ke SIMANIS gagal:', error));
+  }
+
+  res.json({ success: true, entry });
+});
+
+app.get('/api/admin/simanis/export', requireAuth, requireStaff, requireTenant, async (req, res) => {
   const db = await loadDB();
   const tanggal = String(req.query.tanggal || wibNow().date);
   const tenant = db.tenants.find(t => t.id === req.tenantId) || {};

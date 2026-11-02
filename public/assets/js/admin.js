@@ -46,6 +46,15 @@ async function init() {
   
   await renderDashboard();
   setupMenu('dashboard');
+  if (currentUser.role === 'teacher') {
+    // Guru hanya memakai Jurnal Mengajar.
+    document.querySelectorAll('.nav-item').forEach(el => {
+      if (el.dataset.menu !== 'jurnal') el.classList.add('hidden');
+    });
+    document.getElementById('btn-seed')?.classList.add('hidden');
+    switchMenu('jurnal');
+    return;
+  }
   let savedMenu = null;
   try { savedMenu = localStorage.getItem('lms_admin_menu'); } catch { savedMenu = null; }
   if (savedMenu && savedMenu !== 'dashboard' && MENU_META[savedMenu]) switchMenu(savedMenu);
@@ -323,7 +332,12 @@ async function renderClasses() {
   if (!tbody) return;
   
   try {
-    const [classes, students] = await Promise.all([LMS.getClasses(), LMS.getStudents().catch(() => [])]);
+    const [classesRaw, studentsRaw] = await Promise.all([
+      LMS.getClasses(),
+      LMS.getStudents().catch(() => [])
+    ]);
+    const classes = Array.isArray(classesRaw) ? classesRaw : [];
+    const students = Array.isArray(studentsRaw) ? studentsRaw : [];
     if (!classes.length) {
       tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada kelas</td></tr>';
       return;
@@ -2231,16 +2245,27 @@ async function renderJurnal() {
   const tanggal = dateInput?.value || todayLocalISO();
 
   try {
-    const [data, sekolah] = await Promise.all([
+    const [data, sekolah, classes] = await Promise.all([
       LMS.getAdminJurnal(tanggal),
-      LMS.getSekolah().catch(() => ({}))
+      LMS.getSekolah().catch(() => ({})),
+      LMS.getClasses().catch(() => [])
     ]);
+    adminJurnalCache.rows = data.rows || [];
+    adminJurnalCache.classes = classes || [];
     const lat = document.getElementById('sekolah-lat');
     const lng = document.getElementById('sekolah-lng');
     const radius = document.getElementById('sekolah-radius');
     if (lat && lat.value === '') lat.value = sekolah.lat ?? '';
     if (lng && lng.value === '') lng.value = sekolah.lng ?? '';
     if (radius) radius.value = sekolah.radius_m || 500;
+
+    const classSelect = document.getElementById('jurnal-class');
+    if (classSelect) {
+      const previous = classSelect.value;
+      classSelect.innerHTML = '<option value="">Pilih kelas</option>' + adminJurnalCache.classes
+        .map(c => `<option value="${c.id}">${kurEsc(c.nama)}</option>`).join('');
+      if (adminJurnalCache.classes.some(c => c.id === previous)) classSelect.value = previous;
+    }
 
     const rows = data.rows || [];
     tbody.innerHTML = rows.length
@@ -2253,12 +2278,122 @@ async function renderJurnal() {
           <td>${kurEsc(row.kegiatan || '-')}</td>
           <td><strong>${row.hadir}</strong> / ${row.izin} / ${row.sakit} / ${row.dispensasi} / ${row.alpa}
             <div style="font-size:11px;color:var(--text-2)">${row.terisi}/${row.total} terisi</div></td>
-          <td>${kurEsc(row.ketua || '-')}</td>
+          <td>${kurEsc(row.ketua || '-')}${row.guru ? `<div style="font-size:11px;color:var(--text-2)">guru: ${kurEsc(row.guru)}</div>` : ''}</td>
         </tr>`).join('')
       : '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Belum ada jurnal pada tanggal ini.</td></tr>';
-    if (note) note.textContent = `Tanggal ${data.tanggal} · ${rows.length} jurnal. Data presensi otomatis dari ketua kelas atau radius sekolah.`;
+    if (note) note.textContent = `Tanggal ${data.tanggal} · ${rows.length} jurnal. Data presensi otomatis dari ketua kelas, guru, atau radius sekolah.`;
+    await loadJurnalEditor();
   } catch (error) {
     tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--danger)">${kurEsc(error.message)}</td></tr>`;
+  }
+}
+
+const adminJurnalCache = { rows: [], classes: [], schedules: [], students: [] };
+
+function jurnalWeekday(isoDate) {
+  const names = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+  const [y, m, d] = String(isoDate).split('-').map(Number);
+  if (!y || !m || !d) return '';
+  return names[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+}
+
+async function loadJurnalEditor() {
+  const classSelect = document.getElementById('jurnal-class');
+  const scheduleSelect = document.getElementById('jurnal-schedule');
+  const roster = document.getElementById('jurnal-edit-roster');
+  if (!classSelect || !scheduleSelect || !roster) return;
+
+  const tanggal = document.getElementById('jurnal-date')?.value || todayLocalISO();
+  const classId = classSelect.value;
+  if (!classId) {
+    scheduleSelect.innerHTML = '<option value="">Pilih jadwal</option>';
+    roster.innerHTML = '<tr><td colspan="3" class="text-center">Pilih kelas dan jadwal.</td></tr>';
+    return;
+  }
+
+  try {
+    const [schedules, students] = await Promise.all([
+      adminJurnalCache.schedules.length ? Promise.resolve(adminJurnalCache.schedules) : LMS.getSchedules(),
+      adminJurnalCache.students.length ? Promise.resolve(adminJurnalCache.students) : LMS.getStudents()
+    ]);
+    adminJurnalCache.schedules = schedules || [];
+    adminJurnalCache.students = students || [];
+    const hari = jurnalWeekday(tanggal);
+    const kelasSchedules = adminJurnalCache.schedules
+      .filter(s => s.class_id === classId && s.hari === hari)
+      .sort((a, b) => String(a.jam_mulai).localeCompare(String(b.jam_mulai)));
+    const previous = scheduleSelect.value;
+    scheduleSelect.innerHTML = kelasSchedules.length
+      ? '<option value="">Pilih jadwal</option>' + kelasSchedules
+        .map(s => `<option value="${s.id}">${kurEsc(s.jam_mulai)}–${kurEsc(s.jam_selesai)} · ${kurEsc(s.subject_nama || 'Geografi')}</option>`).join('')
+      : '<option value="">Tidak ada jadwal pada hari ini</option>';
+    if (kelasSchedules.some(s => s.id === previous)) scheduleSelect.value = previous;
+
+    const attendance = new Map();
+    const existing = adminJurnalCache.rows.find(r => r.kelas === (adminJurnalCache.classes.find(c => c.id === classId) || {}).nama
+      && r.id && String(r.jam).startsWith(String((kelasSchedules.find(s => s.id === scheduleSelect.value) || {}).jam_mulai || '###')));
+    // prefill dari entry yang sudah ada (bila jadwal dipilih)
+    const selected = kelasSchedules.find(s => s.id === scheduleSelect.value);
+    const rowMatch = selected && adminJurnalCache.rows.find(r => r.kelas === (adminJurnalCache.classes.find(c => c.id === classId) || {}).nama
+      && r.jam === `${selected.jam_mulai}-${selected.jam_selesai}`);
+    if (rowMatch) {
+      (rowMatch.attendance || []).forEach(a => attendance.set(a.student_id, a));
+      const materi = document.getElementById('jurnal-materi-admin');
+      const kegiatan = document.getElementById('jurnal-kegiatan-admin');
+      if (materi && !materi.value) materi.value = rowMatch.materi || '';
+      if (kegiatan && !kegiatan.value) kegiatan.value = rowMatch.kegiatan || '';
+    }
+    void existing;
+
+    const kelasStudents = adminJurnalCache.students
+      .filter(s => s.kelas_id === classId)
+      .sort((a, b) => String(a.nama).localeCompare(String(b.nama), 'id'));
+    const options = ['', 'H', 'I', 'S', 'D', 'A']
+      .map(v => `<option value="${v}">${v || '-'}</option>`).join('');
+    roster.innerHTML = kelasStudents.length
+      ? kelasStudents.map(s => {
+        const saved = attendance.get(s.id) || {};
+        return `<tr data-student="${s.id}">
+          <td>${kurEsc(s.nama)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(s.nis || '')}</div></td>
+          <td><select data-status>${['', 'H', 'I', 'S', 'D', 'A'].map(v => `<option value="${v}"${saved.status === v ? ' selected' : ''}>${v || '-'}</option>`).join('')}</select></td>
+          <td><input data-keterangan value="${kurEsc(saved.keterangan || '')}" placeholder="Opsional" style="width:100%;padding:6px 8px;border:1px solid #cfdad4;border-radius:8px"></td>
+        </tr>`;
+      }).join('')
+      : '<tr><td colspan="3" class="text-center">Kelas ini belum punya siswa.</td></tr>';
+    void options;
+  } catch (error) {
+    roster.innerHTML = `<tr><td colspan="3" class="text-center" style="color:var(--danger)">${kurEsc(error.message)}</td></tr>`;
+  }
+}
+
+async function saveAdminJurnalEntry() {
+  const status = document.getElementById('jurnal-edit-status');
+  const classId = document.getElementById('jurnal-class')?.value || '';
+  const scheduleId = document.getElementById('jurnal-schedule')?.value || '';
+  const tanggal = document.getElementById('jurnal-date')?.value || todayLocalISO();
+  if (!classId || !scheduleId) {
+    if (status) status.textContent = 'Pilih kelas dan jadwal terlebih dahulu.';
+    return;
+  }
+  const attendance = [...document.querySelectorAll('#jurnal-edit-roster tr[data-student]')].map(row => ({
+    student_id: row.dataset.student,
+    status: row.querySelector('[data-status]')?.value || '',
+    keterangan: row.querySelector('[data-keterangan]')?.value || ''
+  }));
+  if (status) status.textContent = 'Menyimpan…';
+  try {
+    await LMS.saveAdminJurnal({
+      tanggal,
+      class_id: classId,
+      schedule_id: scheduleId,
+      materi: document.getElementById('jurnal-materi-admin')?.value || '',
+      kegiatan: document.getElementById('jurnal-kegiatan-admin')?.value || '',
+      attendance
+    });
+    if (status) status.textContent = 'Jurnal guru tersimpan.';
+    await renderJurnal();
+  } catch (error) {
+    if (status) status.textContent = error.message;
   }
 }
 
@@ -2848,6 +2983,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-wa-send')?.addEventListener('click', sendWhatsAppMessage);
   document.getElementById('btn-jurnal-refresh')?.addEventListener('click', renderJurnal);
   document.getElementById('jurnal-date')?.addEventListener('change', renderJurnal);
+  document.getElementById('jurnal-class')?.addEventListener('change', () => {
+    const materi = document.getElementById('jurnal-materi-admin');
+    const kegiatan = document.getElementById('jurnal-kegiatan-admin');
+    if (materi) materi.value = '';
+    if (kegiatan) kegiatan.value = '';
+    loadJurnalEditor().then(() => {
+      const schedule = document.getElementById('jurnal-schedule');
+      if (schedule) schedule.dispatchEvent(new Event('change'));
+    });
+  });
+  document.getElementById('jurnal-schedule')?.addEventListener('change', loadJurnalEditor);
+  document.getElementById('btn-jurnal-admin-save')?.addEventListener('click', saveAdminJurnalEntry);
   document.getElementById('btn-simanis-export')?.addEventListener('click', exportSimanis);
   document.getElementById('sekolah-form')?.addEventListener('submit', saveSekolahLokasi);
   document.getElementById('btn-sekolah-here')?.addEventListener('click', useMyLocationForSchool);

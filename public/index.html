@@ -302,7 +302,7 @@
 
   <!-- Standard Scripts -->
   <script src="assets/js/sanitize.js?v=20261105e"></script>
-  <script src="assets/js/api.js?v=20261105j"></script>
+  <script src="assets/js/api.js?v=20261105k"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js?v=41').catch(() => {});
@@ -373,7 +373,7 @@
           // Satu form untuk semua peran: server mendeteksi siswa/guru/admin.
           const u = await LMS.authLogin(ident, pass, pos);
 
-          if (u.role === 'super_admin' || u.role === 'admin') {
+          if (u.role === 'super_admin' || u.role === 'admin' || u.role === 'teacher') {
             btnText.textContent = 'Membuka Dasbor Admin...';
             window.location.href = '/admin.html';
           } else if (u.role === 'student') {

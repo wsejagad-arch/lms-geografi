@@ -94,6 +94,10 @@ const LMS = (() => {
     return api(`/admin/jurnal${tanggal ? `?tanggal=${encodeURIComponent(tanggal)}` : ''}`);
   }
 
+  async function saveAdminJurnal(payload) {
+    return api('/admin/jurnal', { method: 'POST', body: JSON.stringify(payload) });
+  }
+
   async function getSekolah() { return api('/admin/sekolah'); }
 
   async function saveSekolah(data) {
@@ -211,7 +215,7 @@ const LMS = (() => {
     getCurrentTenant: () => currentTenant,
     setCurrentTenant: (t) => { currentTenant = t; },
     checkAuth, login, authLogin, logout, changeMyPassword, saveWhatsApp, setKetuaKelas,
-    getJurnal, saveJurnal, getAdminJurnal, getSekolah, saveSekolah, selectTenant,
+    getJurnal, saveJurnal, getAdminJurnal, saveAdminJurnal, getSekolah, saveSekolah, selectTenant,
     getTenants, createTenant,
     getSubjects, createSubject, updateSubject, deleteSubject,
     getClasses, createClass, updateClass, deleteClass,
