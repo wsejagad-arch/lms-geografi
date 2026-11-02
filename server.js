@@ -98,53 +98,90 @@ async function clearLoginLocks() {
 }
 
 // ===== DATABASE =====
-async function loadDB() {
-  try {
-    const data = await fs.readFile(DB_PATH, 'utf-8');
-    const db = JSON.parse(data);
-    ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams', 'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts', 'session_logs', 'activity_logs', 'whatsapp_jobs'].forEach(k => {
-      if (!Array.isArray(db[k])) db[k] = [];
-    });
-    return db;
-  } catch {
-    return {
-      users: [],
-      tenants: [],
-      subjects: [],
-      classes: [],
-      students: [],
-      materials: [],
-      questions: [],
-      exams: [],
-      exam_questions: [],
-      grades: [],
-      assignments: [],
-      attendance: [],
-      schedules: [],
-      progress: [],
-      attempts: [],
-      session_logs: [],
-      activity_logs: [],
-      whatsapp_jobs: [],
-      whatsapp_logs: [],
-      jurnal: []
-    };
-  }
+// Baca DB dengan pengaman: coba beberapa kali, jatuh ke salinan .prev bila berkas utama
+// rusak/terpotong, dan JANGAN pernah mengembalikan DB kosong saat berkas sebenarnya ada
+// (DB kosong yang tersimpan ulang adalah penyebab utama data hilang).
+function emptyDB() {
+  return {
+    users: [], tenants: [], subjects: [], classes: [], students: [], materials: [], questions: [],
+    exams: [], exam_questions: [], grades: [], assignments: [], attendance: [], schedules: [],
+    progress: [], attempts: [], session_logs: [], activity_logs: [], whatsapp_jobs: [],
+    whatsapp_logs: [], jurnal: []
+  };
 }
 
-async function saveDB(db) {
-  // Tulis atomik: file sementara lalu rename, plus simpan salinan .prev agar
-  // kegagalan proses tidak membuat data hilang/terpotong.
-  const data = JSON.stringify(db, null, 2);
-  const tmp = `${DB_PATH}.tmp`;
-  try {
-    await fs.writeFile(tmp, data);
-    await fs.copyFile(DB_PATH, `${DB_PATH}.prev`).catch(() => {});
-    await fs.rename(tmp, DB_PATH);
-  } catch (error) {
-    await fs.writeFile(DB_PATH, data);
-    console.error('Penyimpanan atomik gagal, memakai penulisan langsung:', error.message);
+function normalizeDB(db) {
+  ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams',
+    'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts',
+    'session_logs', 'activity_logs', 'whatsapp_jobs', 'whatsapp_logs', 'jurnal'].forEach(k => {
+    if (!Array.isArray(db[k])) db[k] = [];
+  });
+  return db;
+}
+
+async function fileExists(target) {
+  try { await fs.access(target); return true; } catch { return false; }
+}
+
+async function loadDB() {
+  const sources = [DB_PATH, `${DB_PATH}.prev`];
+  let lastError = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    for (const source of sources) {
+      try {
+        return normalizeDB(JSON.parse(await fs.readFile(source, 'utf-8')));
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    await new Promise(resolve => setTimeout(resolve, 25));
   }
+  // Benar-benar belum ada berkas (instalasi baru) → DB kosong boleh.
+  if (!(await fileExists(DB_PATH)) && !(await fileExists(`${DB_PATH}.prev`))) {
+    return emptyDB();
+  }
+  // Berkas ada tetapi tidak terbaca/rusak: jangan menimpa, biarkan request gagal.
+  console.error(`[db] Gagal membaca database (${DB_PATH}):`, lastError && lastError.message);
+  throw lastError || new Error('Database tidak dapat dibaca');
+}
+
+// Tulis berurutan (satu antrean) dengan berkas sementara unik agar dua request
+// yang menyimpan bersamaan tidak saling menimpa/merusak.
+let dbWriteChain = Promise.resolve();
+
+async function saveDB(db) {
+  const task = async () => {
+    const snapshot = JSON.stringify(db, null, 2);
+    // Baca berkas saat ini sekali: dipakai untuk pengaman data kosong sekaligus
+    // memastikan .prev hanya diperbarui dari berkas yang masih valid.
+    let currentValid = false;
+    try {
+      const current = JSON.parse(await fs.readFile(DB_PATH, 'utf-8'));
+      currentValid = true;
+      const looksEmpty = !Array.isArray(db.users) || (db.users.length === 0
+        && (db.students || []).length === 0 && (db.tenants || []).length === 0);
+      const currentHasData = (current.users || []).length > 0 || (current.students || []).length > 0;
+      if (looksEmpty && currentHasData) {
+        console.error('[db] Penulisan dibatalkan: data yang hendak disimpan kosong sedangkan berkas berisi data.');
+        return false;
+      }
+    } catch { currentValid = false; }
+    const tmp = `${DB_PATH}.tmp-${process.pid}-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
+    try {
+      await fs.writeFile(tmp, snapshot);
+      if (currentValid) await fs.copyFile(DB_PATH, `${DB_PATH}.prev`).catch(() => {});
+      await fs.rename(tmp, DB_PATH);
+      return true;
+    } catch (error) {
+      await fs.unlink(tmp).catch(() => {});
+      console.error('Penyimpanan atomik gagal, memakai penulisan langsung:', error.message);
+      await fs.writeFile(DB_PATH, snapshot);
+      return true;
+    }
+  };
+  const run = dbWriteChain.then(task, task);
+  dbWriteChain = run.catch(() => {});
+  return run;
 }
 
 async function initDB() {
@@ -2613,6 +2650,84 @@ app.post('/api/admin/restore', requireAuth, requireAdmin, async (req, res) => {
   res.json({ success: true, backup: path.basename(backupPath), counts });
 });
 
+// ===== DIAGNOSTIK & PEMULIHAN BERKAS (super admin) =====
+// Membantu memeriksa cadangan dan memulihkannya tanpa harus masuk ke console server.
+app.get('/api/admin/db-status', requireAuth, async (req, res) => {
+  if (req.user.role !== 'super_admin') return res.status(403).json({ error: 'Hanya super admin' });
+  const dir = path.dirname(DB_PATH);
+  const files = [];
+  for (const name of (await fs.readdir(dir)).filter(n => n === 'db.json' || n.startsWith('db.json.'))) {
+    const full = path.join(dir, name);
+    try {
+      const stat = await fs.stat(full);
+      if (!stat.isFile()) continue;
+      let counts = 'unreadable';
+      try {
+        const data = JSON.parse(await fs.readFile(full, 'utf-8'));
+        counts = {
+          users: (data.users || []).length,
+          teachers: (data.users || []).filter(u => u.role === 'teacher').length,
+          students: (data.students || []).length,
+          exams: (data.exams || []).length,
+          grades: (data.grades || []).length,
+          attendance: (data.attendance || []).length,
+          jurnal: (data.jurnal || []).length,
+          attempts: (data.attempts || []).length,
+          progress: (data.progress || []).length,
+          whatsapp_logs: (data.whatsapp_logs || []).length
+        };
+      } catch { /* biarkan 'unreadable' */ }
+      files.push({ file: name, size: stat.size, mtime: stat.mtime, counts });
+    } catch { /* lewati berkas yang tidak terbaca */ }
+  }
+  files.sort((a, b) => String(b.mtime).localeCompare(String(a.mtime)));
+  res.json({ path: DB_PATH, files });
+});
+
+app.post('/api/admin/restore-file', requireAuth, async (req, res) => {
+  if (req.user.role !== 'super_admin') return res.status(403).json({ error: 'Hanya super admin' });
+  const body = req.body || {};
+  if (body.confirm !== 'RESTORE-FILE') {
+    return res.status(400).json({ error: 'Konfirmasi "RESTORE-FILE" wajib dikirim' });
+  }
+  const name = String(body.file || '').trim();
+  if (!/^db\.json\.(backup|daily|prev|before)[A-Za-z0-9._-]*$/.test(name)) {
+    return res.status(400).json({ error: 'Nama berkas cadangan tidak valid' });
+  }
+  const source = path.join(path.dirname(DB_PATH), name);
+  if (!(await fileExists(source))) return res.status(404).json({ error: 'Berkas cadangan tidak ditemukan' });
+  let incoming;
+  try {
+    incoming = normalizeDB(JSON.parse(await fs.readFile(source, 'utf-8')));
+  } catch (error) {
+    return res.status(400).json({ error: 'Berkas cadangan rusak: ' + error.message });
+  }
+  const db = await loadDB();
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  await fs.copyFile(DB_PATH, `${DB_PATH}.backup-before-file-restore-${stamp}`).catch(() => {});
+  // Pertahankan akun staf yang sedang ada agar login tidak terputus setelah pemulihan.
+  const staff = (db.users || []).filter(u => u.role === 'admin' || u.role === 'super_admin');
+  const staffIds = new Set(staff.map(u => u.id));
+  const staffEmails = new Set(staff.map(u => String(u.email || '').toLowerCase()));
+  incoming.users = staff.concat((incoming.users || []).filter(u => u && !staffIds.has(u.id)
+    && !staffEmails.has(String(u.email || '').toLowerCase())));
+  await saveDB(incoming);
+  res.json({
+    success: true,
+    source: name,
+    counts: {
+      users: incoming.users.length,
+      teachers: incoming.users.filter(u => u.role === 'teacher').length,
+      students: (incoming.students || []).length,
+      exams: (incoming.exams || []).length,
+      grades: (incoming.grades || []).length,
+      attendance: (incoming.attendance || []).length,
+      jurnal: (incoming.jurnal || []).length,
+      attempts: (incoming.attempts || []).length
+    }
+  });
+});
+
 // ===== SEED =====
 app.post('/api/seed', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = req.db;
@@ -2736,7 +2851,13 @@ whatsappSender.registerWhatsAppRoutes(app, {
 
 const PORT = process.env.PORT || 3000;
 (async () => {
-  await initDB();
+  try {
+    await initDB();
+  } catch (error) {
+    // Berkas DB ada tetapi rusak: jangan menyemai admin baru di atasnya.
+    // Server tetap hidup agar admin bisa memakai /api/admin/db-status + restore-file.
+    console.error('[db] Inisialisasi database gagal:', error.message);
+  }
   app.listen(PORT, () => {
     console.log(`LMS Multi-Tenant running on http://localhost:${PORT}`);
   });
