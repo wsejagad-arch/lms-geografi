@@ -18,6 +18,10 @@ function check(name, ok, detail = '') {
 }
 
 const db = JSON.parse(fs.readFileSync(path.join(root, 'data/db.json'), 'utf8'));
+const fixtureAdmin = (db.users || []).find((u) => u.email === 'admin@lms.id');
+// Password admin untuk uji disamakan agar login fixture selalu berhasil.
+if (fixtureAdmin) fixtureAdmin.password = bcrypt.hashSync('admin', 8);
+
 const tenant = db.tenants[0];
 const klass = db.classes[0] || { id: 'kelas-uji', tenant_id: tenant.id, nama: 'X-A', tingkat: 'X' };
 if (!db.classes[0]) db.classes.push(klass);

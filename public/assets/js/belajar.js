@@ -123,7 +123,7 @@ function blRenderExamTimer() {
       : 'Waktu baca realistis: ' + blFormatDuration(remaining) + ' lagi sebelum jawaban dapat disimpan')
     : 'Waktu baca terpenuhi — jawaban bisa disimpan dan dikirim';
   const btn = document.getElementById('bl-submit');
-  if (btn && !btn.dataset.sending) {
+  if (btn && !blState.examSubmitting) {
     btn.textContent = remaining > 0 ? 'Kirim Jawaban (tunggu ' + blFormatDuration(remaining) + ')' : 'Kirim Jawaban';
   }
   if (remaining <= 0 && blState.examPendingSave) {
@@ -895,9 +895,9 @@ async function blSubmit() {
     return;
   }
   const btn = document.getElementById('bl-submit');
-  btn.dataset.sending = '1';
   btn.disabled = true;
   btn.textContent = 'Mengirim…';
+  blState.examSubmitting = true;
   try {
     if (blProgressTimer) {
       clearTimeout(blProgressTimer);
@@ -922,6 +922,7 @@ async function blSubmit() {
     alert(err.message);
     btn.disabled = false;
     delete btn.dataset.sending;
+    blState.examSubmitting = false;
     blRenderExamTimer();
   }
 }
