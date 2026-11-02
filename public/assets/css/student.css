@@ -1745,18 +1745,31 @@ body {
   text-align: center;
 }
 .notif-badge.hidden { display: none; }
+/* Panel notifikasi tidak boleh keluar layar: pakai fixed agar selalu di dalam viewport. */
 .notif-panel {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 10px);
-  width: min(340px, 86vw);
-  max-height: 380px;
+  position: fixed;
+  top: 64px;
+  right: 12px;
+  left: auto;
+  width: min(360px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  max-height: min(70vh, 420px);
   overflow-y: auto;
   background: #fff;
   border: 1px solid #dbe6e1;
   border-radius: 14px;
   box-shadow: 0 18px 40px rgba(16, 48, 40, .16);
-  z-index: 60;
+  z-index: 1200;
+}
+@media (max-width: 480px) {
+  .notif-panel {
+    top: 56px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-width: none;
+    max-height: min(68vh, 380px);
+  }
 }
 .notif-panel.hidden { display: none; }
 .notif-head {

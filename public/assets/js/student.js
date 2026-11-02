@@ -4,6 +4,13 @@ let currentUser = null;
 let currentTenant = null;
 let deferredInstallPrompt = null;
 
+// Escape teks sebelum masuk innerHTML. sanitize.js (lmsEsc) dimuat lebih dulu;
+// fallback dipakai bila urutan skrip berubah agar notifikasi/jurnal tetap tampil.
+const kurEsc = (value) => (typeof lmsEsc === 'function'
+  ? lmsEsc(value)
+  : String(value === undefined || value === null ? '' : value)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'));
+
 window.addEventListener('beforeinstallprompt', event => {
   event.preventDefault();
   deferredInstallPrompt = event;
@@ -337,9 +344,17 @@ async function setupNotifications() {
     badge.textContent = items.length > 9 ? '9+' : String(items.length);
     badge.classList.toggle('hidden', !items.length);
   }
-  list.innerHTML = items.length
+  const render = html => {
+    try {
+      list.innerHTML = html;
+    } catch (error) {
+      console.error('Notifikasi gagal ditampilkan:', error);
+      list.innerHTML = '<p class="notif-empty">Notifikasi tidak dapat ditampilkan. Muat ulang halaman.</p>';
+    }
+  };
+  render(items.length
     ? items.map((item, index) => `<button type="button" class="notif-item" data-notif-index="${index}"><strong>${kurEsc(item.title)}<span class="notif-tag">${kurEsc(item.tag)}</span></strong><span>${kurEsc(item.meta)}</span></button>`).join('')
-    : '<p class="notif-empty">Tidak ada notifikasi. Semua tugas beres 🎉</p>';
+    : '<p class="notif-empty">Tidak ada notifikasi. Semua tugas beres 🎉</p>');
 
   list.querySelectorAll('[data-notif-index]').forEach(button => {
     button.addEventListener('click', () => {

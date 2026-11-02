@@ -174,6 +174,12 @@ if (typeof blRenderSoal === 'function') {
     belajarCss.includes('.bl-prose iframe, .bl-stim iframe, .bl-rev iframe')
       && belajarCss.includes('aspect-ratio: 16 / 9')
       && belajarCss.includes('.bl-prose div[style*="padding-bottom"]'), '');
+
+  const studentSrc = fs.readFileSync(path.join(root, 'public/assets/js/student.js'), 'utf8');
+  check('student.js mendefinisikan pembantu escape yang dipakai (kurEsc)',
+    /const kurEsc\s*=/.test(studentSrc) && studentSrc.includes('kurEsc(item.title)'), '');
+  check('notifikasi punya tampilan cadangan bila gagal dirender',
+    studentSrc.includes('Notifikasi tidak dapat ditampilkan'), '');
   check('CSS menonaktifkan blok-kopi pada area ujian',
     belajarCss.includes('#bl-eval { -webkit-user-select: none; user-select: none;')
       && belajarCss.includes('.bl-stim [style]'), '');
