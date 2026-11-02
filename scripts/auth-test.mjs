@@ -120,6 +120,29 @@ try {
   check('login admin tetap 200', adminLogin.status === 200, `status=${adminLogin.status}`);
   const tenantSelect = await req('POST', '/api/tenants/select', { tenant_id: tenant.id }, 'admin');
   check('admin memilih tenant untuk pemantauan aktivitas', tenantSelect.status === 200, `status=${tenantSelect.status}`);
+
+  // --- akun guru: dibuat, diubah emailnya, dan terikat ke sekolah ---
+  const newTeacher = await req('POST', '/api/register', {
+    email: 'guru.baru@uji.local', password: 'rahasia123', nama: 'Guru Baru', role: 'teacher',
+  }, 'admin');
+  check('admin dapat membuat akun guru', newTeacher.status === 200 && newTeacher.json.role === 'teacher',
+    `status=${newTeacher.status}`);
+  check('akun guru baru otomatis terikat ke sekolah', newTeacher.json.tenant_id === tenant.id,
+    `tenant=${newTeacher.json.tenant_id}`);
+  const renamed = await req('PUT', `/api/users/${newTeacher.json.id}`, {
+    email: 'guru.pindah@uji.local', nama: 'Guru Pindah', tenant_id: tenant.id,
+  }, 'admin');
+  check('admin dapat mengubah email/nama akun guru', renamed.status === 200
+    && renamed.json.user.email === 'guru.pindah@uji.local'
+    && renamed.json.user.nama === 'Guru Pindah', `status=${renamed.status}`);
+  const loginRenamed = await req('POST', '/api/login', { email: 'guru.pindah@uji.local', password: 'rahasia123' });
+  check('guru dapat login dengan email hasil perubahan', loginRenamed.status === 200, `status=${loginRenamed.status}`);
+  const badEmail = await req('PUT', `/api/users/${newTeacher.json.id}`, { email: 'bukan-email' }, 'admin');
+  check('email tidak valid ditolak', badEmail.status === 400, `status=${badEmail.status}`);
+  const studentLogin = await req('POST', '/api/student/login', { username: 'siswa.a', password: 'rahasia123' }, 'siswa');
+  const forbidden = await req('PUT', `/api/users/${newTeacher.json.id}`, { nama: 'X' }, 'siswa');
+  check('siswa tidak boleh mengubah akun guru', forbidden.status === 403,
+    `login=${studentLogin.status} status=${forbidden.status}`);
   const waSettings = await req('GET', '/api/admin/whatsapp', undefined, 'admin');
   check('konfigurasi WhatsApp terisolasi per tenant', waSettings.status === 200
     && waSettings.json.config.enabled === false
