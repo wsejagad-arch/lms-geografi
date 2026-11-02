@@ -173,22 +173,54 @@ async function loadJurnal() {
     }
     wrap?.classList.remove('hidden');
     const entry = data.entry || {};
-    const materi = document.getElementById('jurnal-materi');
-    const kegiatan = document.getElementById('jurnal-kegiatan');
-    if (materi && !materi.value) materi.value = entry.materi || '';
-    if (kegiatan && !kegiatan.value) kegiatan.value = entry.kegiatan || '';
     const saved = new Map((entry.attendance || []).map(a => [a.student_id, a]));
     roster.innerHTML = (data.roster || []).map(student => {
       const row = saved.get(student.id) || {};
-      const opts = ['', 'H', 'I', 'S', 'D', 'A']
-        .map(v => `<option value="${v}"${row.status === v ? ' selected' : ''}>${v || '-'}</option>`).join('');
+      const status = row.status || (entry.updated_at ? '' : 'H');
+      const hadir = status === 'H' || status === '';
+      const nonHadir = ['I', 'S', 'D', 'A'].includes(status) ? status : 'A';
       return `<tr data-student="${student.id}">
+        <td style="text-align:center"><input type="checkbox" data-hadir${hadir ? ' checked' : ''} aria-label="Hadir ${kurEsc(student.nama)}"></td>
         <td>${kurEsc(student.nama)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(student.nis || '')}</div></td>
-        <td><select data-status>${opts}</select></td>
+        <td>
+          <select data-status aria-label="Status ${kurEsc(student.nama)}">
+            <option value="H"${status === 'H' || status === '' ? ' selected' : ''}>H — Hadir</option>
+            <option value="I"${status === 'I' ? ' selected' : ''}>I — Izin</option>
+            <option value="S"${status === 'S' ? ' selected' : ''}>S — Sakit</option>
+            <option value="D"${status === 'D' ? ' selected' : ''}>D — Dispensasi</option>
+            <option value="A"${status === 'A' ? ' selected' : ''}>A — Alpa</option>
+          </select>
+        </td>
         <td><input data-keterangan value="${kurEsc(row.keterangan || '')}" placeholder="Opsional" style="width:100%;padding:6px 8px;border:1px solid #cfdad4;border-radius:8px"></td>
       </tr>`;
     }).join('');
-    if (status) status.textContent = entry.updated_at ? 'Jurnal tersimpan sebelumnya — perbarui bila ada perubahan.' : 'Isi status semua siswa lalu simpan.';
+
+    // Ceklis dan status saling sinkron: centang → H, lepas centang → I/S/D/A terakhir.
+    roster.querySelectorAll('tr[data-student]').forEach(row => {
+      const check = row.querySelector('[data-hadir]');
+      const select = row.querySelector('[data-status]');
+      if (!check || !select) return;
+      check.addEventListener('change', () => {
+        select.value = check.checked ? 'H' : (select.value === 'H' ? 'A' : select.value);
+      });
+      select.addEventListener('change', () => {
+        check.checked = select.value === 'H';
+      });
+    });
+
+    if (status) status.textContent = entry.updated_at ? 'Daftar hadir tersimpan sebelumnya — perbarui bila ada perubahan.' : 'Centang siswa yang hadir lalu simpan.';
+    const allButton = document.getElementById('btn-jurnal-all-hadir');
+    if (allButton && allButton.dataset.bound !== '1') {
+      allButton.dataset.bound = '1';
+      allButton.addEventListener('click', () => {
+        roster.querySelectorAll('tr[data-student]').forEach(row => {
+          const check = row.querySelector('[data-hadir]');
+          const select = row.querySelector('[data-status]');
+          if (check) check.checked = true;
+          if (select) select.value = 'H';
+        });
+      });
+    }
     const button = document.getElementById('btn-jurnal-save');
     if (button && button.dataset.bound !== '1') {
       button.dataset.bound = '1';
@@ -204,24 +236,28 @@ async function saveJurnalForm() {
   const status = document.getElementById('jurnal-status');
   const roster = document.getElementById('jurnal-roster');
   if (!jurnalState || !jurnalState.active_schedule_id) return;
-  const attendance = [...roster.querySelectorAll('tr[data-student]')].map(row => ({
-    student_id: row.dataset.student,
-    status: row.querySelector('[data-status]')?.value || '',
-    keterangan: row.querySelector('[data-keterangan]')?.value || ''
-  }));
-  if (status) { status.textContent = 'Menyimpan…'; status.classList.remove('error', 'success'); }
+  const attendance = [...roster.querySelectorAll('tr[data-student]')].map(row => {
+    const check = row.querySelector('[data-hadir]');
+    const select = row.querySelector('[data-status]');
+    const checked = check ? check.checked : true;
+    const value = checked ? 'H' : (['I', 'S', 'D', 'A'].includes(select?.value) ? select.value : 'A');
+    return {
+      student_id: row.dataset.student,
+      status: value,
+      keterangan: row.querySelector('[data-keterangan]')?.value || ''
+    };
+  });
+  if (status) { status.textContent = 'Menyimpan...'; status.classList.remove('error', 'success'); }
   try {
     await LMS.saveJurnal({
       schedule_id: jurnalState.active_schedule_id,
       tanggal: jurnalState.date,
-      materi: document.getElementById('jurnal-materi')?.value || '',
-      kegiatan: document.getElementById('jurnal-kegiatan')?.value || '',
       attendance
     });
-    if (status) { status.textContent = 'Jurnal & presensi tersimpan. Guru akan melihat data ini otomatis.'; status.classList.add('success'); }
+    if (status) { status.textContent = 'Daftar hadir tersimpan dan masuk ke jurnal guru.'; status.classList.add('success'); }
     await loadJurnal();
   } catch (error) {
-    if (status) { status.textContent = error.message || 'Gagal menyimpan jurnal.'; status.classList.add('error'); }
+    if (status) { status.textContent = error.message || 'Gagal menyimpan daftar hadir.'; status.classList.add('error'); }
   }
 }
 

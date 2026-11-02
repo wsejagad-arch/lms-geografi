@@ -416,18 +416,18 @@
             <div style="padding:0 16px 16px">
               <p id="jurnal-info" style="font-size:12px;color:var(--text-2)"></p>
               <div id="jurnal-form-wrap" class="hidden">
-                <label for="jurnal-materi" style="font-size:12px;color:var(--text-2)">Materi yang dipelajari</label>
-                <input id="jurnal-materi" type="text" maxlength="300" placeholder="Contoh: Persebaran bioma dunia" style="width:100%;padding:10px 12px;margin:6px 0 12px;border:1px solid #cfdad4;border-radius:10px">
-                <label for="jurnal-kegiatan" style="font-size:12px;color:var(--text-2)">Kegiatan pembelajaran</label>
-                <textarea id="jurnal-kegiatan" rows="3" maxlength="1000" placeholder="Contoh: Diskusi kelompok, presentasi peta, latihan soal" style="width:100%;padding:10px 12px;margin:6px 0 12px;border:1px solid #cfdad4;border-radius:10px;font-family:inherit"></textarea>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 10px">
+                  <button class="btn btn-sm" id="btn-jurnal-all-hadir" type="button">Tandai semua hadir</button>
+                  <span style="font-size:11px;color:var(--text-3)">Centang siswa yang hadir. Yang tidak dicentang otomatis tidak hadir.</span>
+                </div>
                 <div class="table-wrap">
                   <table>
-                    <thead><tr><th>Nama Siswa</th><th>Status</th><th>Keterangan</th></tr></thead>
-                    <tbody id="jurnal-roster"><tr><td colspan="3" class="text-center">Memuat…</td></tr></tbody>
+                    <thead><tr><th>Hadir</th><th>Nama Siswa</th><th>Status</th><th>Keterangan</th></tr></thead>
+                    <tbody id="jurnal-roster"><tr><td colspan="4" class="text-center">Memuat…</td></tr></tbody>
                   </table>
                 </div>
                 <p id="jurnal-status" class="profile-password-status" role="status" aria-live="polite"></p>
-                <button class="btn btn-primary" id="btn-jurnal-save" type="button">Simpan jurnal &amp; presensi</button>
+                <button class="btn btn-primary" id="btn-jurnal-save" type="button">Simpan daftar hadir</button>
               </div>
             </div>
           </div>
@@ -671,9 +671,9 @@
   <script src="assets/js/belajar.js?v=20261105o"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js?v=46').catch(error => console.error('Service worker gagal didaftarkan:', error));
+      navigator.serviceWorker.register('/sw.js?v=47').catch(error => console.error('Service worker gagal didaftarkan:', error));
     }
   </script>
-  <script src="assets/js/student.js?v=20261105p"></script>
+  <script src="assets/js/student.js?v=20261105q"></script>
 </body>
 </html>
