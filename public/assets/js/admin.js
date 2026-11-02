@@ -332,52 +332,24 @@ async function renderClasses() {
   if (!tbody) return;
   
   try {
-    const [classesRaw, studentsRaw] = await Promise.all([
-      LMS.getClasses(),
-      LMS.getStudents().catch(() => [])
-    ]);
+    const classesRaw = await LMS.getClasses();
     const classes = Array.isArray(classesRaw) ? classesRaw : [];
-    const students = Array.isArray(studentsRaw) ? studentsRaw : [];
     if (!classes.length) {
       tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada kelas</td></tr>';
       return;
     }
     
-    tbody.innerHTML = classes.map(c => {
-      const anggota = (students || []).filter(s => s.class_id === c.id)
-        .sort((a, b) => String(a.nama || '').localeCompare(String(b.nama || ''), 'id'));
-      return `
+    tbody.innerHTML = classes.map((c, index) => `
       <tr>
-        <td><span class="badge badge-primary">${c.tingkat}</span></td>
+        <td>${index + 1}</td>
         <td>${c.nama}</td>
-        <td>${c.jurusan || '-'}</td>
-        <td>
-          <select data-ketua-class="${c.id}" style="min-width:150px">
-            <option value="">- bukan ketua -</option>
-            ${anggota.map(s => `<option value="${s.id}"${s.id === c.ketua_id ? ' selected' : ''}>${kurEsc(s.nama)}${s.nis ? ` (${kurEsc(s.nis)})` : ''}</option>`).join('')}
-          </select>
-        </td>
+        <td><span class="badge badge-primary">${c.tingkat}</span></td>
+        <td>${c.wali_kelas || '-'}</td>
         <td>
           <button class="btn btn-sm" onclick="editClass('${c.id}')">Edit</button>
           <button class="btn btn-sm btn-danger" onclick="deleteClass('${c.id}')">Hapus</button>
         </td>
-      </tr>`;
-    }).join('');
-
-    tbody.querySelectorAll('[data-ketua-class]').forEach(select => {
-      select.addEventListener('change', async () => {
-        const classId = select.dataset.ketuaClass;
-        select.disabled = true;
-        try {
-          await LMS.setKetuaKelas(classId, select.value);
-        } catch (error) {
-          alert(error.message);
-        } finally {
-          select.disabled = false;
-          renderClasses();
-        }
-      });
-    });
+      </tr>`).join('');
   } catch (err) {
     tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
   }
