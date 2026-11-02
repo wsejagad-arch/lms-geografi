@@ -2022,6 +2022,10 @@ app.post('/api/login', async (req, res) => {
   req.session.role = user.role;
   req.session.nama = user.nama;
   req.session.tenantId = user.tenant_id;
+  // Super admin tanpa tenant: bila sekolah hanya satu, pilih otomatis agar tidak perlu memilih manual.
+  if (!req.session.tenantId && user.role === 'super_admin' && (db.tenants || []).length === 1) {
+    req.session.tenantId = db.tenants[0].id;
+  }
   req.session.sid = uuidv4();
   touchSession(db, req, user);
   db.activity_logs.push(makeActivityRecord(db, req, user, 'Login berhasil', 'Sesi dimulai'));
