@@ -1263,10 +1263,40 @@ tbody td button + button {
 
 /* Print Only Styles */
 @media print {
-  .sidebar, .top-bar, .bottom-nav, .list-toolbar, .btn { display: none !important; }
-  .content { padding: 0 !important; width: 100% !important; max-width: none !important; }
-  .card { box-shadow: none !important; border: 1px solid #000 !important; }
+  @page { size: A4 landscape; margin: 10mm 8mm; }
+  html, body { background: #fff !important; }
+  .sidebar, .top-bar, .bottom-nav, .list-toolbar, .btn, .modal-overlay,
+  #sidebar-overlay, .wa-qr-panel, .bottom-nav-item { display: none !important; }
+  main, .content, .card, .table-wrap, .panel {
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+  .panel-head { padding: 0 0 6px !important; }
+  table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+    font-size: 9.5px !important;
+  }
+  th, td {
+    padding: 3px 4px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+  }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; page-break-inside: avoid; }
   .print-only { display: block !important; }
+  .print-chart { display: block; width: 100% !important; max-width: 100%; height: auto; margin: 6px 0 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+  body.print-progress .menu-section:not(#menu-progress) { display: none !important; }
+  body.print-sessions .menu-section:not(#menu-sessions) { display: none !important; }
 }
 
 /* Kredit pengembang */

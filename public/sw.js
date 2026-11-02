@@ -1,4 +1,4 @@
-const CACHE = 'geo-edulabs-v47';
+const CACHE = 'geo-edulabs-v48';
 const ASSETS = [
   '/manifest.json',
   '/assets/css/style.css',

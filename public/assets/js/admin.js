@@ -768,18 +768,99 @@ async function progressTenantName() {
   return 'LMS Geografi';
 }
 
+function buildProgressChartImage(rows) {
+  const perClass = new Map();
+  rows.forEach(row => {
+    const key = row.kelas_nama || '-';
+    const pct = row.total ? Math.round(((row.tuntas || 0) / row.total) * 100) : 0;
+    const nilai = row.rata_best === null || row.rata_best === undefined ? NaN : Number(row.rata_best);
+    if (!perClass.has(key)) perClass.set(key, { progres: [], nilai: [] });
+    perClass.get(key).progres.push(pct);
+    if (Number.isFinite(nilai)) perClass.get(key).nilai.push(nilai);
+  });
+  const data = [...perClass.entries()].map(([kelas, v]) => ({
+    kelas,
+    progres: v.progres.length ? Math.round(v.progres.reduce((a, b) => a + b, 0) / v.progres.length) : 0,
+    nilai: v.nilai.length ? Math.round(v.nilai.reduce((a, b) => a + b, 0) / v.nilai.length) : 0
+  })).slice(0, 10);
+  if (!data.length) return '';
+
+  const scale = 2;
+  const W = 900;
+  const H = 260;
+  const cv = document.createElement('canvas');
+  cv.width = W * scale;
+  cv.height = H * scale;
+  const ctx = cv.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, W, H);
+
+  const pad = 36;
+  const baseY = H - 42;
+  const chartH = 150;
+  const barW = Math.min(56, (W - pad * 2) / (data.length * 2.2));
+  const gap = 12;
+
+  ctx.fillStyle = '#0f172a';
+  ctx.font = 'bold 13px system-ui, sans-serif';
+  ctx.fillText('Rata-rata progres & nilai per kelas', pad, 24);
+  ctx.strokeStyle = '#e2e8f0';
+  [0, 25, 50, 75, 100].forEach(v => {
+    const y = baseY - (v / 100) * chartH;
+    ctx.beginPath();
+    ctx.moveTo(pad, y);
+    ctx.lineTo(W - pad, y);
+    ctx.stroke();
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '10px system-ui, sans-serif';
+    ctx.fillText(String(v), 12, y + 3);
+  });
+
+  data.forEach((item, index) => {
+    const x = pad + index * (barW * 2 + gap + 10);
+    const progH = (Math.min(100, item.progres) / 100) * chartH;
+    const nilaiH = (Math.min(100, item.nilai) / 100) * chartH;
+    ctx.fillStyle = '#14614f';
+    ctx.fillRect(x, baseY - progH, barW, progH);
+    ctx.fillStyle = '#2f8fbf';
+    ctx.fillRect(x + barW + 4, baseY - nilaiH, barW, nilaiH);
+    ctx.fillStyle = '#334155';
+    ctx.font = '10px system-ui, sans-serif';
+    const label = item.kelas.length > 12 ? `${item.kelas.slice(0, 11)}…` : item.kelas;
+    ctx.fillText(label, x, baseY + 14);
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 10px system-ui, sans-serif';
+    ctx.fillText(`${item.progres}%`, x, baseY - progH - 4);
+  });
+
+  ctx.fillStyle = '#14614f';
+  ctx.fillRect(W - 210, H - 22, 10, 10);
+  ctx.fillStyle = '#334155';
+  ctx.font = '11px system-ui, sans-serif';
+  ctx.fillText('Progres', W - 195, H - 13);
+  ctx.fillStyle = '#2f8fbf';
+  ctx.fillRect(W - 130, H - 22, 10, 10);
+  ctx.fillStyle = '#334155';
+  ctx.fillText('Nilai', W - 115, H - 13);
+
+  return cv.toDataURL('image/png');
+}
+
 async function printProgressReport() {
   const rows = progressFilteredRows();
   if (!rows.length) { alert('Tidak ada data untuk dicetak'); return; }
   const info = progressExportInfo();
   const tenantNama = await progressTenantName();
   const head = document.getElementById('progress-print-head');
+  const chart = buildProgressChartImage(rows);
   if (head) {
     head.innerHTML =
       `<h3 style="margin:0 0 4px">Laporan Progres Belajar — ${tenantNama}</h3>` +
       `<div style="font-size:11.5px;color:#475569">Kelas: ${info.kelas}` +
       (info.nama ? ` · Pencarian: ${info.nama}` : '') +
-      ` · Dicetak: ${new Date().toLocaleString('id-ID')} · ${rows.length} siswa</div>`;
+      ` · Dicetak: ${new Date().toLocaleString('id-ID')} · ${rows.length} siswa</div>` +
+      (chart ? `<img class="print-chart" alt="Grafik progres dan nilai per kelas" src="${chart}">` : '');
   }
   document.body.classList.add('print-progress');
   window.print();
