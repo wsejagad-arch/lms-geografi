@@ -133,7 +133,18 @@ async function loadDB() {
 }
 
 async function saveDB(db) {
-  await fs.writeFile(DB_PATH, JSON.stringify(db, null, 2));
+  // Tulis atomik: file sementara lalu rename, plus simpan salinan .prev agar
+  // kegagalan proses tidak membuat data hilang/terpotong.
+  const data = JSON.stringify(db, null, 2);
+  const tmp = `${DB_PATH}.tmp`;
+  try {
+    await fs.writeFile(tmp, data);
+    await fs.copyFile(DB_PATH, `${DB_PATH}.prev`).catch(() => {});
+    await fs.rename(tmp, DB_PATH);
+  } catch (error) {
+    await fs.writeFile(DB_PATH, data);
+    console.error('Penyimpanan atomik gagal, memakai penulisan langsung:', error.message);
+  }
 }
 
 async function initDB() {
