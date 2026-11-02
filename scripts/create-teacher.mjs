@@ -12,6 +12,7 @@
 //   --db <path>         override lokasi db.json
 
 import bcrypt from 'bcryptjs';
+import dataStore from '../data-store.js';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -22,11 +23,9 @@ const args = process.argv.slice(2);
 const getArg = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
 
 const dbPath = getArg('--db') || process.env.LMS_DB_PATH || path.join(root, 'data', 'db.json');
-if (!fs.existsSync(dbPath)) {
-  console.error(`db.json tidak ditemukan: ${dbPath}`);
-  process.exit(1);
-}
-const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+// Baca/tulis lewat data-store agar SQLite (sumber kebenaran) dan cermin db.json tetap sinkron.
+await dataStore.init({ dbPath, sqlitePath: process.env.LMS_SQLITE_PATH });
+const db = await dataStore.loadDB();
 if (!Array.isArray(db.users)) db.users = [];
 
 if (args.includes('--list')) {
@@ -63,7 +62,7 @@ if (String(plain).length < 8) {
 
 const tenant = (db.tenants || [])[0] || null;
 const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-fs.copyFileSync(dbPath, `${dbPath}.backup-user-${stamp}`);
+if (fs.existsSync(dbPath)) fs.copyFileSync(dbPath, `${dbPath}.backup-user-${stamp}`);
 
 db.users.push({
   id: crypto.randomUUID(),
@@ -75,7 +74,7 @@ db.users.push({
   tenant_id: tenant ? tenant.id : null,
   created_at: new Date().toISOString()
 });
-fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+await dataStore.saveDB(db);
 
 console.log(`Akun dibuat : ${email} (${role})`);
 console.log(`Nama        : ${nama}`);

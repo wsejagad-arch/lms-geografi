@@ -1171,6 +1171,7 @@
       <div class="modal-header"><h3>Buat Tugas / Penugasan Proyek</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="assignment-form">
+          <input type="hidden" id="assignment-id">
           <div class="form-group"><label>Judul Tugas</label><input id="assignment-judul" required placeholder="Contoh: Proyek Pemetaan Persebaran Flora dan Fauna"></div>
           <div class="form-group"><label>Instruksi & Rincian Tugas</label><textarea id="assignment-deskripsi" rows="4" placeholder="Jelaskan petunjuk pengerjaan, format laporan, dan kriteria penilaian..."></textarea></div>
           <div class="form-group"><label>Mapel</label><select id="assignment-subject"></select></div>
@@ -1210,9 +1211,9 @@
   <script src="assets/js/api.js?v=20261105k"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js?v=52').catch(() => {});
+      navigator.serviceWorker.register('/sw.js?v=53').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105u"></script>
+  <script src="assets/js/admin.js?v=20261106d"></script>
 </body>
 </html>

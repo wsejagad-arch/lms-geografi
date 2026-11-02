@@ -10,6 +10,7 @@
 //   --db <path>          override lokasi db.json (default: LMS_DB_PATH atau data/db.json)
 
 import bcrypt from 'bcryptjs';
+import dataStore from '../data-store.js';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -31,7 +32,9 @@ if (!fs.existsSync(dbPath)) {
   process.exit(1);
 }
 
-const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+// Baca/tulis lewat data-store agar SQLite (sumber kebenaran) dan cermin db.json tetap sinkron.
+await dataStore.init({ dbPath, sqlitePath: process.env.LMS_SQLITE_PATH });
+const db = await dataStore.loadDB();
 const students = Array.isArray(db.students) ? db.students : [];
 const users = Array.isArray(db.users) ? db.users : [];
 
@@ -83,8 +86,8 @@ if (changed > 5 && !onlyNis) console.log(`  ... dan ${changed - 5} siswa lain`);
 if (apply) {
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
   const backup = `${dbPath}.backup-nispw-${stamp}`;
-  fs.copyFileSync(dbPath, backup);
-  fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  if (fs.existsSync(dbPath)) fs.copyFileSync(dbPath, backup);
+  await dataStore.saveDB(db);
   console.log(`\nBackup   : ${backup}`);
   console.log(`Ditulis  : ${dbPath}`);
 } else {

@@ -13,6 +13,7 @@
 //   --db <path>       override lokasi db.json
 
 import bcrypt from 'bcryptjs';
+import dataStore from '../data-store.js';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,7 +29,9 @@ if (!fs.existsSync(dbPath)) {
   process.exit(1);
 }
 
-const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+// Baca lewat data-store agar SQLite (sumber kebenaran) dan cermin db.json tetap sinkron.
+await dataStore.init({ dbPath, sqlitePath: process.env.LMS_SQLITE_PATH });
+const db = await dataStore.loadDB();
 if (!Array.isArray(db.users)) db.users = [];
 
 const admins = db.users.filter((u) => u.role === 'admin' || u.role === 'super_admin');
@@ -90,9 +93,9 @@ fs.copyFileSync(dbPath, backup);
 
 target.password = bcrypt.hashSync(String(plain), 10);
 target.password_reset_at = new Date().toISOString();
-fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+await dataStore.saveDB(db);
 
-console.log(`Database : ${dbPath}`);
+console.log(`Database : ${dbPath} (backend ${dataStore.status().backend})`);
 console.log(`Backup   : ${backup}`);
 console.log(`Akun     : ${target.email} (${target.role})`);
 console.log(`Password : ${plain}`);

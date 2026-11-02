@@ -620,7 +620,9 @@ function registerKurikulum(app, deps) {
     });
 
     const score = soalList.length ? Math.round((totalPoin / soalList.length) * 1000) / 10 : 0;
-    const ke = attempts.length + 1;
+    // Nomor percobaan dihitung dari nomor tertinggi yang sudah ada (bukan jumlah baris),
+    // supaya pengulangan tidak pernah menimpa/menyamai nomor percobaan sebelumnya.
+    const ke = attempts.reduce((max, a) => Math.max(max, Number(a.ke) || 0), 0) + 1;
 
     const newAttempt = {
       id: uuidv4(),

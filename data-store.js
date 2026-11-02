@@ -241,6 +241,16 @@ async function saveDB(db) {
   return run;
 }
 
+// Dipakai skrip CLI (reset password, buat guru, dsb). Menulis lewat backend aktif
+// supaya perubahan masuk ke SQLite DAN cermin db.json, bukan hanya berkas JSON.
+async function mutateDB(mutator, options = {}) {
+  await init({ dbPath: options.dbPath || state.dbPath, sqlitePath: options.sqlitePath || state.sqlitePath });
+  const db = await loadDB();
+  const result = await mutator(db);
+  await saveDB(db);
+  return { db, result, backend: state.backend };
+}
+
 function status() {
   return {
     backend: state.backend,
@@ -261,5 +271,6 @@ module.exports = {
   init,
   loadDB,
   saveDB,
+  mutateDB,
   status
 };

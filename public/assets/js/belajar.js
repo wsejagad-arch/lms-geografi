@@ -74,13 +74,16 @@ function blSoalReadSeconds(soal) {
   return Math.min(90, Math.max(10, Math.round(base + blWordCount(teks) / BL_ANSWER_WORDS_PER_SECOND + bonus)));
 }
 
-function blExamGateSeconds(soalList) {
+function blExamGateSeconds(soalList, options) {
   const list = soalList || [];
   if (!list.length) return 0;
   // Stimulus umumnya dipakai bersama semua soal pada satu bab, jadi dihitung sekali.
   const stimulusSeconds = Math.round(blWordCount(list[0].stimulus && list[0].stimulus.isi) / BL_READ_WORDS_PER_SECOND);
   const total = stimulusSeconds + list.reduce(function (sum, s) { return sum + blSoalReadSeconds(s); }, 0);
-  return Math.min(BL_GATE_MAX_SECONDS, Math.max(BL_GATE_MIN_SECONDS, Math.round(total)));
+  const normal = Math.min(BL_GATE_MAX_SECONDS, Math.max(BL_GATE_MIN_SECONDS, Math.round(total)));
+  // Pengulangan: siswa sudah membaca materi, jadi gerbangnya lebih pendek (tetap tidak instan).
+  if (options && options.retake) return Math.max(30, Math.round(normal * 0.35));
+  return normal;
 }
 
 function blExamElapsedSeconds() {
@@ -115,7 +118,9 @@ function blRenderExamTimer() {
   el.classList.remove('hidden');
   el.classList.toggle('ready', remaining <= 0);
   el.textContent = remaining > 0
-    ? 'Waktu baca realistis: ' + blFormatDuration(remaining) + ' lagi sebelum jawaban dapat disimpan'
+    ? (blState.examRetake
+      ? 'Pengulangan: tunggu ' + blFormatDuration(remaining) + ' sebelum jawaban dapat disimpan'
+      : 'Waktu baca realistis: ' + blFormatDuration(remaining) + ' lagi sebelum jawaban dapat disimpan')
     : 'Waktu baca terpenuhi — jawaban bisa disimpan dan dikirim';
   const btn = document.getElementById('bl-submit');
   if (btn && !btn.dataset.sending) {
@@ -146,7 +151,9 @@ function blStartExamTimer(soalList) {
   blState.examStartedAt = Date.now();
   blState.examPausedSeconds = 0;
   blState.examHiddenAt = document.hidden ? Date.now() : 0;
-  blState.examGateSeconds = blExamGateSeconds(soalList);
+  const riwayat = (blState.bab && blState.bab.progress && blState.bab.progress.attempts) || 0;
+  blState.examRetake = riwayat > 0;
+  blState.examGateSeconds = blExamGateSeconds(soalList, { retake: blState.examRetake });
   blRenderExamTimer();
   if (typeof setInterval === 'function') {
     blState.examTimer = setInterval(blRenderExamTimer, 1000);

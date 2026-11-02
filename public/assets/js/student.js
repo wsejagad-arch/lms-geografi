@@ -955,12 +955,16 @@ async function renderNilai() {
 
     tbody.innerHTML = grades.slice().reverse().map(g => {
       const pass = g.nilai >= (Number(g.kkm) || 75);
+      const percobaan = Number(g.jumlah_percobaan) || 0;
+      const ulangInfo = percobaan > 1
+        ? `<div style="font-size:11px;color:var(--text-2)">${percobaan}× dikerjakan · tertinggi ${g.nilai_tertinggi ?? '-'}${Number(g.pengurangan_nilai) ? ` · −${g.pengurangan_nilai} poin` : ''}</div>`
+        : (percobaan === 1 ? '<div style="font-size:11px;color:var(--text-2)">1× dikerjakan</div>' : '');
       return `
         <tr>
           <td><span class="badge badge-primary">${lmsEsc(g.subject_nama || 'Geografi')}</span></td>
           <td><span class="badge badge-neutral">${lmsEsc(g.class_nama || '-')}</span></td>
           <td><b>${lmsEsc((g.tipe || 'TUGAS').toUpperCase())}</b></td>
-          <td class="num"><strong style="font-size:14px;color:${pass ? 'var(--status-success)' : 'var(--status-danger)'};">${g.nilai}</strong></td>
+          <td class="num"><strong style="font-size:14px;color:${pass ? 'var(--status-success)' : 'var(--status-danger)'};">${g.nilai}</strong>${ulangInfo}</td>
           <td>
             <span class="badge ${pass ? 'badge-success' : 'badge-danger'}">
               ${g.tipe === 'Materi Evaluasi' ? (pass ? 'Tuntas' : 'Tidak Tuntas') : (pass ? 'Tuntas' : 'Remedial')}

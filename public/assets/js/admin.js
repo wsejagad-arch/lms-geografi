@@ -2136,7 +2136,14 @@ async function renderAssignments() {
 
 async function openAssignmentModal(assignment = null) {
   const modal = document.getElementById('assignment-modal');
-  document.getElementById('assignment-form').reset();
+  const form = document.getElementById('assignment-form');
+  if (form) form.reset();
+  // Aman bila sebagian elemen tidak ada: jangan sampai satu kolom hilang membuat
+  // seluruh formulir gagal terbuka (pernah terjadi pada input id tersembunyi).
+  const setVal = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.value = value === undefined || value === null ? '' : value;
+  };
   
   try {
     const [subjects, classes] = await Promise.all([
@@ -2145,26 +2152,33 @@ async function openAssignmentModal(assignment = null) {
     ]);
     
     const subjectSel = document.getElementById('assignment-subject');
-    subjectSel.innerHTML = '<option value="">Pilih Mapel</option>' +
-      subjects.map(s => `<option value="${s.id}">${s.nama}</option>`).join('');
-    
-    const classSel = document.getElementById('assignment-class');
-    classSel.innerHTML = '<option value="">Pilih Kelas</option>' +
-      classes.map(c => `<option value="${c.id}">${c.nama}</option>`).join('');
-    
-    if (assignment) {
-      document.getElementById('assignment-id').value = assignment.id;
-      document.getElementById('assignment-judul').value = assignment.judul;
-      document.getElementById('assignment-deskripsi').value = assignment.deskripsi || '';
-      document.getElementById('assignment-subject').value = assignment.subject_id;
-      document.getElementById('assignment-class').value = assignment.class_id;
-      document.getElementById('assignment-due').value = assignment.due_date || '';
-      document.getElementById('assignment-poin').value = assignment.poin;
-    } else {
-      document.getElementById('assignment-id').value = '';
+    if (subjectSel) {
+      subjectSel.innerHTML = '<option value="">Pilih Mapel</option>' +
+        subjects.map(s => `<option value="${s.id}">${s.nama}</option>`).join('');
     }
     
-    modal.classList.add('show');
+    const classSel = document.getElementById('assignment-class');
+    if (classSel) {
+      classSel.innerHTML = '<option value="">Pilih Kelas</option>' +
+        classes.map(c => `<option value="${c.id}">${c.nama}</option>`).join('');
+    }
+
+    const title = modal && modal.querySelector('.modal-header h3');
+    if (title) title.textContent = assignment ? 'Ubah Tugas / Penugasan Proyek' : 'Buat Tugas / Penugasan Proyek';
+    
+    if (assignment) {
+      setVal('assignment-id', assignment.id);
+      setVal('assignment-judul', assignment.judul);
+      setVal('assignment-deskripsi', assignment.deskripsi || '');
+      setVal('assignment-subject', assignment.subject_id);
+      setVal('assignment-class', assignment.class_id);
+      setVal('assignment-due', assignment.due_date || '');
+      setVal('assignment-poin', assignment.poin);
+    } else {
+      setVal('assignment-id', '');
+    }
+    
+    if (modal) modal.classList.add('show');
   } catch (err) {
     alert('Gagal load data: ' + err.message);
   }

@@ -195,6 +195,9 @@ if (typeof blRenderSoal === 'function') {
   const gateSeconds = sandbox.blExamGateSeconds(sampleSoal);
   check('waktu baca realistis dihitung otomatis dari isi soal',
     gateSeconds >= 120 && gateSeconds <= 900, `gerbang=${gateSeconds}s`);
+  const retakeGate = sandbox.blExamGateSeconds(sampleSoal, { retake: true });
+  check('pengulangan memakai gerbang lebih pendek agar nilai kedua tetap bisa dikirim',
+    retakeGate >= 30 && retakeGate < gateSeconds, `ulang=${retakeGate}s normal=${gateSeconds}s`);
   check('soal level analisis butuh waktu lebih lama',
     sandbox.blSoalReadSeconds({ tipe: 'pg_singkat', level: 'C6', pertanyaan: 'Sama?', opsi: ['a', 'b'] })
       > sandbox.blSoalReadSeconds({ tipe: 'pg_singkat', level: 'C2', pertanyaan: 'Sama?', opsi: ['a', 'b'] }), '');

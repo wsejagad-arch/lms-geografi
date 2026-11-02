@@ -464,6 +464,40 @@ async function requireTenant(req, res, next) {
   next();
 }
 
+// ===== KUNCI TULIS =====
+// Setiap request yang mengubah data dijalankan bergantian. Tanpa ini, dua request yang
+// membaca DB bersamaan lalu menyimpan masing-masing akan saling menimpa (lost update) —
+// misalnya dua siswa mengirim evaluasi pada detik yang sama, atau simpan draf berbarengan
+// dengan kirim jawaban, sehingga nilai/percobaan kedua tidak tercatat.
+let writeLock = Promise.resolve();
+
+function withWriteLock(req, res, next) {
+  if (!['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) return next();
+  if (process.env.LMS_DISABLE_WRITE_LOCK === '1') return next();
+  const previous = writeLock;
+  let release;
+  writeLock = new Promise(resolve => { release = resolve; });
+  let done = false;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    clearTimeout(guard);
+    release();
+  };
+  // Pengaman: jangan sampai kunci tertahan selamanya bila handler gagal merespons.
+  const guard = setTimeout(finish, 20000);
+  if (guard && typeof guard.unref === 'function') guard.unref();
+  res.on('finish', finish);
+  res.on('close', finish);
+  previous.then(() => {
+    // Request bisa saja sudah dibatalkan klien saat menunggu giliran.
+    if (res.writableEnded || res.destroyed) return finish();
+    next();
+  });
+}
+
+app.use('/api', withWriteLock);
+
 app.use('/api', (req, res, next) => {
   if (!['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) return next();
   const sendJson = res.json.bind(res);
