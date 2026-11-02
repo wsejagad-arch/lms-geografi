@@ -457,13 +457,16 @@ function waLink(no_wa) {
 }
 
 let studentsCache = [];
+let studentsKetuaMap = [];
 
 async function renderStudents() {
   const tbody = document.getElementById('students-tbody');
   if (!tbody) return;
-  
+
   try {
     studentsCache = await LMS.getStudents();
+    const classes = await LMS.getClasses().catch(() => []);
+    studentsKetuaMap = (Array.isArray(classes) ? classes : []).map(c => c.ketua_id).filter(Boolean);
     renderStudentClassFilter();
     renderStudentRows();
   } catch (err) {
@@ -496,7 +499,7 @@ function filterStudents() {
 function renderStudentRows() {
   const tbody = document.getElementById('students-tbody');
   if (!tbody) return;
-  
+
   const students = filterStudents();
   if (!students.length) {
     const total = studentsCache.length;
@@ -504,12 +507,13 @@ function renderStudentRows() {
     tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--text-2)">${msg}</td></tr>`;
     return;
   }
-  
-  tbody.innerHTML = students.map(s => `
-    <tr>
+
+      const ketuaIds = new Set((studentsKetuaMap || []).map(id => id));
+      tbody.innerHTML = students.map(s => `
+      <tr>
       <td>${s.nis}</td>
       <td>${s.nisn || '-'}</td>
-      <td>${s.nama}</td>
+      <td>${s.nama}${ketuaIds.has(s.id) ? ' <span class="badge badge-primary" title="Ketua kelas">Ketua</span>' : ''}</td>
       <td>${s.email || '-'}</td>
       <td>${s.no_wa ? `<a class="wa-link" href="${waLink(s.no_wa)}" target="_blank" rel="noopener">${s.no_wa}</a>` : '-'}</td>
       <td><span class="badge badge-primary">${s.kelas_nama}</span></td>
@@ -632,6 +636,7 @@ async function openStudentModal(student = null) {
     sel.innerHTML = '<option value="">Pilih Kelas</option>' +
       classes.map(c => `<option value="${c.id}">${c.nama}</option>`).join('');
     
+    const ketuaSelect = document.getElementById('student-ketua');
     if (student) {
       document.getElementById('student-id').value = student.id;
       document.getElementById('student-nama').value = student.nama;
@@ -639,8 +644,11 @@ async function openStudentModal(student = null) {
       document.getElementById('student-email').value = student.email || '';
       document.getElementById('student-wa').value = student.no_wa || '';
       sel.value = student.kelas_id;
+      const kelasSaatIni = classes.find(c => c.id === student.kelas_id);
+      if (ketuaSelect) ketuaSelect.value = kelasSaatIni && kelasSaatIni.ketua_id === student.id ? '1' : '';
     } else {
       document.getElementById('student-id').value = '';
+      if (ketuaSelect) ketuaSelect.value = '';
     }
     
     modal.classList.add('show');
@@ -665,11 +673,30 @@ async function saveStudent() {
   }
   
   try {
+    let studentId = id;
     if (id) {
       await LMS.updateStudent(id, data);
     } else {
-      await LMS.createStudent(data);
+      const created = await LMS.createStudent(data);
+      studentId = created?.id || '';
+      if (created?.password) {
+        alert(`Siswa dibuat.\nNIS: ${created.nis}\nPassword awal: ${created.password}`);
+      }
     }
+
+    // Atur peran ketua kelas bila dipilih pada form.
+    const jadikanKetua = document.getElementById('student-ketua')?.value === '1';
+    if (studentId) {
+      const kelas = await LMS.getClasses().catch(() => []);
+      const kelasData = (kelas || []).find(c => c.id === data.class_id);
+      const sudahKetua = kelasData && kelasData.ketua_id === studentId;
+      if (jadikanKetua && !sudahKetua) {
+        await LMS.setKetuaKelas(data.class_id, studentId);
+      } else if (!jadikanKetua && sudahKetua) {
+        await LMS.setKetuaKelas(data.class_id, '');
+      }
+    }
+
     document.getElementById('student-modal').classList.remove('show');
     renderStudents();
     renderDashboard();

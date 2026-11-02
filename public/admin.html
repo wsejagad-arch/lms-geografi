@@ -945,6 +945,12 @@
           <div class="form-group"><label>Alamat Email (Opsional)</label><input id="student-email" type="email" placeholder="nama@siswa.local"></div>
           <div class="form-group"><label>Nomor Kontak WhatsApp</label><input id="student-wa" type="tel" inputmode="tel" placeholder="Contoh: 081234567890"></div>
           <div class="form-group"><label>Kelas / Rombel</label><select id="student-kelas"></select></div>
+          <div class="form-group"><label>Peran di Kelas</label>
+            <select id="student-ketua">
+              <option value="">Siswa biasa</option>
+              <option value="1">Ketua kelas</option>
+            </select>
+          </div>
         </form>
       </div>
       <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-student">Simpan Siswa</button></div>
@@ -1207,6 +1213,6 @@
       navigator.serviceWorker.register('/sw.js?v=41').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105s"></script>
+  <script src="assets/js/admin.js?v=20261105t"></script>
 </body>
 </html>
