@@ -2017,6 +2017,16 @@ app.put('/api/users/:id', requireAuth, requireAdmin, async (req, res) => {
   }
 
   if (req.body.nama !== undefined) user.nama = String(req.body.nama).trim().slice(0, 120);
+  if (req.body.email !== undefined) {
+    const email = String(req.body.email).trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: 'Email tidak valid' });
+    }
+    if (db.users.some(u => u.id !== user.id && String(u.email || '').toLowerCase() === email)) {
+      return res.status(400).json({ error: 'Email sudah dipakai akun lain' });
+    }
+    user.email = email;
+  }
   if (req.body.role !== undefined) {
     if (!['teacher', 'admin', 'super_admin'].includes(req.body.role)) {
       return res.status(400).json({ error: 'Peran tidak valid' });
