@@ -370,8 +370,8 @@ function generatePassword(len = 10) {
 
 // ===== RATE LIMIT LOGIN =====
 // Disimpan lewat cacheGet/cacheSet, jadi ikut Redis bila tersedia (lintas proses PM2).
-const LOGIN_MAX_FAILS = Number(process.env.LOGIN_MAX_FAILS || 5);
-const LOGIN_WINDOW_MS = Number(process.env.LOGIN_WINDOW_MS || 15 * 60 * 1000);
+const LOGIN_MAX_FAILS = Number(process.env.LOGIN_MAX_FAILS || 10);
+const LOGIN_WINDOW_MS = Number(process.env.LOGIN_WINDOW_MS || 5 * 60 * 1000);
 const DUMMY_HASH = bcrypt.hashSync(crypto.randomBytes(16).toString('hex'), 10);
 
 function clientIp(req) {
@@ -2125,8 +2125,20 @@ app.post('/api/auth/login', async (req, res) => {
   const body = req.body || {};
   const identifier = String(body.identifier ?? body.email ?? body.username ?? '').trim();
   const password = String(body.password || '');
-  const lockKey = await guardLogin(req, res, identifier);
-  if (!lockKey) return;
+  // Password yang benar selalu diizinkan agar pengguna sah tidak terkunci.
+  const lockKey = loginKey(req, identifier);
+  const failResponse = async () => {
+    await loginFail(lockKey);
+    const left = await loginLockMs(lockKey);
+    if (left > 0) {
+      res.set('Retry-After', String(Math.ceil(left / 1000)));
+      return res.status(429).json({
+        error: `Terlalu banyak percobaan. Coba lagi dalam ${Math.ceil(left / 1000)} detik.`,
+        retry_after: Math.ceil(left / 1000)
+      });
+    }
+    return res.status(401).json({ error: 'Identitas atau password salah' });
+  };
 
   const db = await loadDB();
   const staff = findStaffByIdentifier(db, identifier);
@@ -2135,8 +2147,7 @@ app.post('/api/auth/login', async (req, res) => {
 
   if (staff) {
     if (!bcrypt.compareSync(password, staff.password)) {
-      await loginFail(lockKey);
-      return res.status(401).json({ error: 'Identitas atau password salah' });
+      return failResponse();
     }
     user = staff;
   } else {
@@ -2144,8 +2155,7 @@ app.post('/api/auth/login', async (req, res) => {
     user = student ? await verifyStudentPassword(db, student, password) : null;
     if (!user) {
       if (!student) bcrypt.compareSync(password, DUMMY_HASH);
-      await loginFail(lockKey);
-      return res.status(401).json({ error: 'Identitas atau password salah' });
+      return failResponse();
     }
   }
 
