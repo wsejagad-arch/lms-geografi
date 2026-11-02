@@ -83,6 +83,10 @@
         <div class="nav-item" data-menu="attendance"><svg class="ic"><use href="#i-check"/></svg><span>Presensi Harian</span></div>
         <div class="nav-item" data-menu="assignments"><svg class="ic"><use href="#i-clipboard"/></svg><span>Tugas & Proyek</span></div>
         <div class="nav-item" data-menu="schedules"><svg class="ic"><use href="#i-calendar"/></svg><span>Jadwal Pelajaran</span></div>
+        <div class="nav-item" data-menu="jurnal" role="button" tabindex="0">
+          <svg class="ic"><use href="#i-activity"/></svg>
+          <span>Jurnal Mengajar</span>
+        </div>
         <div class="nav-item" data-menu="whatsapp"><svg class="ic"><use href="#i-activity"/></svg><span>WhatsApp Sender</span></div>
       </nav>
 
@@ -325,8 +329,7 @@
                     <th>Tingkat</th>
                     <th>Nama Kelas</th>
                     <th>Jurusan</th>
-                    <th>Wali Kelas</th>
-                    <th>Aksi</th>
+                    <th>Wali Kelas</th><th>Ketua Kelas</th><th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody id="classes-tbody"></tbody>
@@ -728,6 +731,37 @@
                 <tbody id="schedules-tbody"></tbody>
               </table>
             </div>
+          </div>
+        </section>
+
+        <section id="menu-jurnal" class="menu-section hidden">
+          <div class="card">
+            <div class="panel-head">
+              <div><h2>Jurnal Mengajar</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Terisi otomatis dari presensi yang diisi ketua kelas.</p></div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <input id="jurnal-date" type="date">
+                <button class="btn" id="btn-jurnal-refresh" type="button">Muat</button>
+                <button class="btn" id="btn-simanis-export" type="button">Ekspor SIMANIS</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Jam</th><th>Kelas</th><th>Mapel</th><th>Materi</th><th>Kegiatan</th><th>H / I / S / D / A</th><th>Ketua</th></tr></thead>
+                <tbody id="jurnal-tbody"><tr><td colspan="7" class="text-center">Memuat…</td></tr></tbody>
+              </table>
+            </div>
+            <p id="jurnal-note" style="padding:0 16px 12px;font-size:11px;color:var(--text-3)"></p>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Lokasi Sekolah — Presensi Otomatis</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Siswa yang membuka LMS di dalam radius ini otomatis ditandai hadir (H) pada jam pelajaran berjalan.</p></div></div>
+            <form id="sekolah-form" class="wa-job-form">
+              <div class="form-group"><label for="sekolah-lat">Latitude</label><input id="sekolah-lat" type="number" step="0.000001" required></div>
+              <div class="form-group"><label for="sekolah-lng">Longitude</label><input id="sekolah-lng" type="number" step="0.000001" required></div>
+              <div class="form-group"><label for="sekolah-radius">Radius (meter)</label><input id="sekolah-radius" type="number" min="50" max="5000" value="500" required></div>
+              <button class="btn btn-primary" type="submit" id="btn-sekolah-save">Simpan lokasi</button>
+              <button class="btn" type="button" id="btn-sekolah-here">Pakai lokasi saya</button>
+            </form>
+            <p id="sekolah-status" style="padding:0 16px 12px;font-size:12px;color:var(--text-2)"></p>
           </div>
         </section>
 
@@ -1146,12 +1180,12 @@
 
   <!-- Systematic Application Scripts -->
   <script src="assets/js/sanitize.js?v=20261105d"></script>
-  <script src="assets/js/api.js?v=20261105i"></script>
+  <script src="assets/js/api.js?v=20261105j"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js?v=41').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105q"></script>
+  <script src="assets/js/admin.js?v=20261105r"></script>
 </body>
 </html>

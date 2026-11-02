@@ -126,7 +126,8 @@ async function loadDB() {
       session_logs: [],
       activity_logs: [],
       whatsapp_jobs: [],
-      whatsapp_logs: []
+      whatsapp_logs: [],
+      jurnal: []
     };
   }
 }
@@ -350,7 +351,9 @@ const STUDENT_ROUTES = [
   ['GET', /^\/api\/kurikulum\/peringkat$/],
   ['PUT', /^\/api\/kurikulum\/[^/]+\/progress$/],
   ['POST', /^\/api\/kurikulum\/[^/]+\/evaluasi$/],
-  ['POST', /^\/api\/kurikulum\/naik-kelas$/]
+  ['POST', /^\/api\/kurikulum\/naik-kelas$/],
+  ['GET', /^\/api\/jurnal$/],
+  ['POST', /^\/api\/jurnal$/]
 ];
 
 function isStudentRoute(method, reqPath) {
@@ -548,7 +551,312 @@ app.post('/api/tenants/select', requireAuth, async (req, res) => {
   res.json({ success: true, tenant });
 });
 
+// ===== JURNAL MENGAJAR & PRESENSI KETUA KELAS =====
+const HARI_ID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+function wibNow() {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+  }).formatToParts(new Date()).reduce((acc, p) => { if (p.type !== 'literal') acc[p.type] = p.value; return acc; }, {});
+  const date = `${parts.year}-${parts.month}-${parts.day}`;
+  const time = `${parts.hour}:${parts.minute}`;
+  const hari = HARI_ID[new Date(`${date}T00:00:00+07:00`).getDay()];
+  return { date, time, hari };
+}
+
+function distanceMeters(lat1, lng1, lat2, lng2) {
+  const R = 6371000;
+  const toRad = v => v * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return Math.round(2 * R * Math.asin(Math.sqrt(a)));
+}
+
+function jurnalKey(tenantId, classId, tanggal, scheduleId) {
+  return `${tenantId}|${classId}|${tanggal}|${scheduleId}`;
+}
+
+function ketuaClassOf(db, studentId) {
+  return db.classes.find(c => c.ketua_id === studentId) || null;
+}
+
+function scheduleWindowOpen(schedule, time) {
+  if (!schedule) return false;
+  return time >= String(schedule.jam_mulai || '') && time <= String(schedule.jam_selesai || '23:59');
+}
+
+function ensureJurnal(db, { tenantId, classId, scheduleId, tanggal, ketuaId, source }) {
+  if (!Array.isArray(db.jurnal)) db.jurnal = [];
+  let entry = db.jurnal.find(j => j.tenant_id === tenantId && j.class_id === classId
+    && j.schedule_id === scheduleId && j.tanggal === tanggal);
+  if (!entry) {
+    entry = {
+      id: uuidv4(),
+      tenant_id: tenantId,
+      class_id: classId,
+      schedule_id: scheduleId,
+      tanggal,
+      ketua_id: ketuaId || '',
+      materi: '',
+      kegiatan: '',
+      attendance: [],
+      source: source || 'ketua',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    db.jurnal.push(entry);
+  }
+  return entry;
+}
+
+// Tandai hadir otomatis saat siswa membuka LMS di dalam radius sekolah.
+function autoPresensiFromGeo(db, user, student, meta) {
+  if (!student || meta.geo_lat === null || meta.geo_lng === null) return null;
+  const tenant = db.tenants.find(t => t.id === student.tenant_id);
+  const school = tenant && tenant.school;
+  if (!school || !Number.isFinite(Number(school.lat)) || !Number.isFinite(Number(school.lng))) return null;
+  const radius = Number(school.radius_m) || 500;
+  const jarak = distanceMeters(Number(school.lat), Number(school.lng), meta.geo_lat, meta.geo_lng);
+  if (jarak > radius) return null;
+  const now = wibNow();
+  const schedule = db.schedules.find(s => s.tenant_id === student.tenant_id
+    && s.class_id === student.class_id && s.hari === now.hari && scheduleWindowOpen(s, now.time));
+  if (!schedule) return null;
+  const entry = ensureJurnal(db, {
+    tenantId: student.tenant_id,
+    classId: student.class_id,
+    scheduleId: schedule.id,
+    tanggal: now.date,
+    ketuaId: (db.classes.find(c => c.id === student.class_id) || {}).ketua_id || '',
+    source: 'auto'
+  });
+  if (!Array.isArray(entry.attendance)) entry.attendance = [];
+  const row = entry.attendance.find(a => a.student_id === student.id);
+  if (!row) {
+    entry.attendance.push({ student_id: student.id, nis: student.nis, nama: student.nama, status: 'H', keterangan: 'Otomatis (dalam area sekolah)', auto: true });
+  } else if (!row.status) {
+    row.status = 'H';
+    row.keterangan = row.keterangan || 'Otomatis (dalam area sekolah)';
+    row.auto = true;
+  }
+  entry.updated_at = new Date().toISOString();
+  return { schedule, jarak };
+}
+
 // ===== MONITOR USER AKTIF =====
+app.get('/api/jurnal', requireAuth, requireTenant, async (req, res) => {
+  const db = req.db || await loadDB();
+  const student = db.students.find(s => s.id === studentIdOf(db, req.user));
+  if (!student) return res.status(403).json({ error: 'Hanya siswa' });
+  const classItem = ketuaClassOf(db, student.id);
+  if (!classItem) return res.status(403).json({ error: 'Menu jurnal hanya untuk ketua kelas' });
+
+  const now = wibNow();
+  const roster = db.students
+    .filter(s => s.class_id === classItem.id)
+    .map(s => ({ id: s.id, nis: s.nis || '', nama: s.nama || '' }))
+    .sort((a, b) => a.nama.localeCompare(b.nama, 'id'));
+  const schedules = db.schedules
+    .filter(s => s.tenant_id === student.tenant_id && s.class_id === classItem.id && s.hari === now.hari)
+    .sort((a, b) => String(a.jam_mulai).localeCompare(String(b.jam_mulai)))
+    .map(s => {
+      const subject = db.subjects.find(x => x.id === s.subject_id);
+      return {
+        id: s.id,
+        subject_id: s.subject_id,
+        mapel: subject ? subject.nama : '-',
+        jam_mulai: s.jam_mulai,
+        jam_selesai: s.jam_selesai,
+        open: scheduleWindowOpen(s, now.time)
+      };
+    });
+  const active = schedules.find(s => s.open) || null;
+  const entry = active
+    ? (db.jurnal || []).find(j => j.tenant_id === student.tenant_id && j.class_id === classItem.id
+      && j.schedule_id === active.id && j.tanggal === now.date) || null
+    : null;
+
+  res.json({
+    date: now.date,
+    time: now.time,
+    hari: now.hari,
+    role: 'ketua',
+    class: { id: classItem.id, nama: classItem.nama },
+    roster,
+    schedules,
+    active_schedule_id: active ? active.id : '',
+    can_fill: !!active,
+    entry
+  });
+});
+
+app.post('/api/jurnal', requireAuth, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const student = db.students.find(s => s.id === studentIdOf(db, req.user));
+  if (!student) return res.status(403).json({ error: 'Hanya siswa' });
+  const classItem = ketuaClassOf(db, student.id);
+  if (!classItem) return res.status(403).json({ error: 'Menu jurnal hanya untuk ketua kelas' });
+
+  const schedule = db.schedules.find(s => s.id === req.body?.schedule_id
+    && s.tenant_id === student.tenant_id && s.class_id === classItem.id);
+  if (!schedule) return res.status(400).json({ error: 'Jadwal pelajaran tidak valid untuk kelas ini' });
+
+  const now = wibNow();
+  const tanggal = String(req.body?.tanggal || now.date);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(tanggal)) return res.status(400).json({ error: 'Tanggal tidak valid' });
+  if (tanggal !== now.date) return res.status(400).json({ error: 'Jurnal hanya dapat diisi untuk hari ini' });
+
+  const materi = String(req.body?.materi || '').trim().slice(0, 300);
+  const kegiatan = String(req.body?.kegiatan || '').trim().slice(0, 1000);
+  const allowed = ['H', 'I', 'S', 'D', 'A'];
+  const rows = Array.isArray(req.body?.attendance) ? req.body.attendance : [];
+  const roster = db.students.filter(s => s.class_id === classItem.id);
+  const attendance = roster.map(s => {
+    const found = rows.find(r => r.student_id === s.id) || {};
+    const status = allowed.includes(found.status) ? found.status : '';
+    return {
+      student_id: s.id,
+      nis: s.nis || '',
+      nama: s.nama || '',
+      status,
+      keterangan: String(found.keterangan || '').slice(0, 120)
+    };
+  });
+
+  const entry = ensureJurnal(db, {
+    tenantId: student.tenant_id,
+    classId: classItem.id,
+    scheduleId: schedule.id,
+    tanggal,
+    ketuaId: student.id,
+    source: 'ketua'
+  });
+  entry.materi = materi || entry.materi;
+  entry.kegiatan = kegiatan || entry.kegiatan;
+  entry.attendance = attendance;
+  entry.ketua_id = student.id;
+  entry.ketua_nama = student.nama || '';
+  entry.filled_at = now.time;
+  entry.window_open = scheduleWindowOpen(schedule, now.time);
+  entry.updated_at = new Date().toISOString();
+
+  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal mengajar', `${classItem.nama} · ${schedule.jam_mulai}`));
+  await saveDB(db);
+
+  // Kirim ke SIMANIS bila webhook dikonfigurasi (opsional, tidak memblokir respons).
+  const webhook = (process.env.SIMANIS_WEBHOOK_URL || '').trim();
+  if (webhook) {
+    const subject = db.subjects.find(s => s.id === schedule.subject_id);
+    fetch(webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(process.env.SIMANIS_TOKEN ? { Authorization: `Bearer ${process.env.SIMANIS_TOKEN}` } : {}) },
+      body: JSON.stringify({
+        source: 'Geo Edulabs',
+        tenant_id: student.tenant_id,
+        tanggal,
+        kelas: classItem.nama,
+        mapel: subject ? subject.nama : '',
+        jam_mulai: schedule.jam_mulai,
+        jam_selesai: schedule.jam_selesai,
+        materi: entry.materi,
+        kegiatan: entry.kegiatan,
+        attendance: entry.attendance
+      })
+    }).catch(error => console.error('Kirim jurnal ke SIMANIS gagal:', error));
+  }
+
+  res.json({ success: true, entry });
+});
+
+app.get('/api/admin/sekolah', requireAuth, requireAdmin, async (req, res) => {
+  const db = await loadDB();
+  const tenant = db.tenants.find(t => t.id === req.tenantId);
+  if (!tenant) return res.status(404).json({ error: 'Tenant tidak ditemukan' });
+  res.json(tenant.school || { lat: null, lng: null, radius_m: 500 });
+});
+
+app.put('/api/admin/sekolah', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const lat = Number(req.body?.lat);
+  const lng = Number(req.body?.lng);
+  const radius = Number(req.body?.radius_m) || 500;
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) {
+    return res.status(400).json({ error: 'Koordinat sekolah tidak valid' });
+  }
+  const db = await loadDB();
+  const tenant = db.tenants.find(t => t.id === req.tenantId);
+  if (!tenant) return res.status(404).json({ error: 'Tenant tidak ditemukan' });
+  tenant.school = { lat, lng, radius_m: Math.min(5000, Math.max(50, Math.round(radius))) };
+  await saveDB(db);
+  res.json({ success: true, school: tenant.school });
+});
+
+app.get('/api/admin/jurnal', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const tanggal = String(req.query.tanggal || wibNow().date);
+  const rows = (db.jurnal || [])
+    .filter(j => j.tenant_id === req.tenantId && j.tanggal === tanggal)
+    .map(j => {
+      const classItem = db.classes.find(c => c.id === j.class_id);
+      const schedule = db.schedules.find(s => s.id === j.schedule_id);
+      const subject = schedule && db.subjects.find(s => s.id === schedule.subject_id);
+      const att = j.attendance || [];
+      return {
+        id: j.id,
+        tanggal: j.tanggal,
+        kelas: classItem ? classItem.nama : '-',
+        mapel: subject ? subject.nama : '-',
+        jam: schedule ? `${schedule.jam_mulai}-${schedule.jam_selesai}` : '-',
+        materi: j.materi || '',
+        kegiatan: j.kegiatan || '',
+        ketua: j.ketua_nama || '',
+        hadir: att.filter(a => a.status === 'H').length,
+        sakit: att.filter(a => a.status === 'S').length,
+        izin: att.filter(a => a.status === 'I').length,
+        dispensasi: att.filter(a => a.status === 'D').length,
+        alpa: att.filter(a => a.status === 'A').length,
+        total: att.length,
+        terisi: att.filter(a => a.status).length,
+        attendance: att
+      };
+    })
+    .sort((a, b) => `${a.jam}${a.kelas}`.localeCompare(`${b.jam}${b.kelas}`));
+  res.json({ tanggal, rows });
+});
+
+// Ekspor siap-kirim ke SIMANIS (JSON). Bila SIMANIS_WEBHOOK_URL diset, data juga dikirim otomatis saat jurnal disimpan.
+app.get('/api/admin/simanis/export', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const tanggal = String(req.query.tanggal || wibNow().date);
+  const tenant = db.tenants.find(t => t.id === req.tenantId) || {};
+  const rows = [];
+  (db.jurnal || [])
+    .filter(j => j.tenant_id === req.tenantId && j.tanggal === tanggal)
+    .forEach(j => {
+      const classItem = db.classes.find(c => c.id === j.class_id);
+      const schedule = db.schedules.find(s => s.id === j.schedule_id);
+      const subject = schedule && db.subjects.find(s => s.id === schedule.subject_id);
+      (j.attendance || []).forEach(a => {
+        rows.push({
+          tanggal,
+          nis: a.nis || '',
+          nama: a.nama || '',
+          kelas: classItem ? classItem.nama : '',
+          mapel: subject ? subject.nama : '',
+          jam_mulai: schedule ? schedule.jam_mulai : '',
+          jam_selesai: schedule ? schedule.jam_selesai : '',
+          status: a.status || '',
+          keterangan: a.keterangan || '',
+          materi: j.materi || '',
+          kegiatan: j.kegiatan || '',
+          sekolah: tenant.nama || ''
+        });
+      });
+    });
+  res.json({ source: 'Geo Edulabs', tanggal, sekolah: tenant.nama || '', total: rows.length, rows });
+});
+
 app.get('/api/admin/sessions', requireAuth, requireAdmin, async (req, res) => {
   const db = await loadDB();
   const now = Date.now();
@@ -660,25 +968,50 @@ app.delete('/api/subjects/:id', requireAuth, requireAdmin, requireTenant, async 
 
 // ===== CLASSES =====
 app.get('/api/classes', requireAuth, requireTenant, async (req, res) => {
-  const cacheKey = `classes:${req.tenantId}`;
-  let classes = await cacheGet(cacheKey);
-  
-  if (!classes) {
-    const db = await loadDB();
-    classes = db.classes
-      .filter(c => c.tenant_id === req.tenantId)
-      .map(c => ({
+  const db = await loadDB();
+  const classes = db.classes
+    .filter(c => c.tenant_id === req.tenantId)
+    .map(c => {
+      const ketua = c.ketua_id ? db.students.find(s => s.id === c.ketua_id) : null;
+      return {
         id: c.id,
         nama: c.nama,
         tingkat: c.tingkat,
         jurusan: c.jurusan,
-       wali_kelas: c.wali_kelas,
+        wali_kelas: c.wali_kelas,
+        ketua_id: c.ketua_id || '',
+        ketua_nama: ketua ? ketua.nama : '',
         created_at: c.created_at
-      }));
-    await cacheSet(cacheKey, classes, 600);
-  }
-  
+      };
+    });
   res.json(classes);
+});
+
+// Tunjuk satu siswa sebagai ketua kelas (hanya admin).
+app.put('/api/classes/:id/ketua', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const classItem = db.classes.find(c => c.id === req.params.id && c.tenant_id === req.tenantId);
+  if (!classItem) return res.status(404).json({ error: 'Kelas tidak ditemukan' });
+  const studentId = String(req.body?.student_id || '');
+  if (!studentId) {
+    classItem.ketua_id = '';
+    await saveDB(db);
+    await cacheDel(`classes:${req.tenantId}`);
+    return res.json({ success: true, ketua_id: '' });
+  }
+  const student = db.students.find(s => s.id === studentId && s.tenant_id === req.tenantId);
+  if (!student) return res.status(404).json({ error: 'Siswa tidak ditemukan' });
+  if (student.class_id !== classItem.id) {
+    return res.status(400).json({ error: 'Siswa bukan anggota kelas ini' });
+  }
+  // Satu ketua per kelas; hapus penugasan lama di kelas lain bila ada.
+  db.classes.forEach(c => { if (c.ketua_id === student.id) c.ketua_id = ''; });
+  classItem.ketua_id = student.id;
+  student.is_ketua = true;
+  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Menetapkan ketua kelas', `${classItem.nama}: ${student.nama}`));
+  await saveDB(db);
+  await cacheDel(`classes:${req.tenantId}`);
+  res.json({ success: true, ketua_id: student.id, ketua_nama: student.nama });
 });
 
 app.post('/api/classes', requireAuth, requireAdmin, requireTenant, async (req, res) => {
@@ -1745,6 +2078,12 @@ app.post('/api/auth/login', async (req, res) => {
   req.session.sid = uuidv4();
   touchSession(db, req, user);
   db.activity_logs.push(makeActivityRecord(db, req, user, 'Login berhasil', 'Sesi dimulai'));
+  if (student) {
+    const auto = autoPresensiFromGeo(db, user, student, clientMeta(req));
+    if (auto) {
+      db.activity_logs.push(makeActivityRecord(db, req, user, 'Presensi otomatis', `Dalam radius ${auto.jarak} m dari sekolah`));
+    }
+  }
   await saveDB(db);
 
   const payload = {
@@ -1758,6 +2097,8 @@ app.post('/api/auth/login', async (req, res) => {
     payload.student_id = student.id;
     payload.class_id = student.class_id;
     payload.nis = student.nis;
+    payload.is_ketua = !!ketuaClassOf(db, student.id);
+    payload.whatsapp = student.whatsapp || '';
   }
   res.json(payload);
 });
@@ -1894,6 +2235,7 @@ app.get('/api/me', async (req, res) => {
     if (student) {
       resp.password_changed_at = user.password_changed_at || student.password_changed_at || null;
       resp.whatsapp = student.whatsapp || user.whatsapp || '';
+      resp.is_ketua = !!ketuaClassOf(db, student.id);
       const classItem = db.classes.find(c => c.id === student.class_id);
       resp.student_id = student.id;
       resp.class_id = student.class_id;
@@ -2149,7 +2491,7 @@ app.post('/api/admin/restore', requireAuth, requireAdmin, async (req, res) => {
 
   const tables = ['tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams',
     'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts',
-    'session_logs', 'activity_logs', 'whatsapp_jobs', 'whatsapp_logs'];
+    'session_logs', 'activity_logs', 'whatsapp_jobs', 'whatsapp_logs', 'jurnal'];
   const counts = {};
   tables.forEach(k => {
     if (!Array.isArray(payload[k])) return;

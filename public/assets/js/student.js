@@ -124,7 +124,105 @@ async function init() {
   bindLogoutButton();
   setupProfileSecurity();
   setupNotifications();
+  setupJurnal();
   setupFirstRunPrompts();
+}
+
+async function setupJurnal() {
+  const nav = document.getElementById('nav-jurnal');
+  if (!nav) return;
+  if (!currentUser?.is_ketua) {
+    nav.classList.add('hidden');
+    return;
+  }
+  nav.classList.remove('hidden');
+  if (nav.dataset.bound !== '1') {
+    nav.dataset.bound = '1';
+    nav.addEventListener('click', event => {
+      event.preventDefault();
+      showSection('jurnal');
+      loadJurnal();
+    });
+  }
+  await loadJurnal();
+}
+
+let jurnalState = null;
+
+async function loadJurnal() {
+  const info = document.getElementById('jurnal-info');
+  const wrap = document.getElementById('jurnal-form-wrap');
+  const roster = document.getElementById('jurnal-roster');
+  const status = document.getElementById('jurnal-status');
+  if (!roster) return;
+  try {
+    const data = await LMS.getJurnal();
+    jurnalState = data;
+    const active = (data.schedules || []).find(s => s.id === data.active_schedule_id) || null;
+    if (info) {
+      info.textContent = active
+        ? `${data.class.nama} · ${data.hari}, ${data.date} · ${active.mapel} ${active.jam_mulai}–${active.jam_selesai} · presensi dibuka`
+        : `${data.class.nama} · ${data.hari}, ${data.date} · di luar jam pelajaran, pengisian tidak wajib`;
+    }
+    if (!active) {
+      wrap?.classList.add('hidden');
+      roster.innerHTML = '';
+      const sisa = (data.schedules || []).map(s => `${s.mapel} ${s.jam_mulai}–${s.jam_selesai}`).join(' · ');
+      if (info) info.textContent += sisa ? `. Jadwal hari ini: ${sisa}` : '';
+      return;
+    }
+    wrap?.classList.remove('hidden');
+    const entry = data.entry || {};
+    const materi = document.getElementById('jurnal-materi');
+    const kegiatan = document.getElementById('jurnal-kegiatan');
+    if (materi && !materi.value) materi.value = entry.materi || '';
+    if (kegiatan && !kegiatan.value) kegiatan.value = entry.kegiatan || '';
+    const saved = new Map((entry.attendance || []).map(a => [a.student_id, a]));
+    roster.innerHTML = (data.roster || []).map(student => {
+      const row = saved.get(student.id) || {};
+      const opts = ['', 'H', 'I', 'S', 'D', 'A']
+        .map(v => `<option value="${v}"${row.status === v ? ' selected' : ''}>${v || '-'}</option>`).join('');
+      return `<tr data-student="${student.id}">
+        <td>${kurEsc(student.nama)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(student.nis || '')}</div></td>
+        <td><select data-status>${opts}</select></td>
+        <td><input data-keterangan value="${kurEsc(row.keterangan || '')}" placeholder="Opsional" style="width:100%;padding:6px 8px;border:1px solid #cfdad4;border-radius:8px"></td>
+      </tr>`;
+    }).join('');
+    if (status) status.textContent = entry.updated_at ? 'Jurnal tersimpan sebelumnya — perbarui bila ada perubahan.' : 'Isi status semua siswa lalu simpan.';
+    const button = document.getElementById('btn-jurnal-save');
+    if (button && button.dataset.bound !== '1') {
+      button.dataset.bound = '1';
+      button.addEventListener('click', saveJurnalForm);
+    }
+  } catch (error) {
+    if (info) info.textContent = error.message || 'Jurnal tidak dapat dimuat.';
+    roster.innerHTML = '';
+  }
+}
+
+async function saveJurnalForm() {
+  const status = document.getElementById('jurnal-status');
+  const roster = document.getElementById('jurnal-roster');
+  if (!jurnalState || !jurnalState.active_schedule_id) return;
+  const attendance = [...roster.querySelectorAll('tr[data-student]')].map(row => ({
+    student_id: row.dataset.student,
+    status: row.querySelector('[data-status]')?.value || '',
+    keterangan: row.querySelector('[data-keterangan]')?.value || ''
+  }));
+  if (status) { status.textContent = 'Menyimpan…'; status.classList.remove('error', 'success'); }
+  try {
+    await LMS.saveJurnal({
+      schedule_id: jurnalState.active_schedule_id,
+      tanggal: jurnalState.date,
+      materi: document.getElementById('jurnal-materi')?.value || '',
+      kegiatan: document.getElementById('jurnal-kegiatan')?.value || '',
+      attendance
+    });
+    if (status) { status.textContent = 'Jurnal & presensi tersimpan. Guru akan melihat data ini otomatis.'; status.classList.add('success'); }
+    await loadJurnal();
+  } catch (error) {
+    if (status) { status.textContent = error.message || 'Gagal menyimpan jurnal.'; status.classList.add('error'); }
+  }
 }
 
 async function setupNotifications() {
@@ -296,7 +394,7 @@ function setupWhatsAppNumber() {
 }
 
 function showSection(id) {
-  ['dashboard','belajar','materi-saya','tugas-saya','presensi-saya','nilai-saya','exam-saya','profil'].forEach(s => {
+  ['dashboard','belajar','jurnal','materi-saya','tugas-saya','presensi-saya','nilai-saya','exam-saya','profil'].forEach(s => {
     const el = document.getElementById(`sec-${s}`);
     if (el) el.classList.toggle('hidden', s !== id);
   });

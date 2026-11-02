@@ -39,6 +39,7 @@
       <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></symbol>
       <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
       <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
+      <symbol id="i-jurnal" viewBox="0 0 24 24"><path d="M9 3h6a2 2 0 0 1 2 2v0H7v0a2 2 0 0 1 2-2z"/><path d="M7 5H6a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1"/><path d="M8 11h8M8 15h5"/></symbol>
     </defs>
   </svg>
 
@@ -150,6 +151,10 @@
         <div class="nav-item" data-nav="presensi-saya" role="button" tabindex="0">
           <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>
           <span>Presensi Siswa</span>
+        </div>
+        <div class="nav-item hidden" id="nav-jurnal" data-nav="jurnal" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-jurnal"/></svg>
+          <span>Jurnal Mengajar</span>
         </div>
         <div class="nav-item" data-nav="profil" role="button" tabindex="0">
           <svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>
@@ -402,6 +407,32 @@
           </div>
         </section>
 
+        <section id="sec-jurnal" class="section hidden">
+          <div class="panel">
+            <div class="panel-head">
+              <div><h2>Jurnal Mengajar</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Anda bertugas sebagai ketua kelas. Isi presensi teman dan jurnal pada jam pelajaran berjalan.</p></div>
+              <span class="badge badge-primary" id="jurnal-badge">KETUA KELAS</span>
+            </div>
+            <div style="padding:0 16px 16px">
+              <p id="jurnal-info" style="font-size:12px;color:var(--text-2)"></p>
+              <div id="jurnal-form-wrap" class="hidden">
+                <label for="jurnal-materi" style="font-size:12px;color:var(--text-2)">Materi yang dipelajari</label>
+                <input id="jurnal-materi" type="text" maxlength="300" placeholder="Contoh: Persebaran bioma dunia" style="width:100%;padding:10px 12px;margin:6px 0 12px;border:1px solid #cfdad4;border-radius:10px">
+                <label for="jurnal-kegiatan" style="font-size:12px;color:var(--text-2)">Kegiatan pembelajaran</label>
+                <textarea id="jurnal-kegiatan" rows="3" maxlength="1000" placeholder="Contoh: Diskusi kelompok, presentasi peta, latihan soal" style="width:100%;padding:10px 12px;margin:6px 0 12px;border:1px solid #cfdad4;border-radius:10px;font-family:inherit"></textarea>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Nama Siswa</th><th>Status</th><th>Keterangan</th></tr></thead>
+                    <tbody id="jurnal-roster"><tr><td colspan="3" class="text-center">Memuat…</td></tr></tbody>
+                  </table>
+                </div>
+                <p id="jurnal-status" class="profile-password-status" role="status" aria-live="polite"></p>
+                <button class="btn btn-primary" id="btn-jurnal-save" type="button">Simpan jurnal &amp; presensi</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- ================================================================
              SECTION 2: JALUR PEMBELAJARAN (Interaktif & Berjenjang)
              ================================================================ -->
@@ -636,13 +667,13 @@
 
   <!-- Scripts -->
   <script src="assets/js/sanitize.js?v=20261105f"></script>
-  <script src="assets/js/api.js?v=20261105i"></script>
+  <script src="assets/js/api.js?v=20261105j"></script>
   <script src="assets/js/belajar.js?v=20261105o"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js?v=43').catch(error => console.error('Service worker gagal didaftarkan:', error));
+      navigator.serviceWorker.register('/sw.js?v=44').catch(error => console.error('Service worker gagal didaftarkan:', error));
     }
   </script>
-  <script src="assets/js/student.js?v=20261105o"></script>
+  <script src="assets/js/student.js?v=20261105p"></script>
 </body>
 </html>

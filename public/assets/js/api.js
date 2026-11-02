@@ -80,6 +80,26 @@ const LMS = (() => {
     });
   }
 
+  async function setKetuaKelas(classId, studentId) {
+    return api(`/classes/${classId}/ketua`, { method: 'PUT', body: JSON.stringify({ student_id: studentId }) });
+  }
+
+  async function getJurnal() { return api('/jurnal'); }
+
+  async function saveJurnal(payload) {
+    return api('/jurnal', { method: 'POST', body: JSON.stringify(payload) });
+  }
+
+  async function getAdminJurnal(tanggal) {
+    return api(`/admin/jurnal${tanggal ? `?tanggal=${encodeURIComponent(tanggal)}` : ''}`);
+  }
+
+  async function getSekolah() { return api('/admin/sekolah'); }
+
+  async function saveSekolah(data) {
+    return api('/admin/sekolah', { method: 'PUT', body: JSON.stringify(data) });
+  }
+
   async function selectTenant(tenantId) {
     await api('/tenants/select', {
       method: 'POST',
@@ -190,7 +210,8 @@ const LMS = (() => {
     setCurrentUser: (u) => { currentUser = u; },
     getCurrentTenant: () => currentTenant,
     setCurrentTenant: (t) => { currentTenant = t; },
-    checkAuth, login, authLogin, logout, changeMyPassword, saveWhatsApp, selectTenant,
+    checkAuth, login, authLogin, logout, changeMyPassword, saveWhatsApp, setKetuaKelas,
+    getJurnal, saveJurnal, getAdminJurnal, getSekolah, saveSekolah, selectTenant,
     getTenants, createTenant,
     getSubjects, createSubject, updateSubject, deleteSubject,
     getClasses, createClass, updateClass, deleteClass,

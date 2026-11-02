@@ -113,6 +113,7 @@ const MENU_META = {
   attendance: { title: 'Presensi', render: () => renderAttendance() },
   assignments: { title: 'Tugas', render: () => renderAssignments() },
   schedules: { title: 'Jadwal', render: () => renderSchedules() },
+  jurnal: { title: 'Jurnal Mengajar', render: () => renderJurnal() },
   whatsapp: { title: 'WhatsApp Sender', render: () => renderWhatsApp() }
 };
 
@@ -322,26 +323,50 @@ async function renderClasses() {
   if (!tbody) return;
   
   try {
-    const classes = await LMS.getClasses();
+    const [classes, students] = await Promise.all([LMS.getClasses(), LMS.getStudents().catch(() => [])]);
     if (!classes.length) {
-      tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada kelas</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada kelas</td></tr>';
       return;
     }
     
-    tbody.innerHTML = classes.map(c => `
+    tbody.innerHTML = classes.map(c => {
+      const anggota = (students || []).filter(s => s.class_id === c.id)
+        .sort((a, b) => String(a.nama || '').localeCompare(String(b.nama || ''), 'id'));
+      return `
       <tr>
         <td><span class="badge badge-primary">${c.tingkat}</span></td>
         <td>${c.nama}</td>
         <td>${c.jurusan || '-'}</td>
         <td>${c.wali_kelas || '-'}</td>
         <td>
+          <select data-ketua-class="${c.id}" style="min-width:150px">
+            <option value="">- bukan ketua -</option>
+            ${anggota.map(s => `<option value="${s.id}"${s.id === c.ketua_id ? ' selected' : ''}>${kurEsc(s.nama)}${s.nis ? ` (${kurEsc(s.nis)})` : ''}</option>`).join('')}
+          </select>
+        </td>
+        <td>
           <button class="btn btn-sm" onclick="editClass('${c.id}')">Edit</button>
           <button class="btn btn-sm btn-danger" onclick="deleteClass('${c.id}')">Hapus</button>
         </td>
-      </tr>
-    `).join('');
+      </tr>`;
+    }).join('');
+
+    tbody.querySelectorAll('[data-ketua-class]').forEach(select => {
+      select.addEventListener('change', async () => {
+        const classId = select.dataset.ketuaClass;
+        select.disabled = true;
+        try {
+          await LMS.setKetuaKelas(classId, select.value);
+        } catch (error) {
+          alert(error.message);
+        } finally {
+          select.disabled = false;
+          renderClasses();
+        }
+      });
+    });
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
   }
 }
 
@@ -2190,6 +2215,91 @@ async function deleteSchedule(id) {
   }
 }
 
+// ===== JURNAL MENGAJAR =====
+function todayLocalISO() {
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit' })
+    .formatToParts(new Date()).reduce((acc, part) => { if (part.type !== 'literal') acc[part.type] = part.value; return acc; }, {});
+  return `${p.year}-${p.month}-${p.day}`;
+}
+
+async function renderJurnal() {
+  const tbody = document.getElementById('jurnal-tbody');
+  const note = document.getElementById('jurnal-note');
+  const dateInput = document.getElementById('jurnal-date');
+  if (!tbody) return;
+  if (dateInput && !dateInput.value) dateInput.value = todayLocalISO();
+  const tanggal = dateInput?.value || todayLocalISO();
+
+  try {
+    const [data, sekolah] = await Promise.all([
+      LMS.getAdminJurnal(tanggal),
+      LMS.getSekolah().catch(() => ({}))
+    ]);
+    const lat = document.getElementById('sekolah-lat');
+    const lng = document.getElementById('sekolah-lng');
+    const radius = document.getElementById('sekolah-radius');
+    if (lat && lat.value === '') lat.value = sekolah.lat ?? '';
+    if (lng && lng.value === '') lng.value = sekolah.lng ?? '';
+    if (radius) radius.value = sekolah.radius_m || 500;
+
+    const rows = data.rows || [];
+    tbody.innerHTML = rows.length
+      ? rows.map(row => `
+        <tr>
+          <td>${kurEsc(row.jam)}</td>
+          <td>${kurEsc(row.kelas)}</td>
+          <td>${kurEsc(row.mapel)}</td>
+          <td>${kurEsc(row.materi || '-')}</td>
+          <td>${kurEsc(row.kegiatan || '-')}</td>
+          <td><strong>${row.hadir}</strong> / ${row.izin} / ${row.sakit} / ${row.dispensasi} / ${row.alpa}
+            <div style="font-size:11px;color:var(--text-2)">${row.terisi}/${row.total} terisi</div></td>
+          <td>${kurEsc(row.ketua || '-')}</td>
+        </tr>`).join('')
+      : '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Belum ada jurnal pada tanggal ini.</td></tr>';
+    if (note) note.textContent = `Tanggal ${data.tanggal} · ${rows.length} jurnal. Data presensi otomatis dari ketua kelas atau radius sekolah.`;
+  } catch (error) {
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--danger)">${kurEsc(error.message)}</td></tr>`;
+  }
+}
+
+async function saveSekolahLokasi(event) {
+  event?.preventDefault?.();
+  const status = document.getElementById('sekolah-status');
+  try {
+    await LMS.saveSekolah({
+      lat: Number(document.getElementById('sekolah-lat').value),
+      lng: Number(document.getElementById('sekolah-lng').value),
+      radius_m: Number(document.getElementById('sekolah-radius').value) || 500
+    });
+    if (status) status.textContent = 'Lokasi sekolah tersimpan. Presensi otomatis aktif.';
+  } catch (error) {
+    if (status) status.textContent = error.message;
+  }
+}
+
+function useMyLocationForSchool() {
+  const status = document.getElementById('sekolah-status');
+  if (!navigator.geolocation) {
+    if (status) status.textContent = 'Perangkat tidak mendukung geolocation.';
+    return;
+  }
+  if (status) status.textContent = 'Mengambil lokasi perangkat…';
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      document.getElementById('sekolah-lat').value = position.coords.latitude.toFixed(6);
+      document.getElementById('sekolah-lng').value = position.coords.longitude.toFixed(6);
+      if (status) status.textContent = `Koordinat terisi (±${Math.round(position.coords.accuracy)} m). Klik Simpan lokasi.`;
+    },
+    () => { if (status) status.textContent = 'Izin lokasi ditolak.'; },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+}
+
+function exportSimanis() {
+  const tanggal = document.getElementById('jurnal-date')?.value || todayLocalISO();
+  window.open(`/api/admin/simanis/export?tanggal=${encodeURIComponent(tanggal)}`, '_blank');
+}
+
 // ===== WHATSAPP SENDER =====
 let whatsAppTimer = null;
 let whatsAppLoading = false;
@@ -2736,6 +2846,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-wa-check-number')?.addEventListener('click', checkWhatsAppNumber);
   document.getElementById('btn-wa-auto-save')?.addEventListener('click', activateWhatsAppAuto);
   document.getElementById('btn-wa-send')?.addEventListener('click', sendWhatsAppMessage);
+  document.getElementById('btn-jurnal-refresh')?.addEventListener('click', renderJurnal);
+  document.getElementById('jurnal-date')?.addEventListener('change', renderJurnal);
+  document.getElementById('btn-simanis-export')?.addEventListener('click', exportSimanis);
+  document.getElementById('sekolah-form')?.addEventListener('submit', saveSekolahLokasi);
+  document.getElementById('btn-sekolah-here')?.addEventListener('click', useMyLocationForSchool);
   document.getElementById('btn-wa-refresh-logs')?.addEventListener('click', () => renderWhatsApp({ force: true }));
   document.getElementById('wa-send-template')?.addEventListener('change', applyWhatsAppTemplate);
   document.getElementById('wa-send-message')?.addEventListener('input', updateWhatsAppCount);
