@@ -410,6 +410,19 @@ pm2 restart lms --update-env
 Backup `data/db.json` dibuat otomatis sebelum menulis. Setelah login, ganti password
 lewat `POST /api/me/password`.
 
+### Akun guru
+
+Akun guru (role `teacher`) hanya melihat menu **Jurnal Mengajar** di panel admin dan
+boleh mengisi/memperbaiki jurnal serta presensi kelas.
+
+```bash
+cd /opt/lms-geografi
+node scripts/create-teacher.mjs --list                       # lihat akun non-siswa
+node scripts/create-teacher.mjs --email guru@sekolah.id --nama "Nama Guru"
+node scripts/create-teacher.mjs --email guru2@sekolah.id --password 'RahasiaBaru123'
+pm2 restart lms --update-env
+```
+
 **Terkunci "Terlalu banyak percobaan…"** – limiter login menyimpan hitungan di Redis
 bila tersedia, atau di memori proses bila tidak. Hitungan di Redis kini dibersihkan
 otomatis saat start/reconnect; tanpa Redis, cukup restart proses:
