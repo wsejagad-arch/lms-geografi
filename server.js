@@ -561,7 +561,7 @@ function wibNow() {
   }).formatToParts(new Date()).reduce((acc, p) => { if (p.type !== 'literal') acc[p.type] = p.value; return acc; }, {});
   const date = `${parts.year}-${parts.month}-${parts.day}`;
   const time = `${parts.hour}:${parts.minute}`;
-  const hari = HARI_ID[new Date(`${date}T00:00:00+07:00`).getDay()];
+  const hari = HARI_ID[new Date(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day))).getUTCDay()];
   return { date, time, hari };
 }
 
