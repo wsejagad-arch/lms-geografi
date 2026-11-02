@@ -160,6 +160,40 @@ if (typeof blRenderSoal === 'function') {
   const belajarCss = fs.readFileSync(path.join(root, 'public/assets/css/belajar.css'), 'utf8');
   check('ringkasan bab terkunci diburamkan',
     belajarCss.includes('.bl-bab.locked .bl-bab-body > p { filter: blur(4px);'), '');
+
+  // ---------- perlindungan soal & waktu baca realistis ----------
+  const dirtyStim = sanitizer.lmsSanitize('<p style="color:#ffffff;font-size:8px;text-align:justify">Teks soal</p>');
+  check('gaya inline pemutih teks dibuang agar soal tidak samar',
+    !/color:/i.test(dirtyStim) && !/font-size:/i.test(dirtyStim) && /text-align:\s*justify/i.test(dirtyStim),
+    dirtyStim);
+  check('CSS menonaktifkan blok-kopi pada area ujian',
+    belajarCss.includes('#bl-eval { -webkit-user-select: none; user-select: none;')
+      && belajarCss.includes('.bl-stim [style]'), '');
+  check('CSS menyediakan lapisan pengaman dan hitung mundur',
+    belajarCss.includes('.bl-shield {') && belajarCss.includes('body.bl-exam-blur #bl-eval')
+      && belajarCss.includes('.bl-timer.ready'), '');
+
+  const sampleSoal = [
+    { tipe: 'pg_singkat', level: 'C4', pertanyaan: 'Soal satu?', opsi: ['a', 'b', 'c', 'd'], stimulus: { isi: '<p>' + 'kata '.repeat(400) + '</p>' } },
+    { tipe: 'pg_kompleks', level: 'C4', pertanyaan: 'Soal dua?', opsi: ['a', 'b', 'c'] },
+    { tipe: 'benar_salah', level: 'C3', pertanyaan: 'Soal tiga?', pernyataan: ['p1', 'p2'] }
+  ];
+  const gateSeconds = sandbox.blExamGateSeconds(sampleSoal);
+  check('waktu baca realistis dihitung otomatis dari isi soal',
+    gateSeconds >= 120 && gateSeconds <= 900, `gerbang=${gateSeconds}s`);
+  check('soal level analisis butuh waktu lebih lama',
+    sandbox.blSoalReadSeconds({ tipe: 'pg_singkat', level: 'C6', pertanyaan: 'Sama?', opsi: ['a', 'b'] })
+      > sandbox.blSoalReadSeconds({ tipe: 'pg_singkat', level: 'C2', pertanyaan: 'Sama?', opsi: ['a', 'b'] }), '');
+  vm.runInContext("blState.examStartedAt = Date.now(); blState.examPausedSeconds = 0; blState.examHiddenAt = 0; blState.examGateSeconds = 30", sandbox);
+  const remainingFresh = sandbox.blExamGateRemaining();
+  vm.runInContext("blState.examStartedAt = Date.now() - 40000", sandbox);
+  const remainingAfter = sandbox.blExamGateRemaining();
+  check('hitung mundur menahan penyimpanan sampai waktu baca terpenuhi',
+    remainingFresh > 25 && remainingAfter === 0, `awal=${remainingFresh}s akhir=${remainingAfter}s`);
+  vm.runInContext("blState.examStartedAt = Date.now(); blState.examGateSeconds = 90; blState.examHiddenAt = Date.now() - 60000", sandbox);
+  const remainingHidden = sandbox.blExamGateRemaining();
+  check('waktu berhenti saat siswa meninggalkan halaman ujian',
+    remainingHidden > 85, `sisa=${remainingHidden}s`);
   const questionTypes = ['pg_singkat', 'pgm', 'pg_kompleks', 'menjodohkan', 'benar_salah'];
   let chapterCount = 0;
   let questionCount = 0;

@@ -1294,7 +1294,33 @@ tbody td button + button {
   thead { display: table-header-group; }
   tr { break-inside: avoid; page-break-inside: avoid; }
   .print-only { display: block !important; }
-  .print-chart { display: block; width: 100% !important; max-width: 100%; height: auto; margin: 6px 0 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+  .print-chart {
+    display: block;
+    width: auto !important;
+    max-width: 100% !important;
+    max-height: 48mm;
+    height: auto;
+    margin: 4px auto 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+  }
+  #menu-progress table th:nth-child(1), #menu-progress table td:nth-child(1) { width: 9%; }
+  #menu-progress table th:nth-child(2), #menu-progress table td:nth-child(2) { width: 21%; }
+  #menu-progress table th:nth-child(3), #menu-progress table td:nth-child(3) { width: 9%; }
+  #menu-progress table th:nth-child(4), #menu-progress table td:nth-child(4) { width: 7%; }
+  #menu-progress table th:nth-child(5), #menu-progress table td:nth-child(5) { width: 16%; }
+  #menu-progress table th:nth-child(6), #menu-progress table td:nth-child(6) { width: 11%; }
+  #menu-progress table th:nth-child(7), #menu-progress table td:nth-child(7) { width: 11%; }
+  #menu-progress table th:nth-child(8), #menu-progress table td:nth-child(8) { width: 16%; }
+  #menu-sessions table th:nth-child(1), #menu-sessions table td:nth-child(1) { width: 15%; }
+  #menu-sessions table th:nth-child(2), #menu-sessions table td:nth-child(2) { width: 7%; }
+  #menu-sessions table th:nth-child(3), #menu-sessions table td:nth-child(3) { width: 8%; }
+  #menu-sessions table th:nth-child(4), #menu-sessions table td:nth-child(4) { width: 7%; }
+  #menu-sessions table th:nth-child(5), #menu-sessions table td:nth-child(5) { width: 12%; }
+  #menu-sessions table th:nth-child(6), #menu-sessions table td:nth-child(6) { width: 12%; }
+  #menu-sessions table th:nth-child(7), #menu-sessions table td:nth-child(7) { width: 10%; }
+  #menu-sessions table th:nth-child(8), #menu-sessions table td:nth-child(8) { width: 14%; }
+  #menu-sessions table th:nth-child(9), #menu-sessions table td:nth-child(9) { width: 15%; }
   body.print-progress .menu-section:not(#menu-progress) { display: none !important; }
   body.print-sessions .menu-section:not(#menu-sessions) { display: none !important; }
 }

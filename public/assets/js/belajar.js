@@ -14,6 +14,7 @@ const BL_UNLOCK = '<svg class="bl-lock" viewBox="0 0 24 24" width="14" height="1
 let blState = { kurikulum: null, bab: null, answers: {}, topicProgress: {}, lastResult: null, activeTopicIndex: 0 };
 let blProgressTimer = null;
 let blReadingTimer = null;
+let blReadingTicker = null;
 let blReadingListener = null;
 let blProgressRequest = Promise.resolve();
 
@@ -31,6 +32,253 @@ async function blApi(path, options = {}) {
 function blEsc(s) {
   return String(s === undefined || s === null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// ===== Waktu baca realistis =====
+// Kecepatan baca dipakai untuk menahan penyimpanan jawaban sebelum siswa benar-benar membaca.
+const BL_READ_WORDS_PER_SECOND = 4.2;      // ±250 kata/menit untuk materi
+const BL_ANSWER_WORDS_PER_SECOND = 3.2;    // ±190 kata/menit untuk soal (baca + analisis)
+const BL_GATE_MIN_SECONDS = 60;
+const BL_GATE_MAX_SECONDS = 900;
+
+function blPlainText(html) {
+  return String(html === undefined || html === null ? '' : html)
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function blWordCount(html) {
+  const text = blPlainText(html);
+  return text ? text.split(' ').length : 0;
+}
+
+function blReadingMinSeconds(html) {
+  return Math.min(150, Math.max(6, Math.round(blWordCount(html) / BL_READ_WORDS_PER_SECOND)));
+}
+
+function blSoalReadSeconds(soal) {
+  const s = soal || {};
+  const teks = [
+    s.pertanyaan,
+    (s.opsi || []).join(' '),
+    (s.pernyataan || []).join(' '),
+    (s.kiri || []).join(' '),
+    (s.kanan || []).join(' ')
+  ].join(' ');
+  const base = { pg_singkat: 8, pgm: 8, pg_kompleks: 14, menjodohkan: 16, benar_salah: 14 }[s.tipe] || 10;
+  const level = String(s.level || '').toUpperCase();
+  const bonus = /^C[56]$/.test(level) ? 10 : /^C4$/.test(level) ? 7 : /^C3$/.test(level) ? 4 : 0;
+  return Math.min(90, Math.max(10, Math.round(base + blWordCount(teks) / BL_ANSWER_WORDS_PER_SECOND + bonus)));
+}
+
+function blExamGateSeconds(soalList) {
+  const list = soalList || [];
+  if (!list.length) return 0;
+  // Stimulus umumnya dipakai bersama semua soal pada satu bab, jadi dihitung sekali.
+  const stimulusSeconds = Math.round(blWordCount(list[0].stimulus && list[0].stimulus.isi) / BL_READ_WORDS_PER_SECOND);
+  const total = stimulusSeconds + list.reduce(function (sum, s) { return sum + blSoalReadSeconds(s); }, 0);
+  return Math.min(BL_GATE_MAX_SECONDS, Math.max(BL_GATE_MIN_SECONDS, Math.round(total)));
+}
+
+function blExamElapsedSeconds() {
+  if (!blState.examStartedAt) return 0;
+  let elapsed = (Date.now() - blState.examStartedAt) / 1000;
+  if (blState.examHiddenAt) elapsed -= (Date.now() - blState.examHiddenAt) / 1000;
+  return Math.max(0, elapsed - (blState.examPausedSeconds || 0));
+}
+
+function blFormatDuration(totalSeconds) {
+  const secs = Math.max(0, Math.ceil(Number(totalSeconds) || 0));
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+function blExamGateRemaining() {
+  if (!blState.examGateSeconds) return 0;
+  return Math.max(0, Math.ceil(blState.examGateSeconds - blExamElapsedSeconds()));
+}
+
+function blRenderExamTimer() {
+  const el = document.getElementById('bl-timer');
+  if (!el || !el.classList) return;
+  const remaining = blExamGateRemaining();
+  const gate = blState.examGateSeconds || 0;
+  if (!gate) {
+    el.textContent = '';
+    el.classList.add('hidden');
+    return;
+  }
+  el.classList.remove('hidden');
+  el.classList.toggle('ready', remaining <= 0);
+  el.textContent = remaining > 0
+    ? 'Waktu baca realistis: ' + blFormatDuration(remaining) + ' lagi sebelum jawaban dapat disimpan'
+    : 'Waktu baca terpenuhi — jawaban bisa disimpan dan dikirim';
+  const btn = document.getElementById('bl-submit');
+  if (btn && !btn.dataset.sending) {
+    btn.textContent = remaining > 0 ? 'Kirim Jawaban (tunggu ' + blFormatDuration(remaining) + ')' : 'Kirim Jawaban';
+  }
+  if (remaining <= 0 && blState.examPendingSave) {
+    blState.examPendingSave = false;
+    blQueueProgressSave();
+  }
+}
+
+function blStopExamTimer() {
+  if (blState.examTimer && typeof clearInterval === 'function') {
+    clearInterval(blState.examTimer);
+  }
+  blState.examTimer = null;
+  blState.examStartedAt = 0;
+  blState.examGateSeconds = 0;
+  blState.examHiddenAt = 0;
+  blState.examPausedSeconds = 0;
+  blState.examPendingSave = false;
+  blHideShield();
+}
+
+function blStartExamTimer(soalList) {
+  if (blState.examTimer && typeof clearInterval === 'function') clearInterval(blState.examTimer);
+  blState.examTimer = null;
+  blState.examStartedAt = Date.now();
+  blState.examPausedSeconds = 0;
+  blState.examHiddenAt = document.hidden ? Date.now() : 0;
+  blState.examGateSeconds = blExamGateSeconds(soalList);
+  blRenderExamTimer();
+  if (typeof setInterval === 'function') {
+    blState.examTimer = setInterval(blRenderExamTimer, 1000);
+    if (blState.examTimer && typeof blState.examTimer.unref === 'function') blState.examTimer.unref();
+  }
+}
+
+// ===== Pengaman ujian: tanpa blok-kopi, klik kanan, atau tangkapan layar =====
+let blGuardBound = false;
+let blShieldTimer = null;
+
+function blExamVisible() {
+  if (!blState.bab || typeof document.querySelector !== 'function') return false;
+  return !!document.querySelector('#bl-eval .bl-q');
+}
+
+function blHideShield() {
+  if (blShieldTimer) {
+    clearTimeout(blShieldTimer);
+    blShieldTimer = null;
+  }
+  const el = document.getElementById('bl-shield');
+  if (el) el.remove();
+  document.body.classList.remove('bl-exam-blur');
+}
+
+function blShowShield(message) {
+  if (!blExamVisible()) return;
+  let el = document.getElementById('bl-shield');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'bl-shield';
+    el.className = 'bl-shield';
+    el.innerHTML = [
+      '<div class="bl-shield-box" role="alertdialog" aria-modal="true">',
+      '  <div class="bl-shield-ic">🔒</div>',
+      '  <h4>Area ujian dilindungi</h4>',
+      '  <p class="bl-shield-msg"></p>',
+      '  <button type="button" class="bl-btn primary" id="bl-shield-ok">Lanjutkan Mengerjakan</button>',
+      '</div>'
+    ].join('');
+    document.body.appendChild(el);
+    el.querySelector('#bl-shield-ok').addEventListener('click', blHideShield);
+  }
+  el.querySelector('.bl-shield-msg').textContent = message;
+  el.classList.add('on');
+  document.body.classList.add('bl-exam-blur');
+  if (blShieldTimer) clearTimeout(blShieldTimer);
+  blShieldTimer = setTimeout(blHideShield, 6000);
+}
+
+function blGuardMessage(kind) {
+  const map = {
+    contextmenu: 'Klik kanan dinonaktifkan saat mengerjakan soal.',
+    copy: 'Menyalin soal tidak diizinkan. Kerjakan dengan kemampuan sendiri.',
+    cut: 'Menyalin soal tidak diizinkan. Kerjakan dengan kemampuan sendiri.',
+    paste: 'Menempel jawaban dari luar tidak diizinkan.',
+    drag: 'Menyeret teks soal tidak diizinkan.',
+    print: 'Mencetak atau menyimpan halaman soal tidak diizinkan.',
+    devtools: 'Alat pengembang browser terdeteksi. Tutup untuk melanjutkan.',
+    screenshot: 'Upaya tangkapan layar terdeteksi. Soal disembunyikan sementara.',
+    blur: 'Fokus halaman berpindah. Soal disembunyikan sampai kembali ke ujian.'
+  };
+  return map[kind] || 'Aktivitas ini tidak diizinkan selama ujian.';
+}
+
+function blSetupExamGuard() {
+  if (blGuardBound) return;
+  if (typeof document === 'undefined' || typeof document.addEventListener !== 'function') return;
+  blGuardBound = true;
+
+  const block = function (kind) {
+    return function (event) {
+      if (!blExamVisible()) return;
+      const inExam = event.target && event.target.closest && event.target.closest('#bl-eval');
+      if (!inExam) return;
+      event.preventDefault();
+      event.stopPropagation();
+      blShowShield(blGuardMessage(kind));
+    };
+  };
+
+  ['contextmenu', 'copy', 'cut', 'paste', 'dragstart', 'selectstart'].forEach(function (type) {
+    document.addEventListener(type, block(type === 'contextmenu' ? 'contextmenu' : type === 'dragstart' ? 'drag' : type), true);
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (!blExamVisible()) return;
+    const key = String(event.key || '').toLowerCase();
+    const combo = event.ctrlKey || event.metaKey;
+    if (key === 'f12' || (combo && event.shiftKey && ['i', 'j', 'c', 'k'].indexOf(key) >= 0)) {
+      event.preventDefault();
+      blShowShield(blGuardMessage('devtools'));
+      return;
+    }
+    if (combo && ['c', 'x', 'v', 'a', 's', 'p', 'u'].indexOf(key) >= 0) {
+      event.preventDefault();
+      blShowShield(blGuardMessage(['c', 'x', 'a'].indexOf(key) >= 0 ? 'copy' : key === 'v' ? 'paste' : 'print'));
+    }
+  }, true);
+
+  ['keyup', 'keydown'].forEach(function (type) {
+    document.addEventListener(type, function (event) {
+      if (!blExamVisible()) return;
+      if (event.key === 'PrintScreen' || event.code === 'PrintScreen' || event.keyCode === 44) {
+        if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText('').catch(function () {});
+        }
+        blShowShield(blGuardMessage('screenshot'));
+      }
+    }, true);
+  });
+
+  if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+    window.addEventListener('blur', function () {
+      if (!blExamVisible()) return;
+      blShowShield(blGuardMessage('blur'));
+    });
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (blState.examStartedAt && !blState.examHiddenAt) blState.examHiddenAt = Date.now();
+      if (blExamVisible()) blShowShield(blGuardMessage('screenshot'));
+      return;
+    }
+    if (blState.examHiddenAt) {
+      blState.examPausedSeconds = (blState.examPausedSeconds || 0) + (Date.now() - blState.examHiddenAt) / 1000;
+      blState.examHiddenAt = 0;
+      blRenderExamTimer();
+    }
+  });
 }
 
 function blCountAnswered(answers, questions) {
@@ -112,6 +360,16 @@ function blSaveProgress() {
   if (!blState.bab) return Promise.resolve(null);
   const b = blState.bab;
   b.progress = b.progress || {};
+  const gateRemaining = blExamGateRemaining();
+  if (gateRemaining > 0) {
+    blState.examPendingSave = true;
+    const status = document.getElementById('bl-progress-status');
+    if (status) {
+      status.textContent = 'Menunggu waktu baca realistis (' + blFormatDuration(gateRemaining) + ') sebelum progres disimpan.';
+      status.classList.remove('error');
+    }
+    return Promise.resolve(null);
+  }
   const payload = {
     topic_progress: Object.assign({}, blState.topicProgress),
     answers: JSON.parse(JSON.stringify(blState.answers || {}))
@@ -151,16 +409,20 @@ function blTrackTopicProgress() {
   if ((document.hidden || visibleHeight < Math.min(rect.height, viewportHeight) * 0.45)
     || (typeof card.getClientRects === 'function' && card.getClientRects().length === 0)) return;
   const elapsed = Date.now() - (blState.topicStartedAt || Date.now());
+  const materiAktif = (b.materi || [])[index] || {};
+  const minReadMs = blReadingMinSeconds(materiAktif.html || '') * 1000;
+  const timeFactor = Math.min(1, elapsed / minReadMs);
   let percent = 0;
   if (rect.height <= viewportHeight * 0.75) {
-    percent = elapsed >= 3500 ? 100 : 0;
+    percent = timeFactor >= 1 ? 100 : Math.round(timeFactor * 90);
   } else {
     const sectionTop = rect.top + window.scrollY;
     const scrollRange = Math.max(1, rect.height - viewportHeight * 0.65);
     const readPosition = window.scrollY + viewportHeight * 0.35 - sectionTop;
     percent = Math.max(0, Math.min(100, Math.round(readPosition / scrollRange * 100)));
-    if (elapsed < 2500) percent = Math.min(percent, 20);
-    if (rect.bottom <= viewportHeight + 20 && elapsed >= 2500) percent = 100;
+    percent = Math.round(percent * timeFactor);
+    if (timeFactor < 1) percent = Math.min(percent, 99);
+    if (rect.bottom <= viewportHeight + 20 && timeFactor >= 1) percent = 100;
   }
   const previous = Number(blState.topicProgress[index]) || 0;
   if (percent > previous) {
@@ -170,12 +432,22 @@ function blTrackTopicProgress() {
   }
 }
 
+function blReadingTick() {
+  if (!document.getElementById('bl-active-topic')) {
+    if (blReadingTicker) {
+      clearInterval(blReadingTicker);
+      blReadingTicker = null;
+    }
+    return;
+  }
+  blTrackTopicProgress();
+}
+
 function blFig(m) {
   if (!m || !m.gambar) return '';
   return '<figure class="bl-figure"><img src="' + blEsc(m.gambar) + '" alt="' + blEsc(m.caption || m.judul || '') + '" loading="lazy">' +
     (m.caption ? '<figcaption>' + blEsc(m.caption) + '</figcaption>' : '') + '</figure>';
 }
-
 async function blLoadKurikulum() {
   const host = document.getElementById('belajar-root');
   if (!host) return;
@@ -417,6 +689,8 @@ function blRenderBab() {
     window.addEventListener('scroll', blReadingListener, { passive: true });
     blTrackTopicProgress();
     blReadingTimer = setTimeout(blTrackTopicProgress, 3600);
+    if (blReadingTicker) clearInterval(blReadingTicker);
+    blReadingTicker = setInterval(blReadingTick, 2000);
   }
 
   const goTopic = function (idx) {
@@ -446,8 +720,9 @@ function blStartEval() {
   host.innerHTML = [
     '<div class="bl-card" style="margin-top:4px">',
     '  <h3>Evaluasi ' + blEsc(b.judul) + '</h3>',
-    '  <p class="bl-note" style="margin:0 0 12px">Jawab semua soal. Nilai terbaik yang dihitung; evaluasi bisa diulang jika belum mencapai KKM.</p>',
+    '  <p class="bl-note" style="margin:0 0 12px">Jawab semua soal. Nilai terbaik yang dihitung; evaluasi bisa diulang jika belum mencapai KKM. Soal dilindungi: menyalin, klik kanan, dan tangkapan layar dinonaktifkan.</p>',
     '  <p class="bl-assessment-live" id="bl-assessment-live" aria-live="polite"></p>',
+    '  <p class="bl-timer" id="bl-timer" aria-live="polite"></p>',
     (b.soal || []).map(function (s, i) { return blRenderSoal(s, i); }).join(''),
     '  <div class="bl-actions">',
     '    <button class="bl-btn primary" id="bl-submit">Kirim Jawaban</button>',
@@ -457,7 +732,12 @@ function blStartEval() {
   ].join('');
 
   document.getElementById('bl-submit').addEventListener('click', blSubmit);
-  document.getElementById('bl-cancel').addEventListener('click', function () { host.innerHTML = ''; });
+  document.getElementById('bl-cancel').addEventListener('click', function () {
+    blStopExamTimer();
+    host.innerHTML = '';
+  });
+  blSetupExamGuard();
+  blStartExamTimer(b.soal || []);
   blBindInputs();
   blRestoreInputs();
   blUpdateProgressDisplay();
@@ -505,7 +785,7 @@ function blRenderSoal(s, i) {
     st.judul ? '<h4>' + blEsc(st.judul) + '</h4>' : '',
     media,
     video,
-    st.isi || '',
+    typeof lmsSanitize === 'function' ? lmsSanitize(st.isi || '') : '',
     st.sumber ? '<span class="src">Sumber: ' + blEsc(st.sumber) + '</span>' : '',
     '</div>'
   ].join('');
@@ -601,7 +881,14 @@ function blBindInputs() {
 
 async function blSubmit() {
   const b = blState.bab;
+  const gateRemaining = blExamGateRemaining();
+  if (gateRemaining > 0) {
+    blRenderExamTimer();
+    blShowShield('Waktu baca belum realistis. Tunggu ' + blFormatDuration(gateRemaining) + ' lagi sebelum mengirim jawaban.');
+    return;
+  }
   const btn = document.getElementById('bl-submit');
+  btn.dataset.sending = '1';
   btn.disabled = true;
   btn.textContent = 'Mengirim…';
   try {
@@ -627,11 +914,13 @@ async function blSubmit() {
     blShowProgressSaveError(err);
     alert(err.message);
     btn.disabled = false;
-    btn.textContent = 'Kirim Jawaban';
+    delete btn.dataset.sending;
+    blRenderExamTimer();
   }
 }
 
 function blRenderResult(r) {
+  blStopExamTimer();
   const b = blState.bab;
   const host = document.getElementById('bl-eval');
   document.querySelectorAll('.bl-topic-nav-footer, .bl-topic-pos').forEach(function (el) {
