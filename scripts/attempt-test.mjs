@@ -143,7 +143,8 @@ try {
   const adminJs = fs.readFileSync(path.join(root, 'public/assets/js/admin.js'), 'utf8');
   const htmlIds = new Set([...adminHtml.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]));
   const usedIds = [...new Set([...adminJs.matchAll(/getElementById\(['"]([^'"]+)['"]\)/g)].map(m => m[1]))];
-  const missing = usedIds.filter(id => !htmlIds.has(id));
+  const dynamicIds = new Set([...adminJs.matchAll(/\.id\s*=\s*['"]([^'"]+)['"]/g)].map(m => m[1]));
+  const missing = usedIds.filter(id => !htmlIds.has(id) && !dynamicIds.has(id));
   check('semua id yang dipakai admin.js ada di admin.html', missing.length === 0, missing.join(', '));
   check('input tersembunyi assignment-id tersedia di formulir tugas',
     adminHtml.includes('id="assignment-id"'), '');
