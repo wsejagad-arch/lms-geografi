@@ -17,6 +17,7 @@
 set -euo pipefail
 
 DOMAIN="${DOMAIN:-geolabs.my.id}"
+APP_DIR_EXPLICIT="${APP_DIR:+1}"
 APP_DIR="${APP_DIR:-/var/www/lms-geografi}"
 APP_NAME="${APP_NAME:-lms-geografi}"
 REPO="${REPO:-https://github.com/wsejagad-arch/lms-geografi.git}"
@@ -59,6 +60,12 @@ fi
 info "Node.js $(node -v)"
 
 # ------------------------------- Kode aplikasi --------------------------------
+# Instalasi lama dari scripts/provision-ct.sh berada di /opt; pakai ulang agar
+# data/ dan .env yang sudah ada tidak tertinggal dan tidak ada dua proses di PORT.
+if [ -z "$APP_DIR_EXPLICIT" ] && [ ! -d "$APP_DIR/.git" ] && [ -d /opt/lms-geografi/.git ]; then
+  APP_DIR=/opt/lms-geografi
+  warn "APP_DIR tidak diberikan; memakai instalasi yang ada di ${APP_DIR}"
+fi
 if [ -d "$APP_DIR/.git" ]; then
   cd "$APP_DIR"
   warn "Menarik pembaruan ${BRANCH}"
@@ -100,6 +107,9 @@ if ! command -v pm2 >/dev/null 2>&1; then
   warn "Memasang PM2"
   npm install -g pm2 --no-audit --no-fund >/dev/null
 fi
+# Nama "lms" berasal dari scripts/provision-ct.sh; tanpa ini PM2 menjalankan dua
+# proses di PORT yang sama dan startOrReload gagal EADDRINUSE.
+pm2 delete lms >/dev/null 2>&1 || true
 pm2 startOrReload ecosystem.config.js --update-env
 pm2 save >/dev/null
 pm2 startup systemd -u root --hp /root >/dev/null 2>&1 || true

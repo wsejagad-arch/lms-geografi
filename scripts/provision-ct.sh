@@ -44,7 +44,8 @@ set -a; . "$APP_DIR/.env"; set +a
 
 step "pm2 app"
 pm2 delete lms >/dev/null 2>&1 || true
-NODE_ENV=production PORT=3000 SESSION_SECRET="$SESSION_SECRET" pm2 start server.js --name lms -i 2 >/dev/null
+# ecosystem.config.js: 1 instance fork; store JSON/SQLite tidak aman untuk cluster.
+NODE_ENV=production PORT=3000 SESSION_SECRET="$SESSION_SECRET" pm2 start ecosystem.config.js --update-env >/dev/null
 pm2 save >/dev/null
 pm2 startup systemd -u root --hp /root >/dev/null 2>&1 || true
 
