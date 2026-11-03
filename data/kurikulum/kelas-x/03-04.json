@@ -4,7 +4,7 @@
     "kelas": "X",
     "urutan": 3,
     "semester": 1,
-    "youtube_id": "9P563sewbAQ",
+    "youtube_id": "kI3dM7-w0cQ",
     "fase": "E",
     "elemen": "Pemahaman Konsep dan Keterampilan Penginderaan Jauh",
     "judul": "Penginderaan Jauh dan Interpretasi Citra Lingkungan",
@@ -22,7 +22,7 @@
       {
         "id": "x03-t1",
         "judul": "Topik 1: Prinsip Gelombang Elektromagnetik, Sensor Pasif vs Aktif",
-        "youtube_id": "9P563sewbAQ",
+        "youtube_id": "kI3dM7-w0cQ",
         "kuis_topik": {
           "pertanyaan": "Mengapa ketika wilayah pesisir Sumatra tertutup awan mendung tebal saat musim hujan, tim mitigasi bencana memilih citra satelit Radar (Sentinel-1 SAR) daripada citra optik (Sentinel-2)?",
           "opsi": [
@@ -243,7 +243,7 @@
     "kelas": "X",
     "urutan": 4,
     "semester": 1,
-    "youtube_id": "N2pJsgv9sQ8",
+    "youtube_id": "uK36ngUq-1I",
     "fase": "E",
     "elemen": "Pemahaman Konsep dan Keterampilan Sistem Informasi Geografis (SIG)",
     "judul": "Sistem Informasi Geografis dan Pemodelan Keruangan",
@@ -261,7 +261,7 @@
       {
         "id": "x04-t1",
         "judul": "Topik 1: Konsep Dasar SIG dan Subsistem Terpadu",
-        "youtube_id": "N2pJsgv9sQ8",
+        "youtube_id": "uK36ngUq-1I",
         "kuis_topik": {
           "pertanyaan": "Apa keunggulan terbesar Sistem Informasi Geografis (SIG) dibanding peta manual kertas biasa?",
           "opsi": [

@@ -1,8 +1,11 @@
 // Smoke test: boot server, uji API + export client. Jalankan: node scripts/smoke-test.mjs
 import { spawn } from 'node:child_process';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import vm from 'node:vm';
+import bcrypt from 'bcryptjs';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -10,6 +13,13 @@ const PORT = Number(process.env.SMOKE_PORT || 3995);
 const BASE = `http://127.0.0.1:${PORT}`;
 const results = [];
 let cookie = '';
+
+// Uji memakai salinan DB sendiri agar tidak menyentuh data asli dan password admin pasti cocok.
+const tmpDb = path.join(os.tmpdir(), `lms-smoke-${process.pid}-${crypto.randomBytes(3).toString('hex')}.json`);
+const fixture = JSON.parse(fs.readFileSync(path.join(root, 'data', 'db.json'), 'utf8'));
+const fixtureAdmin = (fixture.users || []).find((u) => u.email === 'admin@lms.id');
+if (fixtureAdmin) fixtureAdmin.password = bcrypt.hashSync('admin', 8);
+fs.writeFileSync(tmpDb, JSON.stringify(fixture, null, 2));
 
 function check(name, ok, detail = '') {
   results.push({ name, ok, detail });
@@ -47,7 +57,7 @@ async function waitReady(timeoutMs = 15000) {
 
 const server = spawn(process.execPath, ['server.js'], {
   cwd: root,
-  env: { ...process.env, PORT: String(PORT) },
+  env: { ...process.env, PORT: String(PORT), LMS_DB_PATH: tmpDb },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 let serverLog = '';
@@ -105,6 +115,11 @@ try {
 
 const failed = results.filter((r) => !r.ok);
 console.log(`\n${results.length - failed.length}/${results.length} PASS`);
+try {
+  server.kill();
+  fs.rmSync(tmpDb, { force: true });
+  fs.rmSync(tmpDb.replace(/\.json$/, '.sqlite'), { force: true, maxRetries: 5, retryDelay: 150 });
+} catch { /* berkas sementara boleh tertinggal */ }
 if (failed.length) {
   console.log('--- server log ---\n' + serverLog.split(/\r?\n/).slice(0, 15).join('\n'));
   process.exit(1);

@@ -20,6 +20,10 @@ function check(name, ok, detail = '') {
 }
 
 const db = JSON.parse(fs.readFileSync(path.join(root, 'data/db.json'), 'utf8'));
+const fixtureAdmin = (db.users || []).find((u) => u.email === 'admin@lms.id');
+// Password admin untuk uji disamakan agar login fixture selalu berhasil.
+if (fixtureAdmin) fixtureAdmin.password = bcrypt.hashSync('admin', 8);
+
 const tenant = db.tenants[0];
 if (!tenant) throw new Error('tidak ada tenant di data/db.json');
 const subject = db.subjects[0] || { id: 'subj-uji', tenant_id: tenant.id, nama: 'Geografi', kode: 'GEO' };

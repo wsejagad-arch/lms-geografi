@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
+const crypto = require('crypto');
 const QRCode = require('qrcode');
 
 const SESSION_ROOT = process.env.WA_SESSION_DIR || path.join(__dirname, 'data', 'whatsapp-sessions');
@@ -17,6 +18,14 @@ function baileys() {
 function tenantSessionPath(tenantId) {
   if (!/^[\w-]+$/.test(String(tenantId || ''))) throw new Error('ID tenant tidak valid');
   return path.join(SESSION_ROOT, String(tenantId));
+}
+
+async function resetSession(tenantId) {
+  try {
+    await fs.rm(tenantSessionPath(tenantId), { recursive: true, force: true });
+  } catch (error) {
+    console.error(`WhatsApp tenant ${tenantId}: gagal menghapus sesi lama:`, error);
+  }
 }
 
 function publicStatus(tenantId) {
@@ -45,8 +54,16 @@ async function connectTenant(tenantId) {
   const existing = connections.get(tenantId);
   if (existing && ['connecting', 'connected', 'qr'].includes(existing.status)) return publicStatus(tenantId);
 
+  // Satu socket per tenant: tutup socket lama sebelum membuat yang baru agar
+  // WhatsApp tidak menganggap sesi ganda dan memaksa keluar.
+  if (existing && existing.socket) {
+    try { existing.socket.end?.(undefined); } catch {}
+    existing.socket = null;
+  }
+
   const { default: makeWASocket, useMultiFileAuthState, Browsers, DisconnectReason } = await baileys();
   const authPath = tenantSessionPath(tenantId);
+  if (existing && existing.status === 'logged_out') await resetSession(tenantId);
   await fs.mkdir(authPath, { recursive: true, mode: 0o700 });
   if (process.platform !== 'win32') await fs.chmod(authPath, 0o700);
   const { state, saveCreds } = await useMultiFileAuthState(authPath);
@@ -65,7 +82,6 @@ async function connectTenant(tenantId) {
   const socket = makeWASocket({
     auth: state,
     browser: Browsers.macOS('Chrome'),
-    printQRInTerminal: false,
     markOnlineOnConnect: false,
     syncFullHistory: false
   });
@@ -99,6 +115,7 @@ async function connectTenant(tenantId) {
       connection.qr = '';
       connection.status = loggedOut ? 'logged_out' : 'disconnected';
       connection.error = loggedOut ? 'Perangkat telah keluar. Hubungkan ulang dengan QR.' : 'Koneksi terputus.';
+      if (loggedOut) connection.enabled = false;
       if (connection.enabled && !loggedOut) {
         clearTimeout(connection.reconnectTimer);
         connection.reconnectTimer = setTimeout(() => {
@@ -117,11 +134,14 @@ async function disconnectTenant(tenantId) {
   if (!connection) return publicStatus(tenantId);
   connection.enabled = false;
   clearTimeout(connection.reconnectTimer);
-  if (connection.socket) await connection.socket.logout();
+  if (connection.socket) await connection.socket.logout().catch(() => {});
   connection.socket = null;
   connection.qr = '';
   connection.groups = [];
+  connection.phone = '';
   connection.status = 'disconnected';
+  connection.error = '';
+  await resetSession(tenantId);
   return publicStatus(tenantId);
 }
 
@@ -139,6 +159,46 @@ async function sendGroupMessage(tenantId, groupId, text) {
     throw new Error('Grup tujuan tidak ada di daftar grup yang terhubung');
   }
   return connection.socket.sendMessage(groupId, { text });
+}
+
+function normalizeDay(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z]/g, '');
+}
+
+// Menerima 08..., +62..., 62..., atau tanpa awalan 8 → JID WhatsApp.
+function normalizePhone(value) {
+  const raw = String(value || '').trim().replace(/[\s()-]/g, '');
+  if (!/^\+?\d{8,16}$/.test(raw)) return '';
+  let digits = raw.replace(/\D/g, '');
+  if (digits.startsWith('0')) digits = `62${digits.slice(1)}`;
+  else if (digits.startsWith('8')) digits = `62${digits}`;
+  if (!digits.startsWith('62') || digits.length < 10 || digits.length > 15) return '';
+  return digits;
+}
+
+function pushLog(db, entry) {
+  if (!Array.isArray(db.whatsapp_logs)) db.whatsapp_logs = [];
+  db.whatsapp_logs.push({
+    id: crypto.randomUUID(),
+    created_at: new Date().toISOString(),
+    ...entry
+  });
+  if (db.whatsapp_logs.length > 500) db.whatsapp_logs.splice(0, db.whatsapp_logs.length - 500);
+}
+
+async function logSend(loadDB, saveDB, entry) {
+  try {
+    const db = await loadDB();
+    pushLog(db, entry);
+    await saveDB(db);
+  } catch (error) {
+    console.error('Gagal menyimpan log WhatsApp:', error);
+  }
+}
+
+function weekdayName(date) {
+  return new Intl.DateTimeFormat('id-ID', { weekday: 'long', timeZone: TIME_ZONE })
+    .format(new Date(`${date}T00:00:00+07:00`));
 }
 
 function currentLocalDateTime(now = new Date()) {
@@ -217,8 +277,13 @@ async function processDueJobs(loadDB, saveDB) {
       job.updated_at = new Date().toISOString();
       await saveDB(db);
       try {
-        const text = createReminderMessage(db, tenant, job, schedule);
+        const text = String(job.message || '').trim() || createReminderMessage(db, tenant, job, schedule);
         const result = await sendGroupMessage(job.tenant_id, job.group_id, text);
+        await logSend(loadDB, saveDB, {
+          tenant_id: job.tenant_id, type: 'terjadwal', target: job.group_id,
+          target_label: job.group_name || job.group_id, status: 'sent', job_id: job.id,
+          message_preview: text.slice(0, 160)
+        });
         const finalDb = await loadDB();
         const finalJob = (finalDb.whatsapp_jobs || []).find(item => item.id === jobId);
         if (!finalJob) continue;
@@ -229,6 +294,11 @@ async function processDueJobs(loadDB, saveDB) {
         finalJob.updated_at = new Date().toISOString();
         await saveDB(finalDb);
       } catch (error) {
+        await logSend(loadDB, saveDB, {
+          tenant_id: job.tenant_id, type: 'terjadwal', target: job.group_id,
+          target_label: job.group_name || job.group_id, status: 'failed', job_id: job.id,
+          error: String(error.message || 'Pengiriman gagal').slice(0, 300)
+        });
         const finalDb = await loadDB();
         const finalJob = (finalDb.whatsapp_jobs || []).find(item => item.id === jobId);
         if (finalJob) {
@@ -240,8 +310,55 @@ async function processDueJobs(loadDB, saveDB) {
         console.error(`WhatsApp job ${job.id} gagal dikirim:`, error);
       }
     }
+
+    await processAutoJobs(loadDB, saveDB, now);
   } finally {
     schedulerBusy = false;
+  }
+}
+
+// Pengingat otomatis: satu job per jadwal kelas, dikirim pada hari & jam pelajaran.
+async function processAutoJobs(loadDB, saveDB, now) {
+  const today = normalizeDay(weekdayName(now.date));
+  const snapshot = await loadDB();
+  const autoJobs = (snapshot.whatsapp_jobs || [])
+    .filter(job => job.mode === 'auto' && job.status === 'active')
+    .map(job => job.id);
+  for (const jobId of autoJobs) {
+    const db = await loadDB();
+    const job = (db.whatsapp_jobs || []).find(item => item.id === jobId && item.status === 'active');
+    if (!job) continue;
+    const tenant = (db.tenants || []).find(item => item.id === job.tenant_id);
+    const schedule = (db.schedules || []).find(item => item.id === job.schedule_id && item.tenant_id === job.tenant_id);
+    if (!tenant?.whatsapp_sender?.enabled || !schedule) continue;
+    if (normalizeDay(schedule.hari) !== today) continue;
+    if (!schedule.jam_mulai || String(now.time) < String(schedule.jam_mulai)) continue;
+    if (job.last_sent_date === now.date) continue;
+
+    try {
+      const text = String(job.message || '').trim() || createReminderMessage(db, tenant, job, schedule);
+      const result = await sendGroupMessage(job.tenant_id, job.group_id, text);
+      job.last_sent_date = now.date;
+      job.last_sent_at = new Date().toISOString();
+      job.message_id = result?.key?.id || '';
+      job.last_error = '';
+      await logSend(loadDB, saveDB, {
+        tenant_id: job.tenant_id, type: 'otomatis', target: job.group_id,
+        target_label: job.group_name || job.group_id, status: 'sent', job_id: job.id,
+        message_preview: text.slice(0, 160)
+      });
+    } catch (error) {
+      job.last_sent_date = now.date;
+      job.last_error = String(error.message || 'Pengiriman gagal').slice(0, 300);
+      console.error(`WhatsApp auto job ${job.id} gagal dikirim:`, error);
+      await logSend(loadDB, saveDB, {
+        tenant_id: job.tenant_id, type: 'otomatis', target: job.group_id,
+        target_label: job.group_name || job.group_id, status: 'failed', job_id: job.id,
+        error: job.last_error
+      });
+    }
+    job.updated_at = new Date().toISOString();
+    await saveDB(db);
   }
 }
 
@@ -304,7 +421,8 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
           kelas: classItem ? classItem.nama : '-',
           mapel: subject ? subject.nama : '-',
           hari: schedule ? schedule.hari : '-',
-          jam_mulai: schedule ? schedule.jam_mulai : '-'
+          jam_mulai: schedule ? schedule.jam_mulai : '-',
+          mode: job.mode || 'manual'
         };
       });
     res.json({
@@ -331,7 +449,13 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
     }
     tenant.whatsapp_sender = { ...(tenant.whatsapp_sender || {}), enabled: true, lms_url: lmsUrl };
     await saveDB(db);
-    const connection = await connectTenant(tenant.id);
+    let connection;
+    try {
+      connection = await connectTenant(tenant.id);
+    } catch (error) {
+      console.error(`WhatsApp tenant ${tenant.id}: gagal menghubungkan:`, error);
+      return res.status(502).json({ error: error.message || 'Gagal menghubungkan WhatsApp' });
+    }
     res.json({ connection, config: tenant.whatsapp_sender });
   });
 
@@ -347,7 +471,152 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
 
   app.get('/api/admin/whatsapp/groups', requireAuth, requireAdmin, requireTenant, async (req, res) => {
     res.set('Cache-Control', 'no-store');
-    res.json({ groups: await getGroups(req.tenantId), connection: publicStatus(req.tenantId) });
+    try {
+      const groups = await getGroups(req.tenantId);
+      const query = String(req.query.q || '').trim().toLowerCase();
+      res.json({
+        groups: query ? groups.filter(group => group.subject.toLowerCase().includes(query)) : groups,
+        connection: publicStatus(req.tenantId)
+      });
+    } catch (error) {
+      console.error(`WhatsApp tenant ${req.tenantId}: gagal memuat grup:`, error);
+      res.status(502).json({
+        error: error.message || 'Gagal memuat grup WhatsApp',
+        connection: publicStatus(req.tenantId)
+      });
+    }
+  });
+
+  app.post('/api/admin/whatsapp/verify-number', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const digits = String(req.body?.number || '').replace(/\D/g, '');
+    if (digits.length < 8 || digits.length > 15) {
+      return res.status(400).json({ error: 'Nomor WhatsApp harus 8–15 digit' });
+    }
+    const connection = connections.get(req.tenantId);
+    if (!connection || connection.status !== 'connected' || !connection.socket) {
+      return res.status(409).json({ error: 'Hubungkan WhatsApp terlebih dahulu untuk mencari nomor' });
+    }
+    try {
+      const results = await connection.socket.onWhatsApp(digits);
+      const found = Array.isArray(results) ? results.find(item => item && item.exists) : null;
+      res.json({ number: digits, exists: !!found, jid: found?.jid || '' });
+    } catch (error) {
+      res.status(502).json({ error: `Gagal memeriksa nomor: ${error.message || 'tidak diketahui'}` });
+    }
+  });
+
+  app.post('/api/admin/whatsapp/test-send', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const connection = connections.get(req.tenantId);
+    if (!connection || connection.status !== 'connected' || !connection.socket) {
+      return res.status(409).json({ error: 'WhatsApp belum terhubung. Pindai QR terlebih dahulu.' });
+    }
+    const groupId = String(req.body?.group_id || '').trim();
+    const digits = normalizePhone(req.body?.number) || String(req.body?.number || '').replace(/\D/g, '');
+    const text = String(req.body?.message || '').trim();
+    if (!text) return res.status(400).json({ error: 'Isi pesan tidak boleh kosong' });
+    if (text.length > 2000) return res.status(400).json({ error: 'Pesan maksimal 2000 karakter' });
+    let target = '';
+    if (groupId) {
+      if (!connection.groups.some(group => group.id === groupId)) {
+        return res.status(400).json({ error: 'Grup tujuan tidak ada di daftar grup terhubung' });
+      }
+      target = groupId;
+    } else if (digits.length >= 8 && digits.length <= 15) {
+      target = `${digits}@s.whatsapp.net`;
+    } else {
+      return res.status(400).json({ error: 'Pilih grup atau masukkan nomor tujuan yang valid' });
+    }
+    const waktu = new Date().toLocaleString('id-ID', { timeZone: TIME_ZONE });
+    const textWithFallback = text || [
+      'Tes koneksi Geo Edulabs',
+      `Waktu: ${waktu} WIB`,
+      'Pesan ini dikirim dari panel admin LMS. Jika diterima, pengingat otomatis siap digunakan.'
+    ].join('\n');
+    try {
+      const result = await connection.socket.sendMessage(target, { text: textWithFallback });
+      await logSend(loadDB, saveDB, {
+        tenant_id: req.tenantId, type: 'manual', target,
+        target_label: groupId ? (connection.groups.find(g => g.id === groupId)?.subject || groupId) : `+${digits}`,
+        status: 'sent', message_preview: textWithFallback.slice(0, 160)
+      });
+      res.json({ success: true, target, message_id: result?.key?.id || '' });
+    } catch (error) {
+      await logSend(loadDB, saveDB, {
+        tenant_id: req.tenantId, type: 'manual', target,
+        target_label: groupId ? groupId : `+${digits}`, status: 'failed',
+        error: String(error.message || 'Gagal mengirim').slice(0, 300)
+      });
+      res.status(502).json({ error: error.message || 'Gagal mengirim pesan tes' });
+    }
+  });
+
+  app.get('/api/admin/whatsapp/logs', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    res.set('Cache-Control', 'no-store');
+    const db = await loadDB();
+    const limit = Math.min(200, Math.max(1, Number(req.query.limit) || 50));
+    const logs = (db.whatsapp_logs || [])
+      .filter(entry => entry.tenant_id === req.tenantId)
+      .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
+      .slice(0, limit);
+    res.json({ logs });
+  });
+
+  app.put('/api/admin/whatsapp/jobs/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const db = await loadDB();
+    const job = (db.whatsapp_jobs || []).find(item => item.id === req.params.id && item.tenant_id === req.tenantId);
+    if (!job) return res.status(404).json({ error: 'Jadwal pesan tidak ditemukan' });
+    const template = String(req.body?.template || '');
+    if (!['reminder', 'rapi', 'custom'].includes(template)) {
+      return res.status(400).json({ error: 'Template pesan tidak dikenal' });
+    }
+    const message = String(req.body?.message || '').trim();
+    if (message.length > 2000) return res.status(400).json({ error: 'Pesan maksimal 2000 karakter' });
+    if (template !== 'custom' && !message) {
+      return res.status(400).json({ error: 'Isi pesan tidak boleh kosong' });
+    }
+    job.template = template;
+    job.message = template === 'custom' ? message : message;
+    job.updated_at = new Date().toISOString();
+    await saveDB(db);
+    res.json({ success: true, job });
+  });
+
+  app.post('/api/admin/whatsapp/auto', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+    const db = await loadDB();
+    const classId = String(req.body?.class_id || '');
+    const groupId = String(req.body?.group_id || '');
+    const classItem = (db.classes || []).find(item => item.id === classId && item.tenant_id === req.tenantId);
+    if (!classItem) return res.status(400).json({ error: 'Kelas tidak ditemukan' });
+    const groups = await getGroups(req.tenantId);
+    const group = groups.find(item => item.id === groupId);
+    if (!group) return res.status(400).json({ error: 'Pilih grup dari nomor WhatsApp yang telah terhubung' });
+    const schedules = (db.schedules || []).filter(item => item.tenant_id === req.tenantId && item.class_id === classId);
+    if (!schedules.length) return res.status(400).json({ error: 'Kelas ini belum memiliki jadwal pelajaran' });
+    if (!Array.isArray(db.whatsapp_jobs)) db.whatsapp_jobs = [];
+    let created = 0;
+    for (const schedule of schedules) {
+      const exists = db.whatsapp_jobs.some(job => job.tenant_id === req.tenantId && job.mode === 'auto'
+        && job.schedule_id === schedule.id && job.group_id === groupId && job.status === 'active');
+      if (exists) continue;
+      db.whatsapp_jobs.push({
+        id: crypto.randomUUID(),
+        tenant_id: req.tenantId,
+        mode: 'auto',
+        schedule_id: schedule.id,
+        group_id: groupId,
+        group_name: group.subject,
+        class_id: classId,
+        status: 'active',
+        last_sent_date: '',
+        last_error: '',
+        created_by: req.user.id,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      });
+      created++;
+    }
+    await saveDB(db);
+    res.status(created ? 201 : 200).json({ created, total: schedules.length });
   });
 
   app.post('/api/admin/whatsapp/jobs', requireAuth, requireAdmin, requireTenant, async (req, res) => {
@@ -395,6 +664,9 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
       group_name: groups.find(group => group.id === groupId).subject,
       tanggal,
       waktu,
+      template: ['reminder', 'rapi', 'custom'].includes(String(req.body?.template || ''))
+        ? String(req.body.template) : 'reminder',
+      message: String(req.body?.message || '').trim().slice(0, 2000),
       status: 'scheduled',
       created_by: req.user.id,
       created_at: new Date().toISOString(),
@@ -412,7 +684,7 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
     );
     if (index < 0) return res.status(404).json({ error: 'Jadwal pesan tidak ditemukan' });
     const job = db.whatsapp_jobs[index];
-    if (!['scheduled', 'failed'].includes(job.status)) {
+    if (!['scheduled', 'failed', 'active'].includes(job.status)) {
       return res.status(409).json({ error: 'Pesan yang sedang atau sudah terkirim tidak dapat dibatalkan' });
     }
     db.whatsapp_jobs.splice(index, 1);
@@ -421,11 +693,42 @@ function registerWhatsAppRoutes(app, { loadDB, saveDB, requireAuth, requireAdmin
   });
 }
 
+async function notifyStudent(loadDB, saveDB, tenantId, studentId, text) {
+  let label = studentId;
+  try {
+    const db = await loadDB();
+    const student = (db.students || []).find(item => item.id === studentId && item.tenant_id === tenantId);
+    label = student?.nama || studentId;
+    const digits = normalizePhone(student?.whatsapp);
+    if (!digits) return false;
+    const connection = connections.get(tenantId);
+    if (!connection || connection.status !== 'connected' || !connection.socket) return false;
+    await connection.socket.sendMessage(`${digits}@s.whatsapp.net`, { text });
+    await logSend(loadDB, saveDB, {
+      tenant_id: tenantId, type: 'siswa', target: `${digits}@s.whatsapp.net`,
+      target_label: student.nama || `+${digits}`, status: 'sent',
+      message_preview: String(text).slice(0, 160)
+    });
+    return true;
+  } catch (error) {
+    await logSend(loadDB, saveDB, {
+      tenant_id: tenantId, type: 'siswa', target: String(studentId), target_label: label,
+      status: 'failed', error: String(error.message || 'Gagal mengirim').slice(0, 300)
+    });
+    return false;
+  }
+}
+
 module.exports = {
   registerWhatsAppRoutes,
   initializeWhatsApp,
   startScheduler,
   processDueJobs,
+  processAutoJobs,
+  notifyStudent,
+  normalizePhone,
+  normalizeDay,
+  weekdayName,
   currentLocalDateTime,
   averageClassScore,
   createReminderMessage

@@ -52,6 +52,23 @@
     return /^(https?:\/\/|\/|#|\.\/|\.\.\/|mailto:|data:image\/(png|jpe?g|gif|webp);base64,)/i.test(v) ? v : '';
   }
 
+  // Deklarasi inline yang bisa membuat soal/materi tak terbaca (mis. warna putih hasil salin-tempel).
+  // Properti tata letak (position/overflow/display) dibiarkan agar embed video tetap di tempatnya.
+  const DROP_STYLE_PROP = /^(color|background|background-color|background-image|font-size|line-height|opacity|filter|text-shadow|visibility|mix-blend-mode)$/i;
+
+  function sanitizeInlineStyle(value) {
+    return String(value || '')
+      .split(';')
+      .map((decl) => decl.trim())
+      .filter((decl) => {
+        if (!decl || decl.indexOf(':') < 0) return false;
+        if (/expression\(|javascript:|behavior\s*:|@import/i.test(decl)) return false;
+        const prop = decl.slice(0, decl.indexOf(':')).trim();
+        return !!prop && !DROP_STYLE_PROP.test(prop);
+      })
+      .join('; ');
+  }
+
   function sanitizeAttrs(tag, attrText) {
     const allowed = ALLOWED_ATTR[tag] || [];
     const out = [];
@@ -82,7 +99,12 @@
         out.push(`${name}="${lmsEsc(url)}"`);
         continue;
       }
-      if (name === 'style' && /expression\(|javascript:|url\s*\(\s*['"]?\s*javascript:/i.test(value)) continue;
+      if (name === 'style') {
+        const clean = sanitizeInlineStyle(value);
+        if (!clean) continue;
+        out.push(`${name}="${lmsEsc(clean)}"`);
+        continue;
+      }
       out.push(`${name}="${lmsEsc(value)}"`);
     }
     if (tag === 'iframe') {

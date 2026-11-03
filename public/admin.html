@@ -17,9 +17,9 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="manifest" href="/manifest.json">
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
-  <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
-  <link rel="stylesheet" href="assets/css/admin.css?v=20261105g">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/globe.svg"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/admin.css?v=20261105k">
 </head>
 <body>
   <!-- Systematic SVG Sprite Library -->
@@ -83,6 +83,10 @@
         <div class="nav-item" data-menu="attendance"><svg class="ic"><use href="#i-check"/></svg><span>Presensi Harian</span></div>
         <div class="nav-item" data-menu="assignments"><svg class="ic"><use href="#i-clipboard"/></svg><span>Tugas & Proyek</span></div>
         <div class="nav-item" data-menu="schedules"><svg class="ic"><use href="#i-calendar"/></svg><span>Jadwal Pelajaran</span></div>
+        <div class="nav-item" data-menu="jurnal" role="button" tabindex="0">
+          <svg class="ic"><use href="#i-activity"/></svg>
+          <span>Jurnal Mengajar</span>
+        </div>
         <div class="nav-item" data-menu="whatsapp"><svg class="ic"><use href="#i-activity"/></svg><span>WhatsApp Sender</span></div>
       </nav>
 
@@ -95,6 +99,7 @@
           <svg class="ic"><use href="#i-logout"/></svg>
           <span>Keluar Sesi</span>
         </div>
+        <div class="app-credit">Credit by <b>Dwi Wahyu Muktiono S.Pd</b><br>Contact: <a href="https://wa.me/6287815873285" target="_blank" rel="noopener">087815873285</a></div>
       </div>
     </aside>
     
@@ -730,6 +735,58 @@
           </div>
         </section>
 
+        <section id="menu-jurnal" class="menu-section hidden">
+          <div class="card">
+            <div class="panel-head">
+              <div><h2>Jurnal Mengajar</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Terisi otomatis dari presensi yang diisi ketua kelas.</p></div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <input id="jurnal-date" type="date">
+                <button class="btn" id="btn-jurnal-refresh" type="button">Muat</button>
+                <button class="btn" id="btn-simanis-export" type="button">Ekspor SIMANIS</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Jam</th><th>Kelas</th><th>Mapel</th><th>Materi</th><th>Kegiatan</th><th>H / I / S / D / A</th><th>Ketua</th></tr></thead>
+                <tbody id="jurnal-tbody"><tr><td colspan="7" class="text-center">Memuat…</td></tr></tbody>
+              </table>
+            </div>
+            <p id="jurnal-note" style="padding:0 16px 12px;font-size:11px;color:var(--text-3)"></p>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Isi / Perbarui Jurnal (Guru)</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Guru dapat mengisi jurnal dan presensi kelas, termasuk memperbaiki isian ketua kelas.</p></div></div>
+            <div style="padding:0 16px 4px">
+              <div class="wa-job-form" style="padding:0">
+                <div class="form-group"><label for="jurnal-class">Kelas</label><select id="jurnal-class"><option value="">Pilih kelas</option></select></div>
+                <div class="form-group"><label for="jurnal-schedule">Jadwal</label><select id="jurnal-schedule"><option value="">Pilih jadwal</option></select></div>
+                <div class="form-group"><label for="jurnal-materi-admin">Materi</label><input id="jurnal-materi-admin" type="text" maxlength="300" placeholder="Materi yang dipelajari"></div>
+                <div class="form-group"><label for="jurnal-kegiatan-admin">Kegiatan</label><input id="jurnal-kegiatan-admin" type="text" maxlength="1000" placeholder="Kegiatan pembelajaran"></div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Nama Siswa</th><th>Status</th><th>Keterangan</th></tr></thead>
+                <tbody id="jurnal-edit-roster"><tr><td colspan="3" class="text-center">Pilih kelas dan jadwal.</td></tr></tbody>
+              </table>
+            </div>
+            <div style="padding:12px 16px">
+              <p id="jurnal-edit-status" style="font-size:12px;color:var(--text-2);margin:0 0 8px"></p>
+              <button class="btn btn-primary" id="btn-jurnal-admin-save" type="button">Simpan jurnal guru</button>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Lokasi Sekolah — Presensi Otomatis</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Siswa yang membuka LMS di dalam radius ini otomatis ditandai hadir (H) pada jam pelajaran berjalan.</p></div></div>
+            <form id="sekolah-form" class="wa-job-form">
+              <div class="form-group"><label for="sekolah-lat">Latitude</label><input id="sekolah-lat" type="number" step="0.000001" required></div>
+              <div class="form-group"><label for="sekolah-lng">Longitude</label><input id="sekolah-lng" type="number" step="0.000001" required></div>
+              <div class="form-group"><label for="sekolah-radius">Radius (meter)</label><input id="sekolah-radius" type="number" min="50" max="5000" value="500" required></div>
+              <button class="btn btn-primary" type="submit" id="btn-sekolah-save">Simpan lokasi</button>
+              <button class="btn" type="button" id="btn-sekolah-here">Pakai lokasi saya</button>
+            </form>
+            <p id="sekolah-status" style="padding:0 16px 12px;font-size:12px;color:var(--text-2)"></p>
+          </div>
+        </section>
+
         <section id="menu-whatsapp" class="menu-section hidden">
           <div class="card">
             <div class="panel-head">
@@ -748,7 +805,17 @@
                 </div>
                 <p id="wa-connection-note" role="status" style="font-size:12px;color:var(--text-2);margin-top:12px">Pindai QR menggunakan WhatsApp pada ponsel admin tenant.</p>
                 <p style="font-size:11px;color:var(--status-warning)">Koneksi grup menggunakan WhatsApp Web tidak resmi. Gunakan nomor khusus dan kirim hanya ke grup yang menyetujui pengingat.</p>
-                <div class="wa-groups-box"><strong>Grup yang tersedia</strong><div id="wa-groups-list">Hubungkan WhatsApp untuk memuat grup.</div></div>
+                <div class="wa-groups-box"><strong>Grup yang tersedia<span id="wa-groups-count" class="wa-groups-count"></span></strong>
+                  <input id="wa-group-search" type="search" placeholder="Cari grup…" style="width:100%;margin:8px 0">
+                  <div id="wa-groups-list">Hubungkan WhatsApp untuk memuat grup.</div>
+                </div>
+                <div class="wa-groups-box" style="margin-top:12px"><strong>Cari nomor WhatsApp</strong>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+                    <input id="wa-number-input" type="tel" placeholder="628xxxxxxxxxx" style="flex:1;min-width:170px">
+                    <button class="btn" id="btn-wa-check-number" type="button">Cari nomor</button>
+                  </div>
+                  <div id="wa-number-result" style="font-size:12px;color:var(--text-2);margin-top:8px">Masukkan nomor untuk memeriksa apakah terdaftar di WhatsApp.</div>
+                </div>
               </div>
               <div class="wa-qr-panel">
                 <img id="wa-qr-image" alt="QR untuk menghubungkan WhatsApp" hidden>
@@ -757,7 +824,42 @@
             </div>
           </div>
           <div class="card" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Tes & Kirim Pesan</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Kirim ke grup terpilih atau ke nomor tertentu. Pesan bisa dari template, versi rapi, atau ditulis sendiri.</p></div></div>
+            <div style="padding:0 16px 16px">
+              <div class="wa-groups-box">
+                <p id="wa-send-phone" class="wa-composer-phone">Nomor tertaut: -</p>
+                <div class="wa-composer" style="margin-top:10px">
+                  <div class="wa-composer-row">
+                    <select id="wa-send-target"><option value="">Kirim ke nomor…</option></select>
+                    <select id="wa-send-template">
+                      <option value="reminder">Template: pengingat LMS</option>
+                      <option value="rapi">Template: ringkas &amp; rapi</option>
+                      <option value="custom">Ketik sendiri</option>
+                    </select>
+                  </div>
+                  <input id="wa-send-number" type="tel" placeholder="Nomor tujuan, contoh 628xxxxxxxxxx">
+                  <textarea id="wa-send-message" maxlength="2000" placeholder="Pesan akan tampil di sini…"></textarea>
+                  <div class="wa-composer-actions">
+                    <button class="btn btn-primary" id="btn-wa-send" type="button">Kirim pesan</button>
+                    <span id="wa-send-count" style="font-size:11px;color:var(--text-3)">0/2000</span>
+                  </div>
+                  <p id="wa-send-note" class="wa-send-note" role="status"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px">
             <div class="panel-head"><div><h2>Jadwalkan Pengingat LMS ke Grup</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Pesan berisi pelajaran, pengingat menyelesaikan LMS, rata-rata kelas, dan tautan tenant.</p></div></div>
+            <div style="padding:0 16px 4px">
+              <div class="wa-groups-box"><strong>Otomatis sesuai jadwal kelas</strong>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+                  <select id="wa-auto-class" style="flex:1;min-width:150px"><option value="">Pilih kelas</option></select>
+                  <select id="wa-auto-group" style="flex:1;min-width:170px"><option value="">Pilih grup tujuan</option></select>
+                  <button class="btn btn-primary" id="btn-wa-auto-save" type="button">Aktifkan otomatis</button>
+                </div>
+                <div id="wa-auto-note" style="font-size:12px;color:var(--text-2);margin-top:8px">Satu kelas dipilih → semua jadwal pelajaran kelas itu dikirimi pengingat otomatis setiap pekan pada hari dan jam pelajarannya.</div>
+              </div>
+            </div>
             <form id="wa-job-form" class="wa-job-form">
               <div class="form-group"><label for="wa-job-schedule">Jadwal pelajaran</label><select id="wa-job-schedule" required><option value="">Pilih jadwal</option></select></div>
               <div class="form-group"><label for="wa-job-group">Grup WhatsApp</label><select id="wa-job-group" required><option value="">Hubungkan nomor terlebih dahulu</option></select></div>
@@ -767,11 +869,20 @@
             </form>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Tanggal / Waktu</th><th>Kelas / Mapel</th><th>Grup</th><th>Status</th><th>Detail</th><th>Aksi</th></tr></thead>
-                <tbody id="wa-jobs-tbody"><tr><td colspan="6" class="text-center">Memuat jadwal pesan…</td></tr></tbody>
+                <thead><tr><th>Tanggal / Waktu</th><th>Kelas / Mapel</th><th>Grup</th><th>Pesan</th><th>Status</th><th>Detail</th><th>Aksi</th></tr></thead>
+                <tbody id="wa-jobs-tbody"><tr><td colspan="7" class="text-center">Memuat jadwal pesan…</td></tr></tbody>
               </table>
             </div>
             <p style="font-size:11px;color:var(--text-3);padding:0 16px 12px">Zona waktu server: WIB (Asia/Jakarta). Jadwal dikirim satu kali. Jika server mati saat waktu kirim, pesan diproses setelah server aktif kembali; pesan gagal perlu dijadwalkan ulang.</p>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Riwayat Pengiriman</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">200 pengiriman terakhir: manual, terjadwal, otomatis, dan notifikasi siswa.</p></div><button class="btn" id="btn-wa-refresh-logs" type="button">Muat ulang</button></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Waktu</th><th>Jenis</th><th>Tujuan</th><th>Status</th><th>Keterangan</th></tr></thead>
+                <tbody id="wa-logs-tbody"><tr><td colspan="5" class="text-center">Memuat riwayat…</td></tr></tbody>
+              </table>
+            </div>
           </div>
         </section>
       </div>
@@ -834,6 +945,12 @@
           <div class="form-group"><label>Alamat Email (Opsional)</label><input id="student-email" type="email" placeholder="nama@siswa.local"></div>
           <div class="form-group"><label>Nomor Kontak WhatsApp</label><input id="student-wa" type="tel" inputmode="tel" placeholder="Contoh: 081234567890"></div>
           <div class="form-group"><label>Kelas / Rombel</label><select id="student-kelas"></select></div>
+          <div class="form-group"><label>Peran di Kelas</label>
+            <select id="student-ketua">
+              <option value="">Siswa biasa</option>
+              <option value="1">Ketua kelas</option>
+            </select>
+          </div>
         </form>
       </div>
       <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-student">Simpan Siswa</button></div>
@@ -1090,13 +1207,13 @@
   </div>
 
   <!-- Systematic Application Scripts -->
-  <script src="assets/js/sanitize.js?v=20261105d"></script>
-  <script src="assets/js/api.js?v=20261105g"></script>
+  <script src="assets/js/sanitize.js?v=20261106b"></script>
+  <script src="assets/js/api.js?v=20261105k"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
+      navigator.serviceWorker.register('/sw.js?v=58').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105l"></script>
+  <script src="assets/js/admin.js?v=20261106g"></script>
 </body>
 </html>

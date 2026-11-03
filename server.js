@@ -98,40 +98,17 @@ async function clearLoginLocks() {
 }
 
 // ===== DATABASE =====
+// Penyimpanan nyata ada di data-store.js: SQLite (node:sqlite / better-sqlite3) sebagai
+// sumber kebenaran, dengan cermin db.json untuk skrip CLI dan pemulihan berbasis berkas.
+const dataStore = require('./data-store');
+const { emptyDB, normalizeDB, fileExists } = dataStore;
+
 async function loadDB() {
-  try {
-    const data = await fs.readFile(DB_PATH, 'utf-8');
-    const db = JSON.parse(data);
-    ['users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams', 'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts', 'session_logs', 'activity_logs', 'whatsapp_jobs'].forEach(k => {
-      if (!Array.isArray(db[k])) db[k] = [];
-    });
-    return db;
-  } catch {
-    return {
-      users: [],
-      tenants: [],
-      subjects: [],
-      classes: [],
-      students: [],
-      materials: [],
-      questions: [],
-      exams: [],
-      exam_questions: [],
-      grades: [],
-      assignments: [],
-      attendance: [],
-      schedules: [],
-      progress: [],
-      attempts: [],
-      session_logs: [],
-      activity_logs: [],
-      whatsapp_jobs: []
-    };
-  }
+  return dataStore.loadDB();
 }
 
 async function saveDB(db) {
-  await fs.writeFile(DB_PATH, JSON.stringify(db, null, 2));
+  return dataStore.saveDB(db);
 }
 
 async function initDB() {
@@ -159,7 +136,12 @@ async function initDB() {
 
 // ===== MIDDLEWARE =====
 app.use(express.json({ limit: '10mb' }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  // Halaman HTML tidak di-cache agar pembaruan UI langsung terpakai.
+  setHeaders(res, filePath) {
+    if (/\.html?$/i.test(filePath)) res.setHeader('Cache-Control', 'no-store');
+  }
+}));
 app.set('trust proxy', 1);
 const IS_PROD = process.env.NODE_ENV === 'production';
 const RAW_SESSION_SECRET = (process.env.SESSION_SECRET || '').trim();
@@ -191,8 +173,31 @@ function clientMeta(req) {
   const city = h['cf-ipcity'] || '';
   const region = h['cf-region'] || h['cf-region-code'] || '';
   const country = h['cf-ipcountry'] || '';
-  const lokasi = [city, region, country].filter(Boolean).join(', ');
-  return { ip, lokasi, ua: String(h['user-agent'] || '').slice(0, 180) };
+  const ipLokasi = [city, region, country].filter(Boolean).join(', ');
+  const ipLat = Number(h['cf-iplatitude']);
+  const ipLng = Number(h['cf-iplongitude']);
+
+  // Koordinat dari perangkat (dikirim halaman login) lebih akurat daripada IP.
+  const geo = (req.body && typeof req.body.geo === 'object' && req.body.geo) || {};
+  const lat = Number(geo.lat);
+  const lng = Number(geo.lng);
+  const acc = Number(geo.accuracy);
+  const hasGeo = Number.isFinite(lat) && Number.isFinite(lng)
+    && Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
+  const deviceLokasi = hasGeo
+    ? `GPS ${lat.toFixed(5)}, ${lng.toFixed(5)}${Number.isFinite(acc) ? ` (±${Math.round(acc)} m)` : ''}`
+    : '';
+  const lokasi = [deviceLokasi, ipLokasi].filter(Boolean).join(' · ');
+
+  return {
+    ip,
+    lokasi,
+    ua: String(h['user-agent'] || '').slice(0, 180),
+    geo_lat: hasGeo ? lat : (Number.isFinite(ipLat) ? ipLat : null),
+    geo_lng: hasGeo ? lng : (Number.isFinite(ipLng) ? ipLng : null),
+    geo_accuracy: hasGeo && Number.isFinite(acc) ? Math.round(acc) : null,
+    geo_source: hasGeo ? 'device' : (Number.isFinite(ipLat) && Number.isFinite(ipLng) ? 'ip' : (ipLokasi ? 'ip-city' : ''))
+  };
 }
 
 function touchSession(db, req, user) {
@@ -213,6 +218,10 @@ function touchSession(db, req, user) {
   rec.ip = meta.ip;
   rec.lokasi = meta.lokasi;
   rec.ua = meta.ua;
+  rec.geo_lat = meta.geo_lat;
+  rec.geo_lng = meta.geo_lng;
+  rec.geo_accuracy = meta.geo_accuracy;
+  rec.geo_source = meta.geo_source;
   rec.last_seen_at = now;
   rec.active = true;
   if (user.role === 'student') {
@@ -250,6 +259,9 @@ function makeActivityRecord(db, req, user, aksi, detail = '') {
     path: String(req.path || '').slice(0, 180),
     ip: meta.ip,
     ua: meta.ua,
+    lokasi: meta.lokasi,
+    geo_lat: meta.geo_lat,
+    geo_lng: meta.geo_lng,
     created_at: new Date().toISOString()
   };
 }
@@ -303,6 +315,7 @@ function persistActivity(record) {
 const STUDENT_ROUTES = [
   ['GET', /^\/api\/me$/],
   ['POST', /^\/api\/me\/password$/],
+  ['POST', /^\/api\/me\/whatsapp$/],
   ['GET', /^\/api\/materials$/],
   ['GET', /^\/api\/exams$/],
   ['POST', /^\/api\/exams\/[^/]+\/submit$/],
@@ -313,7 +326,9 @@ const STUDENT_ROUTES = [
   ['GET', /^\/api\/kurikulum\/peringkat$/],
   ['PUT', /^\/api\/kurikulum\/[^/]+\/progress$/],
   ['POST', /^\/api\/kurikulum\/[^/]+\/evaluasi$/],
-  ['POST', /^\/api\/kurikulum\/naik-kelas$/]
+  ['POST', /^\/api\/kurikulum\/naik-kelas$/],
+  ['GET', /^\/api\/jurnal$/],
+  ['POST', /^\/api\/jurnal$/]
 ];
 
 function isStudentRoute(method, reqPath) {
@@ -330,8 +345,8 @@ function generatePassword(len = 10) {
 
 // ===== RATE LIMIT LOGIN =====
 // Disimpan lewat cacheGet/cacheSet, jadi ikut Redis bila tersedia (lintas proses PM2).
-const LOGIN_MAX_FAILS = Number(process.env.LOGIN_MAX_FAILS || 5);
-const LOGIN_WINDOW_MS = Number(process.env.LOGIN_WINDOW_MS || 15 * 60 * 1000);
+const LOGIN_MAX_FAILS = Number(process.env.LOGIN_MAX_FAILS || 10);
+const LOGIN_WINDOW_MS = Number(process.env.LOGIN_WINDOW_MS || 5 * 60 * 1000);
 const DUMMY_HASH = bcrypt.hashSync(crypto.randomBytes(16).toString('hex'), 10);
 
 function clientIp(req) {
@@ -433,6 +448,14 @@ async function requireAdmin(req, res, next) {
   next();
 }
 
+// Guru juga boleh mengisi jurnal mengajar.
+async function requireStaff(req, res, next) {
+  if (!req.session.userId || !['admin', 'super_admin', 'teacher'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+  next();
+}
+
 async function requireTenant(req, res, next) {
   if (!req.session.tenantId) {
     return res.status(403).json({ error: 'No tenant selected' });
@@ -440,6 +463,40 @@ async function requireTenant(req, res, next) {
   req.tenantId = req.session.tenantId;
   next();
 }
+
+// ===== KUNCI TULIS =====
+// Setiap request yang mengubah data dijalankan bergantian. Tanpa ini, dua request yang
+// membaca DB bersamaan lalu menyimpan masing-masing akan saling menimpa (lost update) —
+// misalnya dua siswa mengirim evaluasi pada detik yang sama, atau simpan draf berbarengan
+// dengan kirim jawaban, sehingga nilai/percobaan kedua tidak tercatat.
+let writeLock = Promise.resolve();
+
+function withWriteLock(req, res, next) {
+  if (!['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) return next();
+  if (process.env.LMS_DISABLE_WRITE_LOCK === '1') return next();
+  const previous = writeLock;
+  let release;
+  writeLock = new Promise(resolve => { release = resolve; });
+  let done = false;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    clearTimeout(guard);
+    release();
+  };
+  // Pengaman: jangan sampai kunci tertahan selamanya bila handler gagal merespons.
+  const guard = setTimeout(finish, 20000);
+  if (guard && typeof guard.unref === 'function') guard.unref();
+  res.on('finish', finish);
+  res.on('close', finish);
+  previous.then(() => {
+    // Request bisa saja sudah dibatalkan klien saat menunggu giliran.
+    if (res.writableEnded || res.destroyed) return finish();
+    next();
+  });
+}
+
+app.use('/api', withWriteLock);
 
 app.use('/api', (req, res, next) => {
   if (!['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) return next();
@@ -511,7 +568,388 @@ app.post('/api/tenants/select', requireAuth, async (req, res) => {
   res.json({ success: true, tenant });
 });
 
+// ===== JURNAL MENGAJAR & PRESENSI KETUA KELAS =====
+const HARI_ID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+function wibNow() {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+  }).formatToParts(new Date()).reduce((acc, p) => { if (p.type !== 'literal') acc[p.type] = p.value; return acc; }, {});
+  const date = `${parts.year}-${parts.month}-${parts.day}`;
+  const time = `${parts.hour}:${parts.minute}`;
+  const hari = HARI_ID[new Date(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day))).getUTCDay()];
+  return { date, time, hari };
+}
+
+function distanceMeters(lat1, lng1, lat2, lng2) {
+  const R = 6371000;
+  const toRad = v => v * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return Math.round(2 * R * Math.asin(Math.sqrt(a)));
+}
+
+function jurnalKey(tenantId, classId, tanggal, scheduleId) {
+  return `${tenantId}|${classId}|${tanggal}|${scheduleId}`;
+}
+
+function ketuaClassOf(db, studentId) {
+  return db.classes.find(c => c.ketua_id === studentId) || null;
+}
+
+function scheduleWindowOpen(schedule, time) {
+  if (!schedule) return false;
+  return time >= String(schedule.jam_mulai || '') && time <= String(schedule.jam_selesai || '23:59');
+}
+
+function ensureJurnal(db, { tenantId, classId, scheduleId, tanggal, ketuaId, source }) {
+  if (!Array.isArray(db.jurnal)) db.jurnal = [];
+  let entry = db.jurnal.find(j => j.tenant_id === tenantId && j.class_id === classId
+    && j.schedule_id === scheduleId && j.tanggal === tanggal);
+  if (!entry) {
+    entry = {
+      id: uuidv4(),
+      tenant_id: tenantId,
+      class_id: classId,
+      schedule_id: scheduleId,
+      tanggal,
+      ketua_id: ketuaId || '',
+      materi: '',
+      kegiatan: '',
+      attendance: [],
+      source: source || 'ketua',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    db.jurnal.push(entry);
+  }
+  return entry;
+}
+
+// Tandai hadir otomatis saat siswa membuka LMS di dalam radius sekolah.
+function autoPresensiFromGeo(db, user, student, meta) {
+  if (!student || meta.geo_lat === null || meta.geo_lng === null) return null;
+  const tenant = db.tenants.find(t => t.id === student.tenant_id);
+  const school = tenant && tenant.school;
+  if (!school || !Number.isFinite(Number(school.lat)) || !Number.isFinite(Number(school.lng))) return null;
+  const radius = Number(school.radius_m) || 500;
+  const jarak = distanceMeters(Number(school.lat), Number(school.lng), meta.geo_lat, meta.geo_lng);
+  if (jarak > radius) return null;
+  const now = wibNow();
+  const schedule = db.schedules.find(s => s.tenant_id === student.tenant_id
+    && s.class_id === student.class_id && s.hari === now.hari && scheduleWindowOpen(s, now.time));
+  if (!schedule) return null;
+  const entry = ensureJurnal(db, {
+    tenantId: student.tenant_id,
+    classId: student.class_id,
+    scheduleId: schedule.id,
+    tanggal: now.date,
+    ketuaId: (db.classes.find(c => c.id === student.class_id) || {}).ketua_id || '',
+    source: 'auto'
+  });
+  if (!Array.isArray(entry.attendance)) entry.attendance = [];
+  const row = entry.attendance.find(a => a.student_id === student.id);
+  if (!row) {
+    entry.attendance.push({ student_id: student.id, nis: student.nis, nama: student.nama, status: 'H', keterangan: 'Otomatis (dalam area sekolah)', auto: true });
+  } else if (!row.status) {
+    row.status = 'H';
+    row.keterangan = row.keterangan || 'Otomatis (dalam area sekolah)';
+    row.auto = true;
+  }
+  entry.updated_at = new Date().toISOString();
+  return { schedule, jarak };
+}
+
 // ===== MONITOR USER AKTIF =====
+app.get('/api/jurnal', requireAuth, requireTenant, async (req, res) => {
+  const db = req.db || await loadDB();
+  const student = db.students.find(s => s.id === studentIdOf(db, req.user));
+  if (!student) return res.status(403).json({ error: 'Hanya siswa' });
+  const classItem = ketuaClassOf(db, student.id);
+  if (!classItem) return res.status(403).json({ error: 'Menu jurnal hanya untuk ketua kelas' });
+
+  const now = wibNow();
+  const roster = db.students
+    .filter(s => s.class_id === classItem.id)
+    .map(s => ({ id: s.id, nis: s.nis || '', nama: s.nama || '' }))
+    .sort((a, b) => a.nama.localeCompare(b.nama, 'id'));
+  const schedules = db.schedules
+    .filter(s => s.tenant_id === student.tenant_id && s.class_id === classItem.id && s.hari === now.hari)
+    .sort((a, b) => String(a.jam_mulai).localeCompare(String(b.jam_mulai)))
+    .map(s => {
+      const subject = db.subjects.find(x => x.id === s.subject_id);
+      return {
+        id: s.id,
+        subject_id: s.subject_id,
+        mapel: subject ? subject.nama : '-',
+        jam_mulai: s.jam_mulai,
+        jam_selesai: s.jam_selesai,
+        open: scheduleWindowOpen(s, now.time)
+      };
+    });
+  const active = schedules.find(s => s.id === String(req.query.schedule_id || ''))
+    || schedules.find(s => s.open)
+    || schedules[0]
+    || null;
+  const entry = active
+    ? (db.jurnal || []).find(j => j.tenant_id === student.tenant_id && j.class_id === classItem.id
+      && j.schedule_id === active.id && j.tanggal === now.date) || null
+    : null;
+
+  res.json({
+    date: now.date,
+    time: now.time,
+    hari: now.hari,
+    role: 'ketua',
+    class: { id: classItem.id, nama: classItem.nama },
+    roster,
+    schedules,
+    active_schedule_id: active ? active.id : '',
+    can_fill: schedules.length > 0,
+    window_open: active ? active.open : false,
+    entry
+  });
+});
+
+app.post('/api/jurnal', requireAuth, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const student = db.students.find(s => s.id === studentIdOf(db, req.user));
+  if (!student) return res.status(403).json({ error: 'Hanya siswa' });
+  const classItem = ketuaClassOf(db, student.id);
+  if (!classItem) return res.status(403).json({ error: 'Menu jurnal hanya untuk ketua kelas' });
+
+  const schedule = db.schedules.find(s => s.id === req.body?.schedule_id
+    && s.tenant_id === student.tenant_id && s.class_id === classItem.id);
+  if (!schedule) return res.status(400).json({ error: 'Jadwal pelajaran tidak valid untuk kelas ini' });
+
+  const now = wibNow();
+  const tanggal = String(req.body?.tanggal || now.date);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(tanggal)) return res.status(400).json({ error: 'Tanggal tidak valid' });
+  if (tanggal !== now.date) return res.status(400).json({ error: 'Jurnal hanya dapat diisi untuk hari ini' });
+
+  const materi = String(req.body?.materi || '').trim().slice(0, 300);
+  const kegiatan = String(req.body?.kegiatan || '').trim().slice(0, 1000);
+  const allowed = ['H', 'I', 'S', 'D', 'A'];
+  const rows = Array.isArray(req.body?.attendance) ? req.body.attendance : [];
+  const roster = db.students.filter(s => s.class_id === classItem.id);
+  const attendance = roster.map(s => {
+    const found = rows.find(r => r.student_id === s.id) || {};
+    const status = allowed.includes(found.status) ? found.status : '';
+    return {
+      student_id: s.id,
+      nis: s.nis || '',
+      nama: s.nama || '',
+      status,
+      keterangan: String(found.keterangan || '').slice(0, 120)
+    };
+  });
+
+  const entry = ensureJurnal(db, {
+    tenantId: student.tenant_id,
+    classId: classItem.id,
+    scheduleId: schedule.id,
+    tanggal,
+    ketuaId: student.id,
+    source: 'ketua'
+  });
+  entry.materi = materi || entry.materi;
+  entry.kegiatan = kegiatan || entry.kegiatan;
+  entry.attendance = attendance;
+  entry.ketua_id = student.id;
+  entry.ketua_nama = student.nama || '';
+  entry.filled_at = now.time;
+  entry.window_open = scheduleWindowOpen(schedule, now.time);
+  entry.outside_window = !entry.window_open;
+  entry.updated_at = new Date().toISOString();
+
+  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal mengajar', `${classItem.nama} · ${schedule.jam_mulai}`));
+  await saveDB(db);
+
+  // Kirim ke SIMANIS bila webhook dikonfigurasi (opsional, tidak memblokir respons).
+  const webhook = (process.env.SIMANIS_WEBHOOK_URL || '').trim();
+  if (webhook) {
+    const subject = db.subjects.find(s => s.id === schedule.subject_id);
+    fetch(webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(process.env.SIMANIS_TOKEN ? { Authorization: `Bearer ${process.env.SIMANIS_TOKEN}` } : {}) },
+      body: JSON.stringify({
+        source: 'Geo Edulabs',
+        tenant_id: student.tenant_id,
+        tanggal,
+        kelas: classItem.nama,
+        mapel: subject ? subject.nama : '',
+        jam_mulai: schedule.jam_mulai,
+        jam_selesai: schedule.jam_selesai,
+        materi: entry.materi,
+        kegiatan: entry.kegiatan,
+        attendance: entry.attendance
+      })
+    }).catch(error => console.error('Kirim jurnal ke SIMANIS gagal:', error));
+  }
+
+  res.json({ success: true, entry });
+});
+
+app.get('/api/admin/sekolah', requireAuth, requireAdmin, async (req, res) => {
+  const db = await loadDB();
+  const tenant = db.tenants.find(t => t.id === req.tenantId);
+  if (!tenant) return res.status(404).json({ error: 'Tenant tidak ditemukan' });
+  res.json(tenant.school || { lat: null, lng: null, radius_m: 500 });
+});
+
+app.put('/api/admin/sekolah', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const lat = Number(req.body?.lat);
+  const lng = Number(req.body?.lng);
+  const radius = Number(req.body?.radius_m) || 500;
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) {
+    return res.status(400).json({ error: 'Koordinat sekolah tidak valid' });
+  }
+  const db = await loadDB();
+  const tenant = db.tenants.find(t => t.id === req.tenantId);
+  if (!tenant) return res.status(404).json({ error: 'Tenant tidak ditemukan' });
+  tenant.school = { lat, lng, radius_m: Math.min(5000, Math.max(50, Math.round(radius))) };
+  await saveDB(db);
+  res.json({ success: true, school: tenant.school });
+});
+
+app.get('/api/admin/jurnal', requireAuth, requireStaff, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const tanggal = String(req.query.tanggal || wibNow().date);
+  const rows = (db.jurnal || [])
+    .filter(j => j.tenant_id === req.tenantId && j.tanggal === tanggal)
+    .map(j => {
+      const classItem = db.classes.find(c => c.id === j.class_id);
+      const schedule = db.schedules.find(s => s.id === j.schedule_id);
+      const subject = schedule && db.subjects.find(s => s.id === schedule.subject_id);
+      const att = j.attendance || [];
+      return {
+        id: j.id,
+        tanggal: j.tanggal,
+        kelas: classItem ? classItem.nama : '-',
+        mapel: subject ? subject.nama : '-',
+        jam: schedule ? `${schedule.jam_mulai}-${schedule.jam_selesai}` : '-',
+        materi: j.materi || '',
+        kegiatan: j.kegiatan || '',
+        ketua: j.ketua_nama || '',
+        guru: j.guru_nama || '',
+        sumber: j.source || '',
+        hadir: att.filter(a => a.status === 'H').length,
+        sakit: att.filter(a => a.status === 'S').length,
+        izin: att.filter(a => a.status === 'I').length,
+        dispensasi: att.filter(a => a.status === 'D').length,
+        alpa: att.filter(a => a.status === 'A').length,
+        total: att.length,
+        terisi: att.filter(a => a.status).length,
+        attendance: att
+      };
+    })
+    .sort((a, b) => `${a.jam}${a.kelas}`.localeCompare(`${b.jam}${b.kelas}`));
+  res.json({ tanggal, rows });
+});
+
+// Ekspor siap-kirim ke SIMANIS (JSON). Bila SIMANIS_WEBHOOK_URL diset, data juga dikirim otomatis saat jurnal disimpan.
+// Guru/admin mengisi atau memperbarui jurnal kelas (termasuk presensi).
+app.post('/api/admin/jurnal', requireAuth, requireStaff, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const classItem = db.classes.find(c => c.id === req.body?.class_id && c.tenant_id === req.tenantId);
+  if (!classItem) return res.status(400).json({ error: 'Kelas tidak valid' });
+  const schedule = db.schedules.find(s => s.id === req.body?.schedule_id
+    && s.tenant_id === req.tenantId && s.class_id === classItem.id);
+  if (!schedule) return res.status(400).json({ error: 'Jadwal pelajaran tidak valid untuk kelas ini' });
+
+  const tanggal = String(req.body?.tanggal || wibNow().date);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(tanggal)) return res.status(400).json({ error: 'Tanggal tidak valid' });
+
+  const allowed = ['H', 'I', 'S', 'D', 'A'];
+  const rows = Array.isArray(req.body?.attendance) ? req.body.attendance : [];
+  const roster = db.students.filter(s => s.class_id === classItem.id);
+  const attendance = roster.map(s => {
+    const found = rows.find(r => r.student_id === s.id) || {};
+    return {
+      student_id: s.id,
+      nis: s.nis || '',
+      nama: s.nama || '',
+      status: allowed.includes(found.status) ? found.status : '',
+      keterangan: String(found.keterangan || '').slice(0, 120)
+    };
+  });
+
+  const entry = ensureJurnal(db, {
+    tenantId: req.tenantId,
+    classId: classItem.id,
+    scheduleId: schedule.id,
+    tanggal,
+    ketuaId: classItem.ketua_id || '',
+    source: 'guru'
+  });
+  entry.materi = String(req.body?.materi || '').trim().slice(0, 300) || entry.materi;
+  entry.kegiatan = String(req.body?.kegiatan || '').trim().slice(0, 1000) || entry.kegiatan;
+  entry.attendance = attendance;
+  entry.source = 'guru';
+  entry.guru_id = req.user.id;
+  entry.guru_nama = req.user.nama || req.user.email || '';
+  entry.updated_at = new Date().toISOString();
+
+  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal (guru)', `${classItem.nama} · ${schedule.jam_mulai}`));
+  await saveDB(db);
+
+  const webhook = (process.env.SIMANIS_WEBHOOK_URL || '').trim();
+  if (webhook) {
+    const subject = db.subjects.find(s => s.id === schedule.subject_id);
+    fetch(webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(process.env.SIMANIS_TOKEN ? { Authorization: `Bearer ${process.env.SIMANIS_TOKEN}` } : {}) },
+      body: JSON.stringify({
+        source: 'Geo Edulabs',
+        tenant_id: req.tenantId,
+        tanggal,
+        kelas: classItem.nama,
+        mapel: subject ? subject.nama : '',
+        jam_mulai: schedule.jam_mulai,
+        jam_selesai: schedule.jam_selesai,
+        materi: entry.materi,
+        kegiatan: entry.kegiatan,
+        attendance: entry.attendance
+      })
+    }).catch(error => console.error('Kirim jurnal ke SIMANIS gagal:', error));
+  }
+
+  res.json({ success: true, entry });
+});
+
+app.get('/api/admin/simanis/export', requireAuth, requireStaff, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const tanggal = String(req.query.tanggal || wibNow().date);
+  const tenant = db.tenants.find(t => t.id === req.tenantId) || {};
+  const rows = [];
+  (db.jurnal || [])
+    .filter(j => j.tenant_id === req.tenantId && j.tanggal === tanggal)
+    .forEach(j => {
+      const classItem = db.classes.find(c => c.id === j.class_id);
+      const schedule = db.schedules.find(s => s.id === j.schedule_id);
+      const subject = schedule && db.subjects.find(s => s.id === schedule.subject_id);
+      (j.attendance || []).forEach(a => {
+        rows.push({
+          tanggal,
+          nis: a.nis || '',
+          nama: a.nama || '',
+          kelas: classItem ? classItem.nama : '',
+          mapel: subject ? subject.nama : '',
+          jam_mulai: schedule ? schedule.jam_mulai : '',
+          jam_selesai: schedule ? schedule.jam_selesai : '',
+          status: a.status || '',
+          keterangan: a.keterangan || '',
+          materi: j.materi || '',
+          kegiatan: j.kegiatan || '',
+          sekolah: tenant.nama || ''
+        });
+      });
+    });
+  res.json({ source: 'Geo Edulabs', tanggal, sekolah: tenant.nama || '', total: rows.length, rows });
+});
+
 app.get('/api/admin/sessions', requireAuth, requireAdmin, async (req, res) => {
   const db = await loadDB();
   const now = Date.now();
@@ -527,6 +965,10 @@ app.get('/api/admin/sessions', requireAuth, requireAdmin, async (req, res) => {
       kelas_nama: s.kelas_nama || '',
       ip: s.ip || '',
       lokasi: s.lokasi || '',
+      geo_lat: s.geo_lat ?? null,
+      geo_lng: s.geo_lng ?? null,
+      geo_accuracy: s.geo_accuracy ?? null,
+      geo_source: s.geo_source || '',
       ua: s.ua || '',
       login_at: s.login_at || null,
       last_seen_at: s.last_seen_at || null,
@@ -619,25 +1061,50 @@ app.delete('/api/subjects/:id', requireAuth, requireAdmin, requireTenant, async 
 
 // ===== CLASSES =====
 app.get('/api/classes', requireAuth, requireTenant, async (req, res) => {
-  const cacheKey = `classes:${req.tenantId}`;
-  let classes = await cacheGet(cacheKey);
-  
-  if (!classes) {
-    const db = await loadDB();
-    classes = db.classes
-      .filter(c => c.tenant_id === req.tenantId)
-      .map(c => ({
+  const db = await loadDB();
+  const classes = db.classes
+    .filter(c => c.tenant_id === req.tenantId)
+    .map(c => {
+      const ketua = c.ketua_id ? db.students.find(s => s.id === c.ketua_id) : null;
+      return {
         id: c.id,
         nama: c.nama,
         tingkat: c.tingkat,
         jurusan: c.jurusan,
-       wali_kelas: c.wali_kelas,
+        wali_kelas: c.wali_kelas,
+        ketua_id: c.ketua_id || '',
+        ketua_nama: ketua ? ketua.nama : '',
         created_at: c.created_at
-      }));
-    await cacheSet(cacheKey, classes, 600);
-  }
-  
+      };
+    });
   res.json(classes);
+});
+
+// Tunjuk satu siswa sebagai ketua kelas (hanya admin).
+app.put('/api/classes/:id/ketua', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const classItem = db.classes.find(c => c.id === req.params.id && c.tenant_id === req.tenantId);
+  if (!classItem) return res.status(404).json({ error: 'Kelas tidak ditemukan' });
+  const studentId = String(req.body?.student_id || '');
+  if (!studentId) {
+    classItem.ketua_id = '';
+    await saveDB(db);
+    await cacheDel(`classes:${req.tenantId}`);
+    return res.json({ success: true, ketua_id: '' });
+  }
+  const student = db.students.find(s => s.id === studentId && s.tenant_id === req.tenantId);
+  if (!student) return res.status(404).json({ error: 'Siswa tidak ditemukan' });
+  if (student.class_id !== classItem.id) {
+    return res.status(400).json({ error: 'Siswa bukan anggota kelas ini' });
+  }
+  // Satu ketua per kelas; hapus penugasan lama di kelas lain bila ada.
+  db.classes.forEach(c => { if (c.ketua_id === student.id) c.ketua_id = ''; });
+  classItem.ketua_id = student.id;
+  student.is_ketua = true;
+  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Menetapkan ketua kelas', `${classItem.nama}: ${student.nama}`));
+  await saveDB(db);
+  await cacheDel(`classes:${req.tenantId}`);
+  res.json({ success: true, ketua_id: student.id, ketua_nama: student.nama });
 });
 
 app.post('/api/classes', requireAuth, requireAdmin, requireTenant, async (req, res) => {
@@ -650,7 +1117,7 @@ app.post('/api/classes', requireAuth, requireAdmin, requireTenant, async (req, r
     nama,
     tingkat,
     jurusan,
-    wali_kelas,
+    wali_kelas: wali_kelas || '',
     created_by: req.user.id,
     created_at: new Date().toISOString()
   };
@@ -1522,18 +1989,70 @@ app.post('/api/register', requireAuth, requireAdmin, async (req, res) => {
     password: bcrypt.hashSync(password, 10),
     nama,
     role,
-    tenant_id: req.user.role === 'super_admin' ? (req.body.tenant_id || null) : req.session.tenantId
+    // Guru/staf baru harus menempel ke sekolah agar langsung tampil di profil & dashboard.
+    tenant_id: req.body.tenant_id
+      || req.session.tenantId
+      || ((db.tenants || []).length === 1 ? db.tenants[0].id : null)
   };
   
   db.users.push(user);
   await saveDB(db);
-  
+
   res.json({
     id: user.id,
     email: user.email,
     nama: user.nama,
     role: user.role,
     tenant_id: user.tenant_id
+  });
+});
+
+// Admin: perbarui akun guru/staf (nama, peran, sekolah, atau password).
+app.put('/api/users/:id', requireAuth, requireAdmin, async (req, res) => {
+  const db = await loadDB();
+  const user = db.users.find(u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ error: 'Akun tidak ditemukan' });
+  if (user.role === 'student' && req.user.role !== 'super_admin') {
+    return res.status(403).json({ error: 'Akun siswa hanya dapat diubah super admin' });
+  }
+
+  if (req.body.nama !== undefined) user.nama = String(req.body.nama).trim().slice(0, 120);
+  if (req.body.email !== undefined) {
+    const email = String(req.body.email).trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: 'Email tidak valid' });
+    }
+    if (db.users.some(u => u.id !== user.id && String(u.email || '').toLowerCase() === email)) {
+      return res.status(400).json({ error: 'Email sudah dipakai akun lain' });
+    }
+    user.email = email;
+  }
+  if (req.body.role !== undefined) {
+    if (!['teacher', 'admin', 'super_admin'].includes(req.body.role)) {
+      return res.status(400).json({ error: 'Peran tidak valid' });
+    }
+    if (req.body.role === 'super_admin' && req.user.role !== 'super_admin') {
+      return res.status(403).json({ error: 'Hanya super admin dapat membuat super admin' });
+    }
+    user.role = req.body.role;
+  }
+  if (req.body.tenant_id !== undefined) {
+    const target = req.body.tenant_id ? db.tenants.find(t => t.id === req.body.tenant_id) : null;
+    if (req.body.tenant_id && !target) return res.status(400).json({ error: 'Tenant tidak ditemukan' });
+    user.tenant_id = target ? target.id : null;
+  }
+  if (req.body.password) {
+    if (String(req.body.password).length < 8) {
+      return res.status(400).json({ error: 'Password minimal 8 karakter' });
+    }
+    user.password = bcrypt.hashSync(String(req.body.password), 10);
+    delete user.password_changed_at;
+  }
+  user.updated_at = new Date().toISOString();
+  await saveDB(db);
+  res.json({
+    success: true,
+    user: { id: user.id, email: user.email, nama: user.nama, role: user.role, tenant_id: user.tenant_id }
   });
 });
 
@@ -1558,6 +2077,12 @@ app.post('/api/login', async (req, res) => {
   req.session.role = user.role;
   req.session.nama = user.nama;
   req.session.tenantId = user.tenant_id;
+  // Akun tanpa tenant (mis. super admin / guru yang dibuat tanpa tenant): bila sekolah
+  // hanya satu, pilih otomatis agar tidak perlu memilih manual dan data langsung tampil.
+  if (!req.session.tenantId && ['super_admin', 'admin', 'teacher'].includes(user.role)
+    && (db.tenants || []).length === 1) {
+    req.session.tenantId = db.tenants[0].id;
+  }
   req.session.sid = uuidv4();
   touchSession(db, req, user);
   db.activity_logs.push(makeActivityRecord(db, req, user, 'Login berhasil', 'Sesi dimulai'));
@@ -1672,8 +2197,20 @@ app.post('/api/auth/login', async (req, res) => {
   const body = req.body || {};
   const identifier = String(body.identifier ?? body.email ?? body.username ?? '').trim();
   const password = String(body.password || '');
-  const lockKey = await guardLogin(req, res, identifier);
-  if (!lockKey) return;
+  // Password yang benar selalu diizinkan agar pengguna sah tidak terkunci.
+  const lockKey = loginKey(req, identifier);
+  const failResponse = async () => {
+    await loginFail(lockKey);
+    const left = await loginLockMs(lockKey);
+    if (left > 0) {
+      res.set('Retry-After', String(Math.ceil(left / 1000)));
+      return res.status(429).json({
+        error: `Terlalu banyak percobaan. Coba lagi dalam ${Math.ceil(left / 1000)} detik.`,
+        retry_after: Math.ceil(left / 1000)
+      });
+    }
+    return res.status(401).json({ error: 'Identitas atau password salah' });
+  };
 
   const db = await loadDB();
   const staff = findStaffByIdentifier(db, identifier);
@@ -1682,8 +2219,7 @@ app.post('/api/auth/login', async (req, res) => {
 
   if (staff) {
     if (!bcrypt.compareSync(password, staff.password)) {
-      await loginFail(lockKey);
-      return res.status(401).json({ error: 'Identitas atau password salah' });
+      return failResponse();
     }
     user = staff;
   } else {
@@ -1691,8 +2227,7 @@ app.post('/api/auth/login', async (req, res) => {
     user = student ? await verifyStudentPassword(db, student, password) : null;
     if (!user) {
       if (!student) bcrypt.compareSync(password, DUMMY_HASH);
-      await loginFail(lockKey);
-      return res.status(401).json({ error: 'Identitas atau password salah' });
+      return failResponse();
     }
   }
 
@@ -1704,6 +2239,12 @@ app.post('/api/auth/login', async (req, res) => {
   req.session.sid = uuidv4();
   touchSession(db, req, user);
   db.activity_logs.push(makeActivityRecord(db, req, user, 'Login berhasil', 'Sesi dimulai'));
+  if (student) {
+    const auto = autoPresensiFromGeo(db, user, student, clientMeta(req));
+    if (auto) {
+      db.activity_logs.push(makeActivityRecord(db, req, user, 'Presensi otomatis', `Dalam radius ${auto.jarak} m dari sekolah`));
+    }
+  }
   await saveDB(db);
 
   const payload = {
@@ -1717,8 +2258,30 @@ app.post('/api/auth/login', async (req, res) => {
     payload.student_id = student.id;
     payload.class_id = student.class_id;
     payload.nis = student.nis;
+    payload.is_ketua = !!ketuaClassOf(db, student.id);
+    payload.whatsapp = student.whatsapp || '';
   }
   res.json(payload);
+});
+
+// Nomor WhatsApp siswa untuk notifikasi tugas & evaluasi.
+app.post('/api/me/whatsapp', requireAuth, async (req, res) => {
+  const normalized = whatsappSender.normalizePhone(req.body?.whatsapp);
+  if (!normalized) {
+    return res.status(400).json({ error: 'Nomor WhatsApp tidak valid. Gunakan format 08…, +62…, atau 62…' });
+  }
+  const db = await loadDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  user.whatsapp = normalized;
+  const student = db.students.find(s => s.user_id === user.id || (user.student_id && s.id === user.student_id));
+  if (student) {
+    student.whatsapp = normalized;
+    student.whatsapp_updated_at = new Date().toISOString();
+  }
+  db.activity_logs.push(makeActivityRecord(db, req, user, 'Simpan nomor WhatsApp', `Nomor ${normalized}`));
+  await saveDB(db);
+  res.json({ success: true, whatsapp: normalized });
 });
 
 // Ganti password sendiri (semua role; siswa diizinkan lewat allowlist).
@@ -1832,12 +2395,22 @@ app.get('/api/me', async (req, res) => {
     );
     if (student) {
       resp.password_changed_at = user.password_changed_at || student.password_changed_at || null;
+      resp.whatsapp = student.whatsapp || user.whatsapp || '';
+      resp.is_ketua = !!ketuaClassOf(db, student.id);
       const classItem = db.classes.find(c => c.id === student.class_id);
       resp.student_id = student.id;
       resp.class_id = student.class_id;
       resp.nis = student.nis;
       resp.kelas_nama = classItem ? classItem.nama : '-';
       resp.kelas_level = String(student.kelas_level || (classItem && classItem.tingkat) || '').toUpperCase();
+      // Nama guru yang ditampilkan di profil: guru pengampu jadwal kelas, lalu guru tenant.
+      const jadwalGuru = (db.schedules || []).find(s => s.class_id === student.class_id && s.guru && String(s.guru).trim());
+      const guruTenant = (db.users || []).find(u => u.role === 'teacher'
+        && (!student.tenant_id || u.tenant_id === student.tenant_id) && u.nama);
+      resp.wali_kelas = (jadwalGuru && String(jadwalGuru.guru).trim())
+        || (classItem && classItem.wali_kelas)
+        || (guruTenant && guruTenant.nama)
+        || '';
     }
   } else {
     resp.password_changed_at = user.password_changed_at || null;
@@ -2056,6 +2629,159 @@ app.delete('/api/schedules/:id', requireAuth, requireAdmin, requireTenant, async
   res.json({ success: true });
 });
 
+// ===== RESTORE (super admin) =====
+// Memulihkan isi database dari berkas cadangan. Akun admin yang sedang aktif selalu dipertahankan.
+app.post('/api/admin/restore', requireAuth, requireAdmin, async (req, res) => {
+  if (req.user.role !== 'super_admin') {
+    return res.status(403).json({ error: 'Hanya super admin yang dapat memulihkan database' });
+  }
+
+  const body = req.body || {};
+  if (body.confirm !== 'RESTORE') {
+    return res.status(400).json({ error: 'Konfirmasi "RESTORE" wajib dikirim' });
+  }
+
+  const payload = body.data;
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return res.status(400).json({ error: 'Payload data tidak valid' });
+  }
+
+  const db = await loadDB();
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const backupPath = `${DB_PATH}.backup-restore-${stamp}`;
+  await fs.copyFile(DB_PATH, backupPath);
+
+  const staff = db.users.filter(u => u.role === 'admin' || u.role === 'super_admin');
+  const staffIds = new Set(staff.map(u => u.id));
+  const staffEmails = new Set(staff.map(u => String(u.email || '').toLowerCase()));
+  const incomingUsers = Array.isArray(payload.users) ? payload.users : [];
+  db.users = staff.concat(incomingUsers.filter(u => u && !staffIds.has(u.id)
+    && !staffEmails.has(String(u.email || '').toLowerCase())));
+
+  const tables = ['tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams',
+    'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts',
+    'session_logs', 'activity_logs', 'whatsapp_jobs', 'whatsapp_logs', 'jurnal'];
+  const counts = {};
+  tables.forEach(k => {
+    if (!Array.isArray(payload[k])) return;
+    db[k] = payload[k];
+    counts[k] = payload[k].length;
+  });
+  counts.users = db.users.length;
+
+  await saveDB(db);
+  res.json({ success: true, backup: path.basename(backupPath), counts });
+});
+
+// ===== SNAPSHOT BERKALA =====
+// Salinan otomatis tiap 15 menit (default) agar pekerjaan siswa/guru tidak pernah
+// hilang lebih dari satu interval, berapa pun penyebabnya.
+const SNAPSHOT_INTERVAL_MS = Number(process.env.LMS_SNAPSHOT_INTERVAL_MS || 15 * 60 * 1000);
+const SNAPSHOT_KEEP = Number(process.env.LMS_SNAPSHOT_KEEP || 48);
+
+async function snapshotDB() {
+  try {
+    const current = await loadDB();
+    if (!dataStore.hasData(current)) return; // jangan simpan keadaan kosong
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const dir = path.dirname(DB_PATH);
+    const prefix = `${path.basename(DB_PATH)}.snap-`;
+    await fs.writeFile(path.join(dir, `${prefix}${stamp}`), JSON.stringify(current, null, 2));
+    const files = (await fs.readdir(dir)).filter(f => f.startsWith(prefix)).sort();
+    for (const f of files.slice(0, Math.max(0, files.length - SNAPSHOT_KEEP))) {
+      await fs.unlink(path.join(dir, f)).catch(() => {});
+    }
+  } catch (error) {
+    console.error('[db] Snapshot berkala gagal:', error.message);
+  }
+}
+
+function startSnapshotScheduler() {
+  if (!(SNAPSHOT_INTERVAL_MS > 0)) return;
+  snapshotDB();
+  const timer = setInterval(snapshotDB, SNAPSHOT_INTERVAL_MS);
+  if (timer && typeof timer.unref === 'function') timer.unref();
+}
+
+// ===== DIAGNOSTIK & PEMULIHAN BERKAS (super admin) =====
+// Membantu memeriksa cadangan dan memulihkannya tanpa harus masuk ke console server.
+app.get('/api/admin/db-status', requireAuth, async (req, res) => {
+  if (req.user.role !== 'super_admin') return res.status(403).json({ error: 'Hanya super admin' });
+  const dir = path.dirname(DB_PATH);
+  const files = [];
+  for (const name of (await fs.readdir(dir)).filter(n => n === 'db.json' || n.startsWith('db.json.'))) {
+    const full = path.join(dir, name);
+    try {
+      const stat = await fs.stat(full);
+      if (!stat.isFile()) continue;
+      let counts = 'unreadable';
+      try {
+        const data = JSON.parse(await fs.readFile(full, 'utf-8'));
+        counts = {
+          users: (data.users || []).length,
+          teachers: (data.users || []).filter(u => u.role === 'teacher').length,
+          students: (data.students || []).length,
+          exams: (data.exams || []).length,
+          grades: (data.grades || []).length,
+          attendance: (data.attendance || []).length,
+          jurnal: (data.jurnal || []).length,
+          attempts: (data.attempts || []).length,
+          progress: (data.progress || []).length,
+          whatsapp_logs: (data.whatsapp_logs || []).length
+        };
+      } catch { /* biarkan 'unreadable' */ }
+      files.push({ file: name, size: stat.size, mtime: stat.mtime, counts });
+    } catch { /* lewati berkas yang tidak terbaca */ }
+  }
+  files.sort((a, b) => String(b.mtime).localeCompare(String(a.mtime)));
+  const live = await loadDB().then(db => dataStore.countsOf(db)).catch(() => null);
+  res.json({ path: DB_PATH, store: dataStore.status(), live, files });
+});
+
+app.post('/api/admin/restore-file', requireAuth, async (req, res) => {
+  if (req.user.role !== 'super_admin') return res.status(403).json({ error: 'Hanya super admin' });
+  const body = req.body || {};
+  if (body.confirm !== 'RESTORE-FILE') {
+    return res.status(400).json({ error: 'Konfirmasi "RESTORE-FILE" wajib dikirim' });
+  }
+  const name = String(body.file || '').trim();
+  if (!/^db\.json\.(backup|daily|prev|before|snap)[A-Za-z0-9._-]*$/.test(name)) {
+    return res.status(400).json({ error: 'Nama berkas cadangan tidak valid' });
+  }
+  const source = path.join(path.dirname(DB_PATH), name);
+  if (!(await fileExists(source))) return res.status(404).json({ error: 'Berkas cadangan tidak ditemukan' });
+  let incoming;
+  try {
+    incoming = normalizeDB(JSON.parse(await fs.readFile(source, 'utf-8')));
+  } catch (error) {
+    return res.status(400).json({ error: 'Berkas cadangan rusak: ' + error.message });
+  }
+  const db = await loadDB();
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  await fs.copyFile(DB_PATH, `${DB_PATH}.backup-before-file-restore-${stamp}`).catch(() => {});
+  // Pertahankan akun staf yang sedang ada agar login tidak terputus setelah pemulihan.
+  const staff = (db.users || []).filter(u => u.role === 'admin' || u.role === 'super_admin');
+  const staffIds = new Set(staff.map(u => u.id));
+  const staffEmails = new Set(staff.map(u => String(u.email || '').toLowerCase()));
+  incoming.users = staff.concat((incoming.users || []).filter(u => u && !staffIds.has(u.id)
+    && !staffEmails.has(String(u.email || '').toLowerCase())));
+  await saveDB(incoming);
+  res.json({
+    success: true,
+    source: name,
+    counts: {
+      users: incoming.users.length,
+      teachers: incoming.users.filter(u => u.role === 'teacher').length,
+      students: (incoming.students || []).length,
+      exams: (incoming.exams || []).length,
+      grades: (incoming.grades || []).length,
+      attendance: (incoming.attendance || []).length,
+      jurnal: (incoming.jurnal || []).length,
+      attempts: (incoming.attempts || []).length
+    }
+  });
+});
+
 // ===== SEED =====
 app.post('/api/seed', requireAuth, requireAdmin, requireTenant, async (req, res) => {
   const db = req.db;
@@ -2166,7 +2892,8 @@ require('./kurikulum').registerKurikulum(app, {
   requireAuth,
   requireTenant,
   requireAdmin,
-  cacheDel
+  cacheDel,
+  notifyStudent: (tenantId, studentId, text) => whatsappSender.notifyStudent(loadDB, saveDB, tenantId, studentId, text)
 });
 whatsappSender.registerWhatsAppRoutes(app, {
   loadDB,
@@ -2178,10 +2905,24 @@ whatsappSender.registerWhatsAppRoutes(app, {
 
 const PORT = process.env.PORT || 3000;
 (async () => {
-  await initDB();
+  try {
+    await dataStore.init({ dbPath: DB_PATH });
+    const info = dataStore.status();
+    console.log(`[db] backend=${info.backend}${info.sqlitePath ? ` (${info.sqlitePath})` : ''}`);
+  } catch (error) {
+    console.error('[db] Inisialisasi penyimpanan gagal:', error.message);
+  }
+  try {
+    await initDB();
+  } catch (error) {
+    // Berkas DB ada tetapi rusak: jangan menyemai admin baru di atasnya.
+    // Server tetap hidup agar admin bisa memakai /api/admin/db-status + restore-file.
+    console.error('[db] Inisialisasi database gagal:', error.message);
+  }
   app.listen(PORT, () => {
     console.log(`LMS Multi-Tenant running on http://localhost:${PORT}`);
   });
+  startSnapshotScheduler();
   whatsappSender.startScheduler(loadDB, saveDB);
   whatsappSender.initializeWhatsApp(loadDB, saveDB).catch(error => {
     console.error('WhatsApp sender gagal diinisialisasi:', error);

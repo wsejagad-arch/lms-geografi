@@ -4,6 +4,13 @@ let currentUser = null;
 let currentTenant = null;
 let deferredInstallPrompt = null;
 
+// Escape teks sebelum masuk innerHTML. sanitize.js (lmsEsc) dimuat lebih dulu;
+// fallback dipakai bila urutan skrip berubah agar notifikasi/jurnal tetap tampil.
+const kurEsc = (value) => (typeof lmsEsc === 'function'
+  ? lmsEsc(value)
+  : String(value === undefined || value === null ? '' : value)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'));
+
 window.addEventListener('beforeinstallprompt', event => {
   event.preventDefault();
   deferredInstallPrompt = event;
@@ -59,11 +66,11 @@ function bindLogoutButton() {
   btn.addEventListener('click', async (e) => {
     e.preventDefault();
     btn.disabled = true;
-    try { 
+    try {
       LMS_CACHE.invalidate();
-      await LMS.logout(); 
-    } catch { 
-      /* tetap keluar walau request gagal */ 
+      await LMS.logout();
+    } catch {
+      /* tetap keluar walau request gagal */
     }
     window.location.replace('/');
   });
@@ -76,7 +83,7 @@ async function init() {
     window.location.href = '/';
     return;
   }
-  
+
   currentTenant = LMS.getCurrentTenant();
 
   // Populate user identity across UI
@@ -113,7 +120,7 @@ async function init() {
     renderAssignments(),
     renderExam()
   ]);
-  
+
   showSection('dashboard');
   setupNav('dashboard');
   document.getElementById('page-title').textContent = 'Beranda';
@@ -123,14 +130,246 @@ async function init() {
   setupToolbars();
   bindLogoutButton();
   setupProfileSecurity();
+  setupNotifications();
+  setupJurnal();
   setupFirstRunPrompts();
+}
+
+async function setupJurnal() {
+  const nav = document.getElementById('nav-jurnal');
+  if (!nav) return;
+  if (!currentUser?.is_ketua) {
+    nav.classList.add('hidden');
+    return;
+  }
+  nav.classList.remove('hidden');
+  if (nav.dataset.bound !== '1') {
+    nav.dataset.bound = '1';
+    nav.addEventListener('click', event => {
+      event.preventDefault();
+      showSection('jurnal');
+      loadJurnal();
+    });
+  }
+  await loadJurnal();
+}
+
+let jurnalState = null;
+
+async function loadJurnal(scheduleId) {
+  const info = document.getElementById('jurnal-info');
+  const wrap = document.getElementById('jurnal-form-wrap');
+  const roster = document.getElementById('jurnal-roster');
+  const status = document.getElementById('jurnal-status');
+  const picker = document.getElementById('jurnal-schedule');
+  if (!roster) return;
+  try {
+    const data = await LMS.getJurnal(scheduleId);
+    jurnalState = data;
+    const schedules = data.schedules || [];
+    const active = schedules.find(s => s.id === data.active_schedule_id) || null;
+
+    // Jurnal bisa diisi 24 jam: semua jadwal hari ini bisa dipilih.
+    if (picker) {
+      picker.innerHTML = schedules.length
+        ? schedules.map(s => `<option value="${s.id}"${active && s.id === active.id ? ' selected' : ''}>${kurEsc(s.mapel)} · ${s.jam_mulai}–${s.jam_selesai}${s.open ? ' · jam berjalan' : ''}</option>`).join('')
+        : '<option value="">Tidak ada jadwal hari ini</option>';
+      if (picker.dataset.bound !== '1') {
+        picker.dataset.bound = '1';
+        picker.addEventListener('change', () => loadJurnal(picker.value));
+      }
+    }
+
+    if (info) {
+      info.textContent = active
+        ? `${data.class.nama} · ${data.hari}, ${data.date} · ${active.mapel} ${active.jam_mulai}–${active.jam_selesai} · ${active.open ? 'jam pelajaran berjalan' : 'di luar jam pelajaran, jurnal tetap bisa diisi'}`
+        : `${data.class.nama} · ${data.hari}, ${data.date} · belum ada jadwal hari ini`;
+    }
+    if (!active || !data.can_fill) {
+      wrap?.classList.add('hidden');
+      roster.innerHTML = '<tr><td colspan="4" class="text-center">Belum ada jadwal pelajaran untuk hari ini.</td></tr>';
+      return;
+    }
+    wrap?.classList.remove('hidden');
+    const entry = data.entry || {};
+    const saved = new Map((entry.attendance || []).map(a => [a.student_id, a]));
+    roster.innerHTML = (data.roster || []).map(student => {
+      const row = saved.get(student.id) || {};
+      const status = row.status || (entry.updated_at ? '' : 'H');
+      const hadir = status === 'H' || status === '';
+      const nonHadir = ['I', 'S', 'D', 'A'].includes(status) ? status : 'A';
+      return `<tr data-student="${student.id}">
+        <td style="text-align:center"><input type="checkbox" data-hadir${hadir ? ' checked' : ''} aria-label="Hadir ${kurEsc(student.nama)}"></td>
+        <td>${kurEsc(student.nama)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(student.nis || '')}</div></td>
+        <td>
+          <select data-status aria-label="Status ${kurEsc(student.nama)}">
+            <option value="H"${status === 'H' || status === '' ? ' selected' : ''}>H — Hadir</option>
+            <option value="I"${status === 'I' ? ' selected' : ''}>I — Izin</option>
+            <option value="S"${status === 'S' ? ' selected' : ''}>S — Sakit</option>
+            <option value="D"${status === 'D' ? ' selected' : ''}>D — Dispensasi</option>
+            <option value="A"${status === 'A' ? ' selected' : ''}>A — Alpa</option>
+          </select>
+        </td>
+        <td><input data-keterangan value="${kurEsc(row.keterangan || '')}" placeholder="Opsional" style="width:100%;padding:6px 8px;border:1px solid #cfdad4;border-radius:8px"></td>
+      </tr>`;
+    }).join('');
+
+    // Ceklis dan status saling sinkron: centang → H, lepas centang → I/S/D/A terakhir.
+    roster.querySelectorAll('tr[data-student]').forEach(row => {
+      const check = row.querySelector('[data-hadir]');
+      const select = row.querySelector('[data-status]');
+      if (!check || !select) return;
+      check.addEventListener('change', () => {
+        select.value = check.checked ? 'H' : (select.value === 'H' ? 'A' : select.value);
+      });
+      select.addEventListener('change', () => {
+        check.checked = select.value === 'H';
+      });
+    });
+
+    if (status) status.textContent = entry.updated_at ? 'Daftar hadir tersimpan sebelumnya — perbarui bila ada perubahan.' : 'Centang siswa yang hadir lalu simpan.';
+    const allButton = document.getElementById('btn-jurnal-all-hadir');
+    if (allButton && allButton.dataset.bound !== '1') {
+      allButton.dataset.bound = '1';
+      allButton.addEventListener('click', () => {
+        roster.querySelectorAll('tr[data-student]').forEach(row => {
+          const check = row.querySelector('[data-hadir]');
+          const select = row.querySelector('[data-status]');
+          if (check) check.checked = true;
+          if (select) select.value = 'H';
+        });
+      });
+    }
+    const button = document.getElementById('btn-jurnal-save');
+    if (button && button.dataset.bound !== '1') {
+      button.dataset.bound = '1';
+      button.addEventListener('click', saveJurnalForm);
+    }
+  } catch (error) {
+    if (info) info.textContent = error.message || 'Jurnal tidak dapat dimuat.';
+    roster.innerHTML = '';
+  }
+}
+
+async function saveJurnalForm() {
+  const status = document.getElementById('jurnal-status');
+  const roster = document.getElementById('jurnal-roster');
+  if (!jurnalState || !jurnalState.active_schedule_id) return;
+  const attendance = [...roster.querySelectorAll('tr[data-student]')].map(row => {
+    const check = row.querySelector('[data-hadir]');
+    const select = row.querySelector('[data-status]');
+    const checked = check ? check.checked : true;
+    const value = checked ? 'H' : (['I', 'S', 'D', 'A'].includes(select?.value) ? select.value : 'A');
+    return {
+      student_id: row.dataset.student,
+      status: value,
+      keterangan: row.querySelector('[data-keterangan]')?.value || ''
+    };
+  });
+  if (status) { status.textContent = 'Menyimpan...'; status.classList.remove('error', 'success'); }
+  const scheduleId = jurnalState.active_schedule_id;
+  try {
+    await LMS.saveJurnal({
+      schedule_id: scheduleId,
+      tanggal: jurnalState.date,
+      attendance
+    });
+    if (status) { status.textContent = 'Daftar hadir tersimpan dan masuk ke jurnal guru.'; status.classList.add('success'); }
+    await loadJurnal(scheduleId);
+  } catch (error) {
+    if (status) { status.textContent = error.message || 'Gagal menyimpan daftar hadir.'; status.classList.add('error'); }
+  }
+}
+
+async function setupNotifications() {
+  const bell = document.getElementById('btn-notif');
+  const panel = document.getElementById('notif-panel');
+  const list = document.getElementById('notif-list');
+  const badge = document.getElementById('notif-badge');
+  if (!bell || !panel || !list) return;
+
+  const toggle = open => {
+    panel.classList.toggle('hidden', !open);
+    bell.setAttribute('aria-expanded', String(open));
+  };
+  if (bell.dataset.bound !== '1') {
+    bell.dataset.bound = '1';
+    bell.addEventListener('click', event => {
+      event.stopPropagation();
+      toggle(panel.classList.contains('hidden'));
+    });
+    document.getElementById('notif-close')?.addEventListener('click', () => toggle(false));
+    document.addEventListener('click', event => {
+      if (!panel.contains(event.target) && !bell.contains(event.target)) toggle(false);
+    });
+  }
+
+  const items = [];
+  try {
+    const [assignments, kurikulum] = await Promise.all([
+      LMS.getAssignments().catch(() => []),
+      LMS.getKurikulum().catch(() => null)
+    ]);
+    const today = new Date().toISOString().slice(0, 10);
+    (assignments || [])
+      .filter(a => !a.due_date || String(a.due_date).slice(0, 10) >= today)
+      .slice(0, 4)
+      .forEach(a => items.push({
+        title: `Tugas: ${a.judul || 'Tanpa judul'}`,
+        meta: `${a.subject_nama || 'Mapel'}${a.due_date ? ` · tenggat ${String(a.due_date).slice(0, 10)}` : ''}`,
+        tag: 'Tugas',
+        section: 'tugas-saya'
+      }));
+
+    const babs = (kurikulum && (kurikulum.babs || kurikulum.materi)) || [];
+    babs
+      .filter(b => b.unlocked !== false && !b.tuntas)
+      .slice(0, 4)
+      .forEach(b => items.push({
+        title: `Selesaikan evaluasi: ${b.judul || b.id}`,
+        meta: b.attempts ? `Nilai terbaik ${b.best_score ?? 0} · belum tuntas` : 'Belum dikerjakan',
+        tag: 'Evaluasi',
+        section: 'belajar'
+      }));
+  } catch { /* notifikasi bersifat opsional */ }
+
+  if (!currentUser?.whatsapp) {
+    items.push({ title: 'Lengkapi nomor WhatsApp', meta: 'Agar notifikasi tugas & nilai masuk', tag: 'Profil', section: 'profil' });
+  }
+  if (!currentUser?.password_changed_at) {
+    items.push({ title: 'Ganti password awal', meta: 'Amankan akun Anda', tag: 'Profil', section: 'profil' });
+  }
+
+  if (badge) {
+    badge.textContent = items.length > 9 ? '9+' : String(items.length);
+    badge.classList.toggle('hidden', !items.length);
+  }
+  const render = html => {
+    try {
+      list.innerHTML = html;
+    } catch (error) {
+      console.error('Notifikasi gagal ditampilkan:', error);
+      list.innerHTML = '<p class="notif-empty">Notifikasi tidak dapat ditampilkan. Muat ulang halaman.</p>';
+    }
+  };
+  render(items.length
+    ? items.map((item, index) => `<button type="button" class="notif-item" data-notif-index="${index}"><strong>${kurEsc(item.title)}<span class="notif-tag">${kurEsc(item.tag)}</span></strong><span>${kurEsc(item.meta)}</span></button>`).join('')
+    : '<p class="notif-empty">Tidak ada notifikasi. Semua tugas beres 🎉</p>');
+
+  list.querySelectorAll('[data-notif-index]').forEach(button => {
+    button.addEventListener('click', () => {
+      const item = items[Number(button.dataset.notifIndex)];
+      toggle(false);
+      if (item) showSection(item.section);
+    });
+  });
 }
 
 function updateStudentProfileCard() {
   const profile = currentUser || {};
   const nis = profile.nis || '-';
   const kelas = profile.kelas_nama || (profile.class_id ? 'Kelas X E' : '-');
-  const walikelas = profile.wali_kelas || 'Dwi Retnoningsih, S.Pd';
+  const walikelas = profile.wali_kelas || 'Belum ditentukan';
 
   const profNama = document.getElementById('prof-nama');
   if (profNama) profNama.textContent = profile.nama || '-';
@@ -160,14 +399,73 @@ function setupNav(active) {
   });
 }
 
+function setupWhatsAppNumber() {
+  const modal = document.getElementById('wa-number-modal');
+  const modalInput = document.getElementById('wa-number-input');
+  const modalStatus = document.getElementById('wa-number-status');
+  const modalSave = document.getElementById('wa-number-save');
+  const form = document.getElementById('student-wa-form');
+  const input = document.getElementById('prof-wa-input');
+  const status = document.getElementById('prof-wa-status');
+  const badge = document.getElementById('prof-wa-badge');
+
+  const syncProfile = () => {
+    if (input && currentUser?.whatsapp) input.value = currentUser.whatsapp;
+    if (badge) {
+      badge.textContent = currentUser?.whatsapp ? 'Aktif' : 'Belum diisi';
+      badge.className = `badge ${currentUser?.whatsapp ? 'badge-success' : 'badge-neutral'}`;
+    }
+  };
+
+  const save = async (value, note, closeModal) => {
+    if (!value) {
+      if (note) note.textContent = 'Masukkan nomor WhatsApp terlebih dahulu.';
+      return;
+    }
+    if (note) { note.textContent = 'Menyimpan nomor…'; note.classList.remove('error', 'success'); }
+    try {
+      const result = await LMS.saveWhatsApp(value);
+      currentUser.whatsapp = result.whatsapp;
+      if (note) { note.textContent = `Nomor tersimpan: ${result.whatsapp}`; note.classList.add('success'); }
+      if (modalInput) modalInput.value = result.whatsapp;
+      syncProfile();
+      if (closeModal) {
+        modal?.classList.remove('show');
+        if (!currentUser.password_changed_at) {
+          document.getElementById('password-recommendation-modal')?.classList.add('show');
+        }
+      }
+    } catch (error) {
+      if (note) { note.textContent = error.message || 'Nomor gagal disimpan.'; note.classList.add('error'); }
+    }
+  };
+
+  if (modalSave && modalSave.dataset.bound !== '1') {
+    modalSave.dataset.bound = '1';
+    modalSave.addEventListener('click', () => save((modalInput?.value || '').trim(), modalStatus, true));
+    modalInput?.addEventListener('keydown', event => {
+      if (event.key === 'Enter') { event.preventDefault(); save((modalInput.value || '').trim(), modalStatus, true); }
+    });
+  }
+  if (form && form.dataset.bound !== '1') {
+    form.dataset.bound = '1';
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      save((input?.value || '').trim(), status, false);
+    });
+  }
+  syncProfile();
+}
+
 function showSection(id) {
-  ['dashboard','belajar','materi-saya','tugas-saya','presensi-saya','nilai-saya','exam-saya','profil'].forEach(s => {
+  ['dashboard','belajar','jurnal','materi-saya','tugas-saya','presensi-saya','nilai-saya','exam-saya','profil'].forEach(s => {
     const el = document.getElementById(`sec-${s}`);
     if (el) el.classList.toggle('hidden', s !== id);
   });
 }
 
 function setupProfileSecurity() {
+  setupWhatsAppNumber();
   const form = document.getElementById('student-password-form');
   if (!form || form.dataset.bound === '1') return;
   form.dataset.bound = '1';
@@ -283,6 +581,11 @@ function setupProfileSecurity() {
 
 function setupFirstRunPrompts() {
   if (!currentUser || currentUser.role !== 'student') return;
+  if (!currentUser.whatsapp) {
+    document.getElementById('wa-number-modal')?.classList.add('show');
+    document.getElementById('wa-number-input')?.focus();
+    return;
+  }
   if (!currentUser.password_changed_at) {
     document.getElementById('password-recommendation-modal')?.classList.add('show');
     return;
@@ -307,7 +610,7 @@ function setupFirstRunPrompts() {
 async function renderDashboard() {
   try {
     updateStudentProfileCard();
-    
+
     // Cached fetch to avoid repeating identical API calls
     const cacheKey = `dash_${currentUser.student_id || currentUser.id}`;
     let [materials, grades, exams, attendance, assignments, kurikulum, leaderboard] =
@@ -357,7 +660,7 @@ async function renderDashboard() {
     const statTugas = document.getElementById('s-stat-tugas');
     const evaluasiAktif = (kurikulum.babs || []).filter(bab => bab.unlocked && !bab.tuntas).length;
     if (statTugas) statTugas.textContent = assignments.length + evaluasiAktif;
-    
+
     const rata = grades.length > 0
       ? Math.round((grades.reduce((s, g) => s + g.nilai, 0) / grades.length) * 10) / 10
       : 0;
@@ -487,7 +790,7 @@ async function renderMateri() {
   const grid = document.getElementById('materi-grid');
   const empty = document.getElementById('materi-empty');
   if (!grid) return;
-  
+
   try {
     const cacheKey = `mat_${currentUser.class_id || 'all'}`;
     let materials = LMS_CACHE.get(cacheKey);
@@ -497,7 +800,7 @@ async function renderMateri() {
       materials = await LMS.getMaterials(params);
       LMS_CACHE.set(cacheKey, materials);
     }
-    
+
     rawMaterials = materials || [];
     filterAndDisplayMateri();
 
@@ -515,12 +818,12 @@ function filterAndDisplayMateri() {
   const query = (searchInput?.value || '').toLowerCase().trim();
 
   let filtered = rawMaterials.filter(m => {
-    const matchesQuery = !query || 
-      (m.judul || '').toLowerCase().includes(query) || 
-      (m.modul || '').toLowerCase().includes(query) || 
+    const matchesQuery = !query ||
+      (m.judul || '').toLowerCase().includes(query) ||
+      (m.modul || '').toLowerCase().includes(query) ||
       (m.subject_nama || '').toLowerCase().includes(query);
 
-    const matchesFilter = 
+    const matchesFilter =
       activeMateriFilter === 'all' ? true :
       activeMateriFilter === 'video' ? Boolean(m.youtube_id) :
       activeMateriFilter === 'modul' ? Boolean(m.modul) : true;
@@ -538,8 +841,8 @@ function filterAndDisplayMateri() {
   grid.innerHTML = filtered.map(m => `
     <article class="material-card" onclick="openMateriDetail('${m.id}')" role="button" tabindex="0">
       <div class="thumb">
-        ${m.image 
-          ? `<img src="${m.image}" alt="${lmsEsc(m.judul)}" loading="lazy">` 
+        ${m.image
+          ? `<img src="${m.image}" alt="${lmsEsc(m.judul)}" loading="lazy">`
           : `<div class="thumb-fallback" aria-hidden="true">
                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polygon points="12 6 15 12 12 11 9 12 12 6"/><polygon points="12 18 15 12 12 13 9 12 12 18"/></svg>
                <span style="font-size:11px;font-weight:600;letter-spacing:0.04em;">GEO EDULABS</span>
@@ -582,7 +885,7 @@ function openMateriDetail(id) {
   const videoFallback = fallbackVideoIds.length
     ? `<p style="margin:0 0 16px">${fallbackVideoIds.map(id => `<a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener noreferrer">Tonton video di YouTube</a>`).join(' · ')}</p>`
     : '';
-  
+
   const modal = document.createElement('div');
   modal.className = 'modal-overlay show';
   modal.innerHTML = `
@@ -599,7 +902,7 @@ function openMateriDetail(id) {
         </div>
         ${video}
         ${videoFallback}
-        <div style="line-height:1.75;font-size:14.5px;color:var(--text);">${konten}</div>
+        <div class="materi-konten" style="line-height:1.75;font-size:14.5px;color:var(--text);">${konten}</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-close>Tutup Materi</button>
@@ -618,7 +921,7 @@ function openMateriDetail(id) {
 async function renderNilai() {
   const tbody = document.getElementById('nilai-saya-tbody');
   if (!tbody) return;
-  
+
   try {
     const cacheKey = `grades_${currentUser.student_id || 'me'}`;
     let grades = LMS_CACHE.get(cacheKey);
@@ -652,12 +955,16 @@ async function renderNilai() {
 
     tbody.innerHTML = grades.slice().reverse().map(g => {
       const pass = g.nilai >= (Number(g.kkm) || 75);
+      const percobaan = Number(g.jumlah_percobaan) || 0;
+      const ulangInfo = percobaan > 1
+        ? `<div style="font-size:11px;color:var(--text-2)">${percobaan}× dikerjakan · tertinggi ${g.nilai_tertinggi ?? '-'}${Number(g.pengurangan_nilai) ? ` · −${g.pengurangan_nilai} poin` : ''}</div>`
+        : (percobaan === 1 ? '<div style="font-size:11px;color:var(--text-2)">1× dikerjakan</div>' : '');
       return `
         <tr>
           <td><span class="badge badge-primary">${lmsEsc(g.subject_nama || 'Geografi')}</span></td>
           <td><span class="badge badge-neutral">${lmsEsc(g.class_nama || '-')}</span></td>
           <td><b>${lmsEsc((g.tipe || 'TUGAS').toUpperCase())}</b></td>
-          <td class="num"><strong style="font-size:14px;color:${pass ? 'var(--status-success)' : 'var(--status-danger)'};">${g.nilai}</strong></td>
+          <td class="num"><strong style="font-size:14px;color:${pass ? 'var(--status-success)' : 'var(--status-danger)'};">${g.nilai}</strong>${ulangInfo}</td>
           <td>
             <span class="badge ${pass ? 'badge-success' : 'badge-danger'}">
               ${g.tipe === 'Materi Evaluasi' ? (pass ? 'Tuntas' : 'Tidak Tuntas') : (pass ? 'Tuntas' : 'Remedial')}
@@ -679,7 +986,7 @@ async function renderNilai() {
 async function renderAttendance() {
   const tbody = document.getElementById('presensi-saya-tbody');
   if (!tbody) return;
-  
+
   try {
     const cacheKey = `att_${currentUser.student_id || 'me'}`;
     let attendance = LMS_CACHE.get(cacheKey);
@@ -720,7 +1027,7 @@ async function renderAttendance() {
       tbody.innerHTML = '<tr><td colspan="4" class="table-empty">Belum ada catatan presensi terekam.</td></tr>';
       return;
     }
-    
+
     const badgeStatus = { hadir: 'success', izin: 'warning', sakit: 'primary', alpa: 'danger' };
     tbody.innerHTML = attendance.slice(0, 50).map(a => `
       <tr>
@@ -743,7 +1050,7 @@ async function renderAssignments() {
   const container = document.getElementById('tugas-saya-grid');
   const empty = document.getElementById('tugas-empty');
   if (!container) return;
-  
+
   try {
     const cacheKey = 'assignments_list';
     let assignments = LMS_CACHE.get(cacheKey);
@@ -752,7 +1059,7 @@ async function renderAssignments() {
       assignments = await LMS.getAssignments();
       LMS_CACHE.set(cacheKey, assignments);
     }
-    
+
     rawAssignments = assignments || [];
     filterAndDisplayTugas();
 
@@ -770,8 +1077,8 @@ function filterAndDisplayTugas() {
   const query = (searchInput?.value || '').toLowerCase().trim();
 
   const filtered = rawAssignments.filter(a => {
-    return !query || 
-      (a.judul || '').toLowerCase().includes(query) || 
+    return !query ||
+      (a.judul || '').toLowerCase().includes(query) ||
       (a.deskripsi || '').toLowerCase().includes(query) ||
       (a.subject_nama || '').toLowerCase().includes(query);
   });
@@ -802,25 +1109,25 @@ async function renderExam() {
   const container = document.getElementById('exam-list');
   const empty = document.getElementById('exam-empty');
   if (!container) return;
-  
+
   try {
     const cacheKey = `exams_${currentUser.class_id || 'all'}`;
     let exams = LMS_CACHE.get(cacheKey);
 
     if (!exams) {
       const allExams = await LMS.getExams();
-      exams = currentUser.class_id 
+      exams = currentUser.class_id
         ? allExams.filter(e => e.class_id === currentUser.class_id)
         : allExams;
       LMS_CACHE.set(cacheKey, exams);
     }
-      
+
     if (!exams.length) {
       container.innerHTML = '';
       if (empty) empty.classList.remove('hidden');
       return;
     }
-    
+
     if (empty) empty.classList.add('hidden');
     container.innerHTML = exams.map(e => `
       <article class="card">
@@ -845,7 +1152,7 @@ async function renderExam() {
 async function startExam(examId) {
   try {
     const allExams = await LMS.getExams();
-    const exams = currentUser.class_id 
+    const exams = currentUser.class_id
       ? allExams.filter(e => e.class_id === currentUser.class_id)
       : allExams;
     const exam = exams.find(e => e.id === examId);
@@ -853,7 +1160,7 @@ async function startExam(examId) {
       alert('Ujian ini belum memiliki daftar pertanyaan dari guru.');
       return;
     }
-    
+
     const modal = document.getElementById('exam-detail-modal');
     document.getElementById('exam-detail-title').textContent = exam.judul;
     document.getElementById('exam-detail-body').innerHTML = exam.questions.map((q, i) => `
@@ -869,15 +1176,15 @@ async function startExam(examId) {
         </div>
       </div>
     `).join('');
-    
+
     modal.classList.add('show');
-    
+
     let remaining = exam.durasi * 60;
     const timerEl = document.getElementById('exam-timer');
     const tick = () => {
       timerEl.textContent = `Sisa Waktu: ${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, '0')}`;
     };
-    
+
     const iv = setInterval(() => {
       remaining--;
       tick();
@@ -888,7 +1195,7 @@ async function startExam(examId) {
       }
     }, 1000);
     tick();
-    
+
     document.getElementById('btn-submit-exam').onclick = () => {
       if (confirm('Apakah Anda yakin ingin mengumpulkan ujian ini sekarang?')) {
         clearInterval(iv);
@@ -922,13 +1229,13 @@ async function submitExam(examId, soalList) {
 // ============================================================================
 // NAVIGATION & TOOLBAR CONTROLS
 // ============================================================================
-const NAV_TITLES = { 
-  'dashboard': 'Beranda', 
-  'belajar': 'Jalur Pembelajaran', 
-  'materi-saya': 'Materi Saya', 
-  'tugas-saya': 'Tugas & Proyek', 
-  'presensi-saya': 'Presensi Siswa', 
-  'nilai-saya': 'Riwayat Nilai', 
+const NAV_TITLES = {
+  'dashboard': 'Beranda',
+  'belajar': 'Jalur Pembelajaran',
+  'materi-saya': 'Materi Saya',
+  'tugas-saya': 'Tugas & Proyek',
+  'presensi-saya': 'Presensi Siswa',
+  'nilai-saya': 'Riwayat Nilai',
   'exam-saya': 'Ujian (Exam)',
   'profil': 'Profil & Keamanan'
 };

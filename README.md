@@ -18,7 +18,7 @@ Aplikasi Learning Management System (LMS) multi-tenant untuk mata pelajaran Geog
 - Bank Soal (formatif, sumatif, TKA)
 - Exam TKA dengan timer
 - Input Nilai per siswa per mapel
-- WhatsApp Sender per tenant: koneksi QR, pilih grup, dan jadwalkan pengingat pelajaran satu kali
+- WhatsApp Sender tenant untuk pengingat jadwal pelajaran
 - Data seeding otomatis
 
 ### Siswa
@@ -48,9 +48,7 @@ Buka `http://localhost:3000`
 
 - Admin: email `admin@lms.id` (atau `ADMIN_EMAIL`). Password diambil dari env `ADMIN_PASSWORD`;
   bila tidak diset, password acak dibuat saat seed dan dicetak **sekali** ke stdout.
-- Halaman login hanya **satu** (`POST /api/auth/login`): identitas dicocokkan otomatis ke staf
-  (email/username) atau siswa (username/NIS/NISN/email), tanpa memilih jenis akun lebih dulu.
-- Siswa: password awal = **NIS** (kebijakan sekolah).
+- Siswa: login memakai **username/email/NIS** (identitas) + **NIS** sebagai password awal (kebijakan sekolah).
   Admin dapat mengganti password siswa lewat `POST /api/students/:id/reset-password`,
   dan siswa/guru dapat mengganti sendiri lewat `POST /api/me/password`.
   ⚠️ Password = NIS mudah ditebak; aktifkan reset berkala bila keamanan jadi prioritas.
@@ -73,7 +71,7 @@ lms-geografi-multi/
 │   └── kurikulum/
 │       ├── kelas-x/   # 8 bab Fase E (01-02.json … 07-08.json)
 │       ├── kelas-xi/  # 8 bab Fase F (01-02.json … 07-08.json)
-│       └── kelas-xii/ # 6 bab Fase F (01-03.json, 04-06.json)
+│       └── kelas-xii/ # belum diisi (kewilayahan Fase F)
 └── public/
     ├── index.html     # Login
     ├── admin.html     # Panel admin
@@ -108,7 +106,6 @@ dicek di `requireAuth`):
 
 ### Auth
 - `POST /api/login` - Login (rate limit: 5 gagal / 15 menit per IP+identifier → `429`)
-- `POST /api/auth/login` - Login satu pintu (auto-deteksi staf/siswa), rate limit sama dengan `/api/login`
 - `POST /api/logout` - Logout
 - `GET /api/me` - Current user
 - `POST /api/me/password` - Ganti password sendiri (`{ current_password, new_password }`, min 8 karakter)
@@ -177,9 +174,9 @@ Menu **Materi** di panel admin punya tombol **Impor Kurikulum**: menyalin setiap
 ### Seed
 - `POST /api/seed` - Initialize sample data
 
-## Deploy ke VPS (geolabs.my.id)
+## Deploy ke VPS
 
-Target: Debian 12 / Ubuntu 22.04+, Node.js 20, PM2, Nginx di belakang Cloudflare.
+Target skrip `deploy.sh`: Debian 12 / Ubuntu 22.04+, Node.js 20, PM2, Nginx. Skrip ini menyiapkan VPS baru/mandiri dan tidak boleh dijalankan begitu saja pada container Proxmox yang memakai konfigurasi jaringan atau reverse proxy berbeda.
 
 ```bash
 # di server, sebagai root
@@ -216,15 +213,17 @@ Disalin dari `.env.example`, mode `600`, tidak ikut git.
 | `SESSION_SECRET` | ya | kunci penandatangan cookie sesi; `openssl rand -hex 32`; beberapa kunci dipisah koma untuk rotasi |
 | `REDIS_HOST` / `REDIS_PORT` | tidak | tanpa Redis dipakai cache in-memory |
 | `NODE_ENV` | tidak | `production` |
-| `PUBLIC_APP_URL` | dianjurkan | URL publik LMS, misalnya `https://sekolah.example`; dapat dioverride per tenant di panel WhatsApp |
-| `WA_SESSION_DIR` | tidak | lokasi kredensial WhatsApp; default `data/whatsapp-sessions` dan harus berada di disk privat persisten |
+| `PUBLIC_APP_URL` | dianjurkan | URL publik LMS, dapat dioverride per tenant di panel WhatsApp |
+| `WA_SESSION_DIR` | tidak | direktori privat dan persisten untuk kredensial WhatsApp |
 | `WA_TIME_ZONE` | tidak | zona jadwal kirim; default `Asia/Jakarta` |
 
 ### WhatsApp Sender
 
-Admin tenant dapat membuka menu **WhatsApp Sender**, menghubungkan nomor khusus dengan memindai QR melalui Perangkat Tertaut, lalu memilih grup dan jadwal pelajaran serta tanggal/waktu pengiriman. Pengingat satu kali berisi kelas, mapel, jam pelajaran, rata-rata nilai kelas, ajakan menyelesaikan materi/evaluasi, dan tautan LMS tenant.
+Admin tenant dapat menautkan nomor khusus dengan QR, memilih grup, lalu menjadwalkan pengingat satu kali untuk jadwal pelajaran. Scheduler memakai zona waktu WIB, mencegah duplikasi jadwal/grup/tanggal, membatasi maksimal 100 pesan per tenant per hari, dan tidak mengulang pengiriman yang gagal secara otomatis.
 
-Koneksi grup menggunakan protokol WhatsApp Web tidak resmi (Baileys), bukan WhatsApp Business Cloud API. Penggunaan dapat bertentangan dengan ketentuan WhatsApp atau menyebabkan nomor dibatasi; gunakan nomor yang memang dikelola sekolah, batasi pengiriman pada grup yang dipilih, dan minta persetujuan anggota grup. Kredensial sesi disimpan di `WA_SESSION_DIR`, jangan dipublikasikan atau dimasukkan ke backup/git yang dapat diakses umum. Scheduler berjalan di proses server; gunakan satu instance aplikasi dan disk persisten untuk menghindari pengiriman ganda atau kehilangan jadwal. Jadwal gagal ditampilkan di panel dan tidak dikirim ulang otomatis.
+Panel admin juga menyediakan pencarian grup (filter nama), pemeriksaan nomor WhatsApp (`POST /api/admin/whatsapp/verify-number`), dan **pengingat otomatis per kelas** (`POST /api/admin/whatsapp/auto`): memilih satu kelas membuat satu job per jadwal kelas tersebut, lalu scheduler mengirim setiap pekan pada hari dan jam pelajaran terkait. Setiap job otomatis hanya dikirim sekali per tanggal; kegagalan dicatat di `last_error` tanpa mengulang di hari yang sama.
+
+Koneksi grup menggunakan protokol WhatsApp Web tidak resmi (Baileys), bukan WhatsApp Business Cloud API. Penggunaan dapat bertentangan dengan ketentuan WhatsApp atau menyebabkan nomor dibatasi; gunakan nomor yang dikelola sekolah dan hanya kirim ke grup yang menyetujui pengingat. Kredensial sesi harus tetap privat dan persisten. Jalankan satu instance aplikasi agar scheduler tidak mengirim pesan ganda.
 
 ### Update & rollback
 
@@ -259,9 +258,14 @@ REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 ```
 
+Hitungan limiter login (`login-fail:*`) otomatis dibersihkan setiap proses start dan
+setiap Redis reconnect, jadi kunci "Terlalu banyak percobaan" tidak bertahan setelah
+aplikasi dibuka kembali. Set `LMS_REDIS_FLUSH_ON_START=1` bila ingin menghapus seluruh
+cache Redis saat start.
+
 ## Kurikulum Berjenjang (Geografi Kelas X dan XI)
 
-Materi disusun berjenjang per kelas: siswa hanya bisa membuka bab berikutnya setelah bab sebelumnya **tuntas** (nilai ≥ KKM 75). Evaluasi dapat diulang tanpa batas. Setiap materi dihitung sebagai satu komponen: nilai tertinggi dikurangi satu poin untuk setiap pengulangan dengan nilai lebih rendah; nilai pengulangan yang sama tidak mengurangi nilai. Rekap mencantumkan percobaan dengan nilai tertinggi, jumlah pengurangan, dan nilai akhir. Setelah semua bab tuntas, tombol **Naik Kelas** membuka jenjang berikutnya.
+Materi disusun berjenjang per kelas: siswa hanya bisa membuka bab berikutnya setelah bab sebelumnya **tuntas** (nilai ≥ KKM 75). Setiap bab punya evaluasi dengan **maksimal 3 percobaan**; yang diambil adalah **nilai tertinggi**. Setelah semua bab tuntas, tombol **Naik Kelas** membuka jenjang berikutnya.
 
 ### Landasan regulasi (terverifikasi)
 | Regulasi | Pokok |
@@ -276,43 +280,41 @@ Materi disusun berjenjang per kelas: siswa hanya bisa membuka bab berikutnya set
 Catatan: pada CP 2025, Fase E (kelas X) dirumuskan dalam CP IPS; sekolah boleh mengorganisasi muatan **per disiplin**. Karena itu Geografi kelas X di LMS ini disusun sebagai pengorganisasian disiplin dari CP Fase E, dan pedosfer/antroposfer ditempatkan sebagai pengayaan menuju Fase F.
 
 ### Isi materi Kelas X (`data/kurikulum/kelas-x/`)
-| Urutan | Bab |
-|---|---|
-| 1 | Dasar-Dasar Ilmu Geografi: Konsep, Prinsip, dan Pendekatan Keruangan |
-| 2 | Peta, Skala, Proyeksi, dan Membaca Ruang |
-| 3 | Penginderaan Jauh dan Interpretasi Citra Lingkungan |
-| 4 | Sistem Informasi Geografis dan Pemodelan Keruangan |
-| 5 | Dinamika Litosfer dan Dampaknya terhadap Kehidupan |
-| 6 | Dinamika Atmosfer dan Dampaknya terhadap Kehidupan |
-| 7 | Dinamika Hidrosfer dan Konservasi Sumber Daya Air |
-| 8 | Mitigasi dan Adaptasi Bencana Kebumian Indonesia |
+| Urutan | Bab | Fokus |
+|---|---|---|
+| 1 | Konsep, Prinsip, dan Pendekatan Geografi | objek studi, 10 konsep, korologi |
+| 2 | Peta, Skala, Proyeksi, dan Membaca Ruang | skala, distorsi, kontur, kemiringan lereng |
+| 3 | Penginderaan Jauh dan Interpretasi Citra | sensor, resolusi, 9 unsur interpretasi |
+| 4 | Sistem Informasi Geografis | vektor/raster, overlay, buffer, WebGIS |
+| 5 | Litosfer: Batuan, Tektonika, Bahaya Geologis | siklus batuan, lempeng, gempa, amplifikasi |
+| 6 | Atmosfer: Cuaca, Iklim, Perubahan Iklim | lapisan, ENSO, monsun, adaptasi |
+| 7 | Hidrosfer: Siklus Air, DAS, Dinamika Laut | neraca air, intrusi air laut, pesisir |
+| 8 | Mitigasi Bencana dan Tata Ruang Berbasis Risiko | rumus risiko, levee effect, rencana aksi |
 
-Setiap bab memiliki tujuan pembelajaran dan **5–10 soal** dengan bacaan kontekstual panjang. Bank soal mencakup pilihan ganda biasa, pilihan ganda majemuk, pilihan ganda kompleks, menjodohkan, dan benar–salah. Semua pilihan ganda menyediakan opsi **A–E**. Stimulus dapat dilengkapi gambar dan setiap soal menyimpan kunci serta pembahasan. Setiap percobaan tersimpan, sementara daftar nilai dan rata-rata menampilkan satu nilai akhir per materi.
+Setiap bab memuat: tujuan pembelajaran, 4 sub-materi, glosarium, dan **5 soal** yang mencakup lima tipe — pilihan ganda majemuk, pilihan ganda, pilihan ganda kompleks, menjodohkan, dan benar–salah. Semua soal memakai stimulus literasi (paragraf/poster) dan/atau numerasi (tabel & perhitungan), berlevel C3–C5, dengan pembahasan.
 
 ### Isi materi Kelas XI (`data/kurikulum/kelas-xi/`)
-Kelas XI memakai **Fase F** dan melanjutkan jenjang setelah seluruh bab Kelas X tuntas (nilai ≥ KKM).
+Kelas XI memakai **Fase F** dan melanjutkan jenjang setelah seluruh bab Kelas X tuntas (nilai ≥ KKM). Fokusnya biosfer, antroposfer, interaksi manusia–lingkungan, dan sumber daya alam.
 
 | Urutan | Bab | Fokus |
 |---|---|---|
-| 1 | Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia | geografi maritim dan geopolitik |
-| 2 | Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia | bioma dan konservasi |
-| 3 | Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan | sumber daya dan keberlanjutan |
-| 4 | Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT) | pangan dan energi |
-| 5 | Dinamika Kependudukan dan Bonus Demografi Indonesia 2045 | kependudukan |
-| 6 | Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial | budaya dan ekonomi kreatif |
-| 7 | Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis | lingkungan |
-| 8 | Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim | kebencanaan |
+| 1 | Biosfer: Sebaran Flora dan Fauna Indonesia dan Dunia | faktor persebaran, bioma, garis Wallace–Webber, konservasi |
+| 2 | Tanah: Pembentukan, Klasifikasi, dan Degradasi | lima faktor tanah, jenis tanah Indonesia, USLE, konservasi |
+| 3 | Antroposfer: Dinamika Penduduk dan Proyeksi | CBR/CDR, migrasi, piramida, rasio ketergantungan |
+| 4 | Kualitas Penduduk: Pendidikan, Kesehatan, Ketenagakerjaan | IPM, APK/APM, stunting, TPT dan produktivitas |
+| 5 | Keragaman Budaya dan Difusi Inovasi | unsur budaya, persebaran bahasa, difusi, glokalisasi |
+| 6 | Interaksi Manusia dan Lingkungan | daya dukung, jejak ekologis, kearifan lokal |
+| 7 | Sumber Daya Alam: Klasifikasi, Sebaran, Konsumsi | umur cadangan, sebaran komoditas, transisi energi |
+| 8 | Kajian Lingkungan Berkelanjutan: Proyek Mini | indikator, data lapangan, analisis, rekomendasi |
 
-Kelas XII memiliki 6 bab Fase F: pengembangan wilayah, interaksi desa–kota, SIG dan transportasi, kesenjangan pembangunan, geopolitik, serta isu keruangan global dan SDGs. Semua bab X–XII memakai format asesmen 5–10 soal di atas.
-
-Editor admin pada menu **Kurikulum** dapat menambah, menghapus, dan mengganti tipe soal; mengubah bacaan, pertanyaan, opsi/pernyataan, kunci, pembahasan, serta URL gambar stimulus. Setelah evaluasi dikirim, navigasi bagian materi disembunyikan dan tombol **Kerjakan Soal Ulang** tersedia di bawah hasil.
+Struktur tiap bab sama dengan Kelas X (tujuan, 4 sub-materi, glosarium, 5 soal lima tipe, level C3–C5). Kelas XII (kewilayahan: pusat pertumbuhan, tata ruang, interaksi desa–kota, globalisasi) belum diisi dan akan memakai format yang sama.
 
 ### Endpoint
 | Method | Endpoint | Fungsi |
 |---|---|---|
 | GET | `/api/kurikulum` | daftar bab + progres + status kunci |
 | GET | `/api/kurikulum/:babId` | materi + soal (tanpa kunci) |
-| POST | `/api/kurikulum/:babId/evaluasi` | nilai otomatis dan simpan setiap percobaan |
+| POST | `/api/kurikulum/:babId/evaluasi` | nilai otomatis, simpan percobaan (maks 3) |
 | POST | `/api/kurikulum/naik-kelas` | naik jenjang bila semua bab tuntas |
 | GET | `/api/admin/kurikulum/progress` | rekap progres seluruh siswa |
 | POST | `/api/admin/kurikulum/seed-materials` | impor bab menjadi materi biasa (idempoten) |
@@ -324,6 +326,17 @@ Aturan penilaian: PG/PGM dinilai 1 atau 0; PG kompleks harus sama persis dengan 
 ```bash
 cp data/db.json data/db.json.backup
 ```
+
+Pemulihan lewat API (khusus `super_admin`, membuat backup otomatis sebelum menulis):
+
+```bash
+curl -b cookies.txt -X POST https://<domain>/api/admin/restore \
+  -H 'Content-Type: application/json' \
+  --data-binary @restore.json   # {"confirm":"RESTORE","data":{...isi db.json...}}
+```
+
+Akun `admin`/`super_admin` yang sedang ada selalu dipertahankan agar akses tidak hilang.
+
 
 ## Referensi
 
@@ -380,69 +393,6 @@ Env: `BROWSER_HEADLESS` (1/0), `BROWSER_PORT` (default 9333), `BROWSER_TIMEOUT_M
 Uji mandiri: `npm run test:browser` (15 check: start/goto/fill/click/wait/eval/viewport
 mobile/screenshot/console/network/status/close). E2E aplikasi: `npm run test:e2e`.
 
-## Hermes Agent (login Nous Portal, model gratis)
-
-`hermes login` sudah dihapus di versi ini. Alur yang benar:
-
-```powershell
-hermes auth add nous --type oauth --no-browser   # buka URL + masukkan user_code
-hermes auth status nous                          # harus: logged in
-hermes config set model.default reflection/beam-1.0-501b-a23b:free
-hermes config set model.provider nous
-hermes config set model.base_url https://inference-api.nousresearch.com/v1
-hermes -z "Balas satu kata: siap" --cli          # uji agent
-```
-
-- Akun gratis: pakai model bersufiks `:free` (mis. `reflection/beam-1.0-501b-a23b:free`).
-  Model berbayar menolak dengan HTTP 404 "requires available credits".
-- Tool gateway Nous (web/browser/image/Modal) butuh kredit; tanpa kredit hanya LLM yang jalan.
-- MCP `hermes` memakai endpoint yang sama. Token OAuth dibaca otomatis oleh
-  `scripts/hermes_mcp.py` dari `%LOCALAPPDATA%\hermes\auth.json` (provider lewat
-  `HERMES_AUTH_PROVIDER`, default `nous`), jadi **tidak ada token yang disimpan di repo**.
-
-## AI Lokal (Ollama)
-
-Mesin ini: Intel i7-1255U, RAM 16 GB, iGPU Iris Xe tanpa VRAM khusus, jadi inferensi berjalan di **CPU**.
-
-- Port `127.0.0.1:11434` dipakai tunnel SSH `hermes-vps` (Ollama VPS), sehingga Ollama lokal
-  dijalankan di port lain lewat `scripts/ollama-local.ps1` (default `11435`).
-- Model yang benar-benar ada di disk lokal: `deepseek-coder-v2:16b` (8,3 GB).
-  Entri 3b/4b/7b yang muncul di `ollama list` berasal dari VPS melalui tunnel tersebut.
-- RAM perlu: 3b ~3 GB, 7b ~6 GB, 16b ~11 GB. Cek dulu dengan `-CheckOnly`.
-
-```powershell
-ollama pull qwen2.5-coder:3b                                  # model paling realistis di CPU ini
-.\scripts\ollama-local.ps1 -CheckOnly                          # laporan port + RAM bebas
-.\scripts\ollama-local.ps1 -Model qwen2.5-coder:3b             # jalankan, cetak base URL
-```
-
-- Klien: Continue (`~/.continue/config.yaml` sudah memuat entri "Ollama 3B (lokal)" dan
-  "Ollama 16B (lokal)"), Cline, atau Aider  arahkan base URL ke `http://127.0.0.1:11435`.
-- Skrip otomatis menyalakan OLLAMA_FLASH_ATTENTION=1 dan OLLAMA_KV_CACHE_TYPE=q8_0;
-  untuk model besar, pakai um_ctx kecil (mis. 2048) agar hemat RAM.
-- Aktifkan iGPU (eksperimental, Vulkan): `setx OLLAMA_IGPU_ENABLE 1` lalu restart Ollama.
-
-| Model | Ukuran | RAM perlu | Catatan |
-|---|---|---|---|
-| qwen2.5-coder:3b | 1,9 GB | ~3 GB | terukur ~11 tok/s di CPU laptop ini |
-| qwen2.5-coder:7b | 4,7 GB | ~6 GB | 5,8 tok/s, load 11 s dengan tuning (flash attention + KV q8 + num_ctx 2048) |
-| deepseek-coder-v2:16b | 8,3 GB | ~11 GB | tidak realistis di RAM 16 GB |
-### Memakai Ollama untuk coding
-
-1. Nyalakan server: `.\scripts\ollama-local.ps1 -Model qwen2.5-coder:3b` (mencetak base URL).
-2. Continue (`.continue/config.yaml`) sudah terisi: chat/edit/apply memakai "Ollama 3B (lokal)",
-   autocomplete memakai `qwen2.5-coder:3b` ke `http://127.0.0.1:11435`. Pilih model di picker Continue.
-3. Cline/Aider: set base URL `http://127.0.0.1:11435`, model `qwen2.5-coder:3b`.
-4. Verifikasi cepat: `curl http://127.0.0.1:11435/v1/models`.
-Di VS Code tersedia task (Ctrl+Shift+P � `Tasks: Run Task`):
-
-- `Ollama: start (qwen2.5-coder:3b)`  menyalakan server; bila sudah hidup di 11435,
-  skrip memakai server itu dan tidak memilih port lain.
-- `Ollama: start (qwen2.5-coder:7b)`, `Ollama: status`, `Ollama: unload model`.
-
-Autocomplete di-set `debounceDelay: 500` dan `maxPromptTokens: 512` agar responsif di CPU.
-
-
 ## Lupa Password Admin / Terkunci Rate Limit
 
 Hash password disimpan dengan bcrypt dan **tidak bisa dibaca balik**, jadi password lama
@@ -460,8 +410,22 @@ pm2 restart lms --update-env
 Backup `data/db.json` dibuat otomatis sebelum menulis. Setelah login, ganti password
 lewat `POST /api/me/password`.
 
-**Terkunci "Terlalu banyak percobaan�"** � limiter login menyimpan hitungan di Redis
-bila tersedia, atau di memori proses bila tidak. Tanpa Redis, cukup restart proses:
+### Akun guru
+
+Akun guru (role `teacher`) hanya melihat menu **Jurnal Mengajar** di panel admin dan
+boleh mengisi/memperbaiki jurnal serta presensi kelas.
+
+```bash
+cd /opt/lms-geografi
+node scripts/create-teacher.mjs --list                       # lihat akun non-siswa
+node scripts/create-teacher.mjs --email guru@sekolah.id --nama "Nama Guru"
+node scripts/create-teacher.mjs --email guru2@sekolah.id --password 'RahasiaBaru123'
+pm2 restart lms --update-env
+```
+
+**Terkunci "Terlalu banyak percobaan…"** – limiter login menyimpan hitungan di Redis
+bila tersedia, atau di memori proses bila tidak. Hitungan di Redis kini dibersihkan
+otomatis saat start/reconnect; tanpa Redis, cukup restart proses:
 
 ```bash
 pm2 restart lms --update-env      # menghapus hitungan lockout in-memory

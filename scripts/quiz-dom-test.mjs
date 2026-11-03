@@ -272,6 +272,8 @@ check('soal menjodohkan menyimpan pasangan sesuai indeks',
   `answers.s5=${JSON.stringify(T.state.answers['s5'])}`);
 
 // --- kirim ---
+// Lewati gerbang waktu baca: hitung mundur dianggap sudah terpenuhi.
+vm.runInContext('blState.examStartedAt = Date.now() - ((blState.examGateSeconds + 5) * 1000)', sandbox);
 await T.blSubmit();
 check('progres disimpan sebelum evaluasi dikirim',
   (sent[0]?.url || '').endsWith('/api/kurikulum/x-01/progress')

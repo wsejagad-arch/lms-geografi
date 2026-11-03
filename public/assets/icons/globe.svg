@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ikon bumi">
+  <defs>
+    <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f8fbf"/>
+      <stop offset="1" stop-color="#14614f"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="29" fill="url(#ocean)"/>
+  <g fill="#7ed3a4">
+    <path d="M18 16c3-3 8-4 12-2 3 1 4 4 2 6-2 3-6 2-8 5-2 2-5 2-7 0-2-2-1-6 1-9z"/>
+    <path d="M40 12c4-1 8 1 10 4 1 2-1 4-4 4-4 1-8-1-9-4-1-2 1-3 3-4z"/>
+    <path d="M36 26c4-2 9-1 12 2 2 3 1 7-2 9-4 2-9 1-11-3-2-3-1-6 1-8z"/>
+    <path d="M20 34c3-1 6 1 7 4 1 4-1 8-5 9-3 1-6-1-6-4-1-4 1-8 4-9z"/>
+    <path d="M42 42c3-1 6 0 7 3 1 2-1 4-4 4s-5-2-5-4c0-2 1-2 2-3z"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="1.4">
+    <ellipse cx="32" cy="32" rx="29" ry="12"/>
+    <ellipse cx="32" cy="32" rx="12" ry="29"/>
+    <circle cx="32" cy="32" r="29"/>
+  </g>
+</svg>

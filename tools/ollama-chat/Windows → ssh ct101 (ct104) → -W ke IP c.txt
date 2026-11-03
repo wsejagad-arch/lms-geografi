@@ -1,1 +1,0 @@
-Windows → ssh ct101 (ct104) → -W ke IP container LMS → rootWindows → ssh ct101 (ct104) → -W ke IP container LMS → root

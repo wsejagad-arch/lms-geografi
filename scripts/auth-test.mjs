@@ -86,10 +86,21 @@ try {
     codes.push(r.status);
   }
   check('5 percobaan gagal dicatat', codes.every((c) => c === 401), codes.join(','));
-  const locked = await req('POST', '/api/login', { email: victim, password: 'salah' });
-  check('percobaan ke-6 diblokir 429', locked.status === 429, `status=${locked.status} retry_after=${locked.retryAfter}`);
-  const lockedCorrect = await req('POST', '/api/login', { email: victim, password: 'apapun' });
-  check('saat terkunci password benar pun ditolak', lockedCorrect.status === 429, `status=${lockedCorrect.status}`);
+  // Kebijakan sekarang: batas 10 gagal / 5 menit, dan password yang benar selalu diterima.
+  const wrongBurst = [];
+  for (let i = 0; i < 7; i++) {
+    const r = await req('POST', '/api/login', { email: victim, password: 'salah' });
+    wrongBurst.push(r.status);
+  }
+  const locked = wrongBurst[wrongBurst.length - 1];
+  check('percobaan gagal ke-10 ke atas diblokir 429', locked === 429, `status=${wrongBurst.join(',')}`);
+  if (locked === 429) {
+    const lockedCorrect = await req('POST', '/api/login', { email: 'admin@lms.id', password: 'admin' });
+    check('kunci hanya untuk akun yang gagal, akun lain tetap bisa masuk',
+      lockedCorrect.status === 200, `status=${lockedCorrect.status}`);
+  } else {
+    check('kunci hanya untuk akun yang gagal, akun lain tetap bisa masuk', false, 'tidak terkunci');
+  }
 
   // --- rate limit /api/student/login + pesan seragam ---
   const sWrong1 = await req('POST', '/api/student/login', { username: 'tidak-ada', password: 'x' });
@@ -99,16 +110,39 @@ try {
 
   const sVictim = 'siswa.b';
   let sLocked = null;
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 12; i++) {
     sLocked = await req('POST', '/api/student/login', { username: sVictim, password: 'salah' });
   }
-  check('login siswa ikut terkunci 429', sLocked.status === 429, `status=${sLocked.status}`);
+  check('login siswa ikut terkunci 429 setelah batas gagal', sLocked.status === 429, `status=${sLocked.status}`);
 
   // --- login normal tetap jalan (key berbeda) ---
   const adminLogin = await req('POST', '/api/login', { email: 'admin@lms.id', password: 'admin' }, 'admin');
   check('login admin tetap 200', adminLogin.status === 200, `status=${adminLogin.status}`);
   const tenantSelect = await req('POST', '/api/tenants/select', { tenant_id: tenant.id }, 'admin');
   check('admin memilih tenant untuk pemantauan aktivitas', tenantSelect.status === 200, `status=${tenantSelect.status}`);
+
+  // --- akun guru: dibuat, diubah emailnya, dan terikat ke sekolah ---
+  const newTeacher = await req('POST', '/api/register', {
+    email: 'guru.baru@uji.local', password: 'rahasia123', nama: 'Guru Baru', role: 'teacher',
+  }, 'admin');
+  check('admin dapat membuat akun guru', newTeacher.status === 200 && newTeacher.json.role === 'teacher',
+    `status=${newTeacher.status}`);
+  check('akun guru baru otomatis terikat ke sekolah', newTeacher.json.tenant_id === tenant.id,
+    `tenant=${newTeacher.json.tenant_id}`);
+  const renamed = await req('PUT', `/api/users/${newTeacher.json.id}`, {
+    email: 'guru.pindah@uji.local', nama: 'Guru Pindah', tenant_id: tenant.id,
+  }, 'admin');
+  check('admin dapat mengubah email/nama akun guru', renamed.status === 200
+    && renamed.json.user.email === 'guru.pindah@uji.local'
+    && renamed.json.user.nama === 'Guru Pindah', `status=${renamed.status}`);
+  const loginRenamed = await req('POST', '/api/login', { email: 'guru.pindah@uji.local', password: 'rahasia123' });
+  check('guru dapat login dengan email hasil perubahan', loginRenamed.status === 200, `status=${loginRenamed.status}`);
+  const badEmail = await req('PUT', `/api/users/${newTeacher.json.id}`, { email: 'bukan-email' }, 'admin');
+  check('email tidak valid ditolak', badEmail.status === 400, `status=${badEmail.status}`);
+  const studentLogin = await req('POST', '/api/student/login', { username: 'siswa.a', password: 'rahasia123' }, 'siswa');
+  const forbidden = await req('PUT', `/api/users/${newTeacher.json.id}`, { nama: 'X' }, 'siswa');
+  check('siswa tidak boleh mengubah akun guru', forbidden.status === 403,
+    `login=${studentLogin.status} status=${forbidden.status}`);
   const waSettings = await req('GET', '/api/admin/whatsapp', undefined, 'admin');
   check('konfigurasi WhatsApp terisolasi per tenant', waSettings.status === 200
     && waSettings.json.config.enabled === false

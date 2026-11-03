@@ -5,4 +5,10 @@ data/whatsapp-sessions/
 *.log
 .env
 .DS_Store
+data/db.json.prev
+data/db.json.snap-*
+data/db.sqlite*
+data/*.sqlite*
+
 .context/
+data/whatsapp-sessions/

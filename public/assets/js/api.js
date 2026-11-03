@@ -42,10 +42,14 @@ const LMS = (() => {
   }
 
   // Login tunggal: backend mendeteksi staf/guru/siswa dari identitas yang diisi.
-  async function authLogin(identifier, password) {
+  async function authLogin(identifier, password, geo) {
+    const body = { identifier, password };
+    if (geo && Number.isFinite(Number(geo.lat)) && Number.isFinite(Number(geo.lng))) {
+      body.geo = { lat: Number(geo.lat), lng: Number(geo.lng), accuracy: Number(geo.accuracy) || 0 };
+    }
     const user = await api('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ identifier, password })
+      body: JSON.stringify(body)
     });
     currentUser = user;
     currentTenant = user.tenant_id;
@@ -67,6 +71,39 @@ const LMS = (() => {
       method: 'POST',
       body: JSON.stringify({ current_password, new_password })
     });
+  }
+
+  async function saveWhatsApp(whatsapp) {
+    return api('/me/whatsapp', {
+      method: 'POST',
+      body: JSON.stringify({ whatsapp })
+    });
+  }
+
+  async function setKetuaKelas(classId, studentId) {
+    return api(`/classes/${classId}/ketua`, { method: 'PUT', body: JSON.stringify({ student_id: studentId }) });
+  }
+
+  async function getJurnal(scheduleId) {
+  return api(`/jurnal${scheduleId ? `?schedule_id=${encodeURIComponent(scheduleId)}` : ''}`);
+}
+
+  async function saveJurnal(payload) {
+    return api('/jurnal', { method: 'POST', body: JSON.stringify(payload) });
+  }
+
+  async function getAdminJurnal(tanggal) {
+    return api(`/admin/jurnal${tanggal ? `?tanggal=${encodeURIComponent(tanggal)}` : ''}`);
+  }
+
+  async function saveAdminJurnal(payload) {
+    return api('/admin/jurnal', { method: 'POST', body: JSON.stringify(payload) });
+  }
+
+  async function getSekolah() { return api('/admin/sekolah'); }
+
+  async function saveSekolah(data) {
+    return api('/admin/sekolah', { method: 'PUT', body: JSON.stringify(data) });
   }
 
   async function selectTenant(tenantId) {
@@ -179,7 +216,8 @@ const LMS = (() => {
     setCurrentUser: (u) => { currentUser = u; },
     getCurrentTenant: () => currentTenant,
     setCurrentTenant: (t) => { currentTenant = t; },
-    checkAuth, login, authLogin, logout, changeMyPassword, selectTenant,
+    checkAuth, login, authLogin, logout, changeMyPassword, saveWhatsApp, setKetuaKelas,
+    getJurnal, saveJurnal, getAdminJurnal, saveAdminJurnal, getSekolah, saveSekolah, selectTenant,
     getTenants, createTenant,
     getSubjects, createSubject, updateSubject, deleteSubject,
     getClasses, createClass, updateClass, deleteClass,

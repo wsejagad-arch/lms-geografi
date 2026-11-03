@@ -727,8 +727,37 @@
   border: 1px solid #e1e5e8; border-radius: 10px;
 }
 .bl-figure figcaption { margin-top: 6px; font-size: 11.5px; color: #6b7280; line-height: 1.5; }
-.bl-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 12px 0; border: 1px solid #e1e5e8; border-radius: 10px; }
+.bl-video { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 12px 0; max-width: 100%; border: 1px solid #e1e5e8; border-radius: 10px; background: #0f172a; }
 .bl-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Video dari isi materi (HTML hasil salin-tempel) tetap responsif dan tidak menutupi teks. */
+.bl-prose iframe, .bl-stim iframe, .bl-rev iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  border-radius: 10px;
+}
+.bl-prose div[style*="padding-bottom"], .bl-stim div[style*="padding-bottom"] {
+  position: relative !important;
+  height: 0 !important;
+  padding-bottom: 56.25% !important;
+  overflow: hidden !important;
+  margin: 12px 0;
+  max-width: 100%;
+  border-radius: 10px;
+}
+.bl-prose div[style*="padding-bottom"] > iframe,
+.bl-stim div[style*="padding-bottom"] > iframe {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
 
 /* ===== RESPONSIVE: materi & soal evaluasi (mobile) ===== */
 .bl-prose, .bl-stim, .bl-question, .bl-opt span, .bl-pair span, .bl-bs-row span, .bl-rev {
@@ -842,4 +871,51 @@
 .bl-bs-row label:has(input:checked) {
   font-weight: 700;
   color: var(--bl-accent);
+}
+
+/* ===== Perlindungan soal ujian ===== */
+#bl-eval { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#bl-eval input, #bl-eval select, #bl-eval textarea, #bl-eval button { -webkit-user-select: auto; user-select: auto; }
+#bl-eval img, #bl-eval iframe { pointer-events: none; }
+
+/* Netralkan gaya inline dari hasil salin-tempel (mis. teks putih) agar soal selalu terbaca. */
+.bl-prose [style], .bl-stim [style], .bl-question [style], .bl-opt [style], .bl-rev [style] {
+  color: inherit !important;
+  background: transparent !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.bl-timer {
+  margin: 0 0 12px; padding: 8px 10px; border-radius: 9px;
+  font-size: 12.5px; font-weight: 600; line-height: 1.5;
+  color: #b45309; background: #fffbeb; border: 1px solid #fde68a;
+}
+.bl-timer.ready { color: #15803d; background: #f0fdf4; border-color: #bbf7d0; }
+.bl-timer.hidden { display: none; }
+
+body.bl-exam-blur #bl-eval { filter: blur(9px); pointer-events: none; }
+
+.bl-shield {
+  position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center;
+  padding: 16px; background: rgba(15, 23, 42, .55); backdrop-filter: blur(2px);
+}
+.bl-shield-box {
+  width: 100%; max-width: 380px; padding: 20px 18px; text-align: center;
+  background: #fff; border-radius: 14px; box-shadow: 0 20px 45px rgba(15, 23, 42, .28);
+}
+.bl-shield-ic { font-size: 26px; line-height: 1; }
+.bl-shield-box h4 { margin: 8px 0 6px; font-size: 15px; color: #0f172a; }
+.bl-shield-box p { margin: 0 0 14px; font-size: 12.5px; line-height: 1.6; color: #475569; }
+.bl-shield .bl-btn { width: 100%; }
+
+@media print {
+  #bl-eval .bl-q, #bl-eval .bl-actions, #bl-eval .bl-timer { display: none !important; }
+  #bl-eval::after {
+    content: 'Soal ujian tidak dapat dicetak atau disalin.';
+    display: block; font-size: 12px; color: #475569;
+  }
 }

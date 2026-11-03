@@ -19,11 +19,11 @@
   --status-success: #15803d;
   --status-success-bg: #dcfce7;
   --status-success-border: #bbf7d0;
-  
+
   --status-danger: #b91c1c;
   --status-danger-bg: #fee2e2;
   --status-danger-border: #fecaca;
-  
+
   --status-warning: #b45309;
   --status-warning-bg: #fef3c7;
   --status-warning-border: #fde68a;
@@ -1712,3 +1712,134 @@ body {
     height: 20px;
   }
 }
+
+/* Kredit pengembang */
+.app-credit {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(20, 97, 79, .25);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-3, #7c8b84);
+}
+.app-credit b { color: var(--geo-brand, #14614f); font-weight: 600; }
+.app-credit a { color: var(--geo-brand, #14614f); text-decoration: none; }
+.app-credit a:hover { text-decoration: underline; }
+
+/* Lonceng notifikasi siswa */
+.notif-wrap { position: relative; }
+.notif-bell { position: relative; }
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--danger, #b3261e);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+.notif-badge.hidden { display: none; }
+/* Panel notifikasi tidak boleh keluar layar: pakai fixed agar selalu di dalam viewport. */
+.notif-panel {
+  position: fixed;
+  top: 64px;
+  right: 12px;
+  left: auto;
+  width: min(360px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  max-height: min(70vh, 420px);
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #dbe6e1;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(16, 48, 40, .16);
+  z-index: 1200;
+}
+@media (max-width: 480px) {
+  .notif-panel {
+    top: 56px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-width: none;
+    max-height: min(68vh, 380px);
+  }
+}
+.notif-panel.hidden { display: none; }
+.notif-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid #eef4f1;
+  font-size: 13px;
+}
+.notif-close { border: 0; background: none; font-size: 20px; line-height: 1; color: #7c8b84; cursor: pointer; }
+.notif-list { padding: 6px; }
+.notif-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: inherit;
+}
+.notif-item:hover { background: #f2f8f5; }
+.notif-item strong { display: block; font-size: 12.5px; margin-bottom: 2px; }
+.notif-item span { color: var(--text-2, #6b7a73); }
+.notif-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--geo-brand-light, #e7f3ee);
+  color: var(--geo-brand, #14614f);
+  font-size: 10px;
+  font-weight: 600;
+}
+.notif-empty { padding: 18px 12px; text-align: center; color: var(--text-2, #6b7a73); font-size: 12px; }
+
+/* ===== Materi: video & gambar responsif di dalam modal ===== */
+.materi-konten { max-width: 100%; overflow-wrap: anywhere; }
+.materi-konten iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  border-radius: 10px;
+}
+.materi-konten div[style*="padding-bottom"] {
+  position: relative !important;
+  height: 0 !important;
+  padding-bottom: 56.25% !important;
+  overflow: hidden !important;
+  margin: 12px 0;
+  max-width: 100%;
+  border-radius: 10px;
+  background: #0f172a;
+}
+.materi-konten div[style*="padding-bottom"] > iframe {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+.materi-konten img, .materi-konten video, .materi-konten table, .materi-konten pre {
+  max-width: 100%;
+  height: auto;
+}
+.materi-konten table { display: block; overflow-x: auto; }
