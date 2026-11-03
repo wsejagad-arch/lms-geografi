@@ -60,11 +60,27 @@ fi
 info "Node.js $(node -v)"
 
 # ------------------------------- Kode aplikasi --------------------------------
-# Instalasi lama dari scripts/provision-ct.sh berada di /opt; pakai ulang agar
-# data/ dan .env yang sudah ada tidak tertinggal dan tidak ada dua proses di PORT.
-if [ -z "$APP_DIR_EXPLICIT" ] && [ ! -d "$APP_DIR/.git" ] && [ -d /opt/lms-geografi/.git ]; then
-  APP_DIR=/opt/lms-geografi
-  warn "APP_DIR tidak diberikan; memakai instalasi yang ada di ${APP_DIR}"
+# Beberapa instalasi bisa ada bersamaan (provision-ct.sh memakai /opt, skrip ini
+# memakai /var/www). Tanpa APP_DIR eksplisit, utamakan instalasi yang sudah punya
+# basis data supaya data/ tidak tertinggal; kloning baru berarti seluruh data kosong.
+has_data() { [ -f "$1/data/db.sqlite" ] || [ -f "$1/data/db.json" ]; }
+
+if [ -z "$APP_DIR_EXPLICIT" ]; then
+  override=""
+  for candidate in /var/www/lms-geografi /opt/lms-geografi; do
+    if [ -d "$candidate/.git" ] && has_data "$candidate"; then
+      override="$candidate"; break
+    fi
+  done
+  if [ -z "$override" ]; then
+    for candidate in /var/www/lms-geografi /opt/lms-geografi; do
+      if [ -d "$candidate/.git" ]; then override="$candidate"; break; fi
+    done
+  fi
+  if [ -n "$override" ]; then
+    APP_DIR="$override"
+    warn "APP_DIR tidak diberikan; memakai instalasi yang ada di ${APP_DIR}"
+  fi
 fi
 if [ -d "$APP_DIR/.git" ]; then
   cd "$APP_DIR"
@@ -100,16 +116,22 @@ else
   info ".env dibuat dengan SESSION_SECRET acak"
 fi
 mkdir -p data
-[ -f data/db.json ] || warn "data/db.json belum ada; dibuat otomatis saat aplikasi pertama berjalan"
+if [ ! -f data/db.sqlite ] && [ ! -f data/db.json ]; then
+  warn "Basis data belum ada; dibuat otomatis saat aplikasi pertama berjalan"
+fi
 
 # ------------------------------- PM2 -----------------------------------------
 if ! command -v pm2 >/dev/null 2>&1; then
   warn "Memasang PM2"
   npm install -g pm2 --no-audit --no-fund >/dev/null
 fi
-# Nama "lms" berasal dari scripts/provision-ct.sh; tanpa ini PM2 menjalankan dua
-# proses di PORT yang sama dan startOrReload gagal EADDRINUSE.
-pm2 delete lms >/dev/null 2>&1 || true
+# "lms" = nama dari scripts/provision-ct.sh, "lms-geografi" = nama skrip ini.
+# Tanpa penghapusan ini PM2 bisa menjalankan dua proses di PORT yang sama.
+pm2 delete lms lms-geografi >/dev/null 2>&1 || true
+if command -v ss >/dev/null 2>&1 && ss -ltnH "sport = :${PORT}" 2>/dev/null | grep -q .; then
+  ss -ltnp "sport = :${PORT}" >&2 || true
+  fail "PORT ${PORT} masih dipakai proses lain (bukan PM2 lms/lms-geografi); hentikan dulu"
+fi
 pm2 startOrReload ecosystem.config.js --update-env
 pm2 save >/dev/null
 pm2 startup systemd -u root --hp /root >/dev/null 2>&1 || true
