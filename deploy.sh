@@ -133,6 +133,12 @@ set_real_ip_from 2a06:98c0::/29;
 set_real_ip_from 2c0f:f248::/32;
 real_ip_header CF-Connecting-IP;
 
+# Cloudflare/cloudflared meneruskan X-Forwarded-Proto; $scheme hanya http dari origin.
+map $http_x_forwarded_proto $lms_fwd_proto {
+    default $http_x_forwarded_proto;
+    ""      $scheme;
+}
+
 server {
     listen 80;
     listen [::]:80;
@@ -156,7 +162,7 @@ server {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Proto $lms_fwd_proto;
 
     location /assets/ {
         proxy_pass http://127.0.0.1:@PORT@;

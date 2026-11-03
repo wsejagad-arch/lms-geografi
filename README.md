@@ -18,6 +18,7 @@ Aplikasi Learning Management System (LMS) multi-tenant untuk mata pelajaran Geog
 - Bank Soal (formatif, sumatif, TKA)
 - Exam TKA dengan timer
 - Input Nilai per siswa per mapel
+- WhatsApp Sender per tenant: koneksi QR, pilih grup, dan jadwalkan pengingat pelajaran satu kali
 - Data seeding otomatis
 
 ### Siswa
@@ -30,6 +31,7 @@ Aplikasi Learning Management System (LMS) multi-tenant untuk mata pelajaran Geog
 - Database: JSON file (ringan, mudah backup)
 - Cache: Redis (dengan fallback in-memory)
 - Auth: cookie-session + bcrypt
+- WhatsApp: Baileys multi-device; membutuhkan Node.js 20+ dan penyimpanan sesi persisten
 - Desain: anti-slop GitHub style
 
 ## Instalasi
@@ -71,7 +73,7 @@ lms-geografi-multi/
 │   └── kurikulum/
 │       ├── kelas-x/   # 8 bab Fase E (01-02.json … 07-08.json)
 │       ├── kelas-xi/  # 8 bab Fase F (01-02.json … 07-08.json)
-│       └── kelas-xii/ # belum diisi (kewilayahan Fase F)
+│       └── kelas-xii/ # 6 bab Fase F (01-03.json, 04-06.json)
 └── public/
     ├── index.html     # Login
     ├── admin.html     # Panel admin
@@ -214,6 +216,15 @@ Disalin dari `.env.example`, mode `600`, tidak ikut git.
 | `SESSION_SECRET` | ya | kunci penandatangan cookie sesi; `openssl rand -hex 32`; beberapa kunci dipisah koma untuk rotasi |
 | `REDIS_HOST` / `REDIS_PORT` | tidak | tanpa Redis dipakai cache in-memory |
 | `NODE_ENV` | tidak | `production` |
+| `PUBLIC_APP_URL` | dianjurkan | URL publik LMS, misalnya `https://sekolah.example`; dapat dioverride per tenant di panel WhatsApp |
+| `WA_SESSION_DIR` | tidak | lokasi kredensial WhatsApp; default `data/whatsapp-sessions` dan harus berada di disk privat persisten |
+| `WA_TIME_ZONE` | tidak | zona jadwal kirim; default `Asia/Jakarta` |
+
+### WhatsApp Sender
+
+Admin tenant dapat membuka menu **WhatsApp Sender**, menghubungkan nomor khusus dengan memindai QR melalui Perangkat Tertaut, lalu memilih grup dan jadwal pelajaran serta tanggal/waktu pengiriman. Pengingat satu kali berisi kelas, mapel, jam pelajaran, rata-rata nilai kelas, ajakan menyelesaikan materi/evaluasi, dan tautan LMS tenant.
+
+Koneksi grup menggunakan protokol WhatsApp Web tidak resmi (Baileys), bukan WhatsApp Business Cloud API. Penggunaan dapat bertentangan dengan ketentuan WhatsApp atau menyebabkan nomor dibatasi; gunakan nomor yang memang dikelola sekolah, batasi pengiriman pada grup yang dipilih, dan minta persetujuan anggota grup. Kredensial sesi disimpan di `WA_SESSION_DIR`, jangan dipublikasikan atau dimasukkan ke backup/git yang dapat diakses umum. Scheduler berjalan di proses server; gunakan satu instance aplikasi dan disk persisten untuk menghindari pengiriman ganda atau kehilangan jadwal. Jadwal gagal ditampilkan di panel dan tidak dikirim ulang otomatis.
 
 ### Update & rollback
 
@@ -250,7 +261,7 @@ REDIS_PORT=6379
 
 ## Kurikulum Berjenjang (Geografi Kelas X dan XI)
 
-Materi disusun berjenjang per kelas: siswa hanya bisa membuka bab berikutnya setelah bab sebelumnya **tuntas** (nilai ≥ KKM 75). Setiap bab punya evaluasi dengan **maksimal 3 percobaan**; yang diambil adalah **nilai tertinggi**. Setelah semua bab tuntas, tombol **Naik Kelas** membuka jenjang berikutnya.
+Materi disusun berjenjang per kelas: siswa hanya bisa membuka bab berikutnya setelah bab sebelumnya **tuntas** (nilai ≥ KKM 75). Evaluasi dapat diulang tanpa batas. Setiap materi dihitung sebagai satu komponen: nilai tertinggi dikurangi satu poin untuk setiap pengulangan dengan nilai lebih rendah; nilai pengulangan yang sama tidak mengurangi nilai. Rekap mencantumkan percobaan dengan nilai tertinggi, jumlah pengurangan, dan nilai akhir. Setelah semua bab tuntas, tombol **Naik Kelas** membuka jenjang berikutnya.
 
 ### Landasan regulasi (terverifikasi)
 | Regulasi | Pokok |
@@ -265,41 +276,43 @@ Materi disusun berjenjang per kelas: siswa hanya bisa membuka bab berikutnya set
 Catatan: pada CP 2025, Fase E (kelas X) dirumuskan dalam CP IPS; sekolah boleh mengorganisasi muatan **per disiplin**. Karena itu Geografi kelas X di LMS ini disusun sebagai pengorganisasian disiplin dari CP Fase E, dan pedosfer/antroposfer ditempatkan sebagai pengayaan menuju Fase F.
 
 ### Isi materi Kelas X (`data/kurikulum/kelas-x/`)
-| Urutan | Bab | Fokus |
-|---|---|---|
-| 1 | Konsep, Prinsip, dan Pendekatan Geografi | objek studi, 10 konsep, korologi |
-| 2 | Peta, Skala, Proyeksi, dan Membaca Ruang | skala, distorsi, kontur, kemiringan lereng |
-| 3 | Penginderaan Jauh dan Interpretasi Citra | sensor, resolusi, 9 unsur interpretasi |
-| 4 | Sistem Informasi Geografis | vektor/raster, overlay, buffer, WebGIS |
-| 5 | Litosfer: Batuan, Tektonika, Bahaya Geologis | siklus batuan, lempeng, gempa, amplifikasi |
-| 6 | Atmosfer: Cuaca, Iklim, Perubahan Iklim | lapisan, ENSO, monsun, adaptasi |
-| 7 | Hidrosfer: Siklus Air, DAS, Dinamika Laut | neraca air, intrusi air laut, pesisir |
-| 8 | Mitigasi Bencana dan Tata Ruang Berbasis Risiko | rumus risiko, levee effect, rencana aksi |
+| Urutan | Bab |
+|---|---|
+| 1 | Dasar-Dasar Ilmu Geografi: Konsep, Prinsip, dan Pendekatan Keruangan |
+| 2 | Peta, Skala, Proyeksi, dan Membaca Ruang |
+| 3 | Penginderaan Jauh dan Interpretasi Citra Lingkungan |
+| 4 | Sistem Informasi Geografis dan Pemodelan Keruangan |
+| 5 | Dinamika Litosfer dan Dampaknya terhadap Kehidupan |
+| 6 | Dinamika Atmosfer dan Dampaknya terhadap Kehidupan |
+| 7 | Dinamika Hidrosfer dan Konservasi Sumber Daya Air |
+| 8 | Mitigasi dan Adaptasi Bencana Kebumian Indonesia |
 
-Setiap bab memuat: tujuan pembelajaran, 4 sub-materi, glosarium, dan **5 soal** yang mencakup lima tipe — pilihan ganda majemuk, pilihan ganda, pilihan ganda kompleks, menjodohkan, dan benar–salah. Semua soal memakai stimulus literasi (paragraf/poster) dan/atau numerasi (tabel & perhitungan), berlevel C3–C5, dengan pembahasan.
+Setiap bab memiliki tujuan pembelajaran dan **5–10 soal** dengan bacaan kontekstual panjang. Bank soal mencakup pilihan ganda biasa, pilihan ganda majemuk, pilihan ganda kompleks, menjodohkan, dan benar–salah. Semua pilihan ganda menyediakan opsi **A–E**. Stimulus dapat dilengkapi gambar dan setiap soal menyimpan kunci serta pembahasan. Setiap percobaan tersimpan, sementara daftar nilai dan rata-rata menampilkan satu nilai akhir per materi.
 
 ### Isi materi Kelas XI (`data/kurikulum/kelas-xi/`)
-Kelas XI memakai **Fase F** dan melanjutkan jenjang setelah seluruh bab Kelas X tuntas (nilai ≥ KKM). Fokusnya biosfer, antroposfer, interaksi manusia–lingkungan, dan sumber daya alam.
+Kelas XI memakai **Fase F** dan melanjutkan jenjang setelah seluruh bab Kelas X tuntas (nilai ≥ KKM).
 
 | Urutan | Bab | Fokus |
 |---|---|---|
-| 1 | Biosfer: Sebaran Flora dan Fauna Indonesia dan Dunia | faktor persebaran, bioma, garis Wallace–Webber, konservasi |
-| 2 | Tanah: Pembentukan, Klasifikasi, dan Degradasi | lima faktor tanah, jenis tanah Indonesia, USLE, konservasi |
-| 3 | Antroposfer: Dinamika Penduduk dan Proyeksi | CBR/CDR, migrasi, piramida, rasio ketergantungan |
-| 4 | Kualitas Penduduk: Pendidikan, Kesehatan, Ketenagakerjaan | IPM, APK/APM, stunting, TPT dan produktivitas |
-| 5 | Keragaman Budaya dan Difusi Inovasi | unsur budaya, persebaran bahasa, difusi, glokalisasi |
-| 6 | Interaksi Manusia dan Lingkungan | daya dukung, jejak ekologis, kearifan lokal |
-| 7 | Sumber Daya Alam: Klasifikasi, Sebaran, Konsumsi | umur cadangan, sebaran komoditas, transisi energi |
-| 8 | Kajian Lingkungan Berkelanjutan: Proyek Mini | indikator, data lapangan, analisis, rekomendasi |
+| 1 | Posisi Strategis Indonesia dan Potensi Kemaritiman Dunia | geografi maritim dan geopolitik |
+| 2 | Dinamika Biosfer: Sebaran Bioma, Flora, dan Fauna Dunia | bioma dan konservasi |
+| 3 | Sebaran dan Pengelolaan Sumber Daya Alam Berkelanjutan | sumber daya dan keberlanjutan |
+| 4 | Ketahanan Pangan, Industri, dan Energi Baru Terbarukan (EBT) | pangan dan energi |
+| 5 | Dinamika Kependudukan dan Bonus Demografi Indonesia 2045 | kependudukan |
+| 6 | Keragaman Budaya Bangsa dan Ekonomi Kreatif Spasial | budaya dan ekonomi kreatif |
+| 7 | Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis | lingkungan |
+| 8 | Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim | kebencanaan |
 
-Struktur tiap bab sama dengan Kelas X (tujuan, 4 sub-materi, glosarium, 5 soal lima tipe, level C3–C5). Kelas XII (kewilayahan: pusat pertumbuhan, tata ruang, interaksi desa–kota, globalisasi) belum diisi dan akan memakai format yang sama.
+Kelas XII memiliki 6 bab Fase F: pengembangan wilayah, interaksi desa–kota, SIG dan transportasi, kesenjangan pembangunan, geopolitik, serta isu keruangan global dan SDGs. Semua bab X–XII memakai format asesmen 5–10 soal di atas.
+
+Editor admin pada menu **Kurikulum** dapat menambah, menghapus, dan mengganti tipe soal; mengubah bacaan, pertanyaan, opsi/pernyataan, kunci, pembahasan, serta URL gambar stimulus. Setelah evaluasi dikirim, navigasi bagian materi disembunyikan dan tombol **Kerjakan Soal Ulang** tersedia di bawah hasil.
 
 ### Endpoint
 | Method | Endpoint | Fungsi |
 |---|---|---|
 | GET | `/api/kurikulum` | daftar bab + progres + status kunci |
 | GET | `/api/kurikulum/:babId` | materi + soal (tanpa kunci) |
-| POST | `/api/kurikulum/:babId/evaluasi` | nilai otomatis, simpan percobaan (maks 3) |
+| POST | `/api/kurikulum/:babId/evaluasi` | nilai otomatis dan simpan setiap percobaan |
 | POST | `/api/kurikulum/naik-kelas` | naik jenjang bila semua bab tuntas |
 | GET | `/api/admin/kurikulum/progress` | rekap progres seluruh siswa |
 | POST | `/api/admin/kurikulum/seed-materials` | impor bab menjadi materi biasa (idempoten) |
@@ -324,7 +337,7 @@ Stimulus isu aktual dirujuk dari BMKG, Badan Geologi/ESDM, Kementerian Lingkunga
 
 Desain antarmuka mengikuti prinsip minimal: tanpa gradient, radius kecil, shadow minimal, warna netral, dan system font.
 
-## Tool Browser (MCP) � uji live tanpa buka tab manual
+## Tool Browser (MCP) � uji live tanpa buka tab manual
 
 `scripts/browser-mcp.mjs` adalah MCP server (stdio) yang mengendalikan Chrome/Edge lewat
 Chrome DevTools Protocol. **Tanpa dependensi npm** (butuh Node >= 22 dan Chrome/Edge terpasang).
@@ -421,7 +434,7 @@ ollama pull qwen2.5-coder:3b                                  # model paling rea
    autocomplete memakai `qwen2.5-coder:3b` ke `http://127.0.0.1:11435`. Pilih model di picker Continue.
 3. Cline/Aider: set base URL `http://127.0.0.1:11435`, model `qwen2.5-coder:3b`.
 4. Verifikasi cepat: `curl http://127.0.0.1:11435/v1/models`.
-Di VS Code tersedia task (Ctrl+Shift+P � `Tasks: Run Task`):
+Di VS Code tersedia task (Ctrl+Shift+P � `Tasks: Run Task`):
 
 - `Ollama: start (qwen2.5-coder:3b)`  menyalakan server; bila sudah hidup di 11435,
   skrip memakai server itu dan tidak memilih port lain.
@@ -447,7 +460,7 @@ pm2 restart lms --update-env
 Backup `data/db.json` dibuat otomatis sebelum menulis. Setelah login, ganti password
 lewat `POST /api/me/password`.
 
-**Terkunci "Terlalu banyak percobaan�"** � limiter login menyimpan hitungan di Redis
+**Terkunci "Terlalu banyak percobaan�"** � limiter login menyimpan hitungan di Redis
 bila tersedia, atau di memori proses bila tidak. Tanpa Redis, cukup restart proses:
 
 ```bash

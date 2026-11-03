@@ -4,7 +4,7 @@
     "kelas": "XI",
     "urutan": 7,
     "semester": 2,
-    "youtube_id": "wH4pL9bZ-2s",
+    "youtube_id": "JRoK5RTF_ls",
     "fase": "F",
     "elemen": "Pemahaman Konsep Lingkungan Hidup dan Pembangunan Berkelanjutan",
     "judul": "Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis",
@@ -22,7 +22,7 @@
       {
         "id": "xi07-t1",
         "judul": "Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026",
-        "youtube_id": "wH4pL9bZ-2s",
+        "youtube_id": "JRoK5RTF_ls",
         "kuis_topik": {
           "pertanyaan": "Kondisi ketika kebutuhan sumber daya alam dan konsumsi energi suatu populasi melebihi kapasitas biokapasitas bumi untuk memperbarui diri dan menyerap limbah buangan disebut ...",
           "opsi": [
@@ -65,7 +65,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Dokumen AMDAL Pembangunan Jalan Tol Lintas Hutan",
-          "isi": "<p>Dalam dokumen RKL-RPL proyek jalan tol, konsultan AMDAL mewajibkan pelaksana proyek menanam pohon berakar dalam pada lereng galian, membangun kolam pengendap sedimen di dekat sungai, dan membatasi jam kerja alat berat di malam hari di dekat kawasan suaka burung langka.</p>",
+          "isi": "<p>Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis. Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia.</p><p>Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia. Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs). Topik 1: Daya Dukung Lingkungan, AMDAL &amp; Jejak Ekologis 2026. 🌿 Isu Keberlanjutan 2026: Valuasi Karbon Biru (Blue Carbon) Hutan Mangrove Indonesia Indonesia memiliki hutan mangrove seluas lebih dari 3,3 juta hektare (sekitar 20–23% total mangrove dunia). Dalam era perdagangan karbon global ( carbon trading ), ekosistem mangrove diakui sebagai penyimpan Karbon Biru (Blue Carbon) terbaik yang mampu menyerap dan mengunci emisi karbon 4 hingga 10 kali lebih banyak per hektare dibanding hutan hujan tropis daratan. Melalui program restorasi gambut dan rehabilitasi mangrove Badan Restorasi Gambut dan Mangrove (BRGM), Indonesia memadukan penyelamatan pesisir dari abrasi dengan perolehan devisa kredit karbon internasional berstandar tinggi. Video Pembelajaran: Pelestarian Lingkungan Hidup, AMDAL, dan SDGs 2030 Pelajari daya dukung lingkungan, dokumen AMDAL, jejak karbon, dan pembangunan berkelanjutan. Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs).</p><p>Tujuan pembelajaran: Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p>",
           "sumber": "Komisi Penilai AMDAL Kementerian LHK"
         },
         "pertanyaan": "Pernyataan manakah yang paling tepat mencerminkan fungsi dokumen RKL di atas?",
@@ -73,12 +73,128 @@
           "RKL berfungsi sebagai panduan operasional wajib bagi pemrakarsa proyek untuk memitigasi dan mengendalikan dampak negatif penting lingkungan yang telah diprediksi dalam dokumen ANDAL",
           "RKL hanya merupakan formalitas izin tanpa perlu dilaksanakan di lapangan",
           "RKL bertujuan untuk menghentikan proyek pembangunan secara permanen",
-          "RKL dibuat untuk menaikkan harga tarif tiket jalan tol"
+          "RKL dibuat untuk menaikkan harga tarif tiket jalan tol",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "RKL (Rencana Pengelolaan Lingkungan Hidup) adalah dokumen legal operasional yang memuat upaya-upaya penanganan dampak penting lingkungan yang ditimbulkan oleh rencana usaha atau kegiatan pembangunan."
+      },
+      {
+        "id": "xi-07-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026",
+          "isi": "<p>Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis. Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia.</p><p>Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia. Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs). Topik 1: Daya Dukung Lingkungan, AMDAL &amp; Jejak Ekologis 2026. 🌿 Isu Keberlanjutan 2026: Valuasi Karbon Biru (Blue Carbon) Hutan Mangrove Indonesia Indonesia memiliki hutan mangrove seluas lebih dari 3,3 juta hektare (sekitar 20–23% total mangrove dunia). Dalam era perdagangan karbon global ( carbon trading ), ekosistem mangrove diakui sebagai penyimpan Karbon Biru (Blue Carbon) terbaik yang mampu menyerap dan mengunci emisi karbon 4 hingga 10 kali lebih banyak per hektare dibanding hutan hujan tropis daratan. Melalui program restorasi gambut dan rehabilitasi mangrove Badan Restorasi Gambut dan Mangrove (BRGM), Indonesia memadukan penyelamatan pesisir dari abrasi dengan perolehan devisa kredit karbon internasional berstandar tinggi. Video Pembelajaran: Pelestarian Lingkungan Hidup, AMDAL, dan SDGs 2030 Pelajari daya dukung lingkungan, dokumen AMDAL, jejak karbon, dan pembangunan berkelanjutan. Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs).</p><p>Tujuan pembelajaran: Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon & ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xi-07-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026",
+          "isi": "<p>Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis. Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia.</p><p>Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia. Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs). Topik 1: Daya Dukung Lingkungan, AMDAL &amp; Jejak Ekologis 2026. 🌿 Isu Keberlanjutan 2026: Valuasi Karbon Biru (Blue Carbon) Hutan Mangrove Indonesia Indonesia memiliki hutan mangrove seluas lebih dari 3,3 juta hektare (sekitar 20–23% total mangrove dunia). Dalam era perdagangan karbon global ( carbon trading ), ekosistem mangrove diakui sebagai penyimpan Karbon Biru (Blue Carbon) terbaik yang mampu menyerap dan mengunci emisi karbon 4 hingga 10 kali lebih banyak per hektare dibanding hutan hujan tropis daratan. Melalui program restorasi gambut dan rehabilitasi mangrove Badan Restorasi Gambut dan Mangrove (BRGM), Indonesia memadukan penyelamatan pesisir dari abrasi dengan perolehan devisa kredit karbon internasional berstandar tinggi. Video Pembelajaran: Pelestarian Lingkungan Hidup, AMDAL, dan SDGs 2030 Pelajari daya dukung lingkungan, dokumen AMDAL, jejak karbon, dan pembangunan berkelanjutan. Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs).</p><p>Tujuan pembelajaran: Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009.”.",
+          "Membandingkan temuan dengan capaian “Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xi-07-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026",
+          "isi": "<p>Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis. Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia.</p><p>Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia. Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs). Topik 1: Daya Dukung Lingkungan, AMDAL &amp; Jejak Ekologis 2026. 🌿 Isu Keberlanjutan 2026: Valuasi Karbon Biru (Blue Carbon) Hutan Mangrove Indonesia Indonesia memiliki hutan mangrove seluas lebih dari 3,3 juta hektare (sekitar 20–23% total mangrove dunia). Dalam era perdagangan karbon global ( carbon trading ), ekosistem mangrove diakui sebagai penyimpan Karbon Biru (Blue Carbon) terbaik yang mampu menyerap dan mengunci emisi karbon 4 hingga 10 kali lebih banyak per hektare dibanding hutan hujan tropis daratan. Melalui program restorasi gambut dan rehabilitasi mangrove Badan Restorasi Gambut dan Mangrove (BRGM), Indonesia memadukan penyelamatan pesisir dari abrasi dengan perolehan devisa kredit karbon internasional berstandar tinggi. Video Pembelajaran: Pelestarian Lingkungan Hidup, AMDAL, dan SDGs 2030 Pelajari daya dukung lingkungan, dokumen AMDAL, jejak karbon, dan pembangunan berkelanjutan. Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs).</p><p>Tujuan pembelajaran: Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009.",
+          "Mengkaji konteks materi: Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026",
+          "Menghubungkan temuan dengan: Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis.",
+          "Memahami ruang lingkup: Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon & ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009.”, tujuan kedua “Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis.”, cakupan bab “Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon & ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia.”, dan bacaan pembuka “Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026”."
+      },
+      {
+        "id": "xi-07-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Daya Dukung Lingkungan, AMDAL & Jejak Ekologis 2026",
+          "isi": "<p>Pelestarian Lingkungan Hidup, AMDAL, dan Jejak Ekologis. Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia.</p><p>Menjaga batas daya dukung bumi: daya dukung dan daya tampung lingkungan (D3TLH), jejak karbon &amp; ekologis, valuasi ekonomi jasa ekosistem mangrove/hutan hujan, audit lingkungan hidup, dan implementasi SDGs 2030 di Indonesia. Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs). Topik 1: Daya Dukung Lingkungan, AMDAL &amp; Jejak Ekologis 2026. 🌿 Isu Keberlanjutan 2026: Valuasi Karbon Biru (Blue Carbon) Hutan Mangrove Indonesia Indonesia memiliki hutan mangrove seluas lebih dari 3,3 juta hektare (sekitar 20–23% total mangrove dunia). Dalam era perdagangan karbon global ( carbon trading ), ekosistem mangrove diakui sebagai penyimpan Karbon Biru (Blue Carbon) terbaik yang mampu menyerap dan mengunci emisi karbon 4 hingga 10 kali lebih banyak per hektare dibanding hutan hujan tropis daratan. Melalui program restorasi gambut dan rehabilitasi mangrove Badan Restorasi Gambut dan Mangrove (BRGM), Indonesia memadukan penyelamatan pesisir dari abrasi dengan perolehan devisa kredit karbon internasional berstandar tinggi. Video Pembelajaran: Pelestarian Lingkungan Hidup, AMDAL, dan SDGs 2030 Pelajari daya dukung lingkungan, dokumen AMDAL, jejak karbon, dan pembangunan berkelanjutan. Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis daya dukung dan daya tampung lingkungan hidup, menghitung jejak ekologis dan jejak karbon, mengevaluasi dokumen AMDAL dalam pembangunan, serta merancang aksi nyata pembangunan berkelanjutan (SDGs).</p><p>Tujuan pembelajaran: Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009. Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis. Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman. Menilai jasa ekosistem (ekosistem penyedia, pengatur iklim, budaya, dan pendukung) melalui valuasi ekonomi lingkungan. Merumuskan strategi implementasi 17 Tujuan Pembangunan Berkelanjutan (Sustainable Development Goals / SDGs) di daerah.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menjelaskan konsep daya dukung dan daya tampung lingkungan hidup (D3TLH) menurut UU No. 32 Tahun 2009.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menganalisis instrumen dokumen AMDAL (KA-ANDAL, ANDAL, RKL, RPL) dalam memitigasi risiko lingkungan proyek strategis.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menghitung jejak ekologis (ecological footprint) dan jejak karbon individu maupun kawasan permukiman.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -87,7 +203,7 @@
     "kelas": "XI",
     "urutan": 8,
     "semester": 2,
-    "youtube_id": "mUvS48n9v3U",
+    "youtube_id": "XCTwc_NUUhg",
     "fase": "F",
     "elemen": "Pemahaman Konsep Kesiapsiagaan dan Resiliensi Komunitas",
     "judul": "Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim",
@@ -105,7 +221,7 @@
       {
         "id": "xi08-t1",
         "judul": "Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026",
-        "youtube_id": "mUvS48n9v3U",
+        "youtube_id": "XCTwc_NUUhg",
         "kuis_topik": {
           "pertanyaan": "Keunggulan utama pemetaan partisipatif (participatory mapping) risiko bencana oleh warga komunitas lokal dibanding peta yang dibuat oleh orang luar adalah ...",
           "opsi": [
@@ -144,7 +260,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Sistem Peringatan Dini Longsor di Dusun Terpencil",
-          "isi": "<p>Warga memasang sensor kabel pergerakan tanah sederhana yang dihubungkan ke lonceng kentongan bambu di pos ronda. Ketika terjadi pergeseran tanah lereng sedalam 5 cm, kawat terputus dan sirine/kentongan berbunyi kencang.</p>",
+          "isi": "<p>Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim. Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah.</p><p>Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah. Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas. Topik 1: Desa Tangguh Bencana &amp; Pemetaan Partisipatif 2026. 🏘️ Resiliensi Komunitas 2026: Membangun Budaya Sadar Bencana di Seluruh Pelosok Ketika bencana gempa bumi atau tsunami melanda, rentang waktu emas ( golden time ) penyelamatan nyawa adalah 0 hingga 15 menit pertama. Penelitian membuktikan bahwa 95% korban selamat karena kemampuan evakuasi mandiri (self-rescue) dan bantuan dari keluarga serta tetangga terdekat, bukan menunggu tim penyelamat dari kota yang sering terhambat reruntuhan jalan. Melalui program Desa Tangguh Bencana (Destana) dan Satuan Pendidikan Aman Bencana (SPAB) di sekolah-sekolah, peserta didik dilatih membaca peta ancaman geospasial, memimpin simulasi jalur evakuasi, dan menumbuhkan kepedulian sosial keruangan. Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas.</p><p>Tujuan pembelajaran: Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p>",
           "sumber": "Inovasi Mitigasi Mandiri Komunitas"
         },
         "pertanyaan": "Mengapa teknologi tepat guna berbasis kearifan lokal ini sering kali lebih efektif di daerah terpencil dibanding sirine otomatis berbasis internet?",
@@ -152,12 +268,128 @@
           "Karena tidak bergantung pada sinyal internet/listrik PLN yang sering padam saat badai, mudah dirawat mandiri oleh warga, dan bunyi kentongan langsung dikenali warga sebagai komando evakuasi",
           "Karena kentongan bambu dapat menahan runtuhnya tanah bukit",
           "Karena sensor kabel dapat mengubah tanah labil menjadi batuan granit",
-          "Karena harga bambu jauh lebih mahal dari satelit"
+          "Karena harga bambu jauh lebih mahal dari satelit",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Sistem peringatan dini komunitas (community-based early warning system) yang sederhana dan mandiri memiliki keandalan tinggi di daerah pedesaan terpencil karena tahan terhadap putusnya jaringan listrik/telekomunikasi seluler saat cuaca ekstrem."
+      },
+      {
+        "id": "xi-08-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026",
+          "isi": "<p>Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim. Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah.</p><p>Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah. Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas. Topik 1: Desa Tangguh Bencana &amp; Pemetaan Partisipatif 2026. 🏘️ Resiliensi Komunitas 2026: Membangun Budaya Sadar Bencana di Seluruh Pelosok Ketika bencana gempa bumi atau tsunami melanda, rentang waktu emas ( golden time ) penyelamatan nyawa adalah 0 hingga 15 menit pertama. Penelitian membuktikan bahwa 95% korban selamat karena kemampuan evakuasi mandiri (self-rescue) dan bantuan dari keluarga serta tetangga terdekat, bukan menunggu tim penyelamat dari kota yang sering terhambat reruntuhan jalan. Melalui program Desa Tangguh Bencana (Destana) dan Satuan Pendidikan Aman Bencana (SPAB) di sekolah-sekolah, peserta didik dilatih membaca peta ancaman geospasial, memimpin simulasi jalur evakuasi, dan menumbuhkan kepedulian sosial keruangan. Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas.</p><p>Tujuan pembelajaran: Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir & pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xi-08-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026",
+          "isi": "<p>Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim. Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah.</p><p>Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah. Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas. Topik 1: Desa Tangguh Bencana &amp; Pemetaan Partisipatif 2026. 🏘️ Resiliensi Komunitas 2026: Membangun Budaya Sadar Bencana di Seluruh Pelosok Ketika bencana gempa bumi atau tsunami melanda, rentang waktu emas ( golden time ) penyelamatan nyawa adalah 0 hingga 15 menit pertama. Penelitian membuktikan bahwa 95% korban selamat karena kemampuan evakuasi mandiri (self-rescue) dan bantuan dari keluarga serta tetangga terdekat, bukan menunggu tim penyelamat dari kota yang sering terhambat reruntuhan jalan. Melalui program Desa Tangguh Bencana (Destana) dan Satuan Pendidikan Aman Bencana (SPAB) di sekolah-sekolah, peserta didik dilatih membaca peta ancaman geospasial, memimpin simulasi jalur evakuasi, dan menumbuhkan kepedulian sosial keruangan. Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas.</p><p>Tujuan pembelajaran: Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi.”.",
+          "Membandingkan temuan dengan capaian “Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xi-08-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026",
+          "isi": "<p>Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim. Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah.</p><p>Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah. Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas. Topik 1: Desa Tangguh Bencana &amp; Pemetaan Partisipatif 2026. 🏘️ Resiliensi Komunitas 2026: Membangun Budaya Sadar Bencana di Seluruh Pelosok Ketika bencana gempa bumi atau tsunami melanda, rentang waktu emas ( golden time ) penyelamatan nyawa adalah 0 hingga 15 menit pertama. Penelitian membuktikan bahwa 95% korban selamat karena kemampuan evakuasi mandiri (self-rescue) dan bantuan dari keluarga serta tetangga terdekat, bukan menunggu tim penyelamat dari kota yang sering terhambat reruntuhan jalan. Melalui program Desa Tangguh Bencana (Destana) dan Satuan Pendidikan Aman Bencana (SPAB) di sekolah-sekolah, peserta didik dilatih membaca peta ancaman geospasial, memimpin simulasi jalur evakuasi, dan menumbuhkan kepedulian sosial keruangan. Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas.</p><p>Tujuan pembelajaran: Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi.",
+          "Mengkaji konteks materi: Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026",
+          "Menghubungkan temuan dengan: Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal.",
+          "Memahami ruang lingkup: Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir & pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi.”, tujuan kedua “Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal.”, cakupan bab “Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir & pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah.”, dan bacaan pembuka “Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026”."
+      },
+      {
+        "id": "xi-08-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Desa Tangguh Bencana & Pemetaan Partisipatif 2026",
+          "isi": "<p>Mitigasi Bencana Berbasis Komunitas dan Adaptasi Iklim. Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah.</p><p>Mengokohkan ketahanan masyarakat: konsep Desa Tangguh Bencana (Destana), pemetaan partisipatif risiko bencana, adaptasi perubahan iklim di wilayah pesisir &amp; pegunungan, serta rancangan proyek penelitian geografi lingkungan sekolah. Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas. Topik 1: Desa Tangguh Bencana &amp; Pemetaan Partisipatif 2026. 🏘️ Resiliensi Komunitas 2026: Membangun Budaya Sadar Bencana di Seluruh Pelosok Ketika bencana gempa bumi atau tsunami melanda, rentang waktu emas ( golden time ) penyelamatan nyawa adalah 0 hingga 15 menit pertama. Penelitian membuktikan bahwa 95% korban selamat karena kemampuan evakuasi mandiri (self-rescue) dan bantuan dari keluarga serta tetangga terdekat, bukan menunggu tim penyelamat dari kota yang sering terhambat reruntuhan jalan. Melalui program Desa Tangguh Bencana (Destana) dan Satuan Pendidikan Aman Bencana (SPAB) di sekolah-sekolah, peserta didik dilatih membaca peta ancaman geospasial, memimpin simulasi jalur evakuasi, dan menumbuhkan kepedulian sosial keruangan. Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis ketahanan dan resiliensi masyarakat dalam menghadapi bencana alam dan perubahan iklim, melakukan pemetaan partisipatif, serta merancang proyek aksi mitigasi bencana berbasis komunitas.</p><p>Tujuan pembelajaran: Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi. Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal. Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri). Merancang proposal proyek penelitian geografi lingkungan kontekstual dengan alur berpikir ilmiah. Mempresentasikan hasil proyek mitigasi bencana dan adaptasi lingkungan dalam berbagai format karya.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis indikator Desa Tangguh Bencana (Destana) BNPB: regulasi, kelembagaan, sistem peringatan dini, dan logistik evakuasi.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Melaksanakan teknik pemetaan partisipatif (participatory mapping) untuk menyusun peta jalur evakuasi sekolah dan lingkungan tempat tinggal.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Membedakan strategi adaptasi perubahan iklim di wilayah pesisir (tanggul alami, rumah panggung terapung) dan wilayah pegunungan (embung air dan agroforestri).”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   }

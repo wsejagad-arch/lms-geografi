@@ -62,6 +62,13 @@ const LMS = (() => {
     }
   }
 
+  async function changeMyPassword(current_password, new_password) {
+    return api('/me/password', {
+      method: 'POST',
+      body: JSON.stringify({ current_password, new_password })
+    });
+  }
+
   async function selectTenant(tenantId) {
     await api('/tenants/select', {
       method: 'POST',
@@ -128,6 +135,7 @@ const LMS = (() => {
 
   // Dashboard
   async function getDashboard() { return api('/dashboard'); }
+  async function getKurikulum() { return api('/kurikulum'); }
   async function seedData() { return api('/seed', { method: 'POST' }); }
 
   // Student login
@@ -158,13 +166,20 @@ const LMS = (() => {
   async function seedKurikulumMaterials() { return api('/admin/kurikulum/seed-materials', { method: 'POST' }); }
   async function getSemesterAktif() { return api('/admin/semester-aktif'); }
   async function setSemesterAktif(semester) { return api('/admin/semester-aktif', { method: 'POST', body: JSON.stringify({ semester }) }); }
+  async function getPeringkatKelas() { return api('/kurikulum/peringkat'); }
+  async function setTahunPelajaranAktif(tahun_pelajaran_aktif) {
+    return api('/admin/semester-aktif', { method: 'POST', body: JSON.stringify({ tahun_pelajaran_aktif }) });
+  }
+  async function addTahunPelajaran(tambah_tahun_pelajaran) {
+    return api('/admin/semester-aktif', { method: 'POST', body: JSON.stringify({ tambah_tahun_pelajaran }) });
+  }
 
   return {
     currentUser: () => currentUser,
     setCurrentUser: (u) => { currentUser = u; },
     getCurrentTenant: () => currentTenant,
     setCurrentTenant: (t) => { currentTenant = t; },
-    checkAuth, login, authLogin, logout, selectTenant,
+    checkAuth, login, authLogin, logout, changeMyPassword, selectTenant,
     getTenants, createTenant,
     getSubjects, createSubject, updateSubject, deleteSubject,
     getClasses, createClass, updateClass, deleteClass,
@@ -172,10 +187,12 @@ const LMS = (() => {
     getMaterials, createMaterial, updateMaterial, deleteMaterial,
     seedKurikulumMaterials,
     getSemesterAktif, setSemesterAktif,
+    getPeringkatKelas,
+    setTahunPelajaranAktif, addTahunPelajaran,
     getQuestions, createQuestion, updateQuestion, deleteQuestion,
     getExams, createExam, deleteExam, submitExam,
     getGrades, createGrade, updateGrade, deleteGrade,
-    getDashboard, seedData,
+    getDashboard, getKurikulum, seedData,
     getAttendance, createAttendance, deleteAttendance,
     getAssignments, createAssignment, updateAssignment, deleteAssignment,
     getSchedules, createSchedule, updateSchedule, deleteSchedule,

@@ -2,19 +2,27 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - LMS Geografi Multi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Admin - LMS Geografi Multi · Geo Edulabs</title>
+  <meta name="theme-color" content="#14614f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="GeoEdulabs Admin">
+  <meta name="description" content="Panel Pengelola dan Super Admin LMS Geografi Multi Sekolah Geo Edulabs">
+
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
-  <link rel="stylesheet" href="assets/css/admin.css?v=20261105c">
-  <meta name="theme-color" content="#0d9488">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
+  <link rel="stylesheet" href="assets/css/admin.css?v=20261105g">
 </head>
 <body>
+  <!-- Systematic SVG Sprite Library -->
   <svg class="sprite" aria-hidden="true" focusable="false">
     <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.8"/></symbol>
     <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
@@ -32,455 +40,816 @@
     <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
     <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9z"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
   </svg>
 
   <div class="app-layout">
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
-    <aside class="sidebar" id="sidebar">
+
+    <!-- ====================================================================
+         SIDEBAR: EXECUTIVE HIERARCHY
+         ==================================================================== -->
+    <aside class="sidebar" id="sidebar" aria-label="Navigasi Pengelola">
       <div class="sidebar-header">
-        <div class="brand-mark">G</div>
+        <div class="brand-mark" aria-hidden="true">GE</div>
         <div class="brand-text">
-          <span class="brand-name">Geografi</span>
-          <span class="brand-role">Admin</span>
+          <span class="brand-name">Geo Edulabs</span>
+          <span class="brand-role">Executive Admin</span>
         </div>
       </div>
+
       <nav class="sidebar-nav">
-        <div class="nav-item active" data-menu="dashboard"><svg class="ic"><use href="#i-dash"/></svg><span>Dashboard</span></div>
-        <p class="nav-label">Akademik</p>
-        <div class="nav-item" data-menu="subjects"><svg class="ic"><use href="#i-book"/></svg><span>Mapel</span></div>
-        <div class="nav-item" data-menu="classes"><svg class="ic"><use href="#i-school"/></svg><span>Kelas</span></div>
-        <div class="nav-item" data-menu="students"><svg class="ic"><use href="#i-users"/></svg><span>Siswa</span></div>
+        <div class="nav-item active" data-menu="dashboard">
+          <svg class="ic"><use href="#i-dash"/></svg>
+          <span>Dasbor Utama</span>
+        </div>
+
+        <p class="nav-label">Manajemen Akademik</p>
+        <div class="nav-item" data-menu="subjects"><svg class="ic"><use href="#i-book"/></svg><span>Mata Pelajaran</span></div>
+        <div class="nav-item" data-menu="classes"><svg class="ic"><use href="#i-school"/></svg><span>Rombel & Kelas</span></div>
+        <div class="nav-item" data-menu="students"><svg class="ic"><use href="#i-users"/></svg><span>Data Siswa</span></div>
         <div class="nav-item" data-menu="progress"><svg class="ic"><use href="#i-chart"/></svg><span>Progres Belajar</span></div>
-        <div class="nav-item" data-menu="sessions"><svg class="ic"><use href="#i-users"/></svg><span>User Aktif</span></div>
-        <p class="nav-label">Konten</p>
-        <div class="nav-item" data-menu="materials"><svg class="ic"><use href="#i-file"/></svg><span>Materi</span></div>
-        <div class="nav-item" data-menu="kurikulum"><svg class="ic"><use href="#i-book"/></svg><span>Kurikulum</span></div>
-        <div class="nav-item" data-menu="questions"><svg class="ic"><use href="#i-help"/></svg><span>Bank Soal</span></div>
-        <p class="nav-label">Penilaian</p>
-        <div class="nav-item" data-menu="exams"><svg class="ic"><use href="#i-award"/></svg><span>Exam TKA</span></div>
-        <div class="nav-item" data-menu="grades"><svg class="ic"><use href="#i-chart"/></svg><span>Input Nilai</span></div>
-        <div class="nav-item" data-menu="attendance"><svg class="ic"><use href="#i-check"/></svg><span>Presensi</span></div>
-        <div class="nav-item" data-menu="assignments"><svg class="ic"><use href="#i-clipboard"/></svg><span>Tugas</span></div>
-        <div class="nav-item" data-menu="schedules"><svg class="ic"><use href="#i-calendar"/></svg><span>Jadwal</span></div>
+        <div class="nav-item" data-menu="sessions"><svg class="ic"><use href="#i-activity"/></svg><span>Sesi Aktif (Live)</span></div>
+        <div class="nav-item" data-menu="activity"><svg class="ic"><use href="#i-activity"/></svg><span>Log Aktivitas</span></div>
+
+        <p class="nav-label">Kurikulum & Konten</p>
+        <div class="nav-item" data-menu="materials"><svg class="ic"><use href="#i-file"/></svg><span>Modul & Materi</span></div>
+        <div class="nav-item" data-menu="kurikulum"><svg class="ic"><use href="#i-book"/></svg><span>Struktur Kurikulum</span></div>
+        <div class="nav-item" data-menu="questions"><svg class="ic"><use href="#i-help"/></svg><span>Bank Butir Soal</span></div>
+
+        <p class="nav-label">Evaluasi & Penilaian</p>
+        <div class="nav-item" data-menu="exams"><svg class="ic"><use href="#i-award"/></svg><span>Ujian (Exam CBT)</span></div>
+        <div class="nav-item" data-menu="grades"><svg class="ic"><use href="#i-chart"/></svg><span>Rekapitulasi Nilai</span></div>
+        <div class="nav-item" data-menu="attendance"><svg class="ic"><use href="#i-check"/></svg><span>Presensi Harian</span></div>
+        <div class="nav-item" data-menu="assignments"><svg class="ic"><use href="#i-clipboard"/></svg><span>Tugas & Proyek</span></div>
+        <div class="nav-item" data-menu="schedules"><svg class="ic"><use href="#i-calendar"/></svg><span>Jadwal Pelajaran</span></div>
+        <div class="nav-item" data-menu="whatsapp"><svg class="ic"><use href="#i-activity"/></svg><span>WhatsApp Sender</span></div>
       </nav>
+
       <div class="sidebar-foot">
-        <div class="nav-item" id="btn-seed"><svg class="ic"><use href="#i-sprout"/></svg><span>Seed Data</span></div>
-        <div class="nav-item" id="btn-logout"><svg class="ic"><use href="#i-logout"/></svg><span>Keluar</span></div>
+        <div class="nav-item" id="btn-seed" role="button" tabindex="0">
+          <svg class="ic"><use href="#i-sprout"/></svg>
+          <span>Sinkronisasi Data Awal</span>
+        </div>
+        <div class="nav-item" id="btn-logout" role="button" tabindex="0">
+          <svg class="ic"><use href="#i-logout"/></svg>
+          <span>Keluar Sesi</span>
+        </div>
       </div>
     </aside>
     
+    <!-- ====================================================================
+         MAIN CONTENT AREA
+         ==================================================================== -->
     <main class="main-content">
+      <!-- Sticky Executive Top Bar -->
       <header class="top-bar">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Menu"><svg class="ic"><use href="#i-menu"/></svg></button>
-        <h1 id="page-title">Dashboard</h1>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Buka navigasi">
+          <svg class="ic"><use href="#i-menu"/></svg>
+        </button>
+
+        <div class="top-bar-title-group">
+          <span class="top-bar-breadcrumb">GEO EDULABS / ADMIN /</span>
+          <h1 id="page-title">Dasbor Utama</h1>
+        </div>
+
+        <div class="admin-tenant-pill">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span>SMAN 1 SUMBER · WGS84 6°45'S 108°28'E</span>
+        </div>
+
         <div class="user-info">
-          <span id="user-name">Admin</span>
+          <span id="user-name">Super Admin</span>
           <div class="user-avatar">A</div>
         </div>
       </header>
 
       <div class="content">
-      <!-- Dashboard -->
-      <section id="menu-dashboard" class="menu-section">
-        <div class="grid-3">
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-users"/></svg></span>
-            <div><div class="stat-value" id="stat-siswa">0</div><div class="stat-label">Siswa</div></div>
+        <!-- Container for Multi-Tenant selection if triggered -->
+        <div id="tenant-selection" class="hidden"></div>
+
+        <!-- ==============================================================
+             MENU: DASHBOARD (Executive Clustered Cockpit)
+             ============================================================== -->
+        <section id="menu-dashboard" class="menu-section">
+          <!-- Executive Operations Banner -->
+          <div class="admin-hero-card">
+            <div class="admin-hero-card-left">
+              <h2 id="dashboard-tenant-nama">SMA Negeri 1 Sumber</h2>
+              <p>Pusat Komando Manajemen Pembelajaran & Laboratorium Geografi Terpadu Kurikulum Merdeka.</p>
+            </div>
+            <div class="admin-hero-status-pill">
+              <span class="pulse-dot" style="width:6px;height:6px;border-radius:50%;background:#34d399;" aria-hidden="true"></span>
+              <span>Cache: <span id="dashboard-cache-status">In-Memory</span> · Status Aktif</span>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-teacher"/></svg></span>
-            <div><div class="stat-value" id="stat-guru">0</div><div class="stat-label">Guru</div></div>
+
+          <!-- Cluster 1: Demografi & Sivitas Akademik -->
+          <div class="stat-cluster-title">1. Sivitas & Rombongan Belajar</div>
+          <div class="grid-4">
+            <div class="stat-card">
+              <span class="stat-icon" aria-hidden="true"><svg class="ic"><use href="#i-users"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-siswa">0</div>
+                <div class="stat-label">Siswa Terdaftar</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" style="background:#fef3c7;color:#b45309;" aria-hidden="true"><svg class="ic"><use href="#i-teacher"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-guru">0</div>
+                <div class="stat-label">Guru & Staf</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" style="background:#e0f2fe;color:#0369a1;" aria-hidden="true"><svg class="ic"><use href="#i-school"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-kelas">0</div>
+                <div class="stat-label">Rombel Kelas</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" style="background:#dcfce7;color:#15803d;" aria-hidden="true"><svg class="ic"><use href="#i-book"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-mapel">0</div>
+                <div class="stat-label">Mata Pelajaran</div>
+              </div>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-book"/></svg></span>
-            <div><div class="stat-value" id="stat-mapel">0</div><div class="stat-label">Mapel</div></div>
+
+          <!-- Cluster 2: Kurikulum & Bank Konten -->
+          <div class="stat-cluster-title">2. Konten Pembelajaran & Evaluasi</div>
+          <div class="grid-4">
+            <div class="stat-card">
+              <span class="stat-icon" aria-hidden="true"><svg class="ic"><use href="#i-file"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-materi">0</div>
+                <div class="stat-label">Modul Materi</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" aria-hidden="true"><svg class="ic"><use href="#i-help"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-soal">0</div>
+                <div class="stat-label">Bank Butir Soal</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" aria-hidden="true"><svg class="ic"><use href="#i-clipboard"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-assignments">0</div>
+                <div class="stat-label">Tugas Terjadwal</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" style="background:#fae8ff;color:#86198f;" aria-hidden="true"><svg class="ic"><use href="#i-award"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-exam">0</div>
+                <div class="stat-label">Ujian (Exam CBT)</div>
+              </div>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-school"/></svg></span>
-            <div><div class="stat-value" id="stat-kelas">0</div><div class="stat-label">Kelas</div></div>
+
+          <!-- Cluster 3: Kinerja & Hasil Belajar -->
+          <div class="stat-cluster-title">3. Kinerja Belajar & Kehadiran</div>
+          <div class="grid-3">
+            <div class="stat-card accent">
+              <span class="stat-icon" aria-hidden="true"><svg class="ic"><use href="#i-star"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-rata">0</div>
+                <div class="stat-label">Rata-rata Nilai Global</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" aria-hidden="true"><svg class="ic"><use href="#i-chart"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-nilai">0</div>
+                <div class="stat-label">Total Log Penilaian</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon" aria-hidden="true"><svg class="ic"><use href="#i-check"/></svg></span>
+              <div>
+                <div class="stat-value" id="stat-attendance">0</div>
+                <div class="stat-label">Presensi Terekam</div>
+              </div>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-file"/></svg></span>
-            <div><div class="stat-value" id="stat-materi">0</div><div class="stat-label">Materi</div></div>
+
+          <!-- Lower Panels: Class Performance & Recent Activities -->
+          <div class="grid-2 mt-2">
+            <div class="card">
+              <div class="flex justify-between items-center mb-2">
+                <h3>Performa Akademik per Rombel</h3>
+                <span class="badge badge-primary">KKM: 75</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Kelas</th>
+                      <th>Jumlah Siswa</th>
+                      <th>Rata-rata Nilai</th>
+                    </tr>
+                  </thead>
+                  <tbody id="kelas-performance-tbody">
+                    <tr><td colspan="3" class="text-center" style="color:var(--text-3);padding:20px;">Memuat data performa kelas...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="flex justify-between items-center mb-2">
+                <h3>Log Penilaian Siswa Terbaru</h3>
+                <span class="badge badge-neutral">Live Feed</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tanggal</th>
+                      <th>Siswa</th>
+                      <th>Mapel</th>
+                      <th>Kelas</th>
+                      <th>Nilai</th>
+                      <th>Tipe</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recent-grades-tbody">
+                    <tr><td colspan="6" class="text-center" style="color:var(--text-3);padding:20px;">Memuat riwayat penilaian...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-help"/></svg></span>
-            <div><div class="stat-value" id="stat-soal">0</div><div class="stat-label">Soal</div></div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-clipboard"/></svg></span>
-            <div><div class="stat-value" id="stat-assignments">0</div><div class="stat-label">Tugas</div></div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-chart"/></svg></span>
-            <div><div class="stat-value" id="stat-nilai">0</div><div class="stat-label">Nilai</div></div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-check"/></svg></span>
-            <div><div class="stat-value" id="stat-attendance">0</div><div class="stat-label">Presensi</div></div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-icon"><svg class="ic"><use href="#i-award"/></svg></span>
-            <div><div class="stat-value" id="stat-exam">0</div><div class="stat-label">Exam</div></div>
-          </div>
-          <div class="stat-card accent">
-            <span class="stat-icon"><svg class="ic"><use href="#i-star"/></svg></span>
-            <div><div class="stat-value" id="stat-rata">0</div><div class="stat-label">Rata-rata</div></div>
-          </div>
-        </div>
-        <div class="grid-2">
+        </section>
+
+        <!-- ==============================================================
+             MENU: SUBJECTS (Mata Pelajaran)
+             ============================================================== -->
+        <section id="menu-subjects" class="menu-section hidden">
           <div class="card">
-            <h3>Sekolah</h3>
-            <div class="value-lg" id="dashboard-tenant-nama">-</div>
-            <div class="mt-2"><span class="badge badge-success">Cache <span id="dashboard-cache-status">In-Memory</span></span></div>
-          </div>
-          <div class="card">
-            <h3>Performa per Kelas</h3>
+            <div class="list-toolbar">
+              <button class="btn btn-primary btn-sm" id="btn-add-subject">+ Tambah Mapel</button>
+            </div>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Kelas</th><th>Siswa</th><th>Rata-rata</th></tr></thead>
-                <tbody id="kelas-performance-tbody">
-                  <tr><td colspan="3" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>
-                </tbody>
+                <thead>
+                  <tr>
+                    <th>Kode</th>
+                    <th>Nama Mapel</th>
+                    <th>Deskripsi Ringkas</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="subjects-tbody"></tbody>
               </table>
             </div>
           </div>
-        </div>
-        <div class="card mt-2">
-          <h3>Aktivitas Terbaru</h3>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Tanggal</th><th>Siswa</th><th>Mapel</th><th>Kelas</th><th>Nilai</th><th>Tipe</th></tr></thead>
-              <tbody id="recent-grades-tbody">
-                <tr><td colspan="6" class="text-center" style="color:var(--text-2)">Memuat...</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Mapel -->
-      <section id="menu-subjects" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-subject">+ Tambah</button></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Kode</th><th>Nama</th><th>Deskripsi</th><th>Aksi</th></tr></thead>
-              <tbody id="subjects-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Kelas -->
-      <section id="menu-classes" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-class">+ Tambah</button></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Tingkat</th><th>Nama</th><th>Jurusan</th><th>Wali Kelas</th><th>Aksi</th></tr></thead>
-              <tbody id="classes-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Siswa -->
-      <section id="menu-students" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <button class="btn btn-sm" id="btn-student-template">Template</button>
-              <button class="btn btn-sm" id="btn-student-import">Impor</button>
-              <button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah</button>
+        <!-- ==============================================================
+             MENU: CLASSES (Rombel & Kelas)
+             ============================================================== -->
+        <section id="menu-classes" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar">
+              <button class="btn btn-primary btn-sm" id="btn-add-class">+ Tambah Kelas</button>
             </div>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <select id="student-filter-kelas" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:130px">
-                <option value="">Semua Kelas</option>
-              </select>
-              <input id="student-filter-nama" type="search" placeholder="Cari nama / NIS / NISN..." style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:210px">
-              <button class="btn btn-sm" id="btn-student-filter-reset" type="button">Reset</button>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Kelas</th>
+                    <th>Fase</th>
+                    <th>Wali Kelas</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="classes-tbody"></tbody>
+              </table>
             </div>
           </div>
-          <input type="file" id="student-import-file" accept=".csv,text/csv" hidden>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>NIS</th><th>NISN</th><th>Nama</th><th>Email</th><th>WA</th><th>Kelas</th><th>Aksi</th></tr></thead>
-              <tbody id="students-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Progres Belajar -->
-      <section id="menu-progress" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-            <button class="btn btn-sm" id="btn-progress-refresh">Muat ulang</button>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <button class="btn btn-sm" id="btn-progress-print">Cetak / PDF</button>
-              <button class="btn btn-sm" id="btn-progress-png">Unduh PNG</button>
-              <select id="progress-filter-kelas" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:130px">
-                <option value="">Semua Kelas</option>
-              </select>
-              <input id="progress-filter-nama" type="search" placeholder="Cari nama / NIS..." style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:210px">
-            </div>
-          </div>
-          <div id="progress-print-head" class="print-only"></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>NIS</th><th>Nama</th><th>Kelas</th><th>Jenjang</th><th>Progres</th><th>Rata-rata terbaik</th><th>Pengulangan</th><th>Detail</th></tr></thead>
-              <tbody id="progress-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section id="menu-sessions" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-              <button class="btn btn-sm" id="btn-sessions-refresh">Muat ulang</button>
-              <span id="sessions-live" class="sessions-live">memuat…</span>
-            </div>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <button class="btn btn-sm" id="btn-sessions-print">Cetak / PDF</button>
-              <select id="session-filter-kelas" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:130px">
-                <option value="">Semua Kelas</option>
-              </select>
-              <select id="session-filter-status" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:120px">
-                <option value="online">Online saja</option>
-                <option value="all">Semua status</option>
-                <option value="offline">Offline</option>
-              </select>
-              <input id="session-filter-nama" type="search" placeholder="Cari nama / NIS..." style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:190px">
-            </div>
-          </div>
-          <div id="session-print-head" class="print-only"></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Nama</th><th>Peran</th><th>Kelas</th><th>Status</th><th>Login</th><th>Terakhir aktif</th><th class="col-extra">IP</th><th class="col-extra">Lokasi</th><th class="col-extra">Perangkat</th></tr></thead>
-              <tbody id="sessions-tbody"></tbody>
-            </table>
-          </div>
-          <p id="sessions-note" style="font-size:12px;color:var(--text-2);margin-top:8px">Online = ada aktivitas dalam 2 menit terakhir (diperbarui otomatis tiap 10 detik). Lokasi diambil dari header Cloudflare (kota, region, negara).</p>
-        </div>
-      </section>
-
-      <!-- Kurikulum -->
-      <section id="menu-kurikulum" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar">
-            <select id="kur-level" class="btn btn-sm">
-              <option value="X">Kelas X</option>
-              <option value="XI">Kelas XI</option>
-              <option value="XII">Kelas XII</option>
-            </select>
-            <button class="btn btn-primary btn-sm" id="btn-kur-muat">Muat</button>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>#</th><th>Materi</th><th>Fase</th><th>Aksi</th></tr></thead>
-              <tbody id="kur-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-        <div id="kur-editor" class="card hidden"></div>
-      </section>
-
-      <!-- Materi -->
-      <section id="menu-materials" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <button class="btn btn-primary btn-sm" id="btn-add-material">+ Tambah</button>
-              <button class="btn btn-sm" id="btn-seed-kurikulum">Impor Kurikulum</button>
-              <div style="display:flex;align-items:center;gap:6px;margin-left:8px;font-size:12px;color:var(--text-2)">
-                <label for="filter-material-semester">Filter:</label>
-                <select id="filter-material-semester" style="padding:4px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px">
-                  <option value="">Semua Semester</option>
-                  <option value="1">Semester 1</option>
-                  <option value="2">Semester 2</option>
+        <!-- ==============================================================
+             MENU: STUDENTS (Data Siswa)
+             ============================================================== -->
+        <section id="menu-students" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <button class="btn btn-sm" id="btn-student-template">Unduh Template CSV</button>
+                <button class="btn btn-sm" id="btn-student-import">Impor Siswa</button>
+                <button class="btn btn-primary btn-sm" id="btn-add-student">+ Tambah Siswa</button>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <select id="student-filter-kelas" style="min-width:140px">
+                  <option value="">Semua Kelas</option>
                 </select>
+                <input id="student-filter-nama" type="search" placeholder="Cari nama / NIS / NISN..." style="min-width:220px">
+                <button class="btn btn-sm" id="btn-student-filter-reset" type="button">Reset</button>
               </div>
             </div>
-            <div style="display:flex;align-items:center;gap:6px;background:var(--bg-2);padding:5px 10px;border-radius:8px;border:1px solid var(--border)">
-              <span style="font-size:12px;font-weight:600">Semester Aktif Sekolah:</span>
-              <select id="admin-active-semester" style="padding:3px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;font-weight:600">
-                <option value="1">Semester 1 (Ganjil)</option>
-                <option value="2">Semester 2 (Genap)</option>
-              </select>
-              <button class="btn btn-sm btn-primary" id="btn-save-semester-aktif" style="padding:3px 10px;font-size:11.5px">Simpan</button>
+            <input type="file" id="student-import-file" accept=".csv,text/csv" hidden>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>NIS</th>
+                    <th>NISN</th>
+                    <th>Nama Lengkap</th>
+                    <th>Email</th>
+                    <th>Kontak WhatsApp</th>
+                    <th>Kelas</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="students-tbody"></tbody>
+              </table>
             </div>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Semester</th><th>Kelas</th><th>Mapel</th><th>Judul</th><th>Modul</th><th>Video</th><th>Aksi</th></tr></thead>
-              <tbody id="materials-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Soal -->
-      <section id="menu-questions" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-question">+ Tambah</button></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Kelas</th><th>Jenis</th><th>Pertanyaan</th><th>Poin</th><th>Aksi</th></tr></thead>
-              <tbody id="questions-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Exams -->
-      <section id="menu-exams" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-exam">+ Tambah</button></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Judul</th><th>Mapel</th><th>Kelas</th><th>Durasi</th><th>Aksi</th></tr></thead>
-              <tbody id="exams-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Nilai -->
-      <section id="menu-grades" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-            <button class="btn btn-primary btn-sm" id="btn-add-grade">+ Tambah</button>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <select id="grade-filter-kelas" style="padding:5px 8px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:130px">
-                <option value="">Semua Kelas</option>
-              </select>
-              <input id="grade-filter-nama" type="search" placeholder="Cari nama / NIS / NISN..." style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;min-width:210px">
-              <button class="btn btn-sm" id="btn-grade-filter-reset" type="button">Reset</button>
+        <!-- ==============================================================
+             MENU: PROGRESS (Progres Belajar Siswa)
+             ============================================================== -->
+        <section id="menu-progress" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+              <button class="btn btn-sm" id="btn-progress-refresh">Segarkan Data</button>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <button class="btn btn-sm" id="btn-progress-print">Cetak / PDF</button>
+                <button class="btn btn-sm" id="btn-progress-png">Unduh PNG</button>
+                <select id="progress-filter-kelas" style="min-width:140px">
+                  <option value="">Semua Kelas</option>
+                </select>
+                <input id="progress-filter-nama" type="search" placeholder="Cari nama / NIS..." style="min-width:220px">
+              </div>
+            </div>
+            <div id="progress-print-head" class="print-only"></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>NIS</th>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                    <th>Jenjang</th>
+                    <th>Progres Belajar</th>
+                    <th>Rata-rata Terbaik</th>
+                    <th>Pengulangan</th>
+                    <th>Detail</th>
+                  </tr>
+                </thead>
+                <tbody id="progress-tbody"></tbody>
+              </table>
             </div>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Siswa</th><th>Mapel</th><th>Kelas</th><th>Jenis</th><th>Nilai</th><th>Aksi</th></tr></thead>
-              <tbody id="grades-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Attendance -->
-      <section id="menu-attendance" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-attendance">+ Tambah</button></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Tanggal</th><th>Siswa</th><th>Kelas</th><th>Status</th><th>Catatan</th><th>Aksi</th></tr></thead>
-              <tbody id="attendance-tbody"></tbody>
-            </table>
+        <!-- ==============================================================
+             MENU: SESSIONS (Sesi Pengguna Aktif / Live Telemetry)
+             ============================================================== -->
+        <section id="menu-sessions" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+              <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                <button class="btn btn-sm" id="btn-sessions-refresh">Muat Ulang</button>
+                <span id="sessions-live" class="sessions-live">memuat…</span>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <button class="btn btn-sm" id="btn-sessions-print">Cetak / PDF</button>
+                <select id="session-filter-kelas" style="min-width:140px">
+                  <option value="">Semua Kelas</option>
+                </select>
+                <select id="session-filter-status" style="min-width:130px">
+                  <option value="online">Online saja</option>
+                  <option value="all">Semua status</option>
+                  <option value="offline">Offline</option>
+                </select>
+                <input id="session-filter-nama" type="search" placeholder="Cari nama / NIS..." style="min-width:200px">
+              </div>
+            </div>
+            <div id="session-print-head" class="print-only"></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Peran</th>
+                    <th>Kelas</th>
+                    <th>Status</th>
+                    <th>Waktu Login</th>
+                    <th>Terakhir Aktif</th>
+                    <th class="col-extra">IP Address</th>
+                    <th class="col-extra">Lokasi Geografis</th>
+                    <th class="col-extra">Perangkat</th>
+                  </tr>
+                </thead>
+                <tbody id="sessions-tbody"></tbody>
+              </table>
+            </div>
+            <p id="sessions-note" style="font-size:12px;color:var(--text-3);margin-top:10px">Online = ada aktivitas dalam 2 menit terakhir (diperbarui otomatis tiap 10 detik). Lokasi diambil dari header Cloudflare (kota, region, negara).</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Assignments -->
-      <section id="menu-assignments" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-assignment">+ Tambah</button></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Judul</th><th>Mapel</th><th>Kelas</th><th>Deadline</th><th>Poin</th><th>Aksi</th></tr></thead>
-              <tbody id="assignments-tbody"></tbody>
-            </table>
+        <section id="menu-activity" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+              <div>
+                <h2 style="margin:0">Log Aktivitas Pengguna</h2>
+                <span id="activity-log-count" style="font-size:12px;color:var(--text-2)">Memuat aktivitas…</span>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <button class="btn btn-sm" id="btn-activity-refresh">Muat Ulang</button>
+                <select id="activity-filter-kelas" aria-label="Filter kelas" style="min-width:140px"><option value="">Semua Kelas</option></select>
+                <select id="activity-filter-type" aria-label="Filter jenis aktivitas" style="min-width:180px"><option value="">Semua Aktivitas</option></select>
+                <input id="activity-filter-query" type="search" placeholder="Cari nama / NIS..." aria-label="Cari nama atau NIS" style="min-width:190px">
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Waktu</th><th>Nama / NIS</th><th>Kelas</th><th>Aktivitas</th><th>Detail</th><th>Perangkat / IP</th></tr></thead>
+                <tbody id="activity-log-tbody"><tr><td colspan="6" class="text-center">Memuat aktivitas…</td></tr></tbody>
+              </table>
+            </div>
+            <p style="font-size:12px;color:var(--text-3);margin:10px 0 0">Log mencatat login, logout, perubahan password, progres belajar, evaluasi, ujian, dan perubahan data. Jawaban soal dan password tidak disimpan dalam log.</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Schedules -->
-      <section id="menu-schedules" class="menu-section hidden">
-        <div class="card">
-          <div class="list-toolbar"><button class="btn btn-primary btn-sm" id="btn-add-schedule">+ Tambah</button></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Hari</th><th>Jam</th><th>Mapel</th><th>Kelas</th><th>Ruangan</th><th>Guru</th><th>Aksi</th></tr></thead>
-              <tbody id="schedules-tbody"></tbody>
-            </table>
+        <!-- ==============================================================
+             MENU: KURIKULUM (Struktur Kurikulum Berjenjang)
+             ============================================================== -->
+        <section id="menu-kurikulum" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar">
+              <select id="kur-level" class="btn btn-sm">
+                <option value="X">Kelas X (Fase E)</option>
+                <option value="XI">Kelas XI (Fase F)</option>
+                <option value="XII">Kelas XII (Fase F Lanjutan)</option>
+              </select>
+              <button class="btn btn-primary btn-sm" id="btn-kur-muat">Muat Kurikulum</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nama Modul / Bab Materi</th>
+                    <th>Fase Capaian</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="kur-tbody"></tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </section>
+          <div id="kur-editor" class="card hidden"></div>
+        </section>
+
+        <!-- ==============================================================
+             MENU: MATERIALS (Modul & Materi Pembelajaran)
+             ============================================================== -->
+        <section id="menu-materials" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <button class="btn btn-primary btn-sm" id="btn-add-material">+ Buat Materi Baru</button>
+                <button class="btn btn-sm" id="btn-seed-kurikulum">Impor dari Kurikulum</button>
+                <div style="display:flex;align-items:center;gap:6px;margin-left:8px;font-size:12px;color:var(--text-2)">
+                  <label for="filter-material-semester">Semester:</label>
+                  <select id="filter-material-semester">
+                    <option value="">Semua Semester</option>
+                    <option value="1">Semester 1 (Ganjil)</option>
+                    <option value="2">Semester 2 (Genap)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="admin-academic-settings">
+                <div class="admin-academic-setting">
+                  <label for="admin-active-school-year">Tahun Pelajaran Aktif</label>
+                  <select id="admin-active-school-year" aria-label="Pilih tahun pelajaran aktif"></select>
+                  <button class="btn btn-sm btn-primary" id="btn-save-school-year">Terapkan</button>
+                </div>
+                <div class="admin-academic-setting admin-academic-add-year">
+                  <label for="admin-new-school-year">Tambah tahun</label>
+                  <input id="admin-new-school-year" type="text" inputmode="numeric" maxlength="9" placeholder="2026/2027" aria-label="Tahun pelajaran baru">
+                  <button class="btn btn-sm" id="btn-add-school-year">Tambah</button>
+                </div>
+                <div class="admin-academic-setting">
+                  <label for="admin-active-semester">Semester Aktif</label>
+                  <select id="admin-active-semester" style="font-weight:600">
+                    <option value="1">Semester 1 (Ganjil)</option>
+                    <option value="2">Semester 2 (Genap)</option>
+                  </select>
+                  <button class="btn btn-sm btn-primary" id="btn-save-semester-aktif">Terapkan</button>
+                </div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Semester</th>
+                    <th>Kelas</th>
+                    <th>Mapel</th>
+                    <th>Judul Materi</th>
+                    <th>Modul</th>
+                    <th>Video</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="materials-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MENU: QUESTIONS (Bank Soal Evaluasi)
+             ============================================================== -->
+        <section id="menu-questions" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar">
+              <button class="btn btn-primary btn-sm" id="btn-add-question">+ Tambah Butir Soal</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Kelas</th>
+                    <th>Jenis Soal</th>
+                    <th>Pertanyaan</th>
+                    <th>Poin</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="questions-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MENU: EXAMS (Ujian Berbasis Komputer / CBT)
+             ============================================================== -->
+        <section id="menu-exams" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar">
+              <button class="btn btn-primary btn-sm" id="btn-add-exam">+ Jadwalkan Exam CBT</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Judul Exam</th>
+                    <th>Mapel</th>
+                    <th>Kelas</th>
+                    <th>Durasi (Menit)</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="exams-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MENU: GRADES (Input & Rekap Nilai)
+             ============================================================== -->
+        <section id="menu-grades" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+              <button class="btn btn-primary btn-sm" id="btn-add-grade">+ Entri Nilai Manual</button>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <select id="grade-filter-kelas" style="min-width:140px">
+                  <option value="">Semua Kelas</option>
+                </select>
+                <input id="grade-filter-nama" type="search" placeholder="Cari nama / NIS / NISN..." style="min-width:220px">
+                <button class="btn btn-sm" id="btn-grade-filter-reset" type="button">Reset</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Siswa</th>
+                    <th>Mapel</th>
+                    <th>Kelas</th>
+                    <th>Jenis Asesmen</th>
+                    <th>Nilai</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="grades-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MENU: ATTENDANCE (Presensi Kehadiran)
+             ============================================================== -->
+        <section id="menu-attendance" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar">
+              <button class="btn btn-primary btn-sm" id="btn-add-attendance">+ Catat Presensi</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tanggal</th>
+                    <th>Siswa</th>
+                    <th>Kelas</th>
+                    <th>Status Kehadiran</th>
+                    <th>Catatan Guru</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="attendance-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MENU: ASSIGNMENTS (Tugas & Penugasan)
+             ============================================================== -->
+        <section id="menu-assignments" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar">
+              <button class="btn btn-primary btn-sm" id="btn-add-assignment">+ Buat Tugas Baru</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Judul Tugas</th>
+                    <th>Mapel</th>
+                    <th>Kelas</th>
+                    <th>Tenggat Waktu</th>
+                    <th>Bobot Poin</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="assignments-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MENU: SCHEDULES (Jadwal Pembelajaran)
+             ============================================================== -->
+        <section id="menu-schedules" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar">
+              <button class="btn btn-primary btn-sm" id="btn-add-schedule">+ Tambah Jadwal Pelajaran</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Hari</th>
+                    <th>Waktu</th>
+                    <th>Mapel</th>
+                    <th>Kelas</th>
+                    <th>Ruang Laboratorium</th>
+                    <th>Pengampu</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="schedules-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="menu-whatsapp" class="menu-section hidden">
+          <div class="card">
+            <div class="panel-head">
+              <div><h2>WhatsApp Sender Tenant</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Hubungkan satu nomor WhatsApp untuk tenant ini dengan QR.</p></div>
+              <span id="wa-connection-badge" class="badge badge-neutral">Belum terhubung</span>
+            </div>
+            <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(220px,.7fr);gap:20px;padding:18px">
+              <div>
+                <label for="wa-lms-url">Tautan LMS tenant</label>
+                <input id="wa-lms-url" type="url" placeholder="https://sekolah.example" style="width:100%;margin:6px 0 12px">
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <button class="btn btn-primary" id="btn-wa-connect">Hubungkan / Tampilkan QR</button>
+                  <button class="btn btn-danger" id="btn-wa-disconnect" type="button">Putuskan WhatsApp</button>
+                  <button class="btn" id="btn-wa-refresh" type="button">Muat ulang status</button>
+                  <button class="btn" id="btn-wa-refresh-groups" type="button">Muat ulang grup</button>
+                </div>
+                <p id="wa-connection-note" role="status" style="font-size:12px;color:var(--text-2);margin-top:12px">Pindai QR menggunakan WhatsApp pada ponsel admin tenant.</p>
+                <p style="font-size:11px;color:var(--status-warning)">Koneksi grup menggunakan WhatsApp Web tidak resmi. Gunakan nomor khusus dan kirim hanya ke grup yang menyetujui pengingat.</p>
+                <div class="wa-groups-box"><strong>Grup yang tersedia</strong><div id="wa-groups-list">Hubungkan WhatsApp untuk memuat grup.</div></div>
+              </div>
+              <div class="wa-qr-panel">
+                <img id="wa-qr-image" alt="QR untuk menghubungkan WhatsApp" hidden>
+                <span id="wa-qr-placeholder">QR akan tampil di sini</span>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <div class="panel-head"><div><h2>Jadwalkan Pengingat LMS ke Grup</h2><p style="margin:4px 0 0;color:var(--text-2);font-size:12px">Pesan berisi pelajaran, pengingat menyelesaikan LMS, rata-rata kelas, dan tautan tenant.</p></div></div>
+            <form id="wa-job-form" class="wa-job-form">
+              <div class="form-group"><label for="wa-job-schedule">Jadwal pelajaran</label><select id="wa-job-schedule" required><option value="">Pilih jadwal</option></select></div>
+              <div class="form-group"><label for="wa-job-group">Grup WhatsApp</label><select id="wa-job-group" required><option value="">Hubungkan nomor terlebih dahulu</option></select></div>
+              <div class="form-group"><label for="wa-job-date">Tanggal kirim</label><input id="wa-job-date" type="date" required></div>
+              <div class="form-group"><label for="wa-job-time">Waktu kirim (WIB)</label><input id="wa-job-time" type="time" required value="06:30"></div>
+              <button class="btn btn-primary" id="btn-wa-job-save" type="submit">Jadwalkan pesan</button>
+            </form>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Tanggal / Waktu</th><th>Kelas / Mapel</th><th>Grup</th><th>Status</th><th>Detail</th><th>Aksi</th></tr></thead>
+                <tbody id="wa-jobs-tbody"><tr><td colspan="6" class="text-center">Memuat jadwal pesan…</td></tr></tbody>
+              </table>
+            </div>
+            <p style="font-size:11px;color:var(--text-3);padding:0 16px 12px">Zona waktu server: WIB (Asia/Jakarta). Jadwal dikirim satu kali. Jika server mati saat waktu kirim, pesan diproses setelah server aktif kembali; pesan gagal perlu dijadwalkan ulang.</p>
+          </div>
+        </section>
       </div>
     </main>
   </div>
 
-  <nav class="bottom-nav">
-    <button class="bottom-nav-item active" data-nav="dashboard"><svg class="ic"><use href="#i-dash"/></svg><span>Dashboard</span></button>
-    <button class="bottom-nav-item" data-nav="students"><svg class="ic"><use href="#i-users"/></svg><span>Siswa</span></button>
-    <button class="bottom-nav-item" data-nav="materials"><svg class="ic"><use href="#i-file"/></svg><span>Materi</span></button>
-    <button class="bottom-nav-item" data-nav="questions"><svg class="ic"><use href="#i-help"/></svg><span>Soal</span></button>
-    <button class="bottom-nav-item" data-nav="grades"><svg class="ic"><use href="#i-chart"/></svg><span>Nilai</span></button>
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="bottom-nav" aria-label="Navigasi bawah seluler">
+    <button type="button" class="bottom-nav-item active" data-nav="dashboard"><svg class="ic"><use href="#i-dash"/></svg><span>Dasbor</span></button>
+    <button type="button" class="bottom-nav-item" data-nav="students"><svg class="ic"><use href="#i-users"/></svg><span>Siswa</span></button>
+    <button type="button" class="bottom-nav-item" data-nav="materials"><svg class="ic"><use href="#i-file"/></svg><span>Materi</span></button>
+    <button type="button" class="bottom-nav-item" data-nav="questions"><svg class="ic"><use href="#i-help"/></svg><span>Soal</span></button>
+    <button type="button" class="bottom-nav-item" data-nav="grades"><svg class="ic"><use href="#i-chart"/></svg><span>Nilai</span></button>
   </nav>
 
+  <!-- ====================================================================
+       MODALS: REUSABLE ADMINISTRATIVE DIALOGS
+       ==================================================================== -->
   <!-- Subject Modal -->
   <div class="modal-overlay" id="subject-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Mapel</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Mata Pelajaran</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="subject-form">
           <input type="hidden" id="subject-id">
-          <div class="form-group"><label>Kode</label><input id="subject-kode" required></div>
-          <div class="form-group"><label>Nama Mapel</label><input id="subject-nama" required></div>
-          <div class="form-group"><label>Deskripsi</label><textarea id="subject-deskripsi" rows="3"></textarea></div>
+          <div class="form-group"><label>Kode Mapel</label><input id="subject-kode" required placeholder="Contoh: GEO"></div>
+          <div class="form-group"><label>Nama Mata Pelajaran</label><input id="subject-nama" required placeholder="Contoh: Geografi"></div>
+          <div class="form-group"><label>Deskripsi Ringkas</label><textarea id="subject-deskripsi" rows="3" placeholder="Uraian ruang lingkup pembelajaran..."></textarea></div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-subject">Simpan</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-subject">Simpan Mapel</button></div>
     </div>
   </div>
 
   <!-- Class Modal -->
   <div class="modal-overlay" id="class-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Kelas</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Rombongan Belajar (Kelas)</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="class-form">
           <input type="hidden" id="class-id">
-          <div class="form-group"><label>Tingkat</label><select id="class-tingkat"><option>X</option><option>XI</option><option>XII</option></select></div>
-          <div class="form-group"><label>Nama Kelas</label><input id="class-nama" required></div>
-          <div class="form-group"><label>Jurusan</label><input id="class-jurusan"></div>
-          <div class="form-group"><label>Wali Kelas</label><input id="class-wali"></div>
+          <div class="form-group"><label>Tingkat / Fase</label><select id="class-tingkat"><option>X</option><option>XI</option><option>XII</option></select></div>
+          <div class="form-group"><label>Nama Kelas</label><input id="class-nama" required placeholder="Contoh: X E 6"></div>
+          <div class="form-group"><label>Jurusan / Peminatan</label><input id="class-jurusan" placeholder="Contoh: Fase E / MIPA / IPS"></div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-class">Simpan</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-class">Simpan Kelas</button></div>
     </div>
   </div>
 
   <!-- Student Modal -->
   <div class="modal-overlay" id="student-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Siswa</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Data Akun Siswa</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="student-form">
           <input type="hidden" id="student-id">
-          <div class="form-group"><label>NIS</label><input id="student-nis" required></div>
-          <div class="form-group"><label>Nama</label><input id="student-nama" required></div>
-          <div class="form-group"><label>Email</label><input id="student-email" type="email"></div>
-          <div class="form-group"><label>Nomor WA</label><input id="student-wa" type="tel" inputmode="tel" placeholder="0812..."></div>
-          <div class="form-group"><label>Kelas</label><select id="student-kelas"></select></div>
+          <div class="form-group"><label>Nomor Induk Siswa (NIS)</label><input id="student-nis" required placeholder="Contoh: 6082"></div>
+          <div class="form-group"><label>Nama Lengkap Siswa</label><input id="student-nama" required placeholder="Sesuai rapor / kartu pelajar"></div>
+          <div class="form-group"><label>Alamat Email (Opsional)</label><input id="student-email" type="email" placeholder="nama@siswa.local"></div>
+          <div class="form-group"><label>Nomor Kontak WhatsApp</label><input id="student-wa" type="tel" inputmode="tel" placeholder="Contoh: 081234567890"></div>
+          <div class="form-group"><label>Kelas / Rombel</label><select id="student-kelas"></select></div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-student">Simpan</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-student">Simpan Siswa</button></div>
     </div>
   </div>
 
-  <!-- Material Modal -->
+  <!-- Material Modal with Rich Article Editor -->
   <div class="modal-overlay" id="material-modal">
     <div class="modal modal-lg">
-      <div class="modal-header"><h3>Editor Materi Pembelajaran</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Editor Materi Pembelajaran</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="material-form">
           <input type="hidden" id="material-id">
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
-            <div class="form-group"><label>Mapel</label><select id="material-subject"></select></div>
-            <div class="form-group"><label>Kelas</label><select id="material-class"></select></div>
+            <div class="form-group"><label>Mata Pelajaran</label><select id="material-subject"></select></div>
+            <div class="form-group"><label>Kelas Target</label><select id="material-class"></select></div>
             <div class="form-group">
               <label>Semester</label>
               <select id="material-semester">
@@ -490,12 +859,12 @@
             </div>
           </div>
           <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px">
-            <div class="form-group"><label>Judul Materi</label><input id="material-judul" required placeholder="Contoh: Konsep Dasar dan Sejarah Geografi"></div>
-            <div class="form-group"><label>Modul / Bab</label><input id="material-modul" placeholder="Contoh: Modul 1 / x-01"></div>
+            <div class="form-group"><label>Judul Materi</label><input id="material-judul" required placeholder="Contoh: Konsep Dasar dan Prinsip Geografi"></div>
+            <div class="form-group"><label>Modul / Kode Bab</label><input id="material-modul" placeholder="Contoh: x-01 / Modul 1"></div>
           </div>
           <div class="form-group">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <label style="margin-bottom:0">Konten Artikel Materi (Edit Standar Web)</label>
+              <label style="margin-bottom:0">Uraian Konten Materi Geografi</label>
               <div style="display:flex;gap:6px">
                 <button type="button" class="btn btn-sm" id="btn-toggle-editor-mode" style="font-size:11.5px">
                   <span id="editor-mode-label">&lt;/&gt; Mode HTML</span>
@@ -505,17 +874,15 @@
             <div class="art-editor-wrap">
               <!-- Editor Toolbar -->
               <div class="art-editor-toolbar" id="art-toolbar">
-                <!-- Typography Font -->
                 <div class="art-tool-group">
                   <select class="art-tool-select" id="art-font-name" title="Pilih Font">
                     <option value="">Font: Standar</option>
+                    <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans</option>
                     <option value="Inter, sans-serif">Inter</option>
                     <option value="Roboto, sans-serif">Roboto</option>
                     <option value="Outfit, sans-serif">Outfit</option>
                     <option value="Georgia, serif">Georgia</option>
-                    <option value="'Times New Roman', serif">Times New Roman</option>
-                    <option value="Arial, sans-serif">Arial</option>
-                    <option value="'Courier New', monospace">Courier Monospace</option>
+                    <option value="'Courier New', monospace">Courier</option>
                   </select>
                   <select class="art-tool-select" id="art-font-size" title="Ukuran Font">
                     <option value="">Ukuran Font</option>
@@ -540,7 +907,6 @@
 
                 <div class="art-tool-sep"></div>
 
-                <!-- Format Gaya -->
                 <div class="art-tool-group">
                   <button type="button" class="art-tool-btn" data-cmd="bold" title="Tebal (Ctrl+B)"><b>B</b></button>
                   <button type="button" class="art-tool-btn" data-cmd="italic" title="Miring (Ctrl+I)"><i>I</i></button>
@@ -550,188 +916,187 @@
 
                 <div class="art-tool-sep"></div>
 
-                <!-- Warna -->
                 <div class="art-tool-group">
                   <span class="art-color-picker-wrap" title="Warna Teks">
-                    <button type="button" class="art-tool-btn" id="btn-text-color-show" style="color:#2563eb">A <span style="font-size:10px">▼</span></button>
-                    <input type="color" id="art-fore-color" value="#0f172a">
+                    <button type="button" class="art-tool-btn" id="btn-text-color-show" style="color:#14614f">A ▼</button>
+                    <input type="color" id="art-fore-color" value="#0f172a" style="display:none">
                   </span>
                   <span class="art-color-picker-wrap" title="Warna Sorotan (Highlight)">
-                    <button type="button" class="art-tool-btn" id="btn-bg-color-show" style="background:#fef08a;color:#854d0e">H <span style="font-size:10px">▼</span></button>
-                    <input type="color" id="art-back-color" value="#fef08a">
+                    <button type="button" class="art-tool-btn" id="btn-bg-color-show" style="background:#fef3c7;color:#854d0e">H ▼</button>
+                    <input type="color" id="art-back-color" value="#fef08a" style="display:none">
                   </span>
                   <button type="button" class="art-tool-btn" data-cmd="removeFormat" title="Hapus Pemformatan">🧹</button>
                 </div>
 
                 <div class="art-tool-sep"></div>
 
-                <!-- Perataan & Daftar -->
                 <div class="art-tool-group">
                   <button type="button" class="art-tool-btn" data-cmd="justifyLeft" title="Rata Kiri">☰</button>
                   <button type="button" class="art-tool-btn" data-cmd="justifyCenter" title="Rata Tengah">☲</button>
                   <button type="button" class="art-tool-btn" data-cmd="justifyRight" title="Rata Kanan">☵</button>
-                  <button type="button" class="art-tool-btn" data-cmd="justifyFull" title="Rata Kiri-Kanan">☶</button>
-                  <button type="button" class="art-tool-btn" data-cmd="insertUnorderedList" title="Daftar Poin (Bullet)">•≡</button>
+                  <button type="button" class="art-tool-btn" data-cmd="insertUnorderedList" title="Daftar Bullet">•≡</button>
                   <button type="button" class="art-tool-btn" data-cmd="insertOrderedList" title="Daftar Nomor">1.≡</button>
                 </div>
 
                 <div class="art-tool-sep"></div>
 
-                <!-- Sisipkan Media & Objek -->
                 <div class="art-tool-group">
                   <button type="button" class="art-tool-btn" id="btn-art-insert-image" title="Sisipkan Gambar">🖼️ Gambar</button>
                   <button type="button" class="art-tool-btn" id="btn-art-insert-video" title="Sisipkan Video YouTube">🎥 Video</button>
                   <button type="button" class="art-tool-btn" id="btn-art-insert-table" title="Sisipkan Tabel">📊 Tabel</button>
-                  <button type="button" class="art-tool-btn" id="btn-art-insert-callout" title="Sisipkan Kotak Sorotan / Kasus / Tokoh">💡 Kotak Khusus</button>
-                  <button type="button" class="art-tool-btn" data-cmd="insertHorizontalRule" title="Garis Pembatas">—</button>
+                  <button type="button" class="art-tool-btn" id="btn-art-insert-callout" title="Sisipkan Kotak Sorotan / Kasus">💡 Sorotan</button>
                 </div>
               </div>
 
               <!-- Visual Editable Canvas -->
-              <div id="art-editor-visual" class="art-editor-content" contenteditable="true" spellcheck="false" data-placeholder="Ketik atau susun artikel materi pembelajaran di sini..."></div>
+              <div id="art-editor-visual" class="art-editor-content" contenteditable="true" spellcheck="false" data-placeholder="Tulis atau susun artikel materi geografi di sini..."></div>
               <!-- Raw HTML Textarea (hidden by default) -->
               <textarea id="material-konten" class="art-editor-code" style="display:none"></textarea>
             </div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
-            <div class="form-group"><label>YouTube ID Video Utama</label><input id="material-youtube" placeholder="Contoh: 2vK8s_aX49c"></div>
-            <div class="form-group"><label>Gambar Banner URL</label><input id="material-image" placeholder="https://... atau /assets/img/..."></div>
-            <div class="form-group"><label>Tipe Konten</label><select id="material-tipe"><option value="materi">Materi Pelajaran</option><option value="tugas">Tugas Terstruktur</option></select></div>
+            <div class="form-group"><label>YouTube ID Video</label><input id="material-youtube" placeholder="Contoh: 2vK8s_aX49c"></div>
+            <div class="form-group"><label>Banner Image URL</label><input id="material-image" placeholder="https://... atau /assets/img/..."></div>
+            <div class="form-group"><label>Jenis Konten</label><select id="material-tipe"><option value="materi">Materi Pelajaran</option><option value="tugas">Tugas Terstruktur</option></select></div>
           </div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-material">Simpan Materi</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-material">Simpan Materi</button></div>
     </div>
   </div>
 
   <!-- Question Modal -->
   <div class="modal-overlay" id="question-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Soal Evaluasi</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Butir Soal Evaluasi</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="question-form">
           <input type="hidden" id="question-id">
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
             <div class="form-group"><label>Mapel</label><select id="question-subject"></select></div>
-            <div class="form-group"><label>Kelas</label><input id="question-kelas" placeholder="Contoh: X"></div>
-            <div class="form-group"><label>Jenis</label><select id="question-jenis"><option value="formatif">Formatif</option><option value="sumatif">Sumatif</option><option value="tka">TKA</option></select></div>
+            <div class="form-group"><label>Tingkat Kelas</label><input id="question-kelas" placeholder="Contoh: X"></div>
+            <div class="form-group"><label>Kategori</label><select id="question-jenis"><option value="formatif">Formatif</option><option value="sumatif">Sumatif</option><option value="tka">TKA</option></select></div>
           </div>
-          <div class="form-group"><label>Pertanyaan</label><textarea id="question-pertanyaan" rows="3" required placeholder="Tuliskan pertanyaan evaluasi..."></textarea></div>
+          <div class="form-group"><label>Teks Pertanyaan</label><textarea id="question-pertanyaan" rows="3" required placeholder="Tuliskan butir soal evaluasi geografi..."></textarea></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div class="form-group"><label>Gambar / Ilustrasi Soal (URL)</label><input id="question-image" placeholder="https://... atau /assets/img/..."></div>
-            <div class="form-group"><label>Video Soal (YouTube ID / URL)</label><input id="question-youtube" placeholder="Contoh: 2vK8s_aX49c"></div>
+            <div class="form-group"><label>Ilustrasi Peta / Gambar (URL)</label><input id="question-image" placeholder="https://... atau /assets/img/..."></div>
+            <div class="form-group"><label>Video Soal (YouTube ID)</label><input id="question-youtube" placeholder="Contoh: 2vK8s_aX49c"></div>
           </div>
-          <div class="form-group"><label>Opsi A</label><input id="question-opsi-a" required></div>
-          <div class="form-group"><label>Opsi B</label><input id="question-opsi-b" required></div>
-          <div class="form-group"><label>Opsi C</label><input id="question-opsi-c" required></div>
-          <div class="form-group"><label>Opsi D</label><input id="question-opsi-d" required></div>
+          <div class="form-group"><label>Opsi A</label><input id="question-opsi-a" required placeholder="Jawaban A"></div>
+          <div class="form-group"><label>Opsi B</label><input id="question-opsi-b" required placeholder="Jawaban B"></div>
+          <div class="form-group"><label>Opsi C</label><input id="question-opsi-c" required placeholder="Jawaban C"></div>
+          <div class="form-group"><label>Opsi D</label><input id="question-opsi-d" required placeholder="Jawaban D"></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div class="form-group"><label>Kunci Jawaban (0=A, 1=B, 2=C, 3=D)</label><input type="number" id="question-jawaban" min="0" max="3" required></div>
-            <div class="form-group"><label>Poin Nilai</label><input type="number" id="question-poin" value="10" required></div>
+            <div class="form-group"><label>Kunci Jawaban (0=A, 1=B, 2=C, 3=D)</label><input type="number" id="question-jawaban" min="0" max="3" required value="0"></div>
+            <div class="form-group"><label>Bobot Poin</label><input type="number" id="question-poin" value="10" required></div>
           </div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-question">Simpan Soal</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-question">Simpan Butir Soal</button></div>
     </div>
   </div>
 
   <!-- Exam Modal -->
   <div class="modal-overlay" id="exam-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Exam TKA</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Jadwal Ujian (Exam CBT)</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="exam-form">
-          <div class="form-group"><label>Judul</label><input id="exam-judul" required></div>
-          <div class="form-group"><label>Mapel</label><select id="exam-subject"></select></div>
-          <div class="form-group"><label>Kelas</label><select id="exam-class"></select></div>
-          <div class="form-group"><label>Durasi (menit)</label><input type="number" id="exam-durasi" value="60" required></div>
-          <div class="form-group"><label>Soal</label><select id="exam-questions" multiple size="8"></select></div>
+          <div class="form-group"><label>Judul Ujian</label><input id="exam-judul" required placeholder="Contoh: Asesmen Sumatif Bab 1: Pengetahuan Dasar Geografi"></div>
+          <div class="form-group"><label>Mata Pelajaran</label><select id="exam-subject"></select></div>
+          <div class="form-group"><label>Kelas Peserta</label><select id="exam-class"></select></div>
+          <div class="form-group"><label>Durasi Ujian (Menit)</label><input type="number" id="exam-durasi" value="60" required></div>
+          <div class="form-group"><label>Pilih Butir Soal (Tekan Ctrl untuk memilih banyak)</label><select id="exam-questions" multiple size="8"></select></div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-exam">Simpan</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-exam">Terbitkan Exam</button></div>
     </div>
   </div>
 
   <!-- Grade Modal -->
   <div class="modal-overlay" id="grade-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Input Nilai</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Entri Nilai Akademik</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="grade-form">
           <div class="form-group"><label>Siswa</label><select id="grade-student"></select></div>
           <div class="form-group"><label>Mapel</label><select id="grade-subject"></select></div>
           <div class="form-group"><label>Kelas</label><select id="grade-class"></select></div>
-          <div class="form-group"><label>Tipe</label><select id="grade-tipe"><option value="tugas">Tugas</option><option value="evaluasi">Evaluasi</option><option value="sumatif">Sumatif</option><option value="exam">Exam</option></select></div>
-          <div class="form-group"><label>Nilai</label><input type="number" id="grade-nilai" min="0" max="100" required></div>
-          <div class="form-group"><label>Catatan</label><textarea id="grade-catatan" rows="2"></textarea></div>
+          <div class="form-group"><label>Tipe Asesmen</label><select id="grade-tipe"><option value="tugas">Tugas</option><option value="evaluasi">Evaluasi</option><option value="sumatif">Sumatif</option><option value="exam">Exam</option></select></div>
+          <div class="form-group"><label>Nilai (0 - 100)</label><input type="number" id="grade-nilai" min="0" max="100" required placeholder="Contoh: 85"></div>
+          <div class="form-group"><label>Catatan Guru</label><textarea id="grade-catatan" rows="2" placeholder="Catatan capaian / perbaikan..."></textarea></div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-grade">Simpan</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-grade">Simpan Nilai</button></div>
     </div>
   </div>
 
   <!-- Attendance Modal -->
   <div class="modal-overlay" id="attendance-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Presensi</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Catat Presensi Harian</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="attendance-form">
           <div class="form-group"><label>Siswa</label><select id="attendance-student"></select></div>
-          <div class="form-group"><label>Tanggal</label><input type="date" id="attendance-date" required></div>
+          <div class="form-group"><label>Tanggal Presensi</label><input type="date" id="attendance-date" required></div>
           <div class="form-group"><label>Kelas</label><select id="attendance-class"></select></div>
-          <div class="form-group"><label>Status</label><select id="attendance-status"><option value="hadir">Hadir</option><option value="izin">Izin</option><option value="sakit">Sakit</option><option value="alpha">Alpha</option></select></div>
-          <div class="form-group"><label>Catatan</label><textarea id="attendance-note" rows="2"></textarea></div>
+          <div class="form-group"><label>Status Kehadiran</label><select id="attendance-status"><option value="hadir">Hadir</option><option value="izin">Izin</option><option value="sakit">Sakit</option><option value="alpha">Alpha</option></select></div>
+          <div class="form-group"><label>Catatan Tambahan</label><textarea id="attendance-note" rows="2" placeholder="Keterangan surat dokter / izin..."></textarea></div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-attendance">Simpan</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-attendance">Simpan Presensi</button></div>
     </div>
   </div>
 
   <!-- Assignment Modal -->
   <div class="modal-overlay" id="assignment-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Tugas</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Buat Tugas / Penugasan Proyek</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="assignment-form">
-          <div class="form-group"><label>Judul</label><input id="assignment-judul" required></div>
-          <div class="form-group"><label>Deskripsi</label><textarea id="assignment-deskripsi" rows="4"></textarea></div>
+          <input type="hidden" id="assignment-id">
+          <div class="form-group"><label>Judul Tugas</label><input id="assignment-judul" required placeholder="Contoh: Proyek Pemetaan Persebaran Flora dan Fauna"></div>
+          <div class="form-group"><label>Instruksi & Rincian Tugas</label><textarea id="assignment-deskripsi" rows="4" placeholder="Jelaskan petunjuk pengerjaan, format laporan, dan kriteria penilaian..."></textarea></div>
           <div class="form-group"><label>Mapel</label><select id="assignment-subject"></select></div>
-          <div class="form-group"><label>Kelas</label><select id="assignment-class"></select></div>
-          <div class="form-group"><label>Deadline</label><input type="date" id="assignment-due"></div>
-          <div class="form-group"><label>Poin</label><input type="number" id="assignment-poin" value="100"></div>
+          <div class="form-group"><label>Kelas Target</label><select id="assignment-class"></select></div>
+          <div class="form-group"><label>Tenggat Waktu Pengumpulan (Deadline)</label><input type="date" id="assignment-due"></div>
+          <div class="form-group"><label>Bobot Skor Maksimal</label><input type="number" id="assignment-poin" value="100"></div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-assignment">Simpan</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-assignment">Simpan Tugas</button></div>
     </div>
   </div>
 
   <!-- Schedule Modal -->
   <div class="modal-overlay" id="schedule-modal">
     <div class="modal">
-      <div class="modal-header"><h3>Jadwal Pelajaran</h3><button class="modal-close" data-close>&times;</button></div>
+      <div class="modal-header"><h3>Jadwal Pembelajaran Laboratorium</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="schedule-form">
           <input type="hidden" id="schedule-id">
           <div class="form-group"><label>Hari</label><select id="schedule-hari"><option>Senin</option><option>Selasa</option><option>Rabu</option><option>Kamis</option><option>Jumat</option><option>Sabtu</option></select></div>
-          <div class="form-group"><label>Jam Mulai</label><input type="time" id="schedule-mulai" value="07:00" required></div>
-          <div class="form-group"><label>Jam Selesai</label><input type="time" id="schedule-selesai" value="08:30" required></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-group"><label>Jam Mulai</label><input type="time" id="schedule-mulai" value="07:00" required></div>
+            <div class="form-group"><label>Jam Selesai</label><input type="time" id="schedule-selesai" value="08:30" required></div>
+          </div>
           <div class="form-group"><label>Mapel</label><select id="schedule-subject"></select></div>
           <div class="form-group"><label>Kelas</label><select id="schedule-class"></select></div>
-          <div class="form-group"><label>Ruangan</label><input id="schedule-ruangan"></div>
-          <div class="form-group"><label>Guru</label><input id="schedule-guru"></div>
+          <div class="form-group"><label>Ruangan / Laboratorium</label><input id="schedule-ruangan" placeholder="Contoh: Lab Komputer 1 / Ruang SIG"></div>
+          <div class="form-group"><label>Guru Pengampu</label><input id="schedule-guru" placeholder="Contoh: Dwi Retnoningsih, S.Pd"></div>
         </form>
       </div>
-      <div class="modal-footer"><button class="btn" data-close>Batal</button><button class="btn btn-primary" id="btn-save-schedule">Simpan</button></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-schedule">Simpan Jadwal</button></div>
     </div>
   </div>
 
-  <script src="assets/js/sanitize.js?v=20261105c"></script>
-  <script src="assets/js/api.js?v=20261105c"></script>
+  <!-- Systematic Application Scripts -->
+  <script src="assets/js/sanitize.js?v=20261105d"></script>
+  <script src="assets/js/api.js?v=20261105g"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261105c"></script>
+  <script src="assets/js/admin.js?v=20261105l"></script>
 </body>
 </html>

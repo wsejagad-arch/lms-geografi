@@ -4,7 +4,7 @@
     "kelas": "X",
     "urutan": 5,
     "semester": 2,
-    "youtube_id": "ryrXAGY1VJr",
+    "youtube_id": "62D4R1XFshM",
     "fase": "E",
     "elemen": "Pemahaman Konsep Litosfer dan Pedosfer",
     "judul": "Dinamika Litosfer dan Dampaknya terhadap Kehidupan",
@@ -22,7 +22,7 @@
       {
         "id": "x05-t1",
         "judul": "Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust",
-        "youtube_id": "ryrXAGY1VJr",
+        "youtube_id": "62D4R1XFshM",
         "kuis_topik": {
           "pertanyaan": "Pertemuan lempeng Indo-Australia yang menunjam ke bawah lempeng Eurasia di barat Sumatra dan selatan Jawa membentuk zona subduksi aktif. Zona akumulasi energi gesekan antar-lempeng samudra dan benua ini dikenal sebagai ...",
           "opsi": [
@@ -105,7 +105,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Pencatatan Seismograf Stasiun Geofisika",
-          "isi": "<p>Sebuah stasiun BMKG mencatat gelombang primer (P) gempa bumi tiba pada pukul 08.20'15\" WIB. Gelombang sekunder (S) tiba di stasiun yang sama pada pukul 08.23'45\" WIB.</p>",
+          "isi": "<p>Dinamika Litosfer dan Dampaknya terhadap Kehidupan. Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah.</p><p>Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah. Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia. Topik 1: Struktur Interior Bumi, Tektonik Lempeng &amp; Megathrust. 🌋 Geodinamika Nusantara 2026: Ancaman Megathrust Sunda dan Sesar Darat Aktif Wilayah Indonesia merupakan salah satu kawasan paling dinamis secara tektonik di muka bumi. Terjepit di antara tiga lempeng tektonik raksasa— Lempeng Indo-Australia yang bergerak ke utara (sekitar 6–7 cm/tahun), Lempeng Eurasia yang relatif statis, dan Lempeng Pasifik yang mendesak ke barat (sekitar 10–12 cm/tahun)—Nusantara dipenuhi ratusan sesar aktif dan jalur megathrust. Di zona Megathrust Selat Sunda dan Mentawai , terjadi fenomena seismic gap (area yang terkunci dan belum melepaskan energi gempa besar selama ratusan tahun). Melalui pemantauan stasiun GPS kontinu BIG dan sensor seismograf BMKG, para ilmuwan memantau deformasi kerak bumi untuk merancang peta evakuasi dan standar bangunan tahan gempa nasional. Video Pembelajaran: Tektonisme, Pergerakan Lempeng, dan Gempa Bumi Pelajari konveksi mantel bumi, batas lempeng konvergen-divergen-transform, dan pembentukan deretan gunung api Indonesia. Topik 2: Vulkanisme, Seisme &amp; Mitigasi Sesar Lembang. Vulkanisme dan Seisme di Indonesia Dengan lebih dari 120 gunung api aktif, Indonesia berada di jantung jalur Ring of Fire Pasifik. Vulkanisme membawa dua sisi: Dampak Destruktif: Awan panas guguran (pyroclastic flow), lahar hujan saat musim basah, dan hujan abu vulkanik lebat yang menghentikan penerbangan udara (seperti erupsi Gunung Ruang Sulawesi Utara dan Gunung Marapi Sumatra Barat). Dampak Konstruktif: Abu vulkanik kaya unsur hara (kalium, kalsium, magnesium) yang lapuk menjadi tanah andosol sangat subur, sumber energi panas bumi (geothermal), serta bahan galian pasir dan batu berkualitas tinggi. Topik 3: Tenaga Eksogen, Mudstone IKN &amp; Konservasi Tanah. Dinamika Pedosfer dan Metode Konservasi Tanah Tanah terbentuk dari pelapukan batuan induk (pedogenesis) yang dipengaruhi faktor iklim, organisme, topografi, batuan induk, dan</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia.</p><p>Tujuan pembelajaran: Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform). Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian. Menganalisis seisme, gelombang seismik (P, S, L), rumus Laska, dan mitigasi bahaya sesar aktif darat di Indonesia. Mengevaluasi proses eksogen (pelapukan, erosi, mass wasting, sedimentasi) serta studi kasus batuan mudstone di IKN Nusantara. Menjelaskan profil horizon tanah dan merumuskan metode konservasi tanah mekanik, vegetatif, dan kimiawi.</p>",
           "sumber": "Pusat Gempa Nasional BMKG"
         },
         "pertanyaan": "Berdasarkan rumus Laska Delta = ((S - P) - 1 menit) × 1.000 km, berapa jarak episentrum gempa dari stasiun pencatat tersebut?",
@@ -113,12 +113,128 @@
           "1.500 km",
           "2.500 km",
           "3.500 km",
-          "4.500 km"
+          "4.500 km",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           1
         ],
         "pembahasan": "Selisih waktu (S - P) = 08.23'45\" - 08.20'15\" = 3 menit 30 detik (3,5 menit). Menggunakan rumus Laska: Delta = (3,5 menit - 1 menit) × 1.000 km = 2,5 × 1.000 km = 2.500 km."
+      },
+      {
+        "id": "x-05-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Litosfer dan Dampaknya terhadap Kehidupan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust",
+          "isi": "<p>Dinamika Litosfer dan Dampaknya terhadap Kehidupan. Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah.</p><p>Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah. Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia. Topik 1: Struktur Interior Bumi, Tektonik Lempeng &amp; Megathrust. 🌋 Geodinamika Nusantara 2026: Ancaman Megathrust Sunda dan Sesar Darat Aktif Wilayah Indonesia merupakan salah satu kawasan paling dinamis secara tektonik di muka bumi. Terjepit di antara tiga lempeng tektonik raksasa— Lempeng Indo-Australia yang bergerak ke utara (sekitar 6–7 cm/tahun), Lempeng Eurasia yang relatif statis, dan Lempeng Pasifik yang mendesak ke barat (sekitar 10–12 cm/tahun)—Nusantara dipenuhi ratusan sesar aktif dan jalur megathrust. Di zona Megathrust Selat Sunda dan Mentawai , terjadi fenomena seismic gap (area yang terkunci dan belum melepaskan energi gempa besar selama ratusan tahun). Melalui pemantauan stasiun GPS kontinu BIG dan sensor seismograf BMKG, para ilmuwan memantau deformasi kerak bumi untuk merancang peta evakuasi dan standar bangunan tahan gempa nasional. Video Pembelajaran: Tektonisme, Pergerakan Lempeng, dan Gempa Bumi Pelajari konveksi mantel bumi, batas lempeng konvergen-divergen-transform, dan pembentukan deretan gunung api Indonesia. Topik 2: Vulkanisme, Seisme &amp; Mitigasi Sesar Lembang. Vulkanisme dan Seisme di Indonesia Dengan lebih dari 120 gunung api aktif, Indonesia berada di jantung jalur Ring of Fire Pasifik. Vulkanisme membawa dua sisi: Dampak Destruktif: Awan panas guguran (pyroclastic flow), lahar hujan saat musim basah, dan hujan abu vulkanik lebat yang menghentikan penerbangan udara (seperti erupsi Gunung Ruang Sulawesi Utara dan Gunung Marapi Sumatra Barat). Dampak Konstruktif: Abu vulkanik kaya unsur hara (kalium, kalsium, magnesium) yang lapuk menjadi tanah andosol sangat subur, sumber energi panas bumi (geothermal), serta bahan galian pasir dan batu berkualitas tinggi. Topik 3: Tenaga Eksogen, Mudstone IKN &amp; Konservasi Tanah. Dinamika Pedosfer dan Metode Konservasi Tanah Tanah terbentuk dari pelapukan batuan induk (pedogenesis) yang dipengaruhi faktor iklim, organisme, topografi, batuan induk, dan</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia.</p><p>Tujuan pembelajaran: Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform). Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian. Menganalisis seisme, gelombang seismik (P, S, L), rumus Laska, dan mitigasi bahaya sesar aktif darat di Indonesia. Mengevaluasi proses eksogen (pelapukan, erosi, mass wasting, sedimentasi) serta studi kasus batuan mudstone di IKN Nusantara. Menjelaskan profil horizon tanah dan merumuskan metode konservasi tanah mekanik, vegetatif, dan kimiawi.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform). serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform). tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik & zona megathrust Sunda, erupsi vulkanik (Gunung Ruang & Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform).”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "x-05-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Litosfer dan Dampaknya terhadap Kehidupan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust",
+          "isi": "<p>Dinamika Litosfer dan Dampaknya terhadap Kehidupan. Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah.</p><p>Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah. Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia. Topik 1: Struktur Interior Bumi, Tektonik Lempeng &amp; Megathrust. 🌋 Geodinamika Nusantara 2026: Ancaman Megathrust Sunda dan Sesar Darat Aktif Wilayah Indonesia merupakan salah satu kawasan paling dinamis secara tektonik di muka bumi. Terjepit di antara tiga lempeng tektonik raksasa— Lempeng Indo-Australia yang bergerak ke utara (sekitar 6–7 cm/tahun), Lempeng Eurasia yang relatif statis, dan Lempeng Pasifik yang mendesak ke barat (sekitar 10–12 cm/tahun)—Nusantara dipenuhi ratusan sesar aktif dan jalur megathrust. Di zona Megathrust Selat Sunda dan Mentawai , terjadi fenomena seismic gap (area yang terkunci dan belum melepaskan energi gempa besar selama ratusan tahun). Melalui pemantauan stasiun GPS kontinu BIG dan sensor seismograf BMKG, para ilmuwan memantau deformasi kerak bumi untuk merancang peta evakuasi dan standar bangunan tahan gempa nasional. Video Pembelajaran: Tektonisme, Pergerakan Lempeng, dan Gempa Bumi Pelajari konveksi mantel bumi, batas lempeng konvergen-divergen-transform, dan pembentukan deretan gunung api Indonesia. Topik 2: Vulkanisme, Seisme &amp; Mitigasi Sesar Lembang. Vulkanisme dan Seisme di Indonesia Dengan lebih dari 120 gunung api aktif, Indonesia berada di jantung jalur Ring of Fire Pasifik. Vulkanisme membawa dua sisi: Dampak Destruktif: Awan panas guguran (pyroclastic flow), lahar hujan saat musim basah, dan hujan abu vulkanik lebat yang menghentikan penerbangan udara (seperti erupsi Gunung Ruang Sulawesi Utara dan Gunung Marapi Sumatra Barat). Dampak Konstruktif: Abu vulkanik kaya unsur hara (kalium, kalsium, magnesium) yang lapuk menjadi tanah andosol sangat subur, sumber energi panas bumi (geothermal), serta bahan galian pasir dan batu berkualitas tinggi. Topik 3: Tenaga Eksogen, Mudstone IKN &amp; Konservasi Tanah. Dinamika Pedosfer dan Metode Konservasi Tanah Tanah terbentuk dari pelapukan batuan induk (pedogenesis) yang dipengaruhi faktor iklim, organisme, topografi, batuan induk, dan</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia.</p><p>Tujuan pembelajaran: Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform). Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian. Menganalisis seisme, gelombang seismik (P, S, L), rumus Laska, dan mitigasi bahaya sesar aktif darat di Indonesia. Mengevaluasi proses eksogen (pelapukan, erosi, mass wasting, sedimentasi) serta studi kasus batuan mudstone di IKN Nusantara. Menjelaskan profil horizon tanah dan merumuskan metode konservasi tanah mekanik, vegetatif, dan kimiawi.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform).”.",
+          "Membandingkan temuan dengan capaian “Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "x-05-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Litosfer dan Dampaknya terhadap Kehidupan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust",
+          "isi": "<p>Dinamika Litosfer dan Dampaknya terhadap Kehidupan. Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah.</p><p>Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah. Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia. Topik 1: Struktur Interior Bumi, Tektonik Lempeng &amp; Megathrust. 🌋 Geodinamika Nusantara 2026: Ancaman Megathrust Sunda dan Sesar Darat Aktif Wilayah Indonesia merupakan salah satu kawasan paling dinamis secara tektonik di muka bumi. Terjepit di antara tiga lempeng tektonik raksasa— Lempeng Indo-Australia yang bergerak ke utara (sekitar 6–7 cm/tahun), Lempeng Eurasia yang relatif statis, dan Lempeng Pasifik yang mendesak ke barat (sekitar 10–12 cm/tahun)—Nusantara dipenuhi ratusan sesar aktif dan jalur megathrust. Di zona Megathrust Selat Sunda dan Mentawai , terjadi fenomena seismic gap (area yang terkunci dan belum melepaskan energi gempa besar selama ratusan tahun). Melalui pemantauan stasiun GPS kontinu BIG dan sensor seismograf BMKG, para ilmuwan memantau deformasi kerak bumi untuk merancang peta evakuasi dan standar bangunan tahan gempa nasional. Video Pembelajaran: Tektonisme, Pergerakan Lempeng, dan Gempa Bumi Pelajari konveksi mantel bumi, batas lempeng konvergen-divergen-transform, dan pembentukan deretan gunung api Indonesia. Topik 2: Vulkanisme, Seisme &amp; Mitigasi Sesar Lembang. Vulkanisme dan Seisme di Indonesia Dengan lebih dari 120 gunung api aktif, Indonesia berada di jantung jalur Ring of Fire Pasifik. Vulkanisme membawa dua sisi: Dampak Destruktif: Awan panas guguran (pyroclastic flow), lahar hujan saat musim basah, dan hujan abu vulkanik lebat yang menghentikan penerbangan udara (seperti erupsi Gunung Ruang Sulawesi Utara dan Gunung Marapi Sumatra Barat). Dampak Konstruktif: Abu vulkanik kaya unsur hara (kalium, kalsium, magnesium) yang lapuk menjadi tanah andosol sangat subur, sumber energi panas bumi (geothermal), serta bahan galian pasir dan batu berkualitas tinggi. Topik 3: Tenaga Eksogen, Mudstone IKN &amp; Konservasi Tanah. Dinamika Pedosfer dan Metode Konservasi Tanah Tanah terbentuk dari pelapukan batuan induk (pedogenesis) yang dipengaruhi faktor iklim, organisme, topografi, batuan induk, dan</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia.</p><p>Tujuan pembelajaran: Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform). Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian. Menganalisis seisme, gelombang seismik (P, S, L), rumus Laska, dan mitigasi bahaya sesar aktif darat di Indonesia. Mengevaluasi proses eksogen (pelapukan, erosi, mass wasting, sedimentasi) serta studi kasus batuan mudstone di IKN Nusantara. Menjelaskan profil horizon tanah dan merumuskan metode konservasi tanah mekanik, vegetatif, dan kimiawi.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform).",
+          "Mengkaji konteks materi: Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust",
+          "Menghubungkan temuan dengan: Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian.",
+          "Memahami ruang lingkup: Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik & zona megathrust Sunda, erupsi vulkanik (Gunung Ruang & Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform).”, tujuan kedua “Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian.”, cakupan bab “Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik & zona megathrust Sunda, erupsi vulkanik (Gunung Ruang & Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah.”, dan bacaan pembuka “Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust”."
+      },
+      {
+        "id": "x-05-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Litosfer dan Dampaknya terhadap Kehidupan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Struktur Interior Bumi, Tektonik Lempeng & Megathrust",
+          "isi": "<p>Dinamika Litosfer dan Dampaknya terhadap Kehidupan. Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah.</p><p>Membedah dinamika kulit bumi: struktur interior bumi, lempeng tektonik &amp; zona megathrust Sunda, erupsi vulkanik (Gunung Ruang &amp; Merapi), sesar aktif darat (Sesar Lembang), pelapukan, kerentanan mudstone IKN Nusantara, dan pembentukan tanah. Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia. Topik 1: Struktur Interior Bumi, Tektonik Lempeng &amp; Megathrust. 🌋 Geodinamika Nusantara 2026: Ancaman Megathrust Sunda dan Sesar Darat Aktif Wilayah Indonesia merupakan salah satu kawasan paling dinamis secara tektonik di muka bumi. Terjepit di antara tiga lempeng tektonik raksasa— Lempeng Indo-Australia yang bergerak ke utara (sekitar 6–7 cm/tahun), Lempeng Eurasia yang relatif statis, dan Lempeng Pasifik yang mendesak ke barat (sekitar 10–12 cm/tahun)—Nusantara dipenuhi ratusan sesar aktif dan jalur megathrust. Di zona Megathrust Selat Sunda dan Mentawai , terjadi fenomena seismic gap (area yang terkunci dan belum melepaskan energi gempa besar selama ratusan tahun). Melalui pemantauan stasiun GPS kontinu BIG dan sensor seismograf BMKG, para ilmuwan memantau deformasi kerak bumi untuk merancang peta evakuasi dan standar bangunan tahan gempa nasional. Video Pembelajaran: Tektonisme, Pergerakan Lempeng, dan Gempa Bumi Pelajari konveksi mantel bumi, batas lempeng konvergen-divergen-transform, dan pembentukan deretan gunung api Indonesia. Topik 2: Vulkanisme, Seisme &amp; Mitigasi Sesar Lembang. Vulkanisme dan Seisme di Indonesia Dengan lebih dari 120 gunung api aktif, Indonesia berada di jantung jalur Ring of Fire Pasifik. Vulkanisme membawa dua sisi: Dampak Destruktif: Awan panas guguran (pyroclastic flow), lahar hujan saat musim basah, dan hujan abu vulkanik lebat yang menghentikan penerbangan udara (seperti erupsi Gunung Ruang Sulawesi Utara dan Gunung Marapi Sumatra Barat). Dampak Konstruktif: Abu vulkanik kaya unsur hara (kalium, kalsium, magnesium) yang lapuk menjadi tanah andosol sangat subur, sumber energi panas bumi (geothermal), serta bahan galian pasir dan batu berkualitas tinggi. Topik 3: Tenaga Eksogen, Mudstone IKN &amp; Konservasi Tanah. Dinamika Pedosfer dan Metode Konservasi Tanah Tanah terbentuk dari pelapukan batuan induk (pedogenesis) yang dipengaruhi faktor iklim, organisme, topografi, batuan induk, dan</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur litosfer, menganalisis proses tektonisme, vulkanisme, dan seisme serta pengaruhnya bagi kehidupan; menganalisis tenaga eksogen serta upaya konservasi tanah di Indonesia.</p><p>Tujuan pembelajaran: Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform). Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian. Menganalisis seisme, gelombang seismik (P, S, L), rumus Laska, dan mitigasi bahaya sesar aktif darat di Indonesia. Mengevaluasi proses eksogen (pelapukan, erosi, mass wasting, sedimentasi) serta studi kasus batuan mudstone di IKN Nusantara. Menjelaskan profil horizon tanah dan merumuskan metode konservasi tanah mekanik, vegetatif, dan kimiawi.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis lapisan struktur interior bumi dan pergerakan lempeng tektonik (konvergen, divergen, transform).”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menguraikan mekanisme vulkanisme, intrusi vs ekstrusi magma, jenis erupsi, serta manfaat tanah andosol bagi pertanian.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menganalisis seisme, gelombang seismik (P, S, L), rumus Laska, dan mitigasi bahaya sesar aktif darat di Indonesia.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -127,7 +243,7 @@
     "kelas": "X",
     "urutan": 6,
     "semester": 2,
-    "youtube_id": "1Z3bX0sF_8Q",
+    "youtube_id": "prEbxUuNxYU",
     "fase": "E",
     "elemen": "Pemahaman Konsep Atmosfer dan Perubahan Iklim",
     "judul": "Dinamika Atmosfer dan Dampaknya terhadap Kehidupan",
@@ -145,7 +261,7 @@
       {
         "id": "x06-t1",
         "judul": "Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca",
-        "youtube_id": "1Z3bX0sF_8Q",
+        "youtube_id": "prEbxUuNxYU",
         "kuis_topik": {
           "pertanyaan": "Hampir seluruh fenomena cuaca (awan, hujan, badai petir, pelangi, dan kabut) berlangsung pada lapisan atmosfer terendah yang disebut ...",
           "opsi": [
@@ -208,7 +324,7 @@
         "stimulus": {
           "jenis": "tabel",
           "judul": "Data Curah Hujan Bulanan Stasiun Klimatologi (Rata-rata 10 Tahun)",
-          "isi": "<p>Berdasarkan data 10 tahun: Rata-rata Bulan Basah (curah hujan > 100 mm) = 8 bulan; Rata-rata Bulan Kering (curah hujan < 60 mm) = 2 bulan.</p>",
+          "isi": "<p>Dinamika Atmosfer dan Dampaknya terhadap Kehidupan. Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan.</p><p>Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan. Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim. Topik 1: Struktur Lapisan Atmosfer &amp; Unsur Cuaca. 🌡️ Anomali Atmosfer Aktual 2026: Rekor Suhu Global dan Tantangan El Niño/La Niña Dalam kurun waktu beberapa tahun terakhir, suhu rata-rata permukaan bumi terus mencetak rekor terpanas dalam sejarah modern. Kenaikan konsentrasi gas rumah kaca (CO2, CH4, N2O) menyebabkan efek rumah kaca semakin kuat, memicu penguapan air lebih masif dan memicu cuaca ekstrem yang semakin sukar diprediksi. Bagi Indonesia, fenomena El Niño memicu kekeringan panjang dan gagal panen padi, sedangkan La Niña membawa curah hujan berlebih yang memicu banjir bandang dan longsor. Memahami dinamika atmosfer adalah kunci ketahanan pangan dan keselamatan bangsa. Video Pembelajaran: Dinamika Atmosfer, Lapisan Udara, dan Iklim Pelajari siklus monsun, klasifikasi iklim, dan mekanisme perubahan iklim global. Topik 2: Klasifikasi Iklim untuk Sektor Pertanian. Klasifikasi Iklim di Indonesia Klasifikasi Köppen: Berdasarkan temperatur dan curah hujan serta asosiasi vegetasi alami. Indonesia didominasi tipe iklim Af (iklim hutan hujan tropis basah sepanjang tahun), Am (iklim monsun tropis dengan musim kemarau pendek), dan Aw (iklim sabana tropis dengan musim kemarau tegas seperti di NTT). Klasifikasi Schmidt-Ferguson: Berdasarkan rasio nilai Q (perbandingan rata-rata jumlah bulan kering terhadap rata-rata jumlah bulan basah): Q = (Rata-rata Bulan Kering / Rata-rata Bulan Basah) × 100% (Kriteria Mohr: Bulan Basah &gt; 100 mm, Bulan Lembap 60–100 mm, Bulan Kering Klasifikasi Oldeman: Berorientasi pada kebutuhan kalender tanam padi dan palawija. Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim.</p><p>Tujuan pembelajaran: Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman untuk kalender tanam padi. Menganalisis fenomena anomali iklim El Niño Southern Oscillation (ENSO), Indian Ocean Dipole (IOD), dan gelombang panas global 2026. Menilai dampak perubahan iklim terhadap ketahanan pangan dan merancang desain iklim mikro ruang terbuka hijau (RTH).</p>",
           "sumber": "Stasiun Klimatologi BMKG"
         },
         "pertanyaan": "Berapa nilai rasio Q dan masuk ke dalam tipe iklim apa wilayah tersebut menurut Schmidt-Ferguson?",
@@ -216,12 +332,128 @@
           "Q = 25% (Tipe B: Basah)",
           "Q = 10% (Tipe A: Sangat Basah)",
           "Q = 50% (Tipe C: Agak Basah)",
-          "Q = 75% (Tipe D: Sedang)"
+          "Q = 75% (Tipe D: Sedang)",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Q = (Bulan Kering / Bulan Basah) × 100% = (2 / 8) × 100% = 25%. Pada tabel Schmidt-Ferguson, nilai Q antara 14,3% s.d. 33,3% tergolong Iklim Tipe B (Basah)."
+      },
+      {
+        "id": "x-06-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Atmosfer dan Dampaknya terhadap Kehidupan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca",
+          "isi": "<p>Dinamika Atmosfer dan Dampaknya terhadap Kehidupan. Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan.</p><p>Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan. Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim. Topik 1: Struktur Lapisan Atmosfer &amp; Unsur Cuaca. 🌡️ Anomali Atmosfer Aktual 2026: Rekor Suhu Global dan Tantangan El Niño/La Niña Dalam kurun waktu beberapa tahun terakhir, suhu rata-rata permukaan bumi terus mencetak rekor terpanas dalam sejarah modern. Kenaikan konsentrasi gas rumah kaca (CO2, CH4, N2O) menyebabkan efek rumah kaca semakin kuat, memicu penguapan air lebih masif dan memicu cuaca ekstrem yang semakin sukar diprediksi. Bagi Indonesia, fenomena El Niño memicu kekeringan panjang dan gagal panen padi, sedangkan La Niña membawa curah hujan berlebih yang memicu banjir bandang dan longsor. Memahami dinamika atmosfer adalah kunci ketahanan pangan dan keselamatan bangsa. Video Pembelajaran: Dinamika Atmosfer, Lapisan Udara, dan Iklim Pelajari siklus monsun, klasifikasi iklim, dan mekanisme perubahan iklim global. Topik 2: Klasifikasi Iklim untuk Sektor Pertanian. Klasifikasi Iklim di Indonesia Klasifikasi Köppen: Berdasarkan temperatur dan curah hujan serta asosiasi vegetasi alami. Indonesia didominasi tipe iklim Af (iklim hutan hujan tropis basah sepanjang tahun), Am (iklim monsun tropis dengan musim kemarau pendek), dan Aw (iklim sabana tropis dengan musim kemarau tegas seperti di NTT). Klasifikasi Schmidt-Ferguson: Berdasarkan rasio nilai Q (perbandingan rata-rata jumlah bulan kering terhadap rata-rata jumlah bulan basah): Q = (Rata-rata Bulan Kering / Rata-rata Bulan Basah) × 100% (Kriteria Mohr: Bulan Basah &gt; 100 mm, Bulan Lembap 60–100 mm, Bulan Kering Klasifikasi Oldeman: Berorientasi pada kebutuhan kalender tanam padi dan palawija. Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim.</p><p>Tujuan pembelajaran: Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman untuk kalender tanam padi. Menganalisis fenomena anomali iklim El Niño Southern Oscillation (ENSO), Indian Ocean Dipole (IOD), dan gelombang panas global 2026. Menilai dampak perubahan iklim terhadap ketahanan pangan dan merancang desain iklim mikro ruang terbuka hijau (RTH).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca & angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer).”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "x-06-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Atmosfer dan Dampaknya terhadap Kehidupan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca",
+          "isi": "<p>Dinamika Atmosfer dan Dampaknya terhadap Kehidupan. Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan.</p><p>Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan. Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim. Topik 1: Struktur Lapisan Atmosfer &amp; Unsur Cuaca. 🌡️ Anomali Atmosfer Aktual 2026: Rekor Suhu Global dan Tantangan El Niño/La Niña Dalam kurun waktu beberapa tahun terakhir, suhu rata-rata permukaan bumi terus mencetak rekor terpanas dalam sejarah modern. Kenaikan konsentrasi gas rumah kaca (CO2, CH4, N2O) menyebabkan efek rumah kaca semakin kuat, memicu penguapan air lebih masif dan memicu cuaca ekstrem yang semakin sukar diprediksi. Bagi Indonesia, fenomena El Niño memicu kekeringan panjang dan gagal panen padi, sedangkan La Niña membawa curah hujan berlebih yang memicu banjir bandang dan longsor. Memahami dinamika atmosfer adalah kunci ketahanan pangan dan keselamatan bangsa. Video Pembelajaran: Dinamika Atmosfer, Lapisan Udara, dan Iklim Pelajari siklus monsun, klasifikasi iklim, dan mekanisme perubahan iklim global. Topik 2: Klasifikasi Iklim untuk Sektor Pertanian. Klasifikasi Iklim di Indonesia Klasifikasi Köppen: Berdasarkan temperatur dan curah hujan serta asosiasi vegetasi alami. Indonesia didominasi tipe iklim Af (iklim hutan hujan tropis basah sepanjang tahun), Am (iklim monsun tropis dengan musim kemarau pendek), dan Aw (iklim sabana tropis dengan musim kemarau tegas seperti di NTT). Klasifikasi Schmidt-Ferguson: Berdasarkan rasio nilai Q (perbandingan rata-rata jumlah bulan kering terhadap rata-rata jumlah bulan basah): Q = (Rata-rata Bulan Kering / Rata-rata Bulan Basah) × 100% (Kriteria Mohr: Bulan Basah &gt; 100 mm, Bulan Lembap 60–100 mm, Bulan Kering Klasifikasi Oldeman: Berorientasi pada kebutuhan kalender tanam padi dan palawija. Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim.</p><p>Tujuan pembelajaran: Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman untuk kalender tanam padi. Menganalisis fenomena anomali iklim El Niño Southern Oscillation (ENSO), Indian Ocean Dipole (IOD), dan gelombang panas global 2026. Menilai dampak perubahan iklim terhadap ketahanan pangan dan merancang desain iklim mikro ruang terbuka hijau (RTH).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer).”.",
+          "Membandingkan temuan dengan capaian “Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi).” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "x-06-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Atmosfer dan Dampaknya terhadap Kehidupan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca",
+          "isi": "<p>Dinamika Atmosfer dan Dampaknya terhadap Kehidupan. Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan.</p><p>Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan. Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim. Topik 1: Struktur Lapisan Atmosfer &amp; Unsur Cuaca. 🌡️ Anomali Atmosfer Aktual 2026: Rekor Suhu Global dan Tantangan El Niño/La Niña Dalam kurun waktu beberapa tahun terakhir, suhu rata-rata permukaan bumi terus mencetak rekor terpanas dalam sejarah modern. Kenaikan konsentrasi gas rumah kaca (CO2, CH4, N2O) menyebabkan efek rumah kaca semakin kuat, memicu penguapan air lebih masif dan memicu cuaca ekstrem yang semakin sukar diprediksi. Bagi Indonesia, fenomena El Niño memicu kekeringan panjang dan gagal panen padi, sedangkan La Niña membawa curah hujan berlebih yang memicu banjir bandang dan longsor. Memahami dinamika atmosfer adalah kunci ketahanan pangan dan keselamatan bangsa. Video Pembelajaran: Dinamika Atmosfer, Lapisan Udara, dan Iklim Pelajari siklus monsun, klasifikasi iklim, dan mekanisme perubahan iklim global. Topik 2: Klasifikasi Iklim untuk Sektor Pertanian. Klasifikasi Iklim di Indonesia Klasifikasi Köppen: Berdasarkan temperatur dan curah hujan serta asosiasi vegetasi alami. Indonesia didominasi tipe iklim Af (iklim hutan hujan tropis basah sepanjang tahun), Am (iklim monsun tropis dengan musim kemarau pendek), dan Aw (iklim sabana tropis dengan musim kemarau tegas seperti di NTT). Klasifikasi Schmidt-Ferguson: Berdasarkan rasio nilai Q (perbandingan rata-rata jumlah bulan kering terhadap rata-rata jumlah bulan basah): Q = (Rata-rata Bulan Kering / Rata-rata Bulan Basah) × 100% (Kriteria Mohr: Bulan Basah &gt; 100 mm, Bulan Lembap 60–100 mm, Bulan Kering Klasifikasi Oldeman: Berorientasi pada kebutuhan kalender tanam padi dan palawija. Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim.</p><p>Tujuan pembelajaran: Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman untuk kalender tanam padi. Menganalisis fenomena anomali iklim El Niño Southern Oscillation (ENSO), Indian Ocean Dipole (IOD), dan gelombang panas global 2026. Menilai dampak perubahan iklim terhadap ketahanan pangan dan merancang desain iklim mikro ruang terbuka hijau (RTH).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer).",
+          "Mengkaji konteks materi: Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca",
+          "Menghubungkan temuan dengan: Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi).",
+          "Memahami ruang lingkup: Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca & angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer).”, tujuan kedua “Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi).”, cakupan bab “Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca & angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan.”, dan bacaan pembuka “Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca”."
+      },
+      {
+        "id": "x-06-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Dinamika Atmosfer dan Dampaknya terhadap Kehidupan",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Struktur Lapisan Atmosfer & Unsur Cuaca",
+          "isi": "<p>Dinamika Atmosfer dan Dampaknya terhadap Kehidupan. Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan.</p><p>Menyelami selubung udara bumi: lapisan atmosfer, unsur cuaca &amp; angin monsun Nusantara, klasifikasi iklim (Köppen, Schmidt-Ferguson, Oldeman), anomali iklim global (El Niño/La Niña 2026), serta strategi mitigasi perubahan iklim di perkotaan. Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim. Topik 1: Struktur Lapisan Atmosfer &amp; Unsur Cuaca. 🌡️ Anomali Atmosfer Aktual 2026: Rekor Suhu Global dan Tantangan El Niño/La Niña Dalam kurun waktu beberapa tahun terakhir, suhu rata-rata permukaan bumi terus mencetak rekor terpanas dalam sejarah modern. Kenaikan konsentrasi gas rumah kaca (CO2, CH4, N2O) menyebabkan efek rumah kaca semakin kuat, memicu penguapan air lebih masif dan memicu cuaca ekstrem yang semakin sukar diprediksi. Bagi Indonesia, fenomena El Niño memicu kekeringan panjang dan gagal panen padi, sedangkan La Niña membawa curah hujan berlebih yang memicu banjir bandang dan longsor. Memahami dinamika atmosfer adalah kunci ketahanan pangan dan keselamatan bangsa. Video Pembelajaran: Dinamika Atmosfer, Lapisan Udara, dan Iklim Pelajari siklus monsun, klasifikasi iklim, dan mekanisme perubahan iklim global. Topik 2: Klasifikasi Iklim untuk Sektor Pertanian. Klasifikasi Iklim di Indonesia Klasifikasi Köppen: Berdasarkan temperatur dan curah hujan serta asosiasi vegetasi alami. Indonesia didominasi tipe iklim Af (iklim hutan hujan tropis basah sepanjang tahun), Am (iklim monsun tropis dengan musim kemarau pendek), dan Aw (iklim sabana tropis dengan musim kemarau tegas seperti di NTT). Klasifikasi Schmidt-Ferguson: Berdasarkan rasio nilai Q (perbandingan rata-rata jumlah bulan kering terhadap rata-rata jumlah bulan basah): Q = (Rata-rata Bulan Kering / Rata-rata Bulan Basah) × 100% (Kriteria Mohr: Bulan Basah &gt; 100 mm, Bulan Lembap 60–100 mm, Bulan Kering Klasifikasi Oldeman: Berorientasi pada kebutuhan kalender tanam padi dan palawija. Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman</p><p>Capaian pembelajaran: Peserta didik mampu memahami struktur atmosfer dan dinamika unsur cuaca, menganalisis klasifikasi iklim dan pengaruhnya pada ketahanan pangan, menganalisis fenomena anomali iklim global terkini, serta merumuskan aksi mitigasi perubahan iklim.</p><p>Tujuan pembelajaran: Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer). Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi). Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman untuk kalender tanam padi. Menganalisis fenomena anomali iklim El Niño Southern Oscillation (ENSO), Indian Ocean Dipole (IOD), dan gelombang panas global 2026. Menilai dampak perubahan iklim terhadap ketahanan pangan dan merancang desain iklim mikro ruang terbuka hijau (RTH).</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis karakteristik dan fungsi lapisan atmosfer bumi (troposfer, stratosfer, mesosfer, termosfer, eksosfer).”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menguraikan unsur-unsur cuaca (radiasi matahari, suhu, tekanan udara, sirkulasi angin monsun, kelembapan, awan, presipitasi).”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Membandingkan klasifikasi iklim matahari, iklim Köppen, iklim Schmidt-Ferguson, dan iklim Oldeman untuk kalender tanam padi.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   }

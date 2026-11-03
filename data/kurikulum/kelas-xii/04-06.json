@@ -4,7 +4,7 @@
     "kelas": "XII",
     "urutan": 4,
     "semester": 2,
-    "youtube_id": "aN7wK2mP_9Y",
+    "youtube_id": "0pw6-xzQ1QE",
     "fase": "F",
     "elemen": "Pemahaman Konsep Negara Maju dan Negara Berkembang",
     "judul": "Karakteristik Wilayah Negara Maju dan Negara Berkembang",
@@ -22,7 +22,7 @@
       {
         "id": "xii04-t1",
         "judul": "Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026",
-        "youtube_id": "aN7wK2mP_9Y",
+        "youtube_id": "0pw6-xzQ1QE",
         "kuis_topik": {
           "pertanyaan": "Human Development Index (HDI) yang dirilis UNDP mengukur keberhasilan pembangunan manusia suatu negara tidak hanya dari pendapatan ekonomi riil, melainkan dari tiga dimensi dasar yaitu ...",
           "opsi": [
@@ -61,7 +61,7 @@
         "stimulus": {
           "jenis": "tabel",
           "judul": "Struktur Tenaga Kerja Berdasarkan Sektor Ekonomi di Dua Negara",
-          "isi": "<table><thead><tr><th>Negara</th><th>Sektor Primer (Pertanian/Tambang)</th><th>Sektor Sekunder (Manufaktur)</th><th>Sektor Tersier (Jasa, Riset, Finansial)</th></tr></thead><tbody><tr><td>Negara X</td><td>3%</td><td>22%</td><td>75%</td></tr><tr><td>Negara Y</td><td>48%</td><td>18%</td><td>34%</td></tr></tbody></table>",
+          "isi": "<p>Karakteristik Wilayah Negara Maju dan Negara Berkembang. Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026.</p><p>Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026. Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi. Topik 1: Indikator Pembangunan, HDI &amp; Jebakan Pendapatan Menengah 2026. 🌏 Analisis Global 2026: Strategi Indonesia Lepas dari Jebakan Pendapatan Menengah Banyak negara di dunia terjebak dalam Middle Income Trap : berhasil keluar dari status negara miskin berkat upah buruh murah dan ekspor komoditas mentah, namun gagal bertransformasi menjadi negara maju berpenghasilan tinggi karena produktivitas stagnan dan riset teknologi rendah. Untuk melompat menjadi negara maju pada peringatan satu abad kemerdekaan (Indonesia Emas 2045), Indonesia menggenjot 3 pilar spasial: hilirisasi SDA nikel dan bauksit di luar Jawa, pemerataan infrastruktur logistik antarpulau, dan peningkatan belanja riset sains inovasi teknologi digital. Video Pembelajaran: Karakteristik Negara Maju dan Negara Berkembang di Dunia Pelajari indikator IPM (HDI), Global North vs South, teori Rostow, dan transformasi ekonomi. Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi.</p><p>Tujuan pembelajaran: Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p>",
           "sumber": "Organisasi Buruh Internasional (ILO)"
         },
         "pertanyaan": "Berdasarkan data struktur ketenagakerjaan di atas, kesimpulan geografis yang paling valid adalah ...",
@@ -69,12 +69,128 @@
           "Negara X adalah negara maju dengan perekonomian berbasis teknologi tinggi dan jasa bernilai tambah, sedangkan Negara Y adalah negara berkembang yang masih bergantung pada sektor agraris",
           "Negara Y lebih maju karena memproduksi lebih banyak padi",
           "Kedua negara berada pada tahap masyarakat tradisional",
-          "Negara X terancam kelaparan karena kekurangan petani"
+          "Negara X terancam kelaparan karena kekurangan petani",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Ciri khas negara maju (Negara X) adalah dominasi sektor tersier (jasa, inovasi, keuangan > 70%) dan modernisasi sektor primer melalui mekanisasi otomatis sehingga hanya butuh sedikit tenaga kerja namun sangat efisien. Sebaliknya, negara berkembang (Negara Y) masih menyerap hampir separuh tenaga kerjanya di sektor pertanian manual berupah rendah."
+      },
+      {
+        "id": "xii-04-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Karakteristik Wilayah Negara Maju dan Negara Berkembang",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026",
+          "isi": "<p>Karakteristik Wilayah Negara Maju dan Negara Berkembang. Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026.</p><p>Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026. Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi. Topik 1: Indikator Pembangunan, HDI &amp; Jebakan Pendapatan Menengah 2026. 🌏 Analisis Global 2026: Strategi Indonesia Lepas dari Jebakan Pendapatan Menengah Banyak negara di dunia terjebak dalam Middle Income Trap : berhasil keluar dari status negara miskin berkat upah buruh murah dan ekspor komoditas mentah, namun gagal bertransformasi menjadi negara maju berpenghasilan tinggi karena produktivitas stagnan dan riset teknologi rendah. Untuk melompat menjadi negara maju pada peringatan satu abad kemerdekaan (Indonesia Emas 2045), Indonesia menggenjot 3 pilar spasial: hilirisasi SDA nikel dan bauksit di luar Jawa, pemerataan infrastruktur logistik antarpulau, dan peningkatan belanja riset sains inovasi teknologi digital. Video Pembelajaran: Karakteristik Negara Maju dan Negara Berkembang di Dunia Pelajari indikator IPM (HDI), Global North vs South, teori Rostow, dan transformasi ekonomi. Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi.</p><p>Tujuan pembelajaran: Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi).”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xii-04-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Karakteristik Wilayah Negara Maju dan Negara Berkembang",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026",
+          "isi": "<p>Karakteristik Wilayah Negara Maju dan Negara Berkembang. Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026.</p><p>Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026. Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi. Topik 1: Indikator Pembangunan, HDI &amp; Jebakan Pendapatan Menengah 2026. 🌏 Analisis Global 2026: Strategi Indonesia Lepas dari Jebakan Pendapatan Menengah Banyak negara di dunia terjebak dalam Middle Income Trap : berhasil keluar dari status negara miskin berkat upah buruh murah dan ekspor komoditas mentah, namun gagal bertransformasi menjadi negara maju berpenghasilan tinggi karena produktivitas stagnan dan riset teknologi rendah. Untuk melompat menjadi negara maju pada peringatan satu abad kemerdekaan (Indonesia Emas 2045), Indonesia menggenjot 3 pilar spasial: hilirisasi SDA nikel dan bauksit di luar Jawa, pemerataan infrastruktur logistik antarpulau, dan peningkatan belanja riset sains inovasi teknologi digital. Video Pembelajaran: Karakteristik Negara Maju dan Negara Berkembang di Dunia Pelajari indikator IPM (HDI), Global North vs South, teori Rostow, dan transformasi ekonomi. Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi.</p><p>Tujuan pembelajaran: Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi).”.",
+          "Membandingkan temuan dengan capaian “Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan).” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xii-04-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Karakteristik Wilayah Negara Maju dan Negara Berkembang",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026",
+          "isi": "<p>Karakteristik Wilayah Negara Maju dan Negara Berkembang. Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026.</p><p>Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026. Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi. Topik 1: Indikator Pembangunan, HDI &amp; Jebakan Pendapatan Menengah 2026. 🌏 Analisis Global 2026: Strategi Indonesia Lepas dari Jebakan Pendapatan Menengah Banyak negara di dunia terjebak dalam Middle Income Trap : berhasil keluar dari status negara miskin berkat upah buruh murah dan ekspor komoditas mentah, namun gagal bertransformasi menjadi negara maju berpenghasilan tinggi karena produktivitas stagnan dan riset teknologi rendah. Untuk melompat menjadi negara maju pada peringatan satu abad kemerdekaan (Indonesia Emas 2045), Indonesia menggenjot 3 pilar spasial: hilirisasi SDA nikel dan bauksit di luar Jawa, pemerataan infrastruktur logistik antarpulau, dan peningkatan belanja riset sains inovasi teknologi digital. Video Pembelajaran: Karakteristik Negara Maju dan Negara Berkembang di Dunia Pelajari indikator IPM (HDI), Global North vs South, teori Rostow, dan transformasi ekonomi. Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi.</p><p>Tujuan pembelajaran: Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi).",
+          "Mengkaji konteks materi: Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026",
+          "Menghubungkan temuan dengan: Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan).",
+          "Memahami ruang lingkup: Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi).”, tujuan kedua “Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan).”, cakupan bab “Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026.”, dan bacaan pembuka “Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026”."
+      },
+      {
+        "id": "xii-04-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Karakteristik Wilayah Negara Maju dan Negara Berkembang",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Indikator Pembangunan, HDI & Jebakan Pendapatan Menengah 2026",
+          "isi": "<p>Karakteristik Wilayah Negara Maju dan Negara Berkembang. Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026.</p><p>Membedah ketimpangan pembangunan global: indikator kuantitatif dan kualitatif kemajuan negara (HDI, GDP per kapita, angka harapan hidup), dikotomi Global North vs Global South, tahapan pertumbuhan ekonomi Rostow, serta strategi Indonesia keluar dari Middle Income Trap 2026. Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi. Topik 1: Indikator Pembangunan, HDI &amp; Jebakan Pendapatan Menengah 2026. 🌏 Analisis Global 2026: Strategi Indonesia Lepas dari Jebakan Pendapatan Menengah Banyak negara di dunia terjebak dalam Middle Income Trap : berhasil keluar dari status negara miskin berkat upah buruh murah dan ekspor komoditas mentah, namun gagal bertransformasi menjadi negara maju berpenghasilan tinggi karena produktivitas stagnan dan riset teknologi rendah. Untuk melompat menjadi negara maju pada peringatan satu abad kemerdekaan (Indonesia Emas 2045), Indonesia menggenjot 3 pilar spasial: hilirisasi SDA nikel dan bauksit di luar Jawa, pemerataan infrastruktur logistik antarpulau, dan peningkatan belanja riset sains inovasi teknologi digital. Video Pembelajaran: Karakteristik Negara Maju dan Negara Berkembang di Dunia Pelajari indikator IPM (HDI), Global North vs South, teori Rostow, dan transformasi ekonomi. Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis karakteristik wilayah negara maju dan berkembang, mengevaluasi tahapan pembangunan Rostow, memetakan ketimpangan Global North dan South, serta merumuskan strategi transformasi Indonesia menjadi negara maju berpendapatan tinggi.</p><p>Tujuan pembelajaran: Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi). Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan). Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi). Menganalisis fenomena Jebakan Pendapatan Menengah (Middle Income Trap) yang dihadapi Indonesia dan negara-negara berkembang. Mengevaluasi peran inovasi sains, digitalisasi, dan hilirisasi dalam mendorong Indonesia keluar dari status negara berkembang menuju Indonesia Maju.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis indikator penentu kemajuan negara: ekonomi (pendapatan per kapita, struktur lapangan kerja) dan non-ekonomi (Human Development Index / HDI, angka melek huruf, angka kematian bayi).”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Membandingkan karakteristik spasial dan demografi negara maju (Piramida konstruktif, urbanisasi tinggi, emisi industri) dan negara berkembang (Piramida ekspansif, sektor agraris dominan).”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menelaah Teori Tahapan Pertumbuhan Ekonomi W.W. Rostow (masyarakat tradisional hingga era konsumsi massal tinggi).”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -83,7 +199,7 @@
     "kelas": "XII",
     "urutan": 5,
     "semester": 2,
-    "youtube_id": "qL5pJ8xM_3E",
+    "youtube_id": "tCfBnVwcwfo",
     "fase": "F",
     "elemen": "Pemahaman Geopolitik dan Kerja Sama Antarwilayah",
     "judul": "Kerja Sama Keruangan Antarwilayah dan Geopolitik Global",
@@ -101,7 +217,7 @@
       {
         "id": "xii05-t1",
         "judul": "Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026",
-        "youtube_id": "qL5pJ8xM_3E",
+        "youtube_id": "tCfBnVwcwfo",
         "kuis_topik": {
           "pertanyaan": "Persetujuan Kemitraan Ekonomi Komprehensif Regional (Regional Comprehensive Economic Partnership / RCEP) yang melibatkan 10 negara ASEAN ditambah 5 mitra (Tiongkok, Jepang, Korea Selatan, Australia, Selandia Baru) merupakan blok perdagangan bebas terbesar di dunia karena ...",
           "opsi": [
@@ -144,7 +260,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Perdagangan Antarwilayah: Indonesia dan Jepang",
-          "isi": "<p>Indonesia kaya akan bijih nikel dan bauksit olahan namun membutuhkan teknologi presisi tinggi dan mesin industri otomotif. Jepang memiliki keunggulan riset manufaktur canggih namun sama sekali tidak memiliki cadangan tambang nikel alami.</p>",
+          "isi": "<p>Kerja Sama Keruangan Antarwilayah dan Geopolitik Global. Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026.</p><p>Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026. Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis. Topik 1: Rantai Pasok Global, RCEP, G20 &amp; Geopolitik 2026. 🌐 Diplomasi Strategis 2026: Menguatnya Posisi Tawar Mineral Kritis Indonesia Dalam transisi energi hijau global dari bahan bakar fosil menuju kendaraan listrik dan energi terbarukan, dunia sangat bergantung pada Critical Raw Materials (CRM) seperti nikel, litium, kobalt, tembaga, dan bauksit. Sebagai produsen nikel nomor satu di dunia, posisi geopolitik Indonesia di forum internasional (G20, ASEAN, dan kemitraan bilateral) meningkat pesat. Indonesia mempraktikkan Diplomasi Non-Blok Aktif : bermitra secara seimbang dengan negara-negara Barat, Asia Timur, dan negara-negara Selatan Global (Global South) demi kepentingan nasional dan kedaulatan ekonomi rakyat. Video Pembelajaran: Kerja Sama Keruangan Global dan Geopolitik Dunia Pelajari teori interaksi spasial Ullman, blok perdagangan RCEP, dan diplomasi batas negara. Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis.</p><p>Tujuan pembelajaran: Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p>",
           "sumber": "Analisis Perdagangan Internasional Kementerian Perdagangan"
         },
         "pertanyaan": "Berdasarkan teori interaksi spasial Edward Ullman, faktor pendorong utama terjadinya arus perdagangan intensif antara Indonesia dan Jepang adalah ...",
@@ -152,12 +268,128 @@
           "Regional Complementarity (Komplementaritas Regional / Saling Melengkapi Kebutuhan)",
           "Intervening Opportunity (Kesempatan Intervensi Pihak Ketiga)",
           "Spatial Transferability Barrier",
-          "Homogenitas Geologis"
+          "Homogenitas Geologis",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Regional complementarity (komplementaritas regional) timbul ketika ada perbedaan ketersediaan sumber daya alam dan kebutuhan antardaerah: Wilayah A memiliki surplus barang yang dibutuhkan Wilayah B, dan sebaliknya, sehingga tercipta hubungan saling melengkapi."
+      },
+      {
+        "id": "xii-05-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Kerja Sama Keruangan Antarwilayah dan Geopolitik Global",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026",
+          "isi": "<p>Kerja Sama Keruangan Antarwilayah dan Geopolitik Global. Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026.</p><p>Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026. Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis. Topik 1: Rantai Pasok Global, RCEP, G20 &amp; Geopolitik 2026. 🌐 Diplomasi Strategis 2026: Menguatnya Posisi Tawar Mineral Kritis Indonesia Dalam transisi energi hijau global dari bahan bakar fosil menuju kendaraan listrik dan energi terbarukan, dunia sangat bergantung pada Critical Raw Materials (CRM) seperti nikel, litium, kobalt, tembaga, dan bauksit. Sebagai produsen nikel nomor satu di dunia, posisi geopolitik Indonesia di forum internasional (G20, ASEAN, dan kemitraan bilateral) meningkat pesat. Indonesia mempraktikkan Diplomasi Non-Blok Aktif : bermitra secara seimbang dengan negara-negara Barat, Asia Timur, dan negara-negara Selatan Global (Global South) demi kepentingan nasional dan kedaulatan ekonomi rakyat. Video Pembelajaran: Kerja Sama Keruangan Global dan Geopolitik Dunia Pelajari teori interaksi spasial Ullman, blok perdagangan RCEP, dan diplomasi batas negara. Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis.</p><p>Tujuan pembelajaran: Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi.”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xii-05-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Kerja Sama Keruangan Antarwilayah dan Geopolitik Global",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026",
+          "isi": "<p>Kerja Sama Keruangan Antarwilayah dan Geopolitik Global. Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026.</p><p>Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026. Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis. Topik 1: Rantai Pasok Global, RCEP, G20 &amp; Geopolitik 2026. 🌐 Diplomasi Strategis 2026: Menguatnya Posisi Tawar Mineral Kritis Indonesia Dalam transisi energi hijau global dari bahan bakar fosil menuju kendaraan listrik dan energi terbarukan, dunia sangat bergantung pada Critical Raw Materials (CRM) seperti nikel, litium, kobalt, tembaga, dan bauksit. Sebagai produsen nikel nomor satu di dunia, posisi geopolitik Indonesia di forum internasional (G20, ASEAN, dan kemitraan bilateral) meningkat pesat. Indonesia mempraktikkan Diplomasi Non-Blok Aktif : bermitra secara seimbang dengan negara-negara Barat, Asia Timur, dan negara-negara Selatan Global (Global South) demi kepentingan nasional dan kedaulatan ekonomi rakyat. Video Pembelajaran: Kerja Sama Keruangan Global dan Geopolitik Dunia Pelajari teori interaksi spasial Ullman, blok perdagangan RCEP, dan diplomasi batas negara. Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis.</p><p>Tujuan pembelajaran: Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi.”.",
+          "Membandingkan temuan dengan capaian “Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS).” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xii-05-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Kerja Sama Keruangan Antarwilayah dan Geopolitik Global",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026",
+          "isi": "<p>Kerja Sama Keruangan Antarwilayah dan Geopolitik Global. Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026.</p><p>Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026. Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis. Topik 1: Rantai Pasok Global, RCEP, G20 &amp; Geopolitik 2026. 🌐 Diplomasi Strategis 2026: Menguatnya Posisi Tawar Mineral Kritis Indonesia Dalam transisi energi hijau global dari bahan bakar fosil menuju kendaraan listrik dan energi terbarukan, dunia sangat bergantung pada Critical Raw Materials (CRM) seperti nikel, litium, kobalt, tembaga, dan bauksit. Sebagai produsen nikel nomor satu di dunia, posisi geopolitik Indonesia di forum internasional (G20, ASEAN, dan kemitraan bilateral) meningkat pesat. Indonesia mempraktikkan Diplomasi Non-Blok Aktif : bermitra secara seimbang dengan negara-negara Barat, Asia Timur, dan negara-negara Selatan Global (Global South) demi kepentingan nasional dan kedaulatan ekonomi rakyat. Video Pembelajaran: Kerja Sama Keruangan Global dan Geopolitik Dunia Pelajari teori interaksi spasial Ullman, blok perdagangan RCEP, dan diplomasi batas negara. Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis.</p><p>Tujuan pembelajaran: Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi.",
+          "Mengkaji konteks materi: Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026",
+          "Menghubungkan temuan dengan: Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS).",
+          "Memahami ruang lingkup: Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi.”, tujuan kedua “Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS).”, cakupan bab “Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026.”, dan bacaan pembuka “Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026”."
+      },
+      {
+        "id": "xii-05-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Kerja Sama Keruangan Antarwilayah dan Geopolitik Global",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Rantai Pasok Global, RCEP, G20 & Geopolitik 2026",
+          "isi": "<p>Kerja Sama Keruangan Antarwilayah dan Geopolitik Global. Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026.</p><p>Menavigasi dinamika dunia: teori kerja sama keruangan internasional, rantai pasok global (global supply chain), integrasi ekonomi kawasan (ASEAN, RCEP, G20, BRICS), diplomasi perbatasan antarnegara, dan posisi tawar mineral kritis Indonesia 2026. Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis. Topik 1: Rantai Pasok Global, RCEP, G20 &amp; Geopolitik 2026. 🌐 Diplomasi Strategis 2026: Menguatnya Posisi Tawar Mineral Kritis Indonesia Dalam transisi energi hijau global dari bahan bakar fosil menuju kendaraan listrik dan energi terbarukan, dunia sangat bergantung pada Critical Raw Materials (CRM) seperti nikel, litium, kobalt, tembaga, dan bauksit. Sebagai produsen nikel nomor satu di dunia, posisi geopolitik Indonesia di forum internasional (G20, ASEAN, dan kemitraan bilateral) meningkat pesat. Indonesia mempraktikkan Diplomasi Non-Blok Aktif : bermitra secara seimbang dengan negara-negara Barat, Asia Timur, dan negara-negara Selatan Global (Global South) demi kepentingan nasional dan kedaulatan ekonomi rakyat. Video Pembelajaran: Kerja Sama Keruangan Global dan Geopolitik Dunia Pelajari teori interaksi spasial Ullman, blok perdagangan RCEP, dan diplomasi batas negara. Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis pola dan bentuk kerja sama keruangan antarwilayah dan antarnegara, menganalisis posisi geopolitik Indonesia dalam organisasi internasional, serta mengevaluasi peran Indonesia dalam rantai pasok global komoditas strategis.</p><p>Tujuan pembelajaran: Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi. Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS). Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia. Menganalisis dinamika geopolitik perbatasan darat dan laut Indonesia dengan 10 negara tetangga. Merumuskan strategi diplomasi geospasial Indonesia dalam menjaga perdamaian dan keadilan iklim global.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis faktor pendorong kerja sama keruangan antarnegara: komplementaritas regional, transferabilitas spasial, dan hilangnya penghalang intervensi.”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Menguraikan bentuk-bentuk kerja sama bilateral, regional (ASEAN Economic Community), dan multilateral (RCEP, G20, WTO, BRICS).”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Mengevaluasi posisi strategis Indonesia dalam penguasaan rantai pasok global mineral kritis (nikel dan tembaga) untuk industri kendaraan listrik dunia.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   },
@@ -166,7 +398,7 @@
     "kelas": "XII",
     "urutan": 6,
     "semester": 2,
-    "youtube_id": "wH4pL9bZ-2s",
+    "youtube_id": "QZpJ00FaUuo",
     "fase": "F",
     "elemen": "Pemahaman Isu Keruangan Global dan Masa Depan Bumi",
     "judul": "Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi",
@@ -184,7 +416,7 @@
       {
         "id": "xii06-t1",
         "judul": "Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030",
-        "youtube_id": "wH4pL9bZ-2s",
+        "youtube_id": "QZpJ00FaUuo",
         "kuis_topik": {
           "pertanyaan": "Era geologis baru di mana aktivitas manusia telah menjadi kekuatan pendorong paling dominan dalam mengubah iklim, atmosfer, biosfer, dan lanskap permukaan bumi secara global dikenal sebagai era ...",
           "opsi": [
@@ -227,7 +459,7 @@
         "stimulus": {
           "jenis": "teks",
           "judul": "Gugatan Hukum Iklim Kaum Muda Internasional",
-          "isi": "<p>Kelompok generasi muda di berbagai negara mengajukan gugatan perdata lingkungan ke pengadilan terhadap pemerintah mereka karena lambatnya dekarbonisasi energi. Mereka menuntut hak konstitusional atas lingkungan hidup yang bersih dan sehat untuk generasi masa depan.</p>",
+          "isi": "<p>Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi. Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026.</p><p>Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026. Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi. Topik 1: Krisis Antroposen, Kenaikan Muka Laut &amp; SDGs 2030. 🌍 Agenda Bumi 2026: Menuju Tenggat SDGs 2030 dan Keadilan Antargenerasi Dunia hanya memiliki sisa waktu kurang dari 5 tahun menjelang batas waktu pencapaian Sustainable Development Goals (SDGs 2030) . Dari 17 tujuan pembangunan berkelanjutan—mulai dari Tanpa Kemiskinan (SDG 1), Penanganan Perubahan Iklim (SDG 13), hingga Ekosistem Daratan (SDG 15)—banyak target yang memerlukan akselerasi radikal. Bagi generasi muda Indonesia yang akan memegang tampuk kepemimpinan pada Indonesia Emas 2045 , literasi geografi bukan sekadar menghafal nama gunung atau teluk. Literasi geografi adalah kompas etika keruangan untuk memastikan bahwa setiap gedung yang dibangun, setiap tambang yang digali, dan setiap kebijakan yang diambil tidak mengorbankan hak anak-cucu kita untuk menghirup udara bersih dan hidup damai di planet bumi yang lestari. Video Pembelajaran: Isu Keruangan Global, Agenda SDGs 2030, dan Masa Depan Planet Bumi Pelajari krisis iklim global, keadilan iklim antargenerasi, dan aksi nyata pencapaian SDGs 2030. Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi.</p><p>Tujuan pembelajaran: Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p>",
           "sumber": "Laporan Keadilan Iklim PBB"
         },
         "pertanyaan": "Konsep etika keruangan apa yang menjadi fondasi gugatan hukum iklim tersebut?",
@@ -235,12 +467,128 @@
           "Intergenerational Climate Justice (Keadilan Iklim Antargenerasi), bahwa generasi saat ini berkewajiban moral menjaga kelayakan huni bumi bagi generasi mendatang",
           "Eksploitasi sumber daya alam tanpa batas",
           "Penyerahan seluruh tanggung jawab iklim kepada alam",
-          "Pembangunan industri tanpa izin lingkungan"
+          "Pembangunan industri tanpa izin lingkungan",
+          "Pernyataan (1), (2), (3), dan (4) benar tanpa perlu membandingkannya dengan bukti pada bacaan."
         ],
         "kunci": [
           0
         ],
         "pembahasan": "Keadilan iklim antargenerasi (intergenerational justice) menegaskan bahwa generasi saat ini bertindak sebagai wali bumi (steward of the earth) yang tidak berhak menghabiskan sumber daya dan mewariskan kehancuran ekologis kepada generasi penerus."
+      },
+      {
+        "id": "xii-06-q2",
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030",
+          "isi": "<p>Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi. Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026.</p><p>Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026. Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi. Topik 1: Krisis Antroposen, Kenaikan Muka Laut &amp; SDGs 2030. 🌍 Agenda Bumi 2026: Menuju Tenggat SDGs 2030 dan Keadilan Antargenerasi Dunia hanya memiliki sisa waktu kurang dari 5 tahun menjelang batas waktu pencapaian Sustainable Development Goals (SDGs 2030) . Dari 17 tujuan pembangunan berkelanjutan—mulai dari Tanpa Kemiskinan (SDG 1), Penanganan Perubahan Iklim (SDG 13), hingga Ekosistem Daratan (SDG 15)—banyak target yang memerlukan akselerasi radikal. Bagi generasi muda Indonesia yang akan memegang tampuk kepemimpinan pada Indonesia Emas 2045 , literasi geografi bukan sekadar menghafal nama gunung atau teluk. Literasi geografi adalah kompas etika keruangan untuk memastikan bahwa setiap gedung yang dibangun, setiap tambang yang digali, dan setiap kebijakan yang diambil tidak mengorbankan hak anak-cucu kita untuk menghirup udara bersih dan hidup damai di planet bumi yang lestari. Video Pembelajaran: Isu Keruangan Global, Agenda SDGs 2030, dan Masa Depan Planet Bumi Pelajari krisis iklim global, keadilan iklim antargenerasi, dan aksi nyata pencapaian SDGs 2030. Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi.</p><p>Tujuan pembelajaran: Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Berdasarkan bacaan dan bukti yang disajikan, simpulan manakah yang paling tepat untuk menjelaskan fokus pembelajaran “Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030”?",
+        "opsi": [
+          "Menggunakan informasi dalam bacaan untuk menganalisis Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). serta menghubungkannya dengan konteks geografis yang sedang dibahas.",
+          "Mengabaikan bukti kontekstual dan menyimpulkan bahwa Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). tidak perlu dipertimbangkan dalam analisis wilayah.",
+          "Membatasi pembahasan pada hafalan istilah, tanpa menilai hubungan antara Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026. dan tujuan pembelajaran.",
+          "Menganggap satu contoh pada bacaan sudah cukup untuk menyatakan semua wilayah memiliki kondisi dan persoalan yang sama.",
+          "Mengambil satu istilah dari bacaan sebagai kesimpulan tanpa memeriksa kaitannya dengan topik yang dibahas."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Jawaban A paling tepat karena mengaitkan bukti dalam bacaan dengan capaian “Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra).”. Pilihan lain mengabaikan bukti, membatasi analisis pada hafalan, atau menggeneralisasi satu kasus tanpa mempertimbangkan variasi ruang."
+      },
+      {
+        "id": "xii-06-q3",
+        "tipe": "pg_kompleks",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030",
+          "isi": "<p>Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi. Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026.</p><p>Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026. Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi. Topik 1: Krisis Antroposen, Kenaikan Muka Laut &amp; SDGs 2030. 🌍 Agenda Bumi 2026: Menuju Tenggat SDGs 2030 dan Keadilan Antargenerasi Dunia hanya memiliki sisa waktu kurang dari 5 tahun menjelang batas waktu pencapaian Sustainable Development Goals (SDGs 2030) . Dari 17 tujuan pembangunan berkelanjutan—mulai dari Tanpa Kemiskinan (SDG 1), Penanganan Perubahan Iklim (SDG 13), hingga Ekosistem Daratan (SDG 15)—banyak target yang memerlukan akselerasi radikal. Bagi generasi muda Indonesia yang akan memegang tampuk kepemimpinan pada Indonesia Emas 2045 , literasi geografi bukan sekadar menghafal nama gunung atau teluk. Literasi geografi adalah kompas etika keruangan untuk memastikan bahwa setiap gedung yang dibangun, setiap tambang yang digali, dan setiap kebijakan yang diambil tidak mengorbankan hak anak-cucu kita untuk menghirup udara bersih dan hidup damai di planet bumi yang lestari. Video Pembelajaran: Isu Keruangan Global, Agenda SDGs 2030, dan Masa Depan Planet Bumi Pelajari krisis iklim global, keadilan iklim antargenerasi, dan aksi nyata pencapaian SDGs 2030. Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi.</p><p>Tujuan pembelajaran: Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Untuk menyusun analisis yang utuh atas kasus “Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030”, pilih semua langkah yang sesuai dengan bacaan.",
+        "opsi": [
+          "Mengidentifikasi bukti dan kondisi wilayah yang disebutkan, lalu mengaitkannya dengan capaian “Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra).”.",
+          "Membandingkan temuan dengan capaian “Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia.” dan menjelaskan keterkaitan antarunsur berdasarkan stimulus.",
+          "Menetapkan kesimpulan sebelum membaca data dan mempertahankannya meskipun bertentangan dengan stimulus.",
+          "Menghapus konteks tempat dan waktu karena keduanya tidak pernah memengaruhi gejala geografis.",
+          "Memilih seluruh opsi tanpa menilai kecocokannya dengan bukti dan konteks dalam bacaan."
+        ],
+        "kunci": [
+          0,
+          1
+        ],
+        "pembahasan": "Langkah A dan B memakai bukti, konteks, serta tujuan pembelajaran untuk membangun analisis. Langkah C dan D tidak tepat karena mengabaikan data serta sifat keruangan fenomena."
+      },
+      {
+        "id": "xii-06-q4",
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030",
+          "isi": "<p>Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi. Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026.</p><p>Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026. Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi. Topik 1: Krisis Antroposen, Kenaikan Muka Laut &amp; SDGs 2030. 🌍 Agenda Bumi 2026: Menuju Tenggat SDGs 2030 dan Keadilan Antargenerasi Dunia hanya memiliki sisa waktu kurang dari 5 tahun menjelang batas waktu pencapaian Sustainable Development Goals (SDGs 2030) . Dari 17 tujuan pembangunan berkelanjutan—mulai dari Tanpa Kemiskinan (SDG 1), Penanganan Perubahan Iklim (SDG 13), hingga Ekosistem Daratan (SDG 15)—banyak target yang memerlukan akselerasi radikal. Bagi generasi muda Indonesia yang akan memegang tampuk kepemimpinan pada Indonesia Emas 2045 , literasi geografi bukan sekadar menghafal nama gunung atau teluk. Literasi geografi adalah kompas etika keruangan untuk memastikan bahwa setiap gedung yang dibangun, setiap tambang yang digali, dan setiap kebijakan yang diambil tidak mengorbankan hak anak-cucu kita untuk menghirup udara bersih dan hidup damai di planet bumi yang lestari. Video Pembelajaran: Isu Keruangan Global, Agenda SDGs 2030, dan Masa Depan Planet Bumi Pelajari krisis iklim global, keadilan iklim antargenerasi, dan aksi nyata pencapaian SDGs 2030. Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi.</p><p>Tujuan pembelajaran: Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Pasangkan setiap arah kajian di kolom kiri dengan uraian yang paling sesuai di kolom kanan.",
+        "kiri": [
+          "Arah analisis untuk tujuan pembelajaran pertama",
+          "Arah analisis untuk tujuan pembelajaran kedua",
+          "Cakupan utama bab yang dipelajari",
+          "Topik pembuka pada bacaan"
+        ],
+        "kanan": [
+          "Menggunakan bukti untuk membahas: Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra).",
+          "Mengkaji konteks materi: Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030",
+          "Menghubungkan temuan dengan: Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia.",
+          "Memahami ruang lingkup: Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026."
+        ],
+        "kunci": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "pembahasan": "Pasangan ditentukan dari kesesuaian tujuan dan ruang lingkup: tujuan pertama adalah “Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra).”, tujuan kedua “Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia.”, cakupan bab “Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026.”, dan bacaan pembuka “Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030”."
+      },
+      {
+        "id": "xii-06-q5",
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menganalisis bacaan kontekstual tentang Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi",
+        "numerasi": "Tidak dominan",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Bacaan kontekstual: Topik 1: Krisis Antroposen, Kenaikan Muka Laut & SDGs 2030",
+          "isi": "<p>Isu Keruangan Global, SDGs 2030, dan Ketahanan Bumi. Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026.</p><p>Menjaga masa depan peradaban: krisis iklim Antroposen, kenaikan permukaan air laut global, migrasi pengungsi iklim (climate refugees), pencapaian 17 target SDGs 2030, keadilan iklim antargenerasi, dan peran generasi muda dalam aksi bumi 2026. Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi. Topik 1: Krisis Antroposen, Kenaikan Muka Laut &amp; SDGs 2030. 🌍 Agenda Bumi 2026: Menuju Tenggat SDGs 2030 dan Keadilan Antargenerasi Dunia hanya memiliki sisa waktu kurang dari 5 tahun menjelang batas waktu pencapaian Sustainable Development Goals (SDGs 2030) . Dari 17 tujuan pembangunan berkelanjutan—mulai dari Tanpa Kemiskinan (SDG 1), Penanganan Perubahan Iklim (SDG 13), hingga Ekosistem Daratan (SDG 15)—banyak target yang memerlukan akselerasi radikal. Bagi generasi muda Indonesia yang akan memegang tampuk kepemimpinan pada Indonesia Emas 2045 , literasi geografi bukan sekadar menghafal nama gunung atau teluk. Literasi geografi adalah kompas etika keruangan untuk memastikan bahwa setiap gedung yang dibangun, setiap tambang yang digali, dan setiap kebijakan yang diambil tidak mengorbankan hak anak-cucu kita untuk menghirup udara bersih dan hidup damai di planet bumi yang lestari. Video Pembelajaran: Isu Keruangan Global, Agenda SDGs 2030, dan Masa Depan Planet Bumi Pelajari krisis iklim global, keadilan iklim antargenerasi, dan aksi nyata pencapaian SDGs 2030. Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p><p>Capaian pembelajaran: Peserta didik mampu menganalisis isu-isu keruangan global terkini (krisis iklim, ketahanan pangan global, krisis air tawar), mengevaluasi pencapaian Sustainable Development Goals (SDGs 2030), serta merancang aksi nyata penyelamatan lingkungan bumi.</p><p>Tujuan pembelajaran: Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra). Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia. Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya. Mengevaluasi capaian dan tantangan implementasi 17 indikator SDGs 2030 di tingkat nasional dan global. Merumuskan komitmen dan aksi nyata gaya hidup berkelanjutan ramah lingkungan sebagai warga bumi yang bertanggung jawab.</p>",
+          "gambar": "",
+          "sumber": "Materi pembelajaran kurikulum"
+        },
+        "pertanyaan": "Tentukan apakah setiap pernyataan berikut benar atau salah berdasarkan bacaan.",
+        "pernyataan": [
+          "Bacaan dapat digunakan untuk mengkaji capaian pembelajaran “Menganalisis fenomena krisis lingkungan global di era Antroposen (pemanasan global, kepunahan massal spesies ke-6, polusi mikroplastik samudra).”.",
+          "Bacaan menyatakan bahwa konteks wilayah tidak penting dan seluruh tempat harus dianggap sama.",
+          "Salah satu arah pembelajaran yang relevan ialah “Mengevaluasi dampak kenaikan muka air laut terhadap kelangsungan negara-negara kepulauan kecil (Small Island Developing States / SIDS) dan kota pesisir dunia.”.",
+          "Kesimpulan yang baik boleh mengabaikan bukti bacaan meskipun bertentangan dengan tujuan “Menelaah fenomena pengungsi iklim (climate refugees) dan implikasi geopolitiknya.”."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Pernyataan pertama dan ketiga benar karena sesuai tujuan pembelajaran. Pernyataan kedua dan keempat salah: analisis geografis harus mempertimbangkan konteks serta mendukung kesimpulan dengan bukti."
       }
     ]
   }

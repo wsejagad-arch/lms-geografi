@@ -50,6 +50,11 @@ pm2 startup systemd -u root --hp /root >/dev/null 2>&1 || true
 
 step "nginx reverse proxy"
 cat > /etc/nginx/sites-available/lms <<'NGINX'
+map $http_x_forwarded_proto $lms_fwd_proto {
+  default $http_x_forwarded_proto;
+  ""      $scheme;
+}
+
 server {
   listen 80 default_server;
   server_name _;
@@ -63,7 +68,7 @@ server {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Proto $lms_fwd_proto;
     proxy_read_timeout 300s;
   }
 }

@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/style.css?v=20261105e">
-  <link rel="stylesheet" href="assets/css/belajar.css?v=20261105e">
-  <link rel="stylesheet" href="assets/css/student.css?v=20261105e">
+  <link rel="stylesheet" href="assets/css/belajar.css?v=20261105j">
+  <link rel="stylesheet" href="assets/css/student.css?v=20261105g">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
@@ -57,6 +57,47 @@
         </div>
       </div>
 
+      <div class="modal-overlay" id="password-recommendation-modal" role="dialog" aria-modal="true" aria-labelledby="password-recommendation-title">
+        <div class="modal first-run-modal">
+          <div class="modal-header">
+            <h3 id="password-recommendation-title">Amankan akun siswa</h3>
+            <button type="button" class="modal-close" data-close aria-label="Tutup">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="first-run-icon password-icon" aria-hidden="true">🔐</div>
+            <p>Untuk menjaga keamanan akun, silakan ganti password awal melalui halaman <strong>Profil & Keamanan</strong>.</p>
+            <p>Password baru minimal 8 karakter dan jangan dibagikan kepada orang lain. Pengingat ini akan berhenti setelah password berhasil diganti.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" id="password-remind-later">Nanti</button>
+            <button type="button" class="btn btn-primary" id="password-open-profile">Buka profil</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-overlay" id="install-app-modal" role="dialog" aria-modal="true" aria-labelledby="install-app-title">
+        <div class="modal first-run-modal">
+          <div class="modal-header">
+            <h3 id="install-app-title">Pasang Geo Edulabs di HP</h3>
+            <button type="button" class="modal-close" data-close aria-label="Tutup">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="first-run-icon install-icon" aria-hidden="true">📲</div>
+            <p>Tambahkan aplikasi ke layar utama agar LMS mudah dibuka seperti aplikasi biasa.</p>
+            <div class="install-instructions">
+              <strong>Jika tombol instal tidak tersedia:</strong>
+              <span><b>Android:</b> buka menu browser ⋮ lalu pilih “Instal aplikasi” atau “Tambahkan ke layar utama”.</span>
+              <span><b>iPhone/iPad:</b> buka lewat Safari, tekan Bagikan, lalu “Tambahkan ke Layar Utama”.</span>
+            </div>
+            <p id="install-app-status" class="profile-password-status" role="status" aria-live="polite"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" id="install-dismiss">Nanti</button>
+            <button type="button" class="btn btn-primary" id="install-app-action">Instal aplikasi</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Main Navigation Sections -->
       <nav class="nav" aria-label="Menu Siswa">
         <div class="nav-section-title">Menu Pembelajaran</div>
@@ -89,6 +130,10 @@
         <div class="nav-item" data-nav="presensi-saya" role="button" tabindex="0">
           <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>
           <span>Presensi Siswa</span>
+        </div>
+        <div class="nav-item" data-nav="profil" role="button" tabindex="0">
+          <svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>
+          <span>Profil & Keamanan</span>
         </div>
       </nav>
 
@@ -247,7 +292,7 @@
               </div>
               <div>
                 <span class="stat-value" id="s-stat-tugas">0</span>
-                <span class="stat-label">Tugas Aktif</span>
+                <span class="stat-label">Tugas / Evaluasi Aktif</span>
               </div>
             </div>
 
@@ -265,7 +310,23 @@
             </div>
           </div>
 
-          <!-- Academic Student Identity Card -->
+          <div id="dashboard-class-leaderboard">
+            <p class="table-empty">Memuat peringkat kelas…</p>
+          </div>
+
+          <div class="panel dashboard-evaluation-panel">
+            <div class="panel-head">
+              <h2>Rekap Evaluasi Materi</h2>
+              <span class="badge badge-primary">Nilai akhir per materi</span>
+            </div>
+            <div id="dashboard-evaluasi-list">
+              <p class="table-empty">Memuat rekap evaluasi…</p>
+            </div>
+          </div>
+
+        </section>
+
+        <section id="sec-profil" class="section hidden">
           <div class="academic-profile-card">
             <div class="academic-profile-head">
               <h2>
@@ -274,36 +335,29 @@
               </h2>
               <span class="badge badge-success">Status: Aktif</span>
             </div>
-            
             <div class="academic-profile-grid">
-              <div class="profile-meta-item">
-                <span class="profile-meta-label">Nama Lengkap</span>
-                <span class="profile-meta-val" id="prof-nama">-</span>
-              </div>
-              <div class="profile-meta-item">
-                <span class="profile-meta-label">Nomor Induk Siswa (NIS)</span>
-                <span class="profile-meta-val" id="prof-nis">-</span>
-              </div>
-              <div class="profile-meta-item">
-                <span class="profile-meta-label">Kelas & Tingkat</span>
-                <span class="profile-meta-val" id="prof-kelas">-</span>
-              </div>
-              <div class="profile-meta-item">
-                <span class="profile-meta-label">Wali Kelas</span>
-                <span class="profile-meta-val" id="prof-walikelas">-</span>
-              </div>
-              <div class="profile-meta-item">
-                <span class="profile-meta-label">Sekolah / Tenant</span>
-                <span class="profile-meta-val" id="prof-sekolah">SMA Negeri 1 Sumber</span>
-              </div>
-              <div class="profile-meta-item">
-                <span class="profile-meta-label">Kurikulum</span>
-                <span class="profile-meta-val">Kurikulum Merdeka Geografi</span>
-              </div>
+              <div class="profile-meta-item"><span class="profile-meta-label">Nama Lengkap</span><span class="profile-meta-val" id="prof-nama">-</span></div>
+              <div class="profile-meta-item"><span class="profile-meta-label">Nomor Induk Siswa (NIS)</span><span class="profile-meta-val" id="prof-nis">-</span></div>
+              <div class="profile-meta-item"><span class="profile-meta-label">Kelas & Tingkat</span><span class="profile-meta-val" id="prof-kelas">-</span></div>
+              <div class="profile-meta-item"><span class="profile-meta-label">Wali Kelas</span><span class="profile-meta-val" id="prof-walikelas">-</span></div>
+              <div class="profile-meta-item"><span class="profile-meta-label">Sekolah / Tenant</span><span class="profile-meta-val" id="prof-sekolah">SMA Negeri 1 Sumber</span></div>
+              <div class="profile-meta-item"><span class="profile-meta-label">Kurikulum</span><span class="profile-meta-val">Kurikulum Merdeka Geografi</span></div>
             </div>
-            
-            <!-- Kept for test compatibility -->
             <p id="s-profile-info" style="display:none"></p>
+          </div>
+          <div class="panel profile-security-panel">
+            <div class="panel-head"><h2>Keamanan Akun</h2><span class="badge badge-primary">Ganti password</span></div>
+            <form id="student-password-form" class="profile-password-form">
+              <p>Gunakan password yang kuat dan tidak dibagikan kepada orang lain. Password baru minimal 8 karakter.</p>
+              <label for="student-current-password">Password saat ini</label>
+              <input id="student-current-password" name="current_password" type="password" autocomplete="current-password" required>
+              <label for="student-new-password">Password baru</label>
+              <input id="student-new-password" name="new_password" type="password" autocomplete="new-password" minlength="8" required>
+              <label for="student-confirm-password">Ulangi password baru</label>
+              <input id="student-confirm-password" name="confirm_password" type="password" autocomplete="new-password" minlength="8" required>
+              <p id="student-password-status" class="profile-password-status" role="status" aria-live="polite"></p>
+              <button class="btn btn-primary" id="student-password-submit" type="submit">Simpan password baru</button>
+            </form>
           </div>
         </section>
 
@@ -460,7 +514,7 @@
                     <th>Jenis Asesmen</th>
                     <th class="num">Nilai</th>
                     <th>Status KKM</th>
-                    <th>Catatan Evaluasi</th>
+                    <th>Rincian Materi Evaluasi</th>
                   </tr>
                 </thead>
                 <tbody id="nilai-saya-tbody"></tbody>
@@ -540,14 +594,14 @@
   </nav>
 
   <!-- Scripts -->
-  <script src="assets/js/sanitize.js?v=20261105e"></script>
-  <script src="assets/js/api.js?v=20261105e"></script>
-  <script src="assets/js/belajar.js?v=20261105e"></script>
+  <script src="assets/js/sanitize.js?v=20261105f"></script>
+  <script src="assets/js/api.js?v=20261105h"></script>
+  <script src="assets/js/belajar.js?v=20261105o"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
+      navigator.serviceWorker.register('/sw.js').catch(error => console.error('Service worker gagal didaftarkan:', error));
     }
   </script>
-  <script src="assets/js/student.js?v=20261105e"></script>
+  <script src="assets/js/student.js?v=20261105m"></script>
 </body>
 </html>

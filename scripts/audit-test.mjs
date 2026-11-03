@@ -102,6 +102,10 @@ try {
   check('sanitasi: script dibuang', !/script/i.test(lmsSanitize('<script>alert(1)</script><p>a</p>')));
   check('sanitasi: onerror dibuang', !/onerror/i.test(lmsSanitize('<img src=x onerror=alert(1)>')));
   check('sanitasi: javascript: ditolak', !/javascript:/i.test(lmsSanitize('<a href="javascript:alert(1)">x</a>')));
+  const safeVideo = lmsSanitize('<div><iframe src="https://www.youtube.com/embed/2vK8s_aX49c" allowfullscreen></iframe></div>');
+  check('sanitasi: embed YouTube aman dipertahankan', safeVideo.includes('src="https://www.youtube.com/embed/2vK8s_aX49c?rel=0&amp;playsinline=1"')
+    && safeVideo.includes('referrerpolicy="strict-origin-when-cross-origin"'));
+  check('sanitasi: iframe eksternal ditolak', !lmsSanitize('<iframe src="https://attacker.example/embed/123"></iframe>').includes('attacker.example'));
   check('escape: karakter html di-encode', lmsEsc('<b>"x"&') === '&lt;b&gt;&quot;x&quot;&amp;');
 
   // #1 register
