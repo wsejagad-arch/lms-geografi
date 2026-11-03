@@ -1425,16 +1425,13 @@ function initArticleEditor() {
     insertHtmlToEditor(html);
   });
 
-  // Insert YouTube Video dialog
+  // Insert YouTube Video dialog (in-page: tetap terbuka saat pindah tab browser)
   document.getElementById('btn-art-insert-video')?.addEventListener('click', () => {
-    const input = prompt('Masukkan URL Video YouTube atau Video ID (contoh: 2vK8s_aX49c atau https://www.youtube.com/watch?v=...):');
-    if (!input) return;
-    let ytId = input.trim();
-    const match = ytId.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-    if (match && match[1]) ytId = match[1];
-    const title = prompt('Judul Video (opsional):', 'Video Pembelajaran Geografi') || 'Video Pembelajaran Geografi';
-    const html = `<div class="bl-media-box" style="border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0"><div style="background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px">🎥 ${title}</div><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${ytId}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div><p><br></p>`;
-    insertHtmlToEditor(html);
+    captureEditorRange();
+    openVideoInsertDialog((ytId, title) => {
+      const html = `<div class="bl-media-box" style="border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0"><div style="background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px">🎥 ${title}</div><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${ytId}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div><p><br></p>`;
+      insertHtmlToEditor(html);
+    });
   });
 
   // Insert Table dialog
@@ -1496,12 +1493,72 @@ function insertHtmlToEditor(html) {
   const codeEl = document.getElementById('material-konten');
   if (artEditorMode === 'visual' && visualEl) {
     visualEl.focus();
+    if (artSavedRange) {
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(artSavedRange);
+      artSavedRange = null;
+    }
     document.execCommand('insertHTML', false, html);
     if (codeEl) codeEl.value = visualEl.innerHTML;
   } else if (codeEl) {
     codeEl.value += '\n' + html;
     if (visualEl) visualEl.innerHTML = codeEl.value;
   }
+}
+
+let artSavedRange = null;
+
+function captureEditorRange() {
+  const visualEl = document.getElementById('art-editor-visual');
+  if (!visualEl) return;
+  const sel = window.getSelection();
+  artSavedRange = sel && sel.rangeCount && visualEl.contains(sel.anchorNode)
+    ? sel.getRangeAt(0).cloneRange()
+    : null;
+}
+
+function openVideoInsertDialog(onInsert) {
+  document.getElementById('art-video-dialog')?.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'art-video-dialog';
+  overlay.className = 'modal-overlay show';
+  overlay.innerHTML = `
+    <div class="modal" style="max-width:480px">
+      <div class="modal-header"><h3>🎥 Sisipkan Video YouTube</h3><button type="button" class="modal-close" data-art-video-close>&times;</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label for="art-video-url">URL / ID Video YouTube</label><input id="art-video-url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off"></div>
+        <div class="form-group"><label for="art-video-title">Judul Video (opsional)</label><input id="art-video-title" value="Video Pembelajaran Geografi"></div>
+        <p id="art-video-error" style="display:none;color:var(--danger);font-size:12.5px;margin:0"></p>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn" data-art-video-close>Batal</button><button type="button" class="btn btn-primary" id="art-video-insert">Sisipkan</button></div>
+    </div>`;
+  document.body.appendChild(overlay);
+  const urlEl = overlay.querySelector('#art-video-url');
+  const titleEl = overlay.querySelector('#art-video-title');
+  const errEl = overlay.querySelector('#art-video-error');
+  const close = () => overlay.remove();
+  overlay.querySelectorAll('[data-art-video-close]').forEach(btn => btn.addEventListener('click', close));
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  overlay.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  const submit = () => {
+    const raw = urlEl.value.trim();
+    const match = raw.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|live\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+    const ytId = typeof lmsYoutubeVideoId === 'function' ? lmsYoutubeVideoId(raw) : (match && match[1] || '');
+    if (!/^[\w-]{11}$/.test(ytId)) {
+      errEl.textContent = 'URL/ID video YouTube belum valid.';
+      errEl.style.display = 'block';
+      urlEl.focus();
+      return;
+    }
+    close();
+    onInsert(ytId, titleEl.value.trim() || 'Video Pembelajaran Geografi');
+  };
+  overlay.querySelector('#art-video-insert').addEventListener('click', submit);
+  [urlEl, titleEl].forEach(el => el.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); submit(); }
+  }));
+  urlEl.focus();
 }
 
 async function openMaterialModal(material = null) {
@@ -1517,10 +1574,18 @@ async function openMaterialModal(material = null) {
     const subjectSel = document.getElementById('material-subject');
     subjectSel.innerHTML = '<option value="">Pilih Mapel</option>' +
       subjects.map(s => `<option value="${s.id}">${s.nama}</option>`).join('');
+    if (material && material.subject_id && !subjects.some(s => s.id === material.subject_id)) {
+      subjectSel.add(new Option('Mapel saat ini (data lama)', material.subject_id));
+    }
+    if (!material && subjects.length === 1) subjectSel.value = subjects[0].id;
     
     const classSel = document.getElementById('material-class');
     classSel.innerHTML = '<option value="">Pilih Kelas</option>' +
       classes.map(c => `<option value="${c.id}">${c.nama}</option>`).join('');
+    if (material && material.class_id && !classes.some(c => c.id === material.class_id)) {
+      classSel.add(new Option('Kelas saat ini (data lama)', material.class_id));
+    }
+    if (!material && classes.length === 1) classSel.value = classes[0].id;
     
     const visualEl = document.getElementById('art-editor-visual');
     const codeEl = document.getElementById('material-konten');
@@ -1579,8 +1644,19 @@ async function saveMaterial() {
     tipe: document.getElementById('material-tipe').value
   };
   
-  if (!data.judul || !data.subject_id || !data.class_id) {
-    alert('Judul, mapel, dan kelas wajib diisi');
+  if (!data.judul) {
+    alert('Judul materi wajib diisi');
+    document.getElementById('material-judul').focus();
+    return;
+  }
+  if (!data.subject_id) {
+    alert('Mata pelajaran belum dipilih');
+    document.getElementById('material-subject').focus();
+    return;
+  }
+  if (!data.class_id) {
+    alert('Kelas target belum dipilih');
+    document.getElementById('material-class').focus();
     return;
   }
   
@@ -2129,12 +2205,20 @@ async function openAssignmentModal(assignment = null) {
     if (subjectSel) {
       subjectSel.innerHTML = '<option value="">Pilih Mapel</option>' +
         subjects.map(s => `<option value="${s.id}">${s.nama}</option>`).join('');
+      if (assignment && assignment.subject_id && !subjects.some(s => s.id === assignment.subject_id)) {
+        subjectSel.add(new Option('Mapel saat ini (data lama)', assignment.subject_id));
+      }
+      if (!assignment && subjects.length === 1) subjectSel.value = subjects[0].id;
     }
     
     const classSel = document.getElementById('assignment-class');
     if (classSel) {
       classSel.innerHTML = '<option value="">Pilih Kelas</option>' +
         classes.map(c => `<option value="${c.id}">${c.nama}</option>`).join('');
+      if (assignment && assignment.class_id && !classes.some(c => c.id === assignment.class_id)) {
+        classSel.add(new Option('Kelas saat ini (data lama)', assignment.class_id));
+      }
+      if (!assignment && classes.length === 1) classSel.value = classes[0].id;
     }
 
     const title = modal && modal.querySelector('.modal-header h3');
@@ -2169,8 +2253,19 @@ async function saveAssignment() {
     poin: document.getElementById('assignment-poin').value
   };
   
-  if (!data.judul || !data.subject_id || !data.class_id) {
-    alert('Judul, mapel, dan kelas wajib diisi');
+  if (!data.judul) {
+    alert('Judul tugas wajib diisi');
+    document.getElementById('assignment-judul').focus();
+    return;
+  }
+  if (!data.subject_id) {
+    alert('Mapel belum dipilih');
+    document.getElementById('assignment-subject').focus();
+    return;
+  }
+  if (!data.class_id) {
+    alert('Kelas target belum dipilih');
+    document.getElementById('assignment-class').focus();
     return;
   }
   
