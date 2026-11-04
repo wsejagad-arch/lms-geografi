@@ -61,25 +61,30 @@ info "Node.js $(node -v)"
 
 # ------------------------------- Kode aplikasi --------------------------------
 # Beberapa instalasi bisa ada bersamaan (provision-ct.sh memakai /opt, skrip ini
-# memakai /var/www). Tanpa APP_DIR eksplisit, utamakan instalasi yang sudah punya
-# basis data supaya data/ tidak tertinggal; kloning baru berarti seluruh data kosong.
-has_data() { [ -f "$1/data/db.sqlite" ] || [ -f "$1/data/db.json" ]; }
+# memakai /var/www). Tanpa APP_DIR eksplisit, pilih instalasi dengan basis data
+# terbesar = data nyata; DB kosong dari kloning baru berukuran jauh lebih kecil.
+# Mengkloning instalasi baru berarti situs tampil tanpa data.
+db_bytes() {
+  local size=0 file bytes
+  for file in "$1/data/db.sqlite" "$1/data/db.json"; do
+    [ -f "$file" ] || continue
+    bytes=$(wc -c < "$file")
+    [ "$bytes" -gt "$size" ] && size=$bytes
+  done
+  echo "$size"
+}
 
 if [ -z "$APP_DIR_EXPLICIT" ]; then
-  override=""
+  best=""; best_size=0
   for candidate in /var/www/lms-geografi /opt/lms-geografi; do
-    if [ -d "$candidate/.git" ] && has_data "$candidate"; then
-      override="$candidate"; break
-    fi
+    [ -d "$candidate/.git" ] || continue
+    if [ -z "$best" ]; then best="$candidate"; fi
+    size=$(db_bytes "$candidate")
+    if [ "$size" -gt "$best_size" ]; then best="$candidate"; best_size=$size; fi
   done
-  if [ -z "$override" ]; then
-    for candidate in /var/www/lms-geografi /opt/lms-geografi; do
-      if [ -d "$candidate/.git" ]; then override="$candidate"; break; fi
-    done
-  fi
-  if [ -n "$override" ]; then
-    APP_DIR="$override"
-    warn "APP_DIR tidak diberikan; memakai instalasi yang ada di ${APP_DIR}"
+  if [ -n "$best" ]; then
+    APP_DIR="$best"
+    warn "APP_DIR tidak diberikan; memakai instalasi yang ada di ${APP_DIR} (basis data ${best_size} byte)"
   fi
 fi
 if [ -d "$APP_DIR/.git" ]; then
