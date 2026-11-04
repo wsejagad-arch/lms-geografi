@@ -14,6 +14,8 @@ const { summarizeAttempts, youtubeIdFromInput } = createRequire(import.meta.url)
 const PORT = Number(process.env.QUIZ_PORT || 3990);
 const BASE = `http://127.0.0.1:${PORT}`;
 const tmpDb = path.join(os.tmpdir(), `lms-quiz-${process.pid}.json`);
+const tmpKurikulum = path.join(os.tmpdir(), `lms-kurikulum-${process.pid}`);
+fs.cpSync(path.join(root, 'data/kurikulum'), tmpKurikulum, { recursive: true });
 const mockElements = new Map();
 const removedNav = [];
 function mockElement() {
@@ -306,7 +308,7 @@ fs.writeFileSync(tmpDb, JSON.stringify(db, null, 2));
 
 const server = spawn(process.execPath, ['server.js'], {
   cwd: root,
-  env: { ...process.env, PORT: String(PORT), LMS_DB_PATH: tmpDb },
+  env: { ...process.env, PORT: String(PORT), LMS_DB_PATH: tmpDb, LMS_KURIKULUM_DIR: tmpKurikulum },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 let log = '';
@@ -421,6 +423,21 @@ try {
     `opsi=${soal.filter(s => ['pg_singkat', 'pgm', 'pg_kompleks'].includes(s.tipe)).map(s => s.opsi.length).join(',')}`);
   check('detail bab tidak membocorkan kunci', soal.every((s) => s.kunci === undefined), '');
 
+  const adminBab = await req('GET', `/api/admin/kurikulum/${bab.id}`, undefined, 'admin');
+  const soalDenganVideo = adminBab.json.soal.map((s, i) => i === 0
+    ? { ...s, stimulus: { ...(s.stimulus || {}), youtube_id: 'https://youtu.be/videoid1234' } }
+    : s);
+  const simpanVideo = await req('PUT', `/api/admin/kurikulum/${bab.id}`, { soal: soalDenganVideo }, 'admin');
+  const videoTersimpan = await req('GET', `/api/kurikulum/${bab.id}`);
+  check('video stimulus soal tersimpan sebagai id YouTube',
+    simpanVideo.status === 200 && videoTersimpan.json?.soal?.[0]?.stimulus?.youtube_id === 'videoid1234',
+    `status=${simpanVideo.status} id=${videoTersimpan.json?.soal?.[0]?.stimulus?.youtube_id || '-'}`);
+  const soalVideoSalah = adminBab.json.soal.map((s, i) => i === 0
+    ? { ...s, stimulus: { ...(s.stimulus || {}), youtube_id: 'https://contoh.test/videoid1234' } }
+    : s);
+  const videoDitolak = await req('PUT', `/api/admin/kurikulum/${bab.id}`, { soal: soalVideoSalah }, 'admin');
+  check('video stimulus non-YouTube ditolak', videoDitolak.status === 400, `status=${videoDitolak.status}`);
+
   const diskBab = loadBabFromDisk(db.students.find((s) => s.id === 'siswa-a')?.kelas_level || 'X', bab.id);
   check('bab ditemukan di berkas konten', !!diskBab, `bab=${bab.id}`);
 
@@ -512,6 +529,7 @@ try {
 } finally {
   server.kill();
   fs.rmSync(tmpDb, { force: true });
+  fs.rmSync(tmpKurikulum, { recursive: true, force: true });
 }
 
 const failed = results.filter((r) => !r.ok);

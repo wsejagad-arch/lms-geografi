@@ -7,7 +7,9 @@ const { v4: uuidv4 } = require('uuid');
 const KKM = 75;
 const LEVELS = ['X', 'XI', 'XII'];
 const QUESTION_TYPES = ['pgm', 'pg_singkat', 'pg_kompleks', 'menjodohkan', 'benar_salah'];
-const CONTENT_DIR = path.join(__dirname, 'data', 'kurikulum');
+const CONTENT_DIR = process.env.LMS_KURIKULUM_DIR
+  ? path.resolve(process.env.LMS_KURIKULUM_DIR)
+  : path.join(__dirname, 'data', 'kurikulum');
 
 const contentCache = new Map();
 const lastMtime = new Map();
