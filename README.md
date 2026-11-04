@@ -293,6 +293,8 @@ Catatan: pada CP 2025, Fase E (kelas X) dirumuskan dalam CP IPS; sekolah boleh m
 
 Setiap bab memuat: tujuan pembelajaran, 4 sub-materi, glosarium, dan **5 soal** yang mencakup lima tipe — pilihan ganda majemuk, pilihan ganda, pilihan ganda kompleks, menjodohkan, dan benar–salah. Semua soal memakai stimulus literasi (paragraf/poster) dan/atau numerasi (tabel & perhitungan), berlevel C3–C5, dengan pembahasan.
 
+Kolom **URL video stimulus (YouTube)** pada editor soal menempelkan video ke stimulus soal mana pun tanpa menambah tipe soal baru. Server hanya menyimpan id 11 karakter (`stimulus.youtube_id`) dari tautan `youtu.be`, `watch?v=`, `shorts`, `embed`, atau `live`; tautan non-YouTube ditolak `400`. Video tampil di atas bacaan saat siswa membuka evaluasi materi.
+
 ### Isi materi Kelas XI (`data/kurikulum/kelas-xi/`)
 Kelas XI memakai **Fase F** dan melanjutkan jenjang setelah seluruh bab Kelas X tuntas (nilai ≥ KKM). Fokusnya biosfer, antroposfer, interaksi manusia–lingkungan, dan sumber daya alam.
 

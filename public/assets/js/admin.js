@@ -3328,6 +3328,7 @@ function kurSoalItem(s, i) {
       <label>Numerasi<input class="k-s-numerasi" value="${kurEsc(s.numerasi || '')}"></label>
       <label>Judul stimulus<input class="k-s-stimjudul" value="${kurEsc((s.stimulus && s.stimulus.judul) || '')}"></label>
       <label>URL gambar stimulus<input class="k-s-gambar" placeholder="https://…" value="${kurEsc((s.stimulus && s.stimulus.gambar) || '')}"></label>
+      <label>URL video stimulus (YouTube)<input class="k-s-video" placeholder="https://youtu.be/…" value="${kurEsc((s.stimulus && s.stimulus.youtube_id) || '')}"></label>
       <label class="wide">Bacaan / stimulus (HTML ringan)<textarea class="k-s-stimisi" rows="6">${kurEsc((s.stimulus && s.stimulus.isi) || '')}</textarea></label>
       <label>Sumber<input class="k-s-sumber" value="${kurEsc((s.stimulus && s.stimulus.sumber) || '')}"></label>
       <label class="wide">Pertanyaan<textarea class="k-s-pertanyaan" rows="4">${kurEsc(s.pertanyaan)}</textarea></label>
@@ -3356,6 +3357,7 @@ function kurReadSoalItem(item) {
       judul: val('.k-s-stimjudul'),
       isi: val('.k-s-stimisi'),
       gambar: val('.k-s-gambar'),
+      youtube_id: val('.k-s-video'),
       sumber: val('.k-s-sumber')
     },
     pertanyaan: val('.k-s-pertanyaan'),
@@ -3546,6 +3548,14 @@ async function kurSave(box) {
   }
   if (data.soal.some(soal => !kurValidSoal(soal))) {
     alert('Periksa bacaan minimal 800 karakter, lima opsi A-E untuk soal pilihan ganda, pernyataan/kunci, dan pembahasan minimal 80 karakter pada setiap soal.');
+    return;
+  }
+  const videoSalah = data.soal.find(soal => {
+    const raw = String((soal.stimulus && soal.stimulus.youtube_id) || '').trim();
+    return raw && typeof lmsYoutubeVideoId === 'function' && !lmsYoutubeVideoId(raw);
+  });
+  if (videoSalah) {
+    alert('URL video stimulus bukan tautan YouTube yang valid: ' + videoSalah.stimulus.youtube_id);
     return;
   }
   btn.disabled = true;

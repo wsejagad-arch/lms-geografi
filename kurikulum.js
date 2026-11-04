@@ -90,6 +90,27 @@ function gradeSoal(soal, jawaban) {
   }
 }
 
+// Sama dengan lmsYoutubeVideoId di public/assets/js/sanitize.js; server menyimpan
+// id 11 karakter saja supaya iframe siswa tidak pernah memakai URL bebas.
+function youtubeIdFromInput(value) {
+  const input = String(value || '').trim();
+  if (!input) return '';
+  if (/^[A-Za-z0-9_-]{11}$/.test(input)) return input;
+
+  let url;
+  try { url = new URL(input); } catch { return ''; }
+  if (!['http:', 'https:'].includes(url.protocol)) return '';
+  const host = url.hostname.toLowerCase();
+  const allowed = ['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtube-nocookie.com', 'www.youtube-nocookie.com', 'youtu.be', 'www.youtu.be'];
+  if (!allowed.includes(host)) return '';
+
+  const pathMatch = url.pathname.match(/^\/(?:embed|shorts|live)\/([A-Za-z0-9_-]{11})(?:\/|$)/);
+  const id = host.endsWith('youtu.be')
+    ? url.pathname.slice(1).split('/')[0]
+    : pathMatch ? pathMatch[1] : url.searchParams.get('v');
+  return /^[A-Za-z0-9_-]{11}$/.test(id || '') ? id : '';
+}
+
 function validQuestion(soal) {
   if (!soal || !QUESTION_TYPES.includes(soal.tipe) || !String(soal.pertanyaan || '').trim()) return false;
   const key = Array.isArray(soal.kunci) ? soal.kunci : [];
@@ -820,6 +841,13 @@ function registerKurikulum(app, deps) {
       if (body.soal.some(soal => !validQuestion(soal))) {
         return res.status(400).json({ error: 'Periksa tipe, kunci, bacaan minimal 800 karakter, dan pembahasan minimal 80 karakter pada setiap soal' });
       }
+      const badVideo = body.soal.find(soal => {
+        const raw = soal && soal.stimulus ? (soal.stimulus.youtube_id || soal.stimulus.video) : '';
+        return String(raw || '').trim() && !youtubeIdFromInput(raw);
+      });
+      if (badVideo) {
+        return res.status(400).json({ error: 'URL video stimulus harus tautan YouTube yang valid' });
+      }
       patch.soal = body.soal.map((s, i) => ({
         ...s,
         id: s.id || `${found.bab.id}-q${i + 1}`,
@@ -828,6 +856,7 @@ function registerKurikulum(app, deps) {
           judul: String(s.stimulus.judul || '').trim(),
           isi: String(s.stimulus.isi || ''),
           gambar: String(s.stimulus.gambar || '').trim(),
+          youtube_id: youtubeIdFromInput(s.stimulus.youtube_id || s.stimulus.video),
           sumber: String(s.stimulus.sumber || 'ilustrasi sintetis').trim()
         } : null
       }));
@@ -891,4 +920,4 @@ function registerKurikulum(app, deps) {
   });
 }
 
-module.exports = { registerKurikulum, getBabTitle, summarizeAttempts };
+module.exports = { registerKurikulum, getBabTitle, summarizeAttempts, youtubeIdFromInput };

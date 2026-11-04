@@ -10,7 +10,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const { summarizeAttempts } = createRequire(import.meta.url)('../kurikulum.js');
+const { summarizeAttempts, youtubeIdFromInput } = createRequire(import.meta.url)('../kurikulum.js');
 const PORT = Number(process.env.QUIZ_PORT || 3990);
 const BASE = `http://127.0.0.1:${PORT}`;
 const tmpDb = path.join(os.tmpdir(), `lms-quiz-${process.pid}.json`);
@@ -101,6 +101,23 @@ if (typeof blRenderSoal === 'function') {
   check('video soal dapat diputar', videoHtml.includes('youtube.com/embed/videoid1234?rel=0&amp;playsinline=1')
     && videoHtml.includes('referrerpolicy="strict-origin-when-cross-origin"')
     && videoHtml.includes('allowfullscreen'), '');
+  const stimulusVideoHtml = renderInputs({
+    id: 'video-stimulus',
+    tipe: 'pgm',
+    opsi: ['A', 'B'],
+    stimulus: { youtube_id: 'videoid5678', isi: '<p>Bacaan</p>' },
+  });
+  check('video dari stimulus saja tetap tampil', stimulusVideoHtml.includes('youtube.com/embed/videoid5678?rel=0&amp;playsinline=1'),
+    '');
+  check('URL YouTube soal dinormalisasi ke id 11 karakter',
+    youtubeIdFromInput('https://youtu.be/videoid1234') === 'videoid1234'
+      && youtubeIdFromInput('https://www.youtube.com/watch?v=videoid1234&t=30') === 'videoid1234'
+      && youtubeIdFromInput('https://www.youtube.com/shorts/videoid1234') === 'videoid1234'
+      && youtubeIdFromInput('videoid1234') === 'videoid1234', '');
+  check('video soal menolak tautan non-YouTube',
+    youtubeIdFromInput('https://contoh.test/videoid1234') === ''
+      && youtubeIdFromInput('javascript:alert(1)') === ''
+      && youtubeIdFromInput('') === '', '');
   vm.runInContext('blState.kurikulum = { kkm: 75 }', sandbox);
   const previewCard = sandbox.blBabCard({
     id: 'bab-berikutnya',
@@ -253,6 +270,7 @@ if (typeof blRenderSoal === 'function') {
       && adminSrc.includes('kur-del-soal')
       && adminSrc.includes('k-s-tipe')
       && adminSrc.includes('k-s-gambar')
+      && adminSrc.includes('k-s-video')
       && adminSrc.includes("opsi: ['', '', '', '', '']")
       && adminSrc.includes('s.opsi.length === 5')
       && questionTypes.every((type) => adminSrc.includes(`value="${type}"`)), '');
