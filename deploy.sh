@@ -132,7 +132,10 @@ if ! command -v pm2 >/dev/null 2>&1; then
 fi
 # "lms" = nama dari scripts/provision-ct.sh, "lms-geografi" = nama skrip ini.
 # Tanpa penghapusan ini PM2 bisa menjalankan dua proses di PORT yang sama.
-pm2 delete lms lms-geografi >/dev/null 2>&1 || true
+# Dihapus satu per satu: `pm2 delete a b` gagal total bila salah satu nama tidak ada.
+pm2 delete lms >/dev/null 2>&1 || true
+pm2 delete lms-geografi >/dev/null 2>&1 || true
+sleep 1
 if command -v ss >/dev/null 2>&1 && ss -ltnH "sport = :${PORT}" 2>/dev/null | grep -q .; then
   ss -ltnp "sport = :${PORT}" >&2 || true
   fail "PORT ${PORT} masih dipakai proses lain (bukan PM2 lms/lms-geografi); hentikan dulu"
