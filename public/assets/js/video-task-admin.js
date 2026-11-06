@@ -402,6 +402,7 @@
             <select id="vt-filter-status">
               <option value="">Semua status</option>
               <option value="sudah">Sudah mengerjakan</option>
+              <option value="menonton">Sedang menonton</option>
               <option value="belum">Belum mengerjakan</option>
             </select>
           </label>
@@ -427,6 +428,23 @@
     }
   }
 
+  function statusBadgeClass(status) {
+    if (status === 'sudah') return 'badge-success';
+    if (status === 'menonton') return 'badge-warning';
+    return 'badge-neutral';
+  }
+
+  function statusText(status) {
+    if (status === 'sudah') return 'Sudah';
+    if (status === 'menonton') return 'Sedang menonton';
+    return 'Belum';
+  }
+
+  function watchPercentOf(student) {
+    const value = Number(student.watch_percent);
+    return Number.isFinite(value) ? Math.max(0, Math.min(100, Math.round(value))) : 0;
+  }
+
   function renderResultTable() {
     const state = resultsState;
     const list = document.getElementById('vt-result-list');
@@ -448,6 +466,7 @@
     state.filtered = rows;
 
     const done = state.students.filter(student => student.status === 'sudah');
+    const watching = state.students.filter(student => student.status === 'menonton');
     const scores = done.map(student => Number(student.best_score) || 0);
     const average = scores.length
       ? Math.round((scores.reduce((sum, score) => sum + score, 0) / scores.length) * 10) / 10
@@ -455,7 +474,8 @@
     summary.innerHTML = `
       <div class="vt-stat"><span>Total siswa</span><b>${state.students.length}</b></div>
       <div class="vt-stat"><span>Sudah mengerjakan</span><b>${done.length}</b></div>
-      <div class="vt-stat"><span>Belum mengerjakan</span><b>${state.students.length - done.length}</b></div>
+      <div class="vt-stat"><span>Sedang menonton</span><b>${watching.length}</b></div>
+      <div class="vt-stat"><span>Belum mengerjakan</span><b>${state.students.length - done.length - watching.length}</b></div>
       <div class="vt-stat"><span>Rata-rata nilai terbaik</span><b>${average === null ? '—' : average}</b></div>
       <div class="vt-stat"><span>Ditampilkan</span><b>${rows.length}</b></div>`;
 
@@ -466,20 +486,27 @@
     list.innerHTML = `
       <div class="table-wrap">
         <table>
-          <thead><tr><th>No</th><th>Nama Siswa</th><th>NIS</th><th>Kelas</th><th>Status</th><th>Percobaan</th><th>Nilai Terbaik</th><th>Nilai Terakhir</th><th>Terakhir</th></tr></thead>
+          <thead><tr><th>No</th><th>Nama Siswa</th><th>NIS</th><th>Kelas</th><th>Status</th><th>Progres Tonton</th><th>Percobaan</th><th>Nilai Terbaik</th><th>Nilai Terakhir</th><th>Terakhir</th></tr></thead>
           <tbody>
-            ${rows.map((student, index) => `
+            ${rows.map((student, index) => {
+              const pct = watchPercentOf(student);
+              return `
               <tr>
                 <td>${index + 1}</td>
                 <td>${esc(student.nama)}</td>
                 <td>${esc(student.nis || '-')}</td>
                 <td>${esc(student.class_nama || '-')}</td>
-                <td><span class="badge ${student.status === 'sudah' ? 'badge-success' : 'badge-neutral'}">${student.status === 'sudah' ? 'Sudah' : 'Belum'}</span></td>
+                <td><span class="badge ${statusBadgeClass(student.status)}">${statusText(student.status)}</span></td>
+                <td class="vt-progress-cell">
+                  <span class="vt-progress"><i style="width:${pct}%"></i></span>
+                  <small>${pct}%</small>
+                </td>
                 <td class="vt-strong-num">${esc(student.attempts)}</td>
                 <td class="vt-strong-num">${student.best_score === null ? '—' : esc(student.best_score)}</td>
                 <td class="vt-strong-num">${student.last_score === null ? '—' : esc(student.last_score)}</td>
                 <td>${student.last_at ? esc(new Date(student.last_at).toLocaleString('id-ID')) : '—'}</td>
-              </tr>`).join('')}
+              </tr>`;
+            }).join('')}
           </tbody>
         </table>
       </div>`;
@@ -502,7 +529,7 @@
         <p>Video: https://youtu.be/${esc(state.data.task.youtube_id)} · Kelas: ${esc(kelasLabel)} · Dicetak: ${esc(printedAt)}</p>
       </div>
       <table class="vt-print-table">
-        <thead><tr><th>No</th><th>Nama Siswa</th><th>NIS</th><th>Kelas</th><th>Status</th><th>Percobaan</th><th>Nilai Terbaik</th><th>Nilai Terakhir</th><th>Terakhir</th></tr></thead>
+        <thead><tr><th>No</th><th>Nama Siswa</th><th>NIS</th><th>Kelas</th><th>Status</th><th>Progres Tonton</th><th>Percobaan</th><th>Nilai Terbaik</th><th>Nilai Terakhir</th><th>Terakhir</th></tr></thead>
         <tbody>
           ${rows.map((student, index) => `
             <tr>
@@ -510,7 +537,8 @@
               <td>${esc(student.nama)}</td>
               <td>${esc(student.nis || '-')}</td>
               <td>${esc(student.class_nama || '-')}</td>
-              <td>${student.status === 'sudah' ? 'Sudah' : 'Belum'}</td>
+              <td>${statusText(student.status)}</td>
+              <td>${watchPercentOf(student)}%</td>
               <td>${esc(student.attempts)}</td>
               <td>${student.best_score === null ? '-' : esc(student.best_score)}</td>
               <td>${student.last_score === null ? '-' : esc(student.last_score)}</td>
@@ -518,7 +546,7 @@
             </tr>`).join('')}
         </tbody>
       </table>
-      <p class="vt-print-foot">Jumlah siswa: ${rows.length} · Sudah mengerjakan: ${rows.filter(s => s.status === 'sudah').length} · Belum mengerjakan: ${rows.filter(s => s.status === 'belum').length}</p>`;
+      <p class="vt-print-foot">Jumlah siswa: ${rows.length} · Sudah mengerjakan: ${rows.filter(s => s.status === 'sudah').length} · Sedang menonton: ${rows.filter(s => s.status === 'menonton').length} · Belum mengerjakan: ${rows.filter(s => s.status === 'belum').length}</p>`;
     window.print();
   }
 

@@ -198,6 +198,13 @@ function requiredWatchSeconds(task) {
   return Math.max(1, durasi ? durasi - 3 : lastWaktu + 1);
 }
 
+// Persentase tontonan terhadap durasi wajib tonton (0-100).
+function watchPercent(task, watchedSeconds) {
+  const required = requiredWatchSeconds(task);
+  const watched = Math.max(0, Number(watchedSeconds) || 0);
+  return Math.max(0, Math.min(100, Math.round((watched / required) * 100)));
+}
+
 // Bangun data tugas dari payload admin. Mengembalikan { error } atau { data }.
 function buildTaskData(body = {}) {
   const judul = text(body.judul);
@@ -363,6 +370,10 @@ function registerVideoTask(app, deps) {
     );
   }
 
+  function progressRecords(db, taskId) {
+    return (db.video_progress || []).filter(item => item.task_id === taskId);
+  }
+
   function classInfo(db, classId) {
     const item = db.classes.find(c => c.id === classId);
     return item ? item.nama : 'Semua kelas';
@@ -504,6 +515,65 @@ function registerVideoTask(app, deps) {
     });
   });
 
+  // Rekam progres menonton (dipakai rekap: "sedang menonton berapa persen").
+  app.post('/api/video-tasks/:id/progress', requireAuth, requireTenant, async (req, res) => {
+    const db = req.db;
+    const student = studentOf(db, req.user);
+    if (!student) return res.status(403).json({ error: 'Hanya siswa yang dapat mencatat progres menonton' });
+
+    const task = tasksOf(db, req.tenantId).find(item => item.id === req.params.id);
+    if (!task) return res.status(404).json({ error: 'Tugas video tidak ditemukan' });
+    if (!visibleToStudent(task, student)) {
+      return res.status(403).json({ error: 'Tugas video ini tidak tersedia untuk kelas Anda' });
+    }
+
+    const required = requiredWatchSeconds(task);
+    const batas = Math.max(required, Number(task.durasi) || 0);
+    const watched = Math.min(batas, Math.max(0, Math.round(Number(req.body && req.body.watched_seconds) || 0)));
+    const position = Math.min(batas, Math.max(0, Math.round(Number(req.body && req.body.position) || 0)));
+
+    if (!Array.isArray(db.video_progress)) db.video_progress = [];
+    let record = db.video_progress.find(item => item.task_id === task.id && item.student_id === student.id);
+    const now = new Date().toISOString();
+    if (!record) {
+      record = {
+        id: uuidv4(),
+        tenant_id: req.tenantId,
+        task_id: task.id,
+        student_id: student.id,
+        class_id: student.class_id || null,
+        watched_seconds: 0,
+        position: 0,
+        percent: 0,
+        created_at: now,
+        updated_at: now
+      };
+      db.video_progress.push(record);
+    }
+
+    const watchedMax = Math.max(Number(record.watched_seconds) || 0, watched);
+    const positionMax = Math.max(Number(record.position) || 0, position);
+    const percent = watchPercent(task, watchedMax);
+    const changed = percent !== (Number(record.percent) || 0) ||
+      positionMax - (Number(record.position) || 0) >= 5;
+
+    record.watched_seconds = watchedMax;
+    record.position = positionMax;
+    record.percent = percent;
+    record.class_id = student.class_id || record.class_id || null;
+    record.updated_at = now;
+    if (changed) await saveDB(db);
+
+    res.json({
+      task_id: task.id,
+      student_id: student.id,
+      percent,
+      watched_seconds: watchedMax,
+      selesai: percent >= 100
+    });
+  });
+
+
   // ===== ADMIN =====
   app.get('/api/admin/video-tasks', requireAuth, requireStaff, requireTenant, async (req, res) => {
     const db = req.db;
@@ -544,9 +614,19 @@ function registerVideoTask(app, deps) {
       attemptsByStudent.get(attempt.student_id).push(attempt);
     });
 
+    const progressByStudent = new Map();
+    progressRecords(db, task.id).forEach(item => {
+      progressByStudent.set(item.student_id, item);
+    });
+
     const students = targetStudents.map(student => {
       const attempts = attemptsByStudent.get(student.id) || [];
       const summary = summarizeVideoAttempts(attempts);
+      const progress = progressByStudent.get(student.id) || null;
+      const watchedAttempt = attempts.reduce((max, attempt) => Math.max(max, Number(attempt.watched_seconds) || 0), 0);
+      const watchedSeconds = Math.max(watchedAttempt, progress ? (Number(progress.watched_seconds) || 0) : 0);
+      const watchPercentValue = attempts.length ? 100 : watchPercent(task, watchedSeconds);
+      const status = attempts.length ? 'sudah' : (watchPercentValue > 0 ? 'menonton' : 'belum');
       return {
         student_id: student.id,
         nama: student.nama || '-',
@@ -558,7 +638,10 @@ function registerVideoTask(app, deps) {
         last_score: summary.last_score,
         last_at: summary.last_at,
         tuntas: summary.best_score !== null && summary.best_score >= KKM,
-        status: attempts.length ? 'sudah' : 'belum'
+        status,
+        watch_percent: watchPercentValue,
+        watch_seconds: Math.round(watchedSeconds),
+        watch_at: progress ? (progress.updated_at || null) : summary.last_at
       };
     }).sort((a, b) =>
       String(a.class_nama).localeCompare(String(b.class_nama), 'id') ||
@@ -584,7 +667,18 @@ function registerVideoTask(app, deps) {
         };
       });
 
-    res.json({ task: publicVideoTask(task, true), classes, students, attempts });
+    res.json({
+      task: publicVideoTask(task, true),
+      classes,
+      students,
+      attempts,
+      ringkasan: {
+        total: students.length,
+        sudah: students.filter(item => item.status === 'sudah').length,
+        menonton: students.filter(item => item.status === 'menonton').length,
+        belum: students.filter(item => item.status === 'belum').length
+      }
+    });
   });
 
   app.post('/api/admin/video-tasks', requireAuth, requireAdmin, requireTenant, async (req, res) => {
@@ -629,6 +723,9 @@ function registerVideoTask(app, deps) {
     db.video_attempts = (db.video_attempts || []).filter(attempt =>
       !(attempt.task_id === req.params.id && attempt.tenant_id === req.tenantId)
     );
+    db.video_progress = (db.video_progress || []).filter(item =>
+      !(item.task_id === req.params.id && item.tenant_id === req.tenantId)
+    );
     await saveDB(db);
     res.json({ success: true });
   });
@@ -641,6 +738,7 @@ module.exports = {
   missingAnswers,
   publicVideoTask,
   requiredWatchSeconds,
+  watchPercent,
   summarizeVideoAttempts,
   nextAttemptNumber,
   scoreEssayAnswer,

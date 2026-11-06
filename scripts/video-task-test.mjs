@@ -37,6 +37,10 @@ const built = helpers.buildTaskData(validPayload);
 check('payload valid menghasilkan data tugas', !built.error && built.data.soal.length === 2, built.error || '');
 check('soal diurutkan berdasarkan detik', built.data && built.data.soal[0].waktu === 10 && built.data.soal[1].waktu === 40);
 check('youtube id dinormalisasi dari URL', built.data && built.data.youtube_id === 'cTlY4dDk0aQ');
+check('persentase tontonan dihitung dari durasi wajib',
+  helpers.watchPercent({ durasi: 120, soal: [] }, 60) === 51
+  && helpers.watchPercent({ durasi: 120, soal: [] }, 0) === 0
+  && helpers.watchPercent({ durasi: 120, soal: [] }, 999) === 100);
 
 check('judul kosong ditolak', !!helpers.buildTaskData({ ...validPayload, judul: '  ' }).error);
 check('tautan YouTube tidak valid ditolak', !!helpers.buildTaskData({ ...validPayload, youtube_id: 'https://contoh.com/video' }).error);
@@ -173,6 +177,8 @@ check('tautan share ?task didukung pemutar siswa',
   clientSource.includes("get('task')") && clientSource.includes('vtOpenTask'));
 check('login menyimpan tujuan tugas sebelum redirect',
   fs.readFileSync(path.join(root, 'public', 'index.html'), 'utf8').includes('lms_next_task'));
+check('pemutar siswa mengirim progres tontonan', clientSource.includes('/progress') && clientSource.includes('vtSyncProgress'));
+check('rekap menampilkan kolom progres tonton', adminScript.includes('Progres Tonton') && adminScript.includes('watch_percent'));
 
 // ---------- 2. Alur API (end-to-end) ----------
 const db = JSON.parse(fs.readFileSync(path.join(root, 'data', 'db.json'), 'utf8'));
@@ -348,6 +354,28 @@ try {
   check('rekap menyediakan daftar kelas untuk filter',
     Array.isArray(resultsResponse.data.classes)
     && resultsResponse.data.classes.some(item => item.id === klass.id && item.nama === klass.nama));
+
+  // Progres menonton: siswa yang belum mengirim jawaban tetap terlacak persentasenya.
+  const progressPost = await request('POST', `/api/video-tasks/${taskId}/progress`, { watched_seconds: 58, position: 60 }, 'other');
+  check('siswa dapat mengirim progres menonton',
+    progressPost.status === 200 && progressPost.data.percent > 0 && progressPost.data.percent < 100,
+    `status=${progressPost.status} persen=${progressPost.data ? progressPost.data.percent : '?'}`);
+
+  const progressClamp = await request('POST', `/api/video-tasks/${taskId}/progress`, { watched_seconds: 9999, position: 9999 }, 'other');
+  check('progres dibatasi maksimal 100%', progressClamp.status === 200 && progressClamp.data.percent === 100,
+    `persen=${progressClamp.data ? progressClamp.data.percent : '?'}`);
+
+  const progressForbidden = await request('POST', `/api/video-tasks/${taskId}/progress`, { watched_seconds: 30 }, 'admin');
+  check('hanya siswa yang dapat mencatat progres', progressForbidden.status === 403, `status=${progressForbidden.status}`);
+
+  const resultsWithProgress = await request('GET', `/api/admin/video-tasks/${taskId}/hasil`, undefined, 'admin');
+  const watchingRow = (resultsWithProgress.data.students || []).find(item => item.student_id === 'siswa-video-b');
+  check('rekap menampilkan status sedang menonton & persentase',
+    !!watchingRow && watchingRow.status === 'menonton' && watchingRow.watch_percent === 100,
+    watchingRow ? `status=${watchingRow.status} persen=${watchingRow.watch_percent}` : 'tidak ada');
+  check('rekap menyertakan ringkasan status tontonan',
+    !!resultsWithProgress.data.ringkasan && resultsWithProgress.data.ringkasan.menonton === 1,
+    JSON.stringify(resultsWithProgress.data.ringkasan || {}));
 
   const updated = await request('PUT', `/api/admin/video-tasks/${taskId}`, {
     judul: 'Mengamati Siklus Hidrologi (Revisi)',

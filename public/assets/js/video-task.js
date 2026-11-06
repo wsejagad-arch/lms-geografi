@@ -16,6 +16,8 @@
     questionOpen: false,
     submitting: false,
     finished: false,
+    lastSyncAt: 0,
+    lastSyncPercent: -1,
     apiPromise: null
   };
 
@@ -156,6 +158,8 @@
       state.lastTime = 0;
       state.finished = false;
       state.questionOpen = false;
+      state.lastSyncAt = 0;
+      state.lastSyncPercent = -1;
 
       root.innerHTML = `
         <div class="vt-head">
@@ -247,6 +251,7 @@
       });
 
       window.addEventListener('beforeunload', vtBeforeUnload);
+      window.addEventListener('pagehide', vtPageHide);
     } catch (error) {
       const root = vtRoot();
       if (root) vtSetBusy(root, error.message || 'Gagal memuat pemutar video');
@@ -282,6 +287,7 @@
       state.lastTime = current;
 
       vtUpdateWatchLabel();
+      vtSyncProgress(false);
       if (!state.questionOpen && !state.finished) {
         const next = state.task.soal.find(soal => !state.answered.has(soal.id) && current >= Number(soal.waktu));
         if (next) vtAskQuestion(next);
@@ -291,14 +297,53 @@
     }
   }
 
+  function vtWatchPercent() {
+    if (!state.task) return 0;
+    const total = Number(state.task.durasi) || 0;
+    if (total) return Math.max(0, Math.min(100, Math.round((state.maxWatched / total) * 100)));
+    const required = Math.max(1, Number(state.task.required_watch_seconds) || 1);
+    return Math.max(0, Math.min(100, Math.round((state.watched / required) * 100)));
+  }
+
   function vtUpdateWatchLabel() {
     const label = document.getElementById('vt-watch-label');
     if (!label || !state.task) return;
-    const total = Number(state.task.durasi) || 0;
-    let percent = 0;
-    if (total) percent = Math.min(100, Math.round((state.maxWatched / total) * 100));
-    else percent = Math.min(100, Math.round((state.watched / Math.max(1, Number(state.task.required_watch_seconds) || 1)) * 100));
-    label.textContent = `${percent}%`;
+    label.textContent = `${vtWatchPercent()}%`;
+  }
+
+  // Kirim progres tontonan agar guru melihat persentase "sedang menonton" di rekap.
+  function vtSyncProgress(force) {
+    if (!state.taskId || !state.task || state.finished) return;
+    const percent = vtWatchPercent();
+    if (percent <= 0) return;
+    const now = Date.now();
+    if (!force && (percent <= state.lastSyncPercent || now - state.lastSyncAt < 10000)) return;
+    state.lastSyncAt = now;
+    state.lastSyncPercent = percent;
+    const body = JSON.stringify({
+      watched_seconds: Math.round(state.watched),
+      position: Math.round(state.maxWatched)
+    });
+    const url = `/api/video-tasks/${encodeURIComponent(state.taskId)}/progress`;
+    try {
+      if (force && navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([body], { type: 'application/json' }));
+        return;
+      }
+      fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        keepalive: true
+      }).catch(() => {});
+    } catch (error) {
+      // Progres bersifat pelengkap; kegagalan kirim tidak menghentikan tugas.
+    }
+  }
+
+  function vtPageHide() {
+    vtSyncProgress(true);
   }
 
   function vtAskQuestion(soal) {
@@ -430,6 +475,7 @@
       state.submitting = false;
       state.questionOpen = true;
       window.removeEventListener('beforeunload', vtBeforeUnload);
+      window.removeEventListener('pagehide', vtPageHide);
       if (state.tick) { clearInterval(state.tick); state.tick = null; }
       vtRenderResult(result);
     } catch (error) {
@@ -533,10 +579,12 @@
     state.submitting = false;
     state.finished = false;
     window.removeEventListener('beforeunload', vtBeforeUnload);
+    window.removeEventListener('pagehide', vtPageHide);
   }
 
   window.vtRenderList = vtRenderList;
   window.vtTeardown = vtTeardown;
   window.vtOpenTask = vtOpenTask;
   window.vtIsSkip = vtIsSkip;
+  window.vtSyncProgress = vtSyncProgress;
 })();

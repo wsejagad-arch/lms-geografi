@@ -109,6 +109,7 @@ dicek di `requireAuth`):
 | GET | `/api/video-tasks`, `/api/video-tasks/:id` |
 | POST | `/api/kurikulum/:babId/evaluasi`, `/api/kurikulum/naik-kelas` |
 | POST | `/api/video-tasks/:id/attempt` |
+| POST | `/api/video-tasks/:id/progress` |
 
 `GET /api/grades` dan `GET /api/attendance` selalu difilter ke data siswa yang login.
 
@@ -185,9 +186,12 @@ ditentukan tercapai dan video berhenti sampai jawaban disimpan.
 - `GET /api/video-tasks/:id` - Detail tugas + soal (tanpa `kunci`/pembahasan)
 - `POST /api/video-tasks/:id/attempt` - Kirim jawaban; ditolak `400` bila ada soal
   belum dijawab atau `watched_seconds`/`position` belum mencapai batas tonton
+- `POST /api/video-tasks/:id/progress` - Catat progres menonton (`watched_seconds`,
+  `position`); disimpan maksimum per siswa di `video_progress` dan dipakai rekap
 - `GET /api/admin/video-tasks` - Daftar tugas + rekap (admin/guru)
 - `POST/PUT/DELETE /api/admin/video-tasks[/:id]` - Kelola tugas, soal, dan kunci jawaban
-- `GET /api/admin/video-tasks/:id/hasil` - Nilai terbaik dan riwayat percobaan per siswa
+- `GET /api/admin/video-tasks/:id/hasil` - Nilai terbaik dan riwayat percobaan per siswa,
+  termasuk `watch_percent` dan status `sudah`/`menonton`/`belum` (`ringkasan` berisi hitungannya)
 
 Soal mendukung dua tipe: `pg` (pilihan ganda) dan `uraian` (esai HOTS). Soal uraian menyimpan
 `kunci_uraian` + `kata_kunci` yang tidak pernah dikirim ke browser sebelum jawaban dikumpulkan.
@@ -196,6 +200,10 @@ Penilaian otomatis: **50% kemiripan** kata/frasa dengan kunci acuan + **50% rele
 Respons hasil memuat `kemiripan`, `relevansi`, `poin`, serta daftar kata kunci yang belum muncul.
 
 Nilai terbaik percobaan juga muncul di `GET /api/grades` dengan `tipe: 'Tugas Video'`.
+
+Modal **Hasil** pada admin menampilkan rekap per siswa (nama + kelas) dengan filter kelas,
+status mengerjakan (termasuk **sedang menonton**), dan nilai, kolom **Progres Tonton**
+(persentase video yang sudah ditonton), serta tombol **Cetak Laporan**.
 
 Contoh tugas siap pakai (video Watchdoc "Karhutla Tiga Dekade", 15 soal HOTS):
 `npm run seed:video-task` — tambahkan `-- --class "X E 6"` untuk membatasi kelas, atau

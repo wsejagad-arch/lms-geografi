@@ -10,7 +10,7 @@ const path = require('path');
 const COLLECTIONS = [
   'users', 'tenants', 'subjects', 'classes', 'students', 'materials', 'questions', 'exams',
   'exam_questions', 'grades', 'assignments', 'attendance', 'schedules', 'progress', 'attempts',
-  'video_tasks', 'video_attempts',
+  'video_tasks', 'video_attempts', 'video_progress',
   'session_logs', 'activity_logs', 'whatsapp_jobs', 'whatsapp_logs', 'jurnal'
 ];
 

@@ -325,6 +325,7 @@ const STUDENT_ROUTES = [
   ['GET', /^\/api\/video-tasks$/],
   ['GET', /^\/api\/video-tasks\/[^/]+$/],
   ['POST', /^\/api\/video-tasks\/[^/]+\/attempt$/],
+  ['POST', /^\/api\/video-tasks\/[^/]+\/progress$/],
   ['GET', /^\/api\/kurikulum(\/[^/]+)?$/],
   ['GET', /^\/api\/kurikulum\/peringkat$/],
   ['PUT', /^\/api\/kurikulum\/[^/]+\/progress$/],
