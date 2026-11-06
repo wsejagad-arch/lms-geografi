@@ -1256,11 +1256,16 @@ async function loadAdminSemesterAktif() {
   }
 }
 
-async function saveAdminTahunPelajaranAktif() {
+async function saveAdminTahunPelajaranAktif(silent) {
   const sel = document.getElementById('admin-active-school-year');
   if (!sel || !sel.value) return;
   try {
     const res = await LMS.setTahunPelajaranAktif(sel.value);
+    if (silent) {
+      flashApplyButton('btn-save-school-year');
+      renderMaterials();
+      return;
+    }
     alert(`Tahun pelajaran aktif berhasil diubah menjadi ${res.tahun_pelajaran_aktif}.`);
   } catch (err) {
     alert('Gagal mengubah tahun pelajaran aktif: ' + err.message);
@@ -1290,17 +1295,34 @@ async function addAdminTahunPelajaran() {
   }
 }
 
-async function saveAdminSemesterAktif() {
+async function saveAdminSemesterAktif(silent) {
   const sel = document.getElementById('admin-active-semester');
   if (!sel) return;
   const sem = Number(sel.value) || 1;
   try {
     const res = await LMS.setSemesterAktif(sem);
+    if (silent) {
+      flashApplyButton('btn-save-semester-aktif');
+      renderMaterials();
+      return;
+    }
     alert(`Berhasil! Semester aktif sekolah kini diubah menjadi: Semester ${res.semester_aktif} (${res.semester_aktif === 1 ? 'Ganjil' : 'Genap'}).\n\nMateri kurikulum siswa otomatis disesuaikan dengan semester aktif ini.`);
     renderMaterials();
   } catch (err) {
     alert('Gagal mengubah semester aktif: ' + err.message);
   }
+}
+
+// Umpan balik singkat tanpa dialog saat opsi diterapkan otomatis.
+function flashApplyButton(buttonId, label = 'Tersimpan ✓') {
+  const btn = document.getElementById(buttonId);
+  if (!btn) return;
+  if (!btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
+  btn.textContent = label;
+  clearTimeout(btn._flashTimer);
+  btn._flashTimer = setTimeout(() => {
+    btn.textContent = btn.dataset.originalText;
+  }, 1600);
 }
 
 async function seedKurikulumMateri() {
@@ -3134,10 +3156,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-add-material')?.addEventListener('click', () => openMaterialModal());
   document.getElementById('btn-seed-kurikulum')?.addEventListener('click', seedKurikulumMateri);
   document.getElementById('btn-save-material')?.addEventListener('click', saveMaterial);
-  document.getElementById('btn-save-semester-aktif')?.addEventListener('click', saveAdminSemesterAktif);
-  document.getElementById('btn-save-school-year')?.addEventListener('click', saveAdminTahunPelajaranAktif);
+  document.getElementById('btn-save-semester-aktif')?.addEventListener('click', () => saveAdminSemesterAktif());
+  document.getElementById('btn-save-school-year')?.addEventListener('click', () => saveAdminTahunPelajaranAktif());
+  // Opsi akademik langsung diterapkan saat dipilih, tanpa klik "Terapkan".
+  document.getElementById('admin-active-semester')?.addEventListener('change', () => saveAdminSemesterAktif(true));
+  document.getElementById('admin-active-school-year')?.addEventListener('change', () => saveAdminTahunPelajaranAktif(true));
   document.getElementById('btn-add-school-year')?.addEventListener('click', addAdminTahunPelajaran);
   document.getElementById('filter-material-semester')?.addEventListener('change', renderMaterials);
+  // Tingkat kurikulum langsung memuat ulang daftar bab saat diganti.
+  document.getElementById('kur-level')?.addEventListener('change', renderKurikulum);
+  document.getElementById('btn-kur-muat')?.addEventListener('click', renderKurikulum);
   
   // Questions
   document.getElementById('btn-add-question')?.addEventListener('click', () => openQuestionModal());
@@ -3266,8 +3294,6 @@ async function renderKurikulum() {
         </tr>`).join('')
       : '<tr><td colspan="4" class="text-center">Belum ada materi untuk kelas ini.</td></tr>';
     tbody.querySelectorAll('[data-kur-edit]').forEach(btn => btn.addEventListener('click', () => openKurEditor(btn.dataset.kurEdit)));
-    document.getElementById('btn-kur-muat').onclick = renderKurikulum;
-    if (sel) sel.onchange = renderKurikulum;
   } catch (err) {
     tbody.innerHTML = `<tr><td colspan="4">Error: ${kurEsc(err.message)}</td></tr>`;
   }

@@ -112,6 +112,22 @@ try {
   check('sanitasi: iframe eksternal ditolak', !lmsSanitize('<iframe src="https://attacker.example/embed/123"></iframe>').includes('attacker.example'));
   check('escape: karakter html di-encode', lmsEsc('<b>"x"&') === '&lt;b&gt;&quot;x&quot;&amp;');
 
+  // Filter admin langsung diterapkan saat opsi diganti (tanpa klik "Terapkan").
+  const adminJs = fs.readFileSync(path.join(root, 'public/assets/js/admin.js'), 'utf8');
+  const filterIds = [
+    'student-filter-kelas', 'progress-filter-kelas', 'session-filter-kelas', 'session-filter-status',
+    'activity-filter-kelas', 'activity-filter-type', 'grade-filter-kelas', 'filter-material-semester',
+    'kur-level', 'admin-active-semester', 'admin-active-school-year'
+  ];
+  const tanpaListener = filterIds.filter(id => !adminJs.includes(`getElementById('${id}')?.addEventListener('change'`));
+  check('semua filter admin otomatis saat opsi diganti', tanpaListener.length === 0, tanpaListener.join(', '));
+  check('tahun pelajaran & semester aktif diterapkan tanpa klik Terapkan',
+    adminJs.includes("saveAdminSemesterAktif(true)") && adminJs.includes("saveAdminTahunPelajaranAktif(true)"));
+  check('tombol Terapkan tetap berfungsi manual',
+    adminJs.includes("'btn-save-semester-aktif')?.addEventListener('click', () => saveAdminSemesterAktif()")
+    && adminJs.includes("'btn-save-school-year')?.addEventListener('click', () => saveAdminTahunPelajaranAktif()"));
+
+
   // #1 register
   const regAnon = await req('POST', '/api/register', { email: 'x@x.test', password: 'x', role: 'super_admin' }, 'anon');
   check('#1 register tanpa login ditolak', regAnon.status === 401, `status=${regAnon.status}`);
