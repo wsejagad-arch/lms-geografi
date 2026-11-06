@@ -74,11 +74,6 @@
 @media (max-width: 980px) {
   .vt-layout { grid-template-columns: 1fr; }
 }
-@media (max-width: 640px) {
-  .vt-stage { min-height: 300px; }
-  .vt-q { padding: 14px; }
-  .vt-q-text { font-size: 14px; }
-}
 
 .vt-stage {
   position: relative;
@@ -118,16 +113,19 @@
   inset: 0;
   z-index: 5;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 14px;
   background: rgba(4, 16, 12, 0.86);
   backdrop-filter: blur(2px);
-  overflow: auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .vt-q {
   width: min(560px, 100%);
+  margin: auto;
   background: var(--surface);
   color: var(--text);
   border-radius: var(--radius-lg);
@@ -414,3 +412,24 @@
 .vt-table-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 .vt-result-table { margin-top: 10px; }
 .vt-strong-num { font-variant-numeric: tabular-nums; font-weight: 700; }
+
+/* ===== RESPONSIF SOAL DI PONSEL ===== */
+/* Diletakkan paling akhir agar menimpa aturan dasar di atas. */
+@media (max-width: 640px) {
+  .vt-stage { min-height: 300px; }
+  .vt-q { padding: 14px; }
+  .vt-q-text { font-size: 14px; }
+}
+
+/* Kartu soal tidak muat di dalam kotak video 16:9 pada ponsel. Jadikan overlay
+   layar penuh agar soal panjang/uraian tetap terbaca dan bisa digulir. */
+@media (max-width: 900px) {
+  .vt-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    padding: calc(12px + env(safe-area-inset-top, 0px)) 12px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: rgba(4, 16, 12, 0.96);
+  }
+  .vt-q, .vt-q-essay { width: 100%; max-width: 560px; }
+}
