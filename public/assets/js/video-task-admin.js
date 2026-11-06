@@ -547,7 +547,11 @@
         </tbody>
       </table>
       <p class="vt-print-foot">Jumlah siswa: ${rows.length} · Sudah mengerjakan: ${rows.filter(s => s.status === 'sudah').length} · Sedang menonton: ${rows.filter(s => s.status === 'menonton').length} · Belum mengerjakan: ${rows.filter(s => s.status === 'belum').length}</p>`;
+    document.body.classList.add('vt-printing');
+    const bersihkan = () => document.body.classList.remove('vt-printing');
+    window.addEventListener('afterprint', bersihkan, { once: true });
     window.print();
+    setTimeout(bersihkan, 1500);
   }
 
   function taskShareLink(task) {

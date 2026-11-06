@@ -162,6 +162,13 @@ const missingIds = referencedIds.filter(id => !dynamicResultIds.has(id) && !admi
 check('semua id tugas video tersedia di admin.html', missingIds.length === 0, missingIds.join(', '));
 check('area cetak & fungsi cetak tersedia',
   adminHtml.includes('id="vt-print-area"') && adminScript.includes('function printResultReport'));
+check('cetak tugas video hanya menyembunyikan halaman saat mode cetak tugas video',
+  /body\.vt-printing\s*\*/.test(fs.readFileSync(path.join(root, 'public/assets/css/video-task.css'), 'utf8'))
+  && !/(^|\})\s*body\s*\*\s*\{[^}]*visibility:\s*hidden/m.test(fs.readFileSync(path.join(root, 'public/assets/css/video-task.css'), 'utf8'))
+  && adminScript.includes("classList.add('vt-printing')"));
+check('laporan progres & sesi tetap memakai area cetaknya sendiri',
+  fs.readFileSync(path.join(root, 'public/assets/js/admin.js'), 'utf8').includes("classList.add('print-progress')")
+  && fs.readFileSync(path.join(root, 'public/assets/css/admin.css'), 'utf8').includes('body.print-progress'));
 check('menu & section tugas video ada di admin.html',
   adminHtml.includes('data-menu="video-tasks"') && adminHtml.includes('id="menu-video-tasks"'));
 check('menu & section tugas video ada di student.html',

@@ -389,10 +389,12 @@
 
 #vt-print-area { display: none; }
 
+/* Hanya aktif saat mencetak laporan tugas video; laporan lain (progres, sesi)
+   memakai area cetaknya sendiri dan tidak boleh ikut disembunyikan. */
 @media print {
-  body * { visibility: hidden !important; }
-  #vt-print-area, #vt-print-area * { visibility: visible !important; }
-  #vt-print-area {
+  body.vt-printing * { visibility: hidden !important; }
+  body.vt-printing #vt-print-area, body.vt-printing #vt-print-area * { visibility: visible !important; }
+  body.vt-printing #vt-print-area {
     display: block !important;
     position: absolute;
     left: 0;
