@@ -137,6 +137,19 @@ if command -v ss >/dev/null 2>&1 && ss -ltnH "sport = :${PORT}" 2>/dev/null | gr
   ss -ltnp "sport = :${PORT}" >&2 || true
   fail "PORT ${PORT} masih dipakai proses lain (bukan PM2 lms/lms-geografi); hentikan dulu"
 fi
+
+# ------------------------------- Seed opsional --------------------------------
+# Dijalankan saat aplikasi berhenti agar tidak bersaing menulis database.
+# Pakai: SEED_VIDEO_TASK=1 bash deploy.sh
+if [ "${SEED_VIDEO_TASK:-0}" = "1" ]; then
+  warn "Menambahkan tugas video contoh (Karhutla Tiga Dekade)"
+  if node scripts/seed-video-task-karhutla.js; then
+    info "Tugas video contoh siap"
+  else
+    warn "Seed tugas video gagal; deploy tetap dilanjutkan"
+  fi
+fi
+
 pm2 startOrReload ecosystem.config.js --update-env
 pm2 save >/dev/null
 pm2 startup systemd -u root --hp /root >/dev/null 2>&1 || true

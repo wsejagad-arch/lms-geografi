@@ -220,6 +220,12 @@ Variabel yang bisa di-override:
 DOMAIN=geolabs.my.id PORT=3000 ENABLE_TLS=1 EMAIL=admin@geolabs.my.id bash deploy.sh
 ```
 
+Untuk sekaligus menambahkan tugas video contoh (15 soal HOTS) ke database server:
+
+```bash
+SEED_VIDEO_TASK=1 bash deploy.sh
+```
+
 | Variabel | Default | Fungsi |
 |---|---|---|
 | `DOMAIN` | `geolabs.my.id` | `server_name` Nginx |
