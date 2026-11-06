@@ -133,6 +133,9 @@ async function init() {
   setupNotifications();
   setupJurnal();
   setupFirstRunPrompts();
+
+  // Tautan share tugas: student.html?task=<id> langsung menuju menu Tugas Video.
+  if (new URLSearchParams(window.location.search).get('task')) navigate('video-tugas');
 }
 
 async function setupJurnal() {

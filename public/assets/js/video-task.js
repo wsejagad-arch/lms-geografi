@@ -64,6 +64,14 @@
     vtSetBusy(root, 'Memuat tugas video…');
     try {
       const tasks = await vtApi('/video-tasks');
+      // Tautan share: student.html?task=<id> langsung membuka tugas bila terlihat
+      // untuk kelas siswa. Parameter dibersihkan agar "Daftar tugas" tidak membuka ulang.
+      const deepTask = new URLSearchParams(window.location.search).get('task');
+      if (deepTask && tasks.some(task => task.id === deepTask)) {
+        try { history.replaceState(null, '', window.location.pathname); } catch (error) { /* abaikan */ }
+        await vtOpenTask(deepTask);
+        return;
+      }
       if (!tasks.length) {
         root.innerHTML = '<div class="vt-empty"><div class="vt-empty-icon">🎬</div><b>Belum Ada Tugas Video</b>'
           + '<p>Guru belum menugaskan video pengamatan untuk kelas Anda.</p></div>';
@@ -478,5 +486,6 @@
 
   window.vtRenderList = vtRenderList;
   window.vtTeardown = vtTeardown;
+  window.vtOpenTask = vtOpenTask;
   window.vtIsSkip = vtIsSkip;
 })();

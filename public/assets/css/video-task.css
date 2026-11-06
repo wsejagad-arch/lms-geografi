@@ -278,6 +278,47 @@
 .vt-admin-status.is-ok { color: var(--status-success); }
 .vt-result-table { margin: 14px 0 8px; font-size: 13px; }
 .badge-neutral { background: var(--surface-muted); color: var(--text-2); }
+
+/* ===== ADMIN: PREVIEW TUGAS ===== */
+.vt-preview-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0b1512;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.vt-preview-stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.vt-preview-meta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 12px; color: var(--text-2); margin-bottom: 8px; }
+.vt-preview-list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 12px; }
+.vt-preview-list > li { padding-bottom: 10px; border-bottom: 1px solid var(--border-2); }
+.vt-preview-qhead { display: flex; gap: 8px; align-items: center; font-size: 11.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.03em; }
+.vt-preview-question { margin: 4px 0 8px; font-size: 13.5px; font-weight: 600; }
+.vt-preview-options { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.vt-preview-options li { display: flex; gap: 8px; font-size: 12.5px; color: var(--text-2); padding: 4px 8px; border-radius: var(--radius-sm); background: var(--surface-subtle); }
+.vt-preview-options li span { font-weight: 700; color: var(--text-3); }
+.vt-preview-options li.vt-key { background: var(--status-success-bg); color: var(--status-success); }
+.vt-preview-options li.vt-key span { color: var(--status-success); }
+
+.vt-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%, 12px);
+  z-index: 9999;
+  background: var(--text);
+  color: var(--text-inverse);
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  max-width: 90vw;
+}
+.vt-toast.show { opacity: 1; transform: translate(-50%, 0); }
 .vt-table-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 .vt-result-table { margin-top: 10px; }
 .vt-strong-num { font-variant-numeric: tabular-nums; font-weight: 700; }

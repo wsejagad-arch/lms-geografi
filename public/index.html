@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="GeoEdulabs">
   <meta name="description" content="Geo Edulabs - Platform Pembelajaran dan Laboratorium Geografi Terpadu">
-  <title>Masuk - Geo Edulabs · LMS Geografi</title>
+  <title>Masuk - Geo Edulabs Â· LMS Geografi</title>
 
   <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,8 +63,8 @@
             <text x="310" y="325">+360m</text>
             <text x="730" y="270">+240m</text>
             <text x="540" y="480">+480m</text>
-            <text x="180" y="555">S 06°45'22"</text>
-            <text x="790" y="235">E 108°28'53"</text>
+            <text x="180" y="555">S 06Â°45'22"</text>
+            <text x="790" y="235">E 108Â°28'53"</text>
           </g>
         </svg>
       </div>
@@ -138,7 +138,7 @@
       <footer class="hero-footer">
         <div class="geo-datum-pill">
           <span class="pulse-dot" aria-hidden="true"></span>
-          <span>WGS84 · UTM ZONE 49S</span>
+          <span>WGS84 Â· UTM ZONE 49S</span>
         </div>
       </footer>
     </aside>
@@ -225,7 +225,7 @@
                 type="password"
                 id="password"
                 name="password"
-                placeholder="••••••••"
+                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                 required
                 autocomplete="current-password">
               <button type="button" class="toggle-pw" aria-label="Tampilkan password" id="toggle-pw" title="Tampilkan kata sandi">
@@ -265,19 +265,19 @@
 
           <div class="help-content-box" id="help-content">
             <div class="help-item">
-              <span class="help-item-icon" aria-hidden="true">●</span>
+              <span class="help-item-icon" aria-hidden="true">â—</span>
               <div class="help-item-text">
                 <b>Untuk Siswa:</b> Masukkan NIS (contoh: <code>6082</code>) atau NISN. Kata sandi awal umumnya sama dengan NIS atau sesuai yang dibagikan guru geografi.
               </div>
             </div>
             <div class="help-item">
-              <span class="help-item-icon" aria-hidden="true">●</span>
+              <span class="help-item-icon" aria-hidden="true">â—</span>
               <div class="help-item-text">
                 <b>Untuk Guru / Staf:</b> Pilih tab <i>Guru & Staf</i>, lalu masukkan alamat email dinas dan kata sandi yang telah didaftarkan administrator.
               </div>
             </div>
             <div class="help-item">
-              <span class="help-item-icon" aria-hidden="true">●</span>
+              <span class="help-item-icon" aria-hidden="true">â—</span>
               <div class="help-item-text">
                 <b>Kendala Akun:</b> Jika lupa kata sandi atau akun terkunci akibat salah percobaan berkali-kali, silakan hubungi Guru Geografi atau staf operator laboratorium.
               </div>
@@ -292,8 +292,8 @@
             <span>Sesi Terenkripsi</span>
           </div>
           <div class="copyright-text">
-            © 2026 Geo Edulabs
-            <div class="app-credit">Credit by <b>Dwi Wahyu Muktiono S.Pd</b> · Contact: <a href="https://wa.me/6287815873285" target="_blank" rel="noopener">087815873285</a></div>
+            Â© 2026 Geo Edulabs
+            <div class="app-credit">Credit by <b>Dwi Wahyu Muktiono S.Pd</b> Â· Contact: <a href="https://wa.me/6287815873285" target="_blank" rel="noopener">087815873285</a></div>
           </div>
         </footer>
       </section>
@@ -305,7 +305,22 @@
   <script src="assets/js/api.js?v=20261105k"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js?v=58').catch(() => {});
+      navigator.serviceWorker.register('/sw.js?v=61').catch(() => {});
+    }
+    // Tautan share tugas video: simpan tujuan agar tidak hilang saat login.
+    (function () {
+      const task = new URLSearchParams(window.location.search).get('task');
+      if (task) {
+        try { sessionStorage.setItem('lms_next_task', task); } catch (error) { /* abaikan */ }
+      }
+    })();
+    function studentPortalUrl() {
+      let task = new URLSearchParams(window.location.search).get('task');
+      if (!task) {
+        try { task = sessionStorage.getItem('lms_next_task') || ''; } catch (error) { task = ''; }
+      }
+      try { sessionStorage.removeItem('lms_next_task'); } catch (error) { /* abaikan */ }
+      return task ? '/student.html?task=' + encodeURIComponent(task) : '/student.html';
     }
   </script>
   <script>
@@ -317,7 +332,7 @@
           window.location.href = '/admin.html';
           return;
         } else if (user?.role === 'student') {
-          window.location.href = '/student.html';
+          window.location.href = studentPortalUrl();
           return;
         }
       } catch {}
@@ -378,7 +393,7 @@
             window.location.href = '/admin.html';
           } else if (u.role === 'student') {
             btnText.textContent = 'Membuka Portal Siswa...';
-            window.location.href = '/student.html';
+            window.location.href = studentPortalUrl();
           } else {
             throw new Error('Peran akun (role) tidak dikenali.');
           }

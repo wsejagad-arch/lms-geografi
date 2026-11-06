@@ -108,6 +108,14 @@ check('menu & section tugas video ada di student.html',
 check('skrip video-task.js dimuat di student.html', studentHtml.includes('assets/js/video-task.js'));
 check('skrip video-task-admin.js dimuat di admin.html', adminHtml.includes('assets/js/video-task-admin.js'));
 check('menu admin memakai renderer tugas video', fs.readFileSync(path.join(root, 'public/assets/js/admin.js'), 'utf8').includes("'video-tasks': { title: 'Tugas Video', render: () => renderVideoTasks() }"));
+check('modal preview & tombol bagikan tersedia di admin.html',
+  adminHtml.includes('id="video-task-preview-modal"') && adminHtml.includes('id="btn-share-video-task-modal"'));
+check('skrip admin memuat fitur preview & bagikan',
+  adminScript.includes('function openPreview') && adminScript.includes('function shareTask'));
+check('tautan share ?task didukung pemutar siswa',
+  clientSource.includes("get('task')") && clientSource.includes('vtOpenTask'));
+check('login menyimpan tujuan tugas sebelum redirect',
+  fs.readFileSync(path.join(root, 'public', 'index.html'), 'utf8').includes('lms_next_task'));
 
 // ---------- 2. Alur API (end-to-end) ----------
 const db = JSON.parse(fs.readFileSync(path.join(root, 'data', 'db.json'), 'utf8'));

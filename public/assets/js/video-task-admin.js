@@ -67,12 +67,21 @@
           <td class="vt-strong-num">${task.hasil && task.hasil.average_score !== null ? esc(task.hasil.average_score) : '—'}</td>
           <td><span class="badge ${task.aktif ? 'badge-success' : 'badge-neutral'}">${task.aktif ? 'Aktif' : 'Nonaktif'}</span></td>
           <td class="vt-table-actions">
+            ${task.aktif ? `
+              <button type="button" class="btn btn-sm" data-vt-preview="${esc(task.id)}">Preview</button>
+              <button type="button" class="btn btn-sm" data-vt-share="${esc(task.id)}">Bagikan</button>` : ''}
             <button type="button" class="btn btn-sm" data-vt-edit="${esc(task.id)}">Edit</button>
             <button type="button" class="btn btn-sm" data-vt-result="${esc(task.id)}">Hasil</button>
             <button type="button" class="btn btn-sm btn-danger" data-vt-delete="${esc(task.id)}">Hapus</button>
           </td>
         </tr>`).join('');
 
+      tbody.querySelectorAll('[data-vt-preview]').forEach(button => {
+        button.addEventListener('click', () => openPreview(button.dataset.vtPreview));
+      });
+      tbody.querySelectorAll('[data-vt-share]').forEach(button => {
+        button.addEventListener('click', () => shareTask(button.dataset.vtShare));
+      });
       tbody.querySelectorAll('[data-vt-edit]').forEach(button => {
         button.addEventListener('click', () => {
           const task = (window.vtAdminTasks || []).find(item => item.id === button.dataset.vtEdit);
@@ -85,6 +94,12 @@
       tbody.querySelectorAll('[data-vt-delete]').forEach(button => {
         button.addEventListener('click', () => removeTask(button.dataset.vtDelete));
       });
+
+      if (window.vtPendingPreview) {
+        const pending = window.vtPendingPreview;
+        window.vtPendingPreview = null;
+        openPreview(pending);
+      }
     } catch (error) {
       tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--status-danger)">${esc(error.message)}</td></tr>`;
     }
@@ -113,6 +128,14 @@
     if (saveButton && saveButton.dataset.bound !== '1') {
       saveButton.dataset.bound = '1';
       saveButton.addEventListener('click', saveTask);
+    }
+
+    const shareButton = document.getElementById('btn-share-video-task-modal');
+    if (shareButton && shareButton.dataset.bound !== '1') {
+      shareButton.dataset.bound = '1';
+      shareButton.addEventListener('click', () => {
+        if (window.vtPreviewTask) shareTask(window.vtPreviewTask.id);
+      });
     }
 
     if (!modalBound) {
@@ -371,5 +394,95 @@
     }
   }
 
+  function taskShareLink(task) {
+    return `${window.location.origin}/student.html?task=${encodeURIComponent(task.id)}`;
+  }
+
+  function showToast(message) {
+    let toast = document.getElementById('vt-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'vt-toast';
+      toast.className = 'vt-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  async function shareTask(id) {
+    const task = (window.vtAdminTasks || []).find(item => item.id === id)
+      || (window.vtPreviewTask && window.vtPreviewTask.id === id ? window.vtPreviewTask : null);
+    if (!task) return;
+    const link = taskShareLink(task);
+    const text = `Tugas Video: ${task.judul}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: task.judul, text, url: link });
+        return;
+      } catch (error) {
+        if (error && error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(`${text}\n${link}`);
+      showToast('Link tugas disalin. Tempel ke WhatsApp atau grup kelas.');
+    } catch (error) {
+      window.prompt('Salin tautan tugas:', link);
+    }
+  }
+
+  function openPreview(id) {
+    const task = (window.vtAdminTasks || []).find(item => item.id === id);
+    const body = document.getElementById('video-task-preview-body');
+    const modal = document.getElementById('video-task-preview-modal');
+    if (!task || !body || !modal) return;
+
+    window.vtPreviewTask = task;
+    document.getElementById('video-task-preview-title').textContent = `Preview: ${task.judul}`;
+    body.innerHTML = `
+      <div class="vt-preview-stage">
+        <iframe src="https://www.youtube.com/embed/${encodeURIComponent(task.youtube_id)}?rel=0"
+          title="${esc(task.judul)}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+      <div class="vt-preview-meta">
+        <span class="badge badge-success">Aktif</span>
+        <span>${esc(task.jumlah_soal)} soal</span>
+        <span>${task.durasi ? `Durasi ${fmtTime(task.durasi)}` : 'Durasi mengikuti video'}</span>
+        <span>Kelas: ${esc(task.kelas_nama || 'Semua kelas')}</span>
+        <span>KKM 75</span>
+      </div>
+      <p class="vt-admin-hint">Soal muncul otomatis pada detik berikut dan video berhenti sampai siswa menjawab. Kunci jawaban hanya terlihat di pratinjau ini.</p>
+      <ol class="vt-preview-list">
+        ${(task.soal || []).map((item, index) => `
+          <li>
+            <div class="vt-preview-qhead">
+              <span class="vt-time">${fmtTime(item.waktu)}</span>
+              <b>Soal ${index + 1}</b>
+            </div>
+            <p class="vt-preview-question">${esc(item.pertanyaan)}</p>
+            <ul class="vt-preview-options">
+              ${(item.opsi || []).map((opsi, i) => `<li class="${i === item.kunci ? 'vt-key' : ''}"><span>${String.fromCharCode(65 + i)}</span>${esc(opsi)}</li>`).join('')}
+            </ul>
+            ${item.pembahasan ? `<p class="vt-admin-hint"><b>Pembahasan:</b> ${esc(item.pembahasan)}</p>` : ''}
+          </li>`).join('')}
+      </ol>`;
+    modal.classList.add('show');
+  }
+
   window.renderVideoTasks = renderVideoTasks;
+  window.vtPreviewTask = null;
+
+  // Tautan admin.html?preview=<id> membuka pratinjau tugas langsung.
+  document.addEventListener('DOMContentLoaded', () => {
+    const previewId = new URLSearchParams(window.location.search).get('preview');
+    if (!previewId) return;
+    window.vtPendingPreview = previewId;
+    try { history.replaceState(null, '', window.location.pathname); } catch (error) { /* abaikan */ }
+    if (typeof switchMenu === 'function') switchMenu('video-tasks');
+  });
 })();
