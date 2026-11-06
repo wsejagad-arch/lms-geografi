@@ -193,7 +193,13 @@
     item.innerHTML = `
       <div class="vt-question-head">
         <b>Soal <span data-q-number></span></b>
-        <button type="button" class="btn btn-sm btn-danger" data-remove-question>Hapus</button>
+        <div class="vt-question-head-actions">
+          <select data-field="tipe" aria-label="Jenis soal">
+            <option value="pg">Pilihan Ganda</option>
+            <option value="uraian">Uraian (HOTS)</option>
+          </select>
+          <button type="button" class="btn btn-sm btn-danger" data-remove-question>Hapus</button>
+        </div>
       </div>
       <div class="vt-admin-grid">
         <div class="form-group">
@@ -209,11 +215,11 @@
         <label>Pertanyaan</label>
         <textarea rows="2" data-field="pertanyaan" placeholder="Pertanyaan yang muncul saat video berhenti..."></textarea>
       </div>
-      <div class="form-group">
-        <label>Pilihan Jawaban (satu per baris, 2–5 pilihan)</label>
-        <textarea rows="4" data-field="opsi" placeholder="Pilihan A&#10;Pilihan B&#10;Pilihan C&#10;Pilihan D"></textarea>
-      </div>
-      <div class="vt-admin-grid">
+      <div data-pg-fields>
+        <div class="form-group">
+          <label>Pilihan Jawaban (satu per baris, 2–5 pilihan)</label>
+          <textarea rows="4" data-field="opsi" placeholder="Pilihan A&#10;Pilihan B&#10;Pilihan C&#10;Pilihan D"></textarea>
+        </div>
         <div class="form-group">
           <label>Kunci Jawaban</label>
           <select data-field="kunci">
@@ -221,15 +227,33 @@
             <option value="2">C</option><option value="3">D</option><option value="4">E</option>
           </select>
         </div>
+      </div>
+      <div data-essay-fields class="hidden">
         <div class="form-group">
-          <label>Pembahasan (opsional)</label>
-          <input data-field="pembahasan" placeholder="Ditampilkan setelah jawaban dikumpulkan">
+          <label>Kunci Jawaban Uraian (acuan penilaian)</label>
+          <textarea rows="3" data-field="kunci_uraian" placeholder="Tulis jawaban acuan lengkap dan konsep-konsep kuncinya..."></textarea>
         </div>
+        <div class="form-group">
+          <label>Kata Kunci Penilaian (satu per baris atau pisahkan koma, minimal 2)</label>
+          <textarea rows="3" data-field="kata_kunci" placeholder="kanal&#10;gambut kering&#10;musim kemarau"></textarea>
+        </div>
+        <p class="vt-admin-hint">Nilai uraian dihitung otomatis: 50% kemiripan kalimat dengan kunci acuan + 50% relevansi kata kunci.</p>
+      </div>
+      <div class="form-group">
+        <label>Pembahasan (opsional)</label>
+        <input data-field="pembahasan" placeholder="Ditampilkan setelah jawaban dikumpulkan">
       </div>`;
     list.appendChild(item);
 
     const waktu = item.querySelector('[data-field="waktu"]');
     const hint = item.querySelector('[data-time-hint]');
+    const tipeSelect = item.querySelector('[data-field="tipe"]');
+    const syncType = () => {
+      const essay = tipeSelect.value === 'uraian';
+      item.querySelector('[data-pg-fields]').classList.toggle('hidden', essay);
+      item.querySelector('[data-essay-fields]').classList.toggle('hidden', !essay);
+    };
+    tipeSelect.addEventListener('change', syncType);
     const updateHint = () => { hint.textContent = fmtTime(waktu.value); };
     waktu.addEventListener('input', updateHint);
 
@@ -244,10 +268,16 @@
     });
 
     waktu.value = question && question.waktu !== undefined ? question.waktu : '';
+    tipeSelect.value = question && question.tipe === 'uraian' ? 'uraian' : 'pg';
     item.querySelector('[data-field="pertanyaan"]').value = question ? (question.pertanyaan || '') : '';
     item.querySelector('[data-field="opsi"]').value = question && Array.isArray(question.opsi) ? question.opsi.join('\n') : '';
     item.querySelector('[data-field="kunci"]').value = String(question && question.kunci !== undefined ? question.kunci : 0);
+    item.querySelector('[data-field="kunci_uraian"]').value = question ? (question.kunci_uraian || '') : '';
+    item.querySelector('[data-field="kata_kunci"]').value = question && Array.isArray(question.kata_kunci)
+      ? question.kata_kunci.join('\n')
+      : '';
     item.querySelector('[data-field="pembahasan"]').value = question ? (question.pembahasan || '') : '';
+    syncType();
     updateHint();
     renumber();
   }
@@ -260,13 +290,24 @@
   }
 
   function collectQuestions() {
-    return Array.from(document.querySelectorAll('#vt-question-list .vt-question-item')).map(item => ({
-      waktu: Math.max(0, Math.round(Number(item.querySelector('[data-field="waktu"]').value) || 0)),
-      pertanyaan: item.querySelector('[data-field="pertanyaan"]').value.trim(),
-      opsi: item.querySelector('[data-field="opsi"]').value.split('\n').map(value => value.trim()).filter(Boolean),
-      kunci: Number(item.querySelector('[data-field="kunci"]').value),
-      pembahasan: item.querySelector('[data-field="pembahasan"]').value.trim()
-    }));
+    return Array.from(document.querySelectorAll('#vt-question-list .vt-question-item')).map(item => {
+      const tipe = item.querySelector('[data-field="tipe"]').value === 'uraian' ? 'uraian' : 'pg';
+      const base = {
+        tipe,
+        waktu: Math.max(0, Math.round(Number(item.querySelector('[data-field="waktu"]').value) || 0)),
+        pertanyaan: item.querySelector('[data-field="pertanyaan"]').value.trim(),
+        pembahasan: item.querySelector('[data-field="pembahasan"]').value.trim()
+      };
+      if (tipe === 'uraian') {
+        base.kunci_uraian = item.querySelector('[data-field="kunci_uraian"]').value.trim();
+        base.kata_kunci = item.querySelector('[data-field="kata_kunci"]').value
+          .split(/[\n,;]+/).map(value => value.trim()).filter(Boolean);
+      } else {
+        base.opsi = item.querySelector('[data-field="opsi"]').value.split('\n').map(value => value.trim()).filter(Boolean);
+        base.kunci = Number(item.querySelector('[data-field="kunci"]').value);
+      }
+      return base;
+    });
   }
 
   function validateLocally(payload) {
@@ -277,8 +318,17 @@
       const question = payload.soal[index];
       const nomor = index + 1;
       if (!question.pertanyaan) return `Pertanyaan soal #${nomor} wajib diisi.`;
-      if (question.opsi.length < 2 || question.opsi.length > 5) return `Soal #${nomor} butuh 2–5 pilihan jawaban.`;
-      if (question.kunci < 0 || question.kunci >= question.opsi.length) return `Kunci jawaban soal #${nomor} tidak sesuai jumlah pilihan.`;
+      if (question.tipe === 'uraian') {
+        if (!question.kunci_uraian || question.kunci_uraian.length < 20) {
+          return `Kunci uraian soal #${nomor} minimal 20 karakter.`;
+        }
+        if (!question.kata_kunci || question.kata_kunci.length < 2) {
+          return `Soal uraian #${nomor} butuh minimal 2 kata kunci penilaian.`;
+        }
+      } else {
+        if (question.opsi.length < 2 || question.opsi.length > 5) return `Soal #${nomor} butuh 2–5 pilihan jawaban.`;
+        if (question.kunci < 0 || question.kunci >= question.opsi.length) return `Kunci jawaban soal #${nomor} tidak sesuai jumlah pilihan.`;
+      }
       if (payload.durasi && question.waktu > payload.durasi) return `Waktu soal #${nomor} melebihi durasi video.`;
     }
     return '';
@@ -458,18 +508,26 @@
       </div>
       <p class="vt-admin-hint">Soal muncul otomatis pada detik berikut dan video berhenti sampai siswa menjawab. Kunci jawaban hanya terlihat di pratinjau ini.</p>
       <ol class="vt-preview-list">
-        ${(task.soal || []).map((item, index) => `
-          <li>
+        ${(task.soal || []).map((item, index) => {
+          const isEssay = item.tipe === 'uraian';
+          const answerBlock = isEssay
+            ? `<div class="vt-preview-essay">
+                 <p class="vt-review-line"><b>Kunci acuan:</b> ${esc(item.kunci_uraian || '')}</p>
+                 <p class="vt-admin-hint"><b>Kata kunci penilaian:</b> ${esc((item.kata_kunci || []).join(', '))}</p>
+               </div>`
+            : `<ul class="vt-preview-options">
+                 ${(item.opsi || []).map((opsi, i) => `<li class="${i === item.kunci ? 'vt-key' : ''}"><span>${String.fromCharCode(65 + i)}</span>${esc(opsi)}</li>`).join('')}
+               </ul>`;
+          return `<li>
             <div class="vt-preview-qhead">
               <span class="vt-time">${fmtTime(item.waktu)}</span>
-              <b>Soal ${index + 1}</b>
+              <b>Soal ${index + 1}${isEssay ? ' · Uraian' : ''}</b>
             </div>
             <p class="vt-preview-question">${esc(item.pertanyaan)}</p>
-            <ul class="vt-preview-options">
-              ${(item.opsi || []).map((opsi, i) => `<li class="${i === item.kunci ? 'vt-key' : ''}"><span>${String.fromCharCode(65 + i)}</span>${esc(opsi)}</li>`).join('')}
-            </ul>
+            ${answerBlock}
             ${item.pembahasan ? `<p class="vt-admin-hint"><b>Pembahasan:</b> ${esc(item.pembahasan)}</p>` : ''}
-          </li>`).join('')}
+          </li>`;
+        }).join('')}
       </ol>`;
     modal.classList.add('show');
   }

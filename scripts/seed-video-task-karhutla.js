@@ -194,6 +194,30 @@ const SOAL = [
     ],
     kunci: 0,
     pembahasan: 'Konsep 10 — Pola spasial, mitigasi, dan inovasi. Video menyebut tepung berbahan ubi/singkong yang dapat meredam api dan rencana produksi skala besar, yang kemudian disebut "ubi bombing" (7:53–8:32).'
+  },
+  {
+    waktu: 240,
+    tipe: 'uraian',
+    pertanyaan: 'Berdasarkan kasus PLG, jelaskan mengapa penghentian proyek pada 1998 tidak otomatis menghilangkan risiko kebakaran. Kaitkan kanal, kondisi gambut, dan musim kemarau dalam jawaban Anda.',
+    kunci_uraian: 'Penghentian proyek tidak menutup kanal yang sudah dibangun. Kanal terus mengeringkan lahan gambut sehingga gambut tetap kering. Ketika musim kemarau atau El Nino datang, gambut kering menjadi sangat rentan terbakar dan api mudah menyebar, sehingga kebakaran berulang pada tahun-tahun berikutnya.',
+    kata_kunci: ['kanal', 'gambut kering', 'musim kemarau', 'rentan terbakar', 'berulang'],
+    pembahasan: 'Konsep 5–6 — Kebijakan berkelanjutan dan risiko berulang. Jawaban perlu menjelaskan rantai: kanal tetap ada → gambut terus mengering → kemarau/El Nino → rentan dan berulang (3:32–3:50).'
+  },
+  {
+    waktu: 448,
+    tipe: 'uraian',
+    pertanyaan: 'Bandingkan mekanisme pemicu kebakaran pada lahan gambut dan lahan mineral seperti dijelaskan video. Mengapa keduanya bisa berujung pada lahan yang mudah terbakar?',
+    kunci_uraian: 'Pada lahan gambut, kanalisasi mengeringkan gambut sehingga mudah terbakar. Pada lahan mineral, pembukaan hutan menghilangkan tutupan pohon sebagai payung; air menguap dan lahan menjadi kering karena paparan sinar matahari langsung. Keduanya menciptakan kondisi kering yang memicu kebakaran.',
+    kata_kunci: ['kanalisasi', 'gambut', 'tutupan pohon', 'penguapan', 'sinar matahari', 'lahan mineral'],
+    pembahasan: 'Konsep 9 — Deforestasi dan siklus air. Bedakan mekanisme gambut (kanal) dan mineral (hilangnya payung pohon → penguapan → kering) (5:50–6:52).'
+  },
+  {
+    waktu: 480,
+    tipe: 'uraian',
+    pertanyaan: 'Video menyimpulkan pemadaman api dan modifikasi cuaca belum menyelesaikan akar masalah karhutla. Evaluasi pernyataan tersebut, lalu usulkan satu kebijakan preventif yang sesuai dengan kasus PLG/Merauke.',
+    kunci_uraian: 'Pemadaman dan modifikasi cuaca hanya menangani api yang sudah terjadi, bukan penyebabnya. Akar masalahnya adalah pengeringan gambut melalui kanal dan pembukaan lahan skala besar. Kebijakan preventif yang sesuai adalah menghentikan atau menutup kanal, restorasi gambut, moratorium pembukaan lahan gambut, dan penataan ruang yang melindungi gambut.',
+    kata_kunci: ['akar masalah', 'pencegahan', 'kanal', 'restorasi gambut', 'moratorium', 'tata ruang'],
+    pembahasan: 'Konsep 10 — Mitigasi dan akar masalah. Jawaban perlu menilai bahwa pemadaman bersifat reaktif, lalu menawarkan kebijakan preventif yang menyasar kanal/pembukaan lahan (7:39–7:48).'
   }
 ];
 
@@ -232,7 +256,7 @@ async function main() {
 
   const built = buildTaskData({
     judul: 'Karhutla Tiga Dekade: Analisis Geografi dari Kasus PLG hingga Merauke',
-    deskripsi: 'Tonton video sampai selesai. Video tidak bisa dilewati dan 15 soal analisis akan muncul otomatis pada bagian video yang relevan. Jawaban hanya bisa ditemukan dari isi video.',
+    deskripsi: 'Tonton video sampai selesai. Video tidak bisa dilewati dan 18 soal (15 pilihan ganda + 3 uraian HOTS) muncul otomatis pada bagian video yang relevan. Jawaban uraian dinilai otomatis dari kemiripan dan relevansi dengan kunci.',
     youtube_id: YOUTUBE_ID,
     durasi: DURATION,
     class_id: classId,

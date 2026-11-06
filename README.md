@@ -189,6 +189,12 @@ ditentukan tercapai dan video berhenti sampai jawaban disimpan.
 - `POST/PUT/DELETE /api/admin/video-tasks[/:id]` - Kelola tugas, soal, dan kunci jawaban
 - `GET /api/admin/video-tasks/:id/hasil` - Nilai terbaik dan riwayat percobaan per siswa
 
+Soal mendukung dua tipe: `pg` (pilihan ganda) dan `uraian` (esai HOTS). Soal uraian menyimpan
+`kunci_uraian` + `kata_kunci` yang tidak pernah dikirim ke browser sebelum jawaban dikumpulkan.
+Penilaian otomatis: **50% kemiripan** kata/frasa dengan kunci acuan + **50% relevansi** kata kunci
+(kata kunci frasa mendapat kredit proporsional), dengan penalti untuk jawaban di bawah 8 kata.
+Respons hasil memuat `kemiripan`, `relevansi`, `poin`, serta daftar kata kunci yang belum muncul.
+
 Nilai terbaik percobaan juga muncul di `GET /api/grades` dengan `tipe: 'Tugas Video'`.
 
 Contoh tugas siap pakai (video Watchdoc "Karhutla Tiga Dekade", 15 soal HOTS):

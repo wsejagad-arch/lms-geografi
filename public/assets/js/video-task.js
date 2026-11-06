@@ -307,22 +307,59 @@
     const overlay = document.getElementById('vt-overlay');
     const index = state.task.soal.findIndex(item => item.id === soal.id);
     if (!overlay) return;
+    const isEssay = soal.tipe === 'uraian';
     overlay.innerHTML = `
-      <div class="vt-q">
-        <div class="vt-q-badge">Soal ${index + 1} dari ${state.task.soal.length}</div>
+      <div class="vt-q ${isEssay ? 'vt-q-essay' : ''}">
+        <div class="vt-q-badge">Soal ${index + 1} dari ${state.task.soal.length}${isEssay ? ' · Uraian' : ''}</div>
         <p class="vt-q-text" id="vt-q-text">${vtEsc(soal.pertanyaan)}</p>
-        <div class="vt-options" role="radiogroup" aria-labelledby="vt-q-text">
-          ${soal.opsi.map((opsi, i) => `
-            <label class="vt-option">
-              <input type="radio" name="vt-answer" value="${i}" data-vt-index="${i}">
-              <span class="vt-option-key">${String.fromCharCode(65 + i)}</span>
-              <span>${vtEsc(opsi)}</span>
-            </label>`).join('')}
-        </div>
-        <button type="button" class="btn btn-primary" id="vt-q-save" disabled>Simpan jawaban & lanjutkan</button>
-        <p class="vt-q-note">Jawaban terkunci setelah disimpan dan menjadi bagian dari nilai tugas.</p>
+        ${isEssay ? `
+          <label class="vt-essay-label" for="vt-essay-answer">Jawaban Anda</label>
+          <textarea id="vt-essay-answer" class="vt-essay-input" rows="6" maxlength="4000" placeholder="Tulis jawaban analisis Anda..."></textarea>
+          <div class="vt-essay-meta"><span id="vt-essay-count">0</span> karakter · minimal 15 karakter</div>
+          <button type="button" class="btn btn-primary" id="vt-q-save" disabled>Simpan jawaban & lanjutkan</button>` : `
+          <div class="vt-options" role="radiogroup" aria-labelledby="vt-q-text">
+            ${(soal.opsi || []).map((opsi, i) => `
+              <label class="vt-option">
+                <input type="radio" name="vt-answer" value="${i}" data-vt-index="${i}">
+                <span class="vt-option-key">${String.fromCharCode(65 + i)}</span>
+                <span>${vtEsc(opsi)}</span>
+              </label>`).join('')}
+          </div>
+          <button type="button" class="btn btn-primary" id="vt-q-save" disabled>Simpan jawaban & lanjutkan</button>`}
+        <p class="vt-q-note">${isEssay
+          ? 'Jawaban dianalisis otomatis dari kemiripan dan relevansi dengan kunci jawaban, lalu dikunci.'
+          : 'Jawaban terkunci setelah disimpan dan menjadi bagian dari nilai tugas.'}</p>
       </div>`;
     overlay.classList.remove('hidden');
+
+    const finishAnswer = value => {
+      state.answers[soal.id] = value;
+      state.answered.add(soal.id);
+      state.questionOpen = false;
+      overlay.classList.add('hidden');
+      overlay.innerHTML = '';
+      vtMarkTimeline(soal.id);
+      if (state.player && typeof state.player.playVideo === 'function') state.player.playVideo();
+    };
+
+    if (isEssay) {
+      const input = document.getElementById('vt-essay-answer');
+      const counter = document.getElementById('vt-essay-count');
+      const save = document.getElementById('vt-q-save');
+      const sync = () => {
+        const length = input.value.trim().length;
+        if (counter) counter.textContent = length;
+        if (save) save.disabled = length < 15;
+      };
+      input.addEventListener('input', sync);
+      if (save) save.addEventListener('click', () => {
+        const answer = input.value.trim().slice(0, 5000);
+        if (answer.length < 15) return;
+        finishAnswer(answer);
+      });
+      input.focus();
+      return;
+    }
 
     overlay.querySelectorAll('input[name="vt-answer"]').forEach(input => {
       input.addEventListener('change', () => {
@@ -336,13 +373,7 @@
       save.addEventListener('click', () => {
         const picked = overlay.querySelector('input[name="vt-answer"]:checked');
         if (!picked) return;
-        state.answers[soal.id] = Number(picked.value);
-        state.answered.add(soal.id);
-        state.questionOpen = false;
-        overlay.classList.add('hidden');
-        overlay.innerHTML = '';
-        vtMarkTimeline(soal.id);
-        if (state.player && typeof state.player.playVideo === 'function') state.player.playVideo();
+        finishAnswer(Number(picked.value));
       });
     }
   }
@@ -444,6 +475,26 @@
         <h3>Pembahasan jawaban</h3>
         ${(result.hasil || []).map((item, index) => {
           const soal = state.task.soal.find(s => s.id === item.soal_id) || {};
+          if (item.tipe === 'uraian') {
+            const poin = Math.round((Number(item.poin) || 0) * 100);
+            return `<article class="vt-review-item ${item.tepat ? 'vt-correct' : 'vt-wrong'}">
+              <div class="vt-review-head">
+                <span class="vt-review-no">Soal ${index + 1} · Uraian</span>
+                <span class="badge ${poin >= 70 ? 'badge-success' : 'badge-danger'}">Poin ${poin}%</span>
+              </div>
+              <p class="vt-review-q">${vtEsc(soal.pertanyaan || '')}</p>
+              <p class="vt-review-line"><b>Jawaban Anda:</b> ${vtEsc(item.jawaban || 'tidak dijawab')}</p>
+              <p class="vt-review-line"><b>Kunci jawaban:</b> ${vtEsc(item.kunci || '')}</p>
+              <div class="vt-metrics">
+                <span class="vt-metric"><b>${vtEsc(item.kemiripan || 0)}%</b> kemiripan</span>
+                <span class="vt-metric"><b>${vtEsc(item.relevansi || 0)}%</b> relevansi</span>
+                <span class="vt-metric"><b>${vtEsc(item.jumlah_kata || 0)}</b> kata</span>
+              </div>
+              ${item.kata_hilang && item.kata_hilang.length
+                ? `<p class="vt-review-line"><b>Kata kunci belum muncul:</b> ${vtEsc(item.kata_hilang.join(', '))}</p>` : ''}
+              ${item.pembahasan ? `<p class="vt-review-line"><b>Pembahasan:</b> ${vtEsc(item.pembahasan)}</p>` : ''}
+            </article>`;
+          }
           const pickedText = item.dipilih === null || item.dipilih === undefined
             ? 'tidak dijawab'
             : `${String.fromCharCode(65 + item.dipilih)}. ${(soal.opsi || [])[item.dipilih] || ''}`;

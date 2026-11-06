@@ -19,17 +19,151 @@ function clampNumber(value, min, max) {
   return Math.min(max, Math.max(min, number));
 }
 
+// ===== PENILAIAN SOAL URAIAN =====
+// Jawaban uraian dinilai otomatis dari dua komponen:
+//   kemiripan  = kemiripan kata & frasa dengan kunci jawaban acuan (0..1)
+//   relevansi  = persentase kata kunci wajib yang muncul di jawaban (0..1)
+// Nilai soal = 50% kemiripan + 50% relevansi, dengan penalti bila jawaban terlalu pendek.
+const ESSAY_STOPWORDS = new Set([
+  'dan', 'yang', 'di', 'ke', 'dari', 'untuk', 'pada', 'dengan', 'ini', 'itu', 'adalah',
+  'akan', 'tidak', 'juga', 'dalam', 'oleh', 'sebagai', 'karena', 'agar', 'atau', 'saat',
+  'ketika', 'sehingga', 'bisa', 'dapat', 'lebih', 'sudah', 'telah', 'para', 'bagi',
+  'antara', 'tersebut', 'nya', 'pun', 'saja', 'hanya', 'jika', 'bila', 'maka', 'ada',
+  'the', 'and', 'of', 'to', 'in', 'is', 'are', 'for', 'with', 'that', 'this'
+]);
+
+function normalizeEssayText(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function essayTokens(value) {
+  return normalizeEssayText(value)
+    .split(' ')
+    .filter(token => token && !ESSAY_STOPWORDS.has(token) && (token.length > 2 || /^\d+$/.test(token)));
+}
+
+function bigramList(tokens) {
+  const list = [];
+  for (let i = 0; i < tokens.length - 1; i++) list.push(`${tokens[i]} ${tokens[i + 1]}`);
+  return list;
+}
+
+function diceCoefficient(a, b) {
+  const setA = new Set(a);
+  const setB = new Set(b);
+  if (!setA.size || !setB.size) return 0;
+  let same = 0;
+  setA.forEach(item => { if (setB.has(item)) same++; });
+  return (2 * same) / (setA.size + setB.size);
+}
+
+function tokenMatches(a, b) {
+  if (a === b) return true;
+  if (a.length >= 5 && b.length >= 5) return a.startsWith(b) || b.startsWith(a);
+  return false;
+}
+
+// Kata kunci frasa mendapat kredit proporsional (mis. "musim kemarau" cocok 50%
+// bila jawaban hanya memuat "kemarau").
+function keywordCoverage(keyword, answerTokens, normalizedAnswer) {
+  const normalized = normalizeEssayText(keyword);
+  if (!normalized) return 0;
+  if (normalizedAnswer.includes(normalized)) return 1;
+  const parts = normalized.split(' ').filter(Boolean);
+  if (!parts.length) return 0;
+  const found = parts.filter(part => answerTokens.some(token => tokenMatches(part, token))).length;
+  return found / parts.length;
+}
+
+function scoreEssayAnswer(soal, answer) {
+  const normalizedAnswer = normalizeEssayText(answer);
+  const answerTokens = essayTokens(answer);
+  const keyTokens = essayTokens(soal.kunci_uraian);
+  const tokenSimilarity = diceCoefficient(answerTokens, keyTokens);
+  const phraseSimilarity = diceCoefficient(bigramList(answerTokens), bigramList(keyTokens));
+  const kemiripan = 0.65 * tokenSimilarity + 0.35 * phraseSimilarity;
+
+  const keywords = (Array.isArray(soal.kata_kunci) ? soal.kata_kunci : [])
+    .map(keyword => text(keyword))
+    .filter(Boolean);
+  const coverage = keywords.map(keyword => keywordCoverage(keyword, answerTokens, normalizedAnswer));
+  const totalCoverage = coverage.reduce((sum, value) => sum + value, 0);
+  const relevansi = keywords.length ? totalCoverage / keywords.length : 0;
+  const kataDitemukan = keywords.filter((keyword, index) => coverage[index] >= 0.5);
+  const kataHilang = keywords.filter((keyword, index) => coverage[index] < 0.5);
+
+  let poin = 0.5 * kemiripan + 0.5 * relevansi;
+  if (answerTokens.length < 8) poin *= 0.7;
+  if (!answerTokens.length) poin = 0;
+  poin = Math.round(Math.min(1, Math.max(0, poin)) * 100) / 100;
+
+  return {
+    poin,
+    kemiripan: Math.round(kemiripan * 100),
+    relevansi: Math.round(relevansi * 100),
+    kata_ditemukan: kataDitemukan,
+    kata_hilang: kataHilang,
+    jumlah_kata: answerTokens.length
+  };
+}
+
+function sanitizeAnswers(soalList, answers) {
+  const picked = answers && typeof answers === 'object' && !Array.isArray(answers) ? answers : {};
+  const clean = {};
+  (Array.isArray(soalList) ? soalList : []).forEach(soal => {
+    const raw = picked[soal.id];
+    if (soal.tipe === 'uraian') {
+      if (typeof raw === 'string' && raw.trim()) clean[soal.id] = raw.trim().slice(0, 5000);
+      return;
+    }
+    const index = Number(raw);
+    if (raw !== null && raw !== '' && Number.isInteger(index) && index >= 0 && index < (soal.opsi || []).length) {
+      clean[soal.id] = index;
+    }
+  });
+  return clean;
+}
+
 function gradeVideoAnswers(soalList, answers) {
   const list = Array.isArray(soalList) ? soalList : [];
   const picked = answers && typeof answers === 'object' && !Array.isArray(answers) ? answers : {};
   let benar = 0;
+  let totalPoin = 0;
   const hasil = list.map(soal => {
+    if (soal.tipe === 'uraian') {
+      const jawaban = typeof picked[soal.id] === 'string' ? picked[soal.id].trim().slice(0, 5000) : '';
+      const graded = scoreEssayAnswer(soal, jawaban);
+      if (graded.poin >= 0.7) benar++;
+      totalPoin += graded.poin;
+      return {
+        soal_id: soal.id,
+        tipe: 'uraian',
+        poin: graded.poin,
+        kemiripan: graded.kemiripan,
+        relevansi: graded.relevansi,
+        kata_ditemukan: graded.kata_ditemukan,
+        kata_hilang: graded.kata_hilang,
+        jumlah_kata: graded.jumlah_kata,
+        jawaban,
+        kunci: soal.kunci_uraian || '',
+        tepat: graded.poin >= 0.7,
+        pembahasan: soal.pembahasan || ''
+      };
+    }
+
     const raw = picked[soal.id];
     const dipilih = Number.isInteger(Number(raw)) && raw !== null && raw !== '' ? Number(raw) : null;
     const tepat = dipilih !== null && dipilih === Number(soal.kunci);
     if (tepat) benar++;
+    totalPoin += tepat ? 1 : 0;
     return {
       soal_id: soal.id,
+      tipe: 'pg',
+      poin: tepat ? 1 : 0,
       dipilih,
       kunci: soal.kunci,
       tepat,
@@ -40,7 +174,8 @@ function gradeVideoAnswers(soalList, answers) {
   return {
     benar,
     total,
-    score: total ? Math.round((benar / total) * 1000) / 10 : 0,
+    poin: Math.round(totalPoin * 100) / 100,
+    score: total ? Math.round((totalPoin / total) * 1000) / 10 : 0,
     hasil
   };
 }
@@ -50,6 +185,7 @@ function missingAnswers(soalList, answers) {
   const picked = answers && typeof answers === 'object' && !Array.isArray(answers) ? answers : {};
   return (Array.isArray(soalList) ? soalList : []).filter(soal => {
     const raw = picked[soal.id];
+    if (soal.tipe === 'uraian') return !(typeof raw === 'string' && raw.trim().length >= 10);
     return !(Number.isInteger(Number(raw)) && raw !== null && raw !== '' &&
       Number(raw) >= 0 && Number(raw) < (soal.opsi || []).length);
   }).length;
@@ -86,6 +222,31 @@ function buildTaskData(body = {}) {
     const pertanyaan = text(item.pertanyaan);
     if (!pertanyaan) return { error: `Pertanyaan soal #${nomor} wajib diisi` };
 
+    const tipe = item.tipe === 'uraian' ? 'uraian' : 'pg';
+    if (tipe === 'uraian') {
+      const kunciUraian = text(item.kunci_uraian).slice(0, 4000);
+      if (kunciUraian.length < 20) {
+        return { error: `Kunci jawaban uraian soal #${nomor} minimal 20 karakter` };
+      }
+      const rawKataKunci = Array.isArray(item.kata_kunci)
+        ? item.kata_kunci
+        : String(item.kata_kunci || '').split(/[\n,;]+/);
+      const kataKunci = rawKataKunci.map(keyword => text(keyword)).filter(Boolean).slice(0, 12);
+      if (kataKunci.length < 2) {
+        return { error: `Soal uraian #${nomor} membutuhkan minimal 2 kata kunci penilaian` };
+      }
+      soal.push({
+        id: text(item.id) || uuidv4(),
+        tipe,
+        waktu,
+        pertanyaan: pertanyaan.slice(0, 2000),
+        kunci_uraian: kunciUraian,
+        kata_kunci: kataKunci,
+        pembahasan: text(item.pembahasan).slice(0, 2000)
+      });
+      continue;
+    }
+
     const opsi = (Array.isArray(item.opsi) ? item.opsi : []).map(option => text(option));
     if (opsi.length < MIN_OPTIONS || opsi.length > MAX_OPTIONS) {
       return { error: `Soal #${nomor} membutuhkan ${MIN_OPTIONS}–${MAX_OPTIONS} pilihan jawaban` };
@@ -99,6 +260,7 @@ function buildTaskData(body = {}) {
 
     soal.push({
       id: text(item.id) || uuidv4(),
+      tipe: 'pg',
       waktu,
       pertanyaan: pertanyaan.slice(0, 2000),
       opsi,
@@ -131,7 +293,7 @@ function buildTaskData(body = {}) {
 function publicVideoTask(task, includeKey = false) {
   const soal = (task.soal || []).map(item => {
     if (includeKey) return { ...item };
-    const { kunci, pembahasan, ...rest } = item;
+    const { kunci, kunci_uraian, kata_kunci, pembahasan, ...rest } = item;
     return rest;
   });
   return {
@@ -276,7 +438,7 @@ function registerVideoTask(app, deps) {
     const soalList = Array.isArray(task.soal) ? task.soal : [];
     if (!soalList.length) return res.status(400).json({ error: 'Tugas video belum memiliki soal' });
 
-    const answers = req.body && req.body.answers;
+    const answers = sanitizeAnswers(soalList, req.body && req.body.answers);
     const belumDijawab = missingAnswers(soalList, answers);
     if (belumDijawab > 0) {
       return res.status(400).json({ error: `${belumDijawab} soal belum dijawab. Video harus ditonton sampai selesai.` });
@@ -441,5 +603,8 @@ module.exports = {
   requiredWatchSeconds,
   summarizeVideoAttempts,
   nextAttemptNumber,
+  scoreEssayAnswer,
+  sanitizeAnswers,
+  normalizeEssayText,
   KKM
 };

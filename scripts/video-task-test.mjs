@@ -74,6 +74,56 @@ check('penilaian satu benar = 50', gradedHalf.score === 50, `skor=${gradedHalf.s
 check('jawaban kosong terdeteksi', helpers.missingAnswers(soal, { [soal[0].id]: 0 }) === 1);
 check('batas tonton memakai durasi video', helpers.requiredWatchSeconds({ durasi: 120, soal }) === 117);
 
+// ---------- 1a. Soal uraian: kemiripan & relevansi ----------
+const essaySoal = {
+  tipe: 'uraian',
+  kunci_uraian: 'Penghentian proyek tidak menutup kanal sehingga gambut tetap kering dan rentan terbakar pada musim kemarau.',
+  kata_kunci: ['kanal', 'gambut kering', 'musim kemarau', 'rentan terbakar']
+};
+const essayExact = helpers.scoreEssayAnswer(essaySoal, essaySoal.kunci_uraian);
+check('uraian: jawaban identik bernilai 1',
+  essayExact.poin === 1 && essayExact.kemiripan === 100 && essayExact.relevansi === 100,
+  `poin=${essayExact.poin} mirip=${essayExact.kemiripan} relevan=${essayExact.relevansi}`);
+const essayGood = helpers.scoreEssayAnswer(essaySoal, 'Karena kanal tidak ditutup, lahan gambut kering dan mudah terbakar saat kemarau panjang.');
+check('uraian: parafrase relevan mendapat nilai sebagian',
+  essayGood.poin > 0.4 && essayGood.poin < 1, `poin=${essayGood.poin} relevan=${essayGood.relevansi}`);
+const essayBad = helpers.scoreEssayAnswer(essaySoal, 'Karena proyek dihentikan oleh presiden.');
+check('uraian: jawaban tidak relevan hampir 0', essayBad.poin <= 0.05, `poin=${essayBad.poin}`);
+check('uraian: kata kunci hilang terdeteksi', essayBad.kata_hilang.length === 4);
+check('uraian: jawaban kosong bernilai 0', helpers.scoreEssayAnswer(essaySoal, '').poin === 0);
+
+const essayPayload = {
+  judul: 'Uji Uraian',
+  youtube_id: 'cTlY4dDk0aQ',
+  durasi: 60,
+  soal: [{
+    tipe: 'uraian',
+    waktu: 10,
+    pertanyaan: 'Jelaskan mekanisme kebakaran gambut.',
+    kunci_uraian: 'Kanal mengeringkan gambut sehingga gambut kering dan rentan terbakar saat kemarau.',
+    kata_kunci: ['kanal', 'gambut kering', 'kemarau']
+  }]
+};
+const essayBuilt = helpers.buildTaskData(essayPayload);
+check('payload uraian valid diterima', !essayBuilt.error && essayBuilt.data.soal[0].tipe === 'uraian', essayBuilt.error || '');
+check('uraian tanpa kunci acuan ditolak', !!helpers.buildTaskData({
+  ...essayPayload,
+  soal: [{ tipe: 'uraian', waktu: 5, pertanyaan: 'Jelaskan?' }]
+}).error);
+check('uraian tanpa kata kunci ditolak', !!helpers.buildTaskData({
+  ...essayPayload,
+  soal: [{ tipe: 'uraian', waktu: 5, pertanyaan: 'Jelaskan?', kunci_uraian: 'Jawaban acuan yang cukup panjang untuk validasi sistem.' }]
+}).error);
+check('publicVideoTask menyembunyikan kunci uraian',
+  !JSON.stringify(helpers.publicVideoTask({ id: 'x', soal: essayBuilt.data.soal })).includes('kunci_uraian'));
+check('missingAnswers mendeteksi uraian kosong', helpers.missingAnswers(essayBuilt.data.soal, {}) === 1);
+const mixed = helpers.gradeVideoAnswers([...soal, essayBuilt.data.soal[0]], {
+  [soal[0].id]: soal[0].kunci,
+  [soal[1].id]: soal[1].kunci,
+  [essayBuilt.data.soal[0].id]: essayBuilt.data.soal[0].kunci_uraian
+});
+check('nilai campuran PG + uraian = 100', mixed.score === 100, `skor=${mixed.score}`);
+
 // ---------- 1b. Kunci anti-skip di sisi pemutar ----------
 const clientSource = fs.readFileSync(path.join(root, 'public/assets/js/video-task.js'), 'utf8');
 const clientSandbox = {
@@ -199,12 +249,14 @@ try {
     class_id: klass.id,
     soal: [
       { waktu: 10, pertanyaan: 'Apa nama siklus air?', opsi: ['Siklus karbon', 'Siklus hidrologi', 'Siklus batuan'], kunci: 1, pembahasan: 'Siklus air = hidrologi.' },
-      { waktu: 40, pertanyaan: 'Proses air menguap disebut?', opsi: ['Evaporasi', 'Presipitasi', 'Infiltrasi'], kunci: 0, pembahasan: 'Penguapan = evaporasi.' }
+      { waktu: 40, pertanyaan: 'Proses air menguap disebut?', opsi: ['Evaporasi', 'Presipitasi', 'Infiltrasi'], kunci: 0, pembahasan: 'Penguapan = evaporasi.' },
+      { waktu: 80, tipe: 'uraian', pertanyaan: 'Jelaskan mengapa kanal membuat gambut rentan terbakar.', kunci_uraian: 'Kanal mengeringkan gambut sehingga gambut kering dan rentan terbakar saat musim kemarau.', kata_kunci: ['kanal', 'gambut kering', 'kemarau'], pembahasan: 'Kanal menurunkan kelembapan gambut.' }
     ]
   }, 'admin');
   check('admin dapat membuat tugas video', created.status === 200 && created.data.id, `status=${created.status}`);
   const taskId = created.data.id;
   check('kunci jawaban tersimpan di server', Array.isArray(created.data.soal) && created.data.soal[0].kunci === 1);
+  check('kunci uraian tersimpan di server', created.data.soal.some(item => item.tipe === 'uraian' && item.kunci_uraian));
 
   const list = await request('GET', '/api/video-tasks', undefined, 'student');
   check('siswa melihat tugas video kelasnya', list.status === 200 && list.data.some(t => t.id === taskId), `status=${list.status}`);
@@ -214,6 +266,7 @@ try {
   const detail = await request('GET', `/api/video-tasks/${taskId}`, undefined, 'student');
   check('detail tugas siswa tanpa kunci', detail.status === 200 && !JSON.stringify(detail.data).includes('"kunci"'));
   check('detail tugas siswa tanpa pembahasan', !JSON.stringify(detail.data).includes('"pembahasan"'));
+  check('detail tugas siswa tanpa kunci uraian', !JSON.stringify(detail.data).includes('kunci_uraian') && !JSON.stringify(detail.data).includes('kata_kunci'));
   check('detail memuat batas tonton', detail.status === 200 && detail.data.required_watch_seconds === 117, `required=${detail.data.required_watch_seconds}`);
 
   const emptySubmit = await request('POST', `/api/video-tasks/${taskId}/attempt`, { answers: {}, watched_seconds: 120, position: 120 }, 'student');
@@ -221,6 +274,10 @@ try {
 
   const answers = {};
   detail.data.soal.forEach(item => {
+    if (item.tipe === 'uraian') {
+      answers[item.id] = 'Kanal mengeringkan gambut sehingga gambut kering dan rentan terbakar saat musim kemarau.';
+      return;
+    }
     answers[item.id] = item.pertanyaan.includes('menguap') ? 0 : 1;
   });
 
@@ -230,9 +287,13 @@ try {
   const first = await request('POST', `/api/video-tasks/${taskId}/attempt`, { answers, watched_seconds: 120, position: 120 }, 'student');
   check('jawaban lengkap mendapat nilai 100', first.status === 200 && first.data.score === 100, `status=${first.status} skor=${first.data.score}`);
   check('hasil mengembalikan kunci & pembahasan', Array.isArray(first.data.hasil) && first.data.hasil.every(item => item.kunci !== undefined));
+  const essayResult = (first.data.hasil || []).find(item => item.tipe === 'uraian');
+  check('hasil uraian memuat kemiripan & relevansi',
+    !!essayResult && essayResult.kemiripan === 100 && essayResult.relevansi === 100 && essayResult.poin === 1,
+    essayResult ? `mirip=${essayResult.kemiripan} relevan=${essayResult.relevansi} poin=${essayResult.poin}` : 'tidak ada');
 
   const wrongAnswers = {};
-  detail.data.soal.forEach(item => { wrongAnswers[item.id] = 0; });
+  detail.data.soal.forEach(item => { wrongAnswers[item.id] = item.tipe === 'uraian' ? 'Tidak tahu.' : 0; });
   const second = await request('POST', `/api/video-tasks/${taskId}/attempt`, { answers: wrongAnswers, watched_seconds: 120, position: 120 }, 'student');
   check('percobaan kedua tercatat & nilai terbaik dipertahankan',
     second.status === 200 && second.data.best_score === 100 && second.data.ke === 2,
