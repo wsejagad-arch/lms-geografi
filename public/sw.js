@@ -1,4 +1,4 @@
-const CACHE = 'geo-edulabs-v58';
+const CACHE = 'geo-edulabs-v59';
 const ASSETS = [
   '/manifest.json',
   '/assets/css/style.css',
@@ -7,11 +7,14 @@ const ASSETS = [
   '/assets/js/admin.js',
   '/assets/css/student.css',
   '/assets/css/belajar.css',
+  '/assets/css/video-task.css',
   '/assets/js/sanitize.js',
   '/assets/js/api.js',
   '/assets/js/admin.js',
   '/assets/js/student.js',
-  '/assets/js/belajar.js'
+  '/assets/js/belajar.js',
+  '/assets/js/video-task.js',
+  '/assets/js/video-task-admin.js'
 ];
 
 self.addEventListener('install', (e) => {

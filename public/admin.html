@@ -20,6 +20,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/icons/globe.svg"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
   <link rel="stylesheet" href="assets/css/admin.css?v=20261105k">
+  <link rel="stylesheet" href="assets/css/video-task.css?v=20261106a">
 </head>
 <body>
   <!-- Systematic SVG Sprite Library -->
@@ -76,6 +77,7 @@
         <div class="nav-item" data-menu="materials"><svg class="ic"><use href="#i-file"/></svg><span>Modul & Materi</span></div>
         <div class="nav-item" data-menu="kurikulum"><svg class="ic"><use href="#i-book"/></svg><span>Struktur Kurikulum</span></div>
         <div class="nav-item" data-menu="questions"><svg class="ic"><use href="#i-help"/></svg><span>Bank Butir Soal</span></div>
+        <div class="nav-item" data-menu="video-tasks"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9l5 3-5 3z"/></svg><span>Tugas Video</span></div>
 
         <p class="nav-label">Evaluasi & Penilaian</p>
         <div class="nav-item" data-menu="exams"><svg class="ic"><use href="#i-award"/></svg><span>Ujian (Exam CBT)</span></div>
@@ -593,6 +595,34 @@
                   </tr>
                 </thead>
                 <tbody id="questions-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MENU: TUGAS VIDEO (soal interaktif di dalam video)
+             ============================================================== -->
+        <section id="menu-video-tasks" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar">
+              <button class="btn btn-primary btn-sm" id="btn-add-video-task">+ Buat Tugas Video</button>
+            </div>
+            <p class="vt-admin-hint">Siswa menonton video tanpa bisa melewati (seek). Soal muncul otomatis pada detik yang ditentukan, video berhenti sampai jawaban disimpan, lalu nilai dihitung dari kunci jawaban.</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Judul Tugas</th>
+                    <th>Kelas</th>
+                    <th>Soal</th>
+                    <th>Peserta</th>
+                    <th>Rata-rata</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="video-tasks-tbody"></tbody>
               </table>
             </div>
           </div>
@@ -1184,6 +1214,46 @@
     </div>
   </div>
 
+  <!-- Video Task Modal (tugas mengamati video + soal interaktif) -->
+  <div class="modal-overlay" id="video-task-modal">
+    <div class="modal modal-lg">
+      <div class="modal-header"><h3 id="video-task-modal-title">Buat Tugas Mengamati Video</h3><button type="button" class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body">
+        <form id="video-task-form" class="vt-admin-form">
+          <input type="hidden" id="video-task-id">
+          <div class="form-group"><label>Judul Tugas</label><input id="video-task-judul" required placeholder="Contoh: Mengamati Proses Erosi dan Sedimentasi"></div>
+          <div class="form-group"><label>Deskripsi / Instruksi</label><textarea id="video-task-deskripsi" rows="2" placeholder="Arahan singkat sebelum siswa menonton..."></textarea></div>
+          <div class="vt-admin-grid">
+            <div class="form-group"><label>Link / ID Video YouTube</label><input id="video-task-youtube" required placeholder="https://youtu.be/xxxxxxxxxxx"></div>
+            <div class="form-group"><label>Durasi Video (detik)</label><input type="number" id="video-task-durasi" min="0" placeholder="Contoh: 420"></div>
+            <div class="form-group"><label>Kelas Target</label><select id="video-task-class"></select></div>
+            <div class="form-group"><label>Mata Pelajaran</label><select id="video-task-subject"></select></div>
+          </div>
+          <p class="vt-admin-hint">Detik soal harus lebih kecil dari durasi video. Kunci jawaban hanya disimpan di server dan baru ditampilkan setelah siswa mengumpulkan jawaban.</p>
+          <div class="vt-question-head">
+            <b>Soal Interaktif di Dalam Video</b>
+            <button type="button" class="btn btn-sm" id="btn-add-vt-question">+ Tambah Soal</button>
+          </div>
+          <div class="vt-question-list" id="vt-question-list"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <p class="vt-admin-status" id="video-task-status" role="status" aria-live="polite"></p>
+        <button type="button" class="btn" data-close>Batal</button>
+        <button type="button" class="btn btn-primary" id="btn-save-video-task">Simpan Tugas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Task Results Modal -->
+  <div class="modal-overlay" id="video-task-result-modal">
+    <div class="modal modal-lg">
+      <div class="modal-header"><h3 id="video-task-result-title">Hasil Tugas Video</h3><button type="button" class="modal-close" data-close>&times;</button></div>
+      <div class="modal-body" id="video-task-result-body"></div>
+      <div class="modal-footer"><button type="button" class="btn" data-close>Tutup</button></div>
+    </div>
+  </div>
+
   <!-- Schedule Modal -->
   <div class="modal-overlay" id="schedule-modal">
     <div class="modal">
@@ -1215,5 +1285,6 @@
     }
   </script>
   <script src="assets/js/admin.js?v=20261106g"></script>
+  <script src="assets/js/video-task-admin.js?v=20261106a"></script>
 </body>
 </html>

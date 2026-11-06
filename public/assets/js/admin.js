@@ -117,6 +117,7 @@ const MENU_META = {
   materials: { title: 'Materi', render: () => renderMaterials() },
   kurikulum: { title: 'Kurikulum', render: () => renderKurikulum() },
   questions: { title: 'Bank Soal', render: () => renderQuestions() },
+  'video-tasks': { title: 'Tugas Video', render: () => renderVideoTasks() },
   exams: { title: 'Exam TKA', render: () => renderExams() },
   grades: { title: 'Input Nilai', render: () => renderGrades() },
   attendance: { title: 'Presensi', render: () => renderAttendance() },

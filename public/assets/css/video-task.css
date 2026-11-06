@@ -1,0 +1,283 @@
+/* ===== TUGAS MENGAMATI VIDEO ===== */
+.vt-list-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.vt-list-head h2 { margin: 0 0 4px; font-size: 20px; color: var(--text); }
+.vt-list-head p { margin: 0; color: var(--text-2); font-size: 13px; max-width: 720px; }
+
+.vt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.vt-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.vt-card-top { display: flex; gap: 12px; align-items: flex-start; }
+.vt-card-icon {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--geo-brand-light);
+  color: var(--geo-brand);
+  font-size: 16px;
+}
+.vt-card h3 { margin: 0 0 4px; font-size: 15px; color: var(--text); line-height: 1.35; }
+.vt-card p { margin: 0; font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+.vt-meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 11.5px; color: var(--text-3); }
+.vt-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
+
+.vt-empty {
+  text-align: center;
+  padding: 48px 20px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-subtle);
+  color: var(--text-2);
+}
+.vt-empty-icon { font-size: 34px; margin-bottom: 8px; }
+.vt-empty b { display: block; color: var(--text); margin-bottom: 4px; }
+.vt-empty p { margin: 0; font-size: 13px; }
+
+.vt-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.vt-head-text h2 { margin: 0 0 4px; font-size: 19px; color: var(--text); }
+.vt-head-text p { margin: 0; font-size: 13px; color: var(--text-2); }
+
+.vt-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 980px) {
+  .vt-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .vt-stage { min-height: 300px; }
+  .vt-q { padding: 14px; }
+  .vt-q-text { font-size: 14px; }
+}
+
+.vt-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0b1512;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.vt-player, .vt-player iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.vt-lockbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 11.5px;
+  color: #d6f5e9;
+  background: linear-gradient(180deg, rgba(4, 20, 15, 0), rgba(4, 20, 15, 0.92));
+  pointer-events: none;
+}
+
+.vt-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: rgba(4, 16, 12, 0.86);
+  backdrop-filter: blur(2px);
+  overflow: auto;
+}
+
+.vt-q {
+  width: min(560px, 100%);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vt-q-badge {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--geo-brand);
+  background: var(--geo-brand-light);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+}
+.vt-q-text { margin: 0; font-size: 15px; line-height: 1.5; font-weight: 600; }
+.vt-q-note { margin: 0; font-size: 11.5px; color: var(--text-3); }
+.vt-q-start { text-align: center; align-items: center; }
+.vt-start-note { margin: 0; font-size: 13px; color: var(--text-2); line-height: 1.55; }
+
+.vt-options { display: flex; flex-direction: column; gap: 8px; }
+.vt-option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.45;
+  background: var(--surface-subtle);
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.vt-option:hover { border-color: var(--border-focus); }
+.vt-option input { margin-top: 2px; accent-color: var(--geo-brand); }
+.vt-option:has(input:checked) { border-color: var(--geo-brand); background: var(--geo-brand-light); }
+.vt-option-key {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface-muted);
+  color: var(--text-2);
+}
+
+.vt-side {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.vt-side h3 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); }
+.vt-timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.vt-timeline li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-2);
+  padding: 7px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-2);
+}
+.vt-timeline li.vt-done { background: var(--status-success-bg); border-color: var(--status-success-border); color: var(--status-success); }
+.vt-time { font-variant-numeric: tabular-nums; font-weight: 700; }
+.vt-status { margin-left: auto; font-size: 11px; opacity: 0.8; }
+.vt-side-note { margin: 10px 0 0; font-size: 11.5px; color: var(--text-3); line-height: 1.5; }
+
+.vt-result {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+.vt-result-pass { border-color: var(--status-success-border); background: var(--status-success-bg); }
+.vt-result-fail { border-color: var(--status-warning-border); background: var(--status-warning-bg); }
+.vt-score-ring {
+  flex: 0 0 96px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  background: var(--surface);
+  border: 3px solid var(--geo-brand);
+  color: var(--geo-brand);
+}
+.vt-score-ring strong { font-size: 26px; line-height: 1; }
+.vt-score-ring span { font-size: 10.5px; color: var(--text-3); }
+.vt-result-body p { margin: 6px 0 0; font-size: 13px; color: var(--text-2); }
+
+.vt-review { display: flex; flex-direction: column; gap: 12px; }
+.vt-review h3 { margin: 0; font-size: 15px; }
+.vt-review-item {
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  background: var(--surface);
+}
+.vt-review-item.vt-correct { border-left-color: var(--status-success); }
+.vt-review-item.vt-wrong { border-left-color: var(--status-danger); }
+.vt-review-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.vt-review-no { font-size: 11.5px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
+.vt-review-q { margin: 0 0 8px; font-size: 13.5px; font-weight: 600; line-height: 1.5; }
+.vt-review-line { margin: 0 0 4px; font-size: 12.5px; color: var(--text-2); line-height: 1.55; }
+
+/* ===== ADMIN: EDITOR TUGAS VIDEO ===== */
+.vt-admin-form { display: flex; flex-direction: column; gap: 12px; }
+.vt-admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 720px) { .vt-admin-grid { grid-template-columns: 1fr; } }
+.vt-admin-hint { margin: 0; font-size: 11.5px; color: var(--text-3); line-height: 1.5; }
+.vt-question-list { display: flex; flex-direction: column; gap: 10px; }
+.vt-question-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  background: var(--surface-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.vt-question-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.vt-question-head b { font-size: 12.5px; color: var(--text); }
+.vt-question-item textarea { width: 100%; }
+.vt-question-times { display: grid; grid-template-columns: 120px 1fr; gap: 8px; align-items: end; }
+.vt-admin-status { font-size: 12px; min-height: 16px; margin: 6px 0 0; }
+.vt-admin-status.is-error { color: var(--status-danger); }
+.vt-admin-status.is-ok { color: var(--status-success); }
+.vt-result-table { margin: 14px 0 8px; font-size: 13px; }
+.badge-neutral { background: var(--surface-muted); color: var(--text-2); }
+.vt-table-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.vt-result-table { margin-top: 10px; }
+.vt-strong-num { font-variant-numeric: tabular-nums; font-weight: 700; }

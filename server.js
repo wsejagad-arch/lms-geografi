@@ -322,6 +322,9 @@ const STUDENT_ROUTES = [
   ['GET', /^\/api\/grades$/],
   ['GET', /^\/api\/attendance$/],
   ['GET', /^\/api\/assignments$/],
+  ['GET', /^\/api\/video-tasks$/],
+  ['GET', /^\/api\/video-tasks\/[^/]+$/],
+  ['POST', /^\/api\/video-tasks\/[^/]+\/attempt$/],
   ['GET', /^\/api\/kurikulum(\/[^/]+)?$/],
   ['GET', /^\/api\/kurikulum\/peringkat$/],
   ['PUT', /^\/api\/kurikulum\/[^/]+\/progress$/],
@@ -1797,8 +1800,51 @@ app.get('/api/grades', requireAuth, requireTenant, async (req, res) => {
       class_nama: classItem ? classItem.nama : '-'
     };
   }).filter(Boolean);
-  
-  res.json([...enriched, ...curriculumGrades].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+
+  const { summarizeVideoAttempts } = require('./video-task');
+  const videoByStudentTask = new Map();
+  (db.video_attempts || [])
+    .filter(a => a.tenant_id === req.tenantId
+      && (!own || a.student_id === own)
+      && (!student_id || a.student_id === student_id))
+    .forEach(attempt => {
+      const key = `${attempt.student_id}:${attempt.task_id}`;
+      if (!videoByStudentTask.has(key)) videoByStudentTask.set(key, []);
+      videoByStudentTask.get(key).push(attempt);
+    });
+  const videoGrades = [...videoByStudentTask.values()].map(attempts => {
+    const latest = attempts.reduce((newest, attempt) =>
+      new Date(attempt.created_at) >= new Date(newest.created_at) ? attempt : newest
+    );
+    const task = (db.video_tasks || []).find(t => t.id === latest.task_id);
+    if (!task) return null;
+    const student = db.students.find(s => s.id === latest.student_id);
+    const classItem = student && db.classes.find(c => c.id === student.class_id);
+    if (class_id && (!classItem || classItem.id !== class_id)) return null;
+    if (subject_id && task.subject_id && task.subject_id !== subject_id) return null;
+    const summary = summarizeVideoAttempts(attempts);
+    return {
+      id: `video-${latest.student_id}-${latest.task_id}`,
+      tenant_id: latest.tenant_id,
+      student_id: latest.student_id,
+      class_id: classItem ? classItem.id : null,
+      subject_id: task.subject_id || (geografi ? geografi.id : null),
+      nilai: summary.best_score,
+      nilai_tertinggi: summary.best_score,
+      percobaan_nilai_tertinggi: summary.best_attempt,
+      pengurangan_nilai: 0,
+      jumlah_percobaan: summary.attempts,
+      kkm: 75,
+      tipe: 'Tugas Video',
+      catatan: `${task.judul} · nilai terbaik ${summary.best_score} dari ${summary.attempts} percobaan`,
+      created_at: latest.created_at,
+      student_nama: student ? student.nama : '-',
+      subject_nama: geografi ? geografi.nama : 'Geografi',
+      class_nama: classItem ? classItem.nama : '-'
+    };
+  }).filter(Boolean);
+
+  res.json([...enriched, ...curriculumGrades, ...videoGrades].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
 });
 
 app.post('/api/grades', requireAuth, requireAdmin, requireTenant, async (req, res) => {
@@ -2893,6 +2939,14 @@ require('./kurikulum').registerKurikulum(app, {
   requireTenant,
   requireAdmin,
   cacheDel,
+  notifyStudent: (tenantId, studentId, text) => whatsappSender.notifyStudent(loadDB, saveDB, tenantId, studentId, text)
+});
+require('./video-task').registerVideoTask(app, {
+  saveDB,
+  requireAuth,
+  requireTenant,
+  requireAdmin,
+  requireStaff,
   notifyStudent: (tenantId, studentId, text) => whatsappSender.notifyStudent(loadDB, saveDB, tenantId, studentId, text)
 });
 whatsappSender.registerWhatsAppRoutes(app, {

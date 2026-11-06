@@ -458,7 +458,7 @@ function setupWhatsAppNumber() {
 }
 
 function showSection(id) {
-  ['dashboard','belajar','jurnal','materi-saya','tugas-saya','presensi-saya','nilai-saya','exam-saya','profil'].forEach(s => {
+  ['dashboard','belajar','jurnal','materi-saya','video-tugas','tugas-saya','presensi-saya','nilai-saya','exam-saya','profil'].forEach(s => {
     const el = document.getElementById(`sec-${s}`);
     if (el) el.classList.toggle('hidden', s !== id);
   });
@@ -1233,6 +1233,7 @@ const NAV_TITLES = {
   'dashboard': 'Beranda',
   'belajar': 'Jalur Pembelajaran',
   'materi-saya': 'Materi Saya',
+  'video-tugas': 'Tugas Video',
   'tugas-saya': 'Tugas & Proyek',
   'presensi-saya': 'Presensi Siswa',
   'nilai-saya': 'Riwayat Nilai',
@@ -1241,9 +1242,11 @@ const NAV_TITLES = {
 };
 
 function navigate(nav) {
+  if (nav !== 'video-tugas' && typeof vtTeardown === 'function') vtTeardown();
   if (nav === 'dashboard') renderDashboard();
   if (nav === 'belajar' && typeof blLoadKurikulum === 'function') blLoadKurikulum();
   if (nav === 'materi-saya') renderMateri();
+  if (nav === 'video-tugas' && typeof vtRenderList === 'function') vtRenderList();
   if (nav === 'tugas-saya') renderAssignments();
   if (nav === 'presensi-saya') renderAttendance();
   if (nav === 'nilai-saya') renderNilai();

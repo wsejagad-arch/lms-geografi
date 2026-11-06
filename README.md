@@ -16,6 +16,7 @@ Aplikasi Learning Management System (LMS) multi-tenant untuk mata pelajaran Geog
 - Manajemen Siswa (NIS, email, kelas)
 - Manajemen Materi (per mapel & kelas, dengan YouTube & gambar)
 - Bank Soal (formatif, sumatif, TKA)
+- Tugas Mengamati Video: soal interaktif muncul pada detik tertentu di dalam video, kunci jawaban tersimpan di server
 - Exam TKA dengan timer
 - Input Nilai per siswa per mapel
 - WhatsApp Sender tenant untuk pengingat jadwal pelajaran
@@ -23,6 +24,7 @@ Aplikasi Learning Management System (LMS) multi-tenant untuk mata pelajaran Geog
 
 ### Siswa
 - Lihat materi per mapel & kelas
+- Kerjakan Tugas Video: video tidak bisa dilewati, soal muncul otomatis, jawaban menjadi nilai
 - Lihat nilai pribadi
 - Ikut Exam TKA dengan timer
 
@@ -61,6 +63,7 @@ Buka `http://localhost:3000`
 lms-geografi-multi/
 ├── server.js          # Express server + API
 ├── kurikulum.js       # Modul pembelajaran berjenjang (evaluasi, kunci, naik kelas)
+├── video-task.js      # Modul tugas mengamati video (soal bertimestamp, kunci, penilaian)
 ├── ecosystem.config.js # Konfigurasi PM2 (membaca .env)
 ├── deploy.sh          # Deploy otomatis: Node.js + PM2 + Nginx
 ├── cek-deploy.sh      # Pemeriksaan kesehatan hasil deploy
@@ -81,11 +84,14 @@ lms-geografi-multi/
     │   │   ├── style.css    # Panel siswa & login
     │   │   ├── login.css
     │   │   ├── admin.css    # Panel admin (flat, responsif)
-    │   │   └── belajar.css  # Pembelajaran berjenjang
+    │   │   ├── belajar.css  # Pembelajaran berjenjang
+    │   │   └── video-task.css # Tugas mengamati video (pemutar + overlay soal)
     │   └── js/
     │       ├── api.js
     │       ├── admin.js
     │       ├── belajar.js
+    │       ├── video-task-admin.js # Editor tugas video (admin)
+    │       ├── video-task.js       # Pemutar anti-skip + soal interaktif (siswa)
     │       └── student.js
 ```
 
@@ -100,7 +106,9 @@ dicek di `requireAuth`):
 | GET | `/api/me`, `/api/materials`, `/api/exams`, `/api/grades`, `/api/attendance`, `/api/assignments` |
 | POST | `/api/grades` (dipaksa ke `student_id` milik sendiri) |
 | GET | `/api/kurikulum`, `/api/kurikulum/:babId` |
+| GET | `/api/video-tasks`, `/api/video-tasks/:id` |
 | POST | `/api/kurikulum/:babId/evaluasi`, `/api/kurikulum/naik-kelas` |
+| POST | `/api/video-tasks/:id/attempt` |
 
 `GET /api/grades` dan `GET /api/attendance` selalu difilter ke data siswa yang login.
 
@@ -167,6 +175,25 @@ Menu **Materi** di panel admin punya tombol **Impor Kurikulum**: menyalin setiap
 - `POST /api/grades` - Create grade (admin/guru)
 - `PUT /api/grades/:id` - Update grade
 - `DELETE /api/grades/:id` - Delete grade
+
+### Tugas Mengamati Video
+Siswa menonton video YouTube di pemutar tanpa kontrol bawaan. Posisi tonton dikunci
+(`seek` ke depan dikembalikan ke posisi terakhir), soal muncul saat detik yang
+ditentukan tercapai dan video berhenti sampai jawaban disimpan.
+
+- `GET /api/video-tasks` - Daftar tugas untuk kelas siswa (tanpa kunci jawaban)
+- `GET /api/video-tasks/:id` - Detail tugas + soal (tanpa `kunci`/pembahasan)
+- `POST /api/video-tasks/:id/attempt` - Kirim jawaban; ditolak `400` bila ada soal
+  belum dijawab atau `watched_seconds`/`position` belum mencapai batas tonton
+- `GET /api/admin/video-tasks` - Daftar tugas + rekap (admin/guru)
+- `POST/PUT/DELETE /api/admin/video-tasks[/:id]` - Kelola tugas, soal, dan kunci jawaban
+- `GET /api/admin/video-tasks/:id/hasil` - Nilai terbaik dan riwayat percobaan per siswa
+
+Nilai terbaik percobaan juga muncul di `GET /api/grades` dengan `tipe: 'Tugas Video'`.
+
+Contoh tugas siap pakai (video Watchdoc "Karhutla Tiga Dekade", 15 soal HOTS):
+`npm run seed:video-task` — tambahkan `-- --class "X E 6"` untuk membatasi kelas, atau
+`-- --force` untuk memperbarui. Tanpa `--class`, tugas tampil untuk semua kelas.
 
 ### Dashboard
 - `GET /api/dashboard` - Dashboard stats
