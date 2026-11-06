@@ -149,8 +149,15 @@ const adminHtml = fs.readFileSync(path.join(root, 'public', 'admin.html'), 'utf8
 const studentHtml = fs.readFileSync(path.join(root, 'public', 'student.html'), 'utf8');
 const adminScript = fs.readFileSync(path.join(root, 'public/assets/js/video-task-admin.js'), 'utf8');
 const referencedIds = [...new Set([...adminScript.matchAll(/getElementById\('([^']+)'\)/g)].map(match => match[1]))];
-const missingIds = referencedIds.filter(id => !adminHtml.includes(`id="${id}"`));
+// Sebagian elemen dibuat dinamis oleh modal rekap, jadi tidak ada di admin.html.
+const dynamicResultIds = new Set([
+  'vt-filter-kelas', 'vt-filter-status', 'vt-filter-nilai',
+  'vt-result-summary', 'vt-result-list', 'btn-print-result'
+]);
+const missingIds = referencedIds.filter(id => !dynamicResultIds.has(id) && !adminHtml.includes(`id="${id}"`));
 check('semua id tugas video tersedia di admin.html', missingIds.length === 0, missingIds.join(', '));
+check('area cetak & fungsi cetak tersedia',
+  adminHtml.includes('id="vt-print-area"') && adminScript.includes('function printResultReport'));
 check('menu & section tugas video ada di admin.html',
   adminHtml.includes('data-menu="video-tasks"') && adminHtml.includes('id="menu-video-tasks"'));
 check('menu & section tugas video ada di student.html',
@@ -329,6 +336,18 @@ try {
     resultsResponse.status === 200 && resultsResponse.data.attempts.length === 2
     && resultsResponse.data.attempts[0].student_nama === 'Siswa Video A',
     `status=${resultsResponse.status} attempts=${resultsResponse.data.attempts ? resultsResponse.data.attempts.length : 0}`);
+  const recapStudents = resultsResponse.data.students || [];
+  const recapA = recapStudents.find(item => item.student_id === 'siswa-video-a');
+  const recapB = recapStudents.find(item => item.student_id === 'siswa-video-b');
+  check('rekap memuat siswa yang belum mengerjakan',
+    recapStudents.length === 2 && recapB && recapB.status === 'belum' && recapB.best_score === null,
+    `siswa=${recapStudents.length}`);
+  check('rekap memuat nama kelas & status mengerjakan',
+    !!recapA && recapA.status === 'sudah' && recapA.class_nama === klass.nama && recapA.best_score === 100,
+    recapA ? `kelas=${recapA.class_nama} status=${recapA.status} nilai=${recapA.best_score}` : 'tidak ada');
+  check('rekap menyediakan daftar kelas untuk filter',
+    Array.isArray(resultsResponse.data.classes)
+    && resultsResponse.data.classes.some(item => item.id === klass.id && item.nama === klass.nama));
 
   const updated = await request('PUT', `/api/admin/video-tasks/${taskId}`, {
     judul: 'Mengamati Siklus Hidrologi (Revisi)',

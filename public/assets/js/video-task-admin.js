@@ -3,6 +3,7 @@
 // pernah dibuka ke siswa sebelum jawaban mereka dikumpulkan.
 (function () {
   let modalBound = false;
+  let resultsState = null;
 
   function esc(value) {
     return String(value === undefined || value === null ? '' : value)
@@ -383,65 +384,142 @@
     modal.classList.add('show');
     try {
       const data = await vtFetch(`/admin/video-tasks/${encodeURIComponent(id)}/hasil`);
-      document.getElementById('video-task-result-title').textContent = `Hasil: ${data.task.judul}`;
-      const attempts = Array.isArray(data.attempts) ? data.attempts : [];
-
-      if (!attempts.length) {
-        body.innerHTML = '<p>Belum ada siswa yang mengumpulkan tugas ini.</p>';
-        return;
-      }
-
-      const bestByStudent = new Map();
-      const countByStudent = new Map();
-      attempts.forEach(attempt => {
-        countByStudent.set(attempt.student_id, (countByStudent.get(attempt.student_id) || 0) + 1);
-        const current = bestByStudent.get(attempt.student_id);
-        if (!current || Number(attempt.score) > Number(current.score)) bestByStudent.set(attempt.student_id, attempt);
-      });
-      const bestRows = Array.from(bestByStudent.values())
-        .sort((a, b) => Number(b.score) - Number(a.score));
+      document.getElementById('video-task-result-title').textContent = `Rekap: ${data.task.judul}`;
+      const students = Array.isArray(data.students) ? data.students : [];
+      const classes = Array.isArray(data.classes) ? data.classes : [];
+      resultsState = { data, students, classes, filtered: [] };
 
       body.innerHTML = `
-        <div class="vt-admin-grid">
-          <div><b>Total percobaan</b><p>${attempts.length}</p></div>
-          <div><b>Jumlah siswa</b><p>${bestByStudent.size}</p></div>
+        <div class="vt-result-summary" id="vt-result-summary"></div>
+        <div class="vt-result-filters">
+          <label>Kelas
+            <select id="vt-filter-kelas">
+              <option value="">Semua kelas</option>
+              ${classes.map(item => `<option value="${esc(item.id)}">${esc(item.nama)}</option>`).join('')}
+            </select>
+          </label>
+          <label>Status mengerjakan
+            <select id="vt-filter-status">
+              <option value="">Semua status</option>
+              <option value="sudah">Sudah mengerjakan</option>
+              <option value="belum">Belum mengerjakan</option>
+            </select>
+          </label>
+          <label>Nilai
+            <select id="vt-filter-nilai">
+              <option value="">Semua nilai</option>
+              <option value="tuntas">Tuntas (≥ 75)</option>
+              <option value="belum_tuntas">Belum tuntas (&lt; 75)</option>
+              <option value="tanpa">Tanpa nilai</option>
+            </select>
+          </label>
+          <button type="button" class="btn btn-sm" id="btn-print-result">🖨 Cetak Laporan</button>
         </div>
-        <h4 class="vt-result-table">Rekap nilai terbaik</h4>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Nama Siswa</th><th>NIS</th><th>Nilai</th><th>Percobaan</th><th>Terakhir</th></tr></thead>
-            <tbody>
-              ${bestRows.map(attempt => `
-                <tr>
-                  <td>${esc(attempt.student_nama)}</td>
-                  <td>${esc(attempt.student_nis || '-')}</td>
-                  <td class="vt-strong-num">${esc(attempt.score)}</td>
-                  <td class="vt-strong-num">${esc(countByStudent.get(attempt.student_id))}</td>
-                  <td>${attempt.created_at ? esc(new Date(attempt.created_at).toLocaleString('id-ID')) : '-'}</td>
-                </tr>`).join('')}
-            </tbody>
-          </table>
-        </div>
-        <h4 class="vt-result-table">Riwayat percobaan</h4>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Nama Siswa</th><th>Percobaan</th><th>Benar</th><th>Nilai</th><th>Durasi tonton</th><th>Waktu kirim</th></tr></thead>
-            <tbody>
-              ${attempts.map(attempt => `
-                <tr>
-                  <td>${esc(attempt.student_nama)}</td>
-                  <td>ke-${esc(attempt.ke)}</td>
-                  <td class="vt-strong-num">${esc(attempt.benar)}/${esc(attempt.total)}</td>
-                  <td class="vt-strong-num">${esc(attempt.score)}</td>
-                  <td>${fmtTime(attempt.watched_seconds)}</td>
-                  <td>${attempt.created_at ? esc(new Date(attempt.created_at).toLocaleString('id-ID')) : '-'}</td>
-                </tr>`).join('')}
-            </tbody>
-          </table>
-        </div>`;
+        <div id="vt-result-list"></div>`;
+
+      ['kelas', 'status', 'nilai'].forEach(key => {
+        document.getElementById(`vt-filter-${key}`).addEventListener('change', renderResultTable);
+      });
+      document.getElementById('btn-print-result').addEventListener('click', printResultReport);
+      renderResultTable();
     } catch (error) {
       body.innerHTML = `<p style="color:var(--status-danger)">${esc(error.message)}</p>`;
     }
+  }
+
+  function renderResultTable() {
+    const state = resultsState;
+    const list = document.getElementById('vt-result-list');
+    const summary = document.getElementById('vt-result-summary');
+    if (!state || !list || !summary) return;
+
+    const kelas = document.getElementById('vt-filter-kelas')?.value || '';
+    const status = document.getElementById('vt-filter-status')?.value || '';
+    const nilai = document.getElementById('vt-filter-nilai')?.value || '';
+
+    const rows = state.students.filter(student => {
+      if (kelas && student.class_id !== kelas) return false;
+      if (status && student.status !== status) return false;
+      if (nilai === 'tuntas' && !(student.best_score !== null && student.best_score >= 75)) return false;
+      if (nilai === 'belum_tuntas' && !(student.best_score !== null && student.best_score < 75)) return false;
+      if (nilai === 'tanpa' && student.best_score !== null) return false;
+      return true;
+    });
+    state.filtered = rows;
+
+    const done = state.students.filter(student => student.status === 'sudah');
+    const scores = done.map(student => Number(student.best_score) || 0);
+    const average = scores.length
+      ? Math.round((scores.reduce((sum, score) => sum + score, 0) / scores.length) * 10) / 10
+      : null;
+    summary.innerHTML = `
+      <div class="vt-stat"><span>Total siswa</span><b>${state.students.length}</b></div>
+      <div class="vt-stat"><span>Sudah mengerjakan</span><b>${done.length}</b></div>
+      <div class="vt-stat"><span>Belum mengerjakan</span><b>${state.students.length - done.length}</b></div>
+      <div class="vt-stat"><span>Rata-rata nilai terbaik</span><b>${average === null ? '—' : average}</b></div>
+      <div class="vt-stat"><span>Ditampilkan</span><b>${rows.length}</b></div>`;
+
+    if (!rows.length) {
+      list.innerHTML = '<p class="vt-admin-hint">Tidak ada siswa yang cocok dengan filter.</p>';
+      return;
+    }
+    list.innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>No</th><th>Nama Siswa</th><th>NIS</th><th>Kelas</th><th>Status</th><th>Percobaan</th><th>Nilai Terbaik</th><th>Nilai Terakhir</th><th>Terakhir</th></tr></thead>
+          <tbody>
+            ${rows.map((student, index) => `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${esc(student.nama)}</td>
+                <td>${esc(student.nis || '-')}</td>
+                <td>${esc(student.class_nama || '-')}</td>
+                <td><span class="badge ${student.status === 'sudah' ? 'badge-success' : 'badge-neutral'}">${student.status === 'sudah' ? 'Sudah' : 'Belum'}</span></td>
+                <td class="vt-strong-num">${esc(student.attempts)}</td>
+                <td class="vt-strong-num">${student.best_score === null ? '—' : esc(student.best_score)}</td>
+                <td class="vt-strong-num">${student.last_score === null ? '—' : esc(student.last_score)}</td>
+                <td>${student.last_at ? esc(new Date(student.last_at).toLocaleString('id-ID')) : '—'}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  function printResultReport() {
+    const state = resultsState;
+    const area = document.getElementById('vt-print-area');
+    if (!state || !area) return;
+    const kelasId = document.getElementById('vt-filter-kelas')?.value || '';
+    const kelasLabel = kelasId
+      ? (state.classes.find(item => item.id === kelasId)?.nama || '')
+      : 'Semua kelas';
+    const printedAt = new Date().toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' });
+    const rows = state.filtered || [];
+    area.innerHTML = `
+      <div class="vt-print-head">
+        <h1>Laporan Tugas Mengamati Video</h1>
+        <p><b>${esc(state.data.task.judul)}</b></p>
+        <p>Video: https://youtu.be/${esc(state.data.task.youtube_id)} · Kelas: ${esc(kelasLabel)} · Dicetak: ${esc(printedAt)}</p>
+      </div>
+      <table class="vt-print-table">
+        <thead><tr><th>No</th><th>Nama Siswa</th><th>NIS</th><th>Kelas</th><th>Status</th><th>Percobaan</th><th>Nilai Terbaik</th><th>Nilai Terakhir</th><th>Terakhir</th></tr></thead>
+        <tbody>
+          ${rows.map((student, index) => `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${esc(student.nama)}</td>
+              <td>${esc(student.nis || '-')}</td>
+              <td>${esc(student.class_nama || '-')}</td>
+              <td>${student.status === 'sudah' ? 'Sudah' : 'Belum'}</td>
+              <td>${esc(student.attempts)}</td>
+              <td>${student.best_score === null ? '-' : esc(student.best_score)}</td>
+              <td>${student.last_score === null ? '-' : esc(student.last_score)}</td>
+              <td>${student.last_at ? esc(new Date(student.last_at).toLocaleString('id-ID')) : '-'}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+      <p class="vt-print-foot">Jumlah siswa: ${rows.length} · Sudah mengerjakan: ${rows.filter(s => s.status === 'sudah').length} · Belum mengerjakan: ${rows.filter(s => s.status === 'belum').length}</p>`;
+    window.print();
   }
 
   function taskShareLink(task) {

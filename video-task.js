@@ -533,6 +533,44 @@ function registerVideoTask(app, deps) {
     const task = tasksOf(db, req.tenantId).find(item => item.id === req.params.id);
     if (!task) return res.status(404).json({ error: 'Tugas video tidak ditemukan' });
 
+    const classMap = new Map((db.classes || []).map(item => [item.id, item.nama]));
+    const targetStudents = (db.students || []).filter(student =>
+      student.tenant_id === req.tenantId && (!task.class_id || student.class_id === task.class_id)
+    );
+
+    const attemptsByStudent = new Map();
+    attemptsOf(db, task.id, null).forEach(attempt => {
+      if (!attemptsByStudent.has(attempt.student_id)) attemptsByStudent.set(attempt.student_id, []);
+      attemptsByStudent.get(attempt.student_id).push(attempt);
+    });
+
+    const students = targetStudents.map(student => {
+      const attempts = attemptsByStudent.get(student.id) || [];
+      const summary = summarizeVideoAttempts(attempts);
+      return {
+        student_id: student.id,
+        nama: student.nama || '-',
+        nis: student.nis || '',
+        class_id: student.class_id || null,
+        class_nama: student.class_id ? (classMap.get(student.class_id) || '-') : '-',
+        attempts: attempts.length,
+        best_score: summary.best_score,
+        last_score: summary.last_score,
+        last_at: summary.last_at,
+        tuntas: summary.best_score !== null && summary.best_score >= KKM,
+        status: attempts.length ? 'sudah' : 'belum'
+      };
+    }).sort((a, b) =>
+      String(a.class_nama).localeCompare(String(b.class_nama), 'id') ||
+      String(a.nama).localeCompare(String(b.nama), 'id')
+    );
+
+    const classes = [...new Map(targetStudents
+      .filter(student => student.class_id)
+      .map(student => [student.class_id, classMap.get(student.class_id) || '-'])).entries()]
+      .map(([id, nama]) => ({ id, nama }))
+      .sort((a, b) => String(a.nama).localeCompare(String(b.nama), 'id'));
+
     const attempts = attemptsOf(db, task.id, null)
       .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
       .map(attempt => {
@@ -540,11 +578,13 @@ function registerVideoTask(app, deps) {
         return {
           ...attempt,
           student_nama: student ? student.nama : '-',
-          student_nis: student ? (student.nis || '') : ''
+          student_nis: student ? (student.nis || '') : '',
+          class_id: student ? student.class_id : null,
+          class_nama: student && student.class_id ? (classMap.get(student.class_id) || '-') : '-'
         };
       });
 
-    res.json({ task: publicVideoTask(task, true), attempts });
+    res.json({ task: publicVideoTask(task, true), classes, students, attempts });
   });
 
   app.post('/api/admin/video-tasks', requireAuth, requireAdmin, requireTenant, async (req, res) => {
