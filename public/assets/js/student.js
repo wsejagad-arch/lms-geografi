@@ -85,6 +85,7 @@ async function init() {
   }
 
   currentTenant = LMS.getCurrentTenant();
+  startPresence();
 
   // Populate user identity across UI
   const nama = currentUser.nama || 'Siswa';
@@ -1341,3 +1342,41 @@ sidebarOverlay?.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', init);
+
+// ===== DENYUT KEHADIRAN =====
+// Tab siswa yang masih terbuka mengirim denyut ringan sehingga admin bisa melihat
+// siapa yang benar-benar terhubung (bukan hanya login terakhir). Berhenti saat tab
+// tersembunyi, dan langsung kirim sekali ketika tab kembali aktif.
+const PRESENCE_INTERVAL_MS = 45000;
+let presenceTimer = null;
+
+function sendPresence() {
+  if (!currentUser || currentUser.role !== 'student') return;
+  if (typeof document !== 'undefined' && document.hidden) return;
+  fetch('/api/auth/presence', {
+    method: 'POST',
+    credentials: 'same-origin',
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    body: '{}'
+  }).catch(() => { /* offline: coba lagi pada denyut berikutnya */ });
+}
+
+function startPresence() {
+  stopPresence();
+  sendPresence();
+  presenceTimer = setInterval(sendPresence, PRESENCE_INTERVAL_MS);
+}
+
+function stopPresence() {
+  if (presenceTimer) {
+    clearInterval(presenceTimer);
+    presenceTimer = null;
+  }
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (!currentUser) return;
+  if (document.hidden) stopPresence();
+  else startPresence();
+});

@@ -5,6 +5,9 @@ const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 const Redis = require('ioredis');
 const fs = require('fs/promises');
+const fsSync = require('fs');
+const os = require('os');
+const v8 = require('v8');
 const path = require('path');
 const whatsappSender = require('./whatsapp-sender');
 
@@ -314,6 +317,7 @@ function persistActivity(record) {
 // Siswa hanya boleh membaca datanya sendiri, menyimpan progres belajar, dan mengirim nilai.
 const STUDENT_ROUTES = [
   ['GET', /^\/api\/me$/],
+  ['POST', /^\/api\/auth\/presence$/],
   ['POST', /^\/api\/me\/password$/],
   ['POST', /^\/api\/me\/whatsapp$/],
   ['GET', /^\/api\/materials$/],
@@ -988,6 +992,160 @@ app.get('/api/admin/sessions', requireAuth, requireAdmin, async (req, res) => {
     online_count: rows.filter(r => r.online).length,
     server_time: new Date().toISOString(),
     sessions: rows
+  });
+});
+
+// ===== MONITORING SERVER (Pantaun Server) =====
+// Denyut kehadiran ringan: dicatat sesekali dari tab siswa yang sedang aktif sehingga
+// "siswa terhubung" mencerminkan tab yang benar-benar terbuka, bukan sekadar login terakhir.
+app.post('/api/auth/presence', requireAuth, (req, res) => {
+  res.json({ ok: true, server_time: new Date().toISOString() });
+});
+
+function diskInfoOf(targetPath) {
+  try {
+    const stat = fsSync.statfsSync ? fsSync.statfsSync(targetPath) : null;
+    if (!stat) return null;
+    const total = Number(stat.blocks) * Number(stat.bsize);
+    const free = Number(stat.bavail) * Number(stat.bsize);
+    if (!Number.isFinite(total) || total <= 0) return null;
+    return {
+      total,
+      used: total - free,
+      free,
+      percent: Math.round(((total - free) / total) * 1000) / 10
+    };
+  } catch {
+    return null;
+  }
+}
+
+function memoryInfoOf() {
+  const mem = process.memoryUsage();
+  const rss = mem.rss;
+  const heapUsed = mem.heapUsed;
+  const heapTotal = mem.heapTotal;
+  let system = null;
+  try {
+    const total = os.totalmem();
+    system = {
+      total,
+      free: os.freemem(),
+      percent: total ? Math.round(((total - os.freemem()) / total) * 1000) / 10 : null
+    };
+  } catch { /* abaikan */ }
+  // Batas heap yang sebenarnya berlaku di proses Node ini (V8 heap size limit).
+  const heapLimit = v8.getHeapStatistics().heap_size_limit;
+  return {
+    rss,
+    heap_used: heapUsed,
+    heap_total: heapTotal,
+    heap_limit: heapLimit,
+    heap_percent: heapLimit ? Math.round((heapUsed / heapLimit) * 1000) / 10 : null,
+    external: mem.external,
+    array_buffers: mem.arrayBuffers || 0,
+    system
+  };
+}
+
+function eventLoopLagMs(callback) {
+  const startedAt = process.hrtime.bigint();
+  setImmediate(() => {
+    callback(Number(process.hrtime.bigint() - startedAt) / 1e6);
+  });
+}
+
+app.get('/api/admin/server-monitor', requireAuth, requireAdmin, async (req, res) => {
+  const lag = await new Promise(resolve => eventLoopLagMs(resolve));
+  const db = await loadDB();
+  const now = Date.now();
+  const tenantFilter = s => req.user.role === 'super_admin' || s.tenant_id === req.tenantId;
+  const logs = (db.session_logs || []).filter(tenantFilter);
+  const onlineRows = logs.filter(s => s.active && now - new Date(s.last_seen_at || 0).getTime() < SESSION_ONLINE_MS);
+  const onlineStudents = onlineRows.filter(s => s.role === 'student');
+  const onlineStaff = onlineRows.filter(s => s.role !== 'student');
+
+  // Sebaran kehadiran siswa per kelas pada jendela online.
+  const perKelasMap = new Map();
+  onlineStudents.forEach(s => {
+    const key = s.kelas_nama || '-';
+    const item = perKelasMap.get(key) || { kelas: key, online: 0, siswa: new Map() };
+    item.online++;
+    item.siswa.set(s.student_id || s.user_id || s.id, true);
+    perKelasMap.set(key, item);
+  });
+  const perKelas = [...perKelasMap.values()]
+    .map(item => ({ kelas: item.kelas, online: item.siswa.size }))
+    .sort((a, b) => b.online - a.online || String(a.kelas).localeCompare(String(b.kelas)));
+
+  const sessionsByClass = new Map();
+  onlineStudents.forEach(s => {
+    if (!s.kelas_id) return;
+    sessionsByClass.set(s.kelas_id, (sessionsByClass.get(s.kelas_id) || 0) + 1);
+  });
+  const totalSiswaKelas = new Map();
+  (db.students || []).filter(s => !s.tenant_id || req.user.role === 'super_admin' || s.tenant_id === req.tenantId)
+    .forEach(s => {
+      if (s.class_id) totalSiswaKelas.set(s.class_id, (totalSiswaKelas.get(s.class_id) || 0) + 1);
+    });
+  const kelasDetail = [...sessionsByClass.entries()]
+    .map(([classId, online]) => {
+      const kelas = (db.classes || []).find(c => c.id === classId);
+      const total = totalSiswaKelas.get(classId) || 0;
+      return {
+        class_id: classId,
+        kelas: kelas ? kelas.nama : classId,
+        online,
+        total,
+        persen: total ? Math.round((online / total) * 100) : null
+      };
+    })
+    .sort((a, b) => b.online - a.online);
+
+  // Aktivitas menit terakhir (proxy beban nyata aplikasi).
+  const lastMinute = now - 60000;
+  const barusan = (db.activity_logs || []).filter(a => new Date(a.created_at || 0).getTime() >= lastMinute).length;
+
+  const cpu = process.cpuUsage();
+  const mem = memoryInfoOf();
+  const dbStatus = typeof dataStore.status === 'function' ? dataStore.status() : {};
+
+  res.json({
+    server_time: new Date().toISOString(),
+    uptime_seconds: Math.round(process.uptime()),
+    process: {
+      pid: process.pid,
+      node: process.version,
+      platform: `${process.platform} ${process.arch}`,
+      cpus: os.cpus().length,
+      load_avg: os.loadavg().map(v => Math.round(v * 100) / 100),
+      cpu_percent: Math.min(100, Math.round(((cpu.user + cpu.system) / 1000 / Math.max(1, process.uptime())) * 1000) / 10),
+      cpu_user_ms: Math.round(cpu.user / 1000),
+      cpu_system_ms: Math.round(cpu.system / 1000),
+      handles: process._getActiveHandles ? process._getActiveHandles().length : null,
+      requests: process._getActiveRequests ? process._getActiveRequests().length : null
+    },
+    memory: mem,
+    event_loop_lag_ms: Math.round(lag * 10) / 10,
+    disk: diskInfoOf(__dirname),
+    db: {
+      backend: dbStatus.backend || 'json',
+      last_save_at: dbStatus.lastSaveAt || null,
+      last_save_ok: dbStatus.lastSaveOk !== false,
+      size: (() => {
+        try { return fsSync.statSync(DB_PATH).size; } catch { return null; }
+      })()
+    },
+    live: {
+      online_window_minutes: SESSION_ONLINE_MS / 60000,
+      online_total: onlineRows.length,
+      online_students: onlineStudents.length,
+      online_staff: onlineStaff.length,
+      per_kelas: perKelas,
+      kelas_detail: kelasDetail,
+      activity_last_minute: barusan,
+      siswa_total: totalSiswaKelas.size ? [...totalSiswaKelas.values()].reduce((a, b) => a + b, 0) : (db.students || []).length
+    }
   });
 });
 

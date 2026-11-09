@@ -131,6 +131,27 @@ try {
   const dash = await req('GET', '/api/dashboard');
   check('dashboard admin: 403 untuk siswa', dash.status === 403, `status=${dash.status}`);
 
+  // ===== PANTAUAN SERVER =====
+  const monitorStudent = await req('GET', '/api/admin/server-monitor');
+  check('pantauan server: 403 untuk siswa', monitorStudent.status === 403, `status=${monitorStudent.status}`);
+
+  const presence = await req('POST', '/api/auth/presence', {});
+  check('denyut kehadiran siswa diterima', presence.status === 200, `status=${presence.status}`);
+
+  const monitor = await req('GET', '/api/admin/server-monitor', null, 'admin');
+  const live = monitor.json && monitor.json.live;
+  const mem = monitor.json && monitor.json.memory;
+  check('pantauan server: admin dapat data siswa terhubung',
+    monitor.status === 200 && live && live.online_students >= 1 && Array.isArray(live.kelas_detail),
+    `status=${monitor.status} online=${live && live.online_students}`);
+  check('pantauan server: kelas_detail memuat kelas siswa aktif',
+    !!(live && live.kelas_detail.some((k) => k.class_id === klass.id && k.online >= 1)),
+    `kelas=${live && live.kelas_detail.map((k) => k.kelas + ':' + k.online).join(',')}`);
+  check('pantauan server: metrik memori & proses tersedia',
+    monitor.status === 200 && mem && mem.rss > 0 && mem.heap_limit > 0 && typeof monitor.json.event_loop_lag_ms === 'number'
+      && monitor.json.process && typeof monitor.json.uptime_seconds === 'number',
+    `rss=${mem && mem.rss} heap=${mem && mem.heap_percent}% lag=${monitor.json && monitor.json.event_loop_lag_ms}ms`);
+
   const add = await req('POST', '/api/students', { nama: 'Palsu', nis: 'X999' });
   check('tambah siswa: 403 untuk siswa', add.status === 403, `status=${add.status}`);
 

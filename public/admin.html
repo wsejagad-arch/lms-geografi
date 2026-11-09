@@ -19,7 +19,7 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/svg+xml" href="assets/icons/globe.svg"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/css/admin.css?v=20261105k">
+  <link rel="stylesheet" href="assets/css/admin.css?v=20261109b">
   <link rel="stylesheet" href="assets/css/video-task.css?v=20261107h">
 </head>
 <body>
@@ -70,7 +70,9 @@
         <div class="nav-item" data-menu="classes"><svg class="ic"><use href="#i-school"/></svg><span>Rombel & Kelas</span></div>
         <div class="nav-item" data-menu="students"><svg class="ic"><use href="#i-users"/></svg><span>Data Siswa</span></div>
         <div class="nav-item" data-menu="progress"><svg class="ic"><use href="#i-chart"/></svg><span>Progres Belajar</span></div>
+        <p class="nav-label">Operasional</p>
         <div class="nav-item" data-menu="sessions"><svg class="ic"><use href="#i-activity"/></svg><span>Sesi Aktif (Live)</span></div>
+        <div class="nav-item" data-menu="server-monitor"><svg class="ic"><use href="#i-activity"/></svg><span>Pantauan Server</span></div>
         <div class="nav-item" data-menu="activity"><svg class="ic"><use href="#i-activity"/></svg><span>Log Aktivitas</span></div>
 
         <p class="nav-label">Kurikulum & Konten</p>
@@ -460,6 +462,92 @@
               </table>
             </div>
             <p id="sessions-note" style="font-size:12px;color:var(--text-3);margin-top:10px">Online = ada aktivitas dalam 2 menit terakhir (diperbarui otomatis tiap 10 detik). Lokasi diambil dari header Cloudflare (kota, region, negara).</p>
+          </div>
+        </section>
+
+        <section id="menu-server-monitor" class="menu-section hidden">
+          <div class="card">
+            <div class="list-toolbar" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+              <div>
+                <h2 style="margin:0">Pantauan Server</h2>
+                <p style="margin:4px 0 0;font-size:12px;color:var(--text-3)">Siswa terhubung, beban proses, memori, dan penyimpanan dalam satu tampilan. Diperbarui otomatis tiap 10 detik.</p>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                <span id="monitor-updated" class="sessions-live">memuat…</span>
+                <button class="btn btn-sm" id="btn-monitor-refresh">Muat Ulang</button>
+              </div>
+            </div>
+            <div id="monitor-error" class="hidden" style="color:var(--danger);font-size:13px;margin:8px 0"></div>
+
+            <div class="monitor-grid">
+              <div class="monitor-tile">
+                <span class="monitor-label">Siswa terhubung</span>
+                <strong class="monitor-value" id="mon-siswa-online">-</strong>
+                <span class="monitor-sub" id="mon-siswa-sub">-</span>
+              </div>
+              <div class="monitor-tile">
+                <span class="monitor-label">Staf / guru online</span>
+                <strong class="monitor-value" id="mon-staf-online">-</strong>
+                <span class="monitor-sub" id="mon-staf-sub">-</span>
+              </div>
+              <div class="monitor-tile">
+                <span class="monitor-label">Beban CPU proses</span>
+                <strong class="monitor-value" id="mon-cpu">-</strong>
+                <span class="monitor-sub" id="mon-cpu-sub">-</span>
+              </div>
+              <div class="monitor-tile">
+                <span class="monitor-label">Memori heap Node</span>
+                <strong class="monitor-value" id="mon-heap">-</strong>
+                <span class="monitor-sub" id="mon-heap-sub">-</span>
+              </div>
+              <div class="monitor-tile">
+                <span class="monitor-label">Memori server</span>
+                <strong class="monitor-value" id="mon-ram">-</strong>
+                <span class="monitor-sub" id="mon-ram-sub">-</span>
+              </div>
+              <div class="monitor-tile">
+                <span class="monitor-label">Respons loop (lag)</span>
+                <strong class="monitor-value" id="mon-lag">-</strong>
+                <span class="monitor-sub" id="mon-lag-sub">-</span>
+              </div>
+              <div class="monitor-tile">
+                <span class="monitor-label">Disk penyimpanan</span>
+                <strong class="monitor-value" id="mon-disk">-</strong>
+                <span class="monitor-sub" id="mon-disk-sub">-</span>
+              </div>
+              <div class="monitor-tile">
+                <span class="monitor-label">Uptime proses</span>
+                <strong class="monitor-value" id="mon-uptime">-</strong>
+                <span class="monitor-sub" id="mon-uptime-sub">-</span>
+              </div>
+            </div>
+
+            <div class="monitor-bars">
+              <div class="monitor-bar-row"><span>Heap Node</span><div class="monitor-bar"><i id="mon-bar-heap"></i></div><b id="mon-bar-heap-val">-</b></div>
+              <div class="monitor-bar-row"><span>RAM server</span><div class="monitor-bar"><i id="mon-bar-ram"></i></div><b id="mon-bar-ram-val">-</b></div>
+              <div class="monitor-bar-row"><span>Disk</span><div class="monitor-bar"><i id="mon-bar-disk"></i></div><b id="mon-bar-disk-val">-</b></div>
+            </div>
+
+            <div class="monitor-cols">
+              <div>
+                <h3 style="margin:0 0 8px;font-size:14px">Siswa online per kelas</h3>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Kelas</th><th>Online</th><th>Total siswa</th><th>Persentase</th></tr></thead>
+                    <tbody id="monitor-kelas-tbody">
+                      <tr><td colspan="4" class="text-center" style="color:var(--text-2)">Memuat…</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div>
+                <h3 style="margin:0 0 8px;font-size:14px">Info proses</h3>
+                <ul class="monitor-info" id="monitor-info-list">
+                  <li>Memuat…</li>
+                </ul>
+              </div>
+            </div>
+            <p style="font-size:12px;color:var(--text-3);margin-top:10px" id="monitor-note">Siswa terhubung = tab LMS yang aktif mengirim denyut kehadiran atau memanggil API dalam jendela waktu di bawah. Hitungan proses diambil langsung dari runtime Node pada server.</p>
           </div>
         </section>
 
@@ -1302,7 +1390,7 @@
       navigator.serviceWorker.register('/sw.js?v=67').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261107b"></script>
+  <script src="assets/js/admin.js?v=20261109b"></script>
   <script src="assets/js/video-task-admin.js?v=20261107f"></script>
 </body>
 </html>

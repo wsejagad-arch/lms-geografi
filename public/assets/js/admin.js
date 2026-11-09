@@ -113,6 +113,7 @@ const MENU_META = {
   students: { title: 'Siswa', render: () => renderStudents() },
   progress: { title: 'Progres Belajar', render: () => renderProgress() },
   sessions: { title: 'User Aktif', render: () => renderSessions() },
+  'server-monitor': { title: 'Pantauan Server', render: () => renderServerMonitor() },
   activity: { title: 'Log Aktivitas', render: () => renderActivityLog() },
   materials: { title: 'Materi', render: () => renderMaterials() },
   kurikulum: { title: 'Kurikulum', render: () => renderKurikulum() },
@@ -136,6 +137,7 @@ function switchMenu(menu) {
   const meta = MENU_META[menu];
   if (!meta) return;
   if (menu !== 'sessions' && typeof stopSessionsLive === 'function') stopSessionsLive();
+  if (menu !== 'server-monitor' && typeof stopMonitorLive === 'function') stopMonitorLive();
   if (menu !== 'whatsapp' && typeof stopWhatsAppPolling === 'function') stopWhatsAppPolling();
   setupMenu(menu);
   try { localStorage.setItem('lms_admin_menu', menu); } catch { /* localStorage bisa diblokir */ }
@@ -1091,6 +1093,186 @@ async function renderSessions() {
       return;
     }
     await fetchSessions(true);
+  }, 10000);
+}
+
+// ===== PANTAUAN SERVER =====
+let monitorTimer = null;
+
+function stopMonitorLive() {
+  if (monitorTimer) {
+    clearInterval(monitorTimer);
+    monitorTimer = null;
+  }
+}
+
+function monitorBytes(n) {
+  const value = Number(n);
+  if (!Number.isFinite(value) || value <= 0) return '-';
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  let idx = 0;
+  let size = value;
+  while (size >= 1024 && idx < units.length - 1) {
+    size /= 1024;
+    idx++;
+  }
+  return `${size.toFixed(size >= 100 || idx === 0 ? 0 : 1)} ${units[idx]}`;
+}
+
+function monitorDuration(seconds) {
+  const total = Math.max(0, Math.round(Number(seconds) || 0));
+  const d = Math.floor(total / 86400);
+  const h = Math.floor((total % 86400) / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  if (d) return `${d}h ${h}j`;
+  if (h) return `${h}j ${m}m`;
+  return `${m}m ${total % 60}s`;
+}
+
+function monitorLevel(percent) {
+  const value = Number(percent);
+  if (!Number.isFinite(value)) return '';
+  if (value >= 90) return 'bad';
+  if (value >= 75) return 'warn';
+  return '';
+}
+
+function setMonitorText(id, text, level = '') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = text;
+  el.className = level ? `monitor-value ${level}` : 'monitor-value';
+}
+
+function setMonitorBar(barId, valId, percent) {
+  const bar = document.getElementById(barId);
+  const val = document.getElementById(valId);
+  const pct = Number.isFinite(Number(percent)) ? Math.max(0, Math.min(100, Number(percent))) : 0;
+  if (bar) {
+    bar.style.width = `${pct}%`;
+    bar.className = monitorLevel(pct);
+  }
+  if (val) val.textContent = Number.isFinite(Number(percent)) ? `${pct}%` : '-';
+}
+
+function renderMonitorKelas(rows) {
+  const tbody = document.getElementById('monitor-kelas-tbody');
+  if (!tbody) return;
+  const list = Array.isArray(rows) ? rows : [];
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="text-center" style="color:var(--text-2)">Belum ada siswa online</td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.map(row => `
+    <tr>
+      <td>${kurEsc(row.kelas || '-')}</td>
+      <td><strong>${Number(row.online) || 0}</strong></td>
+      <td>${Number(row.total) || 0}</td>
+      <td>${row.persen === null || row.persen === undefined ? '-' : `${Number(row.persen)}%`}</td>
+    </tr>`).join('');
+}
+
+function renderMonitorInfo(data) {
+  const list = document.getElementById('monitor-info-list');
+  if (!list) return;
+  const p = data.process || {};
+  const db = data.db || {};
+  const items = [
+    ['PID proses', p.pid ?? '-'],
+    ['Node.js', p.node || '-'],
+    ['Platform', p.platform || '-'],
+    ['Jumlah CPU', p.cpus ?? '-'],
+    ['Load average (1/5/15 m)', Array.isArray(p.load_avg) ? p.load_avg.join(' / ') : '-'],
+    ['Handler aktif', p.handles ?? '-'],
+    ['Request aktif', p.requests ?? '-'],
+    ['Backend database', db.backend || '-'],
+    ['Ukuran berkas DB', db.size ? monitorBytes(db.size) : '-'],
+    ['Simpan DB terakhir', db.last_save_at ? new Date(db.last_save_at).toLocaleString('id-ID') : '-'],
+    ['Status simpan', db.last_save_ok === false ? 'GAGAL' : 'OK']
+  ];
+  list.innerHTML = items.map(([label, value]) =>
+    `<li><span>${kurEsc(label)}</span><span>${kurEsc(String(value))}</span></li>`).join('');
+}
+
+async function fetchServerMonitor(silent = false) {
+  const errorBox = document.getElementById('monitor-error');
+  try {
+    const res = await fetch('/api/admin/server-monitor', { credentials: 'same-origin' });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Gagal memuat status server');
+    if (errorBox) {
+      errorBox.textContent = '';
+      errorBox.classList.add('hidden');
+    }
+
+    const live = data.live || {};
+    const mem = data.memory || {};
+    const proc = data.process || {};
+    const disk = data.disk || null;
+
+    setMonitorText('mon-siswa-online', String(live.online_students ?? 0));
+    setMonitorText('mon-siswa-sub', `dari total ${Number(live.siswa_total) || 0} siswa · ${live.kelas_detail?.length || 0} kelas aktif`);
+    setMonitorText('mon-staf-online', String(live.online_staff ?? 0));
+    setMonitorText('mon-staf-sub', `total pengguna online ${Number(live.online_total) || 0} · aktivitas 1 menit: ${Number(live.activity_last_minute) || 0}`);
+
+    const cpuPct = Number(proc.cpu_percent);
+    setMonitorText('mon-cpu', Number.isFinite(cpuPct) ? `${cpuPct.toFixed(1)}%` : '-', monitorLevel(cpuPct));
+    setMonitorText('mon-cpu-sub', `user ${Number(proc.cpu_user_ms) || 0} ms · sistem ${Number(proc.cpu_system_ms) || 0} ms`);
+
+    setMonitorText('mon-heap', monitorBytes(mem.heap_used), monitorLevel(mem.heap_percent));
+    setMonitorText('mon-heap-sub', `dari ${monitorBytes(mem.heap_limit)} batas heap · RSS ${monitorBytes(mem.rss)}`);
+
+    setMonitorText('mon-ram', monitorBytes(mem.system && mem.system.total ? mem.system.total - mem.system.free : 0), monitorLevel(mem.system?.percent));
+    setMonitorText('mon-ram-sub', mem.system
+      ? `${Number(mem.system.percent ?? 0)}% terpakai · tersedia ${monitorBytes(mem.system.free)} / ${monitorBytes(mem.system.total)}`
+      : 'tidak tersedia');
+
+    const lag = Number(data.event_loop_lag_ms);
+    setMonitorText('mon-lag', Number.isFinite(lag) ? `${lag.toFixed(1)} ms` : '-', lag >= 200 ? 'bad' : (lag >= 80 ? 'warn' : ''));
+    setMonitorText('mon-lag-sub', lag < 80 ? 'server responsif' : (lag < 200 ? 'mulai padat' : 'tertahan — cek beban'));
+
+    setMonitorText('mon-disk', disk ? `${Number(disk.percent ?? 0)}%` : '-', monitorLevel(disk?.percent));
+    setMonitorText('mon-disk-sub', disk ? `${monitorBytes(disk.used)} terpakai · ${monitorBytes(disk.free)} bebas` : 'tidak tersedia');
+
+    setMonitorText('mon-uptime', monitorDuration(data.uptime_seconds));
+    setMonitorText('mon-uptime-sub', data.server_time ? `waktu server ${new Date(data.server_time).toLocaleTimeString('id-ID')}` : '-');
+
+    setMonitorBar('mon-bar-heap', 'mon-bar-heap-val', mem.heap_percent);
+    setMonitorBar('mon-bar-ram', 'mon-bar-ram-val', mem.system?.percent);
+    setMonitorBar('mon-bar-disk', 'mon-bar-disk-val', disk?.percent);
+
+    renderMonitorKelas(live.kelas_detail || []);
+    renderMonitorInfo(data);
+
+    const updated = document.getElementById('monitor-updated');
+    if (updated) {
+      updated.innerHTML = `<span class="live-dot"></span>diperbarui ${new Date().toLocaleTimeString('id-ID')}`;
+    }
+    const note = document.getElementById('monitor-note');
+    if (note && live.online_window_minutes) {
+      note.textContent = `Siswa terhubung = tab LMS yang mengirim denyut kehadiran atau memanggil API dalam ${live.online_window_minutes} menit terakhir. Angka proses diambil langsung dari runtime Node di server.`;
+    }
+  } catch (err) {
+    if (silent) return;
+    if (errorBox) {
+      errorBox.textContent = err.message;
+      errorBox.classList.remove('hidden');
+    }
+    const updated = document.getElementById('monitor-updated');
+    if (updated) updated.textContent = 'gagal memperbarui';
+  }
+}
+
+async function renderServerMonitor() {
+  await fetchServerMonitor(false);
+  stopMonitorLive();
+  monitorTimer = setInterval(() => {
+    const section = document.getElementById('menu-server-monitor');
+    if (!section || section.classList.contains('hidden')) {
+      stopMonitorLive();
+      return;
+    }
+    fetchServerMonitor(true);
   }, 10000);
 }
 
@@ -3138,6 +3320,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('progress-filter-kelas')?.addEventListener('change', renderProgressRows);
   document.getElementById('progress-filter-nama')?.addEventListener('input', renderProgressRows);
   document.getElementById('btn-sessions-refresh')?.addEventListener('click', renderSessions);
+  document.getElementById('btn-monitor-refresh')?.addEventListener('click', () => fetchServerMonitor(false));
   document.getElementById('btn-sessions-print')?.addEventListener('click', printSessionReport);
   document.getElementById('session-filter-kelas')?.addEventListener('change', renderSessionRows);
   document.getElementById('session-filter-status')?.addEventListener('change', renderSessionRows);

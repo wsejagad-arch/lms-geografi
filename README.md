@@ -110,8 +110,17 @@ dicek di `requireAuth`):
 | POST | `/api/kurikulum/:babId/evaluasi`, `/api/kurikulum/naik-kelas` |
 | POST | `/api/video-tasks/:id/attempt` |
 | POST | `/api/video-tasks/:id/progress` |
+| POST | `/api/auth/presence` (denyut kehadiran untuk Pantauan Server) |
 
 `GET /api/grades` dan `GET /api/attendance` selalu difilter ke data siswa yang login.
+
+### Pantauan Server (admin)
+Menu **Pantauan Server** (`GET /api/admin/server-monitor`, admin/super_admin) menampilkan dalam satu
+tampilan: siswa terhubung per kelas, jumlah staf online, beban CPU proses, heap Node terhadap batas V8,
+memori server, lag event loop, sisa disk, uptime, ukuran & status simpan DB. Data siswa terhubung
+dihitung dari `session_logs` dengan jendela `SESSION_ONLINE_MS` (default 120 detik); tab siswa yang
+terbuka mengirim `POST /api/auth/presence` tiap 45 detik (berhenti saat tab disembunyikan).
+Halaman memuat ulang otomatis tiap 10 detik.
 
 ### Auth
 - `POST /api/login` - Login (rate limit: 5 gagal / 15 menit per IP+identifier → `429`)
