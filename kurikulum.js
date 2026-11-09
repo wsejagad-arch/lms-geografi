@@ -291,6 +291,35 @@ function registerKurikulum(app, deps) {
     const level = student ? studentLevel(db, student) : (req.query.kelas || 'X');
     const babs = loadLevel(level);
 
+    // Kontrak per bab untuk siswa: hanya progres siswa sendiri, termasuk draf jawaban
+    // yang masih berlaku untuk percobaan berikutnya.
+    const nextAttemptOf = bab => db.attempts
+      .filter(a => student && a.student_id === student.id && a.bab_id === bab.id)
+      .reduce((max, a) => Math.max(max, Number(a.ke) || 0), 0) + 1;
+    const siswaBab = (bab, prog, attempts) => {
+      const summary = summarizeAttempts(attempts);
+      const best = attempts.length ? summary.best_score : (prog ? prog.best_score : null);
+      const draftValid = prog && Number(prog.draft_for_attempt) === nextAttemptOf(bab);
+      return {
+        id: bab.id,
+        judul: bab.judul,
+        deskripsi: bab.deskripsi || '',
+        urutan: bab.urutan,
+        semester: Number(bab.semester) || (bab.urutan <= 4 ? 1 : 2),
+        total_topics: (bab.materi || []).length,
+        total_questions: (bab.soal || []).length,
+        topic_progress: (prog && prog.topic_progress) || {},
+        best_score: best,
+        highest_score: attempts.length ? summary.highest_score : null,
+        highest_attempt: attempts.length ? summary.highest_attempt : null,
+        penalty_count: attempts.length ? summary.penalty_count : 0,
+        attempts: attempts.length,
+        last_answered_count: prog ? Number(prog.last_answered_count) || 0 : 0,
+        draft_answers: draftValid ? ((prog && prog.draft_answers) || {}) : {},
+        tuntas: best !== null && best !== undefined && best >= KKM
+      };
+    };
+
     const tenant = db.tenants.find(t => t.id === req.tenantId);
     const semesterAktif = tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1;
 
@@ -327,7 +356,7 @@ function registerKurikulum(app, deps) {
         if (!unlocked) lock_reason = 'evaluasi_sebelumnya';
       }
 
-      return {
+      const base = {
         id: bab.id,
         urutan: bab.urutan,
         semester: babSem,
@@ -355,6 +384,8 @@ function registerKurikulum(app, deps) {
         tuntas,
         unlocked
       };
+
+      return student ? Object.assign(base, siswaBab(bab, prog, attempts)) : base;
     });
 
     // Kriteria naik kelas dihitung dari seluruh bab atau bab semester aktif
@@ -448,7 +479,13 @@ function registerKurikulum(app, deps) {
       db.progress.push(progress);
     }
     progress.topic_progress = { ...previousProgress, ...topicProgress };
-    progress.draft_answers = draftAnswers;
+    // Draf selalu ditandai untuk nomor percobaan berikutnya; GET bab tidak mengirim draf
+    // yang sudah tidak berlaku (mis. sisa percobaan yang sudah tersimpan).
+    const nextAttemptKe = db.attempts
+      .filter(a => a.student_id === student.id && a.bab_id === bab.id)
+      .reduce((max, a) => Math.max(max, Number(a.ke) || 0), 0) + 1;
+    progress.draft_answers = Object.keys(draftAnswers).length ? draftAnswers : {};
+    progress.draft_for_attempt = Object.keys(draftAnswers).length ? nextAttemptKe : null;
     progress.last_answered_count = countAnsweredQuestions(bab.soal || [], draftAnswers);
     progress.updated_at = new Date().toISOString();
     await saveDB(db);
@@ -575,6 +612,13 @@ function registerKurikulum(app, deps) {
 
     const prog = student ? progressOf(db, student, bab.id) : null;
     const attempts = student ? db.attempts.filter(a => a.student_id === student.id && a.bab_id === bab.id) : [];
+    // Draf jawaban hanya berlaku untuk percobaan berikutnya. Setelah percobaan tersimpan,
+    // draf lama dibuang agar pengulangan tidak menampilkan/menyimpan jawaban percobaan lalu.
+    const nextKe = attempts.reduce((max, a) => Math.max(max, Number(a.ke) || 0), 0) + 1;
+    const draftValid = prog && Number(prog.draft_for_attempt) === nextKe;
+    if (prog && prog.draft_answers && Object.keys(prog.draft_answers).length && !draftValid) {
+      prog.draft_answers = {};
+    }
     const summary = summarizeAttempts(attempts);
     const bestScore = attempts.length ? summary.best_score : (prog ? prog.best_score : null);
     const topicProgress = prog && prog.topic_progress || {};
@@ -607,7 +651,7 @@ function registerKurikulum(app, deps) {
         total_topics: topicCount,
         answered_questions: answeredCount,
         total_questions: (bab.soal || []).length,
-        draft_answers: student && prog ? (prog.draft_answers || {}) : {},
+        draft_answers: student && prog && draftValid ? (prog.draft_answers || {}) : {},
         attempts_left: null,
         riwayat: attempts.map(a => ({ ke: a.ke, score: a.score, benar: a.benar, total: a.total, created_at: a.created_at }))
       }
@@ -689,6 +733,7 @@ function registerKurikulum(app, deps) {
     prog.penalty_count = summary.penalty_count;
     prog.last_answered_count = countAnsweredQuestions(soalList, answers);
     prog.draft_answers = {};
+    prog.draft_for_attempt = null;
     prog.updated_at = new Date().toISOString();
     prog.tuntas = summary.best_score >= KKM;
 

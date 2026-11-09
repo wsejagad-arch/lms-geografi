@@ -94,6 +94,41 @@ try {
     typeof second.highest_attempt === 'number' && second.penalty_count >= 0,
     `tertinggi=${second.highest_score} ke=${second.highest_attempt} penalty=${second.penalty_count}`);
 
+  // Draf dari percobaan yang sudah tersimpan tidak boleh muncul lagi saat bab dibuka.
+  const openBab = async (cookie) => {
+    const res = await fetch(`${BASE}/api/kurikulum/${babId}`, { headers: { Cookie: cookie } });
+    return { status: res.status, body: await res.json().catch(() => ({})) };
+  };
+  const draftAfterSubmit = await openBab(sessions[0].cookie);
+  const draftIds = Object.keys(draftAfterSubmit.body.progress?.draft_answers || {});
+  check('draf jawaban lama tidak dikirim lagi setelah percobaan tersimpan',
+    draftAfterSubmit.status === 200 && draftIds.length === 0, `status=${draftAfterSubmit.status} draf=${draftIds.length}`);
+
+  const babDir = path.join(root, 'data', 'kurikulum', 'kelas-x');
+  const babFile = fs.existsSync(babDir) ? fs.readdirSync(babDir).find(f => f.endsWith('.json')) : null;
+  const soalList = babFile
+    ? JSON.parse(fs.readFileSync(path.join(babDir, babFile), 'utf8')).flat().find(b => b.id === babId)?.soal || []
+    : [];
+  const firstSoalId = soalList[0] ? soalList[0].id : null;
+  const putDraft = (cookie, answers) => fetch(`${BASE}/api/kurikulum/${babId}/progress`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', Cookie: cookie },
+    body: JSON.stringify({ answers })
+  });
+  if (firstSoalId) {
+    await putDraft(sessions[0].cookie, { [firstSoalId]: 0 });
+    const freshDraft = await openBab(sessions[0].cookie);
+    check('draf baru untuk percobaan berikutnya tetap dipulihkan',
+      Object.keys(freshDraft.body.progress?.draft_answers || {}).length === 1,
+      `draf=${Object.keys(freshDraft.body.progress?.draft_answers || {}).length}`);
+
+    await submit(sessions[0].cookie, babId, { [firstSoalId]: 0 });
+    const afterRetry = await openBab(sessions[0].cookie);
+    check('draf yang sudah dikirim pada pengulangan ikut dibuang',
+      Object.keys(afterRetry.body.progress?.draft_answers || {}).length === 0,
+      `draf=${Object.keys(afterRetry.body.progress?.draft_answers || {}).length}`);
+  }
+
   // 2. Pengiriman bersamaan oleh beberapa siswa: tidak boleh ada yang hilang.
   const burst = [];
   const rounds = 3;
@@ -110,7 +145,7 @@ try {
     perStudent.set(a.student_id, (perStudent.get(a.student_id) || 0) + 1);
   }
   const counts = [...perStudent.values()];
-  const expectedFirst = 2 + rounds; // 2 percobaan berurutan + burst
+  const expectedFirst = 2 + rounds + (firstSoalId ? 1 : 0); // 2 percobaan berurutan + burst (+1 bila uji draf berjalan)
   const expectedOthers = rounds;
   const siswaIds = siswa.map(s => s.id);
   const actualFirst = perStudent.get(siswaIds[0]) || 0;

@@ -25,7 +25,11 @@ async function blApi(path, options = {}) {
     ...options
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || 'Gagal memuat data');
+  if (!res.ok) {
+    const err = new Error(res.status === 401 ? 'Sesi berakhir. Silakan masuk kembali lalu kirim ulang jawaban.' : (data.error || 'Gagal memuat data'));
+    err.status = res.status;
+    throw err;
+  }
   return data;
 }
 
@@ -347,7 +351,32 @@ function blUpdateProgressDisplay() {
   p.answered_questions = answered;
 }
 
+// Simpan draf lokal saat sesi habis (401 atau jaringan putus) supaya jawaban tidak hilang
+// dan bisa dipulihkan setelah siswa masuk kembali.
+function blStashAnswersLocally() {
+  if (!blState.bab) return;
+  try {
+    localStorage.setItem('bl_pending_' + blState.bab.id, JSON.stringify(blState.answers || {}));
+  } catch (e) { /* penyimpanan penuh/diblokir: abaikan */ }
+}
+
+function blTakeStashedAnswers(babId) {
+  try {
+    const raw = localStorage.getItem('bl_pending_' + babId);
+    if (!raw) return null;
+    localStorage.removeItem('bl_pending_' + babId);
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : null;
+  } catch (e) {
+    return null;
+  }
+}
+
 function blShowProgressSaveError(error) {
+  if (error && error.status === 401) {
+    blStashAnswersLocally();
+    if (blState.examSubmitting) blState.examSubmitting = false;
+  }
   const status = document.getElementById('bl-progress-status');
   if (status) {
     status.textContent = 'Progres belum tersimpan: ' + (error.message || 'gagal menyimpan');
@@ -363,8 +392,11 @@ function blQueueProgressSave() {
   }, 450);
 }
 
-function blSaveProgress() {
+function blSaveProgress(options) {
   if (!blState.bab) return Promise.resolve(null);
+  // Saat pengiriman jawaban berjalan, progres tidak dimuat ulang: angka percobaan dan
+  // draf harus mengikuti respons /evaluasi, bukan snapshot sebelum pengiriman.
+  if (blState.examSubmitting && !(options && options.force)) return Promise.resolve(null);
   const b = blState.bab;
   b.progress = b.progress || {};
   const gateRemaining = blExamGateRemaining();
@@ -381,6 +413,7 @@ function blSaveProgress() {
     topic_progress: Object.assign({}, blState.topicProgress),
     answers: JSON.parse(JSON.stringify(blState.answers || {}))
   };
+  blState.pendingPayload = payload;
   const request = blProgressRequest.catch(function () {}).then(function () {
     const status = document.getElementById('bl-progress-status');
     if (status) {
@@ -605,7 +638,11 @@ async function blOpenBab(id) {
   host.innerHTML = '<p class="bl-loading">Memuat materi…</p>';
   try {
     blState.bab = await blApi('/api/kurikulum/' + encodeURIComponent(id));
-    blState.answers = Object.assign({}, blState.bab.progress.draft_answers || {});
+    blState.examSubmitting = false;
+    const serverDraft = blState.bab.progress.draft_answers || {};
+    const localDraft = blTakeStashedAnswers(id);
+    blState.answers = Object.assign({}, serverDraft, localDraft || {});
+    if (localDraft) blQueueProgressSave();
     blState.topicProgress = Object.assign({}, blState.bab.progress.topic_progress || {});
     blState.lastResult = null;
     blState.activeTopicIndex = 0;
@@ -903,16 +940,23 @@ async function blSubmit() {
       clearTimeout(blProgressTimer);
       blProgressTimer = null;
     }
-    await blSaveProgress();
+    // force: draf tetap disimpan walau tombol kirim sudah menandai pengiriman berjalan.
+    await blSaveProgress({ force: true });
     const result = await blApi('/api/kurikulum/' + encodeURIComponent(b.id) + '/evaluasi', {
       method: 'POST',
       body: JSON.stringify({ answers: blState.answers })
     });
+    blState.examSubmitting = false;
     blState.lastResult = result;
     b.progress.attempts = result.attempts;
     b.progress.best_score = result.best_score;
+    b.progress.highest_score = result.highest_score;
+    b.progress.highest_attempt = result.highest_attempt;
+    b.progress.penalty_count = result.penalty_count;
     b.progress.last_answered_count = blCountAnswered(blState.answers, b.soal);
     b.progress.draft_answers = {};
+    b.progress.tuntas = !!result.tuntas;
+    try { localStorage.removeItem('bl_pending_' + b.id); } catch (e) { /* abaikan */ }
     blUpdateProgressDisplay();
     blRenderResult(result);
     LMS_CACHE.invalidate();
@@ -921,10 +965,34 @@ async function blSubmit() {
     blShowProgressSaveError(err);
     alert(err.message);
     btn.disabled = false;
-    delete btn.dataset.sending;
+    btn.textContent = 'Kirim Jawaban';
+    if (btn.dataset) delete btn.dataset.sending;
     blState.examSubmitting = false;
     blRenderExamTimer();
   }
+}
+
+function blStartRetry() {
+  const b = blState.bab;
+  if (!b) return;
+  blResetExamClock();
+  blState.lastResult = null;
+  blState.answers = {};
+  blState.examSubmitting = false;
+  // Buang draf lama di server agar pengulangan mulai dari lembar jawaban kosong.
+  const payload = {
+    topic_progress: Object.assign({}, blState.topicProgress),
+    answers: {}
+  };
+  blProgressRequest = blProgressRequest.catch(function () {}).then(function () {
+    return blApi('/api/kurikulum/' + encodeURIComponent(b.id) + '/progress', {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    });
+  }).then(function (progress) {
+    if (progress) Object.assign(b.progress, progress);
+  }).catch(function () { /* diabaikan: server juga membuang draf saat bab dibuka ulang */ });
+  blStartEval();
 }
 
 function blRenderResult(r) {
@@ -962,11 +1030,7 @@ function blRenderResult(r) {
   ].join('');
 
   const againEl = document.getElementById('bl-again');
-  if (againEl) againEl.addEventListener('click', function () {
-    blState.lastResult = null;
-    blState.answers = {};
-    blStartEval();
-  });
+  if (againEl) againEl.addEventListener('click', blStartRetry);
 
   if (r.tuntas) {
     const box = document.getElementById('bl-steps-bottom');

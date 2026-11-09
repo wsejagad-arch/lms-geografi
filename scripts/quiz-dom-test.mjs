@@ -162,7 +162,10 @@ const sandbox = {
   setTimeout, clearTimeout,
   fetch: async (url, opts) => {
     sent.push({ url, body: opts && opts.body ? JSON.parse(opts.body) : null });
-    return { ok: true, json: async () => lastResponse };
+    const pathname = String(url).split('?')[0];
+    // PUT /progress membalas ringkasan progres; endpoint lain membalas hasil evaluasi.
+    const body = pathname.endsWith('/progress') ? { topic_progress: {}, answered_questions: 0 } : lastResponse;
+    return { ok: true, status: 200, json: async () => body };
   },
 };
 sandbox.window = sandbox;
@@ -220,6 +223,8 @@ T.state.bab = {
     { id: 's4', tipe: 'pgm', pertanyaan: 'Pilih satu kombinasi', opsi: ['A dan B', 'A dan C', 'B dan C'], kunci: [2] },
     { id: 's5', tipe: 'menjodohkan', pertanyaan: 'Pasangkan', kiri: ['P1', 'P2'], kanan: ['A', 'B'], kunci: [1, 0] },
   ],
+  // Endpoint bab selalu mengirim objek progress (lihat GET /api/kurikulum/:babId).
+  progress: { attempts: 0, best_score: null, draft_answers: {}, topic_progress: {} },
 };
 T.state.answers = { s1: 0 };
 T.blStartEval();
@@ -282,12 +287,25 @@ check('progres disimpan sebelum evaluasi dikirim',
 check('payload evaluasi berisi jawaban per id soal', sent[1]?.body?.answers?.s1 === 2 && JSON.stringify(sent[1]?.body?.answers?.s2) === '[0,2]'
   && sent[1]?.body?.answers?.s4 === 2 && JSON.stringify(sent[1]?.body?.answers?.s5) === '[1,0]',
   JSON.stringify(sent[1]?.body?.answers || {}));
+
+// Pengiriman kedua: progres bab harus dimuat ulang lagi agar nomor percobaan sinkron.
+// Salinan respons dipertahankan karena pengulangan membaca ulang cache/rekap pada akhir uji.
+const sentBeforeRetry = sent.length;
+await T.blSubmit();
+const retrySent = sent.slice(sentBeforeRetry);
+check('pengulangan tetap menyimpan draf sebelum evaluasi dikirim',
+  retrySent.length === 2
+    && (retrySent[0]?.url || '').endsWith('/api/kurikulum/x-01/progress')
+    && (retrySent[1]?.url || '').endsWith('/api/kurikulum/x-01/evaluasi'),
+  retrySent.map((r) => r.url).join(' → '));
 check('skor dari server ditampilkan', /\b100\b/.test(dom.host.innerHTML) && /bl-score/.test(dom.host.innerHTML), '');
 cacheInvalidated = vm.runInContext('globalThis.__cacheInvalidated || 0', sandbox);
 dashboardRefreshes = vm.runInContext('globalThis.__dashboardRefreshes || 0', sandbox);
 gradeRefreshes = vm.runInContext('globalThis.__gradeRefreshes || 0', sandbox);
+// Dua pengiriman berhasil (awal + pengulangan): cache & rekap diperbarui satu kali per kirim.
+const expectedRefreshes = 2;
 check('rekap beranda dan riwayat diperbarui setelah evaluasi',
-  cacheInvalidated === 1 && dashboardRefreshes === 1 && gradeRefreshes === 1,
+  cacheInvalidated === expectedRefreshes && dashboardRefreshes === expectedRefreshes && gradeRefreshes === expectedRefreshes,
   `cache=${cacheInvalidated} dashboard=${dashboardRefreshes} nilai=${gradeRefreshes}${alerts.length ? ` alert=${alerts[0]}` : ''}`);
 
 const failed = results.filter((r) => !r.ok);
