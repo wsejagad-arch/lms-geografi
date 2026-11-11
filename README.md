@@ -218,6 +218,10 @@ Contoh tugas siap pakai (video Watchdoc "Karhutla Tiga Dekade", 15 soal HOTS):
 `npm run seed:video-task` — tambahkan `-- --class "X E 6"` untuk membatasi kelas, atau
 `-- --force` untuk memperbarui. Tanpa `--class`, tugas tampil untuk semua kelas.
 
+Contoh tugas kedua (video Animal Scripts "Hutan Kalimantan: Lebih Purba dari Amazon", 30 soal:
+24 analisis pilihan ganda + 6 uraian):
+`npm run seed:video-task-hutan` — opsi `-- --class "XI F 1"` dan `-- --force` sama seperti di atas.
+
 ### Dashboard
 - `GET /api/dashboard` - Dashboard stats
 
