@@ -71,10 +71,13 @@ lms-geografi-multi/
 ├── package.json       # Dependencies
 ├── data/
 │   ├── db.json        # Database (auto-generated)
+│   ├── tka/           # Sumber paket soal TKA (paket-1.js … paket-4.js)
 │   └── kurikulum/
-│       ├── kelas-x/   # 8 bab Fase E (01-02.json … 07-08.json)
+│       ├── kelas-x/   # 12 bab Fase E (01-02.json … 07-08.json + 09-12 TKA)
 │       ├── kelas-xi/  # 8 bab Fase F (01-02.json … 07-08.json)
 │       └── kelas-xii/ # belum diisi (kewilayahan Fase F)
+├── docs/
+│   └── TKA-Geografi-Kelas-X.md # Versi cetak 120 soal + kunci (hasil build)
 └── public/
     ├── index.html     # Login
     ├── admin.html     # Panel admin
@@ -221,6 +224,28 @@ Contoh tugas siap pakai (video Watchdoc "Karhutla Tiga Dekade", 15 soal HOTS):
 Contoh tugas kedua (video Animal Scripts "Hutan Kalimantan: Lebih Purba dari Amazon", 30 soal:
 24 analisis pilihan ganda + 6 uraian):
 `npm run seed:video-task-hutan` — opsi `-- --class "XI F 1"` dan `-- --force` sama seperti di atas.
+
+### Paket Soal TKA
+
+Empat paket TKA Kelas X berada di `data/kurikulum/kelas-x/09-12` dan dibuat dari sumber
+ringkas `data/tka/paket-1.js … paket-4.js`:
+
+```
+npm run build:tka
+```
+
+Skrip `scripts/build-tka-kelas-x.js` memvalidasi setiap butir (5 opsi per pilihan ganda,
+kunci 2-4 pilihan untuk pilihan ganda kompleks, 5 pasangan menjodohkan, 4 pernyataan
+benar-salah, pembahasan minimal 60 karakter), lalu menulis 4 berkas bab (30 soal tiap bab)
+dan dokumen cetak `docs/TKA-Geografi-Kelas-X.md` berisi 120 soal beserta kunci.
+
+Komposisi tiap paket: 6 pilihan ganda, 6 pilihan ganda majemuk, 6 pilihan ganda kompleks,
+6 menjodohkan, dan 6 pernyataan benar-salah. Semua soal memakai stimulus artikel, tabel,
+atau video YouTube sesuai materi (sejarah geografi, objek studi, 10 konsep, prinsip, dan
+pendekatan geografi). Bab bertanda `bebas_akses: true` sehingga dapat dikerjakan tanpa
+menunggu prasyarat bab sebelumnya atau semester aktif.
+
+Uji struktur paket: `node scripts/tka-test.mjs` (juga dijalankan oleh `npm test`).
 
 ### Dashboard
 - `GET /api/dashboard` - Dashboard stats

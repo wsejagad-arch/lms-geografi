@@ -1,0 +1,570 @@
+// Paket 2 TKA Geografi Kelas X - objek studi, 10 konsep esensial, dan 4 prinsip geografi.
+module.exports = {
+  bab: {
+    id: 'x-10',
+    kelas: 'X',
+    urutan: 10,
+    fase: 'E',
+    elemen: 'Pemahaman Konsep dan Keterampilan Proses Geografi',
+    judul: 'TKA Geografi 2: Objek Studi, Konsep Esensial, dan Prinsip Geografi',
+    ringkasan: 'Paket soal TKA HOTS tentang objek material dan formal geografi, sepuluh konsep esensial, serta empat prinsip geografi yang diterapkan pada kasus pesisir, kekeringan, dan kualitas udara di Indonesia.',
+    estimasi: '3 JP',
+    semester: 2,
+    bebas_akses: true,
+    cp: 'Peserta didik mampu membedakan objek material dan formal geografi, menerapkan sepuluh konsep esensial serta empat prinsip geografi untuk menganalisis fenomena aktual Indonesia.',
+    tujuan: [
+      'Membedakan objek material, objek formal, serta aspek fisik dan sosial geografi.',
+      'Menerapkan sepuluh konsep esensial geografi pada fenomena nyata.',
+      'Menggunakan empat prinsip geografi untuk menjelaskan hubungan antarfenomena.',
+      'Mengevaluasi ketepatan konsep yang dipakai dalam pembacaan kasus lingkungan Indonesia.'
+    ],
+    materi: [
+      {
+        id: 't1',
+        judul: 'Ringkasan: Objek, Konsep, dan Prinsip',
+        html: '<p>Objek material geografi adalah geosfer (litosfer, atmosfer, hidrosfer, biosfer, dan antroposfer), sedangkan objek formalnya adalah sudut pandang keruangan, kelingkungan, dan kewilayahan. Sepuluh konsep esensial: lokasi, jarak, keterjangkauan, pola, aglomerasi, nilai guna, interaksi dan interdependensi, diferensiasi area, keterkaitan ruang, serta morfologi. Empat prinsip: distribusi, interelasi, deskripsi, dan korologi.</p>'
+      }
+    ],
+    glosarium: [
+      { istilah: 'objek material', arti: 'sasaran kajian berupa benda dan proses di geosfer.' },
+      { istilah: 'objek formal', arti: 'sudut pandang yang dipakai untuk mengkaji objek material, yaitu keruangan, kelingkungan, dan kewilayahan.' },
+      { istilah: 'aglomerasi', arti: 'pemusatan aktivitas atau penduduk pada suatu wilayah karena faktor penarik tertentu.' },
+      { istilah: 'diferensiasi area', arti: 'perbedaan karakteristik antartempat yang melahirkan keunggulan dan ketergantungan.' },
+      { istilah: 'prinsip korologi', arti: 'prinsip yang memadukan distribusi, interelasi, dan deskripsi dalam satu kesatuan wilayah.' },
+      { istilah: 'morfologi', arti: 'kajian bentuk muka bumi dan pola keruangan yang terbentuk karenanya.' }
+    ]
+  },
+  klaster: [
+    {
+      stimulus: {
+        jenis: 'teks',
+        judul: 'Rob Pekalongan: Ketika Objek Fisik dan Sosial Bertemu',
+        isi: '<p>Kawasan pesisir Pekalongan mengalami banjir rob berulang. Penurunan muka tanah akibat pengambilan air tanah dan beban bangunan memperparah genangan, sementara kenaikan muka laut menambah tinggi air pasang. Rumah warga, kawasan industri batik, dan lahan tambak terdampak. Sebagian warga menaikkan lantai rumah, sebagian lain memilih pindah. Pemerintah membangun tanggul laut dan rumah pompa, tetapi kritik muncul karena genangan tetap terjadi di titik tertentu.</p><p>Fenomena ini dapat dibaca dari dua sisi. Secara fisik, ia menyangkut litosfer yang turun dan hidrosfer yang naik. Secara sosial, ia menyangkut mata pencaharian, pola permukiman, dan kemampuan ekonomi rumah tangga untuk beradaptasi.</p>',
+        sumber: 'Kasus banjir rob pesisir Pekalongan (laporan media dan kajian pesisir)'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Membedakan objek material dan objek formal',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Kajian tentang penurunan muka tanah dan kenaikan muka laut pada kasus Pekalongan termasuk objek ...',
+          opsi: [
+            'Material geografi karena menyangkut proses pada litosfer dan hidrosfer.',
+            'Formal geografi karena hanya berkaitan dengan sudut pandang keruangan.',
+            'Formal geografi karena membahas kebijakan pemerintah daerah.',
+            'Material sosiologi karena membahas perilaku warga yang pindah.',
+            'Material ekonomi karena membahas kerugian industri batik.'
+          ],
+          kunci: [0],
+          pembahasan: 'Penurunan muka tanah dan kenaikan muka laut adalah proses pada geosfer sehingga termasuk objek material. Objek formal adalah sudut pandang yang dipakai untuk mengkajinya.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C4',
+          literasi: 'Mengidentifikasi aspek fisik dan sosial',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Penurunan muka tanah merupakan aspek fisik; (2) Kenaikan muka laut merupakan aspek fisik; (3) Kemampuan ekonomi rumah tangga beradaptasi merupakan aspek sosial; (4) Seluruh dampak rob hanya bersifat fisik dan tidak berkaitan dengan kehidupan sosial. Pernyataan yang tepat adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Pernyataan (4) jelas bertentangan dengan stimulus yang menyebut dampak pada mata pencaharian, permukiman, dan kemampuan adaptasi warga.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Mengevaluasi penerapan sudut pandang geografi',
+          numerasi: 'Menimbang data fisik dan sosial',
+          pertanyaan: 'Pilih semua pernyataan yang menunjukkan penggunaan sudut pandang kelingkungan pada kasus Pekalongan.',
+          opsi: [
+            'Menganalisis hubungan antara pengambilan air tanah dan penurunan muka tanah.',
+            'Menilai keterkaitan antara kenaikan muka laut dan intensitas genangan rob.',
+            'Menghitung jumlah rumah yang terdampak tanpa melihat proses lingkungannya.',
+            'Membandingkan kemampuan adaptasi rumah tangga berdasarkan tingkat pendapatan.',
+            'Mencatat nama kelurahan yang tergenang tanpa menghubungkannya dengan proses lingkungan.'
+          ],
+          kunci: [0, 1, 3],
+          pembahasan: 'Sudut pandang kelingkungan menekankan relasi timbal balik antara manusia dan lingkungan. Menghitung jumlah rumah tanpa proses lingkungan hanya bersifat deskriptif.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan aspek dengan contohnya',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan aspek pada kolom kiri dengan contoh yang paling tepat pada kolom kanan.',
+          kiri: ['Aspek fisik litosfer', 'Aspek fisik hidrosfer', 'Aspek sosial ekonomi', 'Aspek sosial budaya', 'Aspek keruangan'],
+          kanan: [
+            'Pola permukiman memanjang mengikuti garis pantai',
+            'Kebiasaan warga menaikkan lantai rumah secara gotong royong',
+            'Penurunan muka tanah akibat beban bangunan dan pengambilan air tanah',
+            'Kerugian usaha batik karena bahan dan peralatan terendam',
+            'Naiknya tinggi muka laut yang memperparah genangan pasang'
+          ],
+          kunci: [2, 4, 3, 1, 0],
+          pembahasan: 'Litosfer (C), hidrosfer (E), sosial ekonomi (D), sosial budaya (B), dan keruangan (A).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai pernyataan tentang objek studi',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Objek formal geografi adalah sudut pandang yang dipakai untuk mengkaji geosfer, bukan benda fisiknya.',
+            'Banjir rob hanya dapat dikaji sebagai peristiwa fisik tanpa melibatkan aspek sosial.',
+            'Aspek sosial geografi mencakup pola permukiman, mata pencaharian, dan kelembagaan warga.',
+            'Objek material geografi meliputi litosfer, atmosfer, hidrosfer, biosfer, dan antroposfer.'
+          ],
+          kunci: ['B', 'S', 'B', 'B'],
+          pembahasan: 'Rob selalu memiliki dimensi sosial, sedangkan tiga pernyataan lain sesuai dengan batasan objek material dan formal geografi.'
+        },
+        {
+          tipe: 'pg_singkat',
+          level: 'C5',
+          literasi: 'Menilai ketepatan fokus kajian',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jika seorang peneliti ingin menjelaskan mengapa genangan rob lebih parah di satu kelurahan dibanding kelurahan lain, fokus kajian yang paling tepat adalah ...',
+          opsi: [
+            'Mendeskripsikan seluruh jenis batik yang diproduksi warga setempat.',
+            'Membandingkan kondisi topografi, kepadatan bangunan, dan kedalaman genangan antarwilayah.',
+            'Mencatat riwayat politik lokal di kedua kelurahan.',
+            'Menghitung jumlah kendaraan bermotor yang melintas setiap hari.',
+            'Mengumpulkan daftar harga tanah di pusat kota.'
+          ],
+          kunci: [1],
+          pembahasan: 'Pertanyaan keruangan tentang mengapa dampak berbeda menuntut perbandingan variabel fisik dan spasial antarlokasi, bukan data yang tidak relevan.'
+        }
+      ]
+    },
+    {
+      stimulus: {
+        jenis: 'video',
+        judul: 'Video Pemantik: Sepuluh Konsep Geografi dan Contohnya',
+        youtube_id: 'Ep4ClAWiVIw',
+        isi: '<p>Video ini menjabarkan sepuluh konsep dasar geografi beserta contoh penerapannya. Sambil menonton, catat pasangan konsep dan contoh yang disebutkan, lalu bandingkan dengan tabel pada stimulus berikutnya. Perhatikan bahwa satu fenomena dapat dianalisis dengan lebih dari satu konsep.</p><p>Setelah menonton, uji pemahamanmu dengan menetapkan satu peristiwa lokal dan menjelaskannya memakai tiga konsep berbeda, misalnya pola, aglomerasi, dan keterkaitan ruang.</p>',
+        sumber: 'YouTube - Belajar Geo bareng Bu Laras: 10 Konsep Geografi (disertai contoh soal)'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Menentukan konsep yang sesuai dengan fenomena',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Penduduk dari berbagai daerah menetap di sekitar kawasan industri karena tersedia banyak pekerjaan. Fenomena tersebut paling tepat dijelaskan dengan konsep ...',
+          opsi: [
+            'Aglomerasi karena aktivitas dan penduduk memusat pada satu kawasan.',
+            'Morfologi karena bentuk lahan menentukan pola permukiman.',
+            'Diferensiasi area karena setiap daerah memiliki ciri berbeda.',
+            'Nilai guna karena lahan dinilai berdasarkan kesuburannya.',
+            'Jarak relatif karena waktu tempuh antarkota berubah.'
+          ],
+          kunci: [0],
+          pembahasan: 'Pemusatan penduduk dan aktivitas di sekitar kawasan industri merupakan gejala aglomerasi, yaitu pengelompokan pada satu pusat kegiatan.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C4',
+          literasi: 'Menguji pemahaman pasangan konsep dan contoh',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Perjalanan Jakarta-Bandung yang kini lebih singkat menunjukkan perubahan jarak relatif; (2) Harga barang di pegunungan lebih mahal karena keterjangkauan terbatas; (3) Pemukiman memanjang di sepanjang jalan mencerminkan konsep pola; (4) Konsep morfologi hanya mengkaji tinggi rendahnya bangunan. Pernyataan yang tepat adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Morfologi mengkaji bentuk muka bumi dan pola keruangan yang berkaitan dengannya, bukan sekadar tinggi rendah bangunan, sehingga pernyataan (4) salah.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Menganalisis fenomena dengan beberapa konsep',
+          numerasi: 'Menghubungkan jarak, waktu, dan biaya',
+          pertanyaan: 'Pilih semua pernyataan yang tepat menggambarkan konsep jarak dan keterjangkauan pada pembangunan tol trans-Jawa.',
+          opsi: [
+            'Waktu tempuh yang lebih singkat menunjukkan perubahan jarak relatif antarkota.',
+            'Biaya logistik yang menurun mencerminkan peningkatan keterjangkauan wilayah.',
+            'Jarak absolut antarkota berubah setiap kali jalan tol dibuka.',
+            'Arus barang yang lebih lancar dapat memengaruhi pertumbuhan aktivitas ekonomi di sekitar gerbang tol.',
+            'Pembangunan tol menghapus perbedaan karakteristik wilayah yang dilaluinya.'
+          ],
+          kunci: [0, 1, 3],
+          pembahasan: 'Jarak absolut antarkota tidak berubah karena pembangunan jalan; yang berubah adalah jarak relatif, waktu tempuh, biaya, dan keterjangkauan.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan konsep dengan contoh',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan konsep pada kolom kiri dengan contoh yang paling tepat pada kolom kanan.',
+          kiri: ['Pola', 'Nilai guna', 'Interaksi keruangan', 'Diferensiasi area', 'Keterkaitan ruang'],
+          kanan: [
+            'Wilayah A penghasil sayur memasok kebutuhan wilayah B yang padat penduduk',
+            'Lahan di pusat kota dinilai lebih tinggi karena akses dan permintaan',
+            'Permukiman tersusun mengikuti alur sungai membentuk memanjang',
+            'Kawasan hulu yang gundul meningkatkan risiko banjir di hilir',
+            'Dataran tinggi menghasilkan hortikultura, dataran rendah menghasilkan padi'
+          ],
+          kunci: [2, 1, 0, 4, 3],
+          pembahasan: 'Pola (C), nilai guna (B), interaksi keruangan (A), diferensiasi area (E), dan keterkaitan ruang (D).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai pernyataan konseptual',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Konsep lokasi dibedakan menjadi lokasi absolut yang tetap dan lokasi relatif yang bergantung pada tempat lain.',
+            'Konsep morfologi hanya membahas bentuk bangunan dan tidak berkaitan dengan bentuk muka bumi.',
+            'Aglomerasi menjelaskan pemusatan aktivitas pada suatu kawasan karena faktor penarik tertentu.',
+            'Diferensiasi area menyatakan bahwa semua wilayah memiliki karakteristik yang sama.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Morfologi berkaitan dengan bentuk muka bumi, sedangkan diferensiasi area justru menegaskan perbedaan karakteristik antartempat.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C5',
+          literasi: 'Mengevaluasi pemilihan konsep dalam analisis',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Satu fenomena dapat dijelaskan dengan lebih dari satu konsep geografi; (2) Pemilihan konsep bergantung pada pertanyaan penelitian yang diajukan; (3) Konsep jarak relatif tepat untuk menjelaskan perubahan waktu tempuh; (4) Konsep lokasi absolut tepat untuk menjelaskan perubahan harga tanah. Pernyataan yang tepat adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Perubahan harga tanah lebih tepat dijelaskan dengan nilai guna dan aksesibilitas, bukan lokasi absolut yang menunjuk koordinat tetap.'
+        }
+      ]
+    },
+    {
+      stimulus: {
+        jenis: 'tabel',
+        judul: 'Sepuluh Konsep Esensial dan Fenomena Pendukungnya',
+        isi: '<table><thead><tr><th>Konsep</th><th>Inti</th><th>Contoh fenomena</th></tr></thead><tbody><tr><td>Lokasi</td><td>Posisi absolut dan relatif suatu tempat</td><td>Koordinat IKN dan posisinya terhadap Selat Makassar</td></tr><tr><td>Jarak</td><td>Ruang antara dua tempat, absolut atau relatif</td><td>Waktu tempuh Jakarta-Surabaya sebelum dan sesudah tol</td></tr><tr><td>Keterjangkauan</td><td>Kemudahan mencapai suatu tempat</td><td>Harga bahan pokok di pedalaman Papua</td></tr><tr><td>Pola</td><td>Susunan keruangan objek</td><td>Permukiman memanjang di tepi jalan dan sungai</td></tr><tr><td>Aglomerasi</td><td>Pemusatan aktivitas</td><td>Kawasan industri dan permukiman pekerja</td></tr><tr><td>Nilai guna</td><td>Manfaat suatu tempat berbeda bagi pengguna</td><td>Lahan pesisir untuk tambak atau pelabuhan</td></tr><tr><td>Interaksi dan interdependensi</td><td>Saling hubungan dan saling bergantung</td><td>Desa pemasok sayur ke kota</td></tr><tr><td>Diferensiasi area</td><td>Perbedaan karakteristik wilayah</td><td>Dataran tinggi hortikultura, dataran rendah padi</td></tr><tr><td>Keterkaitan ruang</td><td>Dampak suatu tempat terhadap tempat lain</td><td>Kerusakan hulu memicu banjir hilir</td></tr><tr><td>Morfologi</td><td>Bentuk muka bumi dan pola keruangannya</td><td>Pola aliran dan permukiman di lembah sungai</td></tr></tbody></table>',
+        sumber: 'Sintesis konsep esensial geografi'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Mencocokkan fenomena dengan konsep',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Kerusakan hutan di bagian hulu yang meningkatkan risiko banjir di bagian hilir paling tepat dijelaskan dengan konsep ...',
+          opsi: [
+            'Keterkaitan ruang karena perubahan di satu tempat memengaruhi tempat lain.',
+            'Morfologi karena bentuk lahan menentukan arah aliran air.',
+            'Nilai guna karena hutan memiliki manfaat ekonomi berbeda.',
+            'Pola karena permukiman tersusun mengikuti alur sungai.',
+            'Lokasi absolut karena koordinat hulu dan hilir berbeda.'
+          ],
+          kunci: [0],
+          pembahasan: 'Hubungan sebab-akibat antara hulu dan hilir merupakan contoh keterkaitan ruang, yaitu dampak suatu wilayah terhadap wilayah lain.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C5',
+          literasi: 'Menguji kesesuaian tabel dengan penerapan konsep',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Harga bahan pokok di pedalaman yang tinggi berkaitan dengan keterjangkauan; (2) Permukiman memanjang di tepi jalan mencerminkan konsep pola; (3) Lahan pesisir yang dinilai berbeda untuk tambak dan pelabuhan mencerminkan nilai guna; (4) Morfologi hanya menjelaskan ketinggian tempat, bukan pola keruangan. Pernyataan yang sesuai tabel adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Tabel menyebut morfologi mencakup bentuk muka bumi dan pola keruangannya, sehingga pernyataan (4) tidak sesuai.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Menganalisis kasus dengan beberapa konsep sekaligus',
+          numerasi: 'Membandingkan indikator wilayah',
+          pertanyaan: 'Pilih semua pernyataan yang tepat mengenai kawasan industri di pinggiran kota berdasarkan tabel.',
+          opsi: [
+            'Pemusatan pabrik dan permukiman pekerja menunjukkan gejala aglomerasi.',
+            'Nilai lahan di sekitar kawasan industri meningkat karena akses dan permintaan.',
+            'Perpindahan bahan baku dari daerah lain menunjukkan interaksi keruangan.',
+            'Konsep diferensiasi area menyatakan seluruh kawasan industri memiliki kondisi identik.',
+            'Pola permukiman pekerja yang mengelompok dapat dianalisis dengan konsep pola.'
+          ],
+          kunci: [0, 1, 2, 4],
+          pembahasan: 'Diferensiasi area justru menekankan perbedaan karakteristik, sehingga pernyataan bahwa semua kawasan identik bertentangan dengan konsep tersebut.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan konsep dengan inti definisinya',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan konsep pada kolom kiri dengan inti definisinya pada kolom kanan.',
+          kiri: ['Keterjangkauan', 'Nilai guna', 'Pola', 'Aglomerasi', 'Morfologi'],
+          kanan: [
+            'Susunan atau bentuk persebaran objek dalam ruang',
+            'Manfaat suatu tempat yang berbeda bagi setiap pengguna',
+            'Bentuk muka bumi dan pola keruangan yang menyertainya',
+            'Kemudahan mencapai suatu lokasi dari lokasi lain',
+            'Pemusatan aktivitas pada satu kawasan'
+          ],
+          kunci: [3, 1, 0, 4, 2],
+          pembahasan: 'Keterjangkauan (D), nilai guna (B), pola (A), aglomerasi (E), dan morfologi (C).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai pernyataan berdasarkan tabel',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Konsep jarak dapat dibedakan menjadi jarak absolut dan jarak relatif.',
+            'Konsep interaksi dan interdependensi menegaskan bahwa wilayah tidak pernah saling membutuhkan.',
+            'Pola persebaran permukiman dapat menjadi petunjuk hubungan manusia dengan bentuk lahan.',
+            'Nilai guna suatu tempat selalu sama bagi semua kelompok pengguna.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Interaksi justru menekankan saling hubungan, dan nilai guna bersifat relatif tergantung pengguna serta tujuan pemanfaatan.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C6',
+          literasi: 'Mengevaluasi ketepatan konsep dalam perencanaan',
+          numerasi: 'Menimbang konsekuensi tata ruang',
+          pertanyaan: 'Pilih semua pernyataan yang menunjukkan pentingnya sepuluh konsep geografi dalam perencanaan tata ruang.',
+          opsi: [
+            'Konsep pola membantu menilai kesesuaian sebaran permukiman terhadap risiko banjir.',
+            'Konsep keterjangkauan membantu menentukan lokasi layanan kesehatan agar mudah dijangkau.',
+            'Konsep nilai guna membantu memilih peruntukan lahan yang sesuai karakter wilayah.',
+            'Konsep lokasi absolut cukup menjadi dasar tunggal dalam menetapkan seluruh kebijakan tata ruang.',
+            'Konsep jarak relatif tidak relevan dalam perencanaan lokasi fasilitas umum.'
+          ],
+          kunci: [0, 1, 2],
+          pembahasan: 'Perencanaan ruang membutuhkan kombinasi konsep, bukan hanya koordinat lokasi absolut yang tidak menjelaskan proses dan kebutuhan masyarakat.'
+        }
+      ]
+    },
+    {
+      stimulus: {
+        jenis: 'teks',
+        judul: 'Empat Prinsip Geografi dan Musim Kering Panjang',
+        isi: '<p>Prinsip distribusi menanyakan sebaran fenomena: di mana kekeringan paling parah, dan mengapa terkonsentrasi di wilayah tertentu. Prinsip interelasi menghubungkan gejala: kemarau panjang, tutupan lahan yang berkurang, dan kebakaran lahan saling terkait. Prinsip deskripsi menjelaskan ciri fenomena dengan uraian, tabel, atau peta. Prinsip korologi memadukan ketiganya dalam satu kesatuan wilayah sehingga kesimpulan tidak berhenti pada satu titik saja.</p><p>Pada musim kemarau panjang, sebagian desa mengalami kekurangan air bersih, sementara desa lain masih memiliki cadangan. Perbedaan itu tidak hanya ditentukan curah hujan, tetapi juga kondisi daerah tangkapan air, jenis tanah, dan praktik pengelolaan sumber daya.</p>',
+        sumber: 'Penerapan prinsip geografi pada kasus kekeringan'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Membedakan empat prinsip geografi',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Pernyataan yang paling tepat menggambarkan prinsip korologi adalah ...',
+          opsi: [
+            'Menjelaskan sebaran kekeringan pada peta tanpa menghubungkan faktor lain.',
+            'Memadukan distribusi, interelasi, dan deskripsi fenomena dalam satu kesatuan wilayah.',
+            'Mendeskripsikan curah hujan suatu daerah berdasarkan data BMKG.',
+            'Menghubungkan kemarau dengan kebakaran lahan tanpa memperhatikan sebaran.',
+            'Menghitung jumlah desa yang kekurangan air tanpa menjelaskan sebabnya.'
+          ],
+          kunci: [1],
+          pembahasan: 'Korologi merupakan prinsip yang memadukan distribusi, interelasi, dan deskripsi dalam satu kesatuan wilayah, sesuai stimulus.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C5',
+          literasi: 'Menilai penggunaan prinsip pada kasus',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Peta sebaran desa kekurangan air mencerminkan prinsip distribusi; (2) Hubungan kemarau panjang dengan kebakaran lahan mencerminkan prinsip interelasi; (3) Uraian ciri kekeringan di suatu desa mencerminkan prinsip deskripsi; (4) Prinsip korologi hanya memuat peta tanpa uraian dan hubungan sebab-akibat. Pernyataan yang tepat adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Korologi justru memadukan peta, uraian, dan hubungan sebab-akibat, sehingga pernyataan (4) salah.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Menerapkan prinsip interelasi',
+          numerasi: 'Menghubungkan variabel lingkungan',
+          pertanyaan: 'Pilih semua pernyataan yang menunjukkan penerapan prinsip interelasi pada kasus kekeringan.',
+          opsi: [
+            'Kemarau panjang meningkatkan penguapan sehingga cadangan air tanah menurun.',
+            'Berkurangnya tutupan vegetasi mengurangi kemampuan tanah menahan air.',
+            'Jumlah desa yang kekurangan air dihitung tanpa melihat faktor penyebabnya.',
+            'Kebakaran lahan memperparah kekeringan karena menghilangkan penutup tanah.',
+            'Curah hujan harian dicatat tanpa dihubungkan dengan kondisi cadangan air tanah.'
+          ],
+          kunci: [0, 1, 3],
+          pembahasan: 'Interelasi menekankan hubungan antarfenomena. Sekadar menghitung jumlah desa tanpa menjelaskan sebab termasuk deskripsi, bukan interelasi.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan prinsip dengan pertanyaan khasnya',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan prinsip pada kolom kiri dengan pertanyaan khas yang paling tepat pada kolom kanan.',
+          kiri: ['Distribusi', 'Interelasi', 'Deskripsi', 'Korologi', 'Kausalitas'],
+          kanan: [
+            'Mengapa kemarau panjang diikuti peningkatan kebakaran lahan',
+            'Bagaimana ciri kekeringan dijelaskan melalui uraian dan tabel',
+            'Di mana kekeringan paling parah terjadi dan bagaimana sebarannya',
+            'Bagaimana seluruh gejala itu dipadukan dalam satu wilayah',
+            'Apa sebab utama kekurangan air di suatu desa'
+          ],
+          kunci: [2, 0, 1, 3, 4],
+          pembahasan: 'Distribusi (C), interelasi (A), deskripsi (B), korologi (D), dan kausalitas (E).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai pernyataan tentang prinsip',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Prinsip distribusi berkaitan dengan pertanyaan di mana suatu fenomena terjadi dan bagaimana sebarannya.',
+            'Prinsip interelasi hanya mendeskripsikan ciri fenomena tanpa menghubungkannya dengan gejala lain.',
+            'Prinsip korologi memadukan distribusi, interelasi, dan deskripsi dalam satu kesatuan wilayah.',
+            'Prinsip deskripsi tidak dapat menggunakan tabel atau peta sebagai alat penjelasan.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Interelasi justru menghubungkan gejala, dan deskripsi dapat disajikan melalui uraian, tabel, diagram, maupun peta.'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C5',
+          literasi: 'Menilai kesimpulan analisis',
+          numerasi: 'Menimbang perbedaan kondisi antarwilayah',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk pernyataan berikut berdasarkan stimulus.',
+          pernyataan: [
+            'Perbedaan tingkat kekeringan antardesa hanya ditentukan oleh curah hujan.',
+            'Kondisi daerah tangkapan air ikut memengaruhi ketersediaan air suatu wilayah.',
+            'Prinsip korologi membantu menjelaskan mengapa dua desa dengan curah hujan serupa bisa berbeda kondisinya.',
+            'Praktik pengelolaan sumber daya tidak berpengaruh terhadap ketahanan air desa.'
+          ],
+          kunci: ['S', 'B', 'B', 'S'],
+          pembahasan: 'Stimulus menegaskan bahwa selain curah hujan, kondisi daerah tangkapan air, jenis tanah, dan praktik pengelolaan ikut menentukan.'
+        }
+      ]
+    },
+    {
+      stimulus: {
+        jenis: 'teks',
+        judul: 'Membaca Kualitas Udara Jakarta dengan Konsep dan Prinsip',
+        isi: '<p>Pada beberapa hari, konsentrasi partikel halus di Jakarta melewati baku mutu udara ambien. Sumbernya beragam: lalu lintas, industri, pembakaran, dan debu konstruksi. Arah dan kecepatan angin memindahkan polutan sehingga kualitas udara di satu titik dipengaruhi aktivitas di titik lain. Kawasan dengan kepadatan kendaraan tinggi dan ruang terbuka hijau terbatas cenderung memiliki konsentrasi lebih buruk.</p><p>Kajian geografi tidak berhenti pada angka. Ia menanyakan sebaran (di mana terburuk), hubungan (mengapa berkorelasi dengan kepadatan), dan keterkaitan ruang (bagaimana sumber di satu wilayah memengaruhi wilayah lain).</p>',
+        sumber: 'Kasus kualitas udara Jakarta (laporan pemantauan kualitas udara)'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Menentukan prinsip yang digunakan',
+          numerasi: 'Menafsirkan data konsentrasi polutan',
+          pertanyaan: 'Pernyataan "konsentrasi polutan tertinggi terkonsentrasi di koridor dengan kepadatan kendaraan tinggi" paling tepat mencerminkan prinsip ...',
+          opsi: [
+            'Distribusi karena menjelaskan sebaran fenomena pada ruang.',
+            'Interelasi karena menghubungkan polusi dengan kebijakan fiskal.',
+            'Deskripsi karena hanya memaparkan angka tanpa makna keruangan.',
+            'Korologi karena memadukan seluruh variabel tanpa membedakan wilayah.',
+            'Kausalitas karena menyatakan bahwa semua kendaraan identik.'
+          ],
+          kunci: [0],
+          pembahasan: 'Pernyataan tentang pemusatan konsentrasi pada koridor tertentu adalah kajian sebaran, yang menjadi fokus prinsip distribusi.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C5',
+          literasi: 'Menganalisis keterkaitan ruang pada polusi',
+          numerasi: 'Menghubungkan angin dengan perpindahan polutan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Arah angin memindahkan polutan antarkawasan; (2) Kepadatan kendaraan berkaitan dengan konsentrasi polutan; (3) Ruang terbuka hijau terbatas memperburuk kualitas udara; (4) Kualitas udara suatu titik tidak pernah dipengaruhi aktivitas di wilayah lain. Pernyataan yang tepat adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Stimulus menegaskan perpindahan polutan oleh angin, sehingga pernyataan (4) yang menolak pengaruh wilayah lain tidak tepat.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Mengevaluasi rancangan kajian geografi',
+          numerasi: 'Menimbang variabel pengukuran',
+          pertanyaan: 'Pilih semua pernyataan yang menunjukkan penggunaan konsep geografi dalam kajian kualitas udara Jakarta.',
+          opsi: [
+            'Memetakan sebaran konsentrasi polutan pada jam sibuk menggunakan konsep distribusi.',
+            'Menghubungkan kepadatan kendaraan dengan konsentrasi polutan melalui konsep interaksi.',
+            'Menilai perbedaan beban pencemar antara kawasan industri dan kawasan permukiman.',
+            'Menganggap seluruh titik kota memiliki konsentrasi polutan yang sama sepanjang hari.',
+            'Mengabaikan arah angin karena dianggap tidak memengaruhi sebaran polutan.'
+          ],
+          kunci: [0, 1, 2],
+          pembahasan: 'Kajian geografi menekankan variasi keruangan dan keterkaitan, bukan asumsi bahwa seluruh titik identik.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan pernyataan dengan prinsipnya',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan pernyataan pada kolom kiri dengan prinsip geografi yang paling tepat pada kolom kanan.',
+          kiri: [
+            'Konsentrasi polutan tertinggi berada di koridor padat kendaraan',
+            'Arah angin memindahkan polutan dari satu kawasan ke kawasan lain',
+            'Uraian ciri kualitas udara disajikan dalam tabel harian',
+            'Sebaran, hubungan, dan uraian dipadukan untuk menjelaskan kualitas udara kota',
+            'Kebijakan ganjil-genap menurunkan volume kendaraan pada jam tertentu'
+          ],
+          kanan: ['Deskripsi', 'Korologi', 'Interelasi', 'Distribusi', 'Kausalitas'],
+          kunci: [3, 2, 0, 1, 4],
+          pembahasan: 'Sebaran (D), perpindahan polutan sebagai hubungan antarkawasan (C), penyajian tabel (A), paduan ketiganya dalam satu wilayah (B), dan hubungan kebijakan dengan volume kendaraan (E).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai pernyataan hasil analisis',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Kualitas udara di suatu titik dapat dipengaruhi oleh sumber pencemar di wilayah lain melalui perpindahan massa udara.',
+            'Kepadatan kendaraan tidak memiliki hubungan dengan konsentrasi polutan.',
+            'Ruang terbuka hijau dapat membantu memperbaiki kualitas udara lokal.',
+            'Kajian geografi tentang polusi cukup menyebut angka tanpa memetakan sebarannya.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Stimulus menegaskan hubungan kepadatan kendaraan dan peran ruang terbuka hijau, sekaligus menuntut analisis sebaran, bukan angka saja.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C5',
+          literasi: 'Memasangkan pertanyaan penelitian dengan prinsip',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan pertanyaan penelitian pada kolom kiri dengan prinsip yang paling sesuai pada kolom kanan.',
+          kiri: [
+            'Mengapa konsentrasi polutan meningkat pada jam sibuk',
+            'Di mana titik dengan konsentrasi tertinggi berada',
+            'Bagaimana ciri kualitas udara pada hari kerja dijelaskan',
+            'Bagaimana seluruh temuan dipadukan untuk satu kawasan kajian',
+            'Apa pengaruh penambahan ruang terbuka hijau terhadap polutan lokal'
+          ],
+          kanan: ['Deskripsi', 'Korologi', 'Interelasi', 'Distribusi', 'Kausalitas'],
+          kunci: [2, 3, 0, 1, 4],
+          pembahasan: 'Hubungan jam sibuk dan polutan (C), sebaran titik tertinggi (D), uraian ciri harian (A), paduan temuan (B), dan pengaruh ruang terbuka hijau (E).'
+        }
+      ]
+    }
+  ]
+};

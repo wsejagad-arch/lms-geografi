@@ -1,0 +1,914 @@
+[
+  {
+    "id": "x-12",
+    "kelas": "X",
+    "urutan": 12,
+    "fase": "E",
+    "elemen": "Pemahaman Konsep dan Keterampilan Proses Geografi",
+    "judul": "TKA Geografi 4: Fenomena Mutakhir Indonesia",
+    "ringkasan": "Paket soal TKA HOTS kontekstual tentang banjir rob, erupsi gunung api, kekeringan El Nino, gempa dan mitigasi tsunami, serta pembangunan IKN dan perubahan tutupan lahan.",
+    "estimasi": "3 JP",
+    "semester": 2,
+    "bebas_akses": true,
+    "cp": "Peserta didik mampu menganalisis fenomena mutakhir Indonesia menggunakan konsep, prinsip, dan pendekatan geografi serta merumuskan respons mitigasi yang beralasan.",
+    "tujuan": [
+      "Menganalisis fenomena pesisir, vulkanik, iklim, dan seismik terkini di Indonesia.",
+      "Menghubungkan faktor fisik dan sosial dalam menjelaskan dampak bencana.",
+      "Menilai kesiapsiagaan dan kebijakan mitigasi berbasis bukti.",
+      "Mengevaluasi konsekuensi perubahan tutupan lahan bagi wilayah dan masyarakat."
+    ],
+    "materi": [
+      {
+        "id": "t1",
+        "judul": "Ringkasan: Membaca Fenomena Mutakhir dengan Kacamata Geografi",
+        "html": "<p>Fenomena mutakhir tidak cukup dijelaskan dengan satu faktor. Banjir rob melibatkan penurunan muka tanah dan kenaikan muka laut; erupsi melibatkan proses vulkanik dan kesiapsiagaan warga; kekeringan melibatkan anomali iklim dan pengelolaan air; gempa melibatkan sesar aktif dan kualitas bangunan; perubahan tutupan lahan melibatkan kebijakan pembangunan dan jasa lingkungan.</p>"
+      }
+    ],
+    "glosarium": [
+      {
+        "istilah": "rob",
+        "arti": "genangan air laut yang masuk ke daratan pada saat pasang."
+      },
+      {
+        "istilah": "subduksi",
+        "arti": "proses menunjamnya lempeng samudra ke bawah lempeng benua yang memicu gempa dan vulkanisme."
+      },
+      {
+        "istilah": "El Nino",
+        "arti": "anomali pemanasan suhu muka laut di Pasifik tengah-timur yang cenderung menurunkan curah hujan di Indonesia."
+      },
+      {
+        "istilah": "mitigasi",
+        "arti": "tindakan mengurangi risiko dan dampak bencana."
+      },
+      {
+        "istilah": "kerentanan",
+        "arti": "kondisi yang membuat suatu kelompok atau wilayah mudah menderita kerugian saat terjadi bahaya."
+      },
+      {
+        "istilah": "jasa lingkungan",
+        "arti": "manfaat yang diberikan ekosistem, seperti pengaturan air dan penyerapan karbon."
+      }
+    ],
+    "soal": [
+      {
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menafsirkan riwayat bencana",
+        "numerasi": "Membandingkan skala kejadian antarwaktu",
+        "pertanyaan": "Kesimpulan yang paling tepat dari riwayat rob Semarang adalah ...",
+        "opsi": [
+          "Rob hanya terjadi akibat hujan lebat sehingga tidak berkaitan dengan kondisi pesisir.",
+          "Rob merupakan peristiwa berulang yang diperparah penurunan muka tanah, alih fungsi lahan, dan kenaikan muka laut.",
+          "Rob sepenuhnya disebabkan oleh aktivitas pelabuhan sehingga dapat diatasi dengan memindahkan pelabuhan.",
+          "Frekuensi rob menurun karena pembangunan tanggul di seluruh kawasan pesisir.",
+          "Rob tidak berkaitan dengan perubahan penggunaan lahan di bagian hulu kota."
+        ],
+        "kunci": [
+          1
+        ],
+        "pembahasan": "Stimulus menegaskan tiga faktor yang saling memperkuat: penurunan muka tanah, alih fungsi lahan, dan kenaikan muka laut. Pilihan lain bertentangan dengan paparan.",
+        "id": "x-12-q1",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Riwayat Banjir Rob Kota Semarang",
+          "youtube_id": "HYO1fq6nzIE",
+          "isi": "<p>Semarang menghadapi rob sejak masa kolonial, tetapi skala dan frekuensinya berubah. Penurunan muka tanah, alih fungsi lahan, dan kenaikan muka laut saling memperkuat. Kawasan pelabuhan, permukiman padat, dan kawasan industri menjadi titik yang paling sering tergenang. Perhatikan bagaimana laporan media menautkan peristiwa hari ini dengan proses jangka panjang.</p><p>Catat pula pihak yang terdampak dan bentuk respons yang disebutkan, karena keduanya diperlukan untuk menilai kerentanan dan kapasitas adaptasi masyarakat pesisir.</p>",
+          "sumber": "YouTube - Tribun Jateng: Sejarah Banjir Kota Semarang, dari Zaman Belanda hingga Banjir Rob Hari Ini"
+        }
+      },
+      {
+        "tipe": "pgm",
+        "level": "C5",
+        "literasi": "Menganalisis faktor berlapis penyebab rob",
+        "numerasi": "Menghubungkan pengambilan air tanah dengan penurunan tanah",
+        "pertanyaan": "Perhatikan pernyataan berikut. (1) Pengambilan air tanah berlebihan mempercepat penurunan muka tanah; (2) Berkurangnya ruang terbuka hijau meningkatkan limpasan; (3) Kenaikan muka laut mempertinggi risiko rob; (4) Rob hanya dipengaruhi faktor alam dan tidak berkaitan dengan keputusan manusia. Pernyataan yang tepat adalah ...",
+        "opsi": [
+          "(1), (2), dan (4) saja",
+          "(1), (2), dan (3) saja",
+          "(1) dan (4) saja",
+          "(2) dan (4) saja",
+          "Semua pernyataan benar"
+        ],
+        "kunci": [
+          1
+        ],
+        "pembahasan": "Keputusan manusia, seperti pengambilan air tanah dan alih fungsi lahan, ikut memperparah rob sehingga pernyataan (4) salah.",
+        "id": "x-12-q2",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Riwayat Banjir Rob Kota Semarang",
+          "youtube_id": "HYO1fq6nzIE",
+          "isi": "<p>Semarang menghadapi rob sejak masa kolonial, tetapi skala dan frekuensinya berubah. Penurunan muka tanah, alih fungsi lahan, dan kenaikan muka laut saling memperkuat. Kawasan pelabuhan, permukiman padat, dan kawasan industri menjadi titik yang paling sering tergenang. Perhatikan bagaimana laporan media menautkan peristiwa hari ini dengan proses jangka panjang.</p><p>Catat pula pihak yang terdampak dan bentuk respons yang disebutkan, karena keduanya diperlukan untuk menilai kerentanan dan kapasitas adaptasi masyarakat pesisir.</p>",
+          "sumber": "YouTube - Tribun Jateng: Sejarah Banjir Kota Semarang, dari Zaman Belanda hingga Banjir Rob Hari Ini"
+        }
+      },
+      {
+        "tipe": "pg_kompleks",
+        "level": "C5",
+        "literasi": "Mengevaluasi respons kebijakan",
+        "numerasi": "Menimbang efektivitas tindakan",
+        "pertanyaan": "Pilih semua pernyataan yang mencerminkan respons mitigasi rob yang beralasan.",
+        "opsi": [
+          "Membatasi pengambilan air tanah dan menyediakan pasokan air permukaan sebagai alternatif.",
+          "Menata ruang pesisir dengan mempertimbangkan zona genangan berulang.",
+          "Membangun tanggul tanpa memperbaiki drainase dan tanpa pengendalian penurunan tanah.",
+          "Menambah ruang terbuka hijau dan area resapan pada kawasan terbangun.",
+          "Menghentikan seluruh pembangunan di kawasan pesisir tanpa kajian lanjutan."
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Tanggul tanpa perbaikan drainase dan pengendalian penurunan tanah hanya memindahkan masalah, sehingga bukan respons utuh.",
+        "id": "x-12-q3",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Riwayat Banjir Rob Kota Semarang",
+          "youtube_id": "HYO1fq6nzIE",
+          "isi": "<p>Semarang menghadapi rob sejak masa kolonial, tetapi skala dan frekuensinya berubah. Penurunan muka tanah, alih fungsi lahan, dan kenaikan muka laut saling memperkuat. Kawasan pelabuhan, permukiman padat, dan kawasan industri menjadi titik yang paling sering tergenang. Perhatikan bagaimana laporan media menautkan peristiwa hari ini dengan proses jangka panjang.</p><p>Catat pula pihak yang terdampak dan bentuk respons yang disebutkan, karena keduanya diperlukan untuk menilai kerentanan dan kapasitas adaptasi masyarakat pesisir.</p>",
+          "sumber": "YouTube - Tribun Jateng: Sejarah Banjir Kota Semarang, dari Zaman Belanda hingga Banjir Rob Hari Ini"
+        }
+      },
+      {
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Memasangkan faktor dengan dampaknya",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Jodohkan faktor pada kolom kiri dengan dampak yang paling tepat pada kolom kanan.",
+        "kiri": [
+          "Penurunan muka tanah",
+          "Kenaikan muka laut",
+          "Alih fungsi lahan",
+          "Kepadatan bangunan",
+          "Pembuatan tanggul"
+        ],
+        "kanan": [
+          "Permukaan daratan menjadi lebih rendah dari muka air pasang",
+          "Genangan pasang makin sering mencapai kawasan permukiman",
+          "Limpasan meningkat dan daya serap tanah menurun",
+          "Air sulit meresap dan beban di permukaan bertambah",
+          "Genangan lokal terkurung bila pompa dan drainase tidak memadai"
+        ],
+        "kunci": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "pembahasan": "Setiap faktor berpasangan lurus dengan dampaknya masing-masing seperti tertera pada stimulus dan pengetahuan tentang rob.",
+        "id": "x-12-q4",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Riwayat Banjir Rob Kota Semarang",
+          "youtube_id": "HYO1fq6nzIE",
+          "isi": "<p>Semarang menghadapi rob sejak masa kolonial, tetapi skala dan frekuensinya berubah. Penurunan muka tanah, alih fungsi lahan, dan kenaikan muka laut saling memperkuat. Kawasan pelabuhan, permukiman padat, dan kawasan industri menjadi titik yang paling sering tergenang. Perhatikan bagaimana laporan media menautkan peristiwa hari ini dengan proses jangka panjang.</p><p>Catat pula pihak yang terdampak dan bentuk respons yang disebutkan, karena keduanya diperlukan untuk menilai kerentanan dan kapasitas adaptasi masyarakat pesisir.</p>",
+          "sumber": "YouTube - Tribun Jateng: Sejarah Banjir Kota Semarang, dari Zaman Belanda hingga Banjir Rob Hari Ini"
+        }
+      },
+      {
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan tentang rob",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.",
+        "pernyataan": [
+          "Penurunan muka tanah membuat daratan semakin rentan terhadap genangan pasang.",
+          "Rob hanya disebabkan oleh curah hujan tinggi di kawasan hulu.",
+          "Alih fungsi lahan menjadi kawasan terbangun dapat meningkatkan limpasan permukaan.",
+          "Kenaikan muka laut tidak berpengaruh terhadap frekuensi rob di kawasan pesisir."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Rob dipengaruhi kombinasi penurunan tanah, kenaikan muka laut, dan perubahan tata guna lahan, bukan hanya hujan di hulu.",
+        "id": "x-12-q5",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Riwayat Banjir Rob Kota Semarang",
+          "youtube_id": "HYO1fq6nzIE",
+          "isi": "<p>Semarang menghadapi rob sejak masa kolonial, tetapi skala dan frekuensinya berubah. Penurunan muka tanah, alih fungsi lahan, dan kenaikan muka laut saling memperkuat. Kawasan pelabuhan, permukiman padat, dan kawasan industri menjadi titik yang paling sering tergenang. Perhatikan bagaimana laporan media menautkan peristiwa hari ini dengan proses jangka panjang.</p><p>Catat pula pihak yang terdampak dan bentuk respons yang disebutkan, karena keduanya diperlukan untuk menilai kerentanan dan kapasitas adaptasi masyarakat pesisir.</p>",
+          "sumber": "YouTube - Tribun Jateng: Sejarah Banjir Kota Semarang, dari Zaman Belanda hingga Banjir Rob Hari Ini"
+        }
+      },
+      {
+        "tipe": "pg_singkat",
+        "level": "C6",
+        "literasi": "Mengevaluasi prioritas tindakan",
+        "numerasi": "Menimbang urgensi kebijakan",
+        "pertanyaan": "Jika anggaran terbatas, prioritas tindakan yang paling tepat untuk kawasan pesisir yang mengalami rob berulang adalah ...",
+        "opsi": [
+          "Membangun taman wisata di atas lahan bekas genangan tanpa perbaikan drainase.",
+          "Mengendalikan pengambilan air tanah dan memperbaiki sistem drainase sekaligus menata ruang pesisir.",
+          "Menaikkan tarif air bersih agar warga berhenti memakai air tanah tanpa menyediakan alternatif.",
+          "Memindahkan seluruh penduduk tanpa kajian dampak sosial dan ekonomi.",
+          "Mengabaikan penurunan muka tanah karena dianggap proses alam yang tidak dapat dihambat."
+        ],
+        "kunci": [
+          1
+        ],
+        "pembahasan": "Prioritas yang beralasan menyerang penyebab utama secara bersamaan: pengendalian penurunan tanah, perbaikan drainase, dan penataan ruang.",
+        "id": "x-12-q6",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Riwayat Banjir Rob Kota Semarang",
+          "youtube_id": "HYO1fq6nzIE",
+          "isi": "<p>Semarang menghadapi rob sejak masa kolonial, tetapi skala dan frekuensinya berubah. Penurunan muka tanah, alih fungsi lahan, dan kenaikan muka laut saling memperkuat. Kawasan pelabuhan, permukiman padat, dan kawasan industri menjadi titik yang paling sering tergenang. Perhatikan bagaimana laporan media menautkan peristiwa hari ini dengan proses jangka panjang.</p><p>Catat pula pihak yang terdampak dan bentuk respons yang disebutkan, karena keduanya diperlukan untuk menilai kerentanan dan kapasitas adaptasi masyarakat pesisir.</p>",
+          "sumber": "YouTube - Tribun Jateng: Sejarah Banjir Kota Semarang, dari Zaman Belanda hingga Banjir Rob Hari Ini"
+        }
+      },
+      {
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menjelaskan sebab vulkanisme",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Banyaknya gunung api di Indonesia paling tepat dijelaskan oleh ...",
+        "opsi": [
+          "Posisi Indonesia pada jalur pertemuan lempeng yang memicu aktivitas magmatik.",
+          "Letak Indonesia di garis khatulistiwa yang menyebabkan suhu tinggi.",
+          "Jumlah penduduk yang besar sehingga tekanan pada kerak bumi meningkat.",
+          "Curah hujan yang tinggi sehingga air mempercepat pendinginan magma.",
+          "Kedalaman laut Indonesia yang dangkal di seluruh wilayah."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Vulkanisme Indonesia berkaitan dengan zona pertemuan lempeng, tempat lempeng samudra menunjam dan memicu pelelehan serta aktivitas magma.",
+        "id": "x-12-q7",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Erupsi Gunung Lewotobi Laki-laki",
+          "youtube_id": "m9SrioYNGXU",
+          "isi": "<p>Erupsi Gunung Lewotobi Laki-laki di Flores Timur, Nusa Tenggara Timur, memicu kolom abu tinggi, hujan abu di permukiman, penutupan bandara, dan pengungsian warga. Status gunung dinaikkan ke level tertinggi sehingga radius larangan diperluas. Selain dampak langsung, abu vulkanik mengganggu penerbangan, kesehatan pernapasan, dan pasokan air bersih.</p><p>Indonesia memiliki banyak gunung api karena berada pada jalur pertemuan lempeng. Karena itu,         Kesiapsiagaan bukan pilihan, melainkan kebutuhan tetap.</p><p>Perhatikan istilah radius bahaya, status level, dan jalur evakuasi; ketiganya menjadi dasar keputusan warga maupun pemerintah daerah saat status gunung berubah.</p>",
+          "sumber": "YouTube - tvOneNews: Gunung Lewotobi Laki-Laki Erupsi"
+        }
+      },
+      {
+        "tipe": "pgm",
+        "level": "C5",
+        "literasi": "Menganalisis dampak erupsi",
+        "numerasi": "Menimbang radius bahaya",
+        "pertanyaan": "Perhatikan pernyataan berikut. (1) Hujan abu dapat mengganggu kesehatan pernapasan; (2) Abu vulkanik dapat membahayakan penerbangan sehingga bandara ditutup; (3) Perluasan radius larangan bertujuan mengurangi risiko korban; (4) Status level tertinggi berarti warga boleh tetap beraktivitas di dalam radius bahaya. Pernyataan yang tepat adalah ...",
+        "opsi": [
+          "(1), (2), dan (3) saja",
+          "(1) dan (4) saja",
+          "(2) dan (4) saja",
+          "(3) dan (4) saja",
+          "Semua pernyataan benar"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Level tertinggi justru menuntut pengosongan radius bahaya, sehingga pernyataan (4) bertentangan dengan logika kesiapsiagaan.",
+        "id": "x-12-q8",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Erupsi Gunung Lewotobi Laki-laki",
+          "youtube_id": "m9SrioYNGXU",
+          "isi": "<p>Erupsi Gunung Lewotobi Laki-laki di Flores Timur, Nusa Tenggara Timur, memicu kolom abu tinggi, hujan abu di permukiman, penutupan bandara, dan pengungsian warga. Status gunung dinaikkan ke level tertinggi sehingga radius larangan diperluas. Selain dampak langsung, abu vulkanik mengganggu penerbangan, kesehatan pernapasan, dan pasokan air bersih.</p><p>Indonesia memiliki banyak gunung api karena berada pada jalur pertemuan lempeng. Karena itu,         Kesiapsiagaan bukan pilihan, melainkan kebutuhan tetap.</p><p>Perhatikan istilah radius bahaya, status level, dan jalur evakuasi; ketiganya menjadi dasar keputusan warga maupun pemerintah daerah saat status gunung berubah.</p>",
+          "sumber": "YouTube - tvOneNews: Gunung Lewotobi Laki-Laki Erupsi"
+        }
+      },
+      {
+        "tipe": "pg_kompleks",
+        "level": "C5",
+        "literasi": "Mengevaluasi kesiapsiagaan",
+        "numerasi": "Menimbang kebutuhan logistik pengungsian",
+        "pertanyaan": "Pilih semua pernyataan yang menunjukkan kesiapsiagaan yang tepat menghadapi erupsi.",
+        "opsi": [
+          "Menyiapkan jalur evakuasi yang mempertimbangkan arah angin dan sebaran abu.",
+          "Menyediakan masker dan air bersih bagi warga di kawasan terdampak abu.",
+          "Menunda pembaruan informasi status gunung agar warga tidak panik.",
+          "Menyusun rencana pengungsian bersama kelompok rentan seperti anak dan lansia.",
+          "Mengabaikan arah angin dalam menentukan jalur evakuasi."
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Informasi status justru harus diperbarui dan disosialisasikan. Menunda informasi meningkatkan risiko karena warga tidak siap.",
+        "id": "x-12-q9",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Erupsi Gunung Lewotobi Laki-laki",
+          "youtube_id": "m9SrioYNGXU",
+          "isi": "<p>Erupsi Gunung Lewotobi Laki-laki di Flores Timur, Nusa Tenggara Timur, memicu kolom abu tinggi, hujan abu di permukiman, penutupan bandara, dan pengungsian warga. Status gunung dinaikkan ke level tertinggi sehingga radius larangan diperluas. Selain dampak langsung, abu vulkanik mengganggu penerbangan, kesehatan pernapasan, dan pasokan air bersih.</p><p>Indonesia memiliki banyak gunung api karena berada pada jalur pertemuan lempeng. Karena itu,         Kesiapsiagaan bukan pilihan, melainkan kebutuhan tetap.</p><p>Perhatikan istilah radius bahaya, status level, dan jalur evakuasi; ketiganya menjadi dasar keputusan warga maupun pemerintah daerah saat status gunung berubah.</p>",
+          "sumber": "YouTube - tvOneNews: Gunung Lewotobi Laki-Laki Erupsi"
+        }
+      },
+      {
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Memasangkan dampak dengan sektor terdampak",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Jodohkan dampak erupsi pada kolom kiri dengan sektor yang paling terdampak pada kolom kanan.",
+        "kiri": [
+          "Hujan abu tebal",
+          "Penutupan bandara",
+          "Kerusakan lahan pertanian",
+          "Pengungsian warga",
+          "Aliran lahar dingin"
+        ],
+        "kanan": [
+          "Transportasi udara dan mobilitas logistik",
+          "Kesehatan pernapasan dan kebersihan lingkungan",
+          "Kebutuhan hunian, pangan, dan layanan kesehatan",
+          "Hasil panen dan pendapatan petani",
+          "Keselamatan permukiman di alur sungai berhulu gunung"
+        ],
+        "kunci": [
+          1,
+          0,
+          3,
+          2,
+          4
+        ],
+        "pembahasan": "Hujan abu (B), penutupan bandara (A), kerusakan lahan (D), pengungsian (C), dan lahar dingin (E).",
+        "id": "x-12-q10",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Erupsi Gunung Lewotobi Laki-laki",
+          "youtube_id": "m9SrioYNGXU",
+          "isi": "<p>Erupsi Gunung Lewotobi Laki-laki di Flores Timur, Nusa Tenggara Timur, memicu kolom abu tinggi, hujan abu di permukiman, penutupan bandara, dan pengungsian warga. Status gunung dinaikkan ke level tertinggi sehingga radius larangan diperluas. Selain dampak langsung, abu vulkanik mengganggu penerbangan, kesehatan pernapasan, dan pasokan air bersih.</p><p>Indonesia memiliki banyak gunung api karena berada pada jalur pertemuan lempeng. Karena itu,         Kesiapsiagaan bukan pilihan, melainkan kebutuhan tetap.</p><p>Perhatikan istilah radius bahaya, status level, dan jalur evakuasi; ketiganya menjadi dasar keputusan warga maupun pemerintah daerah saat status gunung berubah.</p>",
+          "sumber": "YouTube - tvOneNews: Gunung Lewotobi Laki-Laki Erupsi"
+        }
+      },
+      {
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan kebencanaan",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.",
+        "pernyataan": [
+          "Radius larangan diperluas untuk menurunkan risiko korban jiwa.",
+          "Abu vulkanik tidak berdampak pada keselamatan penerbangan.",
+          "Kelompok rentan memerlukan perhatian khusus dalam rencana pengungsian.",
+          "Status gunung api tidak perlu diperbarui karena tidak memengaruhi keputusan warga."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Abu vulkanik berbahaya bagi mesin pesawat, dan pembaruan status merupakan dasar pengambilan keputusan warga serta pemerintah.",
+        "id": "x-12-q11",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Erupsi Gunung Lewotobi Laki-laki",
+          "youtube_id": "m9SrioYNGXU",
+          "isi": "<p>Erupsi Gunung Lewotobi Laki-laki di Flores Timur, Nusa Tenggara Timur, memicu kolom abu tinggi, hujan abu di permukiman, penutupan bandara, dan pengungsian warga. Status gunung dinaikkan ke level tertinggi sehingga radius larangan diperluas. Selain dampak langsung, abu vulkanik mengganggu penerbangan, kesehatan pernapasan, dan pasokan air bersih.</p><p>Indonesia memiliki banyak gunung api karena berada pada jalur pertemuan lempeng. Karena itu,         Kesiapsiagaan bukan pilihan, melainkan kebutuhan tetap.</p><p>Perhatikan istilah radius bahaya, status level, dan jalur evakuasi; ketiganya menjadi dasar keputusan warga maupun pemerintah daerah saat status gunung berubah.</p>",
+          "sumber": "YouTube - tvOneNews: Gunung Lewotobi Laki-Laki Erupsi"
+        }
+      },
+      {
+        "tipe": "pgm",
+        "level": "C6",
+        "literasi": "Mengevaluasi kebijakan relokasi",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Perhatikan pernyataan berikut tentang usulan relokasi permukiman dari kawasan rawan erupsi. (1) Relokasi perlu mempertimbangkan mata pencaharian warga; (2) Pemilihan lokasi baru harus memperhitungkan akses lahan dan layanan dasar; (3) Relokasi tanpa konsultasi warga berisiko menimbulkan penolakan; (4) Relokasi selalu menjadi satu-satunya solusi tanpa perlu kajian risiko. Pernyataan yang dapat dipertanggungjawabkan adalah ...",
+        "opsi": [
+          "(1), (2), dan (3) saja",
+          "(1) dan (4) saja",
+          "(2) dan (4) saja",
+          "(3) dan (4) saja",
+          "Semua pernyataan benar"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Relokasi bukan satu-satunya solusi dan harus melalui kajian risiko serta konsultasi. Pernyataan (4) mengabaikan pertimbangan sosial dan teknis.",
+        "id": "x-12-q12",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: Erupsi Gunung Lewotobi Laki-laki",
+          "youtube_id": "m9SrioYNGXU",
+          "isi": "<p>Erupsi Gunung Lewotobi Laki-laki di Flores Timur, Nusa Tenggara Timur, memicu kolom abu tinggi, hujan abu di permukiman, penutupan bandara, dan pengungsian warga. Status gunung dinaikkan ke level tertinggi sehingga radius larangan diperluas. Selain dampak langsung, abu vulkanik mengganggu penerbangan, kesehatan pernapasan, dan pasokan air bersih.</p><p>Indonesia memiliki banyak gunung api karena berada pada jalur pertemuan lempeng. Karena itu,         Kesiapsiagaan bukan pilihan, melainkan kebutuhan tetap.</p><p>Perhatikan istilah radius bahaya, status level, dan jalur evakuasi; ketiganya menjadi dasar keputusan warga maupun pemerintah daerah saat status gunung berubah.</p>",
+          "sumber": "YouTube - tvOneNews: Gunung Lewotobi Laki-Laki Erupsi"
+        }
+      },
+      {
+        "tipe": "pg_singkat",
+        "level": "C4",
+        "literasi": "Menjelaskan mekanisme El Nino",
+        "numerasi": "Menafsirkan anomali suhu muka laut",
+        "pertanyaan": "Pernyataan yang paling tepat mengenai pengaruh El Nino bagi Indonesia adalah ...",
+        "opsi": [
+          "El Nino menyebabkan peningkatan curah hujan merata di seluruh Indonesia.",
+          "El Nino cenderung mengurangi curah hujan sehingga risiko kekeringan dan kebakaran lahan meningkat.",
+          "El Nino hanya berpengaruh pada suhu udara tanpa memengaruhi pasokan air.",
+          "El Nino menghilangkan kebutuhan sistem peringatan dini kekeringan.",
+          "El Nino membuat seluruh wilayah Indonesia bebas dari musim kemarau."
+        ],
+        "kunci": [
+          1
+        ],
+        "pembahasan": "Stimulus menyebut El Nino menurunkan curah hujan, memanjangkan kemarau, dan meningkatkan risiko kebakaran lahan serta kekeringan sumber air.",
+        "id": "x-12-q13",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: El Nino dan Ancaman Kekeringan",
+          "youtube_id": "789Kfc63gYk",
+          "isi": "<p>El Nino merupakan anomali pemanasan suhu muka laut di Pasifik tengah-timur. Dampaknya bagi Indonesia antara lain berkurangnya curah hujan, musim kemarau lebih panjang, kekeringan sumber air, dan meningkatnya risiko kebakaran lahan. Dampak itu tidak merata: wilayah dengan irigasi dan daerah tangkapan air yang baik lebih tahan dibanding wilayah yang bergantung pada hujan.</p><p>Kekeringan bukan sekadar peristiwa cuaca. Ia menjadi bencana ketika pasokan air, pertanian, dan sistem peringatan dini tidak siap.</p><p>Perhatikan pula bahwa dampak El Nino bersifat tidak merata, bergantung pada kondisi daerah tangkapan air, irigasi, dan kesiapan kelembagaan di masing-masing wilayah.</p>",
+          "sumber": "YouTube - CNN Indonesia: El Nino Menguat, Ancaman Kekeringan dan Cuaca Ekstrem Meningkat"
+        }
+      },
+      {
+        "tipe": "pgm",
+        "level": "C5",
+        "literasi": "Menganalisis dampak tidak merata",
+        "numerasi": "Membandingkan ketahanan wilayah",
+        "pertanyaan": "Perhatikan pernyataan berikut. (1) Wilayah dengan irigasi baik lebih tahan menghadapi kemarau; (2) Kondisi daerah tangkapan air memengaruhi ketersediaan air; (3) Seluruh wilayah Indonesia selalu mengalami dampak kekeringan yang sama; (4) Kebakaran lahan dapat diperparah oleh kondisi kering. Pernyataan yang tepat adalah ...",
+        "opsi": [
+          "(1), (2), dan (4) saja",
+          "(1) dan (3) saja",
+          "(2) dan (3) saja",
+          "(3) dan (4) saja",
+          "Semua pernyataan benar"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Stimulus menegaskan dampak tidak merata, sehingga pernyataan (3) yang menyatakan dampak selalu sama tidak tepat.",
+        "id": "x-12-q14",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: El Nino dan Ancaman Kekeringan",
+          "youtube_id": "789Kfc63gYk",
+          "isi": "<p>El Nino merupakan anomali pemanasan suhu muka laut di Pasifik tengah-timur. Dampaknya bagi Indonesia antara lain berkurangnya curah hujan, musim kemarau lebih panjang, kekeringan sumber air, dan meningkatnya risiko kebakaran lahan. Dampak itu tidak merata: wilayah dengan irigasi dan daerah tangkapan air yang baik lebih tahan dibanding wilayah yang bergantung pada hujan.</p><p>Kekeringan bukan sekadar peristiwa cuaca. Ia menjadi bencana ketika pasokan air, pertanian, dan sistem peringatan dini tidak siap.</p><p>Perhatikan pula bahwa dampak El Nino bersifat tidak merata, bergantung pada kondisi daerah tangkapan air, irigasi, dan kesiapan kelembagaan di masing-masing wilayah.</p>",
+          "sumber": "YouTube - CNN Indonesia: El Nino Menguat, Ancaman Kekeringan dan Cuaca Ekstrem Meningkat"
+        }
+      },
+      {
+        "tipe": "pg_kompleks",
+        "level": "C5",
+        "literasi": "Mengevaluasi strategi adaptasi",
+        "numerasi": "Menimbang kebutuhan air",
+        "pertanyaan": "Pilih semua pernyataan yang merupakan strategi adaptasi kekeringan yang beralasan.",
+        "opsi": [
+          "Memanen air hujan dan membangun embung untuk cadangan musim kering.",
+          "Mengatur pola tanam dan kalender tanam berdasarkan prakiraan iklim.",
+          "Meningkatkan pembakaran lahan untuk mempercepat pembukaan lahan pertanian.",
+          "Memperbaiki jaringan irigasi dan mengurangi kehilangan air pada saluran.",
+          "Mengabaikan prakiraan iklim karena dianggap tidak dapat diandalkan."
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Pembakaran lahan justru meningkatkan risiko kebakaran dan kerusakan lingkungan pada kondisi kering.",
+        "id": "x-12-q15",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: El Nino dan Ancaman Kekeringan",
+          "youtube_id": "789Kfc63gYk",
+          "isi": "<p>El Nino merupakan anomali pemanasan suhu muka laut di Pasifik tengah-timur. Dampaknya bagi Indonesia antara lain berkurangnya curah hujan, musim kemarau lebih panjang, kekeringan sumber air, dan meningkatnya risiko kebakaran lahan. Dampak itu tidak merata: wilayah dengan irigasi dan daerah tangkapan air yang baik lebih tahan dibanding wilayah yang bergantung pada hujan.</p><p>Kekeringan bukan sekadar peristiwa cuaca. Ia menjadi bencana ketika pasokan air, pertanian, dan sistem peringatan dini tidak siap.</p><p>Perhatikan pula bahwa dampak El Nino bersifat tidak merata, bergantung pada kondisi daerah tangkapan air, irigasi, dan kesiapan kelembagaan di masing-masing wilayah.</p>",
+          "sumber": "YouTube - CNN Indonesia: El Nino Menguat, Ancaman Kekeringan dan Cuaca Ekstrem Meningkat"
+        }
+      },
+      {
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Memasangkan dampak dengan sektor",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Jodohkan dampak kekeringan pada kolom kiri dengan sektor yang paling terdampak pada kolom kanan.",
+        "kiri": [
+          "Sumber air mengering",
+          "Gagal panen",
+          "Kebakaran lahan",
+          "Debu dan kualitas udara menurun",
+          "Harga pangan naik"
+        ],
+        "kanan": [
+          "Kesehatan masyarakat dan kenyamanan lingkungan",
+          "Ketersediaan air domestik dan sanitasi",
+          "Pendapatan petani dan ketahanan pangan",
+          "Ekonomi rumah tangga melalui biaya konsumsi",
+          "Kerusakan ekosistem dan emisi karbon"
+        ],
+        "kunci": [
+          1,
+          2,
+          4,
+          0,
+          3
+        ],
+        "pembahasan": "Air mengering (B), gagal panen (C), kebakaran (E), debu (A), dan harga pangan (D).",
+        "id": "x-12-q16",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: El Nino dan Ancaman Kekeringan",
+          "youtube_id": "789Kfc63gYk",
+          "isi": "<p>El Nino merupakan anomali pemanasan suhu muka laut di Pasifik tengah-timur. Dampaknya bagi Indonesia antara lain berkurangnya curah hujan, musim kemarau lebih panjang, kekeringan sumber air, dan meningkatnya risiko kebakaran lahan. Dampak itu tidak merata: wilayah dengan irigasi dan daerah tangkapan air yang baik lebih tahan dibanding wilayah yang bergantung pada hujan.</p><p>Kekeringan bukan sekadar peristiwa cuaca. Ia menjadi bencana ketika pasokan air, pertanian, dan sistem peringatan dini tidak siap.</p><p>Perhatikan pula bahwa dampak El Nino bersifat tidak merata, bergantung pada kondisi daerah tangkapan air, irigasi, dan kesiapan kelembagaan di masing-masing wilayah.</p>",
+          "sumber": "YouTube - CNN Indonesia: El Nino Menguat, Ancaman Kekeringan dan Cuaca Ekstrem Meningkat"
+        }
+      },
+      {
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan tentang El Nino",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.",
+        "pernyataan": [
+          "El Nino berkaitan dengan anomali suhu muka laut di Pasifik.",
+          "Kekeringan selalu berakhir begitu musim hujan dimulai tanpa meninggalkan dampak.",
+          "Ketersediaan embung dan irigasi dapat mengurangi risiko kekeringan.",
+          "Kebakaran lahan tidak berkaitan dengan kondisi kering pada musim kemarau."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Dampak kekeringan dapat berlanjut pada pasokan pangan dan air, sementara kondisi kering meningkatkan risiko kebakaran lahan.",
+        "id": "x-12-q17",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: El Nino dan Ancaman Kekeringan",
+          "youtube_id": "789Kfc63gYk",
+          "isi": "<p>El Nino merupakan anomali pemanasan suhu muka laut di Pasifik tengah-timur. Dampaknya bagi Indonesia antara lain berkurangnya curah hujan, musim kemarau lebih panjang, kekeringan sumber air, dan meningkatnya risiko kebakaran lahan. Dampak itu tidak merata: wilayah dengan irigasi dan daerah tangkapan air yang baik lebih tahan dibanding wilayah yang bergantung pada hujan.</p><p>Kekeringan bukan sekadar peristiwa cuaca. Ia menjadi bencana ketika pasokan air, pertanian, dan sistem peringatan dini tidak siap.</p><p>Perhatikan pula bahwa dampak El Nino bersifat tidak merata, bergantung pada kondisi daerah tangkapan air, irigasi, dan kesiapan kelembagaan di masing-masing wilayah.</p>",
+          "sumber": "YouTube - CNN Indonesia: El Nino Menguat, Ancaman Kekeringan dan Cuaca Ekstrem Meningkat"
+        }
+      },
+      {
+        "tipe": "pg_kompleks",
+        "level": "C6",
+        "literasi": "Mengevaluasi kebijakan ketahanan air",
+        "numerasi": "Menimbang investasi infrastruktur",
+        "pertanyaan": "Pilih semua pernyataan yang tepat tentang pengelolaan risiko kekeringan.",
+        "opsi": [
+          "Sistem peringatan dini membantu pemerintah dan petani menyiapkan langkah sebelum puncak kemarau.",
+          "Konservasi daerah tangkapan air mendukung ketersediaan air pada musim kering.",
+          "Kebijakan cukup berfokus pada bantuan darurat tanpa perlu pencegahan.",
+          "Diversifikasi sumber air dapat mengurangi ketergantungan pada satu sumber.",
+          "Menutup seluruh embung agar air tidak menguap pada musim kering."
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Bantuan darurat perlu disertai pencegahan struktural dan nonstruktural agar risiko tidak berulang setiap tahun.",
+        "id": "x-12-q18",
+        "stimulus": {
+          "jenis": "video",
+          "judul": "Video Pemantik: El Nino dan Ancaman Kekeringan",
+          "youtube_id": "789Kfc63gYk",
+          "isi": "<p>El Nino merupakan anomali pemanasan suhu muka laut di Pasifik tengah-timur. Dampaknya bagi Indonesia antara lain berkurangnya curah hujan, musim kemarau lebih panjang, kekeringan sumber air, dan meningkatnya risiko kebakaran lahan. Dampak itu tidak merata: wilayah dengan irigasi dan daerah tangkapan air yang baik lebih tahan dibanding wilayah yang bergantung pada hujan.</p><p>Kekeringan bukan sekadar peristiwa cuaca. Ia menjadi bencana ketika pasokan air, pertanian, dan sistem peringatan dini tidak siap.</p><p>Perhatikan pula bahwa dampak El Nino bersifat tidak merata, bergantung pada kondisi daerah tangkapan air, irigasi, dan kesiapan kelembagaan di masing-masing wilayah.</p>",
+          "sumber": "YouTube - CNN Indonesia: El Nino Menguat, Ancaman Kekeringan dan Cuaca Ekstrem Meningkat"
+        }
+      },
+      {
+        "tipe": "pg_singkat",
+        "level": "C5",
+        "literasi": "Membandingkan karakter gempa",
+        "numerasi": "Menafsirkan magnitudo dan kedalaman",
+        "pertanyaan": "Pernyataan yang paling tepat membedakan gempa Cianjur 2022 dan gempa megathrust adalah ...",
+        "opsi": [
+          "Gempa Cianjur dipicu sesar aktif di darat, sedangkan megathrust terjadi di zona subduksi dan berpotensi memicu tsunami.",
+          "Gempa Cianjur terjadi di zona subduksi sehingga sangat berpotensi tsunami besar.",
+          "Gempa megathrust selalu berkekuatan kecil dan tidak menimbulkan kerusakan.",
+          "Keduanya hanya dibedakan oleh jumlah korban tanpa perbedaan proses geologis.",
+          "Gempa Cianjur disebabkan aktivitas vulkanik Gunung Gede sehingga tidak berkaitan dengan sesar."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Stimulus menjelaskan gempa Cianjur dipicu sesar aktif darat tanpa tsunami, sedangkan megathrust terjadi pada zona subduksi dan dapat memicu tsunami.",
+        "id": "x-12-q19",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Gempa, Sesar Aktif, dan Mitigasi Tsunami",
+          "isi": "<p>Gempa Cianjur pada November 2022 berkekuatan magnitudo 5,6 menimbulkan kerusakan luas dan korban jiwa. Gempa itu dipicu sesar aktif di darat, bukan tsunami. Berbeda dengan gempa megathrust di zona subduksi yang dapat memicu tsunami, seperti yang terjadi pada 2004 di Aceh. Peta rawan gempa menunjukkan bahwa risiko tidak hanya ditentukan magnitudo, tetapi juga kedalaman, jenis batuan, kualitas bangunan, dan kepadatan penduduk.</p><p>Karena itu, mitigasi mencakup penataan ruang, standar bangunan tahan gempa, pendidikan warga, serta jalur evakuasi yang jelas.</p>",
+          "sumber": "Sintesis kasus gempa Cianjur 2022 dan mitigasi tsunami di Indonesia"
+        }
+      },
+      {
+        "tipe": "pgm",
+        "level": "C5",
+        "literasi": "Menganalisis faktor kerusakan",
+        "numerasi": "Menimbang magnitudo, kedalaman, dan kualitas bangunan",
+        "pertanyaan": "Perhatikan pernyataan berikut. (1) Kedalaman gempa memengaruhi intensitas guncangan di permukaan; (2) Kualitas bangunan memengaruhi tingkat kerusakan; (3) Kepadatan penduduk memengaruhi jumlah korban; (4) Magnitudo besar selalu menimbulkan kerusakan sama di semua tempat. Pernyataan yang tepat adalah ...",
+        "opsi": [
+          "(1), (2), dan (3) saja",
+          "(1) dan (4) saja",
+          "(2) dan (4) saja",
+          "(3) dan (4) saja",
+          "Semua pernyataan benar"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Dampak gempa bersifat setempat karena dipengaruhi kedalaman, kondisi tanah, kualitas bangunan, dan kepadatan, sehingga pernyataan (4) salah.",
+        "id": "x-12-q20",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Gempa, Sesar Aktif, dan Mitigasi Tsunami",
+          "isi": "<p>Gempa Cianjur pada November 2022 berkekuatan magnitudo 5,6 menimbulkan kerusakan luas dan korban jiwa. Gempa itu dipicu sesar aktif di darat, bukan tsunami. Berbeda dengan gempa megathrust di zona subduksi yang dapat memicu tsunami, seperti yang terjadi pada 2004 di Aceh. Peta rawan gempa menunjukkan bahwa risiko tidak hanya ditentukan magnitudo, tetapi juga kedalaman, jenis batuan, kualitas bangunan, dan kepadatan penduduk.</p><p>Karena itu, mitigasi mencakup penataan ruang, standar bangunan tahan gempa, pendidikan warga, serta jalur evakuasi yang jelas.</p>",
+          "sumber": "Sintesis kasus gempa Cianjur 2022 dan mitigasi tsunami di Indonesia"
+        }
+      },
+      {
+        "tipe": "pg_kompleks",
+        "level": "C6",
+        "literasi": "Mengevaluasi mitigasi",
+        "numerasi": "Menimbang biaya dan manfaat",
+        "pertanyaan": "Pilih semua pernyataan yang menunjukkan mitigasi gempa dan tsunami yang tepat.",
+        "opsi": [
+          "Menerapkan standar bangunan tahan gempa pada fasilitas publik.",
+          "Menetapkan jalur evakuasi dan titik kumpul yang diketahui warga.",
+          "Membangun permukiman di atas jalur sesar agar dekat dengan lahan pertanian.",
+          "Melatih warga melakukan evakuasi mandiri secara berkala.",
+          "Menghapus jalur evakuasi agar warga tidak bergantung pada pemerintah."
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Membangun permukiman di atas jalur sesar justru meningkatkan risiko, sehingga bertentangan dengan prinsip mitigasi.",
+        "id": "x-12-q21",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Gempa, Sesar Aktif, dan Mitigasi Tsunami",
+          "isi": "<p>Gempa Cianjur pada November 2022 berkekuatan magnitudo 5,6 menimbulkan kerusakan luas dan korban jiwa. Gempa itu dipicu sesar aktif di darat, bukan tsunami. Berbeda dengan gempa megathrust di zona subduksi yang dapat memicu tsunami, seperti yang terjadi pada 2004 di Aceh. Peta rawan gempa menunjukkan bahwa risiko tidak hanya ditentukan magnitudo, tetapi juga kedalaman, jenis batuan, kualitas bangunan, dan kepadatan penduduk.</p><p>Karena itu, mitigasi mencakup penataan ruang, standar bangunan tahan gempa, pendidikan warga, serta jalur evakuasi yang jelas.</p>",
+          "sumber": "Sintesis kasus gempa Cianjur 2022 dan mitigasi tsunami di Indonesia"
+        }
+      },
+      {
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Memasangkan tindakan dengan jenis mitigasi",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Jodohkan tindakan pada kolom kiri dengan jenis mitigasi yang paling tepat pada kolom kanan.",
+        "kiri": [
+          "Penerapan standar bangunan tahan gempa",
+          "Pemasangan sirine peringatan tsunami",
+          "Pelatihan evakuasi sekolah",
+          "Penetapan zona larangan membangun di jalur sesar",
+          "Peta rawan bencana untuk perencanaan"
+        ],
+        "kanan": [
+          "Mitigasi struktural",
+          "Mitigasi nonstruktural berupa sistem peringatan dini",
+          "Mitigasi nonstruktural berupa peningkatan kapasitas warga",
+          "Mitigasi nonstruktural berupa pengaturan tata ruang",
+          "Mitigasi nonstruktural berupa penyediaan informasi risiko"
+        ],
+        "kunci": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "pembahasan": "Standar bangunan bersifat struktural, sedangkan peringatan dini, pelatihan, tata ruang, dan peta risiko merupakan mitigasi nonstruktural.",
+        "id": "x-12-q22",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Gempa, Sesar Aktif, dan Mitigasi Tsunami",
+          "isi": "<p>Gempa Cianjur pada November 2022 berkekuatan magnitudo 5,6 menimbulkan kerusakan luas dan korban jiwa. Gempa itu dipicu sesar aktif di darat, bukan tsunami. Berbeda dengan gempa megathrust di zona subduksi yang dapat memicu tsunami, seperti yang terjadi pada 2004 di Aceh. Peta rawan gempa menunjukkan bahwa risiko tidak hanya ditentukan magnitudo, tetapi juga kedalaman, jenis batuan, kualitas bangunan, dan kepadatan penduduk.</p><p>Karena itu, mitigasi mencakup penataan ruang, standar bangunan tahan gempa, pendidikan warga, serta jalur evakuasi yang jelas.</p>",
+          "sumber": "Sintesis kasus gempa Cianjur 2022 dan mitigasi tsunami di Indonesia"
+        }
+      },
+      {
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan mitigasi",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.",
+        "pernyataan": [
+          "Kualitas bangunan memengaruhi tingkat kerusakan akibat gempa.",
+          "Gempa dengan magnitudo besar selalu menimbulkan kerusakan yang sama di setiap lokasi.",
+          "Jalur evakuasi perlu diketahui dan dilatihkan kepada warga.",
+          "Peta rawan bencana tidak diperlukan dalam perencanaan tata ruang."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Kerusakan bergantung pada banyak faktor setempat, dan peta rawan bencana justru menjadi dasar penting perencanaan tata ruang.",
+        "id": "x-12-q23",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Gempa, Sesar Aktif, dan Mitigasi Tsunami",
+          "isi": "<p>Gempa Cianjur pada November 2022 berkekuatan magnitudo 5,6 menimbulkan kerusakan luas dan korban jiwa. Gempa itu dipicu sesar aktif di darat, bukan tsunami. Berbeda dengan gempa megathrust di zona subduksi yang dapat memicu tsunami, seperti yang terjadi pada 2004 di Aceh. Peta rawan gempa menunjukkan bahwa risiko tidak hanya ditentukan magnitudo, tetapi juga kedalaman, jenis batuan, kualitas bangunan, dan kepadatan penduduk.</p><p>Karena itu, mitigasi mencakup penataan ruang, standar bangunan tahan gempa, pendidikan warga, serta jalur evakuasi yang jelas.</p>",
+          "sumber": "Sintesis kasus gempa Cianjur 2022 dan mitigasi tsunami di Indonesia"
+        }
+      },
+      {
+        "tipe": "benar_salah",
+        "level": "C5",
+        "literasi": "Menilai klaim kesiapsiagaan",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Tentukan Benar (B) atau Salah (S) untuk pernyataan berikut tentang kesiapsiagaan tsunami.",
+        "pernyataan": [
+          "Gempa kuat yang berlangsung lama di dekat pantai perlu diikuti evakuasi ke tempat tinggi tanpa menunggu sirene.",
+          "Informasi risiko cukup dipahami pemerintah tanpa perlu diketahui warga.",
+          "Latihan evakuasi berkala membantu warga merespons lebih cepat.",
+          "Zona larangan membangun di jalur sesar tidak memiliki dasar ilmiah."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Warga sebagai pihak pertama di lokasi perlu memahami tanda bahaya, dan zona larangan membangun berlandas pada kajian sesar aktif.",
+        "id": "x-12-q24",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "Gempa, Sesar Aktif, dan Mitigasi Tsunami",
+          "isi": "<p>Gempa Cianjur pada November 2022 berkekuatan magnitudo 5,6 menimbulkan kerusakan luas dan korban jiwa. Gempa itu dipicu sesar aktif di darat, bukan tsunami. Berbeda dengan gempa megathrust di zona subduksi yang dapat memicu tsunami, seperti yang terjadi pada 2004 di Aceh. Peta rawan gempa menunjukkan bahwa risiko tidak hanya ditentukan magnitudo, tetapi juga kedalaman, jenis batuan, kualitas bangunan, dan kepadatan penduduk.</p><p>Karena itu, mitigasi mencakup penataan ruang, standar bangunan tahan gempa, pendidikan warga, serta jalur evakuasi yang jelas.</p>",
+          "sumber": "Sintesis kasus gempa Cianjur 2022 dan mitigasi tsunami di Indonesia"
+        }
+      },
+      {
+        "tipe": "pg_singkat",
+        "level": "C5",
+        "literasi": "Menganalisis dampak perubahan tutupan lahan",
+        "numerasi": "Menghubungkan limpasan dan tutupan vegetasi",
+        "pertanyaan": "Dampak yang paling mungkin muncul akibat berkurangnya tutupan vegetasi di sekitar kawasan pembangunan adalah ...",
+        "opsi": [
+          "Limpasan permukaan meningkat sehingga risiko erosi dan banjir lokal bertambah.",
+          "Daya serap tanah meningkat sehingga cadangan air tanah bertambah cepat.",
+          "Suhu permukaan menurun karena permukaan menjadi lebih terbuka.",
+          "Keanekaragaman habitat meningkat karena ruang terbuka bertambah.",
+          "Pasokan air tanah meningkat karena permukaan tertutup beton."
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Vegetasi yang berkurang menurunkan intersepsi dan daya serap tanah sehingga limpasan, erosi, dan risiko banjir lokal meningkat.",
+        "id": "x-12-q25",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "IKN Nusantara, Perubahan Tutupan Lahan, dan Jasa Lingkungan",
+          "isi": "<p>Pembangunan Ibu Kota Nusantara di Kalimantan Timur menuntut pembukaan lahan untuk kawasan inti, jaringan jalan, dan permukiman pendukung. Di sisi lain, kawasan ini memiliki tutupan hutan dan ekosistem yang berperan menjaga tata air serta menyimpan karbon. Perubahan tutupan lahan dapat meningkatkan limpasan, mengikis tanah, dan mengganggu habitat apabila tidak dikendalikan.</p><p>Pemerintah mencanangkan konsep kota hutan dan pembangunan rendah karbon. Namun konsep itu perlu diterjemahkan menjadi keputusan tata ruang yang jelas: berapa luas yang dilindungi, bagaimana tata air dijaga, dan bagaimana masyarakat sekitar memperoleh manfaat.</p>",
+          "sumber": "Sintesis isu pembangunan IKN dan perubahan tutupan lahan"
+        }
+      },
+      {
+        "tipe": "pgm",
+        "level": "C5",
+        "literasi": "Mengevaluasi konsep kota hutan",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Perhatikan pernyataan berikut. (1) Konsep kota hutan perlu diterjemahkan menjadi keputusan tata ruang; (2) Kawasan lindung dan daerah tangkapan air perlu dipertahankan; (3) Masyarakat sekitar perlu memperoleh manfaat pembangunan; (4) Konsep kota hutan cukup berupa slogan tanpa indikator. Pernyataan yang tepat adalah ...",
+        "opsi": [
+          "(1), (2), dan (3) saja",
+          "(1) dan (4) saja",
+          "(2) dan (4) saja",
+          "(3) dan (4) saja",
+          "Semua pernyataan benar"
+        ],
+        "kunci": [
+          0
+        ],
+        "pembahasan": "Stimulus menuntut penerjemahan konsep menjadi keputusan nyata, sehingga pernyataan (4) bertentangan.",
+        "id": "x-12-q26",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "IKN Nusantara, Perubahan Tutupan Lahan, dan Jasa Lingkungan",
+          "isi": "<p>Pembangunan Ibu Kota Nusantara di Kalimantan Timur menuntut pembukaan lahan untuk kawasan inti, jaringan jalan, dan permukiman pendukung. Di sisi lain, kawasan ini memiliki tutupan hutan dan ekosistem yang berperan menjaga tata air serta menyimpan karbon. Perubahan tutupan lahan dapat meningkatkan limpasan, mengikis tanah, dan mengganggu habitat apabila tidak dikendalikan.</p><p>Pemerintah mencanangkan konsep kota hutan dan pembangunan rendah karbon. Namun konsep itu perlu diterjemahkan menjadi keputusan tata ruang yang jelas: berapa luas yang dilindungi, bagaimana tata air dijaga, dan bagaimana masyarakat sekitar memperoleh manfaat.</p>",
+          "sumber": "Sintesis isu pembangunan IKN dan perubahan tutupan lahan"
+        }
+      },
+      {
+        "tipe": "pg_kompleks",
+        "level": "C6",
+        "literasi": "Mengevaluasi kebijakan pembangunan",
+        "numerasi": "Menimbang jasa lingkungan",
+        "pertanyaan": "Pilih semua pernyataan yang menunjukkan pengelolaan pembangunan yang mempertimbangkan jasa lingkungan.",
+        "opsi": [
+          "Menetapkan kawasan lindung dan daerah tangkapan air sebelum pembangunan skala besar.",
+          "Memantau kualitas air dan laju erosi di sekitar kawasan pembangunan.",
+          "Mengabaikan tutupan vegetasi karena dianggap tidak berdampak pada tata air.",
+          "Melibatkan masyarakat sekitar dalam pengelolaan dan pengawasan lingkungan.",
+          "Menunda penetapan kawasan lindung hingga pembangunan selesai."
+        ],
+        "kunci": [
+          0,
+          1,
+          3
+        ],
+        "pembahasan": "Tutupan vegetasi berperan pada tata air, sehingga mengabaikannya bertentangan dengan prinsip pembangunan berkelanjutan.",
+        "id": "x-12-q27",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "IKN Nusantara, Perubahan Tutupan Lahan, dan Jasa Lingkungan",
+          "isi": "<p>Pembangunan Ibu Kota Nusantara di Kalimantan Timur menuntut pembukaan lahan untuk kawasan inti, jaringan jalan, dan permukiman pendukung. Di sisi lain, kawasan ini memiliki tutupan hutan dan ekosistem yang berperan menjaga tata air serta menyimpan karbon. Perubahan tutupan lahan dapat meningkatkan limpasan, mengikis tanah, dan mengganggu habitat apabila tidak dikendalikan.</p><p>Pemerintah mencanangkan konsep kota hutan dan pembangunan rendah karbon. Namun konsep itu perlu diterjemahkan menjadi keputusan tata ruang yang jelas: berapa luas yang dilindungi, bagaimana tata air dijaga, dan bagaimana masyarakat sekitar memperoleh manfaat.</p>",
+          "sumber": "Sintesis isu pembangunan IKN dan perubahan tutupan lahan"
+        }
+      },
+      {
+        "tipe": "menjodohkan",
+        "level": "C4",
+        "literasi": "Memasangkan perubahan lahan dengan dampaknya",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Jodohkan perubahan pada kolom kiri dengan dampak yang paling tepat pada kolom kanan.",
+        "kiri": [
+          "Berkurangnya tutupan hutan",
+          "Pembukaan lahan untuk jalan",
+          "Peningkatan permukaan terbangun",
+          "Pembuangan limbah ke sungai",
+          "Konversi lahan pertanian"
+        ],
+        "kanan": [
+          "Pendapatan petani berubah dan pasokan pangan lokal terganggu",
+          "Kualitas air menurun dan ekosistem sungai tertekan",
+          "Limpasan dan erosi meningkat",
+          "Fragmentasi habitat dan berkurangnya daya serap tanah",
+          "Suhu permukaan naik dan infiltrasi menurun"
+        ],
+        "kunci": [
+          2,
+          3,
+          4,
+          1,
+          0
+        ],
+        "pembahasan": "Tutupan hutan berkurang (C), pembukaan jalan (D), permukaan terbangun (E), limbah (B), dan konversi pertanian (A).",
+        "id": "x-12-q28",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "IKN Nusantara, Perubahan Tutupan Lahan, dan Jasa Lingkungan",
+          "isi": "<p>Pembangunan Ibu Kota Nusantara di Kalimantan Timur menuntut pembukaan lahan untuk kawasan inti, jaringan jalan, dan permukiman pendukung. Di sisi lain, kawasan ini memiliki tutupan hutan dan ekosistem yang berperan menjaga tata air serta menyimpan karbon. Perubahan tutupan lahan dapat meningkatkan limpasan, mengikis tanah, dan mengganggu habitat apabila tidak dikendalikan.</p><p>Pemerintah mencanangkan konsep kota hutan dan pembangunan rendah karbon. Namun konsep itu perlu diterjemahkan menjadi keputusan tata ruang yang jelas: berapa luas yang dilindungi, bagaimana tata air dijaga, dan bagaimana masyarakat sekitar memperoleh manfaat.</p>",
+          "sumber": "Sintesis isu pembangunan IKN dan perubahan tutupan lahan"
+        }
+      },
+      {
+        "tipe": "benar_salah",
+        "level": "C4",
+        "literasi": "Menilai pernyataan pembangunan",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.",
+        "pernyataan": [
+          "Tutupan vegetasi berperan menahan air hujan sehingga limpasan berkurang.",
+          "Pembangunan selalu meningkatkan daya serap tanah karena permukaan menjadi lebih rapi.",
+          "Pemantauan kualitas air diperlukan untuk menilai dampak pembangunan.",
+          "Jasa lingkungan tidak perlu diperhitungkan dalam perencanaan pembangunan."
+        ],
+        "kunci": [
+          "B",
+          "S",
+          "B",
+          "S"
+        ],
+        "pembahasan": "Permukaan terbangun menurunkan infiltrasi, dan jasa lingkungan justru penting diperhitungkan dalam perencanaan.",
+        "id": "x-12-q29",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "IKN Nusantara, Perubahan Tutupan Lahan, dan Jasa Lingkungan",
+          "isi": "<p>Pembangunan Ibu Kota Nusantara di Kalimantan Timur menuntut pembukaan lahan untuk kawasan inti, jaringan jalan, dan permukiman pendukung. Di sisi lain, kawasan ini memiliki tutupan hutan dan ekosistem yang berperan menjaga tata air serta menyimpan karbon. Perubahan tutupan lahan dapat meningkatkan limpasan, mengikis tanah, dan mengganggu habitat apabila tidak dikendalikan.</p><p>Pemerintah mencanangkan konsep kota hutan dan pembangunan rendah karbon. Namun konsep itu perlu diterjemahkan menjadi keputusan tata ruang yang jelas: berapa luas yang dilindungi, bagaimana tata air dijaga, dan bagaimana masyarakat sekitar memperoleh manfaat.</p>",
+          "sumber": "Sintesis isu pembangunan IKN dan perubahan tutupan lahan"
+        }
+      },
+      {
+        "tipe": "menjodohkan",
+        "level": "C6",
+        "literasi": "Memasangkan masalah dengan instrumen kebijakan",
+        "numerasi": "Tidak dominan",
+        "pertanyaan": "Jodohkan masalah pada kolom kiri dengan instrumen kebijakan yang paling sesuai pada kolom kanan.",
+        "kiri": [
+          "Fragmentasi habitat akibat jalan baru",
+          "Berkurangnya daerah tangkapan air",
+          "Konflik pemanfaatan lahan dengan warga",
+          "Risiko erosi pada lahan terbuka",
+          "Kebutuhan transparansi data lingkungan"
+        ],
+        "kanan": [
+          "Konsultasi publik dan kesepakatan pemanfaatan lahan",
+          "Penetapan kawasan lindung dan rehabilitasi vegetasi",
+          "Pembuatan koridor satwa pada rancangan infrastruktur",
+          "Publikasi data pemantauan secara berkala",
+          "Penerapan teknik konservasi tanah dan penutupan lahan"
+        ],
+        "kunci": [
+          2,
+          1,
+          0,
+          4,
+          3
+        ],
+        "pembahasan": "Fragmentasi (C), daerah tangkapan air (B), konflik lahan (A), erosi (E), dan transparansi data (D).",
+        "id": "x-12-q30",
+        "stimulus": {
+          "jenis": "teks",
+          "judul": "IKN Nusantara, Perubahan Tutupan Lahan, dan Jasa Lingkungan",
+          "isi": "<p>Pembangunan Ibu Kota Nusantara di Kalimantan Timur menuntut pembukaan lahan untuk kawasan inti, jaringan jalan, dan permukiman pendukung. Di sisi lain, kawasan ini memiliki tutupan hutan dan ekosistem yang berperan menjaga tata air serta menyimpan karbon. Perubahan tutupan lahan dapat meningkatkan limpasan, mengikis tanah, dan mengganggu habitat apabila tidak dikendalikan.</p><p>Pemerintah mencanangkan konsep kota hutan dan pembangunan rendah karbon. Namun konsep itu perlu diterjemahkan menjadi keputusan tata ruang yang jelas: berapa luas yang dilindungi, bagaimana tata air dijaga, dan bagaimana masyarakat sekitar memperoleh manfaat.</p>",
+          "sumber": "Sintesis isu pembangunan IKN dan perubahan tutupan lahan"
+        }
+      }
+    ]
+  }
+]

@@ -241,7 +241,12 @@ if (typeof blRenderSoal === 'function') {
         chapterCount++;
         questionCount += bab.soal.length;
         const types = new Set(bab.soal.map((soal) => soal.tipe));
-        completeBank &&= bab.soal.length >= 5 && bab.soal.length <= 10
+        const paketUjian = bab.bebas_akses === true;
+        const minStimulus = paketUjian ? 400 : 800;
+        const minPembahasan = paketUjian ? 60 : 80;
+        completeBank &&= (paketUjian
+          ? bab.soal.length === 30
+          : bab.soal.length >= 5 && bab.soal.length <= 10)
           && questionTypes.every((type) => types.has(type))
           && bab.soal.every((soal) => {
             const key = soal.kunci || [];
@@ -258,8 +263,8 @@ if (typeof blRenderSoal === 'function') {
                     && Array.isArray(soal.kiri) && Array.isArray(soal.kanan)
                     && soal.kiri.length >= 2 && soal.kanan.length >= 2
                     && key.length === soal.kiri.length && validIndices(soal.kanan.length);
-            return shapeValid && String(soal.stimulus?.isi || '').replace(/<[^>]+>/g, ' ').length >= 800
-              && String(soal.pembahasan || '').length >= 80;
+            return shapeValid && String(soal.stimulus?.isi || '').replace(/<[^>]+>/g, ' ').length >= minStimulus
+              && String(soal.pembahasan || '').length >= minPembahasan;
           });
       }
     }
@@ -413,6 +418,15 @@ try {
   const kur = await req('GET', '/api/kurikulum');
   const bab = kur.json?.babs?.find((b) => b.unlocked) || kur.json?.babs?.[0];
   check('kurikulum punya bab', !!bab, `bab=${bab?.id || '-'}`);
+
+  const paketTka = kur.json?.babs?.find((b) => b.id === 'x-09');
+  check('paket TKA terbuka tanpa prasyarat bab sebelumnya',
+    !!paketTka && paketTka.unlocked === true && paketTka.is_active_semester === true,
+    `unlocked=${paketTka?.unlocked} aktif=${paketTka?.is_active_semester}`);
+  const paketDetail = await req('GET', '/api/kurikulum/x-09');
+  check('detail paket TKA dapat dimuat siswa',
+    paketDetail.status === 200 && (paketDetail.json?.soal || []).length === 30,
+    `status=${paketDetail.status} soal=${paketDetail.json?.soal?.length}`);
 
   const detail = await req('GET', `/api/kurikulum/${bab.id}`);
   const soal = detail.json?.soal || [];

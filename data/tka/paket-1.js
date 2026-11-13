@@ -1,0 +1,577 @@
+// Paket 1 TKA Geografi Kelas X - sejarah dan filsafat ilmu geografi.
+// Stimulus ditulis sekali per klaster, lalu diperluas oleh scripts/build-tka-kelas-x.js.
+module.exports = {
+  bab: {
+    id: 'x-09',
+    kelas: 'X',
+    urutan: 9,
+    fase: 'E',
+    elemen: 'Pemahaman Konsep dan Keterampilan Proses Geografi',
+    judul: 'TKA Geografi 1: Sejarah dan Filsafat Ilmu Geografi',
+    ringkasan: 'Paket soal TKA HOTS tentang periodisasi sejarah geografi, tokoh dan sumbangannya, serta pertarungan filsafat determinisme dan posibilisme dalam pembacaan fenomena Indonesia.',
+    estimasi: '3 JP',
+    semester: 2,
+    bebas_akses: true,
+    cp: 'Peserta didik mampu menganalisis perkembangan sejarah dan filsafat ilmu geografi, menilai sumbangan tokoh, serta menggunakan kerangka filsafat geografi untuk menjelaskan fenomena keruangan di Indonesia.',
+    tujuan: [
+      'Menganalisis periodisasi perkembangan ilmu geografi dari masa klasik hingga era geospasial.',
+      'Membandingkan sumbangan tokoh geografi klasik, abad pertengahan Islam, dan modern.',
+      'Menilai penerapan determinisme dan posibilisme pada kasus pembangunan di Indonesia.',
+      'Mengevaluasi kedudukan geografi dalam kurikulum nasional dan praktik kajian ruang terkini.'
+    ],
+    materi: [
+      {
+        id: 't1',
+        judul: 'Ringkasan: Periodisasi dan Filsafat Geografi',
+        html: '<p>Geografi berkembang melalui empat periode besar: klasik (Yunani-Romawi), abad pertengahan Islam, modern abad ke-19, dan kontemporer berbasis teknologi geospasial. Pertanyaan pokoknya tetap: bagaimana ruang, lingkungan, dan manusia saling membentuk. Dua kutub filsafat yang sering diuji adalah determinisme lingkungan (Ratzel, Semple, Huntington) dan posibilisme (Vidal de la Blache).</p>'
+      }
+    ],
+    glosarium: [
+      { istilah: 'geographica', arti: 'istilah yang dipopulerkan Eratosthenes untuk kajian tentang bumi.' },
+      { istilah: 'determinisme lingkungan', arti: 'pandangan bahwa kondisi fisik lingkungan menentukan perilaku dan kebudayaan manusia.' },
+      { istilah: 'posibilisme', arti: 'pandangan bahwa lingkungan hanya menyediakan kemungkinan, sedangkan manusia memilih dan memodifikasinya.' },
+      { istilah: 'chorological', arti: 'sudut pandang yang menempatkan ruang sebagai fokus kajian, sebagaimana dirumuskan Kant.' },
+      { istilah: 'revolusi kuantitatif', arti: 'pergeseran geografi pada 1950-1960-an menuju model, statistik, dan analisis keruangan terukur.' },
+      { istilah: 'geospasial', arti: 'data dan analisis yang mengikat informasi pada koordinat ruang bumi.' }
+    ]
+  },
+  klaster: [
+    {
+      stimulus: {
+        jenis: 'teks',
+        judul: 'Dari Eratosthenes ke Geospasial AI: 2.200 Tahun Mengukur Bumi',
+        isi: '<p>Pada abad ke-3 SM, Eratosthenes menyebut kajian tentang bumi sebagai <em>geographica</em> dan menghitung keliling bumi sekitar 39.700 km dengan membandingkan sudut bayangan matahari di Syene dan Aleksandria. Strabo menyusun <em>Geographica</em> dalam 17 jilid yang menekankan hubungan manusia dan lingkungan. Claudius Ptolemaeus memperkenalkan kisi lintang-bujur dalam <em>Geographia</em> sehingga posisi tempat dapat dipetakan secara sistematis.</p><p>Pada abad ke-17, Bernhardus Varenius menulis <em>Geographia Generalis</em> yang membedakan geografi umum dan geografi khusus. Immanuel Kant menempatkan geografi sebagai ilmu yang mengkaji ruang, berbeda dari sejarah yang mengkaji waktu. Abad ke-19 menjadi titik balik: Alexander von Humboldt menekankan pengamatan lapangan dan keterkaitan fenomena, sedangkan Carl Ritter menekankan perbandingan wilayah. Abad ke-20 menghadirkan revolusi kuantitatif, penginderaan jauh, sistem informasi geografis, dan kini analitik geospasial berbasis kecerdasan artifisial.</p>',
+        sumber: 'Sintesis sejarah geografi: Eratosthenes, Strabo, Ptolemaeus, Varenius, Kant, Humboldt, dan Ritter'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Membaca kronologi sejarah ilmu geografi',
+          numerasi: 'Menafsirkan angka perkiraan keliling bumi',
+          pertanyaan: 'Berdasarkan stimulus, pernyataan yang paling tepat menggambarkan kedudukan Eratosthenes dalam sejarah geografi adalah ...',
+          opsi: [
+            'Eratosthenes adalah tokoh pertama yang menggunakan citra satelit untuk menghitung luas gurun.',
+            'Eratosthenes memopulerkan istilah geographica dan menghitung keliling bumi melalui perbandingan sudut bayangan matahari.',
+            'Eratosthenes menyusun peta tematik pertama tentang persebaran penduduk Asia Kecil.',
+            'Eratosthenes menolak penggunaan matematika karena bumi dianggap tidak dapat diukur.',
+            'Eratosthenes adalah pelopor aliran posibilisme yang menekankan peran aktif manusia.'
+          ],
+          kunci: [1],
+          pembahasan: 'Stimulus menyebut Eratosthenes memakai istilah geographica dan menghitung keliling bumi sekitar 39.700 km dari perbandingan sudut bayangan di Syene dan Aleksandria. Pilihan lain tidak memiliki dasar pada stimulus.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C4',
+          literasi: 'Menguji kesesuaian pernyataan dengan sumber sejarah',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Varenius membedakan geografi umum dan geografi khusus; (2) Kant menempatkan geografi sebagai ilmu tentang ruang, sedangkan sejarah tentang waktu; (3) Humboldt menekankan pengamatan lapangan dan keterkaitan fenomena; (4) Ritter menyatakan lingkungan fisik menentukan seluruh perilaku manusia. Pernyataan yang sesuai dengan stimulus adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2), (3), dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Pernyataan (1), (2), dan (3) sesuai stimulus. Pernyataan (4) keliru karena stimulus menyebut Ritter menekankan perbandingan wilayah, bukan determinisme lingkungan.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Mengevaluasi ciri geografi kontemporer',
+          numerasi: 'Menimbang klaim tentang peran teknologi',
+          pertanyaan: 'Pilih semua pernyataan yang mencerminkan ciri geografi kontemporer menurut stimulus.',
+          opsi: [
+            'Pemanfaatan sistem informasi geografis memungkinkan analisis keruangan yang lebih cepat dan terukur.',
+            'Analitik geospasial berbasis kecerdasan artifisial menjadi alat baru dalam kajian ruang.',
+            'Revolusi kuantitatif abad ke-20 menggantikan seluruh pertanyaan kualitatif tentang makna ruang.',
+            'Perubahan alat analisis tidak menghapus pertanyaan lama tentang bagaimana manusia memaknai ruang.',
+            'Penginderaan jauh membuat pengamatan lapangan tidak lagi diperlukan dalam penelitian geografi.'
+          ],
+          kunci: [0, 1, 3],
+          pembahasan: 'Stimulus menegaskan alat berubah, tetapi pertanyaan lama tetap ada. Klaim bahwa seluruh pertanyaan kualitatif tergantikan atau pengamatan lapangan tidak diperlukan tidak didukung stimulus.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan tokoh dengan sumbangannya',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan tokoh pada kolom kiri dengan sumbangan yang paling tepat pada kolom kanan.',
+          kiri: ['Eratosthenes', 'Strabo', 'Ptolemaeus', 'Varenius', 'Kant'],
+          kanan: [
+            'Menyusun kisi lintang-bujur sehingga posisi tempat dapat dipetakan secara sistematis',
+            'Menempatkan geografi sebagai ilmu tentang ruang, berbeda dari sejarah yang mengkaji waktu',
+            'Menghitung keliling bumi melalui perbandingan sudut bayangan dan memopulerkan istilah geographica',
+            'Membedakan geografi umum dan geografi khusus melalui Geographia Generalis',
+            'Menulis Geographica 17 jilid yang menekankan hubungan manusia dan lingkungan'
+          ],
+          kunci: [2, 4, 0, 3, 1],
+          pembahasan: 'Eratosthenes menghitung keliling bumi (C), Strabo menulis Geographica 17 jilid (E), Ptolemaeus menyusun kisi lintang-bujur (A), Varenius membedakan geografi umum-khusus (D), dan Kant menempatkan geografi sebagai ilmu ruang (B).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai kebenaran pernyataan historis',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Eratosthenes menghitung keliling bumi dengan membandingkan sudut bayangan matahari di dua kota yang berbeda.',
+            'Ptolemaeus menolak penggunaan koordinat lintang dan bujur dalam penyusunan peta.',
+            'Kant membedakan kajian geografi yang berfokus pada ruang dari sejarah yang berfokus pada waktu.',
+            'Revolusi kuantitatif abad ke-20 menghapus seluruh pertanyaan kualitatif dalam ilmu geografi.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Ptolemaeus justru memakai kisi lintang-bujur, sedangkan revolusi kuantitatif menambah metode baru tanpa menghapus kajian kualitatif.'
+        },
+        {
+          tipe: 'pg_singkat',
+          level: 'C5',
+          literasi: 'Menarik simpulan atas perubahan metode geografi',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Kesimpulan yang paling tepat tentang perkembangan ilmu geografi berdasarkan stimulus adalah ...',
+          opsi: [
+            'Geografi berkembang hanya karena penemuan satelit pada abad ke-20 sehingga periode sebelumnya tidak bermakna.',
+            'Geografi berubah alat dan metodenya, tetapi tetap berfokus pada kajian ruang dan hubungan manusia dengan lingkungan.',
+            'Geografi klasik tidak memiliki sumbangan berarti bagi perkembangan geografi modern.',
+            'Perkembangan geografi berhenti setelah revolusi kuantitatif karena semua pertanyaan ruang telah terjawab.',
+            'Geografi modern meninggalkan sepenuhnya tradisi pengamatan lapangan yang dibangun Humboldt.'
+          ],
+          kunci: [1],
+          pembahasan: 'Seluruh paparan stimulus menunjukkan kesinambungan fokus ruang dan relasi manusia-lingkungan meskipun alat analisis berubah dari peta manual menjadi analitik geospasial.'
+        }
+      ]
+    },
+    {
+      stimulus: {
+        jenis: 'tabel',
+        judul: 'Garis Waktu Sumbangan Tokoh Geografi',
+        isi: '<table><thead><tr><th>Tokoh</th><th>Periode</th><th>Sumbangan utama</th></tr></thead><tbody><tr><td>Hecataeus</td><td>Yunani klasik</td><td>Menyusun deskripsi wilayah dan peta bumi dalam Periegesis</td></tr><tr><td>Herodotus</td><td>Yunani klasik</td><td>Menggabungkan deskripsi wilayah dan bangsa dalam karya sejarah</td></tr><tr><td>Al-Biruni</td><td>Abad pertengahan Islam</td><td>Mengukur jari-jari bumi dengan trigonometri dan mengembangkan geodesi</td></tr><tr><td>Ibn Battuta</td><td>Abad pertengahan Islam</td><td>Menulis catatan perjalanan tiga benua dalam Rihlah</td></tr><tr><td>Humboldt</td><td>Abad ke-19</td><td>Menekankan pengamatan lapangan dan keterkaitan fenomena alam</td></tr><tr><td>Ratzel</td><td>Abad ke-19</td><td>Mengembangkan antropogeografi dan gagasan determinisme lingkungan</td></tr><tr><td>Vidal de la Blache</td><td>Awal abad ke-20</td><td>Mengembangkan posibilisme dan konsep genre de vie</td></tr><tr><td>Carl Sauer</td><td>Abad ke-20</td><td>Mengembangkan kajian lanskap budaya di aliran Berkeley</td></tr></tbody></table>',
+        sumber: 'Sintesis buku teks sejarah geografi'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Menafsirkan tabel tokoh dan sumbangan',
+          numerasi: 'Membandingkan kontribusi ilmiah pada periode berbeda',
+          pertanyaan: 'Berdasarkan tabel, pernyataan yang paling tepat mengenai sumbangan Al-Biruni adalah ...',
+          opsi: [
+            'Al-Biruni mengembangkan posibilisme dengan menekankan pilihan manusia atas lingkungannya.',
+            'Al-Biruni mengukur jari-jari bumi menggunakan trigonometri dan meletakkan dasar geodesi.',
+            'Al-Biruni menyusun catatan perjalanan tiga benua yang menjadi dasar kartografi modern.',
+            'Al-Biruni memperkenalkan konsep lanskap budaya dalam kajian geografi manusia.',
+            'Al-Biruni menolak pengukuran matematis karena bumi dianggap berbentuk tidak beraturan.'
+          ],
+          kunci: [1],
+          pembahasan: 'Tabel mencatat Al-Biruni mengukur jari-jari bumi dengan trigonometri dan mengembangkan geodesi, bukan posibilisme, catatan perjalanan, atau lanskap budaya.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C4',
+          literasi: 'Menghubungkan tokoh dengan aliran pemikiran',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Ratzel mengembangkan antropogeografi dengan nuansa determinisme lingkungan; (2) Vidal de la Blache menekankan kemampuan manusia memilih di antara kemungkinan lingkungan; (3) Carl Sauer mengembangkan kajian lanskap budaya; (4) Ibn Battuta mengembangkan teori posibilisme di Eropa. Pernyataan yang sesuai tabel adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Pernyataan (4) tidak sesuai tabel karena Ibn Battuta dikenal melalui catatan perjalanan Rihlah, bukan teori posibilisme.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Membandingkan aliran determinisme dan posibilisme',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Pilih semua pernyataan yang tepat berdasarkan tabel dan kerangka filsafat geografi.',
+          opsi: [
+            'Determinisme lingkungan menempatkan kondisi fisik sebagai penentu utama perilaku manusia.',
+            'Posibilisme memberi ruang pada manusia untuk memodifikasi lingkungan melalui teknologi dan kelembagaan.',
+            'Konsep genre de vie berkaitan dengan cara hidup masyarakat yang terbentuk dari interaksi dengan lingkungannya.',
+            'Lanskap budaya menunjukkan bahwa ruang hanya dipengaruhi alam dan tidak pernah diubah manusia.',
+            'Antropogeografi mengkaji hubungan antara manusia dan ruang tempat mereka hidup.'
+          ],
+          kunci: [0, 1, 2, 4],
+          pembahasan: 'Pernyataan keempat bertentangan dengan konsep lanskap budaya Sauer yang justru menekankan jejak aktivitas manusia pada ruang.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan tokoh dengan karya atau perannya',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan tokoh pada kolom kiri dengan deskripsi yang paling tepat pada kolom kanan.',
+          kiri: ['Hecataeus', 'Herodotus', 'Ibn Battuta', 'Humboldt', 'Sauer'],
+          kanan: [
+            'Menekankan pengamatan lapangan dan keterkaitan fenomena alam pada abad ke-19',
+            'Menulis catatan perjalanan tiga benua dalam Rihlah',
+            'Menyusun deskripsi wilayah dan peta bumi dalam Periegesis',
+            'Mengembangkan kajian lanskap budaya di aliran Berkeley',
+            'Menggabungkan deskripsi wilayah dan bangsa dalam karya sejarah'
+          ],
+          kunci: [2, 4, 1, 0, 3],
+          pembahasan: 'Hecataeus menyusun Periegesis (C), Herodotus menggabungkan deskripsi wilayah dalam karya sejarah (E), Ibn Battuta menulis Rihlah (B), Humboldt menekankan kerja lapangan (A), dan Sauer mengembangkan lanskap budaya (D).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai ketepatan atribusi tokoh',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berdasarkan tabel.',
+          pernyataan: [
+            'Ibn Battuta dikenal melalui catatan perjalanan yang mencakup tiga benua.',
+            'Carl Sauer adalah tokoh determinisme lingkungan yang menolak kajian lanskap budaya.',
+            'Vidal de la Blache mengembangkan posibilisme dan konsep genre de vie.',
+            'Hecataeus hidup pada abad ke-19 dan mengembangkan antropogeografi.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Sauer justru mengembangkan lanskap budaya, sedangkan Hecataeus berasal dari Yunani klasik dan antropogeografi dikembangkan Ratzel.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C5',
+          literasi: 'Mengevaluasi klaim tentang kesinambungan tradisi geografi',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Tradisi deskripsi wilayah sudah muncul sebelum abad ke-19; (2) Kajian hubungan manusia-lingkungan berlanjut dari masa klasik hingga modern; (3) Determinisme dan posibilisme menawarkan penjelasan berbeda atas relasi manusia-lingkungan; (4) Geografi hanya berkembang di Eropa sehingga tokoh Asia tidak berperan. Pernyataan yang dapat dipertanggungjawabkan adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2), (3), dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Tabel memuat Al-Biruni dan Ibn Battuta sebagai bukti peran tokoh Asia, sehingga pernyataan (4) salah.'
+        }
+      ]
+    },
+    {
+      stimulus: {
+        jenis: 'teks',
+        judul: 'Determinisme, Posibilisme, dan Pembangunan di Indonesia',
+        isi: '<p>Friedrich Ratzel dan Ellen Churchill Semple dipandang sebagai pembawa gagasan determinisme lingkungan: bentuk muka bumi, iklim, dan posisi geografis dianggap menentukan corak kehidupan manusia. Ellsworth Huntington menambahkan faktor iklim sebagai penentu peradaban. Sebaliknya, Paul Vidal de la Blache merumuskan posibilisme: lingkungan hanya menyediakan kemungkinan, sedangkan manusia memilih cara memanfaatkannya melalui teknologi, pengetahuan, dan kelembagaan.</p><p>Di Indonesia, perdebatan itu tampak pada pengelolaan lahan. Lereng vulkanik yang curam sebenarnya rawan longsor, tetapi masyarakat mengembangkan terasering dan tanaman campuran. Pesisir yang tergenang rob ditata dengan tanggul, pompa, dan penyesuaian tata ruang. Pembangunan Ibu Kota Nusantara di Kalimantan Timur juga menunjukkan upaya manusia mengubah kendala lingkungan melalui perencanaan kota hutan, meski tetap menghadapi risiko ekologis.</p>',
+        sumber: 'Sintesis filsafat geografi dan contoh pembangunan di Indonesia'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Membedakan determinisme dan posibilisme',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Penerapan terasering pada lereng vulkanik paling tepat dijelaskan dengan kerangka ...',
+          opsi: [
+            'Determinisme lingkungan karena lereng curam memaksa masyarakat bertani di lahan miring.',
+            'Posibilisme karena masyarakat memilih teknologi terasering untuk memanfaatkan lahan yang rawan longsor.',
+            'Kosmologi geometris karena bentuk bumi memengaruhi pola tanam masyarakat.',
+            'Determinisme iklim karena curah hujan menentukan jenis tanaman pangan.',
+            'Geografi klasik karena terasering hanya berkaitan dengan deskripsi wilayah.'
+          ],
+          kunci: [1],
+          pembahasan: 'Terasering menunjukkan manusia tidak pasif terhadap kendala lereng, tetapi mengembangkan teknologi untuk memanfaatkannya, sejalan dengan posibilisme.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C4',
+          literasi: 'Menguji kesesuaian pernyataan dengan konsep',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Determinisme menekankan peran penentu lingkungan fisik; (2) Posibilisme menekankan pilihan manusia dalam memanfaatkan lingkungan; (3) Terasering merupakan contoh penyesuaian budaya terhadap kendala fisik; (4) Posibilisme menyatakan manusia tidak dapat mengubah lingkungan sama sekali. Pernyataan yang tepat adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Pernyataan (4) keliru karena posibilisme justru menempatkan manusia sebagai agen aktif yang dapat memodifikasi lingkungan.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Mengevaluasi penerapan filsafat pada kasus pembangunan',
+          numerasi: 'Menimbang risiko lingkungan dari keputusan tata ruang',
+          pertanyaan: 'Pilih semua pernyataan yang menggambarkan pembacaan posibilisme atas pembangunan IKN Nusantara.',
+          opsi: [
+            'Pembangunan kota hutan menunjukkan upaya manusia merancang ruang baru melalui perencanaan dan teknologi.',
+            'Risiko ekologis tetap diperhitungkan karena pilihan manusia tidak menghapus batas lingkungan.',
+            'Keberhasilan pembangunan sepenuhnya ditentukan iklim Kalimantan tanpa perlu perencanaan manusia.',
+            'Keputusan memindahkan ibu kota merupakan bentuk intervensi manusia atas ruang yang sudah ada.',
+            'Masyarakat lokal tidak memiliki peran karena lingkungan telah menentukan seluruh kehidupannya.'
+          ],
+          kunci: [0, 1, 3],
+          pembahasan: 'Posibilisme menempatkan manusia sebagai pemilih dan perancang, namun tetap mengakui batas lingkungan. Pilihan ketiga dan kelima justru berciri determinisme.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan tokoh dengan pandangan',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan tokoh pada kolom kiri dengan pandangan yang paling tepat pada kolom kanan.',
+          kiri: ['Ratzel', 'Semple', 'Huntington', 'Vidal de la Blache', 'Sauer'],
+          kanan: [
+            'Menekankan manusia memilih di antara kemungkinan lingkungan melalui genre de vie',
+            'Menekankan iklim sebagai penentu peradaban manusia',
+            'Mengembangkan antropogeografi dengan nuansa determinisme lingkungan',
+            'Menekankan jejak budaya manusia pada lanskap',
+            'Meneruskan determinisme lingkungan dalam kajian geografi manusia di Amerika'
+          ],
+          kunci: [2, 4, 1, 0, 3],
+          pembahasan: 'Ratzel (C), Semple (E), Huntington (B), Vidal de la Blache (A), dan Sauer (D). Sauer menekankan lanskap budaya, bukan determinisme.'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai pernyataan konseptual',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Determinisme lingkungan menempatkan kondisi fisik sebagai penentu utama kehidupan manusia.',
+            'Posibilisme menyatakan bahwa manusia sama sekali tidak dapat mengubah lingkungannya.',
+            'Terasering dapat dibaca sebagai bukti kemampuan manusia menyesuaikan teknologi dengan kendala lereng.',
+            'Huntington dikenal karena menolak pengaruh iklim terhadap peradaban.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Posibilisme memberi ruang tindakan manusia, dan Huntington justru menekankan pengaruh iklim terhadap peradaban.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C6',
+          literasi: 'Mengevaluasi bukti tindakan manusia atas lingkungan',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Pilih semua pernyataan yang menunjukkan bahwa pembangunan di Indonesia tidak sepenuhnya ditentukan oleh lingkungan fisik.',
+          opsi: [
+            'Masyarakat lereng vulkanik membangun terasering untuk mengurangi risiko longsor.',
+            'Pesisir yang tergenang rob ditangani dengan tanggul, pompa, dan penataan ruang.',
+            'Pemindahan ibu kota direncanakan dengan konsep kota hutan dan kajian risiko ekologis.',
+            'Pola tanam penduduk sepenuhnya mengikuti iklim tanpa ada pilihan teknologi.',
+            'Kemampuan manusia mengubah lingkungan berarti batas fisik tidak perlu diperhitungkan.'
+          ],
+          kunci: [0, 1, 2],
+          pembahasan: 'Tiga pilihan pertama menunjukkan pilihan teknologi dan kelembagaan. Pilihan keempat berciri determinisme, sedangkan pilihan kelima mengabaikan batas lingkungan yang tetap diakui posibilisme.'
+        }
+      ]
+    },
+    {
+      stimulus: {
+        jenis: 'video',
+        judul: 'Video Pemantik: Sejarah Terbentuknya Ilmu Geografi',
+        youtube_id: '7auItJBQc04',
+        isi: '<p>Video ini merangkum perjalanan geografi dari pengamatan sederhana tentang bumi hingga menjadi ilmu yang memadukan unsur fisik dan sosial. Perhatikan bagaimana pertanyaan yang sama terus diwariskan: di mana fenomena terjadi, mengapa di sana, dan bagaimana manusia meresponsnya. Gunakan tayangan ini sebagai pembanding terhadap uraian pada stimulus sebelumnya.</p><p>Catat setidaknya tiga contoh yang menunjukkan perubahan fokus kajian: dari deskripsi wilayah, menuju penjelasan hubungan, hingga pemanfaatan data berkoordinat.</p>',
+        sumber: 'YouTube - Fuady education: Sejarah Terbentuknya Ilmu Geografi (Materi IPS Tingkat SMA)'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Menarik simpulan dari tayangan video',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Berdasarkan video dan pengetahuan awalmu, pertanyaan pokok yang paling konsisten diwariskan dalam sejarah ilmu geografi adalah ...',
+          opsi: [
+            'Siapa penguasa wilayah yang paling berkuasa pada suatu masa tertentu.',
+            'Di mana fenomena terjadi, mengapa terjadi di sana, dan bagaimana manusia meresponsnya.',
+            'Berapa keuntungan ekonomi yang diperoleh dari pengelolaan sumber daya alam.',
+            'Kapan tepatnya manusia mulai menetap dan meninggalkan cara hidup berburu.',
+            'Mengapa manusia harus meninggalkan seluruh kajian lingkungan fisik.'
+          ],
+          kunci: [1],
+          pembahasan: 'Pertanyaan tentang lokasi, sebab keruangan, dan respons manusia merupakan inti kajian ruang yang berlanjut dari masa klasik hingga kontemporer.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C5',
+          literasi: 'Menilai keterkaitan video dengan konsep sejarah geografi',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Geografi sejak awal memadukan unsur fisik dan sosial; (2) Perkembangan geografi dipengaruhi kemampuan manusia mengukur dan memetakan bumi; (3) Teknologi geospasial memperluas cara manusia menjawab pertanyaan keruangan; (4) Geografi tidak pernah mengalami perubahan metode sejak masa klasik. Pernyataan yang tepat adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Pernyataan (4) bertentangan dengan fakta perubahan metode dari deskripsi wilayah hingga analitik geospasial.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Mengevaluasi klaim berdasarkan tayangan',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Pilih semua pernyataan yang menunjukkan manfaat mempelajari sejarah geografi bagi pelajar.',
+          opsi: [
+            'Memahami asal-usul pertanyaan yang kini dijawab dengan analisis geospasial.',
+            'Menyadari bahwa konsep ruang bukan temuan sekali jadi, melainkan hasil perdebatan panjang.',
+            'Mengetahui bahwa seluruh teori klasik langsung dapat diterapkan tanpa penyesuaian.',
+            'Membantu menilai perubahan kerangka analisis dari deskriptif menuju terukur.',
+            'Menghafal seluruh tahun penting tanpa memahami konteks perubahan konsep.'
+          ],
+          kunci: [0, 1, 3],
+          pembahasan: 'Sejarah geografi membantu memahami asal pertanyaan dan perubahan kerangka analisis. Klaim bahwa teori klasik dapat dipakai tanpa penyesuaian tidak tepat.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan istilah dengan maknanya',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan istilah pada kolom kiri dengan makna yang paling tepat pada kolom kanan.',
+          kiri: ['Deskripsi wilayah', 'Geodesi', 'Kartografi', 'Revolusi kuantitatif', 'Analitik geospasial'],
+          kanan: [
+            'Pengukuran bentuk dan ukuran bumi beserta posisinya',
+            'Pergeseran geografi menuju model dan analisis statistik',
+            'Pemetaan dan analisis data berkoordinat dengan bantuan perangkat lunak',
+            'Uraian tertulis tentang ciri suatu tempat dan masyarakatnya',
+            'Pembuatan peta sebagai alat menyajikan ruang'
+          ],
+          kunci: [3, 0, 4, 1, 2],
+          pembahasan: 'Deskripsi wilayah (D), geodesi (A), kartografi (E), revolusi kuantitatif (B), dan analitik geospasial (C).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai pernyataan hasil pengamatan video',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Pertanyaan tentang lokasi dan sebab keruangan tetap relevan meskipun alat analisis berubah.',
+            'Sejarah geografi menunjukkan bahwa metode ilmiah bersifat tetap sepanjang waktu.',
+            'Teknologi pemetaan memengaruhi cara manusia mengamati dan menjelaskan ruang.',
+            'Kajian sejarah geografi tidak berguna bagi pelajar karena hanya berisi hafalan tahun.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Metode geografi terus berkembang, dan sejarahnya membantu memahami perubahan kerangka analisis sehingga tidak sekadar hafalan tahun.'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C5',
+          literasi: 'Menilai implikasi pernyataan terhadap praktik penelitian',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk pernyataan berikut terkait pemanfaatan sejarah geografi dalam penelitian.',
+          pernyataan: [
+            'Peneliti dapat memilih pendekatan historis untuk melacak perubahan penggunaan lahan di suatu daerah.',
+            'Pengetahuan sejarah geografi menutup kemungkinan lahirnya pendekatan baru berbasis kecerdasan artifisial.',
+            'Pemahaman perkembangan konsep membantu peneliti menghindari kekeliruan memakai istilah secara sembarang.',
+            'Sejarah geografi membuktikan bahwa deskripsi wilayah tidak pernah menghasilkan data yang berguna.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Sejarah geografi justru memperkaya pilihan pendekatan dan ketepatan istilah, bukan menutup pembaruan metode.'
+        }
+      ]
+    },
+    {
+      stimulus: {
+        jenis: 'teks',
+        judul: 'IGI 1988 dan Perjalanan Kurikulum Geografi Indonesia',
+        isi: '<p>Seminar dan lokakarya Ikatan Geograf Indonesia pada 1988 merumuskan geografi sebagai ilmu yang mempelajari persamaan dan perbedaan fenomena geosfer dengan sudut pandang kelingkungan dan kewilayahan dalam konteks keruangan. Rumusan itu menjadi rujukan pengajaran geografi sekaligus menegaskan objek formal geografi: pendekatan keruangan, kelingkungan, dan kewilayahan.</p><p>Kurikulum nasional berganti dari kurikulum 1975, 1984, 1994, 2004, 2006, dan 2013 hingga kurikulum merdeka. Tekanan kurikulum bergerak dari penekanan hafalan nama tempat menuju keterampilan proses, literasi data, dan berpikir kritis. Namun kebutuhan tetap: siswa mampu membaca ruang, bukan sekadar menghafal peta.</p>',
+        sumber: 'Rumusan IGI 1988 dan sejarah kurikulum nasional'
+      },
+      soal: [
+        {
+          tipe: 'pg_singkat',
+          level: 'C4',
+          literasi: 'Memahami rumusan IGI 1988',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Berdasarkan rumusan IGI 1988, unsur yang paling menandai geografi sebagai ilmu adalah ...',
+          opsi: [
+            'Sudut pandang kelingkungan dan kewilayahan dalam konteks keruangan sebagai objek formal.',
+            'Penghafalan seluruh batas administratif negara sebagai objek material utama.',
+            'Penggunaan data statistik saja tanpa memperhatikan konteks wilayah.',
+            'Kajian sejarah nasional yang dipadukan dengan kajian budaya.',
+            'Penolakan terhadap pendekatan kelingkungan karena dianggap tidak ilmiah.'
+          ],
+          kunci: [0],
+          pembahasan: 'Rumusan IGI 1988 menegaskan sudut pandang kelingkungan dan kewilayahan dalam konteks keruangan, yang membedakan geografi dari ilmu lain.'
+        },
+        {
+          tipe: 'pgm',
+          level: 'C5',
+          literasi: 'Mengevaluasi pergeseran fokus kurikulum',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Perhatikan pernyataan berikut. (1) Kurikulum bergeser dari hafalan menuju keterampilan proses; (2) Literasi data dan berpikir kritis semakin ditekankan; (3) Rumusan IGI 1988 masih relevan untuk menjelaskan objek formal geografi; (4) Kurikulum merdeka menghapus kajian ruang dari geografi. Pernyataan yang tepat adalah ...',
+          opsi: [
+            '(1), (2), dan (3) saja',
+            '(1) dan (4) saja',
+            '(2) dan (4) saja',
+            '(3) dan (4) saja',
+            'Semua pernyataan benar'
+          ],
+          kunci: [0],
+          pembahasan: 'Kurikulum merdeka tidak menghapus kajian ruang; justru menekankan literasi data dan keterampilan proses yang tetap bertumpu pada sudut pandang keruangan.'
+        },
+        {
+          tipe: 'pg_kompleks',
+          level: 'C5',
+          literasi: 'Menilai implementasi rumusan kurikulum',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Pilih semua pernyataan yang mencerminkan pembelajaran geografi sesuai rumusan IGI 1988 dan perkembangan kurikulum.',
+          opsi: [
+            'Menganalisis persamaan dan perbedaan fenomena geosfer antartempat.',
+            'Menggunakan data spasial untuk menjelaskan mengapa fenomena terkonsentrasi di wilayah tertentu.',
+            'Menghafal nama tempat tanpa menghubungkannya dengan proses lingkungan.',
+            'Menilai keterkaitan antara kondisi lingkungan dan aktivitas penduduk di suatu wilayah.',
+            'Mengabaikan data spasial karena dianggap tidak berkaitan dengan kehidupan sehari-hari.'
+          ],
+          kunci: [0, 1, 3],
+          pembahasan: 'Rumusan IGI menuntut analisis fenomena geosfer secara keruangan dan kelingkungan, bukan penghafalan nama tempat tanpa makna.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C4',
+          literasi: 'Memasangkan sudut pandang dengan fokus kajian',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan sudut pandang geografi pada kolom kiri dengan fokus kajiannya pada kolom kanan.',
+          kiri: ['Keruangan', 'Kelingkungan', 'Kewilayahan', 'Kronologis', 'Kuantitatif'],
+          kanan: [
+            'Lokasi, sebaran, pola, dan interaksi antartempat',
+            'Hubungan timbal balik manusia dengan lingkungan fisik',
+            'Karakter dan batas suatu wilayah sebagai satu kesatuan',
+            'Analisis berbasis angka, model, dan uji statistik',
+            'Urutan waktu kejadian dan perubahan suatu fenomena'
+          ],
+          kunci: [0, 1, 2, 4, 3],
+          pembahasan: 'Keruangan (A), kelingkungan (B), kewilayahan (C), kronologis (E), dan kuantitatif (D).'
+        },
+        {
+          tipe: 'benar_salah',
+          level: 'C4',
+          literasi: 'Menilai pernyataan kurikulum',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Tentukan Benar (B) atau Salah (S) untuk setiap pernyataan berikut.',
+          pernyataan: [
+            'Rumusan IGI 1988 menekankan sudut pandang kelingkungan dan kewilayahan dalam konteks keruangan.',
+            'Kurikulum geografi Indonesia hanya berubah satu kali sejak 1975.',
+            'Pembelajaran geografi modern perlu mengembangkan literasi data dan berpikir kritis.',
+            'Objek formal geografi adalah benda-benda fisik yang ada di permukaan bumi.'
+          ],
+          kunci: ['B', 'S', 'B', 'S'],
+          pembahasan: 'Kurikulum berubah beberapa kali, dan objek formal geografi adalah sudut pandang keruangan, sedangkan benda fisik merupakan objek material.'
+        },
+        {
+          tipe: 'menjodohkan',
+          level: 'C5',
+          literasi: 'Memasangkan tantangan pembelajaran dengan responsnya',
+          numerasi: 'Tidak dominan',
+          pertanyaan: 'Jodohkan tantangan pembelajaran pada kolom kiri dengan respons yang paling tepat pada kolom kanan.',
+          kiri: [
+            'Siswa menghafal tanpa memahami proses',
+            'Data spasial semakin melimpah',
+            'Fenomena lokal jarang dikaitkan dengan konsep',
+            'Penilaian hanya mengukur ingatan',
+            'Kebutuhan berpikir tingkat tinggi'
+          ],
+          kanan: [
+            'Menggunakan stimulus kontekstual dan soal analisis',
+            'Menerapkan keterampilan proses dan literasi data',
+            'Mengaitkan kasus sekitar dengan konsep keruangan',
+            'Merancang evaluasi berbasis penerapan dan evaluasi',
+            'Melatih penalaran, bukan sekadar mengingat istilah'
+          ],
+          kunci: [4, 1, 2, 3, 0],
+          pembahasan: 'Hafalan tanpa makna direspons dengan latihan penalaran (E), limpahan data dengan keterampilan proses dan literasi data (B), fenomena lokal dengan pengaitan konsep keruangan (C), penilaian ingatan dengan evaluasi penerapan (D), dan kebutuhan HOTS dengan stimulus kontekstual (A).'
+        }
+      ]
+    }
+  ]
+};

@@ -1,4 +1,4 @@
-// ===== PEMBELAJARAN BERJENJANG (KURIKULUM GEOGRAFI) =====
+﻿// ===== PEMBELAJARAN BERJENJANG (KURIKULUM GEOGRAFI) =====
 // Modul terpisah agar server.js tetap ringkas. Dipasang lewat registerKurikulum().
 const fs = require('fs');
 const path = require('path');
@@ -347,7 +347,9 @@ function registerKurikulum(app, deps) {
       let unlocked = false;
       let lock_reason = null;
 
-      if (babSem !== semesterAktif) {
+      if (bab.bebas_akses === true) {
+        unlocked = true;
+      } else if (babSem !== semesterAktif) {
         unlocked = false;
         lock_reason = 'semester_inactive';
       } else {
@@ -360,7 +362,7 @@ function registerKurikulum(app, deps) {
         id: bab.id,
         urutan: bab.urutan,
         semester: babSem,
-        is_active_semester: babSem === semesterAktif,
+        is_active_semester: bab.bebas_akses === true || babSem === semesterAktif,
         lock_reason,
         judul: bab.judul,
         ringkasan: bab.ringkasan,
@@ -590,7 +592,7 @@ function registerKurikulum(app, deps) {
     const tenant = db.tenants.find(t => t.id === req.tenantId);
     const semesterAktif = tenant && tenant.semester_aktif ? Number(tenant.semester_aktif) : 1;
 
-    if (student) {
+    if (student && bab.bebas_akses !== true) {
       if (babSem !== semesterAktif) {
         return res.status(403).json({ error: `Bab ini berada pada Semester ${babSem} yang belum aktif (Sekolah aktif di Semester ${semesterAktif})` });
       }
@@ -636,7 +638,7 @@ function registerKurikulum(app, deps) {
       ...publicBab(bab),
       semester: babSem,
       kkm: KKM,
-      is_active_semester: babSem === semesterAktif,
+      is_active_semester: bab.bebas_akses === true || babSem === semesterAktif,
       progress: {
         best_score: bestScore,
         highest_score: attempts.length ? summary.highest_score : null,
