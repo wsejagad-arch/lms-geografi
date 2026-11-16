@@ -1167,19 +1167,25 @@ async function startExam(examId) {
 
     const modal = document.getElementById('exam-detail-modal');
     document.getElementById('exam-detail-title').textContent = exam.judul;
-    document.getElementById('exam-detail-body').innerHTML = exam.questions.map((q, i) => `
+    const HURUF = ['A', 'B', 'C', 'D', 'E'];
+    document.getElementById('exam-detail-body').innerHTML = exam.questions.map((q, i) => {
+      const opsi = Array.isArray(q.opsi) && q.opsi.length
+        ? q.opsi
+        : [q.opsi_a, q.opsi_b, q.opsi_c, q.opsi_d, q.opsi_e].filter(o => o !== null && o !== undefined && String(o).trim() !== '');
+      return `
       <div class="question-card">
-        <div class="question-text">${i + 1}. ${q.pertanyaan}</div>
+        <div class="question-text">${i + 1}. ${typeof lmsTidyHtml === 'function' ? lmsTidyHtml(q.pertanyaan) : lmsEsc(q.pertanyaan)}</div>
         <div class="option-list">
-          ${[q.opsi_a, q.opsi_b, q.opsi_c, q.opsi_d].filter(o => o !== null && o !== undefined && String(o).trim() !== '').map((o, j) => `
+          ${opsi.map((o, j) => `
             <label class="option-item" for="exam-${examId}-${i}-${j}">
               <input type="radio" name="exam-${examId}-${i}" id="exam-${examId}-${i}-${j}" value="${j}">
-              <span style="font-size:13.5px;color:var(--text);">${lmsEsc(o)}</span>
+              <span style="font-size:13.5px;color:var(--text);"><b>${HURUF[j] || j + 1}.</b> ${lmsEsc(o)}</span>
             </label>
           `).join('')}
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     modal.classList.add('show');
 

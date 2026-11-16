@@ -421,10 +421,14 @@ function publicQuestion(q) {
   return {
     id: q.id,
     pertanyaan: q.pertanyaan,
+    opsi: [q.opsi_a, q.opsi_b, q.opsi_c, q.opsi_d, q.opsi_e]
+      .map(o => (o === undefined || o === null ? '' : String(o)))
+      .filter(o => o.trim() !== ''),
     opsi_a: q.opsi_a,
     opsi_b: q.opsi_b,
     opsi_c: q.opsi_c,
     opsi_d: q.opsi_d,
+    opsi_e: q.opsi_e,
     jenis: q.jenis,
     poin: q.poin
   };
@@ -1801,6 +1805,7 @@ app.delete('/api/questions/:id', requireAuth, requireAdmin, requireTenant, async
 // `opsi` -> opsi_a..opsi_d (>=4 opsi tetap bisa dikerjakan di UI, kunci tetap 0..3),
 // jenis 'tka', poin 100/n, tahun_ajaran sebagai penanda paket.
 const TKA_TYPES = new Set(['pg_singkat', 'pgm', 'pg_kompleks']);
+const TKA_EXAM_VERSI = 2;
 let kurikulumModule = null;
 function getKurikulumModule() {
   if (!kurikulumModule) {
@@ -1851,7 +1856,7 @@ function syncTkaExams(db, tenantId, year) {
         const opsi = Array.isArray(soal.opsi) ? soal.opsi : [];
         if (opsi.length < 4) return;
         const kunci = Array.isArray(soal.kunci) ? soal.kunci[0] : soal.kunci;
-        if (!Number.isInteger(kunci) || kunci < 0 || kunci > 3) return;
+        if (!Number.isInteger(kunci) || kunci < 0 || kunci > 4) return;
         const soalKey = String(soal.id || i + 1).replace(/[^a-zA-Z0-9-]/g, '');
         const qid = `tka-${bab.id}-${soalKey}`;
         if (seen.has(qid)) return;
@@ -1867,6 +1872,7 @@ function syncTkaExams(db, tenantId, year) {
           opsi_b: opsi[1] || '',
           opsi_c: opsi[2] || '',
           opsi_d: opsi[3] || '',
+          opsi_e: opsi[4] || '',
           jawaban: kunci,
           subject_id: subject.id,
           jenis: 'tka',
@@ -1880,7 +1886,7 @@ function syncTkaExams(db, tenantId, year) {
         const existingIdx = db.questions.findIndex(q => q.id === qid);
         const prev = existingIdx >= 0 ? db.questions[existingIdx] : null;
         const unchanged = prev
-          && ['pertanyaan', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d', 'jawaban', 'subject_id', 'kelas', 'bab_id']
+          && ['pertanyaan', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d', 'opsi_e', 'jawaban', 'subject_id', 'kelas', 'bab_id']
             .every(key => prev[key] === bank[key]);
         if (existingIdx >= 0) {
           if (!unchanged) db.questions[existingIdx] = { ...prev, ...bank, created_at: prev.created_at || bank.created_at };
@@ -1908,6 +1914,7 @@ function syncTkaExams(db, tenantId, year) {
           durasi: Number.isFinite(estimasi) && estimasi > 0 ? estimasi * 45 : 90,
           aktif: true,
           jenis: 'tka',
+          tka_versi: TKA_EXAM_VERSI,
           tahun_ajaran: year || null,
           created_by: examIdx >= 0 ? (db.exams[examIdx].created_by ?? null) : null,
           created_at: createdAt
@@ -1925,7 +1932,9 @@ async function ensureTkaExams(tenantId) {
   if (!tenantId) return;
   const found = await loadDB();
   const year = found.tahun_ajaran || found.settings?.tahun_ajaran || null;
-  const hasTka = (found.exams || []).some(e => e.tenant_id === tenantId && e.jenis === 'tka' && e.tahun_ajaran === year);
+  const hasTka = (found.exams || []).some(e => e.tenant_id === tenantId && e.jenis === 'tka' && e.tahun_ajaran === year)
+    // Versi paket TKA disimpan di exam pertama: naikkan bila pemetaan soal berubah (mis. opsi E).
+    && (found.exams || []).some(e => e.tenant_id === tenantId && e.jenis === 'tka' && e.tka_versi === TKA_EXAM_VERSI);
   if (hasTka) return;
   await withDbWrite(async () => {
     const db = await loadDB();
@@ -1951,8 +1960,9 @@ async function ensureTkaExamsForStudent(tenantId, studentId) {
     let babs = [];
     try { babs = mod ? mod.loadLevel(level) || [] : []; } catch (error) { babs = []; }
     const adaSoal = babs.some(isTkaBab);
-    const adaExam = (db.exams || []).some(e => e.tenant_id === tenantId && e.class_id === classItem.id && e.jenis === 'tka');
-    if (!adaSoal || adaExam) return;
+    const adaExamTerkini = (db.exams || []).some(e => e.tenant_id === tenantId && e.class_id === classItem.id
+      && e.jenis === 'tka' && e.tka_versi === TKA_EXAM_VERSI);
+    if (!adaSoal || adaExamTerkini) return;
   }
   await ensureTkaExams(tenantId);
 }

@@ -7,6 +7,33 @@
       .replace(/[&<>"']/g, (c) => ESC[c]);
   }
 
+    // Teks soal dari bank/kurikulum boleh memuat HTML terbatas (<p>, <em>, <strong>, ...).
+    // Rapikan agar tag yang tidak ditutup (mis. <em> menggantung) tidak merusak tata letak.
+    const VOID_TAGS = new Set(['br', 'hr', 'img']);
+    function lmsTidyHtml(value) {
+      let html = String(value === undefined || value === null ? '' : value);
+      if (/<\s*(script|style|iframe|object|embed)/i.test(html)) return lmsEsc(html);
+      const open = [];
+      html = html.replace(/<\s*(\/?)\s*([a-zA-Z][a-zA-Z0-9]*)[^>]*?(\/?)\s*>/g, (m, close, rawTag, selfClose) => {
+        const tag = rawTag.toLowerCase();
+        if (!ALLOWED_TAGS.has(tag)) return '';
+        if (VOID_TAGS.has(tag) || selfClose) return m;
+        if (close) {
+          const idx = open.lastIndexOf(tag);
+          if (idx < 0) return '';
+          // Tutup dulu tag yang dibuka setelahnya, lalu tag ini.
+          let out = '';
+          while (open.length - 1 > idx) out += `</${open.pop()}>`;
+          open.pop();
+          return out + `</${tag}>`;
+        }
+        open.push(tag);
+        return m;
+      });
+      while (open.length) html += `</${open.pop()}>`;
+      return html;
+    }
+
   const ALLOWED_TAGS = new Set([
     'p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'ul', 'ol', 'li',
     'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'hr', 'code', 'pre',
@@ -145,9 +172,10 @@
     return out;
   }
 
-  const api = { lmsEsc, lmsSanitize, lmsYoutubeVideoId, lmsYoutubeEmbedUrl };
+  const api = { lmsEsc, lmsTidyHtml, lmsSanitize, lmsYoutubeVideoId, lmsYoutubeEmbedUrl };
   if (typeof module === 'object' && module.exports) module.exports = api;
   global.lmsEsc = lmsEsc;
+  global.lmsTidyHtml = lmsTidyHtml;
   global.lmsSanitize = lmsSanitize;
   global.lmsYoutubeVideoId = lmsYoutubeVideoId;
   global.lmsYoutubeEmbedUrl = lmsYoutubeEmbedUrl;
