@@ -1,4 +1,4 @@
-// ===== ADMIN DASHBOARD COMPLEX =====
+﻿// ===== ADMIN DASHBOARD COMPLEX =====
 let currentUser = null;
 let currentTenant = null;
 let activeMenu = 'dashboard';
@@ -717,11 +717,11 @@ function renderProgressRows() {
         <td><span class="badge badge-primary">${s.level}</span></td>
         <td style="min-width:150px">
           <div class="progress-mini"><span style="width:${pct}%"></span></div>
-          <span style="font-size:11.5px;color:var(--text-2)">${pct}% · ${s.tuntas}/${s.total} materi</span>
+          <span style="font-size:11.5px;color:var(--text-2)">${pct}% Â· ${s.tuntas}/${s.total} materi</span>
         </td>
         <td><strong>${s.rata_best === null ? '-' : s.rata_best}</strong></td>
-        <td>${s.total_attempts || 0}×</td>
-        <td>${s.items.map(i => `<span class="badge ${i.tuntas ? 'badge-success' : 'badge-neutral'}">${i.bab_id}: ${i.best_score === null ? '-' : i.best_score}${i.attempts ? ' · ' + i.attempts + '×' : ''}</span>`).join(' ')}</td>
+        <td>${s.total_attempts || 0}Ã—</td>
+        <td>${s.items.map(i => `<span class="badge ${i.tuntas ? 'badge-success' : 'badge-neutral'}">${i.bab_id}: ${i.best_score === null ? '-' : i.best_score}${i.attempts ? ' Â· ' + i.attempts + 'Ã—' : ''}</span>`).join(' ')}</td>
       </tr>
     `;
   }).join('');
@@ -804,7 +804,7 @@ function buildProgressChartImage(rows) {
     ctx.fillRect(x + barW + 4, baseY - nilaiH, barW, nilaiH);
     ctx.fillStyle = '#334155';
     ctx.font = '10px system-ui, sans-serif';
-    const label = item.kelas.length > 12 ? `${item.kelas.slice(0, 11)}…` : item.kelas;
+    const label = item.kelas.length > 12 ? `${item.kelas.slice(0, 11)}â€¦` : item.kelas;
     ctx.fillText(label, x, baseY + 14);
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 10px system-ui, sans-serif';
@@ -833,10 +833,10 @@ async function printProgressReport() {
   const chart = buildProgressChartImage(rows);
   if (head) {
     head.innerHTML =
-      `<h3 style="margin:0 0 4px">Laporan Progres Belajar — ${tenantNama}</h3>` +
+      `<h3 style="margin:0 0 4px">Laporan Progres Belajar â€” ${tenantNama}</h3>` +
       `<div style="font-size:11.5px;color:#475569">Kelas: ${info.kelas}` +
-      (info.nama ? ` · Pencarian: ${info.nama}` : '') +
-      ` · Dicetak: ${new Date().toLocaleString('id-ID')} · ${rows.length} siswa</div>` +
+      (info.nama ? ` Â· Pencarian: ${info.nama}` : '') +
+      ` Â· Dicetak: ${new Date().toLocaleString('id-ID')} Â· ${rows.length} siswa</div>` +
       (chart ? `<img class="print-chart" alt="Grafik progres dan nilai per kelas" src="${chart}">` : '');
   }
   document.body.classList.add('print-progress');
@@ -869,8 +869,8 @@ async function downloadProgressPng() {
   ctx.font = '12px system-ui, sans-serif';
   ctx.fillStyle = '#475569';
   ctx.fillText(tenantNama, 32, 64);
-  ctx.fillText(`Kelas: ${info.kelas}${info.nama ? ' · Pencarian: ' + info.nama : ''}`, 32, 82);
-  ctx.fillText(`Dicetak: ${new Date().toLocaleString('id-ID')} · ${rows.length} siswa`, 32, 100);
+  ctx.fillText(`Kelas: ${info.kelas}${info.nama ? ' Â· Pencarian: ' + info.nama : ''}`, 32, 82);
+  ctx.fillText(`Dicetak: ${new Date().toLocaleString('id-ID')} Â· ${rows.length} siswa`, 32, 100);
 
   const cols = [
     { t: 'NIS', x: 32 },
@@ -941,7 +941,7 @@ function sessionDevice(ua) {
     : /Chrome\//i.test(s) ? 'Chrome'
     : /Firefox\//i.test(s) ? 'Firefox'
     : /Safari\//i.test(s) ? 'Safari' : '-';
-  return `${br} · ${os}`;
+  return `${br} Â· ${os}`;
 }
 
 function sessionTime(iso) {
@@ -1021,10 +1021,10 @@ async function printSessionReport() {
   const head = document.getElementById('session-print-head');
   if (head) {
     head.innerHTML =
-      `<h3 style="margin:0 0 4px">Laporan Login User — ${tenantNama}</h3>` +
-      `<div style="font-size:11.5px;color:#475569">Kelas: ${kelas} · Status: ${statusLabel}` +
-      (nama ? ` · Pencarian: ${nama}` : '') +
-      ` · Dicetak: ${new Date().toLocaleString('id-ID')} · ${visible} baris</div>`;
+      `<h3 style="margin:0 0 4px">Laporan Login User â€” ${tenantNama}</h3>` +
+      `<div style="font-size:11.5px;color:#475569">Kelas: ${kelas} Â· Status: ${statusLabel}` +
+      (nama ? ` Â· Pencarian: ${nama}` : '') +
+      ` Â· Dicetak: ${new Date().toLocaleString('id-ID')} Â· ${visible} baris</div>`;
   }
   document.body.classList.add('print-sessions');
   window.print();
@@ -1067,7 +1067,7 @@ async function fetchSessions(silent = false) {
     const live = document.getElementById('sessions-live');
     if (live) {
       const n = typeof data.online_count === 'number' ? data.online_count : sessionRows.filter(r => r.online).length;
-      live.innerHTML = `<span class="live-dot"></span><strong>${n}</strong> online · diperbarui ${new Date().toLocaleTimeString('id-ID')}`;
+      live.innerHTML = `<span class="live-dot"></span><strong>${n}</strong> online Â· diperbarui ${new Date().toLocaleTimeString('id-ID')}`;
     }
 
     const note = document.getElementById('sessions-note');
@@ -1211,28 +1211,28 @@ async function fetchServerMonitor(silent = false) {
     const disk = data.disk || null;
 
     setMonitorText('mon-siswa-online', String(live.online_students ?? 0));
-    setMonitorText('mon-siswa-sub', `dari total ${Number(live.siswa_total) || 0} siswa · ${live.kelas_detail?.length || 0} kelas aktif`);
+    setMonitorText('mon-siswa-sub', `dari total ${Number(live.siswa_total) || 0} siswa Â· ${live.kelas_detail?.length || 0} kelas aktif`);
     setMonitorText('mon-staf-online', String(live.online_staff ?? 0));
-    setMonitorText('mon-staf-sub', `total pengguna online ${Number(live.online_total) || 0} · aktivitas 1 menit: ${Number(live.activity_last_minute) || 0}`);
+    setMonitorText('mon-staf-sub', `total pengguna online ${Number(live.online_total) || 0} Â· aktivitas 1 menit: ${Number(live.activity_last_minute) || 0}`);
 
     const cpuPct = Number(proc.cpu_percent);
     setMonitorText('mon-cpu', Number.isFinite(cpuPct) ? `${cpuPct.toFixed(1)}%` : '-', monitorLevel(cpuPct));
-    setMonitorText('mon-cpu-sub', `user ${Number(proc.cpu_user_ms) || 0} ms · sistem ${Number(proc.cpu_system_ms) || 0} ms`);
+    setMonitorText('mon-cpu-sub', `user ${Number(proc.cpu_user_ms) || 0} ms Â· sistem ${Number(proc.cpu_system_ms) || 0} ms`);
 
     setMonitorText('mon-heap', monitorBytes(mem.heap_used), monitorLevel(mem.heap_percent));
-    setMonitorText('mon-heap-sub', `dari ${monitorBytes(mem.heap_limit)} batas heap · RSS ${monitorBytes(mem.rss)}`);
+    setMonitorText('mon-heap-sub', `dari ${monitorBytes(mem.heap_limit)} batas heap Â· RSS ${monitorBytes(mem.rss)}`);
 
     setMonitorText('mon-ram', monitorBytes(mem.system && mem.system.total ? mem.system.total - mem.system.free : 0), monitorLevel(mem.system?.percent));
     setMonitorText('mon-ram-sub', mem.system
-      ? `${Number(mem.system.percent ?? 0)}% terpakai · tersedia ${monitorBytes(mem.system.free)} / ${monitorBytes(mem.system.total)}`
+      ? `${Number(mem.system.percent ?? 0)}% terpakai Â· tersedia ${monitorBytes(mem.system.free)} / ${monitorBytes(mem.system.total)}`
       : 'tidak tersedia');
 
     const lag = Number(data.event_loop_lag_ms);
     setMonitorText('mon-lag', Number.isFinite(lag) ? `${lag.toFixed(1)} ms` : '-', lag >= 200 ? 'bad' : (lag >= 80 ? 'warn' : ''));
-    setMonitorText('mon-lag-sub', lag < 80 ? 'server responsif' : (lag < 200 ? 'mulai padat' : 'tertahan — cek beban'));
+    setMonitorText('mon-lag-sub', lag < 80 ? 'server responsif' : (lag < 200 ? 'mulai padat' : 'tertahan â€” cek beban'));
 
     setMonitorText('mon-disk', disk ? `${Number(disk.percent ?? 0)}%` : '-', monitorLevel(disk?.percent));
-    setMonitorText('mon-disk-sub', disk ? `${monitorBytes(disk.used)} terpakai · ${monitorBytes(disk.free)} bebas` : 'tidak tersedia');
+    setMonitorText('mon-disk-sub', disk ? `${monitorBytes(disk.used)} terpakai Â· ${monitorBytes(disk.free)} bebas` : 'tidak tersedia');
 
     setMonitorText('mon-uptime', monitorDuration(data.uptime_seconds));
     setMonitorText('mon-uptime-sub', data.server_time ? `waktu server ${new Date(data.server_time).toLocaleTimeString('id-ID')}` : '-');
@@ -1279,7 +1279,7 @@ async function renderServerMonitor() {
 let activityRows = [];
 async function renderActivityLog() {
   const tbody = document.getElementById('activity-log-tbody');
-  if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="text-center">Memuat aktivitas…</td></tr>';
+  if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="text-center">Memuat aktivitasâ€¦</td></tr>';
   try {
     const response = await fetch('/api/admin/activity-log', { credentials: 'same-origin' });
     const data = await response.json().catch(() => ({}));
@@ -1324,7 +1324,7 @@ function filterActivityRows() {
     if (query && !`${row.nama || ''} ${row.nis || ''}`.toLowerCase().includes(query)) return false;
     return true;
   });
-  if (count) count.textContent = `${rows.length} aktivitas ditampilkan · ${activityRows.length} log terbaru`;
+  if (count) count.textContent = `${rows.length} aktivitas ditampilkan Â· ${activityRows.length} log terbaru`;
   if (!rows.length) {
     tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--text-2)">Belum ada aktivitas yang cocok.</td></tr>';
     return;
@@ -1332,7 +1332,7 @@ function filterActivityRows() {
   tbody.innerHTML = rows.map(row => `
     <tr>
       <td>${kurEsc(sessionTime(row.created_at))}</td>
-      <td>${kurEsc(row.nama || '-')}<div style="font-size:11px;color:var(--text-2)">${row.nis ? `NIS ${kurEsc(row.nis)} · ` : ''}${kurEsc(row.role || '')}</div></td>
+      <td>${kurEsc(row.nama || '-')}<div style="font-size:11px;color:var(--text-2)">${row.nis ? `NIS ${kurEsc(row.nis)} Â· ` : ''}${kurEsc(row.role || '')}</div></td>
       <td>${kurEsc(row.kelas_nama || '-')}</td>
       <td><span class="badge ${/Login|password/i.test(row.aksi) ? 'badge-primary' : 'badge-neutral'}">${kurEsc(row.aksi || '-')}</span></td>
       <td>${kurEsc(row.detail || '-')}</td>
@@ -1408,7 +1408,7 @@ async function renderMaterials() {
         <td>${m.subject_nama}</td>
         <td><strong>${m.judul}</strong></td>
         <td>${m.modul || '-'}</td>
-        <td>${m.youtube_id ? '<span class="badge badge-success">🎥 Video</span>' : '-'}</td>
+        <td>${m.youtube_id ? '<span class="badge badge-success">ðŸŽ¥ Video</span>' : '-'}</td>
         <td>
           <button class="btn btn-sm" onclick="editMaterial('${m.id}')">Edit</button>
           <button class="btn btn-sm btn-danger" onclick="deleteMaterial('${m.id}')">Hapus</button>
@@ -1496,7 +1496,7 @@ async function saveAdminSemesterAktif(silent) {
 }
 
 // Umpan balik singkat tanpa dialog saat opsi diterapkan otomatis.
-function flashApplyButton(buttonId, label = 'Tersimpan ✓') {
+function flashApplyButton(buttonId, label = 'Tersimpan âœ“') {
   const btn = document.getElementById(buttonId);
   if (!btn) return;
   if (!btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
@@ -1552,7 +1552,7 @@ function initArticleEditor() {
       codeEl.value = visualEl.innerHTML;
       visualEl.style.display = 'none';
       codeEl.style.display = 'block';
-      if (modeLabel) modeLabel.textContent = '👁️ Mode Visual (WYSIWYG)';
+      if (modeLabel) modeLabel.textContent = 'ðŸ‘ï¸ Mode Visual (WYSIWYG)';
       toggleBtn.classList.add('btn-primary');
     } else {
       artEditorMode = 'visual';
@@ -1634,7 +1634,7 @@ function initArticleEditor() {
   document.getElementById('btn-art-insert-video')?.addEventListener('click', () => {
     captureEditorRange();
     openVideoInsertDialog((ytId, title) => {
-      const html = `<div class="bl-media-box" style="border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0"><div style="background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px">🎥 ${title}</div><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${ytId}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div><p><br></p>`;
+      const html = `<div class="bl-media-box" style="border:1px solid #cbd5e1;border-radius:12px;overflow:hidden;background:#000;margin:16px 0"><div style="background:#0f172a;color:#fff;padding:8px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px">ðŸŽ¥ ${title}</div><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${ytId}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%"></iframe></div></div><p><br></p>`;
       insertHtmlToEditor(html);
     });
   });
@@ -1665,29 +1665,29 @@ function initArticleEditor() {
   document.getElementById('btn-art-insert-callout')?.addEventListener('click', () => {
     const choice = prompt(
       'Pilih Jenis Kotak Khusus:\n' +
-      '1 = 📌 Kotak Studi Kasus Terkini (Hijau)\n' +
-      '2 = 💡 Kotak Konsep & Hakikat (Biru)\n' +
-      '3 = 📜 Kotak Sejarah & Filsafat (Kuning/Oranye)\n' +
-      '4 = 🎨 Kotak Pembelajaran Berdiferensiasi (Ungu)\n' +
-      '5 = 👤 Kartu Profil Tokoh Ilmuwan',
+      '1 = ðŸ“Œ Kotak Studi Kasus Terkini (Hijau)\n' +
+      '2 = ðŸ’¡ Kotak Konsep & Hakikat (Biru)\n' +
+      '3 = ðŸ“œ Kotak Sejarah & Filsafat (Kuning/Oranye)\n' +
+      '4 = ðŸŽ¨ Kotak Pembelajaran Berdiferensiasi (Ungu)\n' +
+      '5 = ðŸ‘¤ Kartu Profil Tokoh Ilmuwan',
       '1'
     );
     if (!choice) return;
 
     let calloutHtml = '';
     if (choice === '1') {
-      calloutHtml = '<div class="bl-callout case" style="border-left:4px solid #0d9488;background:#f0fdfa;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#0f766e">📌 Studi Kasus Terkini: [Tuliskan Judul Kasus]</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan uraian peristiwa fenomena geosfer terkini, latar belakang masalah, dan analisis keruangan...</p></div><p><br></p>';
+      calloutHtml = '<div class="bl-callout case" style="border-left:4px solid #0d9488;background:#f0fdfa;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#0f766e">ðŸ“Œ Studi Kasus Terkini: [Tuliskan Judul Kasus]</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan uraian peristiwa fenomena geosfer terkini, latar belakang masalah, dan analisis keruangan...</p></div><p><br></p>';
     } else if (choice === '2') {
-      calloutHtml = '<div class="bl-callout concept" style="border-left:4px solid #2563eb;background:#eff6ff;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#1d4ed8">💡 Konsep Esensial Geografi: [Nama Konsep]</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan definisi esensial, indikator keruangan, dan rumus/pedoman analisis konsep ini...</p></div><p><br></p>';
+      calloutHtml = '<div class="bl-callout concept" style="border-left:4px solid #2563eb;background:#eff6ff;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#1d4ed8">ðŸ’¡ Konsep Esensial Geografi: [Nama Konsep]</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan definisi esensial, indikator keruangan, dan rumus/pedoman analisis konsep ini...</p></div><p><br></p>';
     } else if (choice === '3') {
-      calloutHtml = '<div class="bl-callout history" style="border-left:4px solid #d97706;background:#fffbeb;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#b45309">📜 Catatan Sejarah & Filsafat Geografi</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan sejarah penemuan, perdebatan epistemologi aliran determinisme vs posibilisme...</p></div><p><br></p>';
+      calloutHtml = '<div class="bl-callout history" style="border-left:4px solid #d97706;background:#fffbeb;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#b45309">ðŸ“œ Catatan Sejarah & Filsafat Geografi</h4><p style="margin:0;font-size:13px;line-height:1.6">Tuliskan sejarah penemuan, perdebatan epistemologi aliran determinisme vs posibilisme...</p></div><p><br></p>';
     } else if (choice === '4') {
-      calloutHtml = '<div class="bl-callout diff" style="border-left:4px solid #7c3aed;background:#f5f3ff;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#6d28d9">🎨 Aktivitas Pembelajaran Berdiferensiasi</h4><p style="margin:0 0 6px;font-size:13px"><strong>Pilihan Produk Belajar:</strong></p><ul style="margin:0;padding-left:18px;font-size:13px"><li><strong>Visual:</strong> Buatlah infografis/peta tematik.</li><li><strong>Auditori:</strong> Rekam rekaman suara/podcast analisis 5W+1H.</li><li><strong>Kinestetik:</strong> Lakukan observasi lapangan langsung di lingkungan sekitar.</li></ul></div><p><br></p>';
+      calloutHtml = '<div class="bl-callout diff" style="border-left:4px solid #7c3aed;background:#f5f3ff;border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0"><h4 style="margin:0 0 6px;color:#6d28d9">ðŸŽ¨ Aktivitas Pembelajaran Berdiferensiasi</h4><p style="margin:0 0 6px;font-size:13px"><strong>Pilihan Produk Belajar:</strong></p><ul style="margin:0;padding-left:18px;font-size:13px"><li><strong>Visual:</strong> Buatlah infografis/peta tematik.</li><li><strong>Auditori:</strong> Rekam rekaman suara/podcast analisis 5W+1H.</li><li><strong>Kinestetik:</strong> Lakukan observasi lapangan langsung di lingkungan sekitar.</li></ul></div><p><br></p>';
     } else if (choice === '5') {
       const name = prompt('Nama Tokoh Ilmuwan:', 'Alexander von Humboldt') || 'Alexander von Humboldt';
-      const era = prompt('Era / Periode (contoh: Abad 18–19 M, Jerman):', 'Abad 18–19 M, Jerman') || 'Abad 18–19 M, Jerman';
+      const era = prompt('Era / Periode (contoh: Abad 18â€“19 M, Jerman):', 'Abad 18â€“19 M, Jerman') || 'Abad 18â€“19 M, Jerman';
       const role = prompt('Gelar / Peran Tokoh:', 'Bapak Geografi Saintifik Modern') || 'Bapak Geografi Saintifik Modern';
-      calloutHtml = `<div class="bl-scientist-card" style="display:flex;gap:14px;align-items:center;padding:14px 16px;border:1px solid #cbd5e1;border-radius:12px;background:#ffffff;margin:16px 0;box-shadow:0 2px 6px rgba(0,0,0,0.04)"><div style="width:52px;height:52px;border-radius:50%;background:#0d9488;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none">👤</div><div><h4 style="margin:0;font-size:14px;color:#0f172a">${name} <small style="font-size:11.5px;color:#64748b;font-weight:normal">(${era})</small></h4><span style="display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:#e0f2fe;color:#0369a1;margin:4px 0">${role}</span><p style="margin:4px 0 0;font-size:12.5px;color:#475569">Tuliskan karya monumental dan sumbangsih pemikiran tokoh geografi ini...</p></div></div><p><br></p>`;
+      calloutHtml = `<div class="bl-scientist-card" style="display:flex;gap:14px;align-items:center;padding:14px 16px;border:1px solid #cbd5e1;border-radius:12px;background:#ffffff;margin:16px 0;box-shadow:0 2px 6px rgba(0,0,0,0.04)"><div style="width:52px;height:52px;border-radius:50%;background:#0d9488;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none">ðŸ‘¤</div><div><h4 style="margin:0;font-size:14px;color:#0f172a">${name} <small style="font-size:11.5px;color:#64748b;font-weight:normal">(${era})</small></h4><span style="display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:#e0f2fe;color:#0369a1;margin:4px 0">${role}</span><p style="margin:4px 0 0;font-size:12.5px;color:#475569">Tuliskan karya monumental dan sumbangsih pemikiran tokoh geografi ini...</p></div></div><p><br></p>`;
     }
     if (calloutHtml) insertHtmlToEditor(calloutHtml);
   });
@@ -1730,7 +1730,7 @@ function openVideoInsertDialog(onInsert) {
   overlay.className = 'modal-overlay show';
   overlay.innerHTML = `
     <div class="modal" style="max-width:480px">
-      <div class="modal-header"><h3>🎥 Sisipkan Video YouTube</h3><button type="button" class="modal-close" data-art-video-close>&times;</button></div>
+      <div class="modal-header"><h3>ðŸŽ¥ Sisipkan Video YouTube</h3><button type="button" class="modal-close" data-art-video-close>&times;</button></div>
       <div class="modal-body">
         <div class="form-group"><label for="art-video-url">URL / ID Video YouTube</label><input id="art-video-url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off"></div>
         <div class="form-group"><label for="art-video-title">Judul Video (opsional)</label><input id="art-video-title" value="Video Pembelajaran Geografi"></div>
@@ -2024,58 +2024,88 @@ async function deleteQuestion(id) {
 async function renderExams() {
   const tbody = document.getElementById('exams-tbody');
   if (!tbody) return;
-  
+
   try {
     const exams = await LMS.getExams();
     if (!exams.length) {
       tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada exam</td></tr>';
       return;
     }
-    
+
     tbody.innerHTML = exams.map(e => `
       <tr>
-        <td>${e.judul}</td>
-        <td><span class="badge badge-primary">${e.subject_nama}</span></td>
-        <td><span class="badge badge-neutral">${e.class_nama}</span></td>
-        <td>${e.durasi} menit</td>
         <td>
+          ${lmsEsc(e.judul)}
+          ${e.is_tka ? ' <span class="badge badge-primary" title="Paket TKA dari kurikulum">TKA</span>' : ''}
+          <div style="font-size:11px;color:var(--text-3)">${Number.isFinite(e.jumlah_soal) ? e.jumlah_soal : (e.questions ? e.questions.length : 0)} soal</div>
+        </td>
+        <td><span class="badge badge-primary">${lmsEsc(e.subject_nama || '-')}</span></td>
+        <td><span class="badge badge-neutral">${lmsEsc(e.class_nama || '-')}</span></td>
+        <td>${e.durasi} menit</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-sm" onclick="openExamModal('${e.id}')">Edit</button>
           <button class="btn btn-sm btn-danger" onclick="deleteExam('${e.id}')">Hapus</button>
         </td>
       </tr>
     `).join('');
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${lmsEsc(err.message)}</td></tr>`;
   }
 }
 
-async function openExamModal() {
+// Satu exam bisa dipakai beberapa kelas: kelas dipilih dengan multi-select.
+async function openExamModal(examId) {
   const modal = document.getElementById('exam-modal');
-  document.getElementById('exam-form').reset();
-  
+  const form = document.getElementById('exam-form');
+  form.reset();
+  document.getElementById('exam-id').value = '';
+  document.getElementById('exam-tka-note').classList.add('hidden');
+  document.getElementById('exam-questions-group').classList.remove('hidden');
+
   try {
-    const [subjects, classes, questions] = await Promise.all([
+    const [subjects, classes, questions, exams] = await Promise.all([
       LMS.getSubjects(),
       LMS.getClasses(),
-      LMS.getQuestions()
+      LMS.getQuestions(),
+      examId ? LMS.getExams() : Promise.resolve([])
     ]);
-    
+
     const subjectSel = document.getElementById('exam-subject');
     subjectSel.innerHTML = '<option value="">Pilih Mapel</option>' +
-      subjects.map(s => `<option value="${s.id}">${s.nama}</option>`).join('');
-    
+      subjects.map(s => `<option value="${s.id}">${lmsEsc(s.nama)}</option>`).join('');
+
     const classSel = document.getElementById('exam-class');
-    classSel.innerHTML = '<option value="">Pilih Kelas</option>' +
-      classes.map(c => `<option value="${c.id}">${c.nama}</option>`).join('');
-    
+    classSel.innerHTML = classes.map(c => `<option value="${c.id}">${lmsEsc(c.nama)}</option>`).join('');
+
     const questionSel = document.getElementById('exam-questions');
-    if (questions.length === 0) {
-      questionSel.innerHTML = '<option value="">Belum ada soal</option>';
-    } else {
-      questionSel.innerHTML = questions.map((q, i) => 
-        `<option value="${q.id}">${i + 1}. ${q.pertanyaan.substring(0, 60)}...</option>`
+    questionSel.innerHTML = questions.length === 0
+      ? '<option value="">Belum ada soal</option>'
+      : questions.map((q, i) =>
+        `<option value="${q.id}">${i + 1}. ${lmsEsc(String(q.pertanyaan || '').replace(/<[^>]*>/g, ' ').slice(0, 60))}...</option>`
       ).join('');
+
+    const exam = examId ? exams.find(x => x.id === examId) : null;
+    if (exam) {
+      document.getElementById('exam-id').value = exam.id;
+      document.getElementById('exam-judul').value = exam.judul || '';
+      document.getElementById('exam-subject').value = exam.subject_id || '';
+      document.getElementById('exam-durasi').value = exam.durasi || 60;
+      const ids = Array.isArray(exam.class_ids) && exam.class_ids.length ? exam.class_ids : [exam.class_id];
+      Array.from(classSel.options).forEach(o => { o.selected = ids.includes(o.value); });
+      if (exam.jenis === 'tka') {
+        document.getElementById('exam-tka-note').classList.remove('hidden');
+        document.getElementById('exam-questions-group').classList.add('hidden');
+      } else {
+        const chosen = new Set((exam.questions || []).map(q => q.id));
+        Array.from(questionSel.options).forEach(o => { o.selected = chosen.has(o.value); });
+      }
+      document.querySelector('#exam-modal .modal-header h3').textContent = 'Ubah Exam CBT';
+      document.getElementById('btn-save-exam').textContent = 'Simpan Perubahan';
+    } else {
+      document.querySelector('#exam-modal .modal-header h3').textContent = 'Jadwal Ujian (Exam CBT)';
+      document.getElementById('btn-save-exam').textContent = 'Terbitkan Exam';
     }
-    
+
     modal.classList.add('show');
   } catch (err) {
     alert('Gagal load data: ' + err.message);
@@ -2083,19 +2113,34 @@ async function openExamModal() {
 }
 
 async function saveExam() {
+  const id = document.getElementById('exam-id').value;
   const judul = document.getElementById('exam-judul').value.trim();
   const subject_id = document.getElementById('exam-subject').value;
-  const class_id = document.getElementById('exam-class').value;
+  const class_ids = Array.from(document.getElementById('exam-class').selectedOptions).map(o => o.value);
   const durasi = document.getElementById('exam-durasi').value;
   const selected = Array.from(document.getElementById('exam-questions').selectedOptions).map(o => o.value);
-  
-  if (!judul || !subject_id || !class_id || !durasi || !selected.length) {
-    alert('Semua field wajib diisi');
+  const isTka = document.getElementById('exam-questions-group').classList.contains('hidden');
+
+  if (!judul || !subject_id || !class_ids.length || !durasi) {
+    alert('Judul, mapel, kelas (minimal satu), dan durasi wajib diisi');
     return;
   }
-  
+  if (!id && !isTka && !selected.length) {
+    alert('Pilih minimal satu butir soal');
+    return;
+  }
+
   try {
-    await LMS.createExam({ judul, subject_id, class_id, durasi, question_ids: selected });
+    if (id) {
+      const payload = { judul, durasi, class_ids };
+      if (!isTka) {
+        payload.subject_id = subject_id;
+        payload.question_ids = selected;
+      }
+      await LMS.updateExam(id, payload);
+    } else {
+      await LMS.createExam({ judul, subject_id, class_ids, durasi, question_ids: selected });
+    }
     document.getElementById('exam-modal').classList.remove('show');
     renderExams();
     renderDashboard();
@@ -2105,7 +2150,7 @@ async function saveExam() {
 }
 
 async function deleteExam(id) {
-  if (!confirm('Hapus exam ini?')) return;
+  if (!confirm('Hapus exam ini dari daftar?')) return;
   try {
     await LMS.deleteExam(id);
     renderExams();
@@ -2677,7 +2722,7 @@ async function renderJurnal() {
           <td>${kurEsc(row.ketua || '-')}${row.guru ? `<div style="font-size:11px;color:var(--text-2)">guru: ${kurEsc(row.guru)}</div>` : ''}</td>
         </tr>`).join('')
       : '<tr><td colspan="7" class="text-center" style="color:var(--text-2)">Belum ada jurnal pada tanggal ini.</td></tr>';
-    if (note) note.textContent = `Tanggal ${data.tanggal} · ${rows.length} jurnal. Data presensi otomatis dari ketua kelas, guru, atau radius sekolah.`;
+    if (note) note.textContent = `Tanggal ${data.tanggal} Â· ${rows.length} jurnal. Data presensi otomatis dari ketua kelas, guru, atau radius sekolah.`;
     await loadJurnalEditor();
   } catch (error) {
     tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color:var(--danger)">${kurEsc(error.message)}</td></tr>`;
@@ -2721,7 +2766,7 @@ async function loadJurnalEditor() {
     const previous = scheduleSelect.value;
     scheduleSelect.innerHTML = kelasSchedules.length
       ? '<option value="">Pilih jadwal</option>' + kelasSchedules
-        .map(s => `<option value="${s.id}">${kurEsc(s.jam_mulai)}–${kurEsc(s.jam_selesai)} · ${kurEsc(s.subject_nama || 'Geografi')}</option>`).join('')
+        .map(s => `<option value="${s.id}">${kurEsc(s.jam_mulai)}â€“${kurEsc(s.jam_selesai)} Â· ${kurEsc(s.subject_nama || 'Geografi')}</option>`).join('')
       : '<option value="">Tidak ada jadwal pada hari ini</option>';
     if (kelasSchedules.some(s => s.id === previous)) scheduleSelect.value = previous;
 
@@ -2776,7 +2821,7 @@ async function saveAdminJurnalEntry() {
     status: row.querySelector('[data-status]')?.value || '',
     keterangan: row.querySelector('[data-keterangan]')?.value || ''
   }));
-  if (status) status.textContent = 'Menyimpan…';
+  if (status) status.textContent = 'Menyimpanâ€¦';
   try {
     await LMS.saveAdminJurnal({
       tanggal,
@@ -2814,12 +2859,12 @@ function useMyLocationForSchool() {
     if (status) status.textContent = 'Perangkat tidak mendukung geolocation.';
     return;
   }
-  if (status) status.textContent = 'Mengambil lokasi perangkat…';
+  if (status) status.textContent = 'Mengambil lokasi perangkatâ€¦';
   navigator.geolocation.getCurrentPosition(
     position => {
       document.getElementById('sekolah-lat').value = position.coords.latitude.toFixed(6);
       document.getElementById('sekolah-lng').value = position.coords.longitude.toFixed(6);
-      if (status) status.textContent = `Koordinat terisi (±${Math.round(position.coords.accuracy)} m). Klik Simpan lokasi.`;
+      if (status) status.textContent = `Koordinat terisi (Â±${Math.round(position.coords.accuracy)} m). Klik Simpan lokasi.`;
     },
     () => { if (status) status.textContent = 'Izin lokasi ditolak.'; },
     { enableHighAccuracy: true, timeout: 10000 }
@@ -2930,9 +2975,9 @@ async function renderWhatsApp(options = {}) {
     if (url && !url.value) url.value = data.config?.lms_url || '';
     if (badge) {
       const stateLabel = {
-        connected: `Terhubung${connection.phone ? ` · ${connection.phone}` : ''}`,
+        connected: `Terhubung${connection.phone ? ` Â· ${connection.phone}` : ''}`,
         qr: 'Pindai QR',
-        connecting: 'Menghubungkan…',
+        connecting: 'Menghubungkanâ€¦',
         logged_out: 'Perlu hubungkan ulang',
         error: 'Gangguan',
         disconnected: 'Belum terhubung'
@@ -2953,7 +2998,7 @@ async function renderWhatsApp(options = {}) {
       qrPlaceholder.hidden = !!connection.qr;
       qrPlaceholder.textContent = connection.status === 'connected'
         ? 'WhatsApp terhubung'
-        : connection.status === 'connecting' ? 'Menyiapkan koneksi…' : 'QR akan tampil di sini';
+        : connection.status === 'connecting' ? 'Menyiapkan koneksiâ€¦' : 'QR akan tampil di sini';
     }
 
     const groupSelect = document.getElementById('wa-job-group');
@@ -2981,7 +3026,7 @@ async function renderWhatsApp(options = {}) {
     const sendTarget = document.getElementById('wa-send-target');
     if (sendTarget) {
       const previous = sendTarget.value;
-      sendTarget.innerHTML = '<option value="">Kirim ke nomor…</option>' + whatsAppGroups.map(group =>
+      sendTarget.innerHTML = '<option value="">Kirim ke nomorâ€¦</option>' + whatsAppGroups.map(group =>
         `<option value="${kurEsc(group.id)}">Grup: ${kurEsc(group.subject)}</option>`).join('');
       if (whatsAppGroups.some(group => group.id === previous)) sendTarget.value = previous;
     }
@@ -3009,7 +3054,7 @@ async function renderWhatsApp(options = {}) {
       const previous = scheduleSelect.value;
       scheduleSelect.innerHTML = schedules.length
         ? '<option value="">Pilih jadwal pelajaran</option>' + schedules.map(schedule =>
-          `<option value="${kurEsc(schedule.id)}">${kurEsc(schedule.hari)} · ${kurEsc(schedule.jam_mulai)} · ${kurEsc(schedule.class_nama)} · ${kurEsc(schedule.subject_nama)}</option>`).join('')
+          `<option value="${kurEsc(schedule.id)}">${kurEsc(schedule.hari)} Â· ${kurEsc(schedule.jam_mulai)} Â· ${kurEsc(schedule.class_nama)} Â· ${kurEsc(schedule.subject_nama)}</option>`).join('')
         : '<option value="">Tambahkan jadwal pelajaran terlebih dahulu</option>';
       if (schedules.some(schedule => schedule.id === previous)) scheduleSelect.value = previous;
     }
@@ -3070,7 +3115,7 @@ function renderWhatsAppJobs(jobs) {
   tbody.innerHTML = jobs.map(job => `
     <tr>
       <td>${job.status === 'active' ? `${kurEsc(job.hari)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.jam_mulai)} WIB</div>` : `${kurEsc(job.tanggal)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.waktu)} WIB</div>`}</td>
-      <td>${kurEsc(job.kelas)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.mapel)} · ${kurEsc(job.hari)} ${kurEsc(job.jam_mulai)}</div></td>
+      <td>${kurEsc(job.kelas)}<div style="font-size:11px;color:var(--text-2)">${kurEsc(job.mapel)} Â· ${kurEsc(job.hari)} ${kurEsc(job.jam_mulai)}</div></td>
       <td>${kurEsc(job.group_name || job.group_id)}</td>
       <td>
         <select data-wa-msg-template="${kurEsc(job.id)}" style="width:100%;margin-bottom:4px">
@@ -3078,12 +3123,12 @@ function renderWhatsAppJobs(jobs) {
           <option value="rapi"${job.template === 'rapi' ? ' selected' : ''}>Template rapi</option>
           <option value="custom"${job.template === 'custom' ? ' selected' : ''}>Ketik sendiri</option>
         </select>
-        <textarea data-wa-msg-text="${kurEsc(job.id)}" rows="2" maxlength="2000" placeholder="Isi pesan khusus…" style="width:100%;font-size:12px">${kurEsc(job.message || '')}</textarea>
+        <textarea data-wa-msg-text="${kurEsc(job.id)}" rows="2" maxlength="2000" placeholder="Isi pesan khususâ€¦" style="width:100%;font-size:12px">${kurEsc(job.message || '')}</textarea>
         <button class="btn btn-sm" data-wa-msg-save="${kurEsc(job.id)}" type="button">Simpan</button>
       </td>
       <td><span class="badge ${job.status === 'sent' ? 'badge-success' : job.status === 'failed' ? 'badge-danger' : job.status === 'active' ? 'badge-primary' : 'badge-neutral'}">${kurEsc(statusLabels[job.status] || job.status)}</span></td>
       <td>${kurEsc(job.status === 'active'
-        ? (job.last_sent_date ? `Terakhir ${job.last_sent_date}${job.last_error ? ' · ' + job.last_error : ''}` : 'Menunggu jadwal')
+        ? (job.last_sent_date ? `Terakhir ${job.last_sent_date}${job.last_error ? ' Â· ' + job.last_error : ''}` : 'Menunggu jadwal')
         : job.status === 'sent' ? sessionTime(job.sent_at) : job.last_error || '-')}</td>
       <td>${['scheduled', 'failed', 'active'].includes(job.status) ? `<button class="btn btn-sm btn-danger" data-wa-delete="${kurEsc(job.id)}">Hapus</button>` : '-'}</td>
     </tr>
@@ -3127,7 +3172,7 @@ async function connectWhatsAppSender() {
   const url = document.getElementById('wa-lms-url')?.value.trim();
   const button = document.getElementById('btn-wa-connect');
   if (button) button.disabled = true;
-  if (note) note.textContent = 'Menyimpan konfigurasi dan membuat koneksi WhatsApp…';
+  if (note) note.textContent = 'Menyimpan konfigurasi dan membuat koneksi WhatsAppâ€¦';
   try {
     await whatsAppRequest('/api/admin/whatsapp/connect', {
       method: 'POST',
@@ -3169,7 +3214,7 @@ async function checkWhatsAppNumber() {
     if (result) result.textContent = 'Masukkan nomor terlebih dahulu.';
     return;
   }
-  if (result) result.textContent = 'Memeriksa nomor…';
+  if (result) result.textContent = 'Memeriksa nomorâ€¦';
   try {
     const data = await whatsAppRequest('/api/admin/whatsapp/verify-number', {
       method: 'POST',
@@ -3193,7 +3238,7 @@ async function activateWhatsAppAuto() {
     if (note) note.textContent = 'Pilih kelas dan grup tujuan terlebih dahulu.';
     return;
   }
-  if (note) note.textContent = 'Mengaktifkan pengingat otomatis…';
+  if (note) note.textContent = 'Mengaktifkan pengingat otomatisâ€¦';
   try {
     const data = await whatsAppRequest('/api/admin/whatsapp/auto', {
       method: 'POST',
@@ -3221,9 +3266,9 @@ function whatsAppTemplates() {
     ].join('\n'),
     rapi: [
       '*Pengingat Geo Edulabs*',
-      '• Materi: selesaikan modul dan evaluasi',
-      '• Nilai: cek rekapan di dasbor siswa',
-      `• Tautan: ${url}`
+      'â€¢ Materi: selesaikan modul dan evaluasi',
+      'â€¢ Nilai: cek rekapan di dasbor siswa',
+      `â€¢ Tautan: ${url}`
     ].join('\n')
   };
 }
@@ -3255,7 +3300,7 @@ async function sendWhatsAppMessage() {
     if (note) note.textContent = 'Pilih grup atau isi nomor tujuan.';
     return;
   }
-  if (note) { note.dataset.state = ''; note.textContent = 'Mengirim pesan…'; }
+  if (note) { note.dataset.state = ''; note.textContent = 'Mengirim pesanâ€¦'; }
   try {
     const data = await whatsAppRequest('/api/admin/whatsapp/test-send', {
       method: 'POST',
@@ -3464,14 +3509,14 @@ async function renderKurikulum() {
   if (sel) kurLevel = sel.value;
   const box = document.getElementById('kur-editor');
   if (box) box.classList.add('hidden');
-  tbody.innerHTML = '<tr><td colspan="4" class="text-center">Memuat…</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="4" class="text-center">Memuatâ€¦</td></tr>';
   try {
     const data = await kurFetch('/api/kurikulum?kelas=' + encodeURIComponent(kurLevel));
     const babs = data.babs || [];
     tbody.innerHTML = babs.length
       ? babs.map(b => `<tr>
           <td>${b.urutan}</td>
-          <td>${kurEsc(b.judul)}<div class="kur-sub">${b.jumlah_soal} soal · ${b.tuntas} tuntas</div></td>
+          <td>${kurEsc(b.judul)}<div class="kur-sub">${b.jumlah_soal} soal Â· ${b.tuntas} tuntas</div></td>
           <td>${kurEsc(kurLevel)}</td>
           <td><button class="btn btn-sm" data-kur-edit="${kurEsc(b.id)}">Edit</button></td>
         </tr>`).join('')
@@ -3489,8 +3534,8 @@ function rtBar() {
     <button type="button" data-cmd="underline" title="Garis bawah"><u>U</u></button>
     <button type="button" data-block="H2">H2</button>
     <button type="button" data-block="H3">H3</button>
-    <button type="button" data-block="P">¶</button>
-    <button type="button" data-cmd="insertUnorderedList">•</button>
+    <button type="button" data-block="P">Â¶</button>
+    <button type="button" data-cmd="insertUnorderedList">â€¢</button>
     <button type="button" data-cmd="insertOrderedList">1.</button>
     <button type="button" data-cmd="justifyLeft">Kiri</button>
     <button type="button" data-cmd="justifyCenter">Tengah</button>
@@ -3506,7 +3551,7 @@ function kurMateriItem(m, i) {
   return `<div class="kur-item" data-idx="${i}">
     <div class="kur-grid">
       <label>Judul bagian<input class="kur-m-judul" value="${kurEsc(m.judul)}"></label>
-      <label>URL gambar<input class="kur-m-gambar" placeholder="https://…" value="${kurEsc(m.gambar || '')}"></label>
+      <label>URL gambar<input class="kur-m-gambar" placeholder="https://â€¦" value="${kurEsc(m.gambar || '')}"></label>
       <label class="wide">Keterangan gambar<input class="kur-m-caption" value="${kurEsc(m.caption || '')}"></label>
     </div>
     ${rtBar()}
@@ -3537,8 +3582,8 @@ function kurSoalItem(s, i) {
       <label>Literasi<input class="k-s-literasi" value="${kurEsc(s.literasi || '')}"></label>
       <label>Numerasi<input class="k-s-numerasi" value="${kurEsc(s.numerasi || '')}"></label>
       <label>Judul stimulus<input class="k-s-stimjudul" value="${kurEsc((s.stimulus && s.stimulus.judul) || '')}"></label>
-      <label>URL gambar stimulus<input class="k-s-gambar" placeholder="https://…" value="${kurEsc((s.stimulus && s.stimulus.gambar) || '')}"></label>
-      <label>URL video stimulus (YouTube)<input class="k-s-video" placeholder="https://youtu.be/…" value="${kurEsc((s.stimulus && s.stimulus.youtube_id) || '')}"></label>
+      <label>URL gambar stimulus<input class="k-s-gambar" placeholder="https://â€¦" value="${kurEsc((s.stimulus && s.stimulus.gambar) || '')}"></label>
+      <label>URL video stimulus (YouTube)<input class="k-s-video" placeholder="https://youtu.be/â€¦" value="${kurEsc((s.stimulus && s.stimulus.youtube_id) || '')}"></label>
       <label class="wide">Bacaan / stimulus (HTML ringan)<textarea class="k-s-stimisi" rows="6">${kurEsc((s.stimulus && s.stimulus.isi) || '')}</textarea></label>
       <label>Sumber<input class="k-s-sumber" value="${kurEsc((s.stimulus && s.stimulus.sumber) || '')}"></label>
       <label class="wide">Pertanyaan<textarea class="k-s-pertanyaan" rows="4">${kurEsc(s.pertanyaan)}</textarea></label>
@@ -3667,7 +3712,7 @@ async function openKurEditor(id) {
   const box = document.getElementById('kur-editor');
   if (!box) return;
   box.classList.remove('hidden');
-  box.innerHTML = '<p class="kur-sub">Memuat…</p>';
+  box.innerHTML = '<p class="kur-sub">Memuatâ€¦</p>';
   try {
     const b = await kurFetch('/api/admin/kurikulum/' + encodeURIComponent(id));
     box.dataset.id = id;
@@ -3685,7 +3730,7 @@ async function openKurEditor(id) {
       <button type="button" class="btn btn-sm" id="kur-add-materi">+ Tambah bagian</button>
       <h4 class="kur-h">Glosarium (istilah|arti per baris)</h4>
       <textarea id="kur-glos" rows="4">${kurEsc((b.glosarium || []).map(g => g.istilah + '|' + g.arti).join('\n'))}</textarea>
-      <div class="panel-head"><h4 class="kur-h">Soal evaluasi (5–10 soal)</h4><button type="button" class="btn btn-sm" id="kur-add-soal">+ Tambah soal</button></div>
+      <div class="panel-head"><h4 class="kur-h">Soal evaluasi (5â€“10 soal)</h4><button type="button" class="btn btn-sm" id="kur-add-soal">+ Tambah soal</button></div>
       <div id="kur-soal">${(b.soal || []).map(kurSoalItem).join('')}</div>
       <div class="list-toolbar" style="justify-content:flex-end;margin-top:12px">
         <button class="btn" id="kur-batal">Batal</button>
@@ -3748,7 +3793,7 @@ async function kurSave(box) {
   const btn = box.querySelector('#kur-simpan');
   const data = kurCollect(box);
   if (data.soal.length < 5 || data.soal.length > 10) {
-    alert('Setiap materi harus memiliki 5–10 soal evaluasi.');
+    alert('Setiap materi harus memiliki 5â€“10 soal evaluasi.');
     return;
   }
   const tipeSoal = ['pgm', 'pg_singkat', 'pg_kompleks', 'menjodohkan', 'benar_salah'];

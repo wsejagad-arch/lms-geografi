@@ -1237,11 +1237,13 @@
       <div class="modal-header"><h3>Jadwal Ujian (Exam CBT)</h3><button type="button" class="modal-close" data-close>&times;</button></div>
       <div class="modal-body">
         <form id="exam-form">
+          <input type="hidden" id="exam-id">
           <div class="form-group"><label>Judul Ujian</label><input id="exam-judul" required placeholder="Contoh: Asesmen Sumatif Bab 1: Pengetahuan Dasar Geografi"></div>
           <div class="form-group"><label>Mata Pelajaran</label><select id="exam-subject"></select></div>
-          <div class="form-group"><label>Kelas Peserta</label><select id="exam-class"></select></div>
+          <div class="form-group"><label>Kelas Peserta (boleh lebih dari satu — Ctrl/Cmd + klik)</label><select id="exam-class" multiple size="6" required></select></div>
           <div class="form-group"><label>Durasi Ujian (Menit)</label><input type="number" id="exam-durasi" value="60" required></div>
-          <div class="form-group"><label>Pilih Butir Soal (Tekan Ctrl untuk memilih banyak)</label><select id="exam-questions" multiple size="8"></select></div>
+          <div class="form-group" id="exam-questions-group"><label>Pilih Butir Soal (Tekan Ctrl untuk memilih banyak)</label><select id="exam-questions" multiple size="8"></select></div>
+          <p id="exam-tka-note" class="hidden" style="font-size:12px;color:var(--text-2);margin:0">Paket TKA mengikuti kurikulum: soal tidak dapat diubah dari sini, tetapi judul, durasi, dan kelas boleh disesuaikan.</p>
         </form>
       </div>
       <div class="modal-footer"><button type="button" class="btn" data-close>Batal</button><button type="button" class="btn btn-primary" id="btn-save-exam">Terbitkan Exam</button></div>
@@ -1383,14 +1385,14 @@
   <div id="vt-toast" class="vt-toast" role="status" aria-live="polite"></div>
 
   <!-- Systematic Application Scripts -->
-  <script src="assets/js/sanitize.js?v=20261106b"></script>
-  <script src="assets/js/api.js?v=20261105k"></script>
+  <script src="assets/js/sanitize.js?v=20261116d"></script>
+  <script src="assets/js/api.js?v=20261116d"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js?v=67').catch(() => {});
     }
   </script>
-  <script src="assets/js/admin.js?v=20261109b"></script>
+  <script src="assets/js/admin.js?v=20261116d"></script>
   <script src="assets/js/video-task-admin.js?v=20261107f"></script>
 </body>
 </html>

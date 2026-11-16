@@ -158,6 +158,7 @@ const LMS = (() => {
   // Exams
   async function getExams() { return api('/exams'); }
   async function createExam(data) { return api('/exams', { method: 'POST', body: JSON.stringify(data) }); }
+  async function updateExam(id, data) { return api(`/exams/${id}`, { method: 'PUT', body: JSON.stringify(data) }); }
   async function deleteExam(id) { return api(`/exams/${id}`, { method: 'DELETE' }); }
   async function submitExam(examId, answers) { return api(`/exams/${examId}/submit`, { method: 'POST', body: JSON.stringify({ answers }) }); }
 
@@ -228,7 +229,7 @@ const LMS = (() => {
     getPeringkatKelas,
     setTahunPelajaranAktif, addTahunPelajaran,
     getQuestions, createQuestion, updateQuestion, deleteQuestion,
-    getExams, createExam, deleteExam, submitExam,
+    getExams, createExam, updateExam, deleteExam, submitExam,
     getGrades, createGrade, updateGrade, deleteGrade,
     getDashboard, getKurikulum, seedData,
     getAttendance, createAttendance, deleteAttendance,

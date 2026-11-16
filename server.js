@@ -1806,6 +1806,24 @@ app.delete('/api/questions/:id', requireAuth, requireAdmin, requireTenant, async
 // Soal pilihan ganda disalin ke bank soal agar alur submit/nilai yang ada tetap dipakai:
 // `opsi` -> opsi_a..opsi_d (>=4 opsi tetap bisa dikerjakan di UI, kunci tetap 0..3),
 // jenis 'tka', poin 100/n, tahun_ajaran sebagai penanda paket.
+// Satu exam bisa ditujukan ke beberapa kelas (`class_ids`); `class_id` dipertahankan
+// untuk exam lama dan sebagai kelas utama.
+function examClassIds(exam) {
+  const ids = Array.isArray(exam && exam.class_ids) ? exam.class_ids.filter(Boolean) : [];
+  if (ids.length) return ids;
+  return exam && exam.class_id ? [exam.class_id] : [];
+}
+
+function examTargetsClass(exam, classId) {
+  return !!classId && examClassIds(exam).includes(classId);
+}
+
+function normalizeClassIds(value) {
+  const raw = Array.isArray(value) ? value : value ? [value] : [];
+  return [...new Set(raw.map(v => String(v || '').trim()).filter(Boolean))];
+}
+
+
 const TKA_TYPES = new Set(['pg_singkat', 'pgm', 'pg_kompleks']);
 const TKA_EXAM_VERSI = 3;
 let kurikulumModule = null;
@@ -1840,6 +1858,35 @@ function syncTkaExams(db, tenantId, year) {
   if (!Array.isArray(db.exams)) db.exams = [];
   if (!Array.isArray(db.exam_questions)) db.exam_questions = [];
   if (!Array.isArray(db.questions)) db.questions = [];
+
+  // Rapikan exam TKA lama yang masih satu-baris-per-kelas menjadi satu baris per topik.
+  const legacy = db.exams.filter(e => e.tenant_id === tenantId && e.jenis === 'tka' && /^tka-.+-.+/.test(e.id));
+  const legacyGroups = new Map();
+  for (const exam of legacy) {
+    // id lama: `tka-<bab>-<kelas uuid>`; kunci topik = `tka-<bab>`.
+    const match = String(exam.id).match(/^(tka-.+)-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
+    if (!match) continue;
+    const topikId = match[1];
+    if (!legacyGroups.has(topikId)) legacyGroups.set(topikId, []);
+    legacyGroups.get(topikId).push(exam);
+  }
+  for (const [topikId, group] of legacyGroups) {
+    const classIds = [...new Set(group.flatMap(examClassIds))];
+    const base = group[0];
+    if (!db.exams.some(e => e.id === topikId)) {
+      db.exams.push({
+        ...base,
+        id: topikId,
+        class_id: classIds[0],
+        class_ids: classIds,
+        tka_versi: 0 // paksa sinkronisasi ulang mengisi soal & versi terbaru
+      });
+    }
+    group.forEach(exam => {
+      db.exam_questions = db.exam_questions.filter(eq => eq.exam_id !== exam.id);
+    });
+    db.exams = db.exams.filter(e => !group.includes(e));
+  }
 
   const classes = (db.classes || []).filter(c => c.tenant_id === tenantId);
   for (const level of ['X', 'XI', 'XII']) {
@@ -1911,29 +1958,30 @@ function syncTkaExams(db, tenantId, year) {
       if (!pairs.length) continue;
 
       const estimasi = parseInt(bab.estimasi, 10);
-      for (const cls of targets) {
-        const examId = `tka-${bab.id}-${cls.id}`;
-        const examIdx = db.exams.findIndex(e => e.id === examId);
-        // created_at dipertahankan agar sinkronisasi berulang tidak menulis DB.
-        const createdAt = examIdx >= 0 && db.exams[examIdx].created_at
-          ? db.exams[examIdx].created_at
+      const levelClassIds = targets.map(c => c.id);
+      {
+        const examIndex = db.exams.findIndex(e => e.id === `tka-${bab.id}`);
+        const createdAt = examIndex >= 0 && db.exams[examIndex].created_at
+          ? db.exams[examIndex].created_at
           : new Date().toISOString();
+        // Satu exam per topik TKA untuk semua kelas sejenjang (hemat baris di daftar).
         const exam = {
-          id: examId,
+          id: `tka-${bab.id}`,
           tenant_id: tenantId,
           judul: bab.judul,
           subject_id: subject.id,
-          class_id: cls.id,
+          class_id: levelClassIds[0],
+          class_ids: levelClassIds,
           durasi: Number.isFinite(estimasi) && estimasi > 0 ? estimasi * 45 : 90,
           aktif: true,
           jenis: 'tka',
           tka_versi: TKA_EXAM_VERSI,
           tahun_ajaran: year || null,
-          created_by: examIdx >= 0 ? (db.exams[examIdx].created_by ?? null) : null,
+          created_by: examIndex >= 0 ? (db.exams[examIndex].created_by ?? null) : null,
           created_at: createdAt
         };
-        if (examIdx < 0) db.exams.push(exam);
-        else db.exams[examIdx] = exam;
+        if (examIndex < 0) db.exams.push(exam);
+        else db.exams[examIndex] = exam;
         db.exam_questions = db.exam_questions.filter(eq => eq.exam_id !== exam.id);
         pairs.forEach(qid => db.exam_questions.push({ exam_id: exam.id, question_id: qid }));
       }
@@ -1973,7 +2021,7 @@ async function ensureTkaExamsForStudent(tenantId, studentId) {
     let babs = [];
     try { babs = mod ? mod.loadLevel(level) || [] : []; } catch (error) { babs = []; }
     const adaSoal = babs.some(isTkaBab);
-    const adaExamTerkini = (db.exams || []).some(e => e.tenant_id === tenantId && e.class_id === classItem.id
+    const adaExamTerkini = (db.exams || []).some(e => e.tenant_id === tenantId && examTargetsClass(e, classItem.id)
       && e.jenis === 'tka' && e.tka_versi === TKA_EXAM_VERSI);
     if (!adaSoal || adaExamTerkini) return;
   }
@@ -1992,7 +2040,7 @@ app.get('/api/exams', requireAuth, requireTenant, async (req, res) => {
   if (req.user.role === 'student') {
     const student = db.students.find(s => s.id === req.studentId);
     if (student) {
-      exams = exams.filter(e => e.class_id === student.class_id);
+      exams = exams.filter(e => examTargetsClass(e, student.class_id));
     }
   }
   
@@ -2004,10 +2052,15 @@ app.get('/api/exams', requireAuth, requireTenant, async (req, res) => {
       .map(eq => db.questions.find(q => q.id === eq.question_id))
       .filter(Boolean);
     const totalPoin = questions.reduce((sum, q) => sum + (Number(q.poin) || 1), 0);
+    const classIds = examClassIds(e);
     return {
       ...e,
+      class_ids: classIds,
+      class_nama: classIds
+        .map(id => (db.classes.find(c => c.id === id) || {}).nama)
+        .filter(Boolean)
+        .join(', ') || (classItem ? classItem.nama : '-'),
       subject_nama: subject ? subject.nama : '-',
-      class_nama: classItem ? classItem.nama : '-',
       is_tka: e.jenis === 'tka',
       jumlah_soal: examQs.length,
       total_poin: totalPoin,
@@ -2083,33 +2136,89 @@ app.post('/api/exams/:id/submit', requireAuth, requireTenant, async (req, res) =
 });
 
 app.post('/api/exams', requireAuth, requireAdmin, requireTenant, async (req, res) => {
-  const { judul, subject_id, class_id, durasi, question_ids } = req.body;
+  const { judul, subject_id, durasi, question_ids } = req.body;
+  const classIds = normalizeClassIds(req.body.class_ids || req.body.class_id);
+  if (!judul || !subject_id || !classIds.length || !durasi) {
+    return res.status(400).json({ error: 'Judul, mapel, kelas, dan durasi wajib diisi' });
+  }
   const db = await loadDB();
-  
+
   const exam = {
     id: uuidv4(),
     tenant_id: req.tenantId,
     judul,
     subject_id,
-    class_id,
+    class_id: classIds[0],
+    class_ids: classIds,
     durasi: parseInt(durasi),
     aktif: true,
     created_by: req.user.id,
     created_at: new Date().toISOString()
   };
-  
+
   db.exams.push(exam);
-  
-  for (const qid of question_ids) {
+
+  for (const qid of (Array.isArray(question_ids) ? question_ids : [])) {
     db.exam_questions.push({
       exam_id: exam.id,
       question_id: qid
     });
   }
-  
+
   await saveDB(db);
   await cacheDel(`exams:${req.tenantId}`);
-  
+
+  res.json(exam);
+});
+
+// Ubah judul/durasi/kelas/soal exam. Paket TKA tetap mengikuti kurikulum, jadi hanya
+// judul, durasi, dan aktif/tidaknya yang boleh diubah; kelas mengikuti jadwal sinkron.
+app.put('/api/exams/:id', requireAuth, requireAdmin, requireTenant, async (req, res) => {
+  const db = await loadDB();
+  const exam = db.exams.find(e => e.id === req.params.id && e.tenant_id === req.tenantId);
+  if (!exam) return res.status(404).json({ error: 'Exam tidak ditemukan' });
+
+  const { judul, subject_id, durasi, question_ids } = req.body;
+  if (judul !== undefined) {
+    const v = String(judul).trim();
+    if (!v) return res.status(400).json({ error: 'Judul tidak boleh kosong' });
+    exam.judul = v;
+  }
+  if (durasi !== undefined) {
+    const d = parseInt(durasi, 10);
+    if (!Number.isFinite(d) || d <= 0) return res.status(400).json({ error: 'Durasi tidak valid' });
+    exam.durasi = d;
+  }
+  if (req.body.aktif !== undefined) exam.aktif = !!req.body.aktif;
+  if (subject_id && exam.jenis !== 'tka') exam.subject_id = subject_id;
+
+  const classIds = normalizeClassIds(req.body.class_ids || req.body.class_id);
+  if (classIds.length) {
+    const valid = classIds.filter(id => db.classes.some(c => c.id === id && c.tenant_id === req.tenantId));
+    if (!valid.length) return res.status(400).json({ error: 'Kelas tidak valid' });
+    if (exam.jenis === 'tka') {
+      // Paket TKA terjadwal per jenjang: kelas baru harus jenjang yang sama dengan kelas asal.
+      const asal = db.classes.find(c => c.id === exam.class_id);
+      const jenjang = asal ? tkaKelasLevel(asal.nama) : null;
+      const beda = valid.filter(id => {
+        const c = db.classes.find(x => x.id === id);
+        return c && tkaKelasLevel(c.nama) !== jenjang;
+      });
+      if (beda.length) return res.status(400).json({ error: 'Paket TKA hanya untuk kelas dengan jenjang yang sama' });
+    }
+    exam.class_ids = valid;
+    exam.class_id = valid[0];
+  }
+
+  if (Array.isArray(question_ids) && exam.jenis !== 'tka') {
+    db.exam_questions = db.exam_questions.filter(eq => eq.exam_id !== exam.id);
+    for (const qid of question_ids) {
+      db.exam_questions.push({ exam_id: exam.id, question_id: qid });
+    }
+  }
+
+  await saveDB(db);
+  await cacheDel(`exams:${req.tenantId}`);
   res.json(exam);
 });
 
@@ -2118,8 +2227,16 @@ app.delete('/api/exams/:id', requireAuth, requireAdmin, requireTenant, async (re
   const idx = db.exams.findIndex(e => e.id === req.params.id && e.tenant_id === req.tenantId);
   
   if (idx >= 0) {
-    db.exam_questions = db.exam_questions.filter(eq => eq.exam_id !== req.params.id);
-    db.exams.splice(idx, 1);
+    // Exam buatan admin: hapus soal ikutannya. Paket TKA hanya disembunyikan agar
+    // tidak dibuat ulang otomatis oleh sinkronisasi.
+    const exam = db.exams[idx];
+    if (exam.jenis === 'tka') {
+      db.exams.splice(idx, 1);
+      db.tka_exams_hidden = [...new Set([...(db.tka_exams_hidden || []), exam.id])];
+    } else {
+      db.exam_questions = db.exam_questions.filter(eq => eq.exam_id !== req.params.id);
+      db.exams.splice(idx, 1);
+    }
     await saveDB(db);
     await cacheDel(`exams:${req.tenantId}`);
   }
