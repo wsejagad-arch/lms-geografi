@@ -1137,8 +1137,8 @@ async function renderExam() {
       <article class="card">
         <div class="card-row">
           <div>
-            <h3>${lmsEsc(e.judul)}</h3>
-            <p class="meta">${lmsEsc(e.subject_nama || 'Geografi')} · Kelas ${lmsEsc(e.class_nama || '-')} · Durasi: ${e.durasi} menit · ${e.questions ? e.questions.length : 0} butir soal</p>
+            <h3>${lmsEsc(e.judul)} ${e.is_tka ? '<span class="badge badge-primary">TKA</span>' : ''}</h3>
+            <p class="meta">${lmsEsc(e.subject_nama || 'Geografi')} · Kelas ${lmsEsc(e.class_nama || '-')} · Durasi: ${e.durasi} menit · ${Number.isFinite(e.jumlah_soal) ? e.jumlah_soal : (e.questions ? e.questions.length : 0)} butir soal</p>
           </div>
           <button type="button" class="btn btn-primary btn-sm" onclick="startExam('${e.id}')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1169,9 +1169,9 @@ async function startExam(examId) {
     document.getElementById('exam-detail-title').textContent = exam.judul;
     document.getElementById('exam-detail-body').innerHTML = exam.questions.map((q, i) => `
       <div class="question-card">
-        <div class="question-text">${i + 1}. ${lmsEsc(q.pertanyaan)}</div>
+        <div class="question-text">${i + 1}. ${q.pertanyaan}</div>
         <div class="option-list">
-          ${[q.opsi_a, q.opsi_b, q.opsi_c, q.opsi_d].map((o, j) => `
+          ${[q.opsi_a, q.opsi_b, q.opsi_c, q.opsi_d].filter(o => o !== null && o !== undefined && String(o).trim() !== '').map((o, j) => `
             <label class="option-item" for="exam-${examId}-${i}-${j}">
               <input type="radio" name="exam-${examId}-${i}" id="exam-${examId}-${i}-${j}" value="${j}">
               <span style="font-size:13.5px;color:var(--text);">${lmsEsc(o)}</span>

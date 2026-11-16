@@ -285,6 +285,10 @@ function saveBab(level, babId, patch) {
 function registerKurikulum(app, deps) {
   const { loadDB, saveDB, requireAuth, requireTenant, requireAdmin, cacheDel, notifyStudent } = deps;
 
+  // Satu blok tulis (baca-terbaru -> ubah -> simpan) per operasi DB. Tanpa ini, dua request
+  // yang membaca DB bersamaan lalu menyimpan akan saling menimpa (lost update).
+  const withWrite = typeof deps.withWrite === 'function' ? deps.withWrite : (task => task());
+
   app.get('/api/kurikulum', requireAuth, requireTenant, async (req, res) => {
     const db = req.db;
     const student = resolveStudent(db, req.user);
@@ -671,8 +675,6 @@ function registerKurikulum(app, deps) {
     if (idx < 0) return res.status(404).json({ error: 'Bab tidak ditemukan' });
 
     const bab = babs[idx];
-    const attempts = db.attempts.filter(a => a.student_id === student.id && a.bab_id === bab.id);
-
     const answers = req.body.answers || {};
     const soalList = bab.soal || [];
     let totalPoin = 0;
@@ -687,60 +689,74 @@ function registerKurikulum(app, deps) {
         pembahasan: soal.pembahasan
       };
     });
-
     const score = soalList.length ? Math.round((totalPoin / soalList.length) * 1000) / 10 : 0;
-    // Nomor percobaan dihitung dari nomor tertinggi yang sudah ada (bukan jumlah baris),
-    // supaya pengulangan tidak pernah menimpa/menyamai nomor percobaan sebelumnya.
-    const ke = attempts.reduce((max, a) => Math.max(max, Number(a.ke) || 0), 0) + 1;
 
-    const newAttempt = {
-      id: uuidv4(),
-      tenant_id: student.tenant_id,
-      student_id: student.id,
-      bab_id: bab.id,
-      level,
-      ke,
-      answers,
-      score,
-      benar: hasil.filter(h => h.poin === 1).length,
-      total: soalList.length,
-      created_at: new Date().toISOString()
-    };
-    db.attempts.push(newAttempt);
-    const summary = summarizeAttempts([...attempts, newAttempt]);
-    // Kunci dan pembahasan hanya dibuka jika nilai akhir materi mencapai KKM.
-    if (summary.best_score < KKM) {
-      hasil.forEach(h => { delete h.kunci; delete h.pembahasan; });
-    }
+    // Satu antrean tulis untuk baca-terbaru -> hitung nomor percobaan -> simpan: dua
+    // pengiriman bersamaan tidak boleh memakai nomor percobaan yang sama (lost update).
+    const saved = await withWrite(async () => {
+      console.log('[dbg] in withWrite');
+      const db = await loadDB();
+      const attempts = db.attempts.filter(a => a.student_id === student.id && a.bab_id === bab.id);
+      // Nomor percobaan dihitung dari nomor tertinggi yang sudah ada (bukan jumlah baris),
+      // supaya pengulangan tidak pernah menimpa/menyamai nomor percobaan sebelumnya.
+      const ke = attempts.reduce((max, a) => Math.max(max, Number(a.ke) || 0), 0) + 1;
 
-    let prog = progressOf(db, student, bab.id);
-    if (!prog) {
-      prog = {
+      const newAttempt = {
         id: uuidv4(),
         tenant_id: student.tenant_id,
         student_id: student.id,
         bab_id: bab.id,
         level,
-        best_score: summary.best_score,
-        attempts: ke,
+        ke,
+        answers,
+        score,
+        benar: hasil.filter(h => h.poin === 1).length,
+        total: soalList.length,
         created_at: new Date().toISOString()
       };
-      db.progress.push(prog);
-    } else {
-      prog.best_score = summary.best_score;
-      prog.attempts = ke;
+      db.attempts.push(newAttempt);
+      const summary = summarizeAttempts([...attempts, newAttempt]);
+
+      let prog = progressOf(db, student, bab.id);
+      if (!prog) {
+        prog = {
+          id: uuidv4(),
+          tenant_id: student.tenant_id,
+          student_id: student.id,
+          bab_id: bab.id,
+          level,
+          best_score: summary.best_score,
+          attempts: ke,
+          created_at: new Date().toISOString()
+        };
+        db.progress.push(prog);
+      } else {
+        prog.best_score = summary.best_score;
+        prog.attempts = ke;
+      }
+      prog.highest_score = summary.highest_score;
+      prog.highest_attempt = summary.highest_attempt;
+      prog.penalty_count = summary.penalty_count;
+      prog.last_answered_count = countAnsweredQuestions(soalList, answers);
+      prog.draft_answers = {};
+      prog.draft_for_attempt = null;
+      prog.updated_at = new Date().toISOString();
+      prog.tuntas = summary.best_score >= KKM;
+
+      console.log('[dbg] before save');
+      await saveDB(db);
+      console.log('[dbg] after save');
+      return { db, ke, summary, score };
+    });
+    console.log('[dbg] after withWrite');
+    const ke = saved.ke;
+    const summary = saved.summary;
+
+    // Kunci dan pembahasan hanya dibuka jika nilai akhir materi mencapai KKM (data ini
+    // tidak boleh tersimpan di DB, jadi dihitung ulang dari objek di memori).
+    if (summary.best_score < KKM) {
+      hasil.forEach(h => { delete h.kunci; delete h.pembahasan; });
     }
-    prog.highest_score = summary.highest_score;
-    prog.highest_attempt = summary.highest_attempt;
-    prog.penalty_count = summary.penalty_count;
-    prog.last_answered_count = countAnsweredQuestions(soalList, answers);
-    prog.draft_answers = {};
-    prog.draft_for_attempt = null;
-    prog.updated_at = new Date().toISOString();
-    prog.tuntas = summary.best_score >= KKM;
-
-    await saveDB(db);
-
     // Notifikasi WhatsApp ke siswa (bila nomornya tersimpan dan WhatsApp tenant terhubung).
     if (typeof notifyStudent === 'function') {
       notifyStudent(
@@ -969,4 +985,6 @@ function registerKurikulum(app, deps) {
   });
 }
 
-module.exports = { registerKurikulum, getBabTitle, summarizeAttempts, youtubeIdFromInput };
+// Kunci tulis lintas modul: seluruh server memakai satu antrean tulis DB yang sama
+// dengan modul kurikulum/video-task agar simpan bersamaan tidak saling menimpa.
+module.exports = { registerKurikulum, getBabTitle, summarizeAttempts, youtubeIdFromInput, loadLevel };

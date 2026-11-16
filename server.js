@@ -111,6 +111,17 @@ async function loadDB() {
 }
 
 async function saveDB(db) {
+  const startedAt = Date.now();
+  try {
+    return await withDbWrite(() => dataStore.saveDB(db));
+  } finally {
+    if (process.env.LMS_DEBUG_SAVE === '1') console.log(`[dbg] saveDB ${Date.now() - startedAt}ms`);
+  }
+}
+
+// Simpan langsung tanpa antrean: dipakai di dalam blok withDbWrite (mis. handler yang
+// membaca DB terbaru lalu menyimpan sendiri) agar tidak menunggu dirinya sendiri.
+async function saveDBDirect(db) {
   return dataStore.saveDB(db);
 }
 
@@ -477,11 +488,26 @@ async function requireTenant(req, res, next) {
 // membaca DB bersamaan lalu menyimpan masing-masing akan saling menimpa (lost update) —
 // misalnya dua siswa mengirim evaluasi pada detik yang sama, atau simpan draf berbarengan
 // dengan kirim jawaban, sehingga nilai/percobaan kedua tidak tercatat.
+// ===== KUNCI TULIS =====
+// Setiap penulisan DB (loadDB -> ubah -> saveDB) dijalankan bergantian. Tanpa ini, dua
+// request yang membaca DB bersamaan lalu menyimpan masing-masing akan saling menimpa
+// (lost update). Antrean hanya mencakup baca-ubah-simpan, bukan seluruh umur request:
+// handler sering melakukan panggilan async lanjutan (notifikasi, cache) sebelum merespons,
+// sehingga mengunci per-request membuat request lain antre sampai puluhan detik.
 let writeLock = Promise.resolve();
+
+function withDbWrite(task) {
+  const previous = writeLock;
+  let release;
+  writeLock = new Promise(resolve => { release = resolve; });
+  return previous.then(task).finally(release);
+}
 
 function withWriteLock(req, res, next) {
   if (!['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) return next();
-  if (process.env.LMS_DISABLE_WRITE_LOCK === '1') return next();
+  // DEFAULT OFF: kunci per-request membuat request lain menunggu sampai response terkirim.
+  // Bisa diaktifkan kembali bila diperlukan (mis. menelusuri lost update di luar jalur DB).
+  if (process.env.LMS_REQUEST_WRITE_LOCK !== '1') return next();
   const previous = writeLock;
   let release;
   writeLock = new Promise(resolve => { release = resolve; });
@@ -1770,7 +1796,173 @@ app.delete('/api/questions/:id', requireAuth, requireAdmin, requireTenant, async
 });
 
 // ===== EXAMS =====
+// Satu bab kurikulum bertipe TKA (data/kurikulum/kelas-*/NN-tka-*.json) menjadi satu exam.
+// Soal pilihan ganda disalin ke bank soal agar alur submit/nilai yang ada tetap dipakai:
+// `opsi` -> opsi_a..opsi_d (>=4 opsi tetap bisa dikerjakan di UI, kunci tetap 0..3),
+// jenis 'tka', poin 100/n, tahun_ajaran sebagai penanda paket.
+const TKA_TYPES = new Set(['pg_singkat', 'pgm', 'pg_kompleks']);
+let kurikulumModule = null;
+function getKurikulumModule() {
+  if (!kurikulumModule) {
+    try { kurikulumModule = require('./kurikulum'); } catch (error) { kurikulumModule = false; }
+  }
+  return kurikulumModule || null;
+}
+
+// Paket TKA dikenali dari judulnya ("TKA ...") atau tipe soal yang hanya dipakai paket TKA
+// (kunci berbentuk larik, mis. pg_singkat). Bab kurikulum biasa memakai `jawaban` tunggal.
+function isTkaBab(bab) {
+  const soal = Array.isArray(bab.soal) ? bab.soal : [];
+  if (!soal.length) return false;
+  if (/^TKA\b/i.test(String(bab.judul || '')) || String(bab.id || '').includes('tka')) return true;
+  return soal.filter(item => TKA_TYPES.has(item.tipe) && Array.isArray(item.kunci)).length
+    >= Math.ceil(soal.length * 0.8);
+}
+
+function tkaKelasLevel(kelas) {
+  const key = String(kelas || '').trim().toUpperCase();
+  if (!key) return null;
+  return key.startsWith('XII') ? 'XII' : key.startsWith('XI') ? 'XI' : 'X';
+}
+
+function syncTkaExams(db, tenantId, year) {
+  const mod = getKurikulumModule();
+  if (!mod || typeof mod.loadLevel !== 'function' || !tenantId) return;
+  const subject = (db.subjects || []).find(s => s.tenant_id === tenantId && /geografi/i.test(s.nama || ''));
+  if (!subject) return;
+  if (!Array.isArray(db.exams)) db.exams = [];
+  if (!Array.isArray(db.exam_questions)) db.exam_questions = [];
+  if (!Array.isArray(db.questions)) db.questions = [];
+
+  const classes = (db.classes || []).filter(c => c.tenant_id === tenantId);
+  for (const level of ['X', 'XI', 'XII']) {
+    let babs = [];
+    try { babs = mod.loadLevel(level) || []; } catch (error) { babs = []; }
+    const tkaBabs = babs.filter(isTkaBab);
+    if (!tkaBabs.length) continue;
+    const targets = classes.filter(c => tkaKelasLevel(c.nama) === level);
+    if (!targets.length) continue;
+
+    for (const bab of tkaBabs) {
+      const pairs = [];
+      const seen = new Set();
+      bab.soal.forEach((soal, i) => {
+        if (!TKA_TYPES.has(soal.tipe)) return;
+        const opsi = Array.isArray(soal.opsi) ? soal.opsi : [];
+        if (opsi.length < 4) return;
+        const kunci = Array.isArray(soal.kunci) ? soal.kunci[0] : soal.kunci;
+        if (!Number.isInteger(kunci) || kunci < 0 || kunci > 3) return;
+        const soalKey = String(soal.id || i + 1).replace(/[^a-zA-Z0-9-]/g, '');
+        const qid = `tka-${bab.id}-${soalKey}`;
+        if (seen.has(qid)) return;
+        seen.add(qid);
+        const asal = soal.stimulus && soal.stimulus.isi
+          ? `<div class="stimulus">${soal.stimulus.isi}</div>`
+          : '';
+        const bank = {
+          id: qid,
+          tenant_id: tenantId,
+          pertanyaan: asal + soal.pertanyaan,
+          opsi_a: opsi[0] || '',
+          opsi_b: opsi[1] || '',
+          opsi_c: opsi[2] || '',
+          opsi_d: opsi[3] || '',
+          jawaban: kunci,
+          subject_id: subject.id,
+          jenis: 'tka',
+          poin: 1,
+          kelas: bab.kelas || level,
+          bab_id: bab.id,
+          tahun_ajaran: year || null,
+          created_by: null,
+          created_at: new Date().toISOString()
+        };
+        const existingIdx = db.questions.findIndex(q => q.id === qid);
+        const prev = existingIdx >= 0 ? db.questions[existingIdx] : null;
+        const unchanged = prev
+          && ['pertanyaan', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d', 'jawaban', 'subject_id', 'kelas', 'bab_id']
+            .every(key => prev[key] === bank[key]);
+        if (existingIdx >= 0) {
+          if (!unchanged) db.questions[existingIdx] = { ...prev, ...bank, created_at: prev.created_at || bank.created_at };
+        } else {
+          db.questions.push(bank);
+        }
+        pairs.push(qid);
+      });
+      if (!pairs.length) continue;
+
+      const estimasi = parseInt(bab.estimasi, 10);
+      for (const cls of targets) {
+        const examId = `tka-${bab.id}-${cls.id}`;
+        const examIdx = db.exams.findIndex(e => e.id === examId);
+        // created_at dipertahankan agar sinkronisasi berulang tidak menulis DB.
+        const createdAt = examIdx >= 0 && db.exams[examIdx].created_at
+          ? db.exams[examIdx].created_at
+          : new Date().toISOString();
+        const exam = {
+          id: examId,
+          tenant_id: tenantId,
+          judul: bab.judul,
+          subject_id: subject.id,
+          class_id: cls.id,
+          durasi: Number.isFinite(estimasi) && estimasi > 0 ? estimasi * 45 : 90,
+          aktif: true,
+          jenis: 'tka',
+          tahun_ajaran: year || null,
+          created_by: examIdx >= 0 ? (db.exams[examIdx].created_by ?? null) : null,
+          created_at: createdAt
+        };
+        if (examIdx < 0) db.exams.push(exam);
+        else db.exams[examIdx] = exam;
+        db.exam_questions = db.exam_questions.filter(eq => eq.exam_id !== exam.id);
+        pairs.forEach(qid => db.exam_questions.push({ exam_id: exam.id, question_id: qid }));
+      }
+    }
+  }
+}
+
+async function ensureTkaExams(tenantId) {
+  if (!tenantId) return;
+  const found = await loadDB();
+  const year = found.tahun_ajaran || found.settings?.tahun_ajaran || null;
+  const hasTka = (found.exams || []).some(e => e.tenant_id === tenantId && e.jenis === 'tka' && e.tahun_ajaran === year);
+  if (hasTka) return;
+  await withDbWrite(async () => {
+    const db = await loadDB();
+    const before = JSON.stringify([db.exams, db.exam_questions, db.questions]);
+    syncTkaExams(db, tenantId, year);
+    if (before !== JSON.stringify([db.exams, db.exam_questions, db.questions])) {
+      await saveDBDirect(db);
+      await cacheDel(`exams:${tenantId}`);
+    }
+  });
+}
+
+// Siswa tidak boleh memicu sinkronisasi, tetapi tetap harus melihat paket TKA:
+// sinkronisasi dijalankan saat login dan saat admin membuka menu Exam.
+async function ensureTkaExamsForStudent(tenantId, studentId) {
+  if (!tenantId) return;
+  const db = await loadDB();
+  const student = (db.students || []).find(s => s.id === studentId && s.tenant_id === tenantId);
+  const classItem = student ? (db.classes || []).find(c => c.id === student.class_id) : null;
+  const level = classItem ? tkaKelasLevel(classItem.nama) : null;
+  if (level) {
+    const mod = getKurikulumModule();
+    let babs = [];
+    try { babs = mod ? mod.loadLevel(level) || [] : []; } catch (error) { babs = []; }
+    const adaSoal = babs.some(isTkaBab);
+    const adaExam = (db.exams || []).some(e => e.tenant_id === tenantId && e.class_id === classItem.id && e.jenis === 'tka');
+    if (!adaSoal || adaExam) return;
+  }
+  await ensureTkaExams(tenantId);
+}
+
 app.get('/api/exams', requireAuth, requireTenant, async (req, res) => {
+  if (req.user.role === 'student') {
+    try { await ensureTkaExamsForStudent(req.tenantId, req.studentId); } catch (error) { console.error('Sinkron paket TKA gagal:', error); }
+  } else {
+    try { await ensureTkaExams(req.tenantId); } catch (error) { console.error('Sinkron paket TKA gagal:', error); }
+  }
   const db = await loadDB();
   let exams = db.exams.filter(e => e.tenant_id === req.tenantId);
   
@@ -1784,17 +1976,23 @@ app.get('/api/exams', requireAuth, requireTenant, async (req, res) => {
   const result = exams.map(e => {
     const subject = db.subjects.find(s => s.id === e.subject_id);
     const classItem = db.classes.find(c => c.id === e.class_id);
-    const questions = db.exam_questions
-      .filter(eq => eq.exam_id === e.id)
+    const examQs = db.exam_questions.filter(eq => eq.exam_id === e.id);
+    const questions = examQs
       .map(eq => db.questions.find(q => q.id === eq.question_id))
       .filter(Boolean);
+    const totalPoin = questions.reduce((sum, q) => sum + (Number(q.poin) || 1), 0);
     return {
       ...e,
       subject_nama: subject ? subject.nama : '-',
       class_nama: classItem ? classItem.nama : '-',
+      is_tka: e.jenis === 'tka',
+      jumlah_soal: examQs.length,
+      total_poin: totalPoin,
       questions: req.user.role === 'student' ? questions.map(publicQuestion) : questions
     };
   });
+  // Paket TKA tampil paling atas agar mudah ditemukan.
+  result.sort((a, b) => Number(b.is_tka) - Number(a.is_tka));
   res.json(result);
 });
 
@@ -1817,12 +2015,17 @@ app.post('/api/exams/:id/submit', requireAuth, requireTenant, async (req, res) =
   const answers = Array.isArray(req.body.answers) ? req.body.answers : [];
   const picked = new Map(answers.map(a => [String(a.question_id), Number(a.jawaban)]));
   let benar = 0;
+  let poinBenar = 0;
+  const totalPoin = questions.reduce((sum, q) => sum + (Number(q.poin) || 1), 0);
   questions.forEach(q => {
     const jawab = picked.get(String(q.id));
-    if (Number.isInteger(jawab) && jawab === Number(q.jawaban)) benar++;
+    if (Number.isInteger(jawab) && jawab === Number(q.jawaban)) {
+      benar++;
+      poinBenar += Number(q.poin) || 1;
+    }
   });
 
-  const nilai = Math.round((benar / questions.length) * 100);
+  const nilai = totalPoin ? Math.round((poinBenar / totalPoin) * 100) : 0;
   const grade = {
     id: uuidv4(),
     tenant_id: req.tenantId,
@@ -3098,6 +3301,8 @@ require('./kurikulum').registerKurikulum(app, {
   requireTenant,
   requireAdmin,
   cacheDel,
+  withWrite: withDbWrite,
+  saveDBDirect,
   notifyStudent: (tenantId, studentId, text) => whatsappSender.notifyStudent(loadDB, saveDB, tenantId, studentId, text)
 });
 require('./video-task').registerVideoTask(app, {
