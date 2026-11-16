@@ -1588,6 +1588,22 @@ body {
   line-height: 1.5;
 }
 
+/* Stimulus bacaan pada soal TKA: teks biasa, bukan tebal seperti pertanyaan. */
+.question-text .stimulus {
+  font-weight: 400;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-2);
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.question-text .stimulus p { margin: 0 0 8px; }
+.question-text .stimulus p:last-child { margin-bottom: 0; }
+
 .option-list {
   display: flex;
   flex-direction: column;
