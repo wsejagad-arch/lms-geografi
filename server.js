@@ -199,9 +199,9 @@ function clientMeta(req) {
   const hasGeo = Number.isFinite(lat) && Number.isFinite(lng)
     && Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
   const deviceLokasi = hasGeo
-    ? `GPS ${lat.toFixed(5)}, ${lng.toFixed(5)}${Number.isFinite(acc) ? ` (±${Math.round(acc)} m)` : ''}`
+    ? `GPS ${lat.toFixed(5)}, ${lng.toFixed(5)}${Number.isFinite(acc) ? ` (Â±${Math.round(acc)} m)` : ''}`
     : '';
-  const lokasi = [deviceLokasi, ipLokasi].filter(Boolean).join(' · ');
+  const lokasi = [deviceLokasi, ipLokasi].filter(Boolean).join(' Â· ');
 
   return {
     ip,
@@ -288,7 +288,7 @@ function activityForMutation(req, responseBody) {
     const score = Number(responseBody && responseBody.score);
     return {
       aksi: 'Mengerjakan evaluasi materi',
-      detail: `Materi ${decodeURIComponent(bab[1])}${Number.isFinite(score) ? ` · nilai ${score}` : ''}`
+      detail: `Materi ${decodeURIComponent(bab[1])}${Number.isFinite(score) ? ` Â· nilai ${score}` : ''}`
     };
   }
   if (/^\/api\/kurikulum\/[^/]+\/progress$/.test(pathname)) {
@@ -299,7 +299,7 @@ function activityForMutation(req, responseBody) {
     const score = Number(responseBody && responseBody.nilai);
     return {
       aksi: 'Mengumpulkan ujian',
-      detail: `Ujian ${decodeURIComponent(exam[1])}${Number.isFinite(score) ? ` · nilai ${score}` : ''}`
+      detail: `Ujian ${decodeURIComponent(exam[1])}${Number.isFinite(score) ? ` Â· nilai ${score}` : ''}`
     };
   }
   if (/^\/api\/students\/[^/]+\/reset-password$/.test(pathname)
@@ -430,6 +430,9 @@ function publicQuestion(q) {
     opsi_d: q.opsi_d,
     opsi_e: q.opsi_e,
     jenis: q.jenis,
+    tipe: q.tipe || (Array.isArray(q.kunci) ? (q.kunci.length > 1 ? 'pg_kompleks' : 'pgm') : 'pg_singkat'),
+    jawaban_banyak: Array.isArray(q.kunci) && q.kunci.length > 1,
+    jumlah_kunci: Array.isArray(q.kunci) ? q.kunci.length : 1,
     poin: q.poin
   };
 }
@@ -489,7 +492,7 @@ async function requireTenant(req, res, next) {
 
 // ===== KUNCI TULIS =====
 // Setiap request yang mengubah data dijalankan bergantian. Tanpa ini, dua request yang
-// membaca DB bersamaan lalu menyimpan masing-masing akan saling menimpa (lost update) —
+// membaca DB bersamaan lalu menyimpan masing-masing akan saling menimpa (lost update) â€”
 // misalnya dua siswa mengirim evaluasi pada detik yang sama, atau simpan draf berbarengan
 // dengan kirim jawaban, sehingga nilai/percobaan kedua tidak tercatat.
 // ===== KUNCI TULIS =====
@@ -802,7 +805,7 @@ app.post('/api/jurnal', requireAuth, requireTenant, async (req, res) => {
   entry.outside_window = !entry.window_open;
   entry.updated_at = new Date().toISOString();
 
-  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal mengajar', `${classItem.nama} · ${schedule.jam_mulai}`));
+  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal mengajar', `${classItem.nama} Â· ${schedule.jam_mulai}`));
   await saveDB(db);
 
   // Kirim ke SIMANIS bila webhook dikonfigurasi (opsional, tidak memblokir respons).
@@ -930,7 +933,7 @@ app.post('/api/admin/jurnal', requireAuth, requireStaff, requireTenant, async (r
   entry.guru_nama = req.user.nama || req.user.email || '';
   entry.updated_at = new Date().toISOString();
 
-  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal (guru)', `${classItem.nama} · ${schedule.jam_mulai}`));
+  db.activity_logs.push(makeActivityRecord(db, req, req.user, 'Mengisi jurnal (guru)', `${classItem.nama} Â· ${schedule.jam_mulai}`));
   await saveDB(db);
 
   const webhook = (process.env.SIMANIS_WEBHOOK_URL || '').trim();
@@ -1805,7 +1808,7 @@ app.delete('/api/questions/:id', requireAuth, requireAdmin, requireTenant, async
 // `opsi` -> opsi_a..opsi_d (>=4 opsi tetap bisa dikerjakan di UI, kunci tetap 0..3),
 // jenis 'tka', poin 100/n, tahun_ajaran sebagai penanda paket.
 const TKA_TYPES = new Set(['pg_singkat', 'pgm', 'pg_kompleks']);
-const TKA_EXAM_VERSI = 2;
+const TKA_EXAM_VERSI = 3;
 let kurikulumModule = null;
 function getKurikulumModule() {
   if (!kurikulumModule) {
@@ -1855,8 +1858,16 @@ function syncTkaExams(db, tenantId, year) {
         if (!TKA_TYPES.has(soal.tipe)) return;
         const opsi = Array.isArray(soal.opsi) ? soal.opsi : [];
         if (opsi.length < 4) return;
-        const kunci = Array.isArray(soal.kunci) ? soal.kunci[0] : soal.kunci;
-        if (!Number.isInteger(kunci) || kunci < 0 || kunci > 4) return;
+        // Soal multi-jawaban: semua opsi bernilai benar disimpan di `kunci` agar bisa dinilai.
+        const kunciSet = soal.tipe === 'pg_kompleks'
+          ? [...new Set((Array.isArray(soal.kunci) ? soal.kunci : []).map(Number).filter(n => Number.isInteger(n) && n >= 0 && n < opsi.length))].sort((a, b) => a - b)
+          : null;
+        const single = Array.isArray(soal.kunci) ? soal.kunci[0] : soal.kunci;
+        if (kunciSet) {
+          if (kunciSet.length < 2) return;
+        } else if (!Number.isInteger(single) || single < 0 || single > 4) {
+          return;
+        }
         const soalKey = String(soal.id || i + 1).replace(/[^a-zA-Z0-9-]/g, '');
         const qid = `tka-${bab.id}-${soalKey}`;
         if (seen.has(qid)) return;
@@ -1873,7 +1884,9 @@ function syncTkaExams(db, tenantId, year) {
           opsi_c: opsi[2] || '',
           opsi_d: opsi[3] || '',
           opsi_e: opsi[4] || '',
-          jawaban: kunci,
+          jawaban: kunciSet ? kunciSet[0] : single,
+          kunci: kunciSet || null,
+          tipe: soal.tipe,
           subject_id: subject.id,
           jenis: 'tka',
           poin: 1,
@@ -1886,8 +1899,9 @@ function syncTkaExams(db, tenantId, year) {
         const existingIdx = db.questions.findIndex(q => q.id === qid);
         const prev = existingIdx >= 0 ? db.questions[existingIdx] : null;
         const unchanged = prev
-          && ['pertanyaan', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d', 'opsi_e', 'jawaban', 'subject_id', 'kelas', 'bab_id']
-            .every(key => prev[key] === bank[key]);
+          && ['pertanyaan', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d', 'opsi_e', 'jawaban', 'tipe', 'subject_id', 'kelas', 'bab_id']
+            .every(key => prev[key] === bank[key])
+          && JSON.stringify(prev.kunci || null) === JSON.stringify(bank.kunci);
         if (existingIdx >= 0) {
           if (!unchanged) db.questions[existingIdx] = { ...prev, ...bank, created_at: prev.created_at || bank.created_at };
         } else {
@@ -2006,6 +2020,19 @@ app.get('/api/exams', requireAuth, requireTenant, async (req, res) => {
   res.json(result);
 });
 
+// Exam: soal bertipe multi-jawaban memakai `kunci` (larik), soal biasa memakai `jawaban`.
+function examPoinBenar(q, jawab) {
+  const kunci = Array.isArray(q.kunci) ? q.kunci.map(Number).sort((a, b) => a - b) : null;
+  if (kunci && kunci.length) {
+    if (!Array.isArray(jawab)) return 0;
+    const picked = [...new Set(jawab.map(Number).filter(Number.isInteger))].sort((a, b) => a - b);
+    // Benar penuh hanya bila himpunan jawaban sama persis dengan kunci.
+    return picked.length === kunci.length && picked.every((v, i) => v === kunci[i]) ? 1 : 0;
+  }
+  const single = Array.isArray(jawab) ? jawab[0] : jawab;
+  return Number.isInteger(Number(single)) && Number(single) === Number(q.jawaban) ? 1 : 0;
+}
+
 // Siswa mengirim jawaban; skor dihitung di server agar `nilai` tidak bisa dipalsukan.
 app.post('/api/exams/:id/submit', requireAuth, requireTenant, async (req, res) => {
   const db = await loadDB();
@@ -2023,13 +2050,12 @@ app.post('/api/exams/:id/submit', requireAuth, requireTenant, async (req, res) =
   if (!questions.length) return res.status(400).json({ error: 'Exam tidak memiliki soal' });
 
   const answers = Array.isArray(req.body.answers) ? req.body.answers : [];
-  const picked = new Map(answers.map(a => [String(a.question_id), Number(a.jawaban)]));
+  const picked = new Map(answers.map(a => [String(a.question_id), a.jawaban]));
   let benar = 0;
   let poinBenar = 0;
   const totalPoin = questions.reduce((sum, q) => sum + (Number(q.poin) || 1), 0);
   questions.forEach(q => {
-    const jawab = picked.get(String(q.id));
-    if (Number.isInteger(jawab) && jawab === Number(q.jawaban)) {
+    if (Number(examPoinBenar(q, picked.get(String(q.id)))) > 0) {
       benar++;
       poinBenar += Number(q.poin) || 1;
     }
@@ -2150,7 +2176,7 @@ app.get('/api/grades', requireAuth, requireTenant, async (req, res) => {
     const penaltyText = summary.penalty_count
       ? `dikurangi ${summary.penalty_count} poin dari ${summary.penalty_count} pengulangan bernilai lebih rendah`
       : 'tanpa pengurangan nilai';
-    const catatan = `${title} · nilai tertinggi ${summary.highest_score} pada pengulangan ke-${summary.highest_attempt} · ${penaltyText} · nilai akhir ${summary.best_score}`;
+    const catatan = `${title} Â· nilai tertinggi ${summary.highest_score} pada pengulangan ke-${summary.highest_attempt} Â· ${penaltyText} Â· nilai akhir ${summary.best_score}`;
     if (class_id && (!classItem || classItem.id !== class_id)) return null;
     return {
       id: `kurikulum-${latestAttempt.student_id}-${latestAttempt.level}-${latestAttempt.bab_id}`,
@@ -2208,7 +2234,7 @@ app.get('/api/grades', requireAuth, requireTenant, async (req, res) => {
       jumlah_percobaan: summary.attempts,
       kkm: 75,
       tipe: 'Tugas Video',
-      catatan: `${task.judul} · nilai terbaik ${summary.best_score} dari ${summary.attempts} percobaan`,
+      catatan: `${task.judul} Â· nilai terbaik ${summary.best_score} dari ${summary.attempts} percobaan`,
       created_at: latest.created_at,
       student_nama: student ? student.nama : '-',
       subject_nama: geografi ? geografi.nama : 'Geografi',
@@ -2686,7 +2712,7 @@ app.post('/api/auth/login', async (req, res) => {
 app.post('/api/me/whatsapp', requireAuth, async (req, res) => {
   const normalized = whatsappSender.normalizePhone(req.body?.whatsapp);
   if (!normalized) {
-    return res.status(400).json({ error: 'Nomor WhatsApp tidak valid. Gunakan format 08…, +62…, atau 62…' });
+    return res.status(400).json({ error: 'Nomor WhatsApp tidak valid. Gunakan format 08â€¦, +62â€¦, atau 62â€¦' });
   }
   const db = await loadDB();
   const user = db.users.find(u => u.id === req.user.id);

@@ -1116,15 +1116,12 @@ async function renderExam() {
 
   try {
     const cacheKey = `exams_${currentUser.class_id || 'all'}`;
-    let exams = LMS_CACHE.get(cacheKey);
-
-    if (!exams) {
-      const allExams = await LMS.getExams();
-      exams = currentUser.class_id
-        ? allExams.filter(e => e.class_id === currentUser.class_id)
-        : allExams;
-      LMS_CACHE.set(cacheKey, exams);
-    }
+    // Selalu ambil data terbaru: daftar soal ujian bisa berubah (mis. paket baru masuk).
+    const allExams = await LMS.getExams();
+    const exams = currentUser.class_id
+      ? allExams.filter(e => e.class_id === currentUser.class_id)
+      : allExams;
+    LMS_CACHE.set(cacheKey, exams);
 
     if (!exams.length) {
       container.innerHTML = '';
@@ -1155,11 +1152,15 @@ async function renderExam() {
 
 async function startExam(examId) {
   try {
-    const allExams = await LMS.getExams();
-    const exams = currentUser.class_id
-      ? allExams.filter(e => e.class_id === currentUser.class_id)
-      : allExams;
-    const exam = exams.find(e => e.id === examId);
+    let exam = LMS_CACHE.get(`exam_${examId}`);
+    if (!exam || !exam.questions) {
+      const allExams = await LMS.getExams();
+      const list = currentUser.class_id
+        ? allExams.filter(e => e.class_id === currentUser.class_id)
+        : allExams;
+      exam = list.find(e => e.id === examId);
+      if (exam) LMS_CACHE.set(`exam_${examId}`, exam);
+    }
     if (!exam || !exam.questions || !exam.questions.length) {
       alert('Ujian ini belum memiliki daftar pertanyaan dari guru.');
       return;
@@ -1172,13 +1173,15 @@ async function startExam(examId) {
       const opsi = Array.isArray(q.opsi) && q.opsi.length
         ? q.opsi
         : [q.opsi_a, q.opsi_b, q.opsi_c, q.opsi_d, q.opsi_e].filter(o => o !== null && o !== undefined && String(o).trim() !== '');
+      const banyak = q.jawaban_banyak || q.tipe === 'pg_kompleks';
       return `
-      <div class="question-card">
+      <div class="question-card" data-qtipe="${banyak ? 'banyak' : 'tunggal'}">
         <div class="question-text">${i + 1}. ${typeof lmsTidyHtml === 'function' ? lmsTidyHtml(q.pertanyaan) : lmsEsc(q.pertanyaan)}</div>
+        ${banyak ? `<p class="meta" style="margin:-6px 0 10px;color:var(--text-2);font-size:12.5px;">Pilih lebih dari satu jawaban (jawaban benar: ${q.jumlah_kunci || 2}).</p>` : ''}
         <div class="option-list">
           ${opsi.map((o, j) => `
             <label class="option-item" for="exam-${examId}-${i}-${j}">
-              <input type="radio" name="exam-${examId}-${i}" id="exam-${examId}-${i}-${j}" value="${j}">
+              <input type="${banyak ? 'checkbox' : 'radio'}" name="exam-${examId}-${i}" id="exam-${examId}-${i}-${j}" value="${j}">
               <span style="font-size:13.5px;color:var(--text);"><b>${HURUF[j] || j + 1}.</b> ${lmsEsc(o)}</span>
             </label>
           `).join('')}
@@ -1214,14 +1217,23 @@ async function startExam(examId) {
       }
     };
   } catch (err) {
-    alert('Gagal memuat ujian: ' + err.message);
+    const pesan = String((err && err.message) || '');
+    if (/unauthorized|401/i.test(pesan)) {
+      alert('Sesi Anda berakhir. Silakan masuk kembali untuk melanjutkan ujian.');
+      if (typeof LMS !== 'undefined' && LMS.logout) LMS.logout();
+    } else {
+      alert('Gagal memuat ujian: ' + (pesan || 'periksa koneksi internet lalu coba lagi'));
+    }
   }
 }
 
 async function submitExam(examId, soalList) {
   const answers = soalList.map((s, i) => {
-    const picked = document.querySelector(`input[name="exam-${examId}-${i}"]:checked`);
-    return { question_id: s.id, jawaban: picked ? parseInt(picked.value) : -1 };
+    const boxes = document.querySelectorAll(`input[name="exam-${examId}-${i}"]:checked`);
+    if (s.jawaban_banyak || boxes.length > 1) {
+      return { question_id: s.id, jawaban: Array.from(boxes).map(b => parseInt(b.value, 10)) };
+    }
+    return { question_id: s.id, jawaban: boxes.length ? parseInt(boxes[0].value, 10) : -1 };
   });
 
   try {
