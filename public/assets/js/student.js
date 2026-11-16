@@ -1177,7 +1177,7 @@ async function startExam(examId) {
       return `
       <div class="question-card" data-qtipe="${banyak ? 'banyak' : 'tunggal'}">
         <div class="question-text">${i + 1}. ${typeof lmsTidyHtml === 'function' ? lmsTidyHtml(q.pertanyaan) : lmsEsc(q.pertanyaan)}</div>
-        ${banyak ? `<p class="meta" style="margin:-6px 0 10px;color:var(--text-2);font-size:12.5px;">Pilih lebih dari satu jawaban (jawaban benar: ${q.jumlah_kunci || 2}).</p>` : ''}
+        ${banyak ? `<p class="meta" style="margin:-6px 0 10px;color:var(--text-2);font-size:12.5px;">Pilih lebih dari satu jawaban yang benar.</p>` : ''}
         <div class="option-list">
           ${opsi.map((o, j) => `
             <label class="option-item" for="exam-${examId}-${i}-${j}">

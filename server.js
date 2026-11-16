@@ -432,7 +432,6 @@ function publicQuestion(q) {
     jenis: q.jenis,
     tipe: q.tipe || (Array.isArray(q.kunci) ? (q.kunci.length > 1 ? 'pg_kompleks' : 'pgm') : 'pg_singkat'),
     jawaban_banyak: Array.isArray(q.kunci) && q.kunci.length > 1,
-    jumlah_kunci: Array.isArray(q.kunci) ? q.kunci.length : 1,
     poin: q.poin
   };
 }
