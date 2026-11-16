@@ -966,7 +966,7 @@ async function renderNilai() {
       return `
         <tr>
           <td><span class="badge badge-primary">${lmsEsc(g.subject_nama || 'Geografi')}</span></td>
-          <td><span class="badge badge-neutral">${lmsEsc(g.class_nama || '-')}</span></td>
+          <td><span class="badge badge-neutral">${lmsEsc(g.subject_nama || '-')}</span></td>
           <td><b>${lmsEsc((g.tipe || 'TUGAS').toUpperCase())}</b></td>
           <td class="num"><strong style="font-size:14px;color:${pass ? 'var(--status-success)' : 'var(--status-danger)'};">${g.nilai}</strong>${ulangInfo}</td>
           <td>
@@ -1100,7 +1100,7 @@ function filterAndDisplayTugas() {
         <h3>${lmsEsc(a.judul)}</h3>
         <span class="badge badge-neutral" style="font-weight:700;">${a.poin || 100} Poin</span>
       </div>
-      <p class="meta">${lmsEsc(a.subject_nama || 'Geografi')} · Kelas ${lmsEsc(a.class_nama || '-')}${a.due_date ? ' · <span style="color:var(--status-danger);">Tenggat: ' + lmsEsc(a.due_date) + '</span>' : ''}</p>
+      <p class="meta">${lmsEsc(a.subject_nama || 'Geografi')}${a.due_date ? ' · <span style="color:var(--status-danger);">Tenggat: ' + lmsEsc(a.due_date) + '</span>' : ''}</p>
       ${a.deskripsi ? `<p class="desc">${lmsEsc(a.deskripsi)}</p>` : ''}
     </article>
   `).join('');
@@ -1135,7 +1135,7 @@ async function renderExam() {
         <div class="card-row">
           <div>
             <h3>${lmsEsc(e.judul)} ${e.is_tka ? '<span class="badge badge-primary">TKA</span>' : ''}</h3>
-            <p class="meta">${lmsEsc(e.subject_nama || 'Geografi')} · Kelas ${lmsEsc(e.class_nama || '-')} · Durasi: ${e.durasi} menit · ${Number.isFinite(e.jumlah_soal) ? e.jumlah_soal : (e.questions ? e.questions.length : 0)} butir soal</p>
+            <p class="meta">${lmsEsc(e.subject_nama || 'Geografi')} · ${Number.isFinite(e.jumlah_soal) ? e.jumlah_soal : (e.questions ? e.questions.length : 0)} butir soal · ${e.durasi} menit</p>
           </div>
           <button type="button" class="btn btn-primary btn-sm" onclick="startExam('${e.id}')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
