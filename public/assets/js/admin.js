@@ -2028,7 +2028,7 @@ async function renderExams() {
   try {
     const exams = await LMS.getExams();
     if (!exams.length) {
-      tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--text-2)">Belum ada exam</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center" style="color:var(--text-2)">Belum ada exam</td></tr>';
       return;
     }
 
@@ -2036,12 +2036,13 @@ async function renderExams() {
       <tr>
         <td>
           ${lmsEsc(e.judul)}
-          ${e.is_tka ? ' <span class="badge badge-primary" title="Paket TKA dari kurikulum">TKA</span>' : ''}
-          <div style="font-size:11px;color:var(--text-3)">${Number.isFinite(e.jumlah_soal) ? e.jumlah_soal : (e.questions ? e.questions.length : 0)} soal</div>
+          <div style="font-size:11px;color:var(--text-3)">
+            ${lmsEsc(e.subject_nama || '-')} · ${Number.isFinite(e.jumlah_soal) ? e.jumlah_soal : (e.questions ? e.questions.length : 0)} soal
+            ${e.is_tka ? ' · <span title="Paket TKA dari kurikulum">TKA</span>' : ''}
+          </div>
         </td>
-        <td><span class="badge badge-primary">${lmsEsc(e.subject_nama || '-')}</span></td>
         <td><span class="badge badge-neutral">${lmsEsc(e.class_nama || '-')}</span></td>
-        <td>${e.durasi} menit</td>
+        <td>${e.durasi} mnt</td>
         <td style="white-space:nowrap">
           <button class="btn btn-sm" onclick="openExamModal('${e.id}')">Edit</button>
           <button class="btn btn-sm btn-danger" onclick="deleteExam('${e.id}')">Hapus</button>
@@ -2049,7 +2050,7 @@ async function renderExams() {
       </tr>
     `).join('');
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger)">Error: ${lmsEsc(err.message)}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" class="text-center" style="color:var(--danger)">Error: ${lmsEsc(err.message)}</td></tr>`;
   }
 }
 
